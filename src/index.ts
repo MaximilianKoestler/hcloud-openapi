@@ -74,17 +74,67 @@ function parseRequest(request: string): Request {
   };
 }
 
+function elementAfterText(
+  root: Element,
+  textTag: string,
+  textContent: string,
+  selector: string
+): Element | null {
+  const possibleSearchBases = Array.from(root.querySelectorAll(textTag));
+  let searchBase: Element | null | undefined = possibleSearchBases.find(
+    (element) => element.textContent === textContent
+  );
+
+  const selectedElements = new Set(root.querySelectorAll(selector));
+  while (searchBase !== undefined && searchBase !== null) {
+    // check searchBase itself
+    if (selectedElements.has(searchBase)) {
+      return searchBase;
+    }
+
+    // check everything below searchBase
+    const allChildrenOfSearchBase = Array.from(
+      searchBase.querySelectorAll("*")
+    );
+    const intersection = allChildrenOfSearchBase.find((element) =>
+      selectedElements.has(element)
+    );
+    if (intersection !== undefined) {
+      return intersection;
+    }
+
+    searchBase = searchBase.nextElementSibling;
+  }
+  return null;
+}
+
 function parseSection(section: Element): Section {
   const method_description = section.querySelector("div.method__description");
-  const title = method_description?.querySelector("h3")?.textContent;
+  if (method_description === null) {
+    return { valid: false };
+  }
+
+  const title = method_description.querySelector("h3")?.textContent;
   if (title === undefined || title === null) {
     return { valid: false };
   }
 
-  const request = method_description?.querySelector("h4 ~ code")?.textContent;
+  const request = elementAfterText(
+    method_description,
+    "h4",
+    "HTTP Request",
+    "code"
+  )?.textContent;
   if (request === undefined || request === null) {
     return { valid: false };
   }
+
+  const uriParameterTable = elementAfterText(
+    method_description,
+    "h4",
+    "URI Parameters",
+    "div.table-wrapper > table"
+  );
 
   return { valid: true, data: { title, request: parseRequest(request) } };
 }
