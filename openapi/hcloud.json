@@ -1,0 +1,507 @@
+{
+    "openapi": "3.0.3",
+    "info": {
+        "title": "Hetzner Cloud API",
+        "description": "Copied from the official API documentation for the Public Hetzner Cloud.",
+        "contact": {
+            "url": "https://docs.hetzner.cloud/"
+        },
+        "version": "1.0.0"
+    },
+    "servers": [
+        {
+            "url": "https://api.hetzner.cloud/v1",
+            "description": "Official production server"
+        }
+    ],
+    "paths": {
+        "/actions": {
+            "get": {
+                "summary": "List all Actions",
+                "operationId": "list_all_actions"
+            }
+        },
+        "/actions/{id}": {
+            "get": {
+                "summary": "Get an Action",
+                "operationId": "get_action"
+            }
+        },
+        "/datacenters": {
+            "get": {
+                "summary": "Get all Datacenters",
+                "operationId": "list_datacenters"
+            }
+        },
+        "/datacenters/{id}": {
+            "get": {
+                "summary": "Get a Datacenter",
+                "operationId": "get_datacenter"
+            }
+        },
+        "/floating_ips": {
+            "get": {
+                "summary": "Get all Floating IPs",
+                "operationId": "list_floating_ips"
+            },
+            "post": {
+                "summary": "Create a Floating IP",
+                "operationId": "create_floating_ip"
+            }
+        },
+        "/floating_ips/{id}": {
+            "get": {
+                "summary": "Get a specific Floating IP",
+                "operationId": "get_specific_floating_ip"
+            },
+            "put": {
+                "summary": "Update a Floating IP",
+                "operationId": "replace_floating_ip"
+            },
+            "delete": {
+                "summary": "Delete a Floating IP",
+                "operationId": "delete_floating_ip"
+            }
+        },
+        "/floating_ips/{id}/actions": {
+            "get": {
+                "summary": "Get all Actions for a Floating IP",
+                "operationId": "list_actions_for_floating_ip"
+            }
+        },
+        "/floating_ips/{id}/actions/{action_id}": {
+            "get": {
+                "summary": "Get an Action for a Floating IP",
+                "operationId": "get_action_for_floating_ip"
+            }
+        },
+        "/floating_ips/{id}/actions/assign": {
+            "post": {
+                "summary": "Assign a Floating IP to a Server",
+                "operationId": "assign_floating_ip_to_server"
+            }
+        },
+        "/floating_ips/{id}/actions/unassign": {
+            "post": {
+                "summary": "Unassign a Floating IP",
+                "operationId": "unassign_floating_ip"
+            }
+        },
+        "/floating_ips/{id}/actions/change_dns_ptr": {
+            "post": {
+                "summary": "Change reverse DNS entry for a Floating IP",
+                "operationId": "change_reverse_dns_entry_for_floating_ip"
+            }
+        },
+        "/floating_ips/{id}/actions/change_protection": {
+            "post": {
+                "summary": "Change Floating IP Protection",
+                "operationId": "change_floating_ip_protection"
+            }
+        },
+        "/images": {
+            "get": {
+                "summary": "Get all Images",
+                "operationId": "list_images"
+            }
+        },
+        "/images/{id}": {
+            "get": {
+                "summary": "Get an Image",
+                "operationId": "get_image"
+            },
+            "put": {
+                "summary": "Update an Image",
+                "operationId": "replace_image"
+            },
+            "delete": {
+                "summary": "Delete an Image",
+                "operationId": "delete_image"
+            }
+        },
+        "/images/{id}/actions": {
+            "get": {
+                "summary": "Get all Actions for an Image",
+                "operationId": "list_actions_for_image"
+            }
+        },
+        "/images/{id}/actions/{action_id}": {
+            "get": {
+                "summary": "Get an Action for an Image",
+                "operationId": "get_action_for_image"
+            }
+        },
+        "/images/{id}/actions/change_protection": {
+            "post": {
+                "summary": "Change Image Protection",
+                "operationId": "change_image_protection"
+            }
+        },
+        "/isos": {
+            "get": {
+                "summary": "Get all ISOs",
+                "operationId": "list_isos"
+            }
+        },
+        "/isos/{id}": {
+            "get": {
+                "summary": "Get an ISO",
+                "operationId": "get_iso"
+            }
+        },
+        "/locations": {
+            "get": {
+                "summary": "Get all Locations",
+                "operationId": "list_locations"
+            }
+        },
+        "/locations/{id}": {
+            "get": {
+                "summary": "Get a Location",
+                "operationId": "get_location"
+            }
+        },
+        "/networks": {
+            "get": {
+                "summary": "Get all Networks",
+                "operationId": "list_networks"
+            },
+            "post": {
+                "summary": "Create a Network",
+                "operationId": "create_network"
+            }
+        },
+        "/networks/{id}": {
+            "get": {
+                "summary": "Get a Network",
+                "operationId": "get_network"
+            },
+            "put": {
+                "summary": "Update a Network",
+                "operationId": "replace_network"
+            },
+            "delete": {
+                "summary": "Delete a Network",
+                "operationId": "delete_network"
+            }
+        },
+        "/networks/{id}/actions": {
+            "get": {
+                "summary": "Get all Actions for a Network",
+                "operationId": "list_actions_for_network"
+            }
+        },
+        "/networks/{id}/actions/{action_id}": {
+            "get": {
+                "summary": "Get an Action for a Network",
+                "operationId": "get_action_for_network"
+            }
+        },
+        "/networks/{id}/actions/add_subnet": {
+            "post": {
+                "summary": "Add a subnet to a Network",
+                "operationId": "add_subnet_to_network"
+            }
+        },
+        "/networks/{id}/actions/delete_subnet": {
+            "post": {
+                "summary": "Delete a subnet from a Network",
+                "operationId": "delete_subnet_from_network"
+            }
+        },
+        "/networks/{id}/actions/add_route": {
+            "post": {
+                "summary": "Add a route to a Network",
+                "operationId": "add_route_to_network"
+            }
+        },
+        "/networks/{id}/actions/delete_route": {
+            "post": {
+                "summary": "Delete a route from a Network",
+                "operationId": "delete_route_from_network"
+            }
+        },
+        "/networks/{id}/actions/change_ip_range": {
+            "post": {
+                "summary": "Change IP range of a Network",
+                "operationId": "change_ip_range_of_network"
+            }
+        },
+        "/networks/{id}/actions/change_protection": {
+            "post": {
+                "summary": "Change Network Protection",
+                "operationId": "change_network_protection"
+            }
+        },
+        "/pricing": {
+            "get": {
+                "summary": "Get all prices",
+                "operationId": "list_prices"
+            }
+        },
+        "/servers": {
+            "get": {
+                "summary": "Get all Servers",
+                "operationId": "list_servers"
+            },
+            "post": {
+                "summary": "Create a Server",
+                "operationId": "create_server"
+            }
+        },
+        "/servers/{id}": {
+            "get": {
+                "summary": "Get a Server",
+                "operationId": "get_server"
+            },
+            "put": {
+                "summary": "Update a Server",
+                "operationId": "replace_server"
+            },
+            "delete": {
+                "summary": "Delete a Server",
+                "operationId": "delete_server"
+            }
+        },
+        "/servers/{id}/metrics": {
+            "get": {
+                "summary": "Get Metrics for a Server",
+                "operationId": "get_metrics_for_server"
+            }
+        },
+        "/servers/{id}/actions": {
+            "get": {
+                "summary": "Get all Actions for a Server",
+                "operationId": "list_actions_for_server"
+            }
+        },
+        "/servers/{id}/actions/{action_id}": {
+            "get": {
+                "summary": "Get an Action for a Server",
+                "operationId": "get_action_for_server"
+            }
+        },
+        "/servers/{id}/actions/poweron": {
+            "post": {
+                "summary": "Power on a Server",
+                "operationId": "power_on_server"
+            }
+        },
+        "/servers/{id}/actions/reboot": {
+            "post": {
+                "summary": "Soft-reboot a Server",
+                "operationId": "soft_reboot_server"
+            }
+        },
+        "/servers/{id}/actions/reset": {
+            "post": {
+                "summary": "Reset a Server",
+                "operationId": "reset_server"
+            }
+        },
+        "/servers/{id}/actions/shutdown": {
+            "post": {
+                "summary": "Shutdown a Server",
+                "operationId": "shutdown_server"
+            }
+        },
+        "/servers/{id}/actions/poweroff": {
+            "post": {
+                "summary": "Power off a Server",
+                "operationId": "power_off_server"
+            }
+        },
+        "/servers/{id}/actions/reset_password": {
+            "post": {
+                "summary": "Reset root Password of a Server",
+                "operationId": "reset_root_password_of_server"
+            }
+        },
+        "/servers/{id}/actions/enable_rescue": {
+            "post": {
+                "summary": "Enable Rescue Mode for a Server",
+                "operationId": "enable_rescue_mode_for_server"
+            }
+        },
+        "/servers/{id}/actions/disable_rescue": {
+            "post": {
+                "summary": "Disable Rescue Mode for a Server",
+                "operationId": "disable_rescue_mode_for_server"
+            }
+        },
+        "/servers/{id}/actions/create_image": {
+            "post": {
+                "summary": "Create Image from a Server",
+                "operationId": "create_image_from_server"
+            }
+        },
+        "/servers/{id}/actions/rebuild": {
+            "post": {
+                "summary": "Rebuild a Server from an Image",
+                "operationId": "rebuild_server_from_image"
+            }
+        },
+        "/servers/{id}/actions/change_type": {
+            "post": {
+                "summary": "Change the Type of a Server",
+                "operationId": "change_type_of_server"
+            }
+        },
+        "/servers/{id}/actions/enable_backup": {
+            "post": {
+                "summary": "Enable and Configure Backups for a Server",
+                "operationId": "enable_and_configure_backups_for_server"
+            }
+        },
+        "/servers/{id}/actions/disable_backup": {
+            "post": {
+                "summary": "Disable Backups for a Server",
+                "operationId": "disable_backups_for_server"
+            }
+        },
+        "/servers/{id}/actions/attach_iso": {
+            "post": {
+                "summary": "Attach an ISO to a Server",
+                "operationId": "attach_iso_to_server"
+            }
+        },
+        "/servers/{id}/actions/detach_iso": {
+            "post": {
+                "summary": "Detach an ISO from a Server",
+                "operationId": "detach_iso_from_server"
+            }
+        },
+        "/servers/{id}/actions/change_dns_ptr": {
+            "post": {
+                "summary": "Change reverse DNS entry for this Server",
+                "operationId": "change_reverse_dns_entry_for_this_server"
+            }
+        },
+        "/servers/{id}/actions/change_protection": {
+            "post": {
+                "summary": "Change Server Protection",
+                "operationId": "change_server_protection"
+            }
+        },
+        "/servers/{id}/actions/request_console": {
+            "post": {
+                "summary": "Request Console for a Server",
+                "operationId": "request_console_for_server"
+            }
+        },
+        "/servers/{id}/actions/attach_to_network": {
+            "post": {
+                "summary": "Attach a Server to a Network",
+                "operationId": "attach_server_to_network"
+            }
+        },
+        "/servers/{id}/actions/detach_from_network": {
+            "post": {
+                "summary": "Detach a Server from a Network",
+                "operationId": "detach_server_from_network"
+            }
+        },
+        "/servers/{id}/actions/change_alias_ips": {
+            "post": {
+                "summary": "Change alias IPs of a Network",
+                "operationId": "change_alias_ips_of_network"
+            }
+        },
+        "/server_types": {
+            "get": {
+                "summary": "Get all Server Types",
+                "operationId": "list_server_types"
+            }
+        },
+        "/server_types/{id}": {
+            "get": {
+                "summary": "Get a Server Type",
+                "operationId": "get_server_type"
+            }
+        },
+        "/ssh_keys": {
+            "get": {
+                "summary": "Get all SSH keys",
+                "operationId": "list_ssh_keys"
+            },
+            "post": {
+                "summary": "Create an SSH key",
+                "operationId": "create_ssh_key"
+            }
+        },
+        "/ssh_keys/{id}": {
+            "get": {
+                "summary": "Get an SSH key",
+                "operationId": "get_ssh_key"
+            },
+            "put": {
+                "summary": "Update an SSH key",
+                "operationId": "replace_ssh_key"
+            },
+            "delete": {
+                "summary": "Delete an SSH key",
+                "operationId": "delete_ssh_key"
+            }
+        },
+        "/volumes": {
+            "get": {
+                "summary": "Get all Volumes",
+                "operationId": "list_volumes"
+            },
+            "post": {
+                "summary": "Create a Volume",
+                "operationId": "create_volume"
+            }
+        },
+        "/volumes/{id}": {
+            "get": {
+                "summary": "Get a Volume",
+                "operationId": "get_volume"
+            },
+            "put": {
+                "summary": "Update a Volume",
+                "operationId": "replace_volume"
+            },
+            "delete": {
+                "summary": "Delete a Volume",
+                "operationId": "delete_volume"
+            }
+        },
+        "/volumes/{id}/actions": {
+            "get": {
+                "summary": "Get all Actions for a Volume",
+                "operationId": "list_actions_for_volume"
+            }
+        },
+        "/volumes/{id}/actions/{action_id}": {
+            "get": {
+                "summary": "Get an Action for a Volume",
+                "operationId": "get_action_for_volume"
+            }
+        },
+        "/volumes/{id}/actions/attach": {
+            "post": {
+                "summary": "Attach Volume to a Server",
+                "operationId": "attach_volume_to_server"
+            }
+        },
+        "/volumes/{id}/actions/detach": {
+            "post": {
+                "summary": "Detach Volume",
+                "operationId": "detach_volume"
+            }
+        },
+        "/volumes/{id}/actions/resize": {
+            "post": {
+                "summary": "Resize Volume",
+                "operationId": "resize_volume"
+            }
+        },
+        "/volumes/{id}/actions/change_protection": {
+            "post": {
+                "summary": "Change Volume Protection",
+                "operationId": "change_volume_protection"
+            }
+        }
+    }
+}
