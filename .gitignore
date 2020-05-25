@@ -1,6 +1,9 @@
 # Editors
 .vscode/
 
+# Local data
+data/
+
 # Logs
 logs
 *.log
