@@ -16,9 +16,16 @@ interface Request {
   url: string;
 }
 
+interface Parameter {
+  name: string;
+  typeText: string;
+  description: string;
+}
+
 interface SectionData {
   title: string;
   request: Request;
+  uriParameters: Parameter[];
 }
 
 interface Section {
@@ -108,6 +115,19 @@ function elementAfterText(
   return null;
 }
 
+function parseParameterTable(table: Element | null): Parameter[] {
+  if (table === null) {
+    return [];
+  }
+
+  return Array.from(table.querySelectorAll("tbody > tr")).map((row) => {
+    const [name, typeText, description] = Array.from(
+      row.querySelectorAll("td")
+    ).map((td) => td.textContent?.replace(/\s+/g, " ").trim() as string);
+    return { name, typeText, description };
+  });
+}
+
 function parseSection(section: Element): Section {
   const method_description = section.querySelector("div.method__description");
   if (method_description === null) {
@@ -136,7 +156,14 @@ function parseSection(section: Element): Section {
     "div.table-wrapper > table"
   );
 
-  return { valid: true, data: { title, request: parseRequest(request) } };
+  return {
+    valid: true,
+    data: {
+      title,
+      request: parseRequest(request),
+      uriParameters: parseParameterTable(uriParameterTable),
+    },
+  };
 }
 
 function parseHtmlDocumentation(contents: string): Section[] {
@@ -168,6 +195,26 @@ function toOperationId(verb: string, text: string) {
   return id;
 }
 
+function toParameters(data: SectionData): OpenApiDocumentFragment[] {
+  let parameters: OpenApiDocumentFragment[] = [];
+
+  data.uriParameters.forEach(({ name, typeText, description }) => {
+    const required = typeText.search("(required)") !== -1;
+    const inPath = data.request.url.search(`{${name}}`) !== -1;
+    parameters.push({
+      name,
+      in: inPath ? "path" : "query",
+      description,
+      required,
+      schema: {
+        type: "string", // TODO: construct from typeText
+      },
+    });
+  });
+
+  return parameters;
+}
+
 function createPath(section: Section): PathVerbOperation {
   if (section.data === undefined) {
     throw Error("Encountered valid section without data!");
@@ -184,6 +231,7 @@ function createPath(section: Section): PathVerbOperation {
     operation: {
       summary: data.title,
       operationId: toOperationId(verb, data.title),
+      parameters: toParameters(section.data),
     },
   };
 }

@@ -18,489 +18,1719 @@
         "/actions": {
             "get": {
                 "summary": "List all Actions",
-                "operationId": "list_all_actions"
+                "operationId": "list_all_actions",
+                "parameters": [
+                    {
+                        "name": "status",
+                        "in": "query",
+                        "description": "Can be used multiple times, the response will contain only Actions with specified statuses Choices: running success error",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "sort",
+                        "in": "query",
+                        "description": "Can be used multiple times Choices: id id:asc id:desc command command:asc command:desc status status:asc status:desc progress progress:asc progress:desc started started:asc started:desc finished finished:asc finished:desc",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ]
             }
         },
         "/actions/{id}": {
             "get": {
                 "summary": "Get an Action",
-                "operationId": "get_action"
+                "operationId": "get_action",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of the Action",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ]
             }
         },
         "/datacenters": {
             "get": {
                 "summary": "Get all Datacenters",
-                "operationId": "list_datacenters"
+                "operationId": "list_datacenters",
+                "parameters": [
+                    {
+                        "name": "name",
+                        "in": "query",
+                        "description": "Can be used to filter Datacenters by their name. The response will only contain the Datacenter matching the specified name. When the name does not match the Datacenter name format, an invalid_input error is returned.",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ]
             }
         },
         "/datacenters/{id}": {
             "get": {
                 "summary": "Get a Datacenter",
-                "operationId": "get_datacenter"
+                "operationId": "get_datacenter",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of Datacenter",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ]
             }
         },
         "/floating_ips": {
             "get": {
                 "summary": "Get all Floating IPs",
-                "operationId": "list_floating_ips"
+                "operationId": "list_floating_ips",
+                "parameters": [
+                    {
+                        "name": "sort",
+                        "in": "query",
+                        "description": "Can be used multiple times. Choices: id id:asc id:desc created created:asc created:desc",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "label_selector",
+                        "in": "query",
+                        "description": "Can be used to filter Floating IPs by labels. The response will only contain Floating IPs matching the label selector.",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "name",
+                        "in": "query",
+                        "description": "Can be used to filter Floating IPs by their name. The response will only contain the Floating IP matching the specified name.",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ]
             },
             "post": {
                 "summary": "Create a Floating IP",
-                "operationId": "create_floating_ip"
+                "operationId": "create_floating_ip",
+                "parameters": []
             }
         },
         "/floating_ips/{id}": {
             "get": {
                 "summary": "Get a specific Floating IP",
-                "operationId": "get_specific_floating_ip"
+                "operationId": "get_specific_floating_ip",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of the Floating IP",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ]
             },
             "put": {
                 "summary": "Update a Floating IP",
-                "operationId": "replace_floating_ip"
+                "operationId": "replace_floating_ip",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of the Floating IP",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ]
             },
             "delete": {
                 "summary": "Delete a Floating IP",
-                "operationId": "delete_floating_ip"
+                "operationId": "delete_floating_ip",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of the Floating IP",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ]
             }
         },
         "/floating_ips/{id}/actions": {
             "get": {
                 "summary": "Get all Actions for a Floating IP",
-                "operationId": "list_actions_for_floating_ip"
+                "operationId": "list_actions_for_floating_ip",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of the Floating IP",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "status",
+                        "in": "query",
+                        "description": "Can be used multiple times, the response will contain only Actions with specified statuses Choices: running success error",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "sort",
+                        "in": "query",
+                        "description": "Can be used multiple times Choices: id id:asc id:desc command command:asc command:desc status status:asc status:desc progress progress:asc progress:desc started started:asc started:desc finished finished:asc finished:desc",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ]
             }
         },
         "/floating_ips/{id}/actions/{action_id}": {
             "get": {
                 "summary": "Get an Action for a Floating IP",
-                "operationId": "get_action_for_floating_ip"
+                "operationId": "get_action_for_floating_ip",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of the Floating IP",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "action_id",
+                        "in": "path",
+                        "description": "ID of the Action",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ]
             }
         },
         "/floating_ips/{id}/actions/assign": {
             "post": {
                 "summary": "Assign a Floating IP to a Server",
-                "operationId": "assign_floating_ip_to_server"
+                "operationId": "assign_floating_ip_to_server",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of the Floating IP",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ]
             }
         },
         "/floating_ips/{id}/actions/unassign": {
             "post": {
                 "summary": "Unassign a Floating IP",
-                "operationId": "unassign_floating_ip"
+                "operationId": "unassign_floating_ip",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of the Floating IP",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ]
             }
         },
         "/floating_ips/{id}/actions/change_dns_ptr": {
             "post": {
                 "summary": "Change reverse DNS entry for a Floating IP",
-                "operationId": "change_reverse_dns_entry_for_floating_ip"
+                "operationId": "change_reverse_dns_entry_for_floating_ip",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of the Floating IP",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ]
             }
         },
         "/floating_ips/{id}/actions/change_protection": {
             "post": {
                 "summary": "Change Floating IP Protection",
-                "operationId": "change_floating_ip_protection"
+                "operationId": "change_floating_ip_protection",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of the Floating IP",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ]
             }
         },
         "/images": {
             "get": {
                 "summary": "Get all Images",
-                "operationId": "list_images"
+                "operationId": "list_images",
+                "parameters": [
+                    {
+                        "name": "sort",
+                        "in": "query",
+                        "description": "Can be used multiple times. Choices: id id:asc id:desc name name:asc name:desc created created:asc created:desc",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "type",
+                        "in": "query",
+                        "description": "Can be used multiple times. Choices: system snapshot backup",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "status",
+                        "in": "query",
+                        "description": "Can be used multiple times. The response will only contain Images matching the status. Choices: available creating",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "bound_to",
+                        "in": "query",
+                        "description": "Can be used multiple times. Server ID linked to the Image. Only available for Images of type backup",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "name",
+                        "in": "query",
+                        "description": "Can be used to filter Images by their name. The response will only contain the Image matching the specified name.",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "label_selector",
+                        "in": "query",
+                        "description": "Can be used to filter Images by labels. The response will only contain Images matching the label selector.",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ]
             }
         },
         "/images/{id}": {
             "get": {
                 "summary": "Get an Image",
-                "operationId": "get_image"
+                "operationId": "get_image",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of the Image",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ]
             },
             "put": {
                 "summary": "Update an Image",
-                "operationId": "replace_image"
+                "operationId": "replace_image",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of the Image to be updated",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ]
             },
             "delete": {
                 "summary": "Delete an Image",
-                "operationId": "delete_image"
+                "operationId": "delete_image",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of the Image",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ]
             }
         },
         "/images/{id}/actions": {
             "get": {
                 "summary": "Get all Actions for an Image",
-                "operationId": "list_actions_for_image"
+                "operationId": "list_actions_for_image",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of the Image",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "status",
+                        "in": "query",
+                        "description": "Can be used multiple times, the response will contain only Actions with specified statuses Choices: running success error",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "sort",
+                        "in": "query",
+                        "description": "Can be used multiple times Choices: id id:asc id:desc command command:asc command:desc status status:asc status:desc progress progress:asc progress:desc started started:asc started:desc finished finished:asc finished:desc",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ]
             }
         },
         "/images/{id}/actions/{action_id}": {
             "get": {
                 "summary": "Get an Action for an Image",
-                "operationId": "get_action_for_image"
+                "operationId": "get_action_for_image",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of the Image",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "action_id",
+                        "in": "path",
+                        "description": "ID of the Action",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ]
             }
         },
         "/images/{id}/actions/change_protection": {
             "post": {
                 "summary": "Change Image Protection",
-                "operationId": "change_image_protection"
+                "operationId": "change_image_protection",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of the Image",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ]
             }
         },
         "/isos": {
             "get": {
                 "summary": "Get all ISOs",
-                "operationId": "list_isos"
+                "operationId": "list_isos",
+                "parameters": [
+                    {
+                        "name": "name",
+                        "in": "query",
+                        "description": "Can be used to filter ISOs by their name. The response will only contain the ISO matching the specified name.",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ]
             }
         },
         "/isos/{id}": {
             "get": {
                 "summary": "Get an ISO",
-                "operationId": "get_iso"
+                "operationId": "get_iso",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of the ISO",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ]
             }
         },
         "/locations": {
             "get": {
                 "summary": "Get all Locations",
-                "operationId": "list_locations"
+                "operationId": "list_locations",
+                "parameters": [
+                    {
+                        "name": "name",
+                        "in": "query",
+                        "description": "Can be used to filter Locations by their name. The response will only contain the Location matching the specified name.",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ]
             }
         },
         "/locations/{id}": {
             "get": {
                 "summary": "Get a Location",
-                "operationId": "get_location"
+                "operationId": "get_location",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of Location",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ]
             }
         },
         "/networks": {
             "get": {
                 "summary": "Get all Networks",
-                "operationId": "list_networks"
+                "operationId": "list_networks",
+                "parameters": [
+                    {
+                        "name": "name",
+                        "in": "query",
+                        "description": "Can be used to filter networks by their name. The response will only contain the networks matching the specified name.",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "label_selector",
+                        "in": "query",
+                        "description": "Can be used to filter networks by labels. The response will only contain networks with a matching label selector pattern.",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ]
             },
             "post": {
                 "summary": "Create a Network",
-                "operationId": "create_network"
+                "operationId": "create_network",
+                "parameters": []
             }
         },
         "/networks/{id}": {
             "get": {
                 "summary": "Get a Network",
-                "operationId": "get_network"
+                "operationId": "get_network",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of the network",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ]
             },
             "put": {
                 "summary": "Update a Network",
-                "operationId": "replace_network"
+                "operationId": "replace_network",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of the network to update",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ]
             },
             "delete": {
                 "summary": "Delete a Network",
-                "operationId": "delete_network"
+                "operationId": "delete_network",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of the network",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ]
             }
         },
         "/networks/{id}/actions": {
             "get": {
                 "summary": "Get all Actions for a Network",
-                "operationId": "list_actions_for_network"
+                "operationId": "list_actions_for_network",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of the Network",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "status",
+                        "in": "query",
+                        "description": "Can be used multiple times, the response will contain only Actions with specified statuses Choices: running success error",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "sort",
+                        "in": "query",
+                        "description": "Can be used multiple times Choices: id id:asc id:desc command command:asc command:desc status status:asc status:desc progress progress:asc progress:desc started started:asc started:desc finished finished:asc finished:desc",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ]
             }
         },
         "/networks/{id}/actions/{action_id}": {
             "get": {
                 "summary": "Get an Action for a Network",
-                "operationId": "get_action_for_network"
+                "operationId": "get_action_for_network",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of the Network",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "action_id",
+                        "in": "path",
+                        "description": "ID of the Action",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ]
             }
         },
         "/networks/{id}/actions/add_subnet": {
             "post": {
                 "summary": "Add a subnet to a Network",
-                "operationId": "add_subnet_to_network"
+                "operationId": "add_subnet_to_network",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of the Network",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ]
             }
         },
         "/networks/{id}/actions/delete_subnet": {
             "post": {
                 "summary": "Delete a subnet from a Network",
-                "operationId": "delete_subnet_from_network"
+                "operationId": "delete_subnet_from_network",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of the Network",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ]
             }
         },
         "/networks/{id}/actions/add_route": {
             "post": {
                 "summary": "Add a route to a Network",
-                "operationId": "add_route_to_network"
+                "operationId": "add_route_to_network",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of the Network",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ]
             }
         },
         "/networks/{id}/actions/delete_route": {
             "post": {
                 "summary": "Delete a route from a Network",
-                "operationId": "delete_route_from_network"
+                "operationId": "delete_route_from_network",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of the Network",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ]
             }
         },
         "/networks/{id}/actions/change_ip_range": {
             "post": {
                 "summary": "Change IP range of a Network",
-                "operationId": "change_ip_range_of_network"
+                "operationId": "change_ip_range_of_network",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of the Network",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ]
             }
         },
         "/networks/{id}/actions/change_protection": {
             "post": {
                 "summary": "Change Network Protection",
-                "operationId": "change_network_protection"
+                "operationId": "change_network_protection",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of the Network",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ]
             }
         },
         "/pricing": {
             "get": {
                 "summary": "Get all prices",
-                "operationId": "list_prices"
+                "operationId": "list_prices",
+                "parameters": []
             }
         },
         "/servers": {
             "get": {
                 "summary": "Get all Servers",
-                "operationId": "list_servers"
+                "operationId": "list_servers",
+                "parameters": [
+                    {
+                        "name": "status",
+                        "in": "query",
+                        "description": "Can be used multiple times. The response will only contain Server matching the status. Choices: initializing starting running stopping off deleting rebuilding migrating unknown",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "sort",
+                        "in": "query",
+                        "description": "Can be used multiple times. Choices: id id:asc id:desc name name:asc name:desc created created:asc created:desc",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "name",
+                        "in": "query",
+                        "description": "Can be used to filter Servers by their name. The response will only contain the Server matching the specified name.",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "label_selector",
+                        "in": "query",
+                        "description": "Can be used to filter Servers by labels. The response will only contain Servers matching the label selector.",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ]
             },
             "post": {
                 "summary": "Create a Server",
-                "operationId": "create_server"
+                "operationId": "create_server",
+                "parameters": []
             }
         },
         "/servers/{id}": {
             "get": {
                 "summary": "Get a Server",
-                "operationId": "get_server"
+                "operationId": "get_server",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of the Server",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ]
             },
             "put": {
                 "summary": "Update a Server",
-                "operationId": "replace_server"
+                "operationId": "replace_server",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of the Server",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ]
             },
             "delete": {
                 "summary": "Delete a Server",
-                "operationId": "delete_server"
+                "operationId": "delete_server",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of the Server",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ]
             }
         },
         "/servers/{id}/metrics": {
             "get": {
                 "summary": "Get Metrics for a Server",
-                "operationId": "get_metrics_for_server"
+                "operationId": "get_metrics_for_server",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of the Server",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "type",
+                        "in": "query",
+                        "description": "Type of metrics to get cpu disk network",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "start",
+                        "in": "query",
+                        "description": "Start of period to get Metrics for (in ISO-8601 format)",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "end",
+                        "in": "query",
+                        "description": "End of period to get Metrics for (in ISO-8601 format)",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "step",
+                        "in": "query",
+                        "description": "Resolution of results in seconds",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ]
             }
         },
         "/servers/{id}/actions": {
             "get": {
                 "summary": "Get all Actions for a Server",
-                "operationId": "list_actions_for_server"
+                "operationId": "list_actions_for_server",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of the Server",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "status",
+                        "in": "query",
+                        "description": "Can be used multiple times, the response will contain only Actions with specified statuses Choices: running success error",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "sort",
+                        "in": "query",
+                        "description": "Can be used multiple times Choices: id id:asc id:desc command command:asc command:desc status status:asc status:desc progress progress:asc progress:desc started started:asc started:desc finished finished:asc finished:desc",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ]
             }
         },
         "/servers/{id}/actions/{action_id}": {
             "get": {
                 "summary": "Get an Action for a Server",
-                "operationId": "get_action_for_server"
+                "operationId": "get_action_for_server",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of the Server",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "action_id",
+                        "in": "path",
+                        "description": "ID of the Action",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ]
             }
         },
         "/servers/{id}/actions/poweron": {
             "post": {
                 "summary": "Power on a Server",
-                "operationId": "power_on_server"
+                "operationId": "power_on_server",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of the Server",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ]
             }
         },
         "/servers/{id}/actions/reboot": {
             "post": {
                 "summary": "Soft-reboot a Server",
-                "operationId": "soft_reboot_server"
+                "operationId": "soft_reboot_server",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of the Server",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ]
             }
         },
         "/servers/{id}/actions/reset": {
             "post": {
                 "summary": "Reset a Server",
-                "operationId": "reset_server"
+                "operationId": "reset_server",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of the Server",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ]
             }
         },
         "/servers/{id}/actions/shutdown": {
             "post": {
                 "summary": "Shutdown a Server",
-                "operationId": "shutdown_server"
+                "operationId": "shutdown_server",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of the Server",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ]
             }
         },
         "/servers/{id}/actions/poweroff": {
             "post": {
                 "summary": "Power off a Server",
-                "operationId": "power_off_server"
+                "operationId": "power_off_server",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of the Server",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ]
             }
         },
         "/servers/{id}/actions/reset_password": {
             "post": {
                 "summary": "Reset root Password of a Server",
-                "operationId": "reset_root_password_of_server"
+                "operationId": "reset_root_password_of_server",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of the Server",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ]
             }
         },
         "/servers/{id}/actions/enable_rescue": {
             "post": {
                 "summary": "Enable Rescue Mode for a Server",
-                "operationId": "enable_rescue_mode_for_server"
+                "operationId": "enable_rescue_mode_for_server",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of the Server",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ]
             }
         },
         "/servers/{id}/actions/disable_rescue": {
             "post": {
                 "summary": "Disable Rescue Mode for a Server",
-                "operationId": "disable_rescue_mode_for_server"
+                "operationId": "disable_rescue_mode_for_server",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of the Server",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ]
             }
         },
         "/servers/{id}/actions/create_image": {
             "post": {
                 "summary": "Create Image from a Server",
-                "operationId": "create_image_from_server"
+                "operationId": "create_image_from_server",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of the Server",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ]
             }
         },
         "/servers/{id}/actions/rebuild": {
             "post": {
                 "summary": "Rebuild a Server from an Image",
-                "operationId": "rebuild_server_from_image"
+                "operationId": "rebuild_server_from_image",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of the Server",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ]
             }
         },
         "/servers/{id}/actions/change_type": {
             "post": {
                 "summary": "Change the Type of a Server",
-                "operationId": "change_type_of_server"
+                "operationId": "change_type_of_server",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of the Server",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ]
             }
         },
         "/servers/{id}/actions/enable_backup": {
             "post": {
                 "summary": "Enable and Configure Backups for a Server",
-                "operationId": "enable_and_configure_backups_for_server"
+                "operationId": "enable_and_configure_backups_for_server",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of the Server",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ]
             }
         },
         "/servers/{id}/actions/disable_backup": {
             "post": {
                 "summary": "Disable Backups for a Server",
-                "operationId": "disable_backups_for_server"
+                "operationId": "disable_backups_for_server",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of the Server",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ]
             }
         },
         "/servers/{id}/actions/attach_iso": {
             "post": {
                 "summary": "Attach an ISO to a Server",
-                "operationId": "attach_iso_to_server"
+                "operationId": "attach_iso_to_server",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of the Server",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ]
             }
         },
         "/servers/{id}/actions/detach_iso": {
             "post": {
                 "summary": "Detach an ISO from a Server",
-                "operationId": "detach_iso_from_server"
+                "operationId": "detach_iso_from_server",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of the Server",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ]
             }
         },
         "/servers/{id}/actions/change_dns_ptr": {
             "post": {
                 "summary": "Change reverse DNS entry for this Server",
-                "operationId": "change_reverse_dns_entry_for_this_server"
+                "operationId": "change_reverse_dns_entry_for_this_server",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of the Server",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ]
             }
         },
         "/servers/{id}/actions/change_protection": {
             "post": {
                 "summary": "Change Server Protection",
-                "operationId": "change_server_protection"
+                "operationId": "change_server_protection",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of the Server",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ]
             }
         },
         "/servers/{id}/actions/request_console": {
             "post": {
                 "summary": "Request Console for a Server",
-                "operationId": "request_console_for_server"
+                "operationId": "request_console_for_server",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of the Server",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ]
             }
         },
         "/servers/{id}/actions/attach_to_network": {
             "post": {
                 "summary": "Attach a Server to a Network",
-                "operationId": "attach_server_to_network"
+                "operationId": "attach_server_to_network",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of the Server",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ]
             }
         },
         "/servers/{id}/actions/detach_from_network": {
             "post": {
                 "summary": "Detach a Server from a Network",
-                "operationId": "detach_server_from_network"
+                "operationId": "detach_server_from_network",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of the Server",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ]
             }
         },
         "/servers/{id}/actions/change_alias_ips": {
             "post": {
                 "summary": "Change alias IPs of a Network",
-                "operationId": "change_alias_ips_of_network"
+                "operationId": "change_alias_ips_of_network",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of the Server",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ]
             }
         },
         "/server_types": {
             "get": {
                 "summary": "Get all Server Types",
-                "operationId": "list_server_types"
+                "operationId": "list_server_types",
+                "parameters": [
+                    {
+                        "name": "name",
+                        "in": "query",
+                        "description": "Can be used to filter Server types by their name. The response will only contain the Server type matching the specified name.",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ]
             }
         },
         "/server_types/{id}": {
             "get": {
                 "summary": "Get a Server Type",
-                "operationId": "get_server_type"
+                "operationId": "get_server_type",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of Server type",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ]
             }
         },
         "/ssh_keys": {
             "get": {
                 "summary": "Get all SSH keys",
-                "operationId": "list_ssh_keys"
+                "operationId": "list_ssh_keys",
+                "parameters": [
+                    {
+                        "name": "sort",
+                        "in": "query",
+                        "description": "Can be used multiple times. Choices: id id:asc id:desc name name:asc name:desc",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "name",
+                        "in": "query",
+                        "description": "Can be used to filter SSH keys by their name. The response will only contain the SSH key matching the specified name.",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "fingerprint",
+                        "in": "query",
+                        "description": "Can be used to filter SSH keys by their fingerprint. The response will only contain the SSH key matching the specified fingerprint.",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "label_selector",
+                        "in": "query",
+                        "description": "Can be used to filter SSH keys by labels. The response will only contain SSH keys matching the label selector.",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ]
             },
             "post": {
                 "summary": "Create an SSH key",
-                "operationId": "create_ssh_key"
+                "operationId": "create_ssh_key",
+                "parameters": []
             }
         },
         "/ssh_keys/{id}": {
             "get": {
                 "summary": "Get an SSH key",
-                "operationId": "get_ssh_key"
+                "operationId": "get_ssh_key",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of the SSH key",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ]
             },
             "put": {
                 "summary": "Update an SSH key",
-                "operationId": "replace_ssh_key"
+                "operationId": "replace_ssh_key",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of the SSH key",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ]
             },
             "delete": {
                 "summary": "Delete an SSH key",
-                "operationId": "delete_ssh_key"
+                "operationId": "delete_ssh_key",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of the SSH key",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ]
             }
         },
         "/volumes": {
             "get": {
                 "summary": "Get all Volumes",
-                "operationId": "list_volumes"
+                "operationId": "list_volumes",
+                "parameters": [
+                    {
+                        "name": "status",
+                        "in": "query",
+                        "description": "Can be used multiple times. The response will only contain Volumes matching the status. Choices: available creating",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "sort",
+                        "in": "query",
+                        "description": "Can be used multiple times. Choices: id id:asc id:desc name name:asc name:desc created created:asc created:desc",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "name",
+                        "in": "query",
+                        "description": "Can be used to filter Volumes by their name. The response will only contain the Volumes matching the specified name.",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "label_selector",
+                        "in": "query",
+                        "description": "Can be used to filter Volumes by labels. The response will only contain Volumes with a matching label selector pattern.",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ]
             },
             "post": {
                 "summary": "Create a Volume",
-                "operationId": "create_volume"
+                "operationId": "create_volume",
+                "parameters": []
             }
         },
         "/volumes/{id}": {
             "get": {
                 "summary": "Get a Volume",
-                "operationId": "get_volume"
+                "operationId": "get_volume",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of the volume",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ]
             },
             "put": {
                 "summary": "Update a Volume",
-                "operationId": "replace_volume"
+                "operationId": "replace_volume",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of the Volume to update",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ]
             },
             "delete": {
                 "summary": "Delete a Volume",
-                "operationId": "delete_volume"
+                "operationId": "delete_volume",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of the Volume",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ]
             }
         },
         "/volumes/{id}/actions": {
             "get": {
                 "summary": "Get all Actions for a Volume",
-                "operationId": "list_actions_for_volume"
+                "operationId": "list_actions_for_volume",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of the Volume",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "status",
+                        "in": "query",
+                        "description": "Can be used multiple times, the response will contain only Actions with specified statuses Choices: running success error",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "sort",
+                        "in": "query",
+                        "description": "Can be used multiple times Choices: id id:asc id:desc command command:asc command:desc status status:asc status:desc progress progress:asc progress:desc started started:asc started:desc finished finished:asc finished:desc",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ]
             }
         },
         "/volumes/{id}/actions/{action_id}": {
             "get": {
                 "summary": "Get an Action for a Volume",
-                "operationId": "get_action_for_volume"
+                "operationId": "get_action_for_volume",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of the Volume",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "action_id",
+                        "in": "path",
+                        "description": "ID of the Action",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ]
             }
         },
         "/volumes/{id}/actions/attach": {
             "post": {
                 "summary": "Attach Volume to a Server",
-                "operationId": "attach_volume_to_server"
+                "operationId": "attach_volume_to_server",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of the Volume",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ]
             }
         },
         "/volumes/{id}/actions/detach": {
             "post": {
                 "summary": "Detach Volume",
-                "operationId": "detach_volume"
+                "operationId": "detach_volume",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of the Volume",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ]
             }
         },
         "/volumes/{id}/actions/resize": {
             "post": {
                 "summary": "Resize Volume",
-                "operationId": "resize_volume"
+                "operationId": "resize_volume",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of the Volume to update",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ]
             }
         },
         "/volumes/{id}/actions/change_protection": {
             "post": {
                 "summary": "Change Volume Protection",
-                "operationId": "change_volume_protection"
+                "operationId": "change_volume_protection",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of the Volume",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ]
             }
         }
     }
