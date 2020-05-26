@@ -16,5 +16,11 @@ ts-node src/index.ts -o openapi/hcloud.json
 ## Validate
 
 ```
-java -jar <path>/openapi-generator-cli.jar validate -i openapi/hcloud.json
+java -jar <path>/openapi-generator-cli.jar validate --input-spec openapi/hcloud.json
+```
+
+## Generate
+
+```
+java -jar <path>/openapi-generator-cli.jar generate --input-spec openapi/hcloud.json --generator-name <name> --output <path>
 ```

@@ -6,7 +6,7 @@
         "contact": {
             "url": "https://docs.hetzner.cloud/"
         },
-        "version": "f01b73b-dirty"
+        "version": "afc642f-dirty"
     },
     "servers": [
         {
@@ -38,7 +38,12 @@
                             "type": "string"
                         }
                     }
-                ]
+                ],
+                "responses": {
+                    "204": {
+                        "description": "TODO"
+                    }
+                }
             }
         },
         "/actions/{id}": {
@@ -55,7 +60,12 @@
                             "type": "string"
                         }
                     }
-                ]
+                ],
+                "responses": {
+                    "204": {
+                        "description": "TODO"
+                    }
+                }
             }
         },
         "/datacenters": {
@@ -72,7 +82,12 @@
                             "type": "string"
                         }
                     }
-                ]
+                ],
+                "responses": {
+                    "204": {
+                        "description": "TODO"
+                    }
+                }
             }
         },
         "/datacenters/{id}": {
@@ -89,7 +104,12 @@
                             "type": "string"
                         }
                     }
-                ]
+                ],
+                "responses": {
+                    "204": {
+                        "description": "TODO"
+                    }
+                }
             }
         },
         "/floating_ips": {
@@ -124,12 +144,22 @@
                             "type": "string"
                         }
                     }
-                ]
+                ],
+                "responses": {
+                    "204": {
+                        "description": "TODO"
+                    }
+                }
             },
             "post": {
                 "summary": "Create a Floating IP",
                 "operationId": "create_floating_ip",
-                "parameters": []
+                "parameters": [],
+                "responses": {
+                    "204": {
+                        "description": "TODO"
+                    }
+                }
             }
         },
         "/floating_ips/{id}": {
@@ -146,7 +176,12 @@
                             "type": "string"
                         }
                     }
-                ]
+                ],
+                "responses": {
+                    "204": {
+                        "description": "TODO"
+                    }
+                }
             },
             "put": {
                 "summary": "Update a Floating IP",
@@ -161,7 +196,12 @@
                             "type": "string"
                         }
                     }
-                ]
+                ],
+                "responses": {
+                    "204": {
+                        "description": "TODO"
+                    }
+                }
             },
             "delete": {
                 "summary": "Delete a Floating IP",
@@ -176,7 +216,12 @@
                             "type": "string"
                         }
                     }
-                ]
+                ],
+                "responses": {
+                    "204": {
+                        "description": "TODO"
+                    }
+                }
             }
         },
         "/floating_ips/{id}/actions": {
@@ -211,7 +256,12 @@
                             "type": "string"
                         }
                     }
-                ]
+                ],
+                "responses": {
+                    "204": {
+                        "description": "TODO"
+                    }
+                }
             }
         },
         "/floating_ips/{id}/actions/{action_id}": {
@@ -237,7 +287,12 @@
                             "type": "string"
                         }
                     }
-                ]
+                ],
+                "responses": {
+                    "204": {
+                        "description": "TODO"
+                    }
+                }
             }
         },
         "/floating_ips/{id}/actions/assign": {
@@ -254,7 +309,12 @@
                             "type": "string"
                         }
                     }
-                ]
+                ],
+                "responses": {
+                    "204": {
+                        "description": "TODO"
+                    }
+                }
             }
         },
         "/floating_ips/{id}/actions/unassign": {
@@ -271,7 +331,12 @@
                             "type": "string"
                         }
                     }
-                ]
+                ],
+                "responses": {
+                    "204": {
+                        "description": "TODO"
+                    }
+                }
             }
         },
         "/floating_ips/{id}/actions/change_dns_ptr": {
@@ -288,7 +353,12 @@
                             "type": "string"
                         }
                     }
-                ]
+                ],
+                "responses": {
+                    "204": {
+                        "description": "TODO"
+                    }
+                }
             }
         },
         "/floating_ips/{id}/actions/change_protection": {
@@ -305,7 +375,12 @@
                             "type": "string"
                         }
                     }
-                ]
+                ],
+                "responses": {
+                    "204": {
+                        "description": "TODO"
+                    }
+                }
             }
         },
         "/images": {
@@ -367,7 +442,12 @@
                             "type": "string"
                         }
                     }
-                ]
+                ],
+                "responses": {
+                    "204": {
+                        "description": "TODO"
+                    }
+                }
             }
         },
         "/images/{id}": {
@@ -384,7 +464,12 @@
                             "type": "string"
                         }
                     }
-                ]
+                ],
+                "responses": {
+                    "204": {
+                        "description": "TODO"
+                    }
+                }
             },
             "put": {
                 "summary": "Update an Image",
@@ -399,7 +484,12 @@
                             "type": "string"
                         }
                     }
-                ]
+                ],
+                "responses": {
+                    "204": {
+                        "description": "TODO"
+                    }
+                }
             },
             "delete": {
                 "summary": "Delete an Image",
@@ -414,7 +504,12 @@
                             "type": "string"
                         }
                     }
-                ]
+                ],
+                "responses": {
+                    "204": {
+                        "description": "TODO"
+                    }
+                }
             }
         },
         "/images/{id}/actions": {
@@ -449,7 +544,12 @@
                             "type": "string"
                         }
                     }
-                ]
+                ],
+                "responses": {
+                    "204": {
+                        "description": "TODO"
+                    }
+                }
             }
         },
         "/images/{id}/actions/{action_id}": {
@@ -475,7 +575,12 @@
                             "type": "string"
                         }
                     }
-                ]
+                ],
+                "responses": {
+                    "204": {
+                        "description": "TODO"
+                    }
+                }
             }
         },
         "/images/{id}/actions/change_protection": {
@@ -492,7 +597,12 @@
                             "type": "string"
                         }
                     }
-                ]
+                ],
+                "responses": {
+                    "204": {
+                        "description": "TODO"
+                    }
+                }
             }
         },
         "/isos": {
@@ -509,7 +619,12 @@
                             "type": "string"
                         }
                     }
-                ]
+                ],
+                "responses": {
+                    "204": {
+                        "description": "TODO"
+                    }
+                }
             }
         },
         "/isos/{id}": {
@@ -526,7 +641,12 @@
                             "type": "string"
                         }
                     }
-                ]
+                ],
+                "responses": {
+                    "204": {
+                        "description": "TODO"
+                    }
+                }
             }
         },
         "/locations": {
@@ -543,7 +663,12 @@
                             "type": "string"
                         }
                     }
-                ]
+                ],
+                "responses": {
+                    "204": {
+                        "description": "TODO"
+                    }
+                }
             }
         },
         "/locations/{id}": {
@@ -560,7 +685,12 @@
                             "type": "string"
                         }
                     }
-                ]
+                ],
+                "responses": {
+                    "204": {
+                        "description": "TODO"
+                    }
+                }
             }
         },
         "/networks": {
@@ -586,12 +716,22 @@
                             "type": "string"
                         }
                     }
-                ]
+                ],
+                "responses": {
+                    "204": {
+                        "description": "TODO"
+                    }
+                }
             },
             "post": {
                 "summary": "Create a Network",
                 "operationId": "create_network",
-                "parameters": []
+                "parameters": [],
+                "responses": {
+                    "204": {
+                        "description": "TODO"
+                    }
+                }
             }
         },
         "/networks/{id}": {
@@ -608,7 +748,12 @@
                             "type": "string"
                         }
                     }
-                ]
+                ],
+                "responses": {
+                    "204": {
+                        "description": "TODO"
+                    }
+                }
             },
             "put": {
                 "summary": "Update a Network",
@@ -623,7 +768,12 @@
                             "type": "string"
                         }
                     }
-                ]
+                ],
+                "responses": {
+                    "204": {
+                        "description": "TODO"
+                    }
+                }
             },
             "delete": {
                 "summary": "Delete a Network",
@@ -638,7 +788,12 @@
                             "type": "string"
                         }
                     }
-                ]
+                ],
+                "responses": {
+                    "204": {
+                        "description": "TODO"
+                    }
+                }
             }
         },
         "/networks/{id}/actions": {
@@ -673,7 +828,12 @@
                             "type": "string"
                         }
                     }
-                ]
+                ],
+                "responses": {
+                    "204": {
+                        "description": "TODO"
+                    }
+                }
             }
         },
         "/networks/{id}/actions/{action_id}": {
@@ -699,7 +859,12 @@
                             "type": "string"
                         }
                     }
-                ]
+                ],
+                "responses": {
+                    "204": {
+                        "description": "TODO"
+                    }
+                }
             }
         },
         "/networks/{id}/actions/add_subnet": {
@@ -716,7 +881,12 @@
                             "type": "string"
                         }
                     }
-                ]
+                ],
+                "responses": {
+                    "204": {
+                        "description": "TODO"
+                    }
+                }
             }
         },
         "/networks/{id}/actions/delete_subnet": {
@@ -733,7 +903,12 @@
                             "type": "string"
                         }
                     }
-                ]
+                ],
+                "responses": {
+                    "204": {
+                        "description": "TODO"
+                    }
+                }
             }
         },
         "/networks/{id}/actions/add_route": {
@@ -750,7 +925,12 @@
                             "type": "string"
                         }
                     }
-                ]
+                ],
+                "responses": {
+                    "204": {
+                        "description": "TODO"
+                    }
+                }
             }
         },
         "/networks/{id}/actions/delete_route": {
@@ -767,7 +947,12 @@
                             "type": "string"
                         }
                     }
-                ]
+                ],
+                "responses": {
+                    "204": {
+                        "description": "TODO"
+                    }
+                }
             }
         },
         "/networks/{id}/actions/change_ip_range": {
@@ -784,7 +969,12 @@
                             "type": "string"
                         }
                     }
-                ]
+                ],
+                "responses": {
+                    "204": {
+                        "description": "TODO"
+                    }
+                }
             }
         },
         "/networks/{id}/actions/change_protection": {
@@ -801,14 +991,24 @@
                             "type": "string"
                         }
                     }
-                ]
+                ],
+                "responses": {
+                    "204": {
+                        "description": "TODO"
+                    }
+                }
             }
         },
         "/pricing": {
             "get": {
                 "summary": "Get all prices",
                 "operationId": "list_prices",
-                "parameters": []
+                "parameters": [],
+                "responses": {
+                    "204": {
+                        "description": "TODO"
+                    }
+                }
             }
         },
         "/servers": {
@@ -852,12 +1052,22 @@
                             "type": "string"
                         }
                     }
-                ]
+                ],
+                "responses": {
+                    "204": {
+                        "description": "TODO"
+                    }
+                }
             },
             "post": {
                 "summary": "Create a Server",
                 "operationId": "create_server",
-                "parameters": []
+                "parameters": [],
+                "responses": {
+                    "204": {
+                        "description": "TODO"
+                    }
+                }
             }
         },
         "/servers/{id}": {
@@ -874,7 +1084,12 @@
                             "type": "string"
                         }
                     }
-                ]
+                ],
+                "responses": {
+                    "204": {
+                        "description": "TODO"
+                    }
+                }
             },
             "put": {
                 "summary": "Update a Server",
@@ -889,7 +1104,12 @@
                             "type": "string"
                         }
                     }
-                ]
+                ],
+                "responses": {
+                    "204": {
+                        "description": "TODO"
+                    }
+                }
             },
             "delete": {
                 "summary": "Delete a Server",
@@ -904,7 +1124,12 @@
                             "type": "string"
                         }
                     }
-                ]
+                ],
+                "responses": {
+                    "204": {
+                        "description": "TODO"
+                    }
+                }
             }
         },
         "/servers/{id}/metrics": {
@@ -957,7 +1182,12 @@
                             "type": "string"
                         }
                     }
-                ]
+                ],
+                "responses": {
+                    "204": {
+                        "description": "TODO"
+                    }
+                }
             }
         },
         "/servers/{id}/actions": {
@@ -992,7 +1222,12 @@
                             "type": "string"
                         }
                     }
-                ]
+                ],
+                "responses": {
+                    "204": {
+                        "description": "TODO"
+                    }
+                }
             }
         },
         "/servers/{id}/actions/{action_id}": {
@@ -1018,7 +1253,12 @@
                             "type": "string"
                         }
                     }
-                ]
+                ],
+                "responses": {
+                    "204": {
+                        "description": "TODO"
+                    }
+                }
             }
         },
         "/servers/{id}/actions/poweron": {
@@ -1035,7 +1275,12 @@
                             "type": "string"
                         }
                     }
-                ]
+                ],
+                "responses": {
+                    "204": {
+                        "description": "TODO"
+                    }
+                }
             }
         },
         "/servers/{id}/actions/reboot": {
@@ -1052,7 +1297,12 @@
                             "type": "string"
                         }
                     }
-                ]
+                ],
+                "responses": {
+                    "204": {
+                        "description": "TODO"
+                    }
+                }
             }
         },
         "/servers/{id}/actions/reset": {
@@ -1069,7 +1319,12 @@
                             "type": "string"
                         }
                     }
-                ]
+                ],
+                "responses": {
+                    "204": {
+                        "description": "TODO"
+                    }
+                }
             }
         },
         "/servers/{id}/actions/shutdown": {
@@ -1086,7 +1341,12 @@
                             "type": "string"
                         }
                     }
-                ]
+                ],
+                "responses": {
+                    "204": {
+                        "description": "TODO"
+                    }
+                }
             }
         },
         "/servers/{id}/actions/poweroff": {
@@ -1103,7 +1363,12 @@
                             "type": "string"
                         }
                     }
-                ]
+                ],
+                "responses": {
+                    "204": {
+                        "description": "TODO"
+                    }
+                }
             }
         },
         "/servers/{id}/actions/reset_password": {
@@ -1120,7 +1385,12 @@
                             "type": "string"
                         }
                     }
-                ]
+                ],
+                "responses": {
+                    "204": {
+                        "description": "TODO"
+                    }
+                }
             }
         },
         "/servers/{id}/actions/enable_rescue": {
@@ -1137,7 +1407,12 @@
                             "type": "string"
                         }
                     }
-                ]
+                ],
+                "responses": {
+                    "204": {
+                        "description": "TODO"
+                    }
+                }
             }
         },
         "/servers/{id}/actions/disable_rescue": {
@@ -1154,7 +1429,12 @@
                             "type": "string"
                         }
                     }
-                ]
+                ],
+                "responses": {
+                    "204": {
+                        "description": "TODO"
+                    }
+                }
             }
         },
         "/servers/{id}/actions/create_image": {
@@ -1171,7 +1451,12 @@
                             "type": "string"
                         }
                     }
-                ]
+                ],
+                "responses": {
+                    "204": {
+                        "description": "TODO"
+                    }
+                }
             }
         },
         "/servers/{id}/actions/rebuild": {
@@ -1188,7 +1473,12 @@
                             "type": "string"
                         }
                     }
-                ]
+                ],
+                "responses": {
+                    "204": {
+                        "description": "TODO"
+                    }
+                }
             }
         },
         "/servers/{id}/actions/change_type": {
@@ -1205,7 +1495,12 @@
                             "type": "string"
                         }
                     }
-                ]
+                ],
+                "responses": {
+                    "204": {
+                        "description": "TODO"
+                    }
+                }
             }
         },
         "/servers/{id}/actions/enable_backup": {
@@ -1222,7 +1517,12 @@
                             "type": "string"
                         }
                     }
-                ]
+                ],
+                "responses": {
+                    "204": {
+                        "description": "TODO"
+                    }
+                }
             }
         },
         "/servers/{id}/actions/disable_backup": {
@@ -1239,7 +1539,12 @@
                             "type": "string"
                         }
                     }
-                ]
+                ],
+                "responses": {
+                    "204": {
+                        "description": "TODO"
+                    }
+                }
             }
         },
         "/servers/{id}/actions/attach_iso": {
@@ -1256,7 +1561,12 @@
                             "type": "string"
                         }
                     }
-                ]
+                ],
+                "responses": {
+                    "204": {
+                        "description": "TODO"
+                    }
+                }
             }
         },
         "/servers/{id}/actions/detach_iso": {
@@ -1273,7 +1583,12 @@
                             "type": "string"
                         }
                     }
-                ]
+                ],
+                "responses": {
+                    "204": {
+                        "description": "TODO"
+                    }
+                }
             }
         },
         "/servers/{id}/actions/change_dns_ptr": {
@@ -1290,7 +1605,12 @@
                             "type": "string"
                         }
                     }
-                ]
+                ],
+                "responses": {
+                    "204": {
+                        "description": "TODO"
+                    }
+                }
             }
         },
         "/servers/{id}/actions/change_protection": {
@@ -1307,7 +1627,12 @@
                             "type": "string"
                         }
                     }
-                ]
+                ],
+                "responses": {
+                    "204": {
+                        "description": "TODO"
+                    }
+                }
             }
         },
         "/servers/{id}/actions/request_console": {
@@ -1324,7 +1649,12 @@
                             "type": "string"
                         }
                     }
-                ]
+                ],
+                "responses": {
+                    "204": {
+                        "description": "TODO"
+                    }
+                }
             }
         },
         "/servers/{id}/actions/attach_to_network": {
@@ -1341,7 +1671,12 @@
                             "type": "string"
                         }
                     }
-                ]
+                ],
+                "responses": {
+                    "204": {
+                        "description": "TODO"
+                    }
+                }
             }
         },
         "/servers/{id}/actions/detach_from_network": {
@@ -1358,7 +1693,12 @@
                             "type": "string"
                         }
                     }
-                ]
+                ],
+                "responses": {
+                    "204": {
+                        "description": "TODO"
+                    }
+                }
             }
         },
         "/servers/{id}/actions/change_alias_ips": {
@@ -1375,7 +1715,12 @@
                             "type": "string"
                         }
                     }
-                ]
+                ],
+                "responses": {
+                    "204": {
+                        "description": "TODO"
+                    }
+                }
             }
         },
         "/server_types": {
@@ -1392,7 +1737,12 @@
                             "type": "string"
                         }
                     }
-                ]
+                ],
+                "responses": {
+                    "204": {
+                        "description": "TODO"
+                    }
+                }
             }
         },
         "/server_types/{id}": {
@@ -1409,7 +1759,12 @@
                             "type": "string"
                         }
                     }
-                ]
+                ],
+                "responses": {
+                    "204": {
+                        "description": "TODO"
+                    }
+                }
             }
         },
         "/ssh_keys": {
@@ -1453,12 +1808,22 @@
                             "type": "string"
                         }
                     }
-                ]
+                ],
+                "responses": {
+                    "204": {
+                        "description": "TODO"
+                    }
+                }
             },
             "post": {
                 "summary": "Create an SSH key",
                 "operationId": "create_ssh_key",
-                "parameters": []
+                "parameters": [],
+                "responses": {
+                    "204": {
+                        "description": "TODO"
+                    }
+                }
             }
         },
         "/ssh_keys/{id}": {
@@ -1475,7 +1840,12 @@
                             "type": "string"
                         }
                     }
-                ]
+                ],
+                "responses": {
+                    "204": {
+                        "description": "TODO"
+                    }
+                }
             },
             "put": {
                 "summary": "Update an SSH key",
@@ -1490,7 +1860,12 @@
                             "type": "string"
                         }
                     }
-                ]
+                ],
+                "responses": {
+                    "204": {
+                        "description": "TODO"
+                    }
+                }
             },
             "delete": {
                 "summary": "Delete an SSH key",
@@ -1505,7 +1880,12 @@
                             "type": "string"
                         }
                     }
-                ]
+                ],
+                "responses": {
+                    "204": {
+                        "description": "TODO"
+                    }
+                }
             }
         },
         "/volumes": {
@@ -1549,12 +1929,22 @@
                             "type": "string"
                         }
                     }
-                ]
+                ],
+                "responses": {
+                    "204": {
+                        "description": "TODO"
+                    }
+                }
             },
             "post": {
                 "summary": "Create a Volume",
                 "operationId": "create_volume",
-                "parameters": []
+                "parameters": [],
+                "responses": {
+                    "204": {
+                        "description": "TODO"
+                    }
+                }
             }
         },
         "/volumes/{id}": {
@@ -1571,7 +1961,12 @@
                             "type": "string"
                         }
                     }
-                ]
+                ],
+                "responses": {
+                    "204": {
+                        "description": "TODO"
+                    }
+                }
             },
             "put": {
                 "summary": "Update a Volume",
@@ -1586,7 +1981,12 @@
                             "type": "string"
                         }
                     }
-                ]
+                ],
+                "responses": {
+                    "204": {
+                        "description": "TODO"
+                    }
+                }
             },
             "delete": {
                 "summary": "Delete a Volume",
@@ -1601,7 +2001,12 @@
                             "type": "string"
                         }
                     }
-                ]
+                ],
+                "responses": {
+                    "204": {
+                        "description": "TODO"
+                    }
+                }
             }
         },
         "/volumes/{id}/actions": {
@@ -1636,7 +2041,12 @@
                             "type": "string"
                         }
                     }
-                ]
+                ],
+                "responses": {
+                    "204": {
+                        "description": "TODO"
+                    }
+                }
             }
         },
         "/volumes/{id}/actions/{action_id}": {
@@ -1662,7 +2072,12 @@
                             "type": "string"
                         }
                     }
-                ]
+                ],
+                "responses": {
+                    "204": {
+                        "description": "TODO"
+                    }
+                }
             }
         },
         "/volumes/{id}/actions/attach": {
@@ -1679,7 +2094,12 @@
                             "type": "string"
                         }
                     }
-                ]
+                ],
+                "responses": {
+                    "204": {
+                        "description": "TODO"
+                    }
+                }
             }
         },
         "/volumes/{id}/actions/detach": {
@@ -1696,7 +2116,12 @@
                             "type": "string"
                         }
                     }
-                ]
+                ],
+                "responses": {
+                    "204": {
+                        "description": "TODO"
+                    }
+                }
             }
         },
         "/volumes/{id}/actions/resize": {
@@ -1713,7 +2138,12 @@
                             "type": "string"
                         }
                     }
-                ]
+                ],
+                "responses": {
+                    "204": {
+                        "description": "TODO"
+                    }
+                }
             }
         },
         "/volumes/{id}/actions/change_protection": {
@@ -1730,7 +2160,12 @@
                             "type": "string"
                         }
                     }
-                ]
+                ],
+                "responses": {
+                    "204": {
+                        "description": "TODO"
+                    }
+                }
             }
         }
     }

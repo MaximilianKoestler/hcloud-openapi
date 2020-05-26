@@ -215,6 +215,15 @@ function toParameters(data: SectionData): OpenApiDocumentFragment[] {
   return parameters;
 }
 
+function toResponses(data: SectionData): OpenApiDocumentFragment {
+  return {
+    "204": {
+      // TODO: construct from response headers
+      description: "TODO", // TODO: construct from data
+    },
+  };
+}
+
 function createPath(section: Section): PathVerbOperation {
   if (section.data === undefined) {
     throw Error("Encountered valid section without data!");
@@ -232,6 +241,7 @@ function createPath(section: Section): PathVerbOperation {
       summary: data.title,
       operationId: toOperationId(verb, data.title),
       parameters: toParameters(section.data),
+      responses: toResponses(section.data),
     },
   };
 }
