@@ -235,7 +235,7 @@ async function validateOpenApiDocument(document: OpenApiDocumentFragment) {
     console.warn(`WARNING: ${item.message} (${item.path})`);
   }
   for (const item of results.errors) {
-    console.warn(`ERROR: ${item.message} (${item.path})`);
+    console.error(`ERROR: ${item.message} (${item.path})`);
   }
   console.log(
     `Found ${results.warnings.length} warnings and ${results.errors.length} errors`
