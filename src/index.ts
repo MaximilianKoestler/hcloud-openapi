@@ -160,7 +160,21 @@ function parseParameterTable(table: Element | null): Parameter[] {
 }
 
 function parseResponseHeaders(pre: Element): ResponseHeaders {
-  return { status: 204, contentType: undefined }; // TODO
+  const parts = new Map(
+    Array.from(pre.querySelectorAll("code"))
+      .map((code) => code.textContent)
+      .map((line) => line?.split(": ") as [string, string])
+  );
+
+  const status = parts.get("Status");
+  if (status === undefined) {
+    throw Error("Status missing from response headers!");
+  }
+
+  return {
+    status: parseInt(status),
+    contentType: parts.get("Content-Type"),
+  };
 }
 
 function parseSection(section: Element): Section {

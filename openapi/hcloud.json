@@ -6,7 +6,7 @@
         "contact": {
             "url": "https://docs.hetzner.cloud/"
         },
-        "version": "d16d97a-dirty"
+        "version": "e2cd9bd-dirty"
     },
     "servers": [
         {
@@ -41,7 +41,7 @@
                     }
                 ],
                 "responses": {
-                    "204": {
+                    "200": {
                         "description": "TODO"
                     }
                 }
@@ -64,7 +64,7 @@
                     }
                 ],
                 "responses": {
-                    "204": {
+                    "200": {
                         "description": "TODO"
                     }
                 }
@@ -87,7 +87,7 @@
                     }
                 ],
                 "responses": {
-                    "204": {
+                    "200": {
                         "description": "TODO"
                     }
                 }
@@ -110,7 +110,7 @@
                     }
                 ],
                 "responses": {
-                    "204": {
+                    "200": {
                         "description": "TODO"
                     }
                 }
@@ -151,7 +151,7 @@
                     }
                 ],
                 "responses": {
-                    "204": {
+                    "200": {
                         "description": "TODO"
                     }
                 }
@@ -162,7 +162,7 @@
                 "operationId": "create_floating_ip",
                 "parameters": [],
                 "responses": {
-                    "204": {
+                    "201": {
                         "description": "TODO"
                     }
                 }
@@ -185,7 +185,7 @@
                     }
                 ],
                 "responses": {
-                    "204": {
+                    "200": {
                         "description": "TODO"
                     }
                 }
@@ -206,7 +206,7 @@
                     }
                 ],
                 "responses": {
-                    "204": {
+                    "200": {
                         "description": "TODO"
                     }
                 }
@@ -268,7 +268,7 @@
                     }
                 ],
                 "responses": {
-                    "204": {
+                    "200": {
                         "description": "TODO"
                     }
                 }
@@ -300,7 +300,7 @@
                     }
                 ],
                 "responses": {
-                    "204": {
+                    "200": {
                         "description": "TODO"
                     }
                 }
@@ -323,7 +323,7 @@
                     }
                 ],
                 "responses": {
-                    "204": {
+                    "201": {
                         "description": "TODO"
                     }
                 }
@@ -346,7 +346,7 @@
                     }
                 ],
                 "responses": {
-                    "204": {
+                    "201": {
                         "description": "TODO"
                     }
                 }
@@ -369,7 +369,7 @@
                     }
                 ],
                 "responses": {
-                    "204": {
+                    "201": {
                         "description": "TODO"
                     }
                 }
@@ -392,7 +392,7 @@
                     }
                 ],
                 "responses": {
-                    "204": {
+                    "201": {
                         "description": "TODO"
                     }
                 }
@@ -460,7 +460,7 @@
                     }
                 ],
                 "responses": {
-                    "204": {
+                    "200": {
                         "description": "TODO"
                     }
                 }
@@ -483,7 +483,7 @@
                     }
                 ],
                 "responses": {
-                    "204": {
+                    "200": {
                         "description": "TODO"
                     }
                 }
@@ -504,7 +504,7 @@
                     }
                 ],
                 "responses": {
-                    "204": {
+                    "200": {
                         "description": "TODO"
                     }
                 }
@@ -566,7 +566,7 @@
                     }
                 ],
                 "responses": {
-                    "204": {
+                    "200": {
                         "description": "TODO"
                     }
                 }
@@ -598,7 +598,7 @@
                     }
                 ],
                 "responses": {
-                    "204": {
+                    "200": {
                         "description": "TODO"
                     }
                 }
@@ -621,7 +621,7 @@
                     }
                 ],
                 "responses": {
-                    "204": {
+                    "201": {
                         "description": "TODO"
                     }
                 }
@@ -644,7 +644,7 @@
                     }
                 ],
                 "responses": {
-                    "204": {
+                    "200": {
                         "description": "TODO"
                     }
                 }
@@ -667,7 +667,7 @@
                     }
                 ],
                 "responses": {
-                    "204": {
+                    "200": {
                         "description": "TODO"
                     }
                 }
@@ -690,7 +690,7 @@
                     }
                 ],
                 "responses": {
-                    "204": {
+                    "200": {
                         "description": "TODO"
                     }
                 }
@@ -713,7 +713,7 @@
                     }
                 ],
                 "responses": {
-                    "204": {
+                    "200": {
                         "description": "TODO"
                     }
                 }
@@ -745,7 +745,7 @@
                     }
                 ],
                 "responses": {
-                    "204": {
+                    "200": {
                         "description": "TODO"
                     }
                 }
@@ -756,7 +756,7 @@
                 "operationId": "create_network",
                 "parameters": [],
                 "responses": {
-                    "204": {
+                    "201": {
                         "description": "TODO"
                     }
                 }
@@ -779,7 +779,7 @@
                     }
                 ],
                 "responses": {
-                    "204": {
+                    "200": {
                         "description": "TODO"
                     }
                 }
@@ -800,7 +800,7 @@
                     }
                 ],
                 "responses": {
-                    "204": {
+                    "200": {
                         "description": "TODO"
                     }
                 }
@@ -862,7 +862,7 @@
                     }
                 ],
                 "responses": {
-                    "204": {
+                    "200": {
                         "description": "TODO"
                     }
                 }
@@ -894,7 +894,7 @@
                     }
                 ],
                 "responses": {
-                    "204": {
+                    "200": {
                         "description": "TODO"
                     }
                 }
@@ -917,7 +917,7 @@
                     }
                 ],
                 "responses": {
-                    "204": {
+                    "201": {
                         "description": "TODO"
                     }
                 }
@@ -940,7 +940,7 @@
                     }
                 ],
                 "responses": {
-                    "204": {
+                    "201": {
                         "description": "TODO"
                     }
                 }
@@ -963,7 +963,7 @@
                     }
                 ],
                 "responses": {
-                    "204": {
+                    "201": {
                         "description": "TODO"
                     }
                 }
@@ -986,7 +986,7 @@
                     }
                 ],
                 "responses": {
-                    "204": {
+                    "201": {
                         "description": "TODO"
                     }
                 }
@@ -1009,7 +1009,7 @@
                     }
                 ],
                 "responses": {
-                    "204": {
+                    "201": {
                         "description": "TODO"
                     }
                 }
@@ -1032,7 +1032,7 @@
                     }
                 ],
                 "responses": {
-                    "204": {
+                    "201": {
                         "description": "TODO"
                     }
                 }
@@ -1045,7 +1045,7 @@
                 "operationId": "list_prices",
                 "parameters": [],
                 "responses": {
-                    "204": {
+                    "200": {
                         "description": "TODO"
                     }
                 }
@@ -1095,7 +1095,7 @@
                     }
                 ],
                 "responses": {
-                    "204": {
+                    "200": {
                         "description": "TODO"
                     }
                 }
@@ -1106,7 +1106,7 @@
                 "operationId": "create_server",
                 "parameters": [],
                 "responses": {
-                    "204": {
+                    "201": {
                         "description": "TODO"
                     }
                 }
@@ -1129,7 +1129,7 @@
                     }
                 ],
                 "responses": {
-                    "204": {
+                    "200": {
                         "description": "TODO"
                     }
                 }
@@ -1150,7 +1150,7 @@
                     }
                 ],
                 "responses": {
-                    "204": {
+                    "200": {
                         "description": "TODO"
                     }
                 }
@@ -1171,7 +1171,7 @@
                     }
                 ],
                 "responses": {
-                    "204": {
+                    "200": {
                         "description": "TODO"
                     }
                 }
@@ -1230,7 +1230,7 @@
                     }
                 ],
                 "responses": {
-                    "204": {
+                    "200": {
                         "description": "TODO"
                     }
                 }
@@ -1271,7 +1271,7 @@
                     }
                 ],
                 "responses": {
-                    "204": {
+                    "200": {
                         "description": "TODO"
                     }
                 }
@@ -1303,7 +1303,7 @@
                     }
                 ],
                 "responses": {
-                    "204": {
+                    "200": {
                         "description": "TODO"
                     }
                 }
@@ -1326,7 +1326,7 @@
                     }
                 ],
                 "responses": {
-                    "204": {
+                    "201": {
                         "description": "TODO"
                     }
                 }
@@ -1349,7 +1349,7 @@
                     }
                 ],
                 "responses": {
-                    "204": {
+                    "201": {
                         "description": "TODO"
                     }
                 }
@@ -1372,7 +1372,7 @@
                     }
                 ],
                 "responses": {
-                    "204": {
+                    "201": {
                         "description": "TODO"
                     }
                 }
@@ -1395,7 +1395,7 @@
                     }
                 ],
                 "responses": {
-                    "204": {
+                    "201": {
                         "description": "TODO"
                     }
                 }
@@ -1418,7 +1418,7 @@
                     }
                 ],
                 "responses": {
-                    "204": {
+                    "201": {
                         "description": "TODO"
                     }
                 }
@@ -1441,7 +1441,7 @@
                     }
                 ],
                 "responses": {
-                    "204": {
+                    "201": {
                         "description": "TODO"
                     }
                 }
@@ -1464,7 +1464,7 @@
                     }
                 ],
                 "responses": {
-                    "204": {
+                    "201": {
                         "description": "TODO"
                     }
                 }
@@ -1487,7 +1487,7 @@
                     }
                 ],
                 "responses": {
-                    "204": {
+                    "201": {
                         "description": "TODO"
                     }
                 }
@@ -1510,7 +1510,7 @@
                     }
                 ],
                 "responses": {
-                    "204": {
+                    "201": {
                         "description": "TODO"
                     }
                 }
@@ -1533,7 +1533,7 @@
                     }
                 ],
                 "responses": {
-                    "204": {
+                    "201": {
                         "description": "TODO"
                     }
                 }
@@ -1556,7 +1556,7 @@
                     }
                 ],
                 "responses": {
-                    "204": {
+                    "201": {
                         "description": "TODO"
                     }
                 }
@@ -1579,7 +1579,7 @@
                     }
                 ],
                 "responses": {
-                    "204": {
+                    "201": {
                         "description": "TODO"
                     }
                 }
@@ -1602,7 +1602,7 @@
                     }
                 ],
                 "responses": {
-                    "204": {
+                    "201": {
                         "description": "TODO"
                     }
                 }
@@ -1625,7 +1625,7 @@
                     }
                 ],
                 "responses": {
-                    "204": {
+                    "201": {
                         "description": "TODO"
                     }
                 }
@@ -1648,7 +1648,7 @@
                     }
                 ],
                 "responses": {
-                    "204": {
+                    "201": {
                         "description": "TODO"
                     }
                 }
@@ -1671,7 +1671,7 @@
                     }
                 ],
                 "responses": {
-                    "204": {
+                    "201": {
                         "description": "TODO"
                     }
                 }
@@ -1694,7 +1694,7 @@
                     }
                 ],
                 "responses": {
-                    "204": {
+                    "201": {
                         "description": "TODO"
                     }
                 }
@@ -1717,7 +1717,7 @@
                     }
                 ],
                 "responses": {
-                    "204": {
+                    "201": {
                         "description": "TODO"
                     }
                 }
@@ -1740,7 +1740,7 @@
                     }
                 ],
                 "responses": {
-                    "204": {
+                    "201": {
                         "description": "TODO"
                     }
                 }
@@ -1763,7 +1763,7 @@
                     }
                 ],
                 "responses": {
-                    "204": {
+                    "201": {
                         "description": "TODO"
                     }
                 }
@@ -1786,7 +1786,7 @@
                     }
                 ],
                 "responses": {
-                    "204": {
+                    "201": {
                         "description": "TODO"
                     }
                 }
@@ -1809,7 +1809,7 @@
                     }
                 ],
                 "responses": {
-                    "204": {
+                    "200": {
                         "description": "TODO"
                     }
                 }
@@ -1832,7 +1832,7 @@
                     }
                 ],
                 "responses": {
-                    "204": {
+                    "200": {
                         "description": "TODO"
                     }
                 }
@@ -1882,7 +1882,7 @@
                     }
                 ],
                 "responses": {
-                    "204": {
+                    "200": {
                         "description": "TODO"
                     }
                 }
@@ -1893,7 +1893,7 @@
                 "operationId": "create_ssh_key",
                 "parameters": [],
                 "responses": {
-                    "204": {
+                    "201": {
                         "description": "TODO"
                     }
                 }
@@ -1916,7 +1916,7 @@
                     }
                 ],
                 "responses": {
-                    "204": {
+                    "200": {
                         "description": "TODO"
                     }
                 }
@@ -1937,7 +1937,7 @@
                     }
                 ],
                 "responses": {
-                    "204": {
+                    "200": {
                         "description": "TODO"
                     }
                 }
@@ -2008,7 +2008,7 @@
                     }
                 ],
                 "responses": {
-                    "204": {
+                    "200": {
                         "description": "TODO"
                     }
                 }
@@ -2019,7 +2019,7 @@
                 "operationId": "create_volume",
                 "parameters": [],
                 "responses": {
-                    "204": {
+                    "201": {
                         "description": "TODO"
                     }
                 }
@@ -2042,7 +2042,7 @@
                     }
                 ],
                 "responses": {
-                    "204": {
+                    "200": {
                         "description": "TODO"
                     }
                 }
@@ -2063,7 +2063,7 @@
                     }
                 ],
                 "responses": {
-                    "204": {
+                    "200": {
                         "description": "TODO"
                     }
                 }
@@ -2125,7 +2125,7 @@
                     }
                 ],
                 "responses": {
-                    "204": {
+                    "200": {
                         "description": "TODO"
                     }
                 }
@@ -2157,7 +2157,7 @@
                     }
                 ],
                 "responses": {
-                    "204": {
+                    "200": {
                         "description": "TODO"
                     }
                 }
@@ -2180,7 +2180,7 @@
                     }
                 ],
                 "responses": {
-                    "204": {
+                    "201": {
                         "description": "TODO"
                     }
                 }
@@ -2203,7 +2203,7 @@
                     }
                 ],
                 "responses": {
-                    "204": {
+                    "201": {
                         "description": "TODO"
                     }
                 }
@@ -2226,7 +2226,7 @@
                     }
                 ],
                 "responses": {
-                    "204": {
+                    "201": {
                         "description": "TODO"
                     }
                 }
@@ -2249,7 +2249,7 @@
                     }
                 ],
                 "responses": {
-                    "204": {
+                    "201": {
                         "description": "TODO"
                     }
                 }
