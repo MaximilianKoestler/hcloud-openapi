@@ -24,6 +24,7 @@ interface Parameter {
 
 interface SectionData {
   title: string;
+  description: string;
   request: Request;
   uriParameters: Parameter[];
 }
@@ -115,6 +116,23 @@ function elementAfterText(
   return null;
 }
 
+function consecutiveSiblings(
+  element: Element | null,
+  tagName: string
+): Element[] {
+  if (element === null) {
+    return [];
+  }
+
+  let siblings: Element[] = [];
+  let sibling = element.nextElementSibling;
+  while (sibling?.tagName.toLowerCase() === tagName.toLowerCase()) {
+    siblings.push(sibling);
+    sibling = sibling.nextElementSibling;
+  }
+  return siblings;
+}
+
 function parseParameterTable(table: Element | null): Parameter[] {
   if (table === null) {
     return [];
@@ -134,10 +152,17 @@ function parseSection(section: Element): Section {
     return { valid: false };
   }
 
-  const title = method_description.querySelector("h3")?.textContent;
+  const titleElement = method_description.querySelector("h3");
+  const title = titleElement?.textContent;
   if (title === undefined || title === null) {
     return { valid: false };
   }
+
+  const description = consecutiveSiblings(titleElement, "p")
+    .map((element) => element.textContent)
+    .join(" ")
+    .replace(/\s+/g, " ")
+    .trim();
 
   const request = elementAfterText(
     method_description,
@@ -160,6 +185,7 @@ function parseSection(section: Element): Section {
     valid: true,
     data: {
       title,
+      description,
       request: parseRequest(request),
       uriParameters: parseParameterTable(uriParameterTable),
     },
@@ -239,6 +265,7 @@ function createPath(section: Section): PathVerbOperation {
     verb,
     operation: {
       summary: data.title,
+      description: data.description,
       operationId: toOperationId(verb, data.title),
       parameters: toParameters(section.data),
       responses: toResponses(section.data),
