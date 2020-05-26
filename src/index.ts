@@ -248,6 +248,17 @@ function createPaths(sections: Section[]): OpenApiDocumentFragment {
   return result;
 }
 
+function getVersion(): string {
+  try {
+    const proc = require("child_process");
+    const hash = proc.execSync("git rev-parse --short HEAD").toString().trim();
+    const dirty = proc.execSync("git status --short").toString().trim() !== "";
+    return hash + (dirty ? "-dirty" : "");
+  } catch {
+    return "unknown";
+  }
+}
+
 function createOpenApiDocument(sections: Section[]): OpenApiDocumentFragment {
   const openapi = "3.0.3";
 
@@ -256,7 +267,7 @@ function createOpenApiDocument(sections: Section[]): OpenApiDocumentFragment {
     description:
       "Copied from the official API documentation for the Public Hetzner Cloud.",
     contact: { url: "https://docs.hetzner.cloud/" },
-    version: "1.0.0",
+    version: getVersion(),
   };
 
   const servers = [
