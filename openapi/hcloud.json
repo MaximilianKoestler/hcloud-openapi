@@ -6,7 +6,7 @@
     "contact": {
       "url": "https://docs.hetzner.cloud/"
     },
-    "version": "0892822-dirty"
+    "version": "02568a0-dirty"
   },
   "servers": [
     {
@@ -278,47 +278,23 @@
                   "properties": {
                     "supported": {
                       "type": "array",
-                      "items": [
-                        {
-                          "type": "number"
-                        },
-                        {
-                          "type": "number"
-                        },
-                        {
-                          "type": "number"
-                        }
-                      ],
+                      "items": {
+                        "type": "number"
+                      },
                       "description": "IDs of Server types that are supported in the Datacenter"
                     },
                     "available": {
                       "type": "array",
-                      "items": [
-                        {
-                          "type": "number"
-                        },
-                        {
-                          "type": "number"
-                        },
-                        {
-                          "type": "number"
-                        }
-                      ],
+                      "items": {
+                        "type": "number"
+                      },
                       "description": "IDs of Server types that are supported and for which the Datacenter has enough resources left"
                     },
                     "available_for_migration": {
                       "type": "array",
-                      "items": [
-                        {
-                          "type": "number"
-                        },
-                        {
-                          "type": "number"
-                        },
-                        {
-                          "type": "number"
-                        }
-                      ],
+                      "items": {
+                        "type": "number"
+                      },
                       "description": "IDs of Server types that are supported and for which the Datacenter has enough resources left"
                     }
                   },
@@ -420,47 +396,23 @@
                 "properties": {
                   "supported": {
                     "type": "array",
-                    "items": [
-                      {
-                        "type": "number"
-                      },
-                      {
-                        "type": "number"
-                      },
-                      {
-                        "type": "number"
-                      }
-                    ],
+                    "items": {
+                      "type": "number"
+                    },
                     "description": "IDs of Server types that are supported in the Datacenter"
                   },
                   "available": {
                     "type": "array",
-                    "items": [
-                      {
-                        "type": "number"
-                      },
-                      {
-                        "type": "number"
-                      },
-                      {
-                        "type": "number"
-                      }
-                    ],
+                    "items": {
+                      "type": "number"
+                    },
                     "description": "IDs of Server types that are supported and for which the Datacenter has enough resources left"
                   },
                   "available_for_migration": {
                     "type": "array",
-                    "items": [
-                      {
-                        "type": "number"
-                      },
-                      {
-                        "type": "number"
-                      },
-                      {
-                        "type": "number"
-                      }
-                    ],
+                    "items": {
+                      "type": "number"
+                    },
                     "description": "IDs of Server types that are supported and for which the Datacenter has enough resources left"
                   }
                 },
@@ -1227,42 +1179,23 @@
                 },
                 "resources": {
                   "type": "array",
-                  "items": [
-                    {
-                      "type": "object",
-                      "properties": {
-                        "id": {
-                          "type": "number",
-                          "description": "ID of resource referenced"
-                        },
-                        "type": {
-                          "type": "string",
-                          "description": "Type of resource referenced"
-                        }
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "number",
+                        "description": "ID of resource referenced"
                       },
-                      "required": [
-                        "id",
-                        "type"
-                      ]
+                      "type": {
+                        "type": "string",
+                        "description": "Type of resource referenced"
+                      }
                     },
-                    {
-                      "type": "object",
-                      "properties": {
-                        "id": {
-                          "type": "number",
-                          "description": "ID of resource referenced"
-                        },
-                        "type": {
-                          "type": "string",
-                          "description": "Type of resource referenced"
-                        }
-                      },
-                      "required": [
-                        "id",
-                        "type"
-                      ]
-                    }
-                  ],
+                    "required": [
+                      "id",
+                      "type"
+                    ]
+                  },
                   "description": "Resources the Action relates to"
                 },
                 "error": {
@@ -1433,42 +1366,23 @@
               },
               "resources": {
                 "type": "array",
-                "items": [
-                  {
-                    "type": "object",
-                    "properties": {
-                      "id": {
-                        "type": "number",
-                        "description": "ID of resource referenced"
-                      },
-                      "type": {
-                        "type": "string",
-                        "description": "Type of resource referenced"
-                      }
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "number",
+                      "description": "ID of resource referenced"
                     },
-                    "required": [
-                      "id",
-                      "type"
-                    ]
+                    "type": {
+                      "type": "string",
+                      "description": "Type of resource referenced"
+                    }
                   },
-                  {
-                    "type": "object",
-                    "properties": {
-                      "id": {
-                        "type": "number",
-                        "description": "ID of resource referenced"
-                      },
-                      "type": {
-                        "type": "string",
-                        "description": "Type of resource referenced"
-                      }
-                    },
-                    "required": [
-                      "id",
-                      "type"
-                    ]
-                  }
-                ],
+                  "required": [
+                    "id",
+                    "type"
+                  ]
+                },
                 "description": "Resources the Action relates to"
               },
               "error": {
@@ -1545,42 +1459,23 @@
               },
               "resources": {
                 "type": "array",
-                "items": [
-                  {
-                    "type": "object",
-                    "properties": {
-                      "id": {
-                        "type": "number",
-                        "description": "ID of resource referenced"
-                      },
-                      "type": {
-                        "type": "string",
-                        "description": "Type of resource referenced"
-                      }
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "number",
+                      "description": "ID of resource referenced"
                     },
-                    "required": [
-                      "id",
-                      "type"
-                    ]
+                    "type": {
+                      "type": "string",
+                      "description": "Type of resource referenced"
+                    }
                   },
-                  {
-                    "type": "object",
-                    "properties": {
-                      "id": {
-                        "type": "number",
-                        "description": "ID of resource referenced"
-                      },
-                      "type": {
-                        "type": "string",
-                        "description": "Type of resource referenced"
-                      }
-                    },
-                    "required": [
-                      "id",
-                      "type"
-                    ]
-                  }
-                ],
+                  "required": [
+                    "id",
+                    "type"
+                  ]
+                },
                 "description": "Resources the Action relates to"
               },
               "error": {
@@ -4485,47 +4380,23 @@
                       "properties": {
                         "supported": {
                           "type": "array",
-                          "items": [
-                            {
-                              "type": "number"
-                            },
-                            {
-                              "type": "number"
-                            },
-                            {
-                              "type": "number"
-                            }
-                          ],
+                          "items": {
+                            "type": "number"
+                          },
                           "description": "IDs of Server types that are supported in the Datacenter"
                         },
                         "available": {
                           "type": "array",
-                          "items": [
-                            {
-                              "type": "number"
-                            },
-                            {
-                              "type": "number"
-                            },
-                            {
-                              "type": "number"
-                            }
-                          ],
+                          "items": {
+                            "type": "number"
+                          },
                           "description": "IDs of Server types that are supported and for which the Datacenter has enough resources left"
                         },
                         "available_for_migration": {
                           "type": "array",
-                          "items": [
-                            {
-                              "type": "number"
-                            },
-                            {
-                              "type": "number"
-                            },
-                            {
-                              "type": "number"
-                            }
-                          ],
+                          "items": {
+                            "type": "number"
+                          },
                           "description": "IDs of Server types that are supported and for which the Datacenter has enough resources left"
                         }
                       },
@@ -5107,47 +4978,23 @@
                     "properties": {
                       "supported": {
                         "type": "array",
-                        "items": [
-                          {
-                            "type": "number"
-                          },
-                          {
-                            "type": "number"
-                          },
-                          {
-                            "type": "number"
-                          }
-                        ],
+                        "items": {
+                          "type": "number"
+                        },
                         "description": "IDs of Server types that are supported in the Datacenter"
                       },
                       "available": {
                         "type": "array",
-                        "items": [
-                          {
-                            "type": "number"
-                          },
-                          {
-                            "type": "number"
-                          },
-                          {
-                            "type": "number"
-                          }
-                        ],
+                        "items": {
+                          "type": "number"
+                        },
                         "description": "IDs of Server types that are supported and for which the Datacenter has enough resources left"
                       },
                       "available_for_migration": {
                         "type": "array",
-                        "items": [
-                          {
-                            "type": "number"
-                          },
-                          {
-                            "type": "number"
-                          },
-                          {
-                            "type": "number"
-                          }
-                        ],
+                        "items": {
+                          "type": "number"
+                        },
                         "description": "IDs of Server types that are supported and for which the Datacenter has enough resources left"
                       }
                     },
@@ -5727,47 +5574,23 @@
                     "properties": {
                       "supported": {
                         "type": "array",
-                        "items": [
-                          {
-                            "type": "number"
-                          },
-                          {
-                            "type": "number"
-                          },
-                          {
-                            "type": "number"
-                          }
-                        ],
+                        "items": {
+                          "type": "number"
+                        },
                         "description": "IDs of Server types that are supported in the Datacenter"
                       },
                       "available": {
                         "type": "array",
-                        "items": [
-                          {
-                            "type": "number"
-                          },
-                          {
-                            "type": "number"
-                          },
-                          {
-                            "type": "number"
-                          }
-                        ],
+                        "items": {
+                          "type": "number"
+                        },
                         "description": "IDs of Server types that are supported and for which the Datacenter has enough resources left"
                       },
                       "available_for_migration": {
                         "type": "array",
-                        "items": [
-                          {
-                            "type": "number"
-                          },
-                          {
-                            "type": "number"
-                          },
-                          {
-                            "type": "number"
-                          }
-                        ],
+                        "items": {
+                          "type": "number"
+                        },
                         "description": "IDs of Server types that are supported and for which the Datacenter has enough resources left"
                       }
                     },
@@ -6445,47 +6268,23 @@
                     "properties": {
                       "supported": {
                         "type": "array",
-                        "items": [
-                          {
-                            "type": "number"
-                          },
-                          {
-                            "type": "number"
-                          },
-                          {
-                            "type": "number"
-                          }
-                        ],
+                        "items": {
+                          "type": "number"
+                        },
                         "description": "IDs of Server types that are supported in the Datacenter"
                       },
                       "available": {
                         "type": "array",
-                        "items": [
-                          {
-                            "type": "number"
-                          },
-                          {
-                            "type": "number"
-                          },
-                          {
-                            "type": "number"
-                          }
-                        ],
+                        "items": {
+                          "type": "number"
+                        },
                         "description": "IDs of Server types that are supported and for which the Datacenter has enough resources left"
                       },
                       "available_for_migration": {
                         "type": "array",
-                        "items": [
-                          {
-                            "type": "number"
-                          },
-                          {
-                            "type": "number"
-                          },
-                          {
-                            "type": "number"
-                          }
-                        ],
+                        "items": {
+                          "type": "number"
+                        },
                         "description": "IDs of Server types that are supported and for which the Datacenter has enough resources left"
                       }
                     },
@@ -8993,42 +8792,23 @@
               },
               "resources": {
                 "type": "array",
-                "items": [
-                  {
-                    "type": "object",
-                    "properties": {
-                      "id": {
-                        "type": "number",
-                        "description": "ID of resource referenced"
-                      },
-                      "type": {
-                        "type": "string",
-                        "description": "Type of resource referenced"
-                      }
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "number",
+                      "description": "ID of resource referenced"
                     },
-                    "required": [
-                      "id",
-                      "type"
-                    ]
+                    "type": {
+                      "type": "string",
+                      "description": "Type of resource referenced"
+                    }
                   },
-                  {
-                    "type": "object",
-                    "properties": {
-                      "id": {
-                        "type": "number",
-                        "description": "ID of resource referenced"
-                      },
-                      "type": {
-                        "type": "string",
-                        "description": "Type of resource referenced"
-                      }
-                    },
-                    "required": [
-                      "id",
-                      "type"
-                    ]
-                  }
-                ],
+                  "required": [
+                    "id",
+                    "type"
+                  ]
+                },
                 "description": "Resources the Action relates to"
               },
               "error": {
@@ -9105,42 +8885,23 @@
               },
               "resources": {
                 "type": "array",
-                "items": [
-                  {
-                    "type": "object",
-                    "properties": {
-                      "id": {
-                        "type": "number",
-                        "description": "ID of resource referenced"
-                      },
-                      "type": {
-                        "type": "string",
-                        "description": "Type of resource referenced"
-                      }
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "number",
+                      "description": "ID of resource referenced"
                     },
-                    "required": [
-                      "id",
-                      "type"
-                    ]
+                    "type": {
+                      "type": "string",
+                      "description": "Type of resource referenced"
+                    }
                   },
-                  {
-                    "type": "object",
-                    "properties": {
-                      "id": {
-                        "type": "number",
-                        "description": "ID of resource referenced"
-                      },
-                      "type": {
-                        "type": "string",
-                        "description": "Type of resource referenced"
-                      }
-                    },
-                    "required": [
-                      "id",
-                      "type"
-                    ]
-                  }
-                ],
+                  "required": [
+                    "id",
+                    "type"
+                  ]
+                },
                 "description": "Resources the Action relates to"
               },
               "error": {
@@ -9217,42 +8978,23 @@
               },
               "resources": {
                 "type": "array",
-                "items": [
-                  {
-                    "type": "object",
-                    "properties": {
-                      "id": {
-                        "type": "number",
-                        "description": "ID of resource referenced"
-                      },
-                      "type": {
-                        "type": "string",
-                        "description": "Type of resource referenced"
-                      }
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "number",
+                      "description": "ID of resource referenced"
                     },
-                    "required": [
-                      "id",
-                      "type"
-                    ]
+                    "type": {
+                      "type": "string",
+                      "description": "Type of resource referenced"
+                    }
                   },
-                  {
-                    "type": "object",
-                    "properties": {
-                      "id": {
-                        "type": "number",
-                        "description": "ID of resource referenced"
-                      },
-                      "type": {
-                        "type": "string",
-                        "description": "Type of resource referenced"
-                      }
-                    },
-                    "required": [
-                      "id",
-                      "type"
-                    ]
-                  }
-                ],
+                  "required": [
+                    "id",
+                    "type"
+                  ]
+                },
                 "description": "Resources the Action relates to"
               },
               "error": {
@@ -10390,42 +10132,23 @@
                 },
                 "resources": {
                   "type": "array",
-                  "items": [
-                    {
-                      "type": "object",
-                      "properties": {
-                        "id": {
-                          "type": "number",
-                          "description": "ID of resource referenced"
-                        },
-                        "type": {
-                          "type": "string",
-                          "description": "Type of resource referenced"
-                        }
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "number",
+                        "description": "ID of resource referenced"
                       },
-                      "required": [
-                        "id",
-                        "type"
-                      ]
+                      "type": {
+                        "type": "string",
+                        "description": "Type of resource referenced"
+                      }
                     },
-                    {
-                      "type": "object",
-                      "properties": {
-                        "id": {
-                          "type": "number",
-                          "description": "ID of resource referenced"
-                        },
-                        "type": {
-                          "type": "string",
-                          "description": "Type of resource referenced"
-                        }
-                      },
-                      "required": [
-                        "id",
-                        "type"
-                      ]
-                    }
-                  ],
+                    "required": [
+                      "id",
+                      "type"
+                    ]
+                  },
                   "description": "Resources the Action relates to"
                 },
                 "error": {
@@ -10931,8 +10654,7 @@
     "securitySchemes": {
       "bearerAuth": {
         "type": "http",
-        "scheme": "bearer",
-        "bearerFormat": "JWT"
+        "scheme": "bearer"
       }
     }
   },

@@ -367,6 +367,20 @@ async function createPath(section: Section): Promise<PathVerbOperation> {
   };
 }
 
+function fixItemsListToObject(id: string, part: OpenApiDocumentFragment) {
+  if (part.type == "array") {
+    if ("items" in part && Array.isArray(part.items)) {
+      console.warn(`Found array "items" in ${id}`);
+      part.items = part.items[0];
+    }
+    fixItemsListToObject(id, part.items);
+  } else if (part.type == "object" && "properties" in part) {
+    Object.keys(part.properties).forEach((k) =>
+      fixItemsListToObject(id, part.properties[k])
+    );
+  }
+}
+
 async function appendSchema(
   schemas: OpenApiDocumentFragment,
   section: Section
@@ -386,6 +400,7 @@ async function appendSchema(
     schemas[id] = await convertSchema(data.responseSchema, {
       dereference: true,
     });
+    fixItemsListToObject(id, schemas[id]);
   }
 }
 
