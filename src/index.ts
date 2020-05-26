@@ -1,5 +1,6 @@
 #!/usr/bin/env node
-import fs = require("fs/promises");
+const fs = require("fs").promises;
+
 import jsdom = require("jsdom");
 import needle = require("needle");
 import validator = require("ibm-openapi-validator");
