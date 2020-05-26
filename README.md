@@ -8,3 +8,13 @@
 ```
 ts-node src/index.ts -o openapi/hcloud.json
 ```
+
+# Usage with OpenAPI Generator
+
+- [Project on GitHub](https://github.com/OpenAPITools/openapi-generator)
+
+## Validate
+
+```
+java -jar <path>/openapi-generator-cli.jar validate -i openapi/hcloud.json
+```
