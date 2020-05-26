@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 const fs = require("fs").promises;
 
+const convertSchema = require("@openapi-contrib/json-schema-to-openapi-schema");
 import jsdom = require("jsdom");
 import needle = require("needle");
 import validator = require("ibm-openapi-validator");
@@ -28,12 +29,15 @@ interface ResponseHeaders {
   contentType?: string;
 }
 
+type JsonSchema = { [property: string]: any };
+
 interface SectionData {
   title: string;
   description: string;
   request: Request;
   uriParameters: Parameter[];
   responseHeaders: ResponseHeaders;
+  responseSchema: JsonSchema;
 }
 
 interface Section {
@@ -217,9 +221,40 @@ function parseSection(section: Element): Section {
     section.querySelector("div.method__example")
   );
 
-  const responseHeaders = assertElement(
-    elementAfterText(methodExample, "h4", "Response headers", "pre")
+  const responseHeaders = parseResponseHeaders(
+    assertElement(
+      elementAfterText(methodExample, "h4", "Response headers", "pre")
+    )
   );
+
+  const responseSchemaText = elementAfterText(
+    methodExample,
+    "h4",
+    "Response",
+    "div.tab__content"
+  )?.nextElementSibling?.textContent;
+  let responseSchema: JsonSchema =
+    responseSchemaText !== undefined && responseSchemaText !== null
+      ? JSON.parse(responseSchemaText)
+      : undefined;
+
+  if (
+    responseSchema === undefined &&
+    responseHeaders.contentType !== undefined
+  ) {
+    console.warn(
+      `Section "${title}": Response schema is missing but contentType is present!`
+    );
+  }
+
+  if (
+    responseSchema !== undefined &&
+    responseHeaders.contentType === undefined
+  ) {
+    throw Error(
+      `Section "${title}": Encountered response schema for section without contentType!`
+    );
+  }
 
   return {
     valid: true,
@@ -228,7 +263,8 @@ function parseSection(section: Element): Section {
       description,
       request: parseRequest(request),
       uriParameters: parseParameterTable(uriParameterTable),
-      responseHeaders: parseResponseHeaders(responseHeaders),
+      responseHeaders,
+      responseSchema,
     },
   };
 }
@@ -282,15 +318,33 @@ function toParameters(data: SectionData): OpenApiDocumentFragment[] {
   return parameters;
 }
 
-function toResponses(data: SectionData): OpenApiDocumentFragment {
+async function toResponses(
+  data: SectionData
+): Promise<OpenApiDocumentFragment> {
+  const response: OpenApiDocumentFragment = {
+    description: "TODO", // TODO: construct from data
+  };
+  if (
+    data.responseSchema !== undefined &&
+    data.responseHeaders.contentType !== undefined
+  ) {
+    response["content"] = {
+      [data.responseHeaders.contentType]: {
+        schema: {
+          $ref:
+            "#/components/schemas/" +
+            "response_" +
+            toOperationId(data.request.verb.toLowerCase(), data.title),
+        },
+      },
+    };
+  }
   return {
-    [data.responseHeaders.status.toString()]: {
-      description: "TODO", // TODO: construct from data
-    },
+    [data.responseHeaders.status.toString()]: response,
   };
 }
 
-function createPath(section: Section): PathVerbOperation {
+async function createPath(section: Section): Promise<PathVerbOperation> {
   if (section.data === undefined) {
     throw Error("Encountered valid section without data!");
   }
@@ -308,20 +362,59 @@ function createPath(section: Section): PathVerbOperation {
       description: data.description,
       operationId: toOperationId(verb, data.title),
       parameters: toParameters(section.data),
-      responses: toResponses(section.data),
+      responses: await toResponses(section.data),
     },
   };
 }
 
-function createPaths(sections: Section[]): OpenApiDocumentFragment {
+async function appendSchema(
+  schemas: OpenApiDocumentFragment,
+  section: Section
+) {
+  if (section.data === undefined) {
+    throw Error("Encountered valid section without data!");
+  }
+
+  const data = section.data;
+  const verb = data.request.verb.toLowerCase();
+  const id = "response_" + toOperationId(verb, data.title);
+
+  if (
+    data.responseSchema !== undefined &&
+    data.responseHeaders.contentType !== undefined
+  ) {
+    schemas[id] = await convertSchema(data.responseSchema, {
+      dereference: true,
+    });
+  }
+}
+
+async function createComponents(
+  sections: Section[]
+): Promise<OpenApiDocumentFragment> {
+  const schemas = {};
+
+  for (let i = 0; i < sections.length; ++i) {
+    await appendSchema(schemas, sections[i]);
+  }
+
+  return {
+    schemas,
+  };
+}
+
+async function createPaths(
+  sections: Section[]
+): Promise<OpenApiDocumentFragment> {
   let result: OpenApiDocumentFragment = {};
-  sections.forEach((section) => {
-    let { path, verb, operation } = createPath(section);
+
+  for (let i = 0; i < sections.length; ++i) {
+    let { path, verb, operation } = await createPath(sections[i]);
     if (!(path in result)) {
       result[path] = {};
     }
     result[path][verb] = operation;
-  });
+  }
   return result;
 }
 
@@ -336,7 +429,9 @@ function getVersion(): string {
   }
 }
 
-function createOpenApiDocument(sections: Section[]): OpenApiDocumentFragment {
+async function createOpenApiDocument(
+  sections: Section[]
+): Promise<OpenApiDocumentFragment> {
   const openapi = "3.0.3";
 
   const info = {
@@ -358,7 +453,8 @@ function createOpenApiDocument(sections: Section[]): OpenApiDocumentFragment {
     openapi: openapi,
     info: info,
     servers: servers,
-    paths: createPaths(sections),
+    components: await createComponents(sections),
+    paths: await createPaths(sections),
   };
 }
 
@@ -384,7 +480,7 @@ async function main() {
   try {
     const contents = await getContents(args.source);
     const sections = parseHtmlDocumentation(contents);
-    const document = createOpenApiDocument(sections);
+    const document = await createOpenApiDocument(sections);
     validateOpenApiDocument(document);
 
     const json = JSON.stringify(document, null, 4);
