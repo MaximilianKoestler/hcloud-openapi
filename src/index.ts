@@ -22,11 +22,17 @@ interface Parameter {
   description: string;
 }
 
+interface ResponseHeaders {
+  status: number;
+  contentType?: string;
+}
+
 interface SectionData {
   title: string;
   description: string;
   request: Request;
   uriParameters: Parameter[];
+  responseHeaders: ResponseHeaders;
 }
 
 interface Section {
@@ -40,6 +46,13 @@ interface PathVerbOperation {
   path: string;
   verb: string;
   operation: OpenApiDocumentFragment;
+}
+
+function assertElement(element: Element | null | undefined): Element {
+  if (element === null || element === undefined) {
+    throw Error(`Encountered ${element} element where it was not expected!`);
+  }
+  return element;
 }
 
 function parseArgs(): Arguments {
@@ -146,13 +159,17 @@ function parseParameterTable(table: Element | null): Parameter[] {
   });
 }
 
+function parseResponseHeaders(pre: Element): ResponseHeaders {
+  return { status: 204, contentType: undefined }; // TODO
+}
+
 function parseSection(section: Element): Section {
-  const method_description = section.querySelector("div.method__description");
-  if (method_description === null) {
+  const methodDescription = section.querySelector("div.method__description");
+  if (methodDescription === null) {
     return { valid: false };
   }
 
-  const titleElement = method_description.querySelector("h3");
+  const titleElement = methodDescription.querySelector("h3");
   const title = titleElement?.textContent;
   if (title === undefined || title === null) {
     return { valid: false };
@@ -165,7 +182,7 @@ function parseSection(section: Element): Section {
     .trim();
 
   const request = elementAfterText(
-    method_description,
+    methodDescription,
     "h4",
     "HTTP Request",
     "code"
@@ -175,10 +192,18 @@ function parseSection(section: Element): Section {
   }
 
   const uriParameterTable = elementAfterText(
-    method_description,
+    methodDescription,
     "h4",
     "URI Parameters",
     "div.table-wrapper > table"
+  );
+
+  const methodExample = assertElement(
+    section.querySelector("div.method__example")
+  );
+
+  const responseHeaders = assertElement(
+    elementAfterText(methodExample, "h4", "Response headers", "pre")
   );
 
   return {
@@ -188,6 +213,7 @@ function parseSection(section: Element): Section {
       description,
       request: parseRequest(request),
       uriParameters: parseParameterTable(uriParameterTable),
+      responseHeaders: parseResponseHeaders(responseHeaders),
     },
   };
 }
@@ -243,8 +269,7 @@ function toParameters(data: SectionData): OpenApiDocumentFragment[] {
 
 function toResponses(data: SectionData): OpenApiDocumentFragment {
   return {
-    "204": {
-      // TODO: construct from response headers
+    [data.responseHeaders.status.toString()]: {
       description: "TODO", // TODO: construct from data
     },
   };
