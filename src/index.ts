@@ -483,7 +483,7 @@ async function main() {
     const document = await createOpenApiDocument(sections);
     validateOpenApiDocument(document);
 
-    const json = JSON.stringify(document, null, 4);
+    const json = JSON.stringify(document, null, 2);
     if (args.output === undefined) {
     } else {
       fs.writeFile(args.output, json, "utf-8");
