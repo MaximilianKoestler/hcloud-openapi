@@ -398,8 +398,16 @@ async function createComponents(
     await appendSchema(schemas, sections[i]);
   }
 
+  const securitySchemes = {
+    bearerAuth: {
+      type: "http",
+      scheme: "bearer",
+    },
+  };
+
   return {
     schemas,
+    securitySchemes,
   };
 }
 
@@ -449,12 +457,19 @@ async function createOpenApiDocument(
     },
   ];
 
+  const security = [
+    {
+      bearerAuth: [],
+    },
+  ];
+
   return {
-    openapi: openapi,
-    info: info,
-    servers: servers,
+    openapi,
+    info,
+    servers,
     components: await createComponents(sections),
     paths: await createPaths(sections),
+    security,
   };
 }
 
