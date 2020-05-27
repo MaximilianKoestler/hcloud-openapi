@@ -367,37 +367,46 @@ async function createPath(section: Section): Promise<PathVerbOperation> {
   };
 }
 
-function fixForbiddenSegments(id: string, part: OpenApiDocumentFragment) {
-  const forbiddenSegments = ["definitions"];
-
+/**
+ * Recursively applies the `fixer` function to all arrays and objects below the
+ * provided `part`.
+ */
+function applyFix(
+  id: string,
+  part: OpenApiDocumentFragment,
+  fixer: (id: string, part: OpenApiDocumentFragment) => void
+) {
   if (part.type == "array") {
-    fixItemsListToObject(id, part.items);
+    applyFix(id, part.items, fixer);
   } else if (part.type == "object" && "properties" in part) {
     Object.keys(part.properties).forEach((k) =>
-      fixItemsListToObject(id, part.properties[k])
+      applyFix(id, part.properties[k], fixer)
     );
   }
-
-  forbiddenSegments.forEach((segment) => {
-    if (segment in part) {
-      console.warn(`Removing forbidden segment "${segment}" in ${id}`);
-      delete part[segment];
-    }
-  });
+  fixer(id, part);
 }
 
-function fixItemsListToObject(id: string, part: OpenApiDocumentFragment) {
-  if (part.type == "array") {
-    if ("items" in part && Array.isArray(part.items)) {
+function applyFixes(id: string, schema: OpenApiDocumentFragment) {
+  // fix "items" in array form (they may only appear as objects)
+  applyFix(id, schema[id], (id, part) => {
+    if (part.type == "array" && "items" in part && Array.isArray(part.items)) {
       console.warn(`Found array "items" in ${id}`);
       part.items = part.items[0];
     }
-    fixItemsListToObject(id, part.items);
-  } else if (part.type == "object" && "properties" in part) {
-    Object.keys(part.properties).forEach((k) =>
-      fixItemsListToObject(id, part.properties[k])
-    );
-  }
+  });
+
+  // remove forbidden segments
+  //   - definitions: is not needed because all schemas are dereferenced and
+  //                  this property is not compatible to the OpenAPI standard
+  applyFix(id, schema[id], (id, part) => {
+    const forbiddenSegments = ["definitions"];
+    forbiddenSegments.forEach((segment) => {
+      if (segment in part) {
+        console.warn(`Removing forbidden segment "${segment}" in ${id}`);
+        delete part[segment];
+      }
+    });
+  });
 }
 
 async function appendSchema(
@@ -419,8 +428,7 @@ async function appendSchema(
     schemas[id] = await convertSchema(data.responseSchema, {
       dereference: true,
     });
-    fixForbiddenSegments(id, schemas[id]);
-    fixItemsListToObject(id, schemas[id]);
+    applyFixes(id, schemas);
   }
 }
 
