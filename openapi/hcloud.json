@@ -6,7 +6,7 @@
     "contact": {
       "url": "https://docs.hetzner.cloud/"
     },
-    "version": "02568a0-dirty"
+    "version": "05cc0c1-dirty"
   },
   "servers": [
     {
@@ -6708,29 +6708,7 @@
         },
         "required": [
           "metrics"
-        ],
-        "definitions": {
-          "name_of_timeseries": {
-            "type": "object",
-            "patternProperties": {
-              "": {
-                "type": "object",
-                "properties": {
-                  "values": {
-                    "type": "array",
-                    "items": {
-                      "type": "array"
-                    },
-                    "description": "Metrics Timestamps with values"
-                  }
-                },
-                "required": [
-                  "values"
-                ]
-              }
-            }
-          }
-        }
+        ]
       },
       "response_list_actions_for_server": {
         "type": "object",

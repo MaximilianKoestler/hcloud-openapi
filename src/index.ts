@@ -367,6 +367,25 @@ async function createPath(section: Section): Promise<PathVerbOperation> {
   };
 }
 
+function fixForbiddenSegments(id: string, part: OpenApiDocumentFragment) {
+  const forbiddenSegments = ["definitions"];
+
+  if (part.type == "array") {
+    fixItemsListToObject(id, part.items);
+  } else if (part.type == "object" && "properties" in part) {
+    Object.keys(part.properties).forEach((k) =>
+      fixItemsListToObject(id, part.properties[k])
+    );
+  }
+
+  forbiddenSegments.forEach((segment) => {
+    if (segment in part) {
+      console.warn(`Removing forbidden segment "${segment}" in ${id}`);
+      delete part[segment];
+    }
+  });
+}
+
 function fixItemsListToObject(id: string, part: OpenApiDocumentFragment) {
   if (part.type == "array") {
     if ("items" in part && Array.isArray(part.items)) {
@@ -400,6 +419,7 @@ async function appendSchema(
     schemas[id] = await convertSchema(data.responseSchema, {
       dereference: true,
     });
+    fixForbiddenSegments(id, schemas[id]);
     fixItemsListToObject(id, schemas[id]);
   }
 }
