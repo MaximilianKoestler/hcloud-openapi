@@ -29,9 +29,9 @@ function walkSchema(
   }
 }
 
-export function fixSchema(id: string, schema: OpenApiDocumentFragment) {
+export function fixSchema(id: string, schemas: OpenApiDocumentFragment) {
   // fix "items" in array form (they may only appear as objects)
-  walkSchema(schema[id], {
+  walkSchema(schemas[id], {
     afterChildren: (part) => {
       if (
         part.type == "array" &&
@@ -47,7 +47,7 @@ export function fixSchema(id: string, schema: OpenApiDocumentFragment) {
   // remove forbidden segments
   //   - definitions: is not needed because all schemas are dereferenced and
   //                  this property is not compatible to the OpenAPI standard
-  walkSchema(schema[id], {
+  walkSchema(schemas[id], {
     afterChildren: (part) => {
       const forbiddenSegments = ["definitions"];
       forbiddenSegments.forEach((segment) => {
