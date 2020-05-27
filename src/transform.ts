@@ -1,3 +1,5 @@
+import hash = require("object-hash");
+
 import { OpenApiDocumentFragment } from "./types";
 
 type Transformation = (part: OpenApiDocumentFragment) => void;
@@ -57,5 +59,60 @@ export function fixSchema(id: string, schemas: OpenApiDocumentFragment) {
         }
       });
     },
+  });
+}
+
+export function deduplicateSchemas(schemas: OpenApiDocumentFragment) {
+  // calculate hashes over all possibly shared schema items
+  // do not consider descriptions for these hashes
+  Object.keys(schemas).forEach((id) => {
+    walkSchema(schemas[id], {
+      afterChildren: (part) => {
+        if (part.type == "array") {
+          if (part.items !== undefined) {
+            const { description, items, ...hashableParts } = part;
+            hashableParts.items = items["x-hash"];
+            part["x-hash"] = hash(hashableParts);
+          } else {
+            console.warn(`Found array without "items"`);
+            const { description, ...hashableParts } = part;
+            part["x-hash"] = hash(hashableParts);
+          }
+        } else if (part.type == "object") {
+          if (part.properties !== undefined) {
+            const { description, properties, ...hashableParts } = part;
+            hashableParts.properties = {};
+            Object.keys(properties).forEach((property) => {
+              hashableParts.properties[property] =
+                properties[property]["x-hash"];
+            });
+            part["x-hash"] = hash(hashableParts);
+          } else {
+            const { description, ...hashableParts } = part;
+            part["x-hash"] = hash(hashableParts);
+          }
+        } else {
+          const { description, ...hashableParts } = part;
+          part["x-hash"] = hash(hashableParts);
+        }
+
+        if (!("x-hash" in part)) {
+          throw Error("Could not insert x-hash into part!");
+        }
+      },
+    });
+  });
+
+  // TODO: deduplicate based on x-hash
+
+  // remove hashes again
+  Object.keys(schemas).forEach((id) => {
+    walkSchema(schemas[id], {
+      afterChildren: (part) => {
+        if ("x-hash" in part) {
+          delete part["x-hash"];
+        }
+      },
+    });
   });
 }

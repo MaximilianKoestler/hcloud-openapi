@@ -9,7 +9,7 @@ import validUrl = require("valid-url");
 import yargs = require("yargs");
 
 import { OpenApiDocumentFragment } from "./types";
-import { fixSchema } from "./transform";
+import { fixSchema, deduplicateSchemas } from "./transform";
 
 interface Arguments {
   source: string;
@@ -502,6 +502,8 @@ async function createComponents(
     await appendRequestSchema(schemas, data);
     await appendResponseSchema(schemas, data);
   }
+
+  deduplicateSchemas(schemas);
 
   const securitySchemes = {
     bearerAuth: {
