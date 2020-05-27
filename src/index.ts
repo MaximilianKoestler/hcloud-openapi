@@ -9,7 +9,7 @@ import validUrl = require("valid-url");
 import yargs = require("yargs");
 
 import { OpenApiDocumentFragment } from "./types";
-import { applyFixes } from "./transform";
+import { fixSchema } from "./transform";
 
 interface Arguments {
   source: string;
@@ -459,7 +459,7 @@ async function appendSchema(
   schemas[id] = await convertSchema(schema, {
     dereference: true,
   });
-  applyFixes(id, schemas);
+  fixSchema(id, schemas);
 }
 
 async function appendRequestSchema(

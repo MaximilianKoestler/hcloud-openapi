@@ -1,43 +1,61 @@
 import { OpenApiDocumentFragment } from "./types";
 
+type Transformation = (part: OpenApiDocumentFragment) => void;
+
+type SchemaTransformations = {
+  beforeChildren?: Transformation;
+  afterChildren?: Transformation;
+};
+
 /**
- * Recursively applies the `fixer` function to all arrays and objects below the
- * provided `part`.
+ * Recursively applies the functions in `transformations` to all arrays and objects below the provided `part` (including `part` itself).
  */
-function applyFix(
-  id: string,
+function walkSchema(
   part: OpenApiDocumentFragment,
-  fixer: (id: string, part: OpenApiDocumentFragment) => void
+  transformations: SchemaTransformations
 ) {
+  if (transformations.beforeChildren !== undefined) {
+    transformations.beforeChildren(part);
+  }
   if (part.type == "array") {
-    applyFix(id, part.items, fixer);
+    walkSchema(part.items, transformations);
   } else if (part.type == "object" && "properties" in part) {
     Object.keys(part.properties).forEach((k) =>
-      applyFix(id, part.properties[k], fixer)
+      walkSchema(part.properties[k], transformations)
     );
   }
-  fixer(id, part);
+  if (transformations.afterChildren !== undefined) {
+    transformations.afterChildren(part);
+  }
 }
 
-export function applyFixes(id: string, schema: OpenApiDocumentFragment) {
+export function fixSchema(id: string, schema: OpenApiDocumentFragment) {
   // fix "items" in array form (they may only appear as objects)
-  applyFix(id, schema[id], (id, part) => {
-    if (part.type == "array" && "items" in part && Array.isArray(part.items)) {
-      console.warn(`Found array "items" in ${id}`);
-      part.items = part.items[0];
-    }
+  walkSchema(schema[id], {
+    afterChildren: (part) => {
+      if (
+        part.type == "array" &&
+        "items" in part &&
+        Array.isArray(part.items)
+      ) {
+        console.warn(`Found array "items" in ${id}`);
+        part.items = part.items[0];
+      }
+    },
   });
 
   // remove forbidden segments
   //   - definitions: is not needed because all schemas are dereferenced and
   //                  this property is not compatible to the OpenAPI standard
-  applyFix(id, schema[id], (id, part) => {
-    const forbiddenSegments = ["definitions"];
-    forbiddenSegments.forEach((segment) => {
-      if (segment in part) {
-        console.warn(`Removing forbidden segment "${segment}" in ${id}`);
-        delete part[segment];
-      }
-    });
+  walkSchema(schema[id], {
+    afterChildren: (part) => {
+      const forbiddenSegments = ["definitions"];
+      forbiddenSegments.forEach((segment) => {
+        if (segment in part) {
+          console.warn(`Removing forbidden segment "${segment}" in ${id}`);
+          delete part[segment];
+        }
+      });
+    },
   });
 }
