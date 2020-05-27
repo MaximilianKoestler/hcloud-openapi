@@ -6,7 +6,7 @@
     "contact": {
       "url": "https://docs.hetzner.cloud/"
     },
-    "version": "56b4120-dirty"
+    "version": "0977567-dirty"
   },
   "servers": [
     {
@@ -744,6 +744,41 @@
           "floating_ip"
         ]
       },
+      "request_create_floating_ip": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "enum": [
+              "ipv4",
+              "ipv6"
+            ],
+            "description": "Floating IP type"
+          },
+          "server": {
+            "type": "number",
+            "description": "Server to assign the Floating IP to"
+          },
+          "home_location": {
+            "type": "string",
+            "description": "Home Location (routing is optimized for that Location). Only optional if Server argument is passed."
+          },
+          "description": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "labels": {
+            "type": "object",
+            "properties": {},
+            "description": "User-defined labels (key-value pairs)"
+          }
+        },
+        "required": [
+          "type"
+        ]
+      },
       "response_create_floating_ip": {
         "type": "object",
         "properties": {
@@ -981,6 +1016,28 @@
         "required": [
           "floating_ip"
         ]
+      },
+      "request_replace_floating_ip": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "New unique name to set"
+          },
+          "description": {
+            "type": "string",
+            "description": "New Description to set"
+          },
+          "labels": {
+            "type": "object",
+            "properties": {
+              "labelkey": {
+                "type": "string"
+              }
+            },
+            "description": "User-defined labels (key-value pairs)"
+          }
+        }
       },
       "response_replace_floating_ip": {
         "type": "object",
@@ -1328,6 +1385,18 @@
           "action"
         ]
       },
+      "request_assign_floating_ip_to_server": {
+        "type": "object",
+        "properties": {
+          "server": {
+            "type": "number",
+            "description": "ID of the Server the Floating IP shall be assigned to"
+          }
+        },
+        "required": [
+          "server"
+        ]
+      },
       "response_assign_floating_ip_to_server": {
         "type": "object",
         "properties": {
@@ -1514,6 +1583,24 @@
           "action"
         ]
       },
+      "request_change_reverse_dns_entry_for_floating_ip": {
+        "type": "object",
+        "properties": {
+          "ip": {
+            "type": "string",
+            "description": "IP address for which to set the reverse DNS entry"
+          },
+          "dns_ptr": {
+            "type": "string",
+            "description": "Hostname to set as a reverse DNS PTR entry, will reset to original default value if `null`",
+            "nullable": true
+          }
+        },
+        "required": [
+          "ip",
+          "dns_ptr"
+        ]
+      },
       "response_change_reverse_dns_entry_for_floating_ip": {
         "type": "object",
         "properties": {
@@ -1606,6 +1693,15 @@
         "required": [
           "action"
         ]
+      },
+      "request_change_floating_ip_protection": {
+        "type": "object",
+        "properties": {
+          "delete": {
+            "type": "boolean",
+            "description": "If true, prevents the Floating IP from being deleted"
+          }
+        }
       },
       "response_change_floating_ip_protection": {
         "type": "object",
@@ -1983,6 +2079,31 @@
           "image"
         ]
       },
+      "request_replace_image": {
+        "type": "object",
+        "properties": {
+          "description": {
+            "type": "string",
+            "description": "New description of Image"
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "snapshot"
+            ],
+            "description": "Destination Image type to convert to"
+          },
+          "labels": {
+            "type": "object",
+            "properties": {
+              "labelkey": {
+                "type": "string"
+              }
+            },
+            "description": "User-defined labels (key-value pairs)"
+          }
+        }
+      },
       "response_replace_image": {
         "type": "object",
         "properties": {
@@ -2313,6 +2434,15 @@
         "required": [
           "action"
         ]
+      },
+      "request_change_image_protection": {
+        "type": "object",
+        "properties": {
+          "delete": {
+            "type": "boolean",
+            "description": "If true, prevents the snapshot from being deleted"
+          }
+        }
       },
       "response_change_image_protection": {
         "type": "object",
@@ -2858,6 +2988,24 @@
           "network"
         ]
       },
+      "request_replace_network": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "New network name"
+          },
+          "labels": {
+            "type": "object",
+            "properties": {
+              "labelkey": {
+                "type": "string"
+              }
+            },
+            "description": "User-defined labels (key-value pairs)"
+          }
+        }
+      },
       "response_replace_network": {
         "type": "object",
         "properties": {
@@ -2980,6 +3128,78 @@
         },
         "required": [
           "network"
+        ]
+      },
+      "request_create_network": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Name of the network"
+          },
+          "ip_range": {
+            "type": "string",
+            "description": "IP range of the whole network which must span all included subnets. Must be one of the private IPv4 ranges of RFC1918. Minimum network size is /24. We highly recommend that you pick a larger network with a /16 netmask."
+          },
+          "labels": {
+            "type": "object",
+            "properties": {},
+            "description": "User-defined labels (key-value pairs)"
+          },
+          "subnets": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "type": {
+                  "type": "string",
+                  "enum": [
+                    "cloud",
+                    "server"
+                  ],
+                  "description": "Type of Subnetwork"
+                },
+                "ip_range": {
+                  "type": "string",
+                  "description": "Range to allocate IPs from. Must be a Subnet of the ip_range of the parent network object and must not overlap with any other subnets or with any destinations in routes. Minimum Network size is /30. We suggest that you pick a bigger Network with a /24 netmask."
+                },
+                "network_zone": {
+                  "type": "string",
+                  "description": "Name of Network zone. Currently eu-central is the only available zone."
+                }
+              },
+              "required": [
+                "type",
+                "network_zone"
+              ]
+            },
+            "description": "Array of subnets allocated."
+          },
+          "routes": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "destination": {
+                  "type": "string",
+                  "description": "Destination network or host of this route. Must not overlap with an existing ip_range in any subnets or with any destinations in other routes or with the first IP of the networks ip_range or with 172.31.1.1. Must be one of the private IPv4 ranges of RFC1918."
+                },
+                "gateway": {
+                  "type": "string",
+                  "description": "Gateway for the route. Cannot be the first IP of the networks ip_range and also cannot be 172.31.1.1 as this IP is being used as a gateway for the public network interface of Servers."
+                }
+              },
+              "required": [
+                "destination",
+                "gateway"
+              ]
+            },
+            "description": "Array of routes set in this network. The destination of the route must be one of the private IPv4 ranges of RFC1918. The gateway must be a subnet/IP of the ip_range of the network object. The destination must not overlap with an existing ip_range in any subnets or with any destinations in other routes or with the first IP of the networks ip_range or with 172.31.1.1. The gateway cannot be the first IP of the networks ip_range and also cannot be 172.31.1.1."
+          }
+        },
+        "required": [
+          "name",
+          "ip_range"
         ]
       },
       "response_create_network": {
@@ -3291,6 +3511,31 @@
           "action"
         ]
       },
+      "request_add_subnet_to_network": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "enum": [
+              "cloud",
+              "server"
+            ],
+            "description": "Type of Subnetwork"
+          },
+          "ip_range": {
+            "type": "string",
+            "description": "Range to allocate IPs from. Must be a Subnet of the ip_range of the parent network object and must not overlap with any other subnets or with any destinations in routes. Minimum Network size is /30. We suggest that you pick a bigger Network with a /24 netmask."
+          },
+          "network_zone": {
+            "type": "string",
+            "description": "Name of Network zone. Currently eu-central is the only available zone."
+          }
+        },
+        "required": [
+          "type",
+          "network_zone"
+        ]
+      },
       "response_add_subnet_to_network": {
         "type": "object",
         "properties": {
@@ -3382,6 +3627,18 @@
         },
         "required": [
           "action"
+        ]
+      },
+      "request_delete_subnet_from_network": {
+        "type": "object",
+        "properties": {
+          "ip_range": {
+            "type": "string",
+            "description": "IP range of subnet to delete"
+          }
+        },
+        "required": [
+          "ip_range"
         ]
       },
       "response_delete_subnet_from_network": {
@@ -3477,6 +3734,23 @@
           "action"
         ]
       },
+      "request_add_route_to_network": {
+        "type": "object",
+        "properties": {
+          "destination": {
+            "type": "string",
+            "description": "Destination network or host of this route. Must not overlap with an existing ip_range in any subnets or with any destinations in other routes or with the first IP of the networks ip_range or with 172.31.1.1. Must be one of the private IPv4 ranges of RFC1918."
+          },
+          "gateway": {
+            "type": "string",
+            "description": "Gateway for the route. Cannot be the first IP of the networks ip_range and also cannot be 172.31.1.1 as this IP is being used as a gateway for the public network interface of Servers."
+          }
+        },
+        "required": [
+          "destination",
+          "gateway"
+        ]
+      },
       "response_add_route_to_network": {
         "type": "object",
         "properties": {
@@ -3568,6 +3842,23 @@
         },
         "required": [
           "action"
+        ]
+      },
+      "request_delete_route_from_network": {
+        "type": "object",
+        "properties": {
+          "destination": {
+            "type": "string",
+            "description": "Destination network or host of this route. Must not overlap with an existing ip_range in any subnets or with any destinations in other routes or with the first IP of the networks ip_range or with 172.31.1.1. Must be one of the private IPv4 ranges of RFC1918."
+          },
+          "gateway": {
+            "type": "string",
+            "description": "Gateway for the route. Cannot be the first IP of the networks ip_range and also cannot be 172.31.1.1 as this IP is being used as a gateway for the public network interface of Servers."
+          }
+        },
+        "required": [
+          "destination",
+          "gateway"
         ]
       },
       "response_delete_route_from_network": {
@@ -3663,6 +3954,18 @@
           "action"
         ]
       },
+      "request_change_ip_range_of_network": {
+        "type": "object",
+        "properties": {
+          "ip_range": {
+            "type": "string",
+            "description": "The new prefix for the whole Network"
+          }
+        },
+        "required": [
+          "ip_range"
+        ]
+      },
       "response_change_ip_range_of_network": {
         "type": "object",
         "properties": {
@@ -3755,6 +4058,15 @@
         "required": [
           "action"
         ]
+      },
+      "request_change_network_protection": {
+        "type": "object",
+        "properties": {
+          "delete": {
+            "type": "boolean",
+            "description": "If true, prevents the Network from being deleted"
+          }
+        }
       },
       "response_change_network_protection": {
         "type": "object",
@@ -5271,6 +5583,80 @@
           "server"
         ]
       },
+      "request_create_server": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Name of the Server to create (must be unique per Project and a valid hostname as per RFC 1123)"
+          },
+          "server_type": {
+            "type": "string",
+            "description": "ID or name of the Server type this Server should be created with"
+          },
+          "start_after_create": {
+            "type": "boolean",
+            "description": "Start Server right after creation. Defaults to true."
+          },
+          "image": {
+            "type": "string",
+            "description": "ID or name of the Image the Server is created from"
+          },
+          "ssh_keys": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "SSH key IDs or names which should be injected into the Server at creation time"
+          },
+          "volumes": {
+            "type": "array",
+            "description": "Volume IDs which should be attached to the Server at the creation time. Volumes must be in the same Location.",
+            "items": {}
+          },
+          "networks": {
+            "type": "array",
+            "description": "Network IDs which should be attached to the Server private network interface at the creation time",
+            "items": {}
+          },
+          "user_data": {
+            "type": "string",
+            "description": "Cloud-Init user data to use during Server creation. This field is limited to 32KiB."
+          },
+          "labels": {
+            "type": "object",
+            "properties": {},
+            "description": "User-defined labels (key-value pairs)"
+          },
+          "automount": {
+            "type": "boolean",
+            "description": "Auto-mount Volumes after attach"
+          }
+        },
+        "required": [
+          "name",
+          "server_type",
+          "image"
+        ],
+        "oneOf": [
+          {
+            "properties": {
+              "location": {
+                "type": "string",
+                "description": "ID or name of Location to create Server in"
+              }
+            }
+          },
+          {
+            "properties": {
+              "datacenter": {
+                "type": "string",
+                "description": "ID or name of Datacenter to create Server in"
+              }
+            }
+          }
+        ]
+      },
       "response_create_server": {
         "type": "object",
         "properties": {
@@ -5963,6 +6349,24 @@
           "next_actions",
           "root_password"
         ]
+      },
+      "request_replace_server": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "New name to set"
+          },
+          "labels": {
+            "type": "object",
+            "properties": {
+              "labelkey": {
+                "type": "string"
+              }
+            },
+            "description": "User-defined labels (key-value pairs)"
+          }
+        }
       },
       "response_replace_server": {
         "type": "object",
@@ -7461,6 +7865,27 @@
           "action"
         ]
       },
+      "request_enable_rescue_mode_for_server": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "enum": [
+              "linux64",
+              "linux32",
+              "freebsd64"
+            ],
+            "description": "Type of rescue system to boot (default: `linux64`)"
+          },
+          "ssh_keys": {
+            "type": "array",
+            "items": {
+              "type": "number"
+            },
+            "description": "Array of SSH key IDs which should be injected into the rescue system. Only available for types: `linux64` and `linux32`."
+          }
+        }
+      },
       "response_enable_rescue_mode_for_server": {
         "type": "object",
         "properties": {
@@ -7650,6 +8075,28 @@
         "required": [
           "action"
         ]
+      },
+      "request_create_image_from_server": {
+        "type": "object",
+        "properties": {
+          "description": {
+            "type": "string",
+            "description": "Description of the Image, will be auto-generated if not set"
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "snapshot",
+              "backup"
+            ],
+            "description": "Type of Image to create (default: `snapshot`)"
+          },
+          "labels": {
+            "type": "object",
+            "properties": {},
+            "description": "User-defined labels (key-value pairs)"
+          }
+        }
       },
       "response_create_image_from_server": {
         "type": "object",
@@ -7878,6 +8325,18 @@
           "action"
         ]
       },
+      "request_rebuild_server_from_image": {
+        "type": "object",
+        "properties": {
+          "image": {
+            "type": "string",
+            "description": "ID or name of Image to rebuilt from."
+          }
+        },
+        "required": [
+          "image"
+        ]
+      },
       "response_rebuild_server_from_image": {
         "type": "object",
         "properties": {
@@ -7975,6 +8434,23 @@
         "required": [
           "action",
           "root_password"
+        ]
+      },
+      "request_change_type_of_server": {
+        "type": "object",
+        "properties": {
+          "upgrade_disk": {
+            "type": "boolean",
+            "description": "If false, do not upgrade the disk (this allows downgrading the Server type later)"
+          },
+          "server_type": {
+            "type": "string",
+            "description": "ID or name of Server type the Server should migrate to"
+          }
+        },
+        "required": [
+          "upgrade_disk",
+          "server_type"
         ]
       },
       "response_change_type_of_server": {
@@ -8256,6 +8732,18 @@
           "action"
         ]
       },
+      "request_attach_iso_to_server": {
+        "type": "object",
+        "properties": {
+          "iso": {
+            "type": "string",
+            "description": "ID or name of ISO to attach to the Server as listed in GET `/isos`"
+          }
+        },
+        "required": [
+          "iso"
+        ]
+      },
       "response_attach_iso_to_server": {
         "type": "object",
         "properties": {
@@ -8442,6 +8930,24 @@
           "action"
         ]
       },
+      "request_change_reverse_dns_entry_for_this_server": {
+        "type": "object",
+        "properties": {
+          "ip": {
+            "type": "string",
+            "description": "Primary IP address for which the reverse DNS entry should be set"
+          },
+          "dns_ptr": {
+            "type": "string",
+            "description": "Hostname to set as a reverse DNS PTR entry, reset to original value if `null`",
+            "nullable": true
+          }
+        },
+        "required": [
+          "ip",
+          "dns_ptr"
+        ]
+      },
       "response_change_reverse_dns_entry_for_this_server": {
         "type": "object",
         "properties": {
@@ -8534,6 +9040,19 @@
         "required": [
           "action"
         ]
+      },
+      "request_change_server_protection": {
+        "type": "object",
+        "properties": {
+          "delete": {
+            "type": "boolean",
+            "description": "If true, prevents the Server from being deleted (currently delete and rebuild attribute needs to have the same value)"
+          },
+          "rebuild": {
+            "type": "boolean",
+            "description": "If true, prevents the Server from being rebuilt` (currently delete and rebuild attribute needs to have the same value)"
+          }
+        }
       },
       "response_change_server_protection": {
         "type": "object",
@@ -8732,6 +9251,27 @@
           "action"
         ]
       },
+      "request_attach_server_to_network": {
+        "type": "object",
+        "properties": {
+          "network": {
+            "type": "number",
+            "description": "ID of an existing network to attach the Server to"
+          },
+          "ip": {
+            "type": "string",
+            "description": "IP to request to be assigned to this Server; if you do not provide this then you will be auto assigned an IP address"
+          },
+          "alias_ips": {
+            "type": "array",
+            "description": "Additional IPs to be assigned to this Server",
+            "items": {}
+          }
+        },
+        "required": [
+          "network"
+        ]
+      },
       "response_attach_server_to_network": {
         "type": "object",
         "properties": {
@@ -8825,6 +9365,18 @@
           "action"
         ]
       },
+      "request_detach_server_from_network": {
+        "type": "object",
+        "properties": {
+          "network": {
+            "type": "number",
+            "description": "ID of an existing network to detach the Server from"
+          }
+        },
+        "required": [
+          "network"
+        ]
+      },
       "response_detach_server_from_network": {
         "type": "object",
         "properties": {
@@ -8916,6 +9468,24 @@
         },
         "required": [
           "action"
+        ]
+      },
+      "request_change_alias_ips_of_network": {
+        "type": "object",
+        "properties": {
+          "network": {
+            "type": "number",
+            "description": "ID of an existing Network already attached to the Server"
+          },
+          "alias_ips": {
+            "type": "array",
+            "description": "New alias IPs to set for this Server",
+            "items": {}
+          }
+        },
+        "required": [
+          "network",
+          "alias_ips"
         ]
       },
       "response_change_alias_ips_of_network": {
@@ -9355,6 +9925,28 @@
           "ssh_key"
         ]
       },
+      "request_create_ssh_key": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Name of the SSH key"
+          },
+          "public_key": {
+            "type": "string",
+            "description": "Public key"
+          },
+          "labels": {
+            "type": "object",
+            "properties": {},
+            "description": "User-defined labels (key-value pairs)"
+          }
+        },
+        "required": [
+          "name",
+          "public_key"
+        ]
+      },
       "response_create_ssh_key": {
         "type": "object",
         "properties": {
@@ -9400,6 +9992,24 @@
         "required": [
           "ssh_key"
         ]
+      },
+      "request_replace_ssh_key": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "New name Name to set"
+          },
+          "labels": {
+            "type": "object",
+            "properties": {
+              "labelkey": {
+                "type": "string"
+              }
+            },
+            "description": "User-defined labels (key-value pairs)"
+          }
+        }
       },
       "response_replace_ssh_key": {
         "type": "object",
@@ -9714,6 +10324,54 @@
           "volume"
         ]
       },
+      "request_create_volume": {
+        "type": "object",
+        "properties": {
+          "size": {
+            "type": "number",
+            "description": "Size of the Volume in GB"
+          },
+          "name": {
+            "type": "string",
+            "description": "Name of the volume"
+          },
+          "labels": {
+            "type": "object",
+            "properties": {},
+            "description": "User-defined labels (key-value pairs)"
+          },
+          "automount": {
+            "type": "boolean",
+            "description": "Auto-mount Volume after attach. `server` must be provided."
+          },
+          "format": {
+            "type": "string",
+            "description": "Format Volume after creation. One of: `xfs`, `ext4`"
+          }
+        },
+        "required": [
+          "size",
+          "name"
+        ],
+        "oneOf": [
+          {
+            "properties": {
+              "location": {
+                "type": "string",
+                "description": "Location to create the Volume in (can be omitted if Server is specified)"
+              }
+            }
+          },
+          {
+            "properties": {
+              "server": {
+                "type": "number",
+                "description": "Server to which to attach the Volume once it's created (Volume will be created in the same Location as the server)"
+              }
+            }
+          }
+        ]
+      },
       "response_create_volume": {
         "type": "object",
         "properties": {
@@ -9934,6 +10592,27 @@
           "volume",
           "action",
           "next_actions"
+        ]
+      },
+      "request_replace_volume": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "New Volume name"
+          },
+          "labels": {
+            "type": "object",
+            "properties": {
+              "labelkey": {
+                "type": "string"
+              }
+            },
+            "description": "User-defined labels (key-value pairs)"
+          }
+        },
+        "required": [
+          "name"
         ]
       },
       "response_replace_volume": {
@@ -10259,6 +10938,22 @@
           "action"
         ]
       },
+      "request_attach_volume_to_server": {
+        "type": "object",
+        "properties": {
+          "server": {
+            "type": "number",
+            "description": "ID of the Server the Volume will be attached to"
+          },
+          "automount": {
+            "type": "boolean",
+            "description": "Auto-mount the Volume after attaching it"
+          }
+        },
+        "required": [
+          "server"
+        ]
+      },
       "response_attach_volume_to_server": {
         "type": "object",
         "properties": {
@@ -10445,6 +11140,18 @@
           "action"
         ]
       },
+      "request_resize_volume": {
+        "type": "object",
+        "properties": {
+          "size": {
+            "type": "number",
+            "description": "New Volume size in GB (must be greater than current size)"
+          }
+        },
+        "required": [
+          "size"
+        ]
+      },
       "response_resize_volume": {
         "type": "object",
         "properties": {
@@ -10532,6 +11239,15 @@
               "resources",
               "error"
             ]
+          }
+        }
+      },
+      "request_change_volume_protection": {
+        "type": "object",
+        "properties": {
+          "delete": {
+            "type": "boolean",
+            "description": "If true, prevents the Volume from being deleted"
           }
         }
       },
@@ -10818,6 +11534,15 @@
         "description": "Creates a new Floating IP assigned to a Server. If you want to create a Floating IP that is not bound to a Server, you need to provide the home_location key instead of server. This can be either the ID or the name of the Location this IP shall be created in. Note that a Floating IP can be assigned to a Server in any Location later on. For optimal routing it is advised to use the Floating IP in the same Location it was created in.",
         "operationId": "create_floating_ip",
         "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/request_create_floating_ip"
+              }
+            }
+          }
+        },
         "responses": {
           "201": {
             "description": "TODO",
@@ -10876,6 +11601,15 @@
             }
           }
         ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/request_replace_floating_ip"
+              }
+            }
+          }
+        },
         "responses": {
           "200": {
             "description": "TODO",
@@ -11014,6 +11748,15 @@
             }
           }
         ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/request_assign_floating_ip_to_server"
+              }
+            }
+          }
+        },
         "responses": {
           "201": {
             "description": "TODO",
@@ -11074,6 +11817,15 @@
             }
           }
         ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/request_change_reverse_dns_entry_for_floating_ip"
+              }
+            }
+          }
+        },
         "responses": {
           "201": {
             "description": "TODO",
@@ -11104,6 +11856,15 @@
             }
           }
         ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/request_change_floating_ip_protection"
+              }
+            }
+          }
+        },
         "responses": {
           "201": {
             "description": "TODO",
@@ -11237,6 +11998,15 @@
             }
           }
         ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/request_replace_image"
+              }
+            }
+          }
+        },
         "responses": {
           "200": {
             "description": "TODO",
@@ -11375,6 +12145,15 @@
             }
           }
         ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/request_change_image_protection"
+              }
+            }
+          }
+        },
         "responses": {
           "201": {
             "description": "TODO",
@@ -11552,6 +12331,15 @@
         "description": "Creates a network with the specified ip_range. You may specify one or more subnets. You can also add more Subnets later by using the add subnet action. If you do not specify an ip_range in the subnet we will automatically pick the first available /24 range for you. You may specify one or more routes in routes. You can also add more routes later by using the add route action",
         "operationId": "create_network",
         "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/request_create_network"
+              }
+            }
+          }
+        },
         "responses": {
           "201": {
             "description": "TODO",
@@ -11610,6 +12398,15 @@
             }
           }
         ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/request_replace_network"
+              }
+            }
+          }
+        },
         "responses": {
           "200": {
             "description": "TODO",
@@ -11748,6 +12545,15 @@
             }
           }
         ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/request_add_subnet_to_network"
+              }
+            }
+          }
+        },
         "responses": {
           "201": {
             "description": "TODO",
@@ -11778,6 +12584,15 @@
             }
           }
         ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/request_delete_subnet_from_network"
+              }
+            }
+          }
+        },
         "responses": {
           "201": {
             "description": "TODO",
@@ -11808,6 +12623,15 @@
             }
           }
         ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/request_add_route_to_network"
+              }
+            }
+          }
+        },
         "responses": {
           "201": {
             "description": "TODO",
@@ -11838,6 +12662,15 @@
             }
           }
         ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/request_delete_route_from_network"
+              }
+            }
+          }
+        },
         "responses": {
           "201": {
             "description": "TODO",
@@ -11868,6 +12701,15 @@
             }
           }
         ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/request_change_ip_range_of_network"
+              }
+            }
+          }
+        },
         "responses": {
           "201": {
             "description": "TODO",
@@ -11898,6 +12740,15 @@
             }
           }
         ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/request_change_network_protection"
+              }
+            }
+          }
+        },
         "responses": {
           "201": {
             "description": "TODO",
@@ -11993,6 +12844,15 @@
         "description": "Creates a new Server. Returns preliminary information about the Server as well as an Action that covers progress of creation.",
         "operationId": "create_server",
         "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/request_create_server"
+              }
+            }
+          }
+        },
         "responses": {
           "201": {
             "description": "TODO",
@@ -12051,6 +12911,15 @@
             }
           }
         ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/request_replace_server"
+              }
+            }
+          }
+        },
         "responses": {
           "200": {
             "description": "TODO",
@@ -12442,6 +13311,15 @@
             }
           }
         ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/request_enable_rescue_mode_for_server"
+              }
+            }
+          }
+        },
         "responses": {
           "201": {
             "description": "TODO",
@@ -12502,6 +13380,15 @@
             }
           }
         ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/request_create_image_from_server"
+              }
+            }
+          }
+        },
         "responses": {
           "201": {
             "description": "TODO",
@@ -12532,6 +13419,15 @@
             }
           }
         ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/request_rebuild_server_from_image"
+              }
+            }
+          }
+        },
         "responses": {
           "201": {
             "description": "TODO",
@@ -12562,6 +13458,15 @@
             }
           }
         ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/request_change_type_of_server"
+              }
+            }
+          }
+        },
         "responses": {
           "201": {
             "description": "TODO",
@@ -12652,6 +13557,15 @@
             }
           }
         ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/request_attach_iso_to_server"
+              }
+            }
+          }
+        },
         "responses": {
           "201": {
             "description": "TODO",
@@ -12712,6 +13626,15 @@
             }
           }
         ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/request_change_reverse_dns_entry_for_this_server"
+              }
+            }
+          }
+        },
         "responses": {
           "201": {
             "description": "TODO",
@@ -12742,6 +13665,15 @@
             }
           }
         ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/request_change_server_protection"
+              }
+            }
+          }
+        },
         "responses": {
           "201": {
             "description": "TODO",
@@ -12802,6 +13734,15 @@
             }
           }
         ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/request_attach_server_to_network"
+              }
+            }
+          }
+        },
         "responses": {
           "201": {
             "description": "TODO",
@@ -12832,6 +13773,15 @@
             }
           }
         ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/request_detach_server_from_network"
+              }
+            }
+          }
+        },
         "responses": {
           "201": {
             "description": "TODO",
@@ -12862,6 +13812,15 @@
             }
           }
         ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/request_change_alias_ips_of_network"
+              }
+            }
+          }
+        },
         "responses": {
           "201": {
             "description": "TODO",
@@ -12997,6 +13956,15 @@
         "description": "Creates a new SSH key with the given name and public_key. Once an SSH key is created, it can be used in other calls such as creating Servers.",
         "operationId": "create_ssh_key",
         "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/request_create_ssh_key"
+              }
+            }
+          }
+        },
         "responses": {
           "201": {
             "description": "TODO",
@@ -13055,6 +14023,15 @@
             }
           }
         ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/request_replace_ssh_key"
+              }
+            }
+          }
+        },
         "responses": {
           "200": {
             "description": "TODO",
@@ -13151,6 +14128,15 @@
         "description": "Creates a new Volume attached to a Server. If you want to create a Volume that is not attached to a Server, you need to provide the location key instead of server. This can be either the ID or the name of the Location this Volume will be created in. Note that a Volume can be attached to a Server only in the same Location as the Volume itself. Specifying the Server during Volume creation will automatically attach the Volume to that Server after it has been initialized. In that case, the next_actions key in the response is an array which contains a single attach_volume action. The minimum Volume size is 10GB and the maximum size is 10TB (10240GB). A volume’s name can consist of alphanumeric characters, dashes, underscores, and dots, but has to start and end with an alphanumeric character. The total length is limited to 64 characters. Volume names must be unique per Project.",
         "operationId": "create_volume",
         "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/request_create_volume"
+              }
+            }
+          }
+        },
         "responses": {
           "201": {
             "description": "TODO",
@@ -13209,6 +14195,15 @@
             }
           }
         ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/request_replace_volume"
+              }
+            }
+          }
+        },
         "responses": {
           "200": {
             "description": "TODO",
@@ -13347,6 +14342,15 @@
             }
           }
         ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/request_attach_volume_to_server"
+              }
+            }
+          }
+        },
         "responses": {
           "201": {
             "description": "TODO",
@@ -13407,6 +14411,15 @@
             }
           }
         ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/request_resize_volume"
+              }
+            }
+          }
+        },
         "responses": {
           "201": {
             "description": "TODO",
@@ -13437,6 +14450,15 @@
             }
           }
         ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/request_change_volume_protection"
+              }
+            }
+          }
+        },
         "responses": {
           "201": {
             "description": "TODO",
