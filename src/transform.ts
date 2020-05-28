@@ -1,4 +1,4 @@
-import hash = require("object-hash");
+import objectHash = require("object-hash");
 
 import { OpenApiDocumentFragment } from "./types";
 
@@ -72,11 +72,11 @@ export function deduplicateSchemas(schemas: OpenApiDocumentFragment) {
           if (part.items !== undefined) {
             const { description, items, ...hashableParts } = part;
             hashableParts.items = items["x-hash"];
-            part["x-hash"] = hash(hashableParts);
+            part["x-hash"] = objectHash(hashableParts);
           } else {
             console.warn(`Found array without "items"`);
             const { description, ...hashableParts } = part;
-            part["x-hash"] = hash(hashableParts);
+            part["x-hash"] = objectHash(hashableParts);
           }
         } else if (part.type == "object") {
           if (part.properties !== undefined) {
@@ -86,14 +86,14 @@ export function deduplicateSchemas(schemas: OpenApiDocumentFragment) {
               hashableParts.properties[property] =
                 properties[property]["x-hash"];
             });
-            part["x-hash"] = hash(hashableParts);
+            part["x-hash"] = objectHash(hashableParts);
           } else {
             const { description, ...hashableParts } = part;
-            part["x-hash"] = hash(hashableParts);
+            part["x-hash"] = objectHash(hashableParts);
           }
         } else {
           const { description, ...hashableParts } = part;
-          part["x-hash"] = hash(hashableParts);
+          part["x-hash"] = objectHash(hashableParts);
         }
 
         if (!("x-hash" in part)) {
@@ -102,6 +102,26 @@ export function deduplicateSchemas(schemas: OpenApiDocumentFragment) {
       },
     });
   });
+
+  const hashHistogram: { [hash: string]: number } = {};
+  Object.keys(schemas).forEach((id) => {
+    walkSchema(schemas[id], {
+      afterChildren: (part) => {
+        if (part.type == "object") {
+          const hash = part["x-hash"];
+          if (!(hash in hashHistogram)) {
+            hashHistogram[hash] = 0;
+          }
+          hashHistogram[hash] += 1;
+        }
+      },
+    });
+  });
+
+  const sorted = Object.entries(hashHistogram)
+    .filter((x) => x[1] > 1)
+    .sort((a, b) => b[1] - a[1]);
+  console.log(sorted);
 
   // TODO: deduplicate based on x-hash
 
