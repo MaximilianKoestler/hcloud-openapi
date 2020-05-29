@@ -63,8 +63,8 @@ export function fixSchema(id: string, schemas: OpenApiDocumentFragment) {
 }
 
 export function deduplicateSchemas(schemas: OpenApiDocumentFragment) {
-  // calculate hashes over all possibly shared schema items
-  // do not consider descriptions for these hashes
+  // calculate hashes and complexity scores over all possibly shared schema items
+  // do not consider descriptions for the hashes
   Object.keys(schemas).forEach((id) => {
     walkSchema(schemas[id], {
       afterChildren: (part) => {
@@ -73,10 +73,12 @@ export function deduplicateSchemas(schemas: OpenApiDocumentFragment) {
             const { description, items, ...hashableParts } = part;
             hashableParts.items = items["x-hash"];
             part["x-hash"] = objectHash(hashableParts);
+            part["x-complexity"] = items["x-complexity"] + 1;
           } else {
             console.warn(`Found array without "items"`);
             const { description, ...hashableParts } = part;
             part["x-hash"] = objectHash(hashableParts);
+            part["x-complexity"] = 1;
           }
         } else if (part.type == "object") {
           if (part.properties !== undefined) {
@@ -87,13 +89,19 @@ export function deduplicateSchemas(schemas: OpenApiDocumentFragment) {
                 properties[property]["x-hash"];
             });
             part["x-hash"] = objectHash(hashableParts);
+            part["x-complexity"] = Object.values(properties).reduce(
+              (value: number, element: any) => value + element["x-complexity"],
+              1
+            );
           } else {
             const { description, ...hashableParts } = part;
             part["x-hash"] = objectHash(hashableParts);
+            part["x-complexity"] = 1;
           }
         } else {
           const { description, ...hashableParts } = part;
           part["x-hash"] = objectHash(hashableParts);
+          part["x-complexity"] = 1;
         }
 
         if (!("x-hash" in part)) {
@@ -103,25 +111,32 @@ export function deduplicateSchemas(schemas: OpenApiDocumentFragment) {
     });
   });
 
-  const hashHistogram: { [hash: string]: number } = {};
+  interface ObjectInfo {
+    count: number;
+    complexity: number;
+  }
+
+  const objectInfos: { [hash: string]: ObjectInfo } = {};
   Object.keys(schemas).forEach((id) => {
     walkSchema(schemas[id], {
       afterChildren: (part) => {
         if (part.type == "object") {
           const hash = part["x-hash"];
-          if (!(hash in hashHistogram)) {
-            hashHistogram[hash] = 0;
+          if (!(hash in objectInfos)) {
+            objectInfos[hash] = { count: 0, complexity: 0 };
           }
-          hashHistogram[hash] += 1;
+          objectInfos[hash].count += 1;
+          objectInfos[hash].complexity = part["x-complexity"];
         }
       },
     });
   });
 
-  const sorted = Object.entries(hashHistogram)
-    .filter((x) => x[1] > 1)
-    .sort((a, b) => b[1] - a[1]);
-  console.log(sorted);
+  const sorted = Object.entries(objectInfos)
+    .filter((x) => x[1].count > 1)
+    .filter((x) => x[1].complexity > 1)
+    .sort((a, b) => b[1].count - a[1].count);
+  console.log(require("util").inspect(sorted, false, null, true));
 
   // TODO: deduplicate based on x-hash
 
@@ -129,9 +144,8 @@ export function deduplicateSchemas(schemas: OpenApiDocumentFragment) {
   Object.keys(schemas).forEach((id) => {
     walkSchema(schemas[id], {
       afterChildren: (part) => {
-        if ("x-hash" in part) {
-          delete part["x-hash"];
-        }
+        delete part["x-hash"];
+        delete part["x-complexity"];
       },
     });
   });
