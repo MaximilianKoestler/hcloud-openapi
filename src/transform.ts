@@ -7,6 +7,11 @@ import { OpenApiDocumentFragment } from "./types";
 
 import { walkSchema } from "./schema_actions";
 
+interface CommonComponent {
+  name: string;
+  path: string[];
+}
+
 function fixItem(part: OpenApiDocumentFragment, location: string[]) {
   // deprecation markers are always nullable
   if (location[location.length - 1] == "deprecated" && part.type == "boolean") {
@@ -119,6 +124,18 @@ function filterObject(
   return result;
 }
 
+async function storeCommonComponents(commonComponents: CommonComponent[]) {
+  await fs.writeFile(
+    "resources/schema_types.json",
+    JSON.stringify(
+      commonComponents.sort((a, b) => a.name?.localeCompare(b.name)),
+      null,
+      2
+    ),
+    "utf-8"
+  );
+}
+
 export async function deduplicateSchemas(
   schemas: OpenApiDocumentFragment,
   fromFile: boolean
@@ -225,17 +242,13 @@ export async function deduplicateSchemas(
       ) > 1
   );
 
-  interface CommonComponent {
-    path: string[];
-    name: string | undefined;
-  }
-
   if (fromFile) {
     // load component names from file
     const json = await fs.readFile("resources/schema_types.json", "utf-8");
-    let CommonComponents: CommonComponent[] = JSON.parse(json);
+    let commonComponents: CommonComponent[] = JSON.parse(json);
+    storeCommonComponents(commonComponents);
 
-    CommonComponents.forEach((component) => {
+    commonComponents.forEach((component) => {
       Object.keys(objectInfos).forEach((hash) => {
         objectInfos[hash].locations.forEach((location) => {
           if (location.join("/") == component.path.join("/")) {
@@ -265,22 +278,21 @@ export async function deduplicateSchemas(
       objectInfos[hash].name = name;
     });
 
-    const extractedSchemaTypes: CommonComponent[] = Object.keys(
-      objectInfos
-    ).map((hash) => {
-      const info = objectInfos[hash];
-      const path = info.locations
-        .filter((location) => location.length > 1)
-        .sort((a, b) => a.length - b.length)[0];
-      return {
-        path: path,
-        name: info.name,
-      };
-    });
-    const json = JSON.stringify(extractedSchemaTypes, null, 2);
-    await fs.writeFile("resources/schema_types.json", json, "utf-8");
+    const commonComponents: CommonComponent[] = Object.keys(objectInfos).map(
+      (hash) => {
+        const info = objectInfos[hash];
+        const path = info.locations
+          .filter((location) => location.length > 1)
+          .sort((a, b) => a.length - b.length)[0];
+        return {
+          path: path,
+          name: info.name as string,
+        };
+      }
+    );
+    storeCommonComponents(commonComponents);
     console.log(
-      `Extracted ${extractedSchemaTypes.length} shared objects from the schemas.`
+      `Extracted ${commonComponents.length} shared objects from the schemas.`
     );
   }
 
