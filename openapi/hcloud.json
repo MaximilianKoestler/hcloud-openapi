@@ -6,7 +6,7 @@
     "contact": {
       "url": "https://docs.hetzner.cloud/"
     },
-    "version": "c900f94-dirty"
+    "version": "4fbf8bc-dirty"
   },
   "servers": [
     {
@@ -16,23 +16,6 @@
   ],
   "components": {
     "schemas": {
-      "": {
-        "type": "object",
-        "properties": {
-          "destination": {
-            "type": "string",
-            "description": "Destination network or host of this route. Must not overlap with an existing ip_range in any subnets or with any destinations in other routes or with the first IP of the networks ip_range or with 172.31.1.1. Must be one of the private IPv4 ranges of RFC1918."
-          },
-          "gateway": {
-            "type": "string",
-            "description": "Gateway for the route. Cannot be the first IP of the networks ip_range and also cannot be 172.31.1.1 as this IP is being used as a gateway for the public network interface of Servers."
-          }
-        },
-        "required": [
-          "destination",
-          "gateway"
-        ]
-      },
       "action": {
         "type": "object",
         "properties": {
@@ -595,7 +578,7 @@
           "routes": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/"
+              "$ref": "#/components/schemas/route"
             },
             "description": "Array of routes set in this Network"
           },
@@ -722,7 +705,7 @@
         "description": "Public network information. The Server's IPv4 address can be found in `public_net->ipv4->ip`"
       },
       "request_add_route_to_network": {
-        "$ref": "#/components/schemas/"
+        "$ref": "#/components/schemas/route"
       },
       "request_add_subnet_to_network": {
         "type": "object",
@@ -1047,7 +1030,7 @@
           "routes": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/"
+              "$ref": "#/components/schemas/route"
             },
             "description": "Array of routes set in this network. The destination of the route must be one of the private IPv4 ranges of RFC1918. The gateway must be a subnet/IP of the ip_range of the network object. The destination must not overlap with an existing ip_range in any subnets or with any destinations in other routes or with the first IP of the networks ip_range or with 172.31.1.1. The gateway cannot be the first IP of the networks ip_range and also cannot be 172.31.1.1."
           }
@@ -1202,7 +1185,7 @@
         ]
       },
       "request_delete_route_from_network": {
-        "$ref": "#/components/schemas/"
+        "$ref": "#/components/schemas/route"
       },
       "request_delete_subnet_from_network": {
         "type": "object",
@@ -1261,24 +1244,6 @@
           "image"
         ]
       },
-      "request_replace": {
-        "type": "object",
-        "properties": {
-          "name": {
-            "type": "string",
-            "description": "New name Name to set"
-          },
-          "labels": {
-            "type": "object",
-            "properties": {
-              "labelkey": {
-                "type": "string"
-              }
-            },
-            "description": "User-defined labels (key-value pairs)"
-          }
-        }
-      },
       "request_replace_floating_ip": {
         "type": "object",
         "properties": {
@@ -1327,13 +1292,58 @@
         }
       },
       "request_replace_network": {
-        "$ref": "#/components/schemas/request_replace"
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "New network name"
+          },
+          "labels": {
+            "type": "object",
+            "properties": {
+              "labelkey": {
+                "type": "string"
+              }
+            },
+            "description": "User-defined labels (key-value pairs)"
+          }
+        }
       },
       "request_replace_server": {
-        "$ref": "#/components/schemas/request_replace"
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "New name to set"
+          },
+          "labels": {
+            "type": "object",
+            "properties": {
+              "labelkey": {
+                "type": "string"
+              }
+            },
+            "description": "User-defined labels (key-value pairs)"
+          }
+        }
       },
       "request_replace_ssh_key": {
-        "$ref": "#/components/schemas/request_replace"
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "New name Name to set"
+          },
+          "labels": {
+            "type": "object",
+            "properties": {
+              "labelkey": {
+                "type": "string"
+              }
+            },
+            "description": "User-defined labels (key-value pairs)"
+          }
+        }
       },
       "request_replace_volume": {
         "type": "object",
@@ -3431,7 +3441,7 @@
               "routes": {
                 "type": "array",
                 "items": {
-                  "$ref": "#/components/schemas/"
+                  "$ref": "#/components/schemas/route"
                 },
                 "description": "Array of routes set in this Network"
               },
@@ -3835,6 +3845,23 @@
         },
         "required": [
           "action"
+        ]
+      },
+      "route": {
+        "type": "object",
+        "properties": {
+          "destination": {
+            "type": "string",
+            "description": "Destination network or host of this route. Must not overlap with an existing ip_range in any subnets or with any destinations in other routes or with the first IP of the networks ip_range or with 172.31.1.1. Must be one of the private IPv4 ranges of RFC1918."
+          },
+          "gateway": {
+            "type": "string",
+            "description": "Gateway for the route. Cannot be the first IP of the networks ip_range and also cannot be 172.31.1.1 as this IP is being used as a gateway for the public network interface of Servers."
+          }
+        },
+        "required": [
+          "destination",
+          "gateway"
         ]
       },
       "server_type": {

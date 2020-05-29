@@ -88,6 +88,7 @@ function reverseString(value: string): string {
 
 function extractComponentName(locations: string[][]): string {
   const deepestLocations = locations
+    .filter((location) => location && location.length > 1)
     .map((location) => location[location.length - 1])
     .map(pluralize.singular);
 
@@ -202,7 +203,11 @@ export function deduplicateSchemas(schemas: OpenApiDocumentFragment) {
     if (
       objectInfos[hash].count > 2 &&
       objectInfos[hash].complexity > 1 &&
-      objectInfos[hash].directChildren > 1
+      objectInfos[hash].directChildren > 1 &&
+      Math.max.apply(
+        null,
+        objectInfos[hash].locations.map((location) => location.length)
+      ) > 1
     ) {
       filteredObjectInfos[hash] = objectInfos[hash];
     }
