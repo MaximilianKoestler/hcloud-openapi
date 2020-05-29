@@ -6,7 +6,7 @@
     "contact": {
       "url": "https://docs.hetzner.cloud/"
     },
-    "version": "4fbf8bc-dirty"
+    "version": "673f3b2-dirty"
   },
   "servers": [
     {
@@ -770,7 +770,10 @@
           "alias_ips": {
             "type": "array",
             "description": "Additional IPs to be assigned to this Server",
-            "items": {}
+            "items": {
+              "type": "object",
+              "properties": {}
+            }
           }
         },
         "required": [
@@ -803,7 +806,10 @@
           "alias_ips": {
             "type": "array",
             "description": "New alias IPs to set for this Server",
-            "items": {}
+            "items": {
+              "type": "object",
+              "properties": {}
+            }
           }
         },
         "required": [
@@ -1069,12 +1075,18 @@
           "volumes": {
             "type": "array",
             "description": "Volume IDs which should be attached to the Server at the creation time. Volumes must be in the same Location.",
-            "items": {}
+            "items": {
+              "type": "object",
+              "properties": {}
+            }
           },
           "networks": {
             "type": "array",
             "description": "Network IDs which should be attached to the Server private network interface at the creation time",
-            "items": {}
+            "items": {
+              "type": "object",
+              "properties": {}
+            }
           },
           "user_data": {
             "type": "string",
@@ -1763,7 +1775,10 @@
               "private_net": {
                 "type": "array",
                 "description": "Private networks information",
-                "items": {}
+                "items": {
+                  "type": "object",
+                  "properties": {}
+                }
               },
               "server_type": {
                 "$ref": "#/components/schemas/server_type_1"
@@ -1815,7 +1830,10 @@
               "volumes": {
                 "type": "array",
                 "description": "IDs of Volumes assigned to this Server",
-                "items": {}
+                "items": {
+                  "type": "object",
+                  "properties": {}
+                }
               }
             },
             "required": [
@@ -1844,7 +1862,10 @@
           },
           "next_actions": {
             "type": "array",
-            "items": {}
+            "items": {
+              "type": "object",
+              "properties": {}
+            }
           },
           "root_password": {
             "type": "string",
@@ -1934,7 +1955,10 @@
           },
           "next_actions": {
             "type": "array",
-            "items": {}
+            "items": {
+              "type": "object",
+              "properties": {}
+            }
           }
         },
         "required": [
@@ -2417,7 +2441,10 @@
               "private_net": {
                 "type": "array",
                 "description": "Private networks information",
-                "items": {}
+                "items": {
+                  "type": "object",
+                  "properties": {}
+                }
               },
               "server_type": {
                 "$ref": "#/components/schemas/server_type_1"
@@ -2469,7 +2496,10 @@
               "volumes": {
                 "type": "array",
                 "description": "IDs of Volumes assigned to this Server",
-                "items": {}
+                "items": {
+                  "type": "object",
+                  "properties": {}
+                }
               }
             },
             "required": [
@@ -3040,7 +3070,10 @@
                 "private_net": {
                   "type": "array",
                   "description": "Private networks information",
-                  "items": {}
+                  "items": {
+                    "type": "object",
+                    "properties": {}
+                  }
                 },
                 "server_type": {
                   "$ref": "#/components/schemas/server_type_1"
@@ -3092,7 +3125,10 @@
                 "volumes": {
                   "type": "array",
                   "description": "IDs of Volumes assigned to this Server",
-                  "items": {}
+                  "items": {
+                    "type": "object",
+                    "properties": {}
+                  }
                 }
               },
               "required": [
@@ -3535,7 +3571,10 @@
               "private_net": {
                 "type": "array",
                 "description": "Private networks information",
-                "items": {}
+                "items": {
+                  "type": "object",
+                  "properties": {}
+                }
               },
               "server_type": {
                 "$ref": "#/components/schemas/server_type_1"
@@ -3592,7 +3631,10 @@
               "volumes": {
                 "type": "array",
                 "description": "IDs of Volumes assigned to this Server",
-                "items": {}
+                "items": {
+                  "type": "object",
+                  "properties": {}
+                }
               }
             },
             "required": [
@@ -3925,7 +3967,8 @@
           },
           "deprecated": {
             "type": "boolean",
-            "description": "True if Server type is deprecated"
+            "description": "True if Server type is deprecated",
+            "nullable": true
           },
           "prices": {
             "type": "array",

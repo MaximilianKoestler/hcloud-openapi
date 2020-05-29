@@ -41,6 +41,21 @@ function walkSchema(
   }
 }
 
+function fixItem(part: OpenApiDocumentFragment, location: string[]) {
+  // deprecation markers are always nullable
+  if (location[location.length - 1] == "deprecated" && part.type == "boolean") {
+    part.nullable = true;
+  }
+
+  // array "items" must not be an empty object
+  if (part.type == "array" && Object.keys(part.items).length == 0) {
+    part.items = {
+      type: "object",
+      properties: {},
+    };
+  }
+}
+
 export function fixSchema(id: string, schemas: OpenApiDocumentFragment) {
   // fix "items" in array form (they may only appear as objects)
   walkSchema(schemas[id], {
@@ -68,6 +83,19 @@ export function fixSchema(id: string, schemas: OpenApiDocumentFragment) {
           delete part[segment];
         }
       });
+    },
+  });
+
+  const location: string[] = [id];
+  walkSchema(schemas[id], {
+    afterChildren: (part) => {
+      fixItem(part, location);
+    },
+    beforeProperty: (property) => {
+      location.push(property);
+    },
+    afterProperty: () => {
+      location.pop();
     },
   });
 }
