@@ -488,6 +488,15 @@ async function appendResponseSchema(
   }
 }
 
+function sortObject(obj: OpenApiDocumentFragment) {
+  return Object.keys(obj)
+    .sort()
+    .reduce(function (result: OpenApiDocumentFragment, key) {
+      result[key] = obj[key];
+      return result;
+    }, {});
+}
+
 async function createComponents(
   sections: Section[]
 ): Promise<OpenApiDocumentFragment> {
@@ -513,7 +522,7 @@ async function createComponents(
   };
 
   return {
-    schemas,
+    schemas: sortObject(schemas),
     securitySchemes,
   };
 }
