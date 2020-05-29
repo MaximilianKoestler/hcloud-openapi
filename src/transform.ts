@@ -136,6 +136,57 @@ async function storeCommonComponents(commonComponents: CommonComponent[]) {
   );
 }
 
+/**
+ * Merge a schema which was found somewhere in the document with an identical
+ * schema in the "components" section.
+ * This attempts to combine the different "description" messages from all
+ * encountered variants.
+ * @param schemas Section of the OpenAPI specification containing all schemas
+ * @param name Name of the shared component
+ * @param newSchema Newly found instance of the component with name "name".
+ *                  Will be merged with the existing component (if exists).
+ */
+function mergeSchemaComponents(
+  schemas: OpenApiDocumentFragment,
+  name: string,
+  newSchema: OpenApiDocumentFragment
+) {
+  if (!(name in schemas)) {
+    const { nullable, ...relevantParts } = newSchema;
+    schemas[name] = relevantParts;
+  } else {
+    // walk through both schemas[name] and newSchema in lockstep
+    let newPartStack = [newSchema];
+    const newSchemaPart = () => newPartStack[newPartStack.length - 1];
+
+    walkSchema(schemas[name], {
+      beforeChildren: (part) => {
+        if (part.description === undefined) {
+          part.description = newSchemaPart().description;
+        } else if (newSchemaPart().description !== undefined) {
+          if (
+            !part.description.split(" | ").includes(newSchemaPart().description)
+          ) {
+            part.description += " | " + newSchemaPart().description;
+          }
+        }
+      },
+      beforeProperty: (property) => {
+        newPartStack.push(newSchemaPart().properties[property]);
+      },
+      afterProperty: () => {
+        newPartStack.pop();
+      },
+      beforeItems: () => {
+        newPartStack.push(newSchemaPart().items);
+      },
+      afterItems: () => {
+        newPartStack.pop();
+      },
+    });
+  }
+}
+
 export async function deduplicateSchemas(
   schemas: OpenApiDocumentFragment,
   fromFile: boolean
@@ -313,12 +364,19 @@ export async function deduplicateSchemas(
             throw Error("ObjectInfo without name encountered!");
           }
 
-          schemas[info.name] = JSON.parse(JSON.stringify(part));
+          // store information as common component
+          mergeSchemaComponents(
+            schemas,
+            info.name,
+            JSON.parse(JSON.stringify(part))
+          );
+          // remove entries from old location
           Object.keys(part).forEach((key) => {
             if (key != "nullable") {
               delete part[key];
             }
           });
+          // leave a reference to the common component
           part["$ref"] = "#/components/schemas/" + info.name;
         }
       },

@@ -2,12 +2,15 @@ import { OpenApiDocumentFragment } from "./types";
 
 type PartAction = (part: OpenApiDocumentFragment) => void;
 type PropertyAction = (property: string) => void;
+type ItemsAction = () => void;
 
 type SchemaActions = {
   beforeChildren?: PartAction;
   afterChildren?: PartAction;
   beforeProperty?: PropertyAction;
   afterProperty?: PropertyAction;
+  beforeItems?: ItemsAction;
+  afterItems?: ItemsAction;
 };
 
 /**
@@ -21,7 +24,13 @@ export function walkSchema(
     transformations.beforeChildren(part);
   }
   if (part.type == "array") {
+    if (transformations.beforeItems !== undefined) {
+      transformations.beforeItems();
+    }
     walkSchema(part.items, transformations);
+    if (transformations.afterItems !== undefined) {
+      transformations.afterItems();
+    }
   } else if (part.type == "object" && "properties" in part) {
     Object.keys(part.properties).forEach((k) => {
       if (transformations.beforeProperty !== undefined) {

@@ -6,7 +6,7 @@
     "contact": {
       "url": "https://docs.hetzner.cloud/"
     },
-    "version": "6e0670d-dirty"
+    "version": "c36f9cd-dirty"
   },
   "servers": [
     {
@@ -70,7 +70,8 @@
           "finished",
           "resources",
           "error"
-        ]
+        ],
+        "description": "Assign Action (only present if a Server was provided) | Action created by this call"
       },
       "created_from": {
         "type": "object",
@@ -88,8 +89,7 @@
           "id",
           "name"
         ],
-        "description": "Information about the Server the Image was created from",
-        "nullable": true
+        "description": "Information about the Server the Image was created from"
       },
       "datacenter": {
         "type": "object",
@@ -156,7 +156,7 @@
         "properties": {
           "ip": {
             "type": "string",
-            "description": "Single IPv6 address of this Server for which the reverse DNS entry has been set up"
+            "description": "Single IPv4 or IPv6 address | Single IPv6 address of this Server for which the reverse DNS entry has been set up"
           },
           "dns_ptr": {
             "type": "string",
@@ -184,8 +184,7 @@
           "code",
           "message"
         ],
-        "description": "Error message for the Action if error occurred, otherwise null",
-        "nullable": true
+        "description": "Error message for the Action if error occurred, otherwise null"
       },
       "floating_ip": {
         "type": "object",
@@ -388,7 +387,7 @@
           "deprecated",
           "labels"
         ],
-        "description": "The newly created Image"
+        "description": "Image this Server was created from | The newly created Image"
       },
       "ipv4": {
         "type": "object",
@@ -477,8 +476,7 @@
           "type",
           "deprecated"
         ],
-        "description": "ISO Image that is attached to this Server. Null if no ISO is attached.",
-        "nullable": true
+        "description": "ISO Image that is attached to this Server. Null if no ISO is attached."
       },
       "location": {
         "type": "object",
@@ -526,7 +524,7 @@
           "longitude",
           "network_zone"
         ],
-        "description": "Location of the Volume. Volume can only be attached to Servers in the same Location."
+        "description": "Location where the Datacenter resides in | Location the Floating IP was created in. Routing is optimized for this Location. | Location of the Volume. Volume can only be attached to Servers in the same Location."
       },
       "network": {
         "type": "object",
@@ -615,7 +613,7 @@
           "net",
           "gross"
         ],
-        "description": "Monthly costs for a Server type in this Location"
+        "description": "Hourly costs for a Server type in this Location | Monthly costs for a Server type in this Location"
       },
       "price_per_time": {
         "type": "object",
@@ -3390,7 +3388,8 @@
           "prices",
           "storage_type",
           "cpu_type"
-        ]
+        ],
+        "description": "Type of Server - determines how much ram, disk and cpu a Server has"
       },
       "ssh_key": {
         "type": "object",
