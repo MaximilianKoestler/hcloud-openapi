@@ -2,11 +2,14 @@ import objectHash = require("object-hash");
 
 import { OpenApiDocumentFragment } from "./types";
 
-type Transformation = (part: OpenApiDocumentFragment) => void;
+type PartAction = (part: OpenApiDocumentFragment) => void;
+type PropertyAction = (property: string) => void;
 
-type SchemaTransformations = {
-  beforeChildren?: Transformation;
-  afterChildren?: Transformation;
+type SchemaActions = {
+  beforeChildren?: PartAction;
+  afterChildren?: PartAction;
+  beforeProperty?: PropertyAction;
+  afterProperty?: PropertyAction;
 };
 
 /**
@@ -14,7 +17,7 @@ type SchemaTransformations = {
  */
 function walkSchema(
   part: OpenApiDocumentFragment,
-  transformations: SchemaTransformations
+  transformations: SchemaActions
 ) {
   if (transformations.beforeChildren !== undefined) {
     transformations.beforeChildren(part);
@@ -22,9 +25,15 @@ function walkSchema(
   if (part.type == "array") {
     walkSchema(part.items, transformations);
   } else if (part.type == "object" && "properties" in part) {
-    Object.keys(part.properties).forEach((k) =>
-      walkSchema(part.properties[k], transformations)
-    );
+    Object.keys(part.properties).forEach((k) => {
+      if (transformations.beforeProperty !== undefined) {
+        transformations.beforeProperty(k);
+      }
+      walkSchema(part.properties[k], transformations);
+      if (transformations.afterProperty !== undefined) {
+        transformations.afterProperty(k);
+      }
+    });
   }
   if (transformations.afterChildren !== undefined) {
     transformations.afterChildren(part);
@@ -114,28 +123,38 @@ export function deduplicateSchemas(schemas: OpenApiDocumentFragment) {
   interface ObjectInfo {
     count: number;
     complexity: number;
+    locations: string[][];
   }
 
   const objectInfos: { [hash: string]: ObjectInfo } = {};
   Object.keys(schemas).forEach((id) => {
+    const location: string[] = [id];
     walkSchema(schemas[id], {
       afterChildren: (part) => {
         if (part.type == "object") {
           const hash = part["x-hash"];
           if (!(hash in objectInfos)) {
-            objectInfos[hash] = { count: 0, complexity: 0 };
+            objectInfos[hash] = { count: 0, complexity: 0, locations: [] };
           }
           objectInfos[hash].count += 1;
           objectInfos[hash].complexity = part["x-complexity"];
+          objectInfos[hash].locations.push([...location]);
         }
+      },
+      beforeProperty: (property) => {
+        location.push(property);
+      },
+      afterProperty: () => {
+        location.pop();
       },
     });
   });
 
   const sorted = Object.entries(objectInfos)
-    .filter((x) => x[1].count > 1)
-    .filter((x) => x[1].complexity > 1)
-    .sort((a, b) => b[1].count - a[1].count);
+    .filter((x) => x[1].count > 1) // occur multiple times
+    .filter((x) => x[1].complexity > 1) // are not trivial
+    .sort((a, b) => b[1].count - a[1].count) // sorted by count descending
+    .slice(0, 10); // top 10
   console.log(require("util").inspect(sorted, false, null, true));
 
   // TODO: deduplicate based on x-hash
