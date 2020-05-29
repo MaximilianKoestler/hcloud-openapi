@@ -14,6 +14,7 @@ import { fixSchema, deduplicateSchemas } from "./transform";
 interface Arguments {
   source: string;
   output?: string;
+  schema_version?: string;
 }
 
 interface Request {
@@ -84,6 +85,10 @@ function parseArgs(): Arguments {
         alias: "o",
         type: "string",
         describe: "Result file location",
+      },
+      schema_version: {
+        type: "string",
+        describe: "version number for the generated API",
       },
     })
     .help()
@@ -554,7 +559,8 @@ function getVersion(): string {
 }
 
 async function createOpenApiDocument(
-  sections: Section[]
+  sections: Section[],
+  version?: string
 ): Promise<OpenApiDocumentFragment> {
   const openapi = "3.0.3";
 
@@ -563,7 +569,7 @@ async function createOpenApiDocument(
     description:
       "Copied from the official API documentation for the Public Hetzner Cloud.",
     contact: { url: "https://docs.hetzner.cloud/" },
-    version: getVersion(),
+    version: version === undefined ? getVersion() : version,
   };
 
   const servers = [
@@ -611,7 +617,7 @@ async function main() {
   try {
     const contents = await getContents(args.source);
     const sections = parseHtmlDocumentation(contents);
-    const document = await createOpenApiDocument(sections);
+    const document = await createOpenApiDocument(sections, args.schema_version);
     validateOpenApiDocument(document);
 
     const json = JSON.stringify(document, null, 2);
