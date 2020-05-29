@@ -159,11 +159,18 @@ export async function deduplicateSchemas(
           }
         } else if (part.type == "object") {
           if (part.properties !== undefined) {
-            const { description, properties, ...hashableParts } = part;
+            const {
+              description,
+              nullable,
+              properties,
+              ...hashableParts
+            } = part;
             hashableParts.properties = {};
             Object.keys(properties).forEach((property) => {
-              hashableParts.properties[property] =
-                properties[property]["x-hash"];
+              hashableParts.properties[property] = {
+                hash: properties[property]["x-hash"],
+                nullable: properties[property].nullable,
+              };
             });
             part["x-hash"] = objectHash(hashableParts);
             part["x-complexity"] = Object.values(properties).reduce(
@@ -308,7 +315,9 @@ export async function deduplicateSchemas(
 
           schemas[info.name] = JSON.parse(JSON.stringify(part));
           Object.keys(part).forEach((key) => {
-            delete part[key];
+            if (key != "nullable") {
+              delete part[key];
+            }
           });
           part["$ref"] = "#/components/schemas/" + info.name;
         }
