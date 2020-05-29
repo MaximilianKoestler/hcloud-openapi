@@ -193,7 +193,7 @@ export function deduplicateSchemas(schemas: OpenApiDocumentFragment) {
   const filteredObjectInfos: { [hash: string]: ObjectInfo } = {};
   Object.keys(objectInfos).forEach((hash) => {
     if (
-      objectInfos[hash].count > 2 &&
+      objectInfos[hash].count > 1 &&
       objectInfos[hash].complexity > 1 &&
       objectInfos[hash].directChildren > 1 &&
       Math.max.apply(
