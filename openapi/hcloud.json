@@ -6,7 +6,7 @@
     "contact": {
       "url": "https://docs.hetzner.cloud/"
     },
-    "version": "c0990bc-dirty"
+    "version": "7dd0930-dirty"
   },
   "servers": [
     {
@@ -57,7 +57,6 @@
             "description": "Resources the Action relates to"
           },
           "error": {
-            "nullable": true,
             "$ref": "#/components/schemas/error"
           }
         },
@@ -89,7 +88,8 @@
           "id",
           "name"
         ],
-        "description": "Information about the Server the Image was created from"
+        "description": "Information about the Server the Image was created from",
+        "nullable": true
       },
       "datacenter": {
         "type": "object",
@@ -184,7 +184,8 @@
           "code",
           "message"
         ],
-        "description": "Error message for the Action if error occurred, otherwise null"
+        "description": "Error message for the Action if error occurred, otherwise null",
+        "nullable": true
       },
       "floating_ip": {
         "type": "object",
@@ -318,7 +319,6 @@
             "description": "Point in time when the Image was created (in ISO-8601 format)"
           },
           "created_from": {
-            "nullable": true,
             "$ref": "#/components/schemas/created_from"
           },
           "bound_to": {
@@ -387,7 +387,125 @@
           "deprecated",
           "labels"
         ],
-        "description": "Image this Server was created from | The newly created Image"
+        "description": "The newly created Image"
+      },
+      "image_optional": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "number",
+            "description": "ID of the Image"
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "backup",
+              "snapshot",
+              "system"
+            ],
+            "description": "Type of the Image"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "available",
+              "creating"
+            ],
+            "description": "Whether the Image can be used or if it's still being created"
+          },
+          "name": {
+            "type": "string",
+            "description": "Unique identifier of the Image. This value is only set for system Images.",
+            "nullable": true
+          },
+          "description": {
+            "type": "string",
+            "description": "Description of the Image"
+          },
+          "image_size": {
+            "type": "number",
+            "description": "Size of the Image file in our storage in GB. For snapshot Images this is the value relevant for calculating costs for the Image.",
+            "nullable": true
+          },
+          "disk_size": {
+            "type": "number",
+            "description": "Size of the disk contained in the Image in GB"
+          },
+          "created": {
+            "type": "string",
+            "description": "Point in time when the Image was created (in ISO-8601 format)"
+          },
+          "created_from": {
+            "$ref": "#/components/schemas/created_from"
+          },
+          "bound_to": {
+            "type": "number",
+            "description": "ID of Server the Image is bound to. Only set for Images of type `backup`.",
+            "nullable": true
+          },
+          "os_flavor": {
+            "type": "string",
+            "enum": [
+              "centos",
+              "debian",
+              "fedora",
+              "ubuntu",
+              "unknown"
+            ],
+            "description": "Flavor of operating system contained in the Image"
+          },
+          "os_version": {
+            "type": "string",
+            "description": "Operating system version",
+            "nullable": true
+          },
+          "rapid_deploy": {
+            "type": "boolean",
+            "description": "Indicates that rapid deploy of the Image is available"
+          },
+          "protection": {
+            "type": "object",
+            "properties": {
+              "delete": {
+                "type": "boolean",
+                "description": "If true, prevents the snapshot from being deleted"
+              }
+            },
+            "required": [
+              "delete"
+            ],
+            "description": "Protection configuration for the Image"
+          },
+          "deprecated": {
+            "type": "string",
+            "description": "Point in time when the Image is considered to be deprecated (in ISO-8601 format)",
+            "nullable": true
+          },
+          "labels": {
+            "type": "object",
+            "properties": {},
+            "description": "User-defined labels (key-value pairs)"
+          }
+        },
+        "required": [
+          "id",
+          "type",
+          "status",
+          "name",
+          "description",
+          "image_size",
+          "disk_size",
+          "created",
+          "created_from",
+          "bound_to",
+          "os_flavor",
+          "os_version",
+          "protection",
+          "deprecated",
+          "labels"
+        ],
+        "description": "Image this Server was created from",
+        "nullable": true
       },
       "ipv4": {
         "type": "object",
@@ -475,8 +593,47 @@
           "description",
           "type",
           "deprecated"
+        ]
+      },
+      "iso_optional": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "number",
+            "description": "ID of the ISO"
+          },
+          "name": {
+            "type": "string",
+            "description": "Unique identifier of the ISO. Only set for public ISOs",
+            "nullable": true
+          },
+          "description": {
+            "type": "string",
+            "description": "Description of the ISO"
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "private",
+              "public"
+            ],
+            "description": "Type of the ISO"
+          },
+          "deprecated": {
+            "type": "string",
+            "description": "ISO 8601 timestamp of deprecation, null if ISO is still available. After the deprecation time it will no longer be possible to attach the ISO to Servers.",
+            "nullable": true
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "description",
+          "type",
+          "deprecated"
         ],
-        "description": "ISO Image that is attached to this Server. Null if no ISO is attached."
+        "description": "ISO Image that is attached to this Server. Null if no ISO is attached.",
+        "nullable": true
       },
       "location": {
         "type": "object",
@@ -1602,12 +1759,10 @@
                 "$ref": "#/components/schemas/datacenter"
               },
               "image": {
-                "nullable": true,
-                "$ref": "#/components/schemas/image"
+                "$ref": "#/components/schemas/image_optional"
               },
               "iso": {
-                "nullable": true,
-                "$ref": "#/components/schemas/iso"
+                "$ref": "#/components/schemas/iso_optional"
               },
               "rescue_enabled": {
                 "type": "boolean",
@@ -1755,7 +1910,6 @@
                 "description": "Resources the Action relates to"
               },
               "error": {
-                "nullable": true,
                 "$ref": "#/components/schemas/error"
               }
             },
@@ -2665,7 +2819,6 @@
                 "description": "Point in time when the Image was created (in ISO-8601 format)"
               },
               "created_from": {
-                "nullable": true,
                 "$ref": "#/components/schemas/created_from"
               },
               "bound_to": {
@@ -2876,12 +3029,10 @@
                 "$ref": "#/components/schemas/datacenter"
               },
               "image": {
-                "nullable": true,
-                "$ref": "#/components/schemas/image"
+                "$ref": "#/components/schemas/image_optional"
               },
               "iso": {
-                "nullable": true,
-                "$ref": "#/components/schemas/iso"
+                "$ref": "#/components/schemas/iso_optional"
               },
               "rescue_enabled": {
                 "type": "boolean",
@@ -3249,12 +3400,10 @@
             "$ref": "#/components/schemas/datacenter"
           },
           "image": {
-            "nullable": true,
-            "$ref": "#/components/schemas/image"
+            "$ref": "#/components/schemas/image_optional"
           },
           "iso": {
-            "nullable": true,
-            "$ref": "#/components/schemas/iso"
+            "$ref": "#/components/schemas/iso_optional"
           },
           "rescue_enabled": {
             "type": "boolean",

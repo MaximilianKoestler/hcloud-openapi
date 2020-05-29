@@ -52,6 +52,14 @@
     ]
   },
   {
+    "name": "image_optional",
+    "path": [
+      "response_list_servers",
+      "servers",
+      "image"
+    ]
+  },
+  {
     "name": "ipv4",
     "path": [
       "response_list_servers",
@@ -74,6 +82,14 @@
     "path": [
       "response_list_isos",
       "isos"
+    ]
+  },
+  {
+    "name": "iso_optional",
+    "path": [
+      "response_list_servers",
+      "servers",
+      "iso"
     ]
   },
   {

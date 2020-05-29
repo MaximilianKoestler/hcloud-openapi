@@ -125,10 +125,19 @@ function filterObject(
 }
 
 async function storeCommonComponents(commonComponents: CommonComponent[]) {
+  const sortedEntries = commonComponents.map((component: any) =>
+    Object.keys(component)
+      .sort()
+      .reduce(function (result: OpenApiDocumentFragment, key) {
+        result[key] = component[key];
+        return result;
+      }, {})
+  );
+
   await fs.writeFile(
     "resources/schema_types.json",
     JSON.stringify(
-      commonComponents.sort((a, b) => a.name?.localeCompare(b.name)),
+      sortedEntries.sort((a, b) => a.name?.localeCompare(b.name)),
       null,
       2
     ),
@@ -152,8 +161,7 @@ function mergeSchemaComponents(
   newSchema: OpenApiDocumentFragment
 ) {
   if (!(name in schemas)) {
-    const { nullable, ...relevantParts } = newSchema;
-    schemas[name] = relevantParts;
+    schemas[name] = newSchema;
   } else {
     // walk through both schemas[name] and newSchema in lockstep
     let newPartStack = [newSchema];
@@ -210,18 +218,11 @@ export async function deduplicateSchemas(
           }
         } else if (part.type == "object") {
           if (part.properties !== undefined) {
-            const {
-              description,
-              nullable,
-              properties,
-              ...hashableParts
-            } = part;
+            const { description, properties, ...hashableParts } = part;
             hashableParts.properties = {};
             Object.keys(properties).forEach((property) => {
-              hashableParts.properties[property] = {
-                hash: properties[property]["x-hash"],
-                nullable: properties[property].nullable,
-              };
+              hashableParts.properties[property] =
+                properties[property]["x-hash"];
             });
             part["x-hash"] = objectHash(hashableParts);
             part["x-complexity"] = Object.values(properties).reduce(
@@ -372,9 +373,7 @@ export async function deduplicateSchemas(
           );
           // remove entries from old location
           Object.keys(part).forEach((key) => {
-            if (key != "nullable") {
-              delete part[key];
-            }
+            delete part[key];
           });
           // leave a reference to the common component
           part["$ref"] = "#/components/schemas/" + info.name;
