@@ -61,13 +61,6 @@
   },
   {
     "path": [
-      "response_create_floating_ip",
-      "action"
-    ],
-    "name": "action_1"
-  },
-  {
-    "path": [
       "response_list_images",
       "images",
       "created_from"

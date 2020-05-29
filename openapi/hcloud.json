@@ -6,7 +6,7 @@
     "contact": {
       "url": "https://docs.hetzner.cloud/"
     },
-    "version": "9be1c8a-dirty"
+    "version": "a10cdc2-dirty"
   },
   "servers": [
     {
@@ -30,64 +30,9 @@
           "status": {
             "type": "string",
             "enum": [
-              "success",
+              "error",
               "running",
-              "error"
-            ],
-            "description": "Status of the Action"
-          },
-          "progress": {
-            "type": "number",
-            "description": "Progress of Action in percent"
-          },
-          "started": {
-            "type": "string",
-            "description": "Point in time when the Action was started (in ISO-8601 format)"
-          },
-          "finished": {
-            "type": "string",
-            "description": "Point in time when the Action was finished (in ISO-8601 format). Only set if the Action is finished otherwise null.",
-            "nullable": true
-          },
-          "resources": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/resource"
-            },
-            "description": "Resources the Action relates to"
-          },
-          "error": {
-            "$ref": "#/components/schemas/error"
-          }
-        },
-        "required": [
-          "id",
-          "command",
-          "status",
-          "progress",
-          "started",
-          "finished",
-          "resources",
-          "error"
-        ]
-      },
-      "action_1": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "number",
-            "description": "ID of the Action"
-          },
-          "command": {
-            "type": "string",
-            "description": "Command executed in the Action"
-          },
-          "status": {
-            "type": "string",
-            "enum": [
-              "running",
-              "success",
-              "error"
+              "success"
             ],
             "description": "Status of the Action"
           },
@@ -307,9 +252,9 @@
           "type": {
             "type": "string",
             "enum": [
-              "system",
+              "backup",
               "snapshot",
-              "backup"
+              "system"
             ],
             "description": "Type of the Image"
           },
@@ -354,10 +299,10 @@
           "os_flavor": {
             "type": "string",
             "enum": [
-              "ubuntu",
               "centos",
               "debian",
               "fedora",
+              "ubuntu",
               "unknown"
             ],
             "description": "Flavor of operating system contained in the Image"
@@ -411,7 +356,8 @@
           "protection",
           "deprecated",
           "labels"
-        ]
+        ],
+        "description": "The newly created Image"
       },
       "image_1": {
         "type": "object",
@@ -423,9 +369,9 @@
           "type": {
             "type": "string",
             "enum": [
-              "system",
+              "backup",
               "snapshot",
-              "backup"
+              "system"
             ],
             "description": "Type of the Image"
           },
@@ -470,10 +416,10 @@
           "os_flavor": {
             "type": "string",
             "enum": [
-              "ubuntu",
               "centos",
               "debian",
               "fedora",
+              "ubuntu",
               "unknown"
             ],
             "description": "Flavor of operating system contained in the Image"
@@ -600,8 +546,8 @@
           "type": {
             "type": "string",
             "enum": [
-              "public",
-              "private"
+              "private",
+              "public"
             ],
             "description": "Type of the ISO"
           },
@@ -638,8 +584,8 @@
           "type": {
             "type": "string",
             "enum": [
-              "public",
-              "private"
+              "private",
+              "public"
             ],
             "description": "Type of the ISO"
           },
@@ -1108,8 +1054,8 @@
           "type": {
             "type": "string",
             "enum": [
-              "snapshot",
-              "backup"
+              "backup",
+              "snapshot"
             ],
             "description": "Type of Image to create (default: `snapshot`)"
           },
@@ -1339,9 +1285,9 @@
           "type": {
             "type": "string",
             "enum": [
-              "linux64",
+              "freebsd64",
               "linux32",
-              "freebsd64"
+              "linux64"
             ],
             "description": "Type of rescue system to boot (default: `linux64`)"
           },
@@ -1521,7 +1467,7 @@
         "type": "object",
         "properties": {
           "action": {
-            "$ref": "#/components/schemas/action_1"
+            "$ref": "#/components/schemas/action"
           }
         },
         "required": [
@@ -1532,7 +1478,7 @@
         "type": "object",
         "properties": {
           "action": {
-            "$ref": "#/components/schemas/action_1"
+            "$ref": "#/components/schemas/action"
           }
         },
         "required": [
@@ -1543,7 +1489,7 @@
         "type": "object",
         "properties": {
           "action": {
-            "$ref": "#/components/schemas/action_1"
+            "$ref": "#/components/schemas/action"
           }
         },
         "required": [
@@ -1554,7 +1500,7 @@
         "type": "object",
         "properties": {
           "action": {
-            "$ref": "#/components/schemas/action_1"
+            "$ref": "#/components/schemas/action"
           }
         },
         "required": [
@@ -1565,7 +1511,7 @@
         "type": "object",
         "properties": {
           "action": {
-            "$ref": "#/components/schemas/action_1"
+            "$ref": "#/components/schemas/action"
           }
         },
         "required": [
@@ -1576,7 +1522,7 @@
         "type": "object",
         "properties": {
           "action": {
-            "$ref": "#/components/schemas/action_1"
+            "$ref": "#/components/schemas/action"
           }
         },
         "required": [
@@ -1587,7 +1533,7 @@
         "type": "object",
         "properties": {
           "action": {
-            "$ref": "#/components/schemas/action_1"
+            "$ref": "#/components/schemas/action"
           }
         },
         "required": [
@@ -1642,7 +1588,7 @@
         "type": "object",
         "properties": {
           "action": {
-            "$ref": "#/components/schemas/action_1"
+            "$ref": "#/components/schemas/action"
           }
         },
         "required": [
@@ -1653,7 +1599,7 @@
         "type": "object",
         "properties": {
           "action": {
-            "$ref": "#/components/schemas/action_1"
+            "$ref": "#/components/schemas/action"
           }
         },
         "required": [
@@ -1675,7 +1621,7 @@
         "type": "object",
         "properties": {
           "action": {
-            "$ref": "#/components/schemas/action_1"
+            "$ref": "#/components/schemas/action"
           }
         },
         "required": [
@@ -1700,7 +1646,7 @@
             "$ref": "#/components/schemas/floating_ip"
           },
           "action": {
-            "$ref": "#/components/schemas/action_1"
+            "$ref": "#/components/schemas/action"
           }
         },
         "required": [
@@ -1711,121 +1657,7 @@
         "type": "object",
         "properties": {
           "image": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "number",
-                "description": "ID of the Image"
-              },
-              "type": {
-                "type": "string",
-                "enum": [
-                  "snapshot",
-                  "system",
-                  "backup"
-                ],
-                "description": "Type of the Image"
-              },
-              "status": {
-                "type": "string",
-                "enum": [
-                  "creating",
-                  "available"
-                ],
-                "description": "Whether the Image can be used or if it's still being created"
-              },
-              "name": {
-                "type": "string",
-                "description": "Unique identifier of the Image. This value is only set for system Images.",
-                "nullable": true
-              },
-              "description": {
-                "type": "string",
-                "description": "Description of the Image"
-              },
-              "image_size": {
-                "type": "number",
-                "description": "Size of the Image file in our storage in GB. For snapshot Images this is the value relevant for calculating costs for the Image.",
-                "nullable": true
-              },
-              "disk_size": {
-                "type": "number",
-                "description": "Size of the disk contained in the Image in GB"
-              },
-              "created": {
-                "type": "string",
-                "description": "Point in time when the Image was created (in ISO-8601 format)"
-              },
-              "created_from": {
-                "$ref": "#/components/schemas/created_from"
-              },
-              "bound_to": {
-                "type": "number",
-                "description": "ID of Server the Image is bound to. Only set for Images of type `backup`.",
-                "nullable": true
-              },
-              "os_flavor": {
-                "type": "string",
-                "enum": [
-                  "ubuntu",
-                  "centos",
-                  "debian",
-                  "fedora",
-                  "unknown"
-                ],
-                "description": "Flavor of operating system contained in the Image"
-              },
-              "os_version": {
-                "type": "string",
-                "description": "Operating system version",
-                "nullable": true
-              },
-              "rapid_deploy": {
-                "type": "boolean",
-                "description": "Indicates that rapid deploy of the Image is available"
-              },
-              "protection": {
-                "type": "object",
-                "properties": {
-                  "delete": {
-                    "type": "boolean",
-                    "description": "If true, prevents the snapshot from being deleted"
-                  }
-                },
-                "required": [
-                  "delete"
-                ],
-                "description": "Protection configuration for the Image"
-              },
-              "deprecated": {
-                "type": "string",
-                "description": "Point in time when the Image is considered to be deprecated (in ISO-8601 format)",
-                "nullable": true
-              },
-              "labels": {
-                "type": "object",
-                "properties": {},
-                "description": "User-defined labels (key-value pairs)"
-              }
-            },
-            "required": [
-              "id",
-              "type",
-              "status",
-              "name",
-              "description",
-              "image_size",
-              "disk_size",
-              "created",
-              "created_from",
-              "bound_to",
-              "os_flavor",
-              "os_version",
-              "protection",
-              "deprecated",
-              "labels"
-            ],
-            "description": "The newly created Image"
+            "$ref": "#/components/schemas/image"
           },
           "action": {
             "$ref": "#/components/schemas/action"
@@ -1864,14 +1696,14 @@
               "status": {
                 "type": "string",
                 "enum": [
-                  "initializing",
-                  "starting",
-                  "running",
-                  "stopping",
-                  "off",
                   "deleting",
+                  "initializing",
                   "migrating",
-                  "rebuilding"
+                  "off",
+                  "rebuilding",
+                  "running",
+                  "starting",
+                  "stopping"
                 ],
                 "description": "Status of the Server"
               },
@@ -1968,7 +1800,7 @@
             ]
           },
           "action": {
-            "$ref": "#/components/schemas/action_1"
+            "$ref": "#/components/schemas/action"
           },
           "next_actions": {
             "type": "array",
@@ -2021,9 +1853,9 @@
               "status": {
                 "type": "string",
                 "enum": [
+                  "error",
                   "running",
-                  "success",
-                  "error"
+                  "success"
                 ],
                 "description": "Status of the Action"
               },
@@ -2081,7 +1913,7 @@
         "type": "object",
         "properties": {
           "action": {
-            "$ref": "#/components/schemas/action_1"
+            "$ref": "#/components/schemas/action"
           }
         },
         "required": [
@@ -2092,7 +1924,7 @@
         "type": "object",
         "properties": {
           "action": {
-            "$ref": "#/components/schemas/action_1"
+            "$ref": "#/components/schemas/action"
           }
         },
         "required": [
@@ -2103,7 +1935,7 @@
         "type": "object",
         "properties": {
           "action": {
-            "$ref": "#/components/schemas/action_1"
+            "$ref": "#/components/schemas/action"
           }
         },
         "required": [
@@ -2114,7 +1946,7 @@
         "type": "object",
         "properties": {
           "action": {
-            "$ref": "#/components/schemas/action_1"
+            "$ref": "#/components/schemas/action"
           }
         },
         "required": [
@@ -2125,7 +1957,7 @@
         "type": "object",
         "properties": {
           "action": {
-            "$ref": "#/components/schemas/action_1"
+            "$ref": "#/components/schemas/action"
           }
         },
         "required": [
@@ -2136,7 +1968,7 @@
         "type": "object",
         "properties": {
           "action": {
-            "$ref": "#/components/schemas/action_1"
+            "$ref": "#/components/schemas/action"
           }
         },
         "required": [
@@ -2158,7 +1990,7 @@
         "type": "object",
         "properties": {
           "action": {
-            "$ref": "#/components/schemas/action_1"
+            "$ref": "#/components/schemas/action"
           }
         },
         "required": [
@@ -2774,7 +2606,7 @@
         "type": "object",
         "properties": {
           "action": {
-            "$ref": "#/components/schemas/action_1"
+            "$ref": "#/components/schemas/action"
           }
         },
         "required": [
@@ -2785,7 +2617,7 @@
         "type": "object",
         "properties": {
           "action": {
-            "$ref": "#/components/schemas/action_1"
+            "$ref": "#/components/schemas/action"
           }
         },
         "required": [
@@ -2796,7 +2628,7 @@
         "type": "object",
         "properties": {
           "action": {
-            "$ref": "#/components/schemas/action_1"
+            "$ref": "#/components/schemas/action"
           },
           "root_password": {
             "type": "string",
@@ -2920,9 +2752,9 @@
               "type": {
                 "type": "string",
                 "enum": [
+                  "backup",
                   "snapshot",
-                  "system",
-                  "backup"
+                  "system"
                 ],
                 "description": "Type of the Image"
               },
@@ -2967,10 +2799,10 @@
               "os_flavor": {
                 "type": "string",
                 "enum": [
-                  "ubuntu",
                   "centos",
                   "debian",
                   "fedora",
+                  "ubuntu",
                   "unknown"
                 ],
                 "description": "Flavor of operating system contained in the Image"
@@ -3133,14 +2965,14 @@
               "status": {
                 "type": "string",
                 "enum": [
-                  "running",
+                  "deleting",
                   "initializing",
+                  "migrating",
+                  "off",
+                  "rebuilding",
+                  "running",
                   "starting",
                   "stopping",
-                  "off",
-                  "deleting",
-                  "migrating",
-                  "rebuilding",
                   "unknown"
                 ],
                 "description": "Status of the Server"
@@ -3356,8 +3188,8 @@
               "status": {
                 "type": "string",
                 "enum": [
-                  "creating",
-                  "available"
+                  "available",
+                  "creating"
                 ],
                 "description": "Current status of the Volume"
               },
@@ -3414,7 +3246,7 @@
             "description": "Password that will be set for this Server once the Action succeeds"
           },
           "action": {
-            "$ref": "#/components/schemas/action_1"
+            "$ref": "#/components/schemas/action"
           }
         },
         "required": [
@@ -3425,7 +3257,7 @@
         "type": "object",
         "properties": {
           "action": {
-            "$ref": "#/components/schemas/action_1"
+            "$ref": "#/components/schemas/action"
           }
         },
         "required": [
@@ -3436,7 +3268,7 @@
         "type": "object",
         "properties": {
           "action": {
-            "$ref": "#/components/schemas/action_1"
+            "$ref": "#/components/schemas/action"
           }
         }
       },
@@ -3444,7 +3276,7 @@
         "type": "object",
         "properties": {
           "action": {
-            "$ref": "#/components/schemas/action_1"
+            "$ref": "#/components/schemas/action"
           }
         },
         "required": [
@@ -3455,7 +3287,7 @@
         "type": "object",
         "properties": {
           "action": {
-            "$ref": "#/components/schemas/action_1"
+            "$ref": "#/components/schemas/action"
           }
         },
         "required": [
@@ -3466,7 +3298,7 @@
         "type": "object",
         "properties": {
           "action": {
-            "$ref": "#/components/schemas/action_1"
+            "$ref": "#/components/schemas/action"
           }
         },
         "required": [
@@ -3504,14 +3336,14 @@
           "status": {
             "type": "string",
             "enum": [
-              "running",
+              "deleting",
               "initializing",
+              "migrating",
+              "off",
+              "rebuilding",
+              "running",
               "starting",
               "stopping",
-              "off",
-              "deleting",
-              "migrating",
-              "rebuilding",
               "unknown"
             ],
             "description": "Status of the Server"
@@ -3690,8 +3522,8 @@
           "cpu_type": {
             "type": "string",
             "enum": [
-              "shared",
-              "dedicated"
+              "dedicated",
+              "shared"
             ],
             "description": "Type of cpu"
           }
@@ -3854,8 +3686,8 @@
           "status": {
             "type": "string",
             "enum": [
-              "creating",
-              "available"
+              "available",
+              "creating"
             ],
             "description": "Current status of the Volume"
           },

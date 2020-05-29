@@ -20,6 +20,11 @@ function fixItem(part: OpenApiDocumentFragment, location: string[]) {
       properties: {},
     };
   }
+
+  // sort enumeration entries
+  if (part.type == "string" && part.enum !== undefined) {
+    part.enum = (part.enum as string[]).sort();
+  }
 }
 
 export function fixSchema(id: string, schemas: OpenApiDocumentFragment) {
