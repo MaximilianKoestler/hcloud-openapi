@@ -6,7 +6,7 @@
     "contact": {
       "url": "https://docs.hetzner.cloud/"
     },
-    "version": "752367e-dirty"
+    "version": "485ef74-dirty"
   },
   "servers": [
     {
@@ -109,7 +109,36 @@
             "$ref": "#/components/schemas/location"
           },
           "server_types": {
-            "$ref": "#/components/schemas/server_type"
+            "type": "object",
+            "properties": {
+              "supported": {
+                "type": "array",
+                "items": {
+                  "type": "number"
+                },
+                "description": "IDs of Server types that are supported in the Datacenter"
+              },
+              "available": {
+                "type": "array",
+                "items": {
+                  "type": "number"
+                },
+                "description": "IDs of Server types that are supported and for which the Datacenter has enough resources left"
+              },
+              "available_for_migration": {
+                "type": "array",
+                "items": {
+                  "type": "number"
+                },
+                "description": "IDs of Server types that are supported and for which the Datacenter has enough resources left"
+              }
+            },
+            "required": [
+              "supported",
+              "available",
+              "available_for_migration"
+            ],
+            "description": "The Server types the Datacenter can handle"
           }
         },
         "required": [
@@ -1723,7 +1752,7 @@
                 }
               },
               "server_type": {
-                "$ref": "#/components/schemas/server_type_1"
+                "$ref": "#/components/schemas/server_type"
               },
               "datacenter": {
                 "$ref": "#/components/schemas/datacenter"
@@ -2211,7 +2240,7 @@
         "type": "object",
         "properties": {
           "server_type": {
-            "$ref": "#/components/schemas/server_type_1"
+            "$ref": "#/components/schemas/server_type"
           }
         },
         "required": [
@@ -2552,7 +2581,7 @@
           "server_types": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/server_type_1"
+              "$ref": "#/components/schemas/server_type"
             }
           }
         },
@@ -2993,7 +3022,7 @@
                 }
               },
               "server_type": {
-                "$ref": "#/components/schemas/server_type_1"
+                "$ref": "#/components/schemas/server_type"
               },
               "datacenter": {
                 "$ref": "#/components/schemas/datacenter"
@@ -3364,7 +3393,7 @@
             }
           },
           "server_type": {
-            "$ref": "#/components/schemas/server_type_1"
+            "$ref": "#/components/schemas/server_type"
           },
           "datacenter": {
             "$ref": "#/components/schemas/datacenter"
@@ -3441,38 +3470,6 @@
         ]
       },
       "server_type": {
-        "type": "object",
-        "properties": {
-          "supported": {
-            "type": "array",
-            "items": {
-              "type": "number"
-            },
-            "description": "IDs of Server types that are supported in the Datacenter"
-          },
-          "available": {
-            "type": "array",
-            "items": {
-              "type": "number"
-            },
-            "description": "IDs of Server types that are supported and for which the Datacenter has enough resources left"
-          },
-          "available_for_migration": {
-            "type": "array",
-            "items": {
-              "type": "number"
-            },
-            "description": "IDs of Server types that are supported and for which the Datacenter has enough resources left"
-          }
-        },
-        "required": [
-          "supported",
-          "available",
-          "available_for_migration"
-        ],
-        "description": "The Server types the Datacenter can handle"
-      },
-      "server_type_1": {
         "type": "object",
         "properties": {
           "id": {
