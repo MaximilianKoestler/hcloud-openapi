@@ -316,6 +316,30 @@ export async function deduplicateSchemas(
     });
   });
 
+  const refHistogram: { [ref: string]: number } = {};
+  Object.keys(schemas).forEach((id) => {
+    walkSchema(schemas[id], {
+      afterChildren: (part) => {
+        if ("$ref" in part) {
+          const ref: string = part["$ref"];
+          if (!(ref in refHistogram)) {
+            refHistogram[ref] = 0;
+          }
+          refHistogram[ref] += 1;
+        }
+      },
+    });
+  });
+  const singleUseEntries = Object.entries(refHistogram).filter(
+    (entry) => entry[1] <= 1
+  );
+  if (singleUseEntries.length > 0) {
+    console.warn(
+      `Found ${singleUseEntries.length} entries which only occur once:`
+    );
+    console.warn(singleUseEntries);
+  }
+
   // remove hashes again
   Object.keys(schemas).forEach((id) => {
     walkSchema(schemas[id], {
