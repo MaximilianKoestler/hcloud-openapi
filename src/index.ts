@@ -512,7 +512,7 @@ async function createComponents(
     await appendResponseSchema(schemas, data);
   }
 
-  deduplicateSchemas(schemas);
+  await deduplicateSchemas(schemas, true);
 
   const securitySchemes = {
     bearerAuth: {

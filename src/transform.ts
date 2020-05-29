@@ -1,3 +1,5 @@
+const fs = require("fs").promises;
+
 import objectHash = require("object-hash");
 import pluralize = require("pluralize");
 
@@ -99,7 +101,23 @@ function extractComponentName(locations: string[][]): string {
   return pluralize.singular(name);
 }
 
-export function deduplicateSchemas(schemas: OpenApiDocumentFragment) {
+function filterObject(
+  obj: any,
+  filter: (key: string, value: any) => boolean
+): any {
+  const result: any = {};
+  Object.keys(obj).forEach((key) => {
+    if (filter(key, obj[key])) {
+      result[key] = obj[key];
+    }
+  });
+  return result;
+}
+
+export async function deduplicateSchemas(
+  schemas: OpenApiDocumentFragment,
+  fromFile: boolean
+) {
   // calculate hashes and complexity scores over all possibly shared schema items
   // do not consider descriptions for the hashes
   Object.keys(schemas).forEach((id) => {
@@ -156,7 +174,7 @@ export function deduplicateSchemas(schemas: OpenApiDocumentFragment) {
     name?: string;
   }
 
-  const objectInfos: { [hash: string]: ObjectInfo } = {};
+  let objectInfos: { [hash: string]: ObjectInfo } = {};
   Object.keys(schemas).forEach((id) => {
     const location: string[] = [id];
     walkSchema(schemas[id], {
@@ -190,63 +208,82 @@ export function deduplicateSchemas(schemas: OpenApiDocumentFragment) {
   });
 
   // filter for interesting objects
-  const filteredObjectInfos: { [hash: string]: ObjectInfo } = {};
-  Object.keys(objectInfos).forEach((hash) => {
-    if (
-      objectInfos[hash].count > 1 &&
-      objectInfos[hash].complexity > 1 &&
-      objectInfos[hash].directChildren > 1 &&
+  objectInfos = filterObject(
+    objectInfos,
+    (_key, value) =>
+      value.count > 1 &&
+      value.complexity > 1 &&
+      value.directChildren > 1 &&
       Math.max.apply(
         null,
-        objectInfos[hash].locations.map((location) => location.length)
+        value.locations.map((location: any) => location.length)
       ) > 1
-    ) {
-      filteredObjectInfos[hash] = objectInfos[hash];
-    }
-  });
+  );
 
-  // select component names for all schema objects
-  const usedNames = new Set(Object.keys(schemas));
-  Object.keys(filteredObjectInfos).forEach((hash) => {
-    const originalName = extractComponentName(
-      filteredObjectInfos[hash].locations
+  interface CommonComponent {
+    path: string[];
+    name: string | undefined;
+  }
+
+  if (fromFile) {
+    // load component names from file
+    const json = await fs.readFile("resources/schema_types.json", "utf-8");
+    let CommonComponents: CommonComponent[] = JSON.parse(json);
+
+    CommonComponents.forEach((component) => {
+      Object.keys(objectInfos).forEach((hash) => {
+        objectInfos[hash].locations.forEach((location) => {
+          if (location.join("/") == component.path.join("/")) {
+            objectInfos[hash].name = component.name;
+          }
+        });
+      });
+    });
+
+    objectInfos = filterObject(
+      objectInfos,
+      (_key, value) => value.name !== undefined
     );
+  } else {
+    // compute component names for all schema objects
+    const usedNames = new Set(Object.keys(schemas));
+    Object.keys(objectInfos).forEach((hash) => {
+      const originalName = extractComponentName(objectInfos[hash].locations);
 
-    let name = originalName;
-    let i = 1;
-    while (usedNames.has(name)) {
-      name = originalName + "_" + i++;
-    }
+      let name = originalName;
+      let i = 1;
+      while (usedNames.has(name)) {
+        name = originalName + "_" + i++;
+      }
 
-    usedNames.add(name);
-    filteredObjectInfos[hash].name = name;
-  });
+      usedNames.add(name);
+      objectInfos[hash].name = name;
+    });
 
-  const extractedSchemaTypes = Object.keys(filteredObjectInfos).map((hash) => {
-    const info = filteredObjectInfos[hash];
-    const path = info.locations
-      .filter((location) => location.length > 1)
-      .sort((a, b) => a.length - b.length)[0];
-    return {
-      path: path,
-      name: info.name,
-    };
-  });
-  const json = JSON.stringify(extractedSchemaTypes, null, 2);
-  require("fs").promises.writeFile(
-    "resources/schema_types.json",
-    json,
-    "utf-8"
-  );
-  console.log(
-    `Extracted ${extractedSchemaTypes.length} shared objects from the schemas.`
-  );
+    const extractedSchemaTypes: CommonComponent[] = Object.keys(
+      objectInfos
+    ).map((hash) => {
+      const info = objectInfos[hash];
+      const path = info.locations
+        .filter((location) => location.length > 1)
+        .sort((a, b) => a.length - b.length)[0];
+      return {
+        path: path,
+        name: info.name,
+      };
+    });
+    const json = JSON.stringify(extractedSchemaTypes, null, 2);
+    await fs.writeFile("resources/schema_types.json", json, "utf-8");
+    console.log(
+      `Extracted ${extractedSchemaTypes.length} shared objects from the schemas.`
+    );
+  }
 
   Object.keys(schemas).forEach((id) => {
     walkSchema(schemas[id], {
       afterChildren: (part) => {
-        if (part["x-hash"] in filteredObjectInfos) {
-          const info = filteredObjectInfos[part["x-hash"]];
+        if (part["x-hash"] in objectInfos) {
+          const info = objectInfos[part["x-hash"]];
 
           if (info.name == undefined) {
             throw Error("ObjectInfo without name encountered!");
