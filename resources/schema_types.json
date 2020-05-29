@@ -1,0 +1,215 @@
+[
+  {
+    "path": [
+      "response_list_all_actions",
+      "actions",
+      "resources"
+    ],
+    "name": "resource"
+  },
+  {
+    "path": [
+      "response_list_all_actions",
+      "actions",
+      "error"
+    ],
+    "name": "error"
+  },
+  {
+    "path": [
+      "response_list_all_actions",
+      "actions"
+    ],
+    "name": "action"
+  },
+  {
+    "path": [
+      "response_list_locations",
+      "locations"
+    ],
+    "name": "location"
+  },
+  {
+    "path": [
+      "response_list_datacenters",
+      "datacenters",
+      "server_types"
+    ],
+    "name": "server_type"
+  },
+  {
+    "path": [
+      "response_list_datacenters",
+      "datacenters"
+    ],
+    "name": "datacenter"
+  },
+  {
+    "path": [
+      "response_list_floating_ips",
+      "floating_ips",
+      "dns_ptr"
+    ],
+    "name": "dns_ptr"
+  },
+  {
+    "path": [
+      "response_list_floating_ips",
+      "floating_ips"
+    ],
+    "name": "floating_ip"
+  },
+  {
+    "path": [
+      "response_create_floating_ip",
+      "action"
+    ],
+    "name": "action_1"
+  },
+  {
+    "path": [
+      "response_list_images",
+      "images",
+      "created_from"
+    ],
+    "name": "created_from"
+  },
+  {
+    "path": [
+      "response_list_images",
+      "images"
+    ],
+    "name": "image"
+  },
+  {
+    "path": [
+      "response_list_isos",
+      "isos"
+    ],
+    "name": "iso"
+  },
+  {
+    "path": [
+      "response_list_networks",
+      "networks",
+      "subnets"
+    ],
+    "name": "subnet"
+  },
+  {
+    "path": [
+      "request_create_network",
+      "routes"
+    ],
+    "name": "route"
+  },
+  {
+    "path": [
+      "response_list_networks",
+      "networks"
+    ],
+    "name": "network"
+  },
+  {
+    "path": [
+      "request_create_network",
+      "subnets"
+    ],
+    "name": "subnet_1"
+  },
+  {
+    "path": [
+      "response_list_prices",
+      "pricing",
+      "image",
+      "price_per_gb_month"
+    ],
+    "name": "price"
+  },
+  {
+    "path": [
+      "response_list_server_types",
+      "server_types",
+      "prices"
+    ],
+    "name": "price_1"
+  },
+  {
+    "path": [
+      "response_list_servers",
+      "servers",
+      "public_net",
+      "ipv4"
+    ],
+    "name": "ipv4"
+  },
+  {
+    "path": [
+      "response_list_servers",
+      "servers",
+      "public_net",
+      "ipv6"
+    ],
+    "name": "ipv6"
+  },
+  {
+    "path": [
+      "response_list_servers",
+      "servers",
+      "public_net"
+    ],
+    "name": "public_net"
+  },
+  {
+    "path": [
+      "response_list_server_types",
+      "server_types"
+    ],
+    "name": "server_type_1"
+  },
+  {
+    "path": [
+      "response_list_servers",
+      "servers",
+      "image"
+    ],
+    "name": "image_1"
+  },
+  {
+    "path": [
+      "response_list_servers",
+      "servers",
+      "iso"
+    ],
+    "name": "iso_1"
+  },
+  {
+    "path": [
+      "response_list_servers",
+      "servers",
+      "protection"
+    ],
+    "name": "protection"
+  },
+  {
+    "path": [
+      "response_list_servers",
+      "servers"
+    ],
+    "name": "server"
+  },
+  {
+    "path": [
+      "response_list_ssh_keys",
+      "ssh_keys"
+    ],
+    "name": "ssh_key"
+  },
+  {
+    "path": [
+      "response_list_volumes",
+      "volumes"
+    ],
+    "name": "volume"
+  }
+]

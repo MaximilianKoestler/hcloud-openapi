@@ -222,6 +222,26 @@ export function deduplicateSchemas(schemas: OpenApiDocumentFragment) {
     filteredObjectInfos[hash].name = name;
   });
 
+  const extractedSchemaTypes = Object.keys(filteredObjectInfos).map((hash) => {
+    const info = filteredObjectInfos[hash];
+    const path = info.locations
+      .filter((location) => location.length > 1)
+      .sort((a, b) => a.length - b.length)[0];
+    return {
+      path: path,
+      name: info.name,
+    };
+  });
+  const json = JSON.stringify(extractedSchemaTypes, null, 2);
+  require("fs").promises.writeFile(
+    "resources/schema_types.json",
+    json,
+    "utf-8"
+  );
+  console.log(
+    `Extracted ${extractedSchemaTypes.length} shared objects from the schemas.`
+  );
+
   Object.keys(schemas).forEach((id) => {
     walkSchema(schemas[id], {
       afterChildren: (part) => {
