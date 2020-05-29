@@ -1,4 +1,5 @@
 import objectHash = require("object-hash");
+import pluralize = require("pluralize");
 
 import { OpenApiDocumentFragment } from "./types";
 
@@ -71,6 +72,40 @@ export function fixSchema(id: string, schemas: OpenApiDocumentFragment) {
   });
 }
 
+function commonPrefix(values: string[]): string {
+  var A = values.concat().sort(),
+    a1 = A[0],
+    a2 = A[A.length - 1],
+    L = a1.length,
+    i = 0;
+  while (i < L && a1.charAt(i) === a2.charAt(i)) i++;
+  return a1.substring(0, i);
+}
+
+function reverseString(value: string): string {
+  return value.split("").reverse().join("");
+}
+
+function extractComponentName(locations: string[][]): string {
+  const deepestLocations = locations
+    .map((location) => location[location.length - 1])
+    .map(pluralize.singular);
+
+  let name = commonPrefix(deepestLocations);
+  if (!name) {
+    name = reverseString(
+      commonPrefix(deepestLocations.map((name) => reverseString(name)))
+    );
+  }
+
+  name = name
+    .toLowerCase()
+    .replace(/^_+|_+$/g, "") // trim leading and trailing "_"
+    .trim();
+
+  return pluralize.singular(name);
+}
+
 export function deduplicateSchemas(schemas: OpenApiDocumentFragment) {
   // calculate hashes and complexity scores over all possibly shared schema items
   // do not consider descriptions for the hashes
@@ -123,7 +158,9 @@ export function deduplicateSchemas(schemas: OpenApiDocumentFragment) {
   interface ObjectInfo {
     count: number;
     complexity: number;
+    directChildren: number;
     locations: string[][];
+    name?: string;
   }
 
   const objectInfos: { [hash: string]: ObjectInfo } = {};
@@ -134,10 +171,19 @@ export function deduplicateSchemas(schemas: OpenApiDocumentFragment) {
         if (part.type == "object") {
           const hash = part["x-hash"];
           if (!(hash in objectInfos)) {
-            objectInfos[hash] = { count: 0, complexity: 0, locations: [] };
+            objectInfos[hash] = {
+              count: 0,
+              complexity: 0,
+              directChildren: 0,
+              locations: [],
+            };
           }
           objectInfos[hash].count += 1;
           objectInfos[hash].complexity = part["x-complexity"];
+          objectInfos[hash].directChildren =
+            part.properties !== undefined
+              ? Object.keys(part.properties).length
+              : 0;
           objectInfos[hash].locations.push([...location]);
         }
       },
@@ -150,14 +196,54 @@ export function deduplicateSchemas(schemas: OpenApiDocumentFragment) {
     });
   });
 
-  const sorted = Object.entries(objectInfos)
-    .filter((x) => x[1].count > 1) // occur multiple times
-    .filter((x) => x[1].complexity > 1) // are not trivial
-    .sort((a, b) => b[1].count - a[1].count) // sorted by count descending
-    .slice(0, 10); // top 10
-  console.log(require("util").inspect(sorted, false, null, true));
+  // filter for interesting objects
+  const filteredObjectInfos: { [hash: string]: ObjectInfo } = {};
+  Object.keys(objectInfos).forEach((hash) => {
+    if (
+      objectInfos[hash].count > 2 &&
+      objectInfos[hash].complexity > 1 &&
+      objectInfos[hash].directChildren > 1
+    ) {
+      filteredObjectInfos[hash] = objectInfos[hash];
+    }
+  });
 
-  // TODO: deduplicate based on x-hash
+  // select component names for all schema objects
+  const usedNames = new Set(Object.keys(schemas));
+  Object.keys(filteredObjectInfos).forEach((hash) => {
+    const originalName = extractComponentName(
+      filteredObjectInfos[hash].locations
+    );
+
+    let name = originalName;
+    let i = 1;
+    while (usedNames.has(name)) {
+      name = originalName + "_" + i++;
+    }
+
+    usedNames.add(name);
+    filteredObjectInfos[hash].name = name;
+  });
+
+  Object.keys(schemas).forEach((id) => {
+    walkSchema(schemas[id], {
+      afterChildren: (part) => {
+        if (part["x-hash"] in filteredObjectInfos) {
+          const info = filteredObjectInfos[part["x-hash"]];
+
+          if (info.name == undefined) {
+            throw Error("ObjectInfo without name encountered!");
+          }
+
+          schemas[info.name] = JSON.parse(JSON.stringify(part));
+          Object.keys(part).forEach((key) => {
+            delete part[key];
+          });
+          part["$ref"] = "#/components/schemas/" + info.name;
+        }
+      },
+    });
+  });
 
   // remove hashes again
   Object.keys(schemas).forEach((id) => {
