@@ -100,7 +100,7 @@
     ]
   },
   {
-    "name": "price_1",
+    "name": "price_per_time",
     "path": [
       "response_list_server_types",
       "server_types",
@@ -162,15 +162,15 @@
   {
     "name": "subnet",
     "path": [
-      "response_list_networks",
-      "networks",
+      "request_create_network",
       "subnets"
     ]
   },
   {
-    "name": "subnet_1",
+    "name": "subnet_with_gateway",
     "path": [
-      "request_create_network",
+      "response_list_networks",
+      "networks",
       "subnets"
     ]
   },

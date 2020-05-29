@@ -6,7 +6,7 @@
     "contact": {
       "url": "https://docs.hetzner.cloud/"
     },
-    "version": "9187300-dirty"
+    "version": "6e0670d-dirty"
   },
   "servers": [
     {
@@ -546,7 +546,7 @@
           "subnets": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/subnet"
+              "$ref": "#/components/schemas/subnet_with_gateway"
             },
             "description": "Array subnets allocated in this Network"
           },
@@ -617,7 +617,7 @@
         ],
         "description": "Monthly costs for a Server type in this Location"
       },
-      "price_1": {
+      "price_per_time": {
         "type": "object",
         "properties": {
           "location": {
@@ -683,7 +683,7 @@
         "$ref": "#/components/schemas/route"
       },
       "request_add_subnet_to_network": {
-        "$ref": "#/components/schemas/subnet_1"
+        "$ref": "#/components/schemas/subnet"
       },
       "request_assign_floating_ip_to_server": {
         "type": "object",
@@ -960,7 +960,7 @@
           "subnets": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/subnet_1"
+              "$ref": "#/components/schemas/subnet"
             },
             "description": "Array of subnets allocated."
           },
@@ -2393,7 +2393,7 @@
                     "prices": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/price_1"
+                        "$ref": "#/components/schemas/price_per_time"
                       },
                       "description": "Server type costs per Location"
                     }
@@ -2765,7 +2765,7 @@
               "subnets": {
                 "type": "array",
                 "items": {
-                  "$ref": "#/components/schemas/subnet"
+                  "$ref": "#/components/schemas/subnet_with_gateway"
                 },
                 "description": "Array subnets allocated in this Network"
               },
@@ -3358,7 +3358,7 @@
           "prices": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/price_1"
+              "$ref": "#/components/schemas/price_per_time"
             },
             "description": "Prices in different Locations"
           },
@@ -3448,19 +3448,14 @@
           "network_zone": {
             "type": "string",
             "description": "Name of Network zone. Currently eu-central is the only available zone."
-          },
-          "gateway": {
-            "type": "string",
-            "description": "Gateway for Servers attached to this subnet. For subnets of type Server this is always the first IP of the network IP range."
           }
         },
         "required": [
           "type",
-          "network_zone",
-          "gateway"
+          "network_zone"
         ]
       },
-      "subnet_1": {
+      "subnet_with_gateway": {
         "type": "object",
         "properties": {
           "type": {
@@ -3478,11 +3473,16 @@
           "network_zone": {
             "type": "string",
             "description": "Name of Network zone. Currently eu-central is the only available zone."
+          },
+          "gateway": {
+            "type": "string",
+            "description": "Gateway for Servers attached to this subnet. For subnets of type Server this is always the first IP of the network IP range."
           }
         },
         "required": [
           "type",
-          "network_zone"
+          "network_zone",
+          "gateway"
         ]
       },
       "volume": {
