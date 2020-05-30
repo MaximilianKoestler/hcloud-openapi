@@ -363,11 +363,11 @@ function toOperationId(verb: string, text: string) {
   return id;
 }
 
-function toSchemaName(prefix: string, data: SectionData): string {
-  return `${prefix}_${toOperationId(
+function toSchemaName(postfix: string, data: SectionData): string {
+  return `${toOperationId(
     data.request.verb.toLowerCase(),
     data.title
-  )}`;
+  )}_${postfix}`;
 }
 
 function toParameters(data: SectionData): OpenApiDocumentFragment[] {

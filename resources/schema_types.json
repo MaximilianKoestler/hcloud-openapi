@@ -2,14 +2,14 @@
   {
     "name": "action",
     "path": [
-      "response_list_all_actions",
+      "list_all_actions_response",
       "actions"
     ]
   },
   {
     "name": "created_from",
     "path": [
-      "response_list_images",
+      "list_images_response",
       "images",
       "created_from"
     ]
@@ -17,14 +17,14 @@
   {
     "name": "datacenter",
     "path": [
-      "response_list_datacenters",
+      "list_datacenters_response",
       "datacenters"
     ]
   },
   {
     "name": "dns_ptr",
     "path": [
-      "response_list_floating_ips",
+      "list_floating_ips_response",
       "floating_ips",
       "dns_ptr"
     ]
@@ -32,7 +32,7 @@
   {
     "name": "error",
     "path": [
-      "response_list_all_actions",
+      "list_all_actions_response",
       "actions",
       "error"
     ]
@@ -40,21 +40,21 @@
   {
     "name": "floating_ip",
     "path": [
-      "response_list_floating_ips",
+      "list_floating_ips_response",
       "floating_ips"
     ]
   },
   {
     "name": "image",
     "path": [
-      "response_list_images",
+      "list_images_response",
       "images"
     ]
   },
   {
     "name": "image_optional",
     "path": [
-      "response_list_servers",
+      "list_servers_response",
       "servers",
       "image"
     ]
@@ -62,7 +62,7 @@
   {
     "name": "ipv4",
     "path": [
-      "response_list_servers",
+      "list_servers_response",
       "servers",
       "public_net",
       "ipv4"
@@ -71,7 +71,7 @@
   {
     "name": "ipv6",
     "path": [
-      "response_list_servers",
+      "list_servers_response",
       "servers",
       "public_net",
       "ipv6"
@@ -80,14 +80,14 @@
   {
     "name": "iso",
     "path": [
-      "response_list_isos",
+      "list_isos_response",
       "isos"
     ]
   },
   {
     "name": "iso_optional",
     "path": [
-      "response_list_servers",
+      "list_servers_response",
       "servers",
       "iso"
     ]
@@ -95,21 +95,21 @@
   {
     "name": "location",
     "path": [
-      "response_list_locations",
+      "list_locations_response",
       "locations"
     ]
   },
   {
     "name": "network",
     "path": [
-      "response_list_networks",
+      "list_networks_response",
       "networks"
     ]
   },
   {
     "name": "price",
     "path": [
-      "response_list_prices",
+      "list_prices_response",
       "pricing",
       "image",
       "price_per_gb_month"
@@ -118,7 +118,7 @@
   {
     "name": "price_per_time",
     "path": [
-      "response_list_server_types",
+      "list_server_types_response",
       "server_types",
       "prices"
     ]
@@ -126,7 +126,7 @@
   {
     "name": "protection",
     "path": [
-      "response_list_servers",
+      "list_servers_response",
       "servers",
       "protection"
     ]
@@ -134,7 +134,7 @@
   {
     "name": "public_net",
     "path": [
-      "response_list_servers",
+      "list_servers_response",
       "servers",
       "public_net"
     ]
@@ -142,7 +142,7 @@
   {
     "name": "resource",
     "path": [
-      "response_list_all_actions",
+      "list_all_actions_response",
       "actions",
       "resources"
     ]
@@ -150,42 +150,42 @@
   {
     "name": "route",
     "path": [
-      "request_create_network",
+      "create_network_request",
       "routes"
     ]
   },
   {
     "name": "server",
     "path": [
-      "response_list_servers",
+      "list_servers_response",
       "servers"
     ]
   },
   {
     "name": "server_type",
     "path": [
-      "response_list_server_types",
+      "list_server_types_response",
       "server_types"
     ]
   },
   {
     "name": "ssh_key",
     "path": [
-      "response_list_ssh_keys",
+      "list_ssh_keys_response",
       "ssh_keys"
     ]
   },
   {
     "name": "subnet",
     "path": [
-      "request_create_network",
+      "create_network_request",
       "subnets"
     ]
   },
   {
     "name": "subnet_with_gateway",
     "path": [
-      "response_list_networks",
+      "list_networks_response",
       "networks",
       "subnets"
     ]
@@ -193,7 +193,7 @@
   {
     "name": "volume",
     "path": [
-      "response_list_volumes",
+      "list_volumes_response",
       "volumes"
     ]
   }

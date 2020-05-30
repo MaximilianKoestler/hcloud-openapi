@@ -6,7 +6,7 @@
     "contact": {
       "url": "https://docs.hetzner.cloud/"
     },
-    "version": "7dd0930-dirty"
+    "version": "142957a-dirty"
   },
   "servers": [
     {
@@ -71,6 +71,900 @@
           "error"
         ],
         "description": "Assign Action (only present if a Server was provided) | Action created by this call"
+      },
+      "add_route_to_network_request": {
+        "$ref": "#/components/schemas/route"
+      },
+      "add_route_to_network_response": {
+        "type": "object",
+        "properties": {
+          "action": {
+            "$ref": "#/components/schemas/action"
+          }
+        },
+        "required": [
+          "action"
+        ]
+      },
+      "add_subnet_to_network_request": {
+        "$ref": "#/components/schemas/subnet"
+      },
+      "add_subnet_to_network_response": {
+        "type": "object",
+        "properties": {
+          "action": {
+            "$ref": "#/components/schemas/action"
+          }
+        },
+        "required": [
+          "action"
+        ]
+      },
+      "assign_floating_ip_to_server_request": {
+        "type": "object",
+        "properties": {
+          "server": {
+            "type": "number",
+            "description": "ID of the Server the Floating IP shall be assigned to"
+          }
+        },
+        "required": [
+          "server"
+        ]
+      },
+      "assign_floating_ip_to_server_response": {
+        "type": "object",
+        "properties": {
+          "action": {
+            "$ref": "#/components/schemas/action"
+          }
+        },
+        "required": [
+          "action"
+        ]
+      },
+      "attach_iso_to_server_request": {
+        "type": "object",
+        "properties": {
+          "iso": {
+            "type": "string",
+            "description": "ID or name of ISO to attach to the Server as listed in GET `/isos`"
+          }
+        },
+        "required": [
+          "iso"
+        ]
+      },
+      "attach_iso_to_server_response": {
+        "type": "object",
+        "properties": {
+          "action": {
+            "$ref": "#/components/schemas/action"
+          }
+        },
+        "required": [
+          "action"
+        ]
+      },
+      "attach_server_to_network_request": {
+        "type": "object",
+        "properties": {
+          "network": {
+            "type": "number",
+            "description": "ID of an existing network to attach the Server to"
+          },
+          "ip": {
+            "type": "string",
+            "description": "IP to request to be assigned to this Server; if you do not provide this then you will be auto assigned an IP address"
+          },
+          "alias_ips": {
+            "type": "array",
+            "description": "Additional IPs to be assigned to this Server",
+            "items": {
+              "type": "object",
+              "properties": {}
+            }
+          }
+        },
+        "required": [
+          "network"
+        ]
+      },
+      "attach_server_to_network_response": {
+        "type": "object",
+        "properties": {
+          "action": {
+            "$ref": "#/components/schemas/action"
+          }
+        },
+        "required": [
+          "action"
+        ]
+      },
+      "attach_volume_to_server_request": {
+        "type": "object",
+        "properties": {
+          "server": {
+            "type": "number",
+            "description": "ID of the Server the Volume will be attached to"
+          },
+          "automount": {
+            "type": "boolean",
+            "description": "Auto-mount the Volume after attaching it"
+          }
+        },
+        "required": [
+          "server"
+        ]
+      },
+      "attach_volume_to_server_response": {
+        "type": "object",
+        "properties": {
+          "action": {
+            "$ref": "#/components/schemas/action"
+          }
+        },
+        "required": [
+          "action"
+        ]
+      },
+      "change_alias_ips_of_network_request": {
+        "type": "object",
+        "properties": {
+          "network": {
+            "type": "number",
+            "description": "ID of an existing Network already attached to the Server"
+          },
+          "alias_ips": {
+            "type": "array",
+            "description": "New alias IPs to set for this Server",
+            "items": {
+              "type": "object",
+              "properties": {}
+            }
+          }
+        },
+        "required": [
+          "network",
+          "alias_ips"
+        ]
+      },
+      "change_alias_ips_of_network_response": {
+        "type": "object",
+        "properties": {
+          "action": {
+            "$ref": "#/components/schemas/action"
+          }
+        },
+        "required": [
+          "action"
+        ]
+      },
+      "change_floating_ip_protection_request": {
+        "type": "object",
+        "properties": {
+          "delete": {
+            "type": "boolean",
+            "description": "If true, prevents the Floating IP from being deleted"
+          }
+        }
+      },
+      "change_floating_ip_protection_response": {
+        "type": "object",
+        "properties": {
+          "action": {
+            "$ref": "#/components/schemas/action"
+          }
+        },
+        "required": [
+          "action"
+        ]
+      },
+      "change_image_protection_request": {
+        "type": "object",
+        "properties": {
+          "delete": {
+            "type": "boolean",
+            "description": "If true, prevents the snapshot from being deleted"
+          }
+        }
+      },
+      "change_image_protection_response": {
+        "type": "object",
+        "properties": {
+          "action": {
+            "$ref": "#/components/schemas/action"
+          }
+        },
+        "required": [
+          "action"
+        ]
+      },
+      "change_ip_range_of_network_request": {
+        "type": "object",
+        "properties": {
+          "ip_range": {
+            "type": "string",
+            "description": "The new prefix for the whole Network"
+          }
+        },
+        "required": [
+          "ip_range"
+        ]
+      },
+      "change_ip_range_of_network_response": {
+        "type": "object",
+        "properties": {
+          "action": {
+            "$ref": "#/components/schemas/action"
+          }
+        },
+        "required": [
+          "action"
+        ]
+      },
+      "change_network_protection_request": {
+        "type": "object",
+        "properties": {
+          "delete": {
+            "type": "boolean",
+            "description": "If true, prevents the Network from being deleted"
+          }
+        }
+      },
+      "change_network_protection_response": {
+        "type": "object",
+        "properties": {
+          "action": {
+            "$ref": "#/components/schemas/action"
+          }
+        },
+        "required": [
+          "action"
+        ]
+      },
+      "change_reverse_dns_entry_for_floating_ip_request": {
+        "type": "object",
+        "properties": {
+          "ip": {
+            "type": "string",
+            "description": "IP address for which to set the reverse DNS entry"
+          },
+          "dns_ptr": {
+            "type": "string",
+            "description": "Hostname to set as a reverse DNS PTR entry, will reset to original default value if `null`",
+            "nullable": true
+          }
+        },
+        "required": [
+          "ip",
+          "dns_ptr"
+        ]
+      },
+      "change_reverse_dns_entry_for_floating_ip_response": {
+        "type": "object",
+        "properties": {
+          "action": {
+            "$ref": "#/components/schemas/action"
+          }
+        },
+        "required": [
+          "action"
+        ]
+      },
+      "change_reverse_dns_entry_for_this_server_request": {
+        "type": "object",
+        "properties": {
+          "ip": {
+            "type": "string",
+            "description": "Primary IP address for which the reverse DNS entry should be set"
+          },
+          "dns_ptr": {
+            "type": "string",
+            "description": "Hostname to set as a reverse DNS PTR entry, reset to original value if `null`",
+            "nullable": true
+          }
+        },
+        "required": [
+          "ip",
+          "dns_ptr"
+        ]
+      },
+      "change_reverse_dns_entry_for_this_server_response": {
+        "type": "object",
+        "properties": {
+          "action": {
+            "$ref": "#/components/schemas/action"
+          }
+        },
+        "required": [
+          "action"
+        ]
+      },
+      "change_server_protection_request": {
+        "type": "object",
+        "properties": {
+          "delete": {
+            "type": "boolean",
+            "description": "If true, prevents the Server from being deleted (currently delete and rebuild attribute needs to have the same value)"
+          },
+          "rebuild": {
+            "type": "boolean",
+            "description": "If true, prevents the Server from being rebuilt` (currently delete and rebuild attribute needs to have the same value)"
+          }
+        }
+      },
+      "change_server_protection_response": {
+        "type": "object",
+        "properties": {
+          "action": {
+            "$ref": "#/components/schemas/action"
+          }
+        },
+        "required": [
+          "action"
+        ]
+      },
+      "change_type_of_server_request": {
+        "type": "object",
+        "properties": {
+          "upgrade_disk": {
+            "type": "boolean",
+            "description": "If false, do not upgrade the disk (this allows downgrading the Server type later)"
+          },
+          "server_type": {
+            "type": "string",
+            "description": "ID or name of Server type the Server should migrate to"
+          }
+        },
+        "required": [
+          "upgrade_disk",
+          "server_type"
+        ]
+      },
+      "change_type_of_server_response": {
+        "type": "object",
+        "properties": {
+          "action": {
+            "$ref": "#/components/schemas/action"
+          }
+        },
+        "required": [
+          "action"
+        ]
+      },
+      "change_volume_protection_request": {
+        "type": "object",
+        "properties": {
+          "delete": {
+            "type": "boolean",
+            "description": "If true, prevents the Volume from being deleted"
+          }
+        }
+      },
+      "change_volume_protection_response": {
+        "type": "object",
+        "properties": {
+          "action": {
+            "$ref": "#/components/schemas/action"
+          }
+        },
+        "required": [
+          "action"
+        ]
+      },
+      "create_floating_ip_request": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "enum": [
+              "ipv4",
+              "ipv6"
+            ],
+            "description": "Floating IP type"
+          },
+          "server": {
+            "type": "number",
+            "description": "Server to assign the Floating IP to"
+          },
+          "home_location": {
+            "type": "string",
+            "description": "Home Location (routing is optimized for that Location). Only optional if Server argument is passed."
+          },
+          "description": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "labels": {
+            "type": "object",
+            "properties": {},
+            "description": "User-defined labels (key-value pairs)"
+          }
+        },
+        "required": [
+          "type"
+        ]
+      },
+      "create_floating_ip_response": {
+        "type": "object",
+        "properties": {
+          "floating_ip": {
+            "$ref": "#/components/schemas/floating_ip"
+          },
+          "action": {
+            "$ref": "#/components/schemas/action"
+          }
+        },
+        "required": [
+          "floating_ip"
+        ]
+      },
+      "create_image_from_server_request": {
+        "type": "object",
+        "properties": {
+          "description": {
+            "type": "string",
+            "description": "Description of the Image, will be auto-generated if not set"
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "backup",
+              "snapshot"
+            ],
+            "description": "Type of Image to create (default: `snapshot`)"
+          },
+          "labels": {
+            "type": "object",
+            "properties": {},
+            "description": "User-defined labels (key-value pairs)"
+          }
+        }
+      },
+      "create_image_from_server_response": {
+        "type": "object",
+        "properties": {
+          "image": {
+            "$ref": "#/components/schemas/image"
+          },
+          "action": {
+            "$ref": "#/components/schemas/action"
+          }
+        },
+        "required": [
+          "image",
+          "action"
+        ]
+      },
+      "create_network_request": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Name of the network"
+          },
+          "ip_range": {
+            "type": "string",
+            "description": "IP range of the whole network which must span all included subnets. Must be one of the private IPv4 ranges of RFC1918. Minimum network size is /24. We highly recommend that you pick a larger network with a /16 netmask."
+          },
+          "labels": {
+            "type": "object",
+            "properties": {},
+            "description": "User-defined labels (key-value pairs)"
+          },
+          "subnets": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/subnet"
+            },
+            "description": "Array of subnets allocated."
+          },
+          "routes": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/route"
+            },
+            "description": "Array of routes set in this network. The destination of the route must be one of the private IPv4 ranges of RFC1918. The gateway must be a subnet/IP of the ip_range of the network object. The destination must not overlap with an existing ip_range in any subnets or with any destinations in other routes or with the first IP of the networks ip_range or with 172.31.1.1. The gateway cannot be the first IP of the networks ip_range and also cannot be 172.31.1.1."
+          }
+        },
+        "required": [
+          "name",
+          "ip_range"
+        ]
+      },
+      "create_network_response": {
+        "type": "object",
+        "properties": {
+          "network": {
+            "$ref": "#/components/schemas/network"
+          }
+        },
+        "required": [
+          "network"
+        ]
+      },
+      "create_server_request": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Name of the Server to create (must be unique per Project and a valid hostname as per RFC 1123)"
+          },
+          "server_type": {
+            "type": "string",
+            "description": "ID or name of the Server type this Server should be created with"
+          },
+          "start_after_create": {
+            "type": "boolean",
+            "description": "Start Server right after creation. Defaults to true."
+          },
+          "image": {
+            "type": "string",
+            "description": "ID or name of the Image the Server is created from"
+          },
+          "ssh_keys": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "SSH key IDs or names which should be injected into the Server at creation time"
+          },
+          "volumes": {
+            "type": "array",
+            "description": "Volume IDs which should be attached to the Server at the creation time. Volumes must be in the same Location.",
+            "items": {
+              "type": "object",
+              "properties": {}
+            }
+          },
+          "networks": {
+            "type": "array",
+            "description": "Network IDs which should be attached to the Server private network interface at the creation time",
+            "items": {
+              "type": "object",
+              "properties": {}
+            }
+          },
+          "user_data": {
+            "type": "string",
+            "description": "Cloud-Init user data to use during Server creation. This field is limited to 32KiB."
+          },
+          "labels": {
+            "type": "object",
+            "properties": {},
+            "description": "User-defined labels (key-value pairs)"
+          },
+          "automount": {
+            "type": "boolean",
+            "description": "Auto-mount Volumes after attach"
+          }
+        },
+        "required": [
+          "name",
+          "server_type",
+          "image"
+        ],
+        "oneOf": [
+          {
+            "properties": {
+              "location": {
+                "type": "string",
+                "description": "ID or name of Location to create Server in"
+              }
+            }
+          },
+          {
+            "properties": {
+              "datacenter": {
+                "type": "string",
+                "description": "ID or name of Datacenter to create Server in"
+              }
+            }
+          }
+        ]
+      },
+      "create_server_response": {
+        "type": "object",
+        "properties": {
+          "server": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "number",
+                "description": "ID of Server"
+              },
+              "name": {
+                "type": "string",
+                "description": "Name of the Server (must be unique per Project and a valid hostname as per RFC 1123)"
+              },
+              "status": {
+                "type": "string",
+                "enum": [
+                  "deleting",
+                  "initializing",
+                  "migrating",
+                  "off",
+                  "rebuilding",
+                  "running",
+                  "starting",
+                  "stopping"
+                ],
+                "description": "Status of the Server"
+              },
+              "created": {
+                "type": "string",
+                "description": "Point in time when the Server was created (in ISO-8601 format)"
+              },
+              "public_net": {
+                "$ref": "#/components/schemas/public_net"
+              },
+              "private_net": {
+                "type": "array",
+                "description": "Private networks information",
+                "items": {
+                  "type": "object",
+                  "properties": {}
+                }
+              },
+              "server_type": {
+                "$ref": "#/components/schemas/server_type"
+              },
+              "datacenter": {
+                "$ref": "#/components/schemas/datacenter"
+              },
+              "image": {
+                "$ref": "#/components/schemas/image_optional"
+              },
+              "iso": {
+                "$ref": "#/components/schemas/iso_optional"
+              },
+              "rescue_enabled": {
+                "type": "boolean",
+                "description": "True if rescue mode is enabled: Server will then boot into rescue system on next reboot"
+              },
+              "locked": {
+                "type": "boolean",
+                "description": "True if Server has been locked and is not available to user"
+              },
+              "backup_window": {
+                "type": "string",
+                "description": "Time window (UTC) in which the backup will run, or null if the backups are not enabled",
+                "nullable": true
+              },
+              "outgoing_traffic": {
+                "type": "number",
+                "description": "Outbound Traffic for the current billing period in bytes",
+                "nullable": true
+              },
+              "ingoing_traffic": {
+                "type": "number",
+                "description": "Inbound Traffic for the current billing period in bytes",
+                "nullable": true
+              },
+              "included_traffic": {
+                "type": "number",
+                "description": "Free Traffic for the current billing period in bytes"
+              },
+              "protection": {
+                "$ref": "#/components/schemas/protection"
+              },
+              "labels": {
+                "type": "object",
+                "properties": {},
+                "description": "User-defined labels (key-value pairs)"
+              },
+              "volumes": {
+                "type": "array",
+                "description": "IDs of Volumes assigned to this Server",
+                "items": {
+                  "type": "object",
+                  "properties": {}
+                }
+              }
+            },
+            "required": [
+              "id",
+              "name",
+              "status",
+              "created",
+              "public_net",
+              "private_net",
+              "server_type",
+              "datacenter",
+              "image",
+              "iso",
+              "rescue_enabled",
+              "locked",
+              "backup_window",
+              "outgoing_traffic",
+              "ingoing_traffic",
+              "included_traffic",
+              "protection",
+              "labels"
+            ]
+          },
+          "action": {
+            "$ref": "#/components/schemas/action"
+          },
+          "next_actions": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {}
+            }
+          },
+          "root_password": {
+            "type": "string",
+            "description": "Root password when no SSH keys have been specified",
+            "nullable": true
+          }
+        },
+        "required": [
+          "server",
+          "action",
+          "next_actions",
+          "root_password"
+        ]
+      },
+      "create_ssh_key_request": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Name of the SSH key"
+          },
+          "public_key": {
+            "type": "string",
+            "description": "Public key"
+          },
+          "labels": {
+            "type": "object",
+            "properties": {},
+            "description": "User-defined labels (key-value pairs)"
+          }
+        },
+        "required": [
+          "name",
+          "public_key"
+        ]
+      },
+      "create_ssh_key_response": {
+        "type": "object",
+        "properties": {
+          "ssh_key": {
+            "$ref": "#/components/schemas/ssh_key"
+          }
+        },
+        "required": [
+          "ssh_key"
+        ]
+      },
+      "create_volume_request": {
+        "type": "object",
+        "properties": {
+          "size": {
+            "type": "number",
+            "description": "Size of the Volume in GB"
+          },
+          "name": {
+            "type": "string",
+            "description": "Name of the volume"
+          },
+          "labels": {
+            "type": "object",
+            "properties": {},
+            "description": "User-defined labels (key-value pairs)"
+          },
+          "automount": {
+            "type": "boolean",
+            "description": "Auto-mount Volume after attach. `server` must be provided."
+          },
+          "format": {
+            "type": "string",
+            "description": "Format Volume after creation. One of: `xfs`, `ext4`"
+          }
+        },
+        "required": [
+          "size",
+          "name"
+        ],
+        "oneOf": [
+          {
+            "properties": {
+              "location": {
+                "type": "string",
+                "description": "Location to create the Volume in (can be omitted if Server is specified)"
+              }
+            }
+          },
+          {
+            "properties": {
+              "server": {
+                "type": "number",
+                "description": "Server to which to attach the Volume once it's created (Volume will be created in the same Location as the server)"
+              }
+            }
+          }
+        ]
+      },
+      "create_volume_response": {
+        "type": "object",
+        "properties": {
+          "volume": {
+            "$ref": "#/components/schemas/volume"
+          },
+          "action": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "number",
+                "description": "ID of the Action"
+              },
+              "command": {
+                "type": "string",
+                "description": "Command executed in the Action"
+              },
+              "status": {
+                "type": "string",
+                "enum": [
+                  "error",
+                  "running",
+                  "success"
+                ],
+                "description": "Status of the Action"
+              },
+              "progress": {
+                "type": "number",
+                "description": "Progress of Action in percent"
+              },
+              "started": {
+                "type": "string",
+                "description": "Point in time when the Action was started (in ISO-8601 format)"
+              },
+              "finished": {
+                "type": "string",
+                "description": "Point in time when the Action was finished (in ISO-8601 format). Only set if the Action is finished otherwise null.",
+                "nullable": true
+              },
+              "resources": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/resource"
+                },
+                "description": "Resources the Action relates to"
+              },
+              "error": {
+                "$ref": "#/components/schemas/error"
+              }
+            },
+            "required": [
+              "id",
+              "command",
+              "status",
+              "progress",
+              "started",
+              "finished",
+              "resources",
+              "error"
+            ],
+            "additionalProperties": false
+          },
+          "next_actions": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {}
+            }
+          }
+        },
+        "required": [
+          "volume",
+          "action",
+          "next_actions"
+        ]
       },
       "created_from": {
         "type": "object",
@@ -151,6 +1045,121 @@
         ],
         "description": "Datacenter this Server is located at"
       },
+      "delete_route_from_network_request": {
+        "$ref": "#/components/schemas/route"
+      },
+      "delete_route_from_network_response": {
+        "type": "object",
+        "properties": {
+          "action": {
+            "$ref": "#/components/schemas/action"
+          }
+        },
+        "required": [
+          "action"
+        ]
+      },
+      "delete_server_response": {
+        "type": "object",
+        "properties": {
+          "action": {
+            "$ref": "#/components/schemas/action"
+          }
+        },
+        "required": [
+          "action"
+        ]
+      },
+      "delete_subnet_from_network_request": {
+        "type": "object",
+        "properties": {
+          "ip_range": {
+            "type": "string",
+            "description": "IP range of subnet to delete"
+          }
+        },
+        "required": [
+          "ip_range"
+        ]
+      },
+      "delete_subnet_from_network_response": {
+        "type": "object",
+        "properties": {
+          "action": {
+            "$ref": "#/components/schemas/action"
+          }
+        },
+        "required": [
+          "action"
+        ]
+      },
+      "detach_iso_from_server_response": {
+        "type": "object",
+        "properties": {
+          "action": {
+            "$ref": "#/components/schemas/action"
+          }
+        },
+        "required": [
+          "action"
+        ]
+      },
+      "detach_server_from_network_request": {
+        "type": "object",
+        "properties": {
+          "network": {
+            "type": "number",
+            "description": "ID of an existing network to detach the Server from"
+          }
+        },
+        "required": [
+          "network"
+        ]
+      },
+      "detach_server_from_network_response": {
+        "type": "object",
+        "properties": {
+          "action": {
+            "$ref": "#/components/schemas/action"
+          }
+        },
+        "required": [
+          "action"
+        ]
+      },
+      "detach_volume_response": {
+        "type": "object",
+        "properties": {
+          "action": {
+            "$ref": "#/components/schemas/action"
+          }
+        },
+        "required": [
+          "action"
+        ]
+      },
+      "disable_backups_for_server_response": {
+        "type": "object",
+        "properties": {
+          "action": {
+            "$ref": "#/components/schemas/action"
+          }
+        },
+        "required": [
+          "action"
+        ]
+      },
+      "disable_rescue_mode_for_server_response": {
+        "type": "object",
+        "properties": {
+          "action": {
+            "$ref": "#/components/schemas/action"
+          }
+        },
+        "required": [
+          "action"
+        ]
+      },
       "dns_ptr": {
         "type": "object",
         "properties": {
@@ -166,6 +1175,53 @@
         "required": [
           "ip",
           "dns_ptr"
+        ]
+      },
+      "enable_and_configure_backups_for_server_response": {
+        "type": "object",
+        "properties": {
+          "action": {
+            "$ref": "#/components/schemas/action"
+          }
+        },
+        "required": [
+          "action"
+        ]
+      },
+      "enable_rescue_mode_for_server_request": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "enum": [
+              "freebsd64",
+              "linux32",
+              "linux64"
+            ],
+            "description": "Type of rescue system to boot (default: `linux64`)"
+          },
+          "ssh_keys": {
+            "type": "array",
+            "items": {
+              "type": "number"
+            },
+            "description": "Array of SSH key IDs which should be injected into the rescue system. Only available for types: `linux64` and `linux32`."
+          }
+        }
+      },
+      "enable_rescue_mode_for_server_response": {
+        "type": "object",
+        "properties": {
+          "root_password": {
+            "type": "string",
+            "description": "Root Password for Server once it gets booted in rescue mode"
+          },
+          "action": {
+            "$ref": "#/components/schemas/action"
+          }
+        },
+        "required": [
+          "action"
         ]
       },
       "error": {
@@ -270,6 +1326,234 @@
           "protection",
           "labels",
           "created"
+        ]
+      },
+      "get_action_for_floating_ip_response": {
+        "type": "object",
+        "properties": {
+          "action": {
+            "$ref": "#/components/schemas/action"
+          }
+        },
+        "required": [
+          "action"
+        ]
+      },
+      "get_action_for_image_response": {
+        "type": "object",
+        "properties": {
+          "action": {
+            "$ref": "#/components/schemas/action"
+          }
+        },
+        "required": [
+          "action"
+        ]
+      },
+      "get_action_for_network_response": {
+        "type": "object",
+        "properties": {
+          "action": {
+            "$ref": "#/components/schemas/action"
+          }
+        },
+        "required": [
+          "action"
+        ]
+      },
+      "get_action_for_server_response": {
+        "type": "object",
+        "properties": {
+          "action": {
+            "$ref": "#/components/schemas/action"
+          }
+        },
+        "required": [
+          "action"
+        ]
+      },
+      "get_action_for_volume_response": {
+        "type": "object",
+        "properties": {
+          "action": {
+            "$ref": "#/components/schemas/action"
+          }
+        },
+        "required": [
+          "action"
+        ]
+      },
+      "get_action_response": {
+        "type": "object",
+        "properties": {
+          "action": {
+            "$ref": "#/components/schemas/action"
+          }
+        },
+        "required": [
+          "action"
+        ]
+      },
+      "get_datacenter_response": {
+        "type": "object",
+        "properties": {
+          "datacenter": {
+            "$ref": "#/components/schemas/datacenter"
+          }
+        },
+        "required": [
+          "datacenter"
+        ]
+      },
+      "get_image_response": {
+        "type": "object",
+        "properties": {
+          "image": {
+            "$ref": "#/components/schemas/image"
+          }
+        },
+        "required": [
+          "image"
+        ]
+      },
+      "get_iso_response": {
+        "type": "object",
+        "properties": {
+          "iso": {
+            "$ref": "#/components/schemas/iso"
+          }
+        },
+        "required": [
+          "iso"
+        ]
+      },
+      "get_location_response": {
+        "type": "object",
+        "properties": {
+          "location": {
+            "$ref": "#/components/schemas/location"
+          }
+        },
+        "required": [
+          "location"
+        ]
+      },
+      "get_metrics_for_server_response": {
+        "type": "object",
+        "properties": {
+          "metrics": {
+            "type": "object",
+            "properties": {
+              "start": {
+                "type": "string",
+                "description": "Start of period of metrics reported (in ISO-8601 format)"
+              },
+              "end": {
+                "type": "string",
+                "description": "End of period of metrics reported (in ISO-8601 format)"
+              },
+              "step": {
+                "type": "number",
+                "description": "Resolution of results in seconds."
+              },
+              "time_series": {
+                "type": "object",
+                "x-patternProperties": {
+                  "": {
+                    "type": "object",
+                    "properties": {
+                      "values": {
+                        "type": "array",
+                        "items": {
+                          "type": "array"
+                        },
+                        "description": "Metrics Timestamps with values"
+                      }
+                    },
+                    "required": [
+                      "values"
+                    ]
+                  }
+                },
+                "additionalProperties": true
+              }
+            },
+            "required": [
+              "start",
+              "end",
+              "step",
+              "time_series"
+            ]
+          }
+        },
+        "required": [
+          "metrics"
+        ]
+      },
+      "get_network_response": {
+        "type": "object",
+        "properties": {
+          "network": {
+            "$ref": "#/components/schemas/network"
+          }
+        },
+        "required": [
+          "network"
+        ]
+      },
+      "get_server_response": {
+        "type": "object",
+        "properties": {
+          "server": {
+            "$ref": "#/components/schemas/server"
+          }
+        },
+        "required": [
+          "server"
+        ]
+      },
+      "get_server_type_response": {
+        "type": "object",
+        "properties": {
+          "server_type": {
+            "$ref": "#/components/schemas/server_type"
+          }
+        },
+        "required": [
+          "server_type"
+        ]
+      },
+      "get_specific_floating_ip_response": {
+        "type": "object",
+        "properties": {
+          "floating_ip": {
+            "$ref": "#/components/schemas/floating_ip"
+          }
+        },
+        "required": [
+          "floating_ip"
+        ]
+      },
+      "get_ssh_key_response": {
+        "type": "object",
+        "properties": {
+          "ssh_key": {
+            "$ref": "#/components/schemas/ssh_key"
+          }
+        },
+        "required": [
+          "ssh_key"
+        ]
+      },
+      "get_volume_response": {
+        "type": "object",
+        "properties": {
+          "volume": {
+            "$ref": "#/components/schemas/volume"
+          }
+        },
+        "required": [
+          "volume"
         ]
       },
       "image": {
@@ -635,1653 +1919,7 @@
         "description": "ISO Image that is attached to this Server. Null if no ISO is attached.",
         "nullable": true
       },
-      "location": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "number",
-            "description": "ID of the Location"
-          },
-          "name": {
-            "type": "string",
-            "description": "Unique identifier of the Location"
-          },
-          "description": {
-            "type": "string",
-            "description": "Description of the Location"
-          },
-          "country": {
-            "type": "string",
-            "description": "ISO 3166-1 alpha-2 code of the country the Location resides in"
-          },
-          "city": {
-            "type": "string",
-            "description": "City the Location is closest to"
-          },
-          "latitude": {
-            "type": "number",
-            "description": "Latitude of the city closest to the Location"
-          },
-          "longitude": {
-            "type": "number",
-            "description": "Longitude of the city closest to the Location"
-          },
-          "network_zone": {
-            "type": "string",
-            "description": "Name of network zone this Location resides in"
-          }
-        },
-        "required": [
-          "id",
-          "name",
-          "description",
-          "country",
-          "city",
-          "latitude",
-          "longitude",
-          "network_zone"
-        ],
-        "description": "Location where the Datacenter resides in | Location the Floating IP was created in. Routing is optimized for this Location. | Location of the Volume. Volume can only be attached to Servers in the same Location."
-      },
-      "network": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "number",
-            "description": "ID of the Network"
-          },
-          "name": {
-            "type": "string",
-            "description": "Name of the Network"
-          },
-          "ip_range": {
-            "type": "string",
-            "description": "IPv4 prefix of the whole Network"
-          },
-          "subnets": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/subnet_with_gateway"
-            },
-            "description": "Array subnets allocated in this Network"
-          },
-          "routes": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/route"
-            },
-            "description": "Array of routes set in this Network"
-          },
-          "servers": {
-            "type": "array",
-            "items": {
-              "type": "number"
-            },
-            "description": "Array of IDs of Servers attached to this Network"
-          },
-          "protection": {
-            "type": "object",
-            "properties": {
-              "delete": {
-                "type": "boolean",
-                "description": "If true, prevents the Network from being deleted"
-              }
-            },
-            "required": [
-              "delete"
-            ],
-            "description": "Protection configuration for the Network"
-          },
-          "labels": {
-            "type": "object",
-            "properties": {},
-            "description": "User-defined labels (key-value pairs)"
-          },
-          "created": {
-            "type": "string",
-            "description": "Point in time when the Network was created (in ISO-8601 format)"
-          }
-        },
-        "required": [
-          "id",
-          "name",
-          "ip_range",
-          "subnets",
-          "routes",
-          "servers",
-          "protection",
-          "labels",
-          "created"
-        ]
-      },
-      "price": {
-        "type": "object",
-        "properties": {
-          "net": {
-            "type": "string",
-            "description": "Price without VAT"
-          },
-          "gross": {
-            "type": "string",
-            "description": "Price with VAT added"
-          }
-        },
-        "required": [
-          "net",
-          "gross"
-        ],
-        "description": "Hourly costs for a Server type in this Location | Monthly costs for a Server type in this Location"
-      },
-      "price_per_time": {
-        "type": "object",
-        "properties": {
-          "location": {
-            "type": "string",
-            "description": "Name of the Location the price is for"
-          },
-          "price_hourly": {
-            "$ref": "#/components/schemas/price"
-          },
-          "price_monthly": {
-            "$ref": "#/components/schemas/price"
-          }
-        },
-        "required": [
-          "location",
-          "price_hourly",
-          "price_monthly"
-        ]
-      },
-      "protection": {
-        "type": "object",
-        "properties": {
-          "delete": {
-            "type": "boolean",
-            "description": "If true, prevents the Server from being deleted"
-          },
-          "rebuild": {
-            "type": "boolean",
-            "description": "If true, prevents the Server from being rebuilt"
-          }
-        },
-        "required": [
-          "delete",
-          "rebuild"
-        ],
-        "description": "Protection configuration for the Server"
-      },
-      "public_net": {
-        "type": "object",
-        "properties": {
-          "ipv4": {
-            "$ref": "#/components/schemas/ipv4"
-          },
-          "ipv6": {
-            "$ref": "#/components/schemas/ipv6"
-          },
-          "floating_ips": {
-            "type": "array",
-            "items": {
-              "type": "number"
-            },
-            "description": "IDs of Floating IPs assigned to this Server"
-          }
-        },
-        "required": [
-          "ipv4",
-          "ipv6",
-          "floating_ips"
-        ],
-        "description": "Public network information. The Server's IPv4 address can be found in `public_net->ipv4->ip`"
-      },
-      "request_add_route_to_network": {
-        "$ref": "#/components/schemas/route"
-      },
-      "request_add_subnet_to_network": {
-        "$ref": "#/components/schemas/subnet"
-      },
-      "request_assign_floating_ip_to_server": {
-        "type": "object",
-        "properties": {
-          "server": {
-            "type": "number",
-            "description": "ID of the Server the Floating IP shall be assigned to"
-          }
-        },
-        "required": [
-          "server"
-        ]
-      },
-      "request_attach_iso_to_server": {
-        "type": "object",
-        "properties": {
-          "iso": {
-            "type": "string",
-            "description": "ID or name of ISO to attach to the Server as listed in GET `/isos`"
-          }
-        },
-        "required": [
-          "iso"
-        ]
-      },
-      "request_attach_server_to_network": {
-        "type": "object",
-        "properties": {
-          "network": {
-            "type": "number",
-            "description": "ID of an existing network to attach the Server to"
-          },
-          "ip": {
-            "type": "string",
-            "description": "IP to request to be assigned to this Server; if you do not provide this then you will be auto assigned an IP address"
-          },
-          "alias_ips": {
-            "type": "array",
-            "description": "Additional IPs to be assigned to this Server",
-            "items": {
-              "type": "object",
-              "properties": {}
-            }
-          }
-        },
-        "required": [
-          "network"
-        ]
-      },
-      "request_attach_volume_to_server": {
-        "type": "object",
-        "properties": {
-          "server": {
-            "type": "number",
-            "description": "ID of the Server the Volume will be attached to"
-          },
-          "automount": {
-            "type": "boolean",
-            "description": "Auto-mount the Volume after attaching it"
-          }
-        },
-        "required": [
-          "server"
-        ]
-      },
-      "request_change_alias_ips_of_network": {
-        "type": "object",
-        "properties": {
-          "network": {
-            "type": "number",
-            "description": "ID of an existing Network already attached to the Server"
-          },
-          "alias_ips": {
-            "type": "array",
-            "description": "New alias IPs to set for this Server",
-            "items": {
-              "type": "object",
-              "properties": {}
-            }
-          }
-        },
-        "required": [
-          "network",
-          "alias_ips"
-        ]
-      },
-      "request_change_floating_ip_protection": {
-        "type": "object",
-        "properties": {
-          "delete": {
-            "type": "boolean",
-            "description": "If true, prevents the Floating IP from being deleted"
-          }
-        }
-      },
-      "request_change_image_protection": {
-        "type": "object",
-        "properties": {
-          "delete": {
-            "type": "boolean",
-            "description": "If true, prevents the snapshot from being deleted"
-          }
-        }
-      },
-      "request_change_ip_range_of_network": {
-        "type": "object",
-        "properties": {
-          "ip_range": {
-            "type": "string",
-            "description": "The new prefix for the whole Network"
-          }
-        },
-        "required": [
-          "ip_range"
-        ]
-      },
-      "request_change_network_protection": {
-        "type": "object",
-        "properties": {
-          "delete": {
-            "type": "boolean",
-            "description": "If true, prevents the Network from being deleted"
-          }
-        }
-      },
-      "request_change_reverse_dns_entry_for_floating_ip": {
-        "type": "object",
-        "properties": {
-          "ip": {
-            "type": "string",
-            "description": "IP address for which to set the reverse DNS entry"
-          },
-          "dns_ptr": {
-            "type": "string",
-            "description": "Hostname to set as a reverse DNS PTR entry, will reset to original default value if `null`",
-            "nullable": true
-          }
-        },
-        "required": [
-          "ip",
-          "dns_ptr"
-        ]
-      },
-      "request_change_reverse_dns_entry_for_this_server": {
-        "type": "object",
-        "properties": {
-          "ip": {
-            "type": "string",
-            "description": "Primary IP address for which the reverse DNS entry should be set"
-          },
-          "dns_ptr": {
-            "type": "string",
-            "description": "Hostname to set as a reverse DNS PTR entry, reset to original value if `null`",
-            "nullable": true
-          }
-        },
-        "required": [
-          "ip",
-          "dns_ptr"
-        ]
-      },
-      "request_change_server_protection": {
-        "type": "object",
-        "properties": {
-          "delete": {
-            "type": "boolean",
-            "description": "If true, prevents the Server from being deleted (currently delete and rebuild attribute needs to have the same value)"
-          },
-          "rebuild": {
-            "type": "boolean",
-            "description": "If true, prevents the Server from being rebuilt` (currently delete and rebuild attribute needs to have the same value)"
-          }
-        }
-      },
-      "request_change_type_of_server": {
-        "type": "object",
-        "properties": {
-          "upgrade_disk": {
-            "type": "boolean",
-            "description": "If false, do not upgrade the disk (this allows downgrading the Server type later)"
-          },
-          "server_type": {
-            "type": "string",
-            "description": "ID or name of Server type the Server should migrate to"
-          }
-        },
-        "required": [
-          "upgrade_disk",
-          "server_type"
-        ]
-      },
-      "request_change_volume_protection": {
-        "type": "object",
-        "properties": {
-          "delete": {
-            "type": "boolean",
-            "description": "If true, prevents the Volume from being deleted"
-          }
-        }
-      },
-      "request_create_floating_ip": {
-        "type": "object",
-        "properties": {
-          "type": {
-            "type": "string",
-            "enum": [
-              "ipv4",
-              "ipv6"
-            ],
-            "description": "Floating IP type"
-          },
-          "server": {
-            "type": "number",
-            "description": "Server to assign the Floating IP to"
-          },
-          "home_location": {
-            "type": "string",
-            "description": "Home Location (routing is optimized for that Location). Only optional if Server argument is passed."
-          },
-          "description": {
-            "type": "string"
-          },
-          "name": {
-            "type": "string"
-          },
-          "labels": {
-            "type": "object",
-            "properties": {},
-            "description": "User-defined labels (key-value pairs)"
-          }
-        },
-        "required": [
-          "type"
-        ]
-      },
-      "request_create_image_from_server": {
-        "type": "object",
-        "properties": {
-          "description": {
-            "type": "string",
-            "description": "Description of the Image, will be auto-generated if not set"
-          },
-          "type": {
-            "type": "string",
-            "enum": [
-              "backup",
-              "snapshot"
-            ],
-            "description": "Type of Image to create (default: `snapshot`)"
-          },
-          "labels": {
-            "type": "object",
-            "properties": {},
-            "description": "User-defined labels (key-value pairs)"
-          }
-        }
-      },
-      "request_create_network": {
-        "type": "object",
-        "properties": {
-          "name": {
-            "type": "string",
-            "description": "Name of the network"
-          },
-          "ip_range": {
-            "type": "string",
-            "description": "IP range of the whole network which must span all included subnets. Must be one of the private IPv4 ranges of RFC1918. Minimum network size is /24. We highly recommend that you pick a larger network with a /16 netmask."
-          },
-          "labels": {
-            "type": "object",
-            "properties": {},
-            "description": "User-defined labels (key-value pairs)"
-          },
-          "subnets": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/subnet"
-            },
-            "description": "Array of subnets allocated."
-          },
-          "routes": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/route"
-            },
-            "description": "Array of routes set in this network. The destination of the route must be one of the private IPv4 ranges of RFC1918. The gateway must be a subnet/IP of the ip_range of the network object. The destination must not overlap with an existing ip_range in any subnets or with any destinations in other routes or with the first IP of the networks ip_range or with 172.31.1.1. The gateway cannot be the first IP of the networks ip_range and also cannot be 172.31.1.1."
-          }
-        },
-        "required": [
-          "name",
-          "ip_range"
-        ]
-      },
-      "request_create_server": {
-        "type": "object",
-        "properties": {
-          "name": {
-            "type": "string",
-            "description": "Name of the Server to create (must be unique per Project and a valid hostname as per RFC 1123)"
-          },
-          "server_type": {
-            "type": "string",
-            "description": "ID or name of the Server type this Server should be created with"
-          },
-          "start_after_create": {
-            "type": "boolean",
-            "description": "Start Server right after creation. Defaults to true."
-          },
-          "image": {
-            "type": "string",
-            "description": "ID or name of the Image the Server is created from"
-          },
-          "ssh_keys": {
-            "type": "array",
-            "items": {
-              "type": "string"
-            },
-            "description": "SSH key IDs or names which should be injected into the Server at creation time"
-          },
-          "volumes": {
-            "type": "array",
-            "description": "Volume IDs which should be attached to the Server at the creation time. Volumes must be in the same Location.",
-            "items": {
-              "type": "object",
-              "properties": {}
-            }
-          },
-          "networks": {
-            "type": "array",
-            "description": "Network IDs which should be attached to the Server private network interface at the creation time",
-            "items": {
-              "type": "object",
-              "properties": {}
-            }
-          },
-          "user_data": {
-            "type": "string",
-            "description": "Cloud-Init user data to use during Server creation. This field is limited to 32KiB."
-          },
-          "labels": {
-            "type": "object",
-            "properties": {},
-            "description": "User-defined labels (key-value pairs)"
-          },
-          "automount": {
-            "type": "boolean",
-            "description": "Auto-mount Volumes after attach"
-          }
-        },
-        "required": [
-          "name",
-          "server_type",
-          "image"
-        ],
-        "oneOf": [
-          {
-            "properties": {
-              "location": {
-                "type": "string",
-                "description": "ID or name of Location to create Server in"
-              }
-            }
-          },
-          {
-            "properties": {
-              "datacenter": {
-                "type": "string",
-                "description": "ID or name of Datacenter to create Server in"
-              }
-            }
-          }
-        ]
-      },
-      "request_create_ssh_key": {
-        "type": "object",
-        "properties": {
-          "name": {
-            "type": "string",
-            "description": "Name of the SSH key"
-          },
-          "public_key": {
-            "type": "string",
-            "description": "Public key"
-          },
-          "labels": {
-            "type": "object",
-            "properties": {},
-            "description": "User-defined labels (key-value pairs)"
-          }
-        },
-        "required": [
-          "name",
-          "public_key"
-        ]
-      },
-      "request_create_volume": {
-        "type": "object",
-        "properties": {
-          "size": {
-            "type": "number",
-            "description": "Size of the Volume in GB"
-          },
-          "name": {
-            "type": "string",
-            "description": "Name of the volume"
-          },
-          "labels": {
-            "type": "object",
-            "properties": {},
-            "description": "User-defined labels (key-value pairs)"
-          },
-          "automount": {
-            "type": "boolean",
-            "description": "Auto-mount Volume after attach. `server` must be provided."
-          },
-          "format": {
-            "type": "string",
-            "description": "Format Volume after creation. One of: `xfs`, `ext4`"
-          }
-        },
-        "required": [
-          "size",
-          "name"
-        ],
-        "oneOf": [
-          {
-            "properties": {
-              "location": {
-                "type": "string",
-                "description": "Location to create the Volume in (can be omitted if Server is specified)"
-              }
-            }
-          },
-          {
-            "properties": {
-              "server": {
-                "type": "number",
-                "description": "Server to which to attach the Volume once it's created (Volume will be created in the same Location as the server)"
-              }
-            }
-          }
-        ]
-      },
-      "request_delete_route_from_network": {
-        "$ref": "#/components/schemas/route"
-      },
-      "request_delete_subnet_from_network": {
-        "type": "object",
-        "properties": {
-          "ip_range": {
-            "type": "string",
-            "description": "IP range of subnet to delete"
-          }
-        },
-        "required": [
-          "ip_range"
-        ]
-      },
-      "request_detach_server_from_network": {
-        "type": "object",
-        "properties": {
-          "network": {
-            "type": "number",
-            "description": "ID of an existing network to detach the Server from"
-          }
-        },
-        "required": [
-          "network"
-        ]
-      },
-      "request_enable_rescue_mode_for_server": {
-        "type": "object",
-        "properties": {
-          "type": {
-            "type": "string",
-            "enum": [
-              "freebsd64",
-              "linux32",
-              "linux64"
-            ],
-            "description": "Type of rescue system to boot (default: `linux64`)"
-          },
-          "ssh_keys": {
-            "type": "array",
-            "items": {
-              "type": "number"
-            },
-            "description": "Array of SSH key IDs which should be injected into the rescue system. Only available for types: `linux64` and `linux32`."
-          }
-        }
-      },
-      "request_rebuild_server_from_image": {
-        "type": "object",
-        "properties": {
-          "image": {
-            "type": "string",
-            "description": "ID or name of Image to rebuilt from."
-          }
-        },
-        "required": [
-          "image"
-        ]
-      },
-      "request_replace_floating_ip": {
-        "type": "object",
-        "properties": {
-          "name": {
-            "type": "string",
-            "description": "New unique name to set"
-          },
-          "description": {
-            "type": "string",
-            "description": "New Description to set"
-          },
-          "labels": {
-            "type": "object",
-            "properties": {
-              "labelkey": {
-                "type": "string"
-              }
-            },
-            "description": "User-defined labels (key-value pairs)"
-          }
-        }
-      },
-      "request_replace_image": {
-        "type": "object",
-        "properties": {
-          "description": {
-            "type": "string",
-            "description": "New description of Image"
-          },
-          "type": {
-            "type": "string",
-            "enum": [
-              "snapshot"
-            ],
-            "description": "Destination Image type to convert to"
-          },
-          "labels": {
-            "type": "object",
-            "properties": {
-              "labelkey": {
-                "type": "string"
-              }
-            },
-            "description": "User-defined labels (key-value pairs)"
-          }
-        }
-      },
-      "request_replace_network": {
-        "type": "object",
-        "properties": {
-          "name": {
-            "type": "string",
-            "description": "New network name"
-          },
-          "labels": {
-            "type": "object",
-            "properties": {
-              "labelkey": {
-                "type": "string"
-              }
-            },
-            "description": "User-defined labels (key-value pairs)"
-          }
-        }
-      },
-      "request_replace_server": {
-        "type": "object",
-        "properties": {
-          "name": {
-            "type": "string",
-            "description": "New name to set"
-          },
-          "labels": {
-            "type": "object",
-            "properties": {
-              "labelkey": {
-                "type": "string"
-              }
-            },
-            "description": "User-defined labels (key-value pairs)"
-          }
-        }
-      },
-      "request_replace_ssh_key": {
-        "type": "object",
-        "properties": {
-          "name": {
-            "type": "string",
-            "description": "New name Name to set"
-          },
-          "labels": {
-            "type": "object",
-            "properties": {
-              "labelkey": {
-                "type": "string"
-              }
-            },
-            "description": "User-defined labels (key-value pairs)"
-          }
-        }
-      },
-      "request_replace_volume": {
-        "type": "object",
-        "properties": {
-          "name": {
-            "type": "string",
-            "description": "New Volume name"
-          },
-          "labels": {
-            "type": "object",
-            "properties": {
-              "labelkey": {
-                "type": "string"
-              }
-            },
-            "description": "User-defined labels (key-value pairs)"
-          }
-        },
-        "required": [
-          "name"
-        ]
-      },
-      "request_resize_volume": {
-        "type": "object",
-        "properties": {
-          "size": {
-            "type": "number",
-            "description": "New Volume size in GB (must be greater than current size)"
-          }
-        },
-        "required": [
-          "size"
-        ]
-      },
-      "resource": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "number",
-            "description": "ID of resource referenced"
-          },
-          "type": {
-            "type": "string",
-            "description": "Type of resource referenced"
-          }
-        },
-        "required": [
-          "id",
-          "type"
-        ]
-      },
-      "response_add_route_to_network": {
-        "type": "object",
-        "properties": {
-          "action": {
-            "$ref": "#/components/schemas/action"
-          }
-        },
-        "required": [
-          "action"
-        ]
-      },
-      "response_add_subnet_to_network": {
-        "type": "object",
-        "properties": {
-          "action": {
-            "$ref": "#/components/schemas/action"
-          }
-        },
-        "required": [
-          "action"
-        ]
-      },
-      "response_assign_floating_ip_to_server": {
-        "type": "object",
-        "properties": {
-          "action": {
-            "$ref": "#/components/schemas/action"
-          }
-        },
-        "required": [
-          "action"
-        ]
-      },
-      "response_attach_iso_to_server": {
-        "type": "object",
-        "properties": {
-          "action": {
-            "$ref": "#/components/schemas/action"
-          }
-        },
-        "required": [
-          "action"
-        ]
-      },
-      "response_attach_server_to_network": {
-        "type": "object",
-        "properties": {
-          "action": {
-            "$ref": "#/components/schemas/action"
-          }
-        },
-        "required": [
-          "action"
-        ]
-      },
-      "response_attach_volume_to_server": {
-        "type": "object",
-        "properties": {
-          "action": {
-            "$ref": "#/components/schemas/action"
-          }
-        },
-        "required": [
-          "action"
-        ]
-      },
-      "response_change_alias_ips_of_network": {
-        "type": "object",
-        "properties": {
-          "action": {
-            "$ref": "#/components/schemas/action"
-          }
-        },
-        "required": [
-          "action"
-        ]
-      },
-      "response_change_floating_ip_protection": {
-        "type": "object",
-        "properties": {
-          "action": {
-            "$ref": "#/components/schemas/action"
-          }
-        },
-        "required": [
-          "action"
-        ]
-      },
-      "response_change_image_protection": {
-        "type": "object",
-        "properties": {
-          "action": {
-            "$ref": "#/components/schemas/action"
-          }
-        },
-        "required": [
-          "action"
-        ]
-      },
-      "response_change_ip_range_of_network": {
-        "type": "object",
-        "properties": {
-          "action": {
-            "$ref": "#/components/schemas/action"
-          }
-        },
-        "required": [
-          "action"
-        ]
-      },
-      "response_change_network_protection": {
-        "type": "object",
-        "properties": {
-          "action": {
-            "$ref": "#/components/schemas/action"
-          }
-        },
-        "required": [
-          "action"
-        ]
-      },
-      "response_change_reverse_dns_entry_for_floating_ip": {
-        "type": "object",
-        "properties": {
-          "action": {
-            "$ref": "#/components/schemas/action"
-          }
-        },
-        "required": [
-          "action"
-        ]
-      },
-      "response_change_reverse_dns_entry_for_this_server": {
-        "type": "object",
-        "properties": {
-          "action": {
-            "$ref": "#/components/schemas/action"
-          }
-        },
-        "required": [
-          "action"
-        ]
-      },
-      "response_change_server_protection": {
-        "type": "object",
-        "properties": {
-          "action": {
-            "$ref": "#/components/schemas/action"
-          }
-        },
-        "required": [
-          "action"
-        ]
-      },
-      "response_change_type_of_server": {
-        "type": "object",
-        "properties": {
-          "action": {
-            "$ref": "#/components/schemas/action"
-          }
-        },
-        "required": [
-          "action"
-        ]
-      },
-      "response_change_volume_protection": {
-        "type": "object",
-        "properties": {
-          "action": {
-            "$ref": "#/components/schemas/action"
-          }
-        },
-        "required": [
-          "action"
-        ]
-      },
-      "response_create_floating_ip": {
-        "type": "object",
-        "properties": {
-          "floating_ip": {
-            "$ref": "#/components/schemas/floating_ip"
-          },
-          "action": {
-            "$ref": "#/components/schemas/action"
-          }
-        },
-        "required": [
-          "floating_ip"
-        ]
-      },
-      "response_create_image_from_server": {
-        "type": "object",
-        "properties": {
-          "image": {
-            "$ref": "#/components/schemas/image"
-          },
-          "action": {
-            "$ref": "#/components/schemas/action"
-          }
-        },
-        "required": [
-          "image",
-          "action"
-        ]
-      },
-      "response_create_network": {
-        "type": "object",
-        "properties": {
-          "network": {
-            "$ref": "#/components/schemas/network"
-          }
-        },
-        "required": [
-          "network"
-        ]
-      },
-      "response_create_server": {
-        "type": "object",
-        "properties": {
-          "server": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "number",
-                "description": "ID of Server"
-              },
-              "name": {
-                "type": "string",
-                "description": "Name of the Server (must be unique per Project and a valid hostname as per RFC 1123)"
-              },
-              "status": {
-                "type": "string",
-                "enum": [
-                  "deleting",
-                  "initializing",
-                  "migrating",
-                  "off",
-                  "rebuilding",
-                  "running",
-                  "starting",
-                  "stopping"
-                ],
-                "description": "Status of the Server"
-              },
-              "created": {
-                "type": "string",
-                "description": "Point in time when the Server was created (in ISO-8601 format)"
-              },
-              "public_net": {
-                "$ref": "#/components/schemas/public_net"
-              },
-              "private_net": {
-                "type": "array",
-                "description": "Private networks information",
-                "items": {
-                  "type": "object",
-                  "properties": {}
-                }
-              },
-              "server_type": {
-                "$ref": "#/components/schemas/server_type"
-              },
-              "datacenter": {
-                "$ref": "#/components/schemas/datacenter"
-              },
-              "image": {
-                "$ref": "#/components/schemas/image_optional"
-              },
-              "iso": {
-                "$ref": "#/components/schemas/iso_optional"
-              },
-              "rescue_enabled": {
-                "type": "boolean",
-                "description": "True if rescue mode is enabled: Server will then boot into rescue system on next reboot"
-              },
-              "locked": {
-                "type": "boolean",
-                "description": "True if Server has been locked and is not available to user"
-              },
-              "backup_window": {
-                "type": "string",
-                "description": "Time window (UTC) in which the backup will run, or null if the backups are not enabled",
-                "nullable": true
-              },
-              "outgoing_traffic": {
-                "type": "number",
-                "description": "Outbound Traffic for the current billing period in bytes",
-                "nullable": true
-              },
-              "ingoing_traffic": {
-                "type": "number",
-                "description": "Inbound Traffic for the current billing period in bytes",
-                "nullable": true
-              },
-              "included_traffic": {
-                "type": "number",
-                "description": "Free Traffic for the current billing period in bytes"
-              },
-              "protection": {
-                "$ref": "#/components/schemas/protection"
-              },
-              "labels": {
-                "type": "object",
-                "properties": {},
-                "description": "User-defined labels (key-value pairs)"
-              },
-              "volumes": {
-                "type": "array",
-                "description": "IDs of Volumes assigned to this Server",
-                "items": {
-                  "type": "object",
-                  "properties": {}
-                }
-              }
-            },
-            "required": [
-              "id",
-              "name",
-              "status",
-              "created",
-              "public_net",
-              "private_net",
-              "server_type",
-              "datacenter",
-              "image",
-              "iso",
-              "rescue_enabled",
-              "locked",
-              "backup_window",
-              "outgoing_traffic",
-              "ingoing_traffic",
-              "included_traffic",
-              "protection",
-              "labels"
-            ]
-          },
-          "action": {
-            "$ref": "#/components/schemas/action"
-          },
-          "next_actions": {
-            "type": "array",
-            "items": {
-              "type": "object",
-              "properties": {}
-            }
-          },
-          "root_password": {
-            "type": "string",
-            "description": "Root password when no SSH keys have been specified",
-            "nullable": true
-          }
-        },
-        "required": [
-          "server",
-          "action",
-          "next_actions",
-          "root_password"
-        ]
-      },
-      "response_create_ssh_key": {
-        "type": "object",
-        "properties": {
-          "ssh_key": {
-            "$ref": "#/components/schemas/ssh_key"
-          }
-        },
-        "required": [
-          "ssh_key"
-        ]
-      },
-      "response_create_volume": {
-        "type": "object",
-        "properties": {
-          "volume": {
-            "$ref": "#/components/schemas/volume"
-          },
-          "action": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "number",
-                "description": "ID of the Action"
-              },
-              "command": {
-                "type": "string",
-                "description": "Command executed in the Action"
-              },
-              "status": {
-                "type": "string",
-                "enum": [
-                  "error",
-                  "running",
-                  "success"
-                ],
-                "description": "Status of the Action"
-              },
-              "progress": {
-                "type": "number",
-                "description": "Progress of Action in percent"
-              },
-              "started": {
-                "type": "string",
-                "description": "Point in time when the Action was started (in ISO-8601 format)"
-              },
-              "finished": {
-                "type": "string",
-                "description": "Point in time when the Action was finished (in ISO-8601 format). Only set if the Action is finished otherwise null.",
-                "nullable": true
-              },
-              "resources": {
-                "type": "array",
-                "items": {
-                  "$ref": "#/components/schemas/resource"
-                },
-                "description": "Resources the Action relates to"
-              },
-              "error": {
-                "$ref": "#/components/schemas/error"
-              }
-            },
-            "required": [
-              "id",
-              "command",
-              "status",
-              "progress",
-              "started",
-              "finished",
-              "resources",
-              "error"
-            ],
-            "additionalProperties": false
-          },
-          "next_actions": {
-            "type": "array",
-            "items": {
-              "type": "object",
-              "properties": {}
-            }
-          }
-        },
-        "required": [
-          "volume",
-          "action",
-          "next_actions"
-        ]
-      },
-      "response_delete_route_from_network": {
-        "type": "object",
-        "properties": {
-          "action": {
-            "$ref": "#/components/schemas/action"
-          }
-        },
-        "required": [
-          "action"
-        ]
-      },
-      "response_delete_server": {
-        "type": "object",
-        "properties": {
-          "action": {
-            "$ref": "#/components/schemas/action"
-          }
-        },
-        "required": [
-          "action"
-        ]
-      },
-      "response_delete_subnet_from_network": {
-        "type": "object",
-        "properties": {
-          "action": {
-            "$ref": "#/components/schemas/action"
-          }
-        },
-        "required": [
-          "action"
-        ]
-      },
-      "response_detach_iso_from_server": {
-        "type": "object",
-        "properties": {
-          "action": {
-            "$ref": "#/components/schemas/action"
-          }
-        },
-        "required": [
-          "action"
-        ]
-      },
-      "response_detach_server_from_network": {
-        "type": "object",
-        "properties": {
-          "action": {
-            "$ref": "#/components/schemas/action"
-          }
-        },
-        "required": [
-          "action"
-        ]
-      },
-      "response_detach_volume": {
-        "type": "object",
-        "properties": {
-          "action": {
-            "$ref": "#/components/schemas/action"
-          }
-        },
-        "required": [
-          "action"
-        ]
-      },
-      "response_disable_backups_for_server": {
-        "type": "object",
-        "properties": {
-          "action": {
-            "$ref": "#/components/schemas/action"
-          }
-        },
-        "required": [
-          "action"
-        ]
-      },
-      "response_disable_rescue_mode_for_server": {
-        "type": "object",
-        "properties": {
-          "action": {
-            "$ref": "#/components/schemas/action"
-          }
-        },
-        "required": [
-          "action"
-        ]
-      },
-      "response_enable_and_configure_backups_for_server": {
-        "type": "object",
-        "properties": {
-          "action": {
-            "$ref": "#/components/schemas/action"
-          }
-        },
-        "required": [
-          "action"
-        ]
-      },
-      "response_enable_rescue_mode_for_server": {
-        "type": "object",
-        "properties": {
-          "root_password": {
-            "type": "string",
-            "description": "Root Password for Server once it gets booted in rescue mode"
-          },
-          "action": {
-            "$ref": "#/components/schemas/action"
-          }
-        },
-        "required": [
-          "action"
-        ]
-      },
-      "response_get_action": {
-        "type": "object",
-        "properties": {
-          "action": {
-            "$ref": "#/components/schemas/action"
-          }
-        },
-        "required": [
-          "action"
-        ]
-      },
-      "response_get_action_for_floating_ip": {
-        "type": "object",
-        "properties": {
-          "action": {
-            "$ref": "#/components/schemas/action"
-          }
-        },
-        "required": [
-          "action"
-        ]
-      },
-      "response_get_action_for_image": {
-        "type": "object",
-        "properties": {
-          "action": {
-            "$ref": "#/components/schemas/action"
-          }
-        },
-        "required": [
-          "action"
-        ]
-      },
-      "response_get_action_for_network": {
-        "type": "object",
-        "properties": {
-          "action": {
-            "$ref": "#/components/schemas/action"
-          }
-        },
-        "required": [
-          "action"
-        ]
-      },
-      "response_get_action_for_server": {
-        "type": "object",
-        "properties": {
-          "action": {
-            "$ref": "#/components/schemas/action"
-          }
-        },
-        "required": [
-          "action"
-        ]
-      },
-      "response_get_action_for_volume": {
-        "type": "object",
-        "properties": {
-          "action": {
-            "$ref": "#/components/schemas/action"
-          }
-        },
-        "required": [
-          "action"
-        ]
-      },
-      "response_get_datacenter": {
-        "type": "object",
-        "properties": {
-          "datacenter": {
-            "$ref": "#/components/schemas/datacenter"
-          }
-        },
-        "required": [
-          "datacenter"
-        ]
-      },
-      "response_get_image": {
-        "type": "object",
-        "properties": {
-          "image": {
-            "$ref": "#/components/schemas/image"
-          }
-        },
-        "required": [
-          "image"
-        ]
-      },
-      "response_get_iso": {
-        "type": "object",
-        "properties": {
-          "iso": {
-            "$ref": "#/components/schemas/iso"
-          }
-        },
-        "required": [
-          "iso"
-        ]
-      },
-      "response_get_location": {
-        "type": "object",
-        "properties": {
-          "location": {
-            "$ref": "#/components/schemas/location"
-          }
-        },
-        "required": [
-          "location"
-        ]
-      },
-      "response_get_metrics_for_server": {
-        "type": "object",
-        "properties": {
-          "metrics": {
-            "type": "object",
-            "properties": {
-              "start": {
-                "type": "string",
-                "description": "Start of period of metrics reported (in ISO-8601 format)"
-              },
-              "end": {
-                "type": "string",
-                "description": "End of period of metrics reported (in ISO-8601 format)"
-              },
-              "step": {
-                "type": "number",
-                "description": "Resolution of results in seconds."
-              },
-              "time_series": {
-                "type": "object",
-                "x-patternProperties": {
-                  "": {
-                    "type": "object",
-                    "properties": {
-                      "values": {
-                        "type": "array",
-                        "items": {
-                          "type": "array"
-                        },
-                        "description": "Metrics Timestamps with values"
-                      }
-                    },
-                    "required": [
-                      "values"
-                    ]
-                  }
-                },
-                "additionalProperties": true
-              }
-            },
-            "required": [
-              "start",
-              "end",
-              "step",
-              "time_series"
-            ]
-          }
-        },
-        "required": [
-          "metrics"
-        ]
-      },
-      "response_get_network": {
-        "type": "object",
-        "properties": {
-          "network": {
-            "$ref": "#/components/schemas/network"
-          }
-        },
-        "required": [
-          "network"
-        ]
-      },
-      "response_get_server": {
-        "type": "object",
-        "properties": {
-          "server": {
-            "$ref": "#/components/schemas/server"
-          }
-        },
-        "required": [
-          "server"
-        ]
-      },
-      "response_get_server_type": {
-        "type": "object",
-        "properties": {
-          "server_type": {
-            "$ref": "#/components/schemas/server_type"
-          }
-        },
-        "required": [
-          "server_type"
-        ]
-      },
-      "response_get_specific_floating_ip": {
-        "type": "object",
-        "properties": {
-          "floating_ip": {
-            "$ref": "#/components/schemas/floating_ip"
-          }
-        },
-        "required": [
-          "floating_ip"
-        ]
-      },
-      "response_get_ssh_key": {
-        "type": "object",
-        "properties": {
-          "ssh_key": {
-            "$ref": "#/components/schemas/ssh_key"
-          }
-        },
-        "required": [
-          "ssh_key"
-        ]
-      },
-      "response_get_volume": {
-        "type": "object",
-        "properties": {
-          "volume": {
-            "$ref": "#/components/schemas/volume"
-          }
-        },
-        "required": [
-          "volume"
-        ]
-      },
-      "response_list_actions_for_floating_ip": {
+      "list_actions_for_floating_ip_response": {
         "type": "object",
         "properties": {
           "actions": {
@@ -2295,7 +1933,7 @@
           "actions"
         ]
       },
-      "response_list_actions_for_image": {
+      "list_actions_for_image_response": {
         "type": "object",
         "properties": {
           "actions": {
@@ -2309,7 +1947,7 @@
           "actions"
         ]
       },
-      "response_list_actions_for_network": {
+      "list_actions_for_network_response": {
         "type": "object",
         "properties": {
           "actions": {
@@ -2323,7 +1961,7 @@
           "actions"
         ]
       },
-      "response_list_actions_for_server": {
+      "list_actions_for_server_response": {
         "type": "object",
         "properties": {
           "actions": {
@@ -2337,7 +1975,7 @@
           "actions"
         ]
       },
-      "response_list_actions_for_volume": {
+      "list_actions_for_volume_response": {
         "type": "object",
         "properties": {
           "actions": {
@@ -2351,7 +1989,7 @@
           "actions"
         ]
       },
-      "response_list_all_actions": {
+      "list_all_actions_response": {
         "type": "object",
         "properties": {
           "actions": {
@@ -2365,7 +2003,7 @@
           "actions"
         ]
       },
-      "response_list_datacenters": {
+      "list_datacenters_response": {
         "type": "object",
         "properties": {
           "datacenters": {
@@ -2384,7 +2022,7 @@
           "recommendation"
         ]
       },
-      "response_list_floating_ips": {
+      "list_floating_ips_response": {
         "type": "object",
         "properties": {
           "floating_ips": {
@@ -2398,7 +2036,7 @@
           "floating_ips"
         ]
       },
-      "response_list_images": {
+      "list_images_response": {
         "type": "object",
         "properties": {
           "images": {
@@ -2412,7 +2050,7 @@
           "images"
         ]
       },
-      "response_list_isos": {
+      "list_isos_response": {
         "type": "object",
         "properties": {
           "isos": {
@@ -2426,7 +2064,7 @@
           "isos"
         ]
       },
-      "response_list_locations": {
+      "list_locations_response": {
         "type": "object",
         "properties": {
           "locations": {
@@ -2440,7 +2078,7 @@
           "locations"
         ]
       },
-      "response_list_networks": {
+      "list_networks_response": {
         "type": "object",
         "properties": {
           "networks": {
@@ -2454,7 +2092,7 @@
           "networks"
         ]
       },
-      "response_list_prices": {
+      "list_prices_response": {
         "type": "object",
         "properties": {
           "pricing": {
@@ -2576,7 +2214,7 @@
           "pricing"
         ]
       },
-      "response_list_server_types": {
+      "list_server_types_response": {
         "type": "object",
         "properties": {
           "server_types": {
@@ -2590,7 +2228,7 @@
           "server_types"
         ]
       },
-      "response_list_servers": {
+      "list_servers_response": {
         "type": "object",
         "properties": {
           "servers": {
@@ -2604,7 +2242,7 @@
           "servers"
         ]
       },
-      "response_list_ssh_keys": {
+      "list_ssh_keys_response": {
         "type": "object",
         "properties": {
           "ssh_keys": {
@@ -2618,7 +2256,7 @@
           "ssh_keys"
         ]
       },
-      "response_list_volumes": {
+      "list_volumes_response": {
         "type": "object",
         "properties": {
           "volumes": {
@@ -2632,7 +2270,126 @@
           "volumes"
         ]
       },
-      "response_power_off_server": {
+      "location": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "number",
+            "description": "ID of the Location"
+          },
+          "name": {
+            "type": "string",
+            "description": "Unique identifier of the Location"
+          },
+          "description": {
+            "type": "string",
+            "description": "Description of the Location"
+          },
+          "country": {
+            "type": "string",
+            "description": "ISO 3166-1 alpha-2 code of the country the Location resides in"
+          },
+          "city": {
+            "type": "string",
+            "description": "City the Location is closest to"
+          },
+          "latitude": {
+            "type": "number",
+            "description": "Latitude of the city closest to the Location"
+          },
+          "longitude": {
+            "type": "number",
+            "description": "Longitude of the city closest to the Location"
+          },
+          "network_zone": {
+            "type": "string",
+            "description": "Name of network zone this Location resides in"
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "description",
+          "country",
+          "city",
+          "latitude",
+          "longitude",
+          "network_zone"
+        ],
+        "description": "Location where the Datacenter resides in | Location the Floating IP was created in. Routing is optimized for this Location. | Location of the Volume. Volume can only be attached to Servers in the same Location."
+      },
+      "network": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "number",
+            "description": "ID of the Network"
+          },
+          "name": {
+            "type": "string",
+            "description": "Name of the Network"
+          },
+          "ip_range": {
+            "type": "string",
+            "description": "IPv4 prefix of the whole Network"
+          },
+          "subnets": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/subnet_with_gateway"
+            },
+            "description": "Array subnets allocated in this Network"
+          },
+          "routes": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/route"
+            },
+            "description": "Array of routes set in this Network"
+          },
+          "servers": {
+            "type": "array",
+            "items": {
+              "type": "number"
+            },
+            "description": "Array of IDs of Servers attached to this Network"
+          },
+          "protection": {
+            "type": "object",
+            "properties": {
+              "delete": {
+                "type": "boolean",
+                "description": "If true, prevents the Network from being deleted"
+              }
+            },
+            "required": [
+              "delete"
+            ],
+            "description": "Protection configuration for the Network"
+          },
+          "labels": {
+            "type": "object",
+            "properties": {},
+            "description": "User-defined labels (key-value pairs)"
+          },
+          "created": {
+            "type": "string",
+            "description": "Point in time when the Network was created (in ISO-8601 format)"
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "ip_range",
+          "subnets",
+          "routes",
+          "servers",
+          "protection",
+          "labels",
+          "created"
+        ]
+      },
+      "power_off_server_response": {
         "type": "object",
         "properties": {
           "action": {
@@ -2643,7 +2400,7 @@
           "action"
         ]
       },
-      "response_power_on_server": {
+      "power_on_server_response": {
         "type": "object",
         "properties": {
           "action": {
@@ -2654,7 +2411,99 @@
           "action"
         ]
       },
-      "response_rebuild_server_from_image": {
+      "price": {
+        "type": "object",
+        "properties": {
+          "net": {
+            "type": "string",
+            "description": "Price without VAT"
+          },
+          "gross": {
+            "type": "string",
+            "description": "Price with VAT added"
+          }
+        },
+        "required": [
+          "net",
+          "gross"
+        ],
+        "description": "Hourly costs for a Server type in this Location | Monthly costs for a Server type in this Location"
+      },
+      "price_per_time": {
+        "type": "object",
+        "properties": {
+          "location": {
+            "type": "string",
+            "description": "Name of the Location the price is for"
+          },
+          "price_hourly": {
+            "$ref": "#/components/schemas/price"
+          },
+          "price_monthly": {
+            "$ref": "#/components/schemas/price"
+          }
+        },
+        "required": [
+          "location",
+          "price_hourly",
+          "price_monthly"
+        ]
+      },
+      "protection": {
+        "type": "object",
+        "properties": {
+          "delete": {
+            "type": "boolean",
+            "description": "If true, prevents the Server from being deleted"
+          },
+          "rebuild": {
+            "type": "boolean",
+            "description": "If true, prevents the Server from being rebuilt"
+          }
+        },
+        "required": [
+          "delete",
+          "rebuild"
+        ],
+        "description": "Protection configuration for the Server"
+      },
+      "public_net": {
+        "type": "object",
+        "properties": {
+          "ipv4": {
+            "$ref": "#/components/schemas/ipv4"
+          },
+          "ipv6": {
+            "$ref": "#/components/schemas/ipv6"
+          },
+          "floating_ips": {
+            "type": "array",
+            "items": {
+              "type": "number"
+            },
+            "description": "IDs of Floating IPs assigned to this Server"
+          }
+        },
+        "required": [
+          "ipv4",
+          "ipv6",
+          "floating_ips"
+        ],
+        "description": "Public network information. The Server's IPv4 address can be found in `public_net->ipv4->ip`"
+      },
+      "rebuild_server_from_image_request": {
+        "type": "object",
+        "properties": {
+          "image": {
+            "type": "string",
+            "description": "ID or name of Image to rebuilt from."
+          }
+        },
+        "required": [
+          "image"
+        ]
+      },
+      "rebuild_server_from_image_response": {
         "type": "object",
         "properties": {
           "action": {
@@ -2671,7 +2520,29 @@
           "root_password"
         ]
       },
-      "response_replace_floating_ip": {
+      "replace_floating_ip_request": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "New unique name to set"
+          },
+          "description": {
+            "type": "string",
+            "description": "New Description to set"
+          },
+          "labels": {
+            "type": "object",
+            "properties": {
+              "labelkey": {
+                "type": "string"
+              }
+            },
+            "description": "User-defined labels (key-value pairs)"
+          }
+        }
+      },
+      "replace_floating_ip_response": {
         "type": "object",
         "properties": {
           "floating_ip": {
@@ -2769,7 +2640,32 @@
           "floating_ip"
         ]
       },
-      "response_replace_image": {
+      "replace_image_request": {
+        "type": "object",
+        "properties": {
+          "description": {
+            "type": "string",
+            "description": "New description of Image"
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "snapshot"
+            ],
+            "description": "Destination Image type to convert to"
+          },
+          "labels": {
+            "type": "object",
+            "properties": {
+              "labelkey": {
+                "type": "string"
+              }
+            },
+            "description": "User-defined labels (key-value pairs)"
+          }
+        }
+      },
+      "replace_image_response": {
         "type": "object",
         "properties": {
           "image": {
@@ -2895,7 +2791,25 @@
           }
         }
       },
-      "response_replace_network": {
+      "replace_network_request": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "New network name"
+          },
+          "labels": {
+            "type": "object",
+            "properties": {
+              "labelkey": {
+                "type": "string"
+              }
+            },
+            "description": "User-defined labels (key-value pairs)"
+          }
+        }
+      },
+      "replace_network_response": {
         "type": "object",
         "properties": {
           "network": {
@@ -2978,7 +2892,25 @@
           "network"
         ]
       },
-      "response_replace_server": {
+      "replace_server_request": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "New name to set"
+          },
+          "labels": {
+            "type": "object",
+            "properties": {
+              "labelkey": {
+                "type": "string"
+              }
+            },
+            "description": "User-defined labels (key-value pairs)"
+          }
+        }
+      },
+      "replace_server_response": {
         "type": "object",
         "properties": {
           "server": {
@@ -3108,7 +3040,25 @@
           "server"
         ]
       },
-      "response_replace_ssh_key": {
+      "replace_ssh_key_request": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "New name Name to set"
+          },
+          "labels": {
+            "type": "object",
+            "properties": {
+              "labelkey": {
+                "type": "string"
+              }
+            },
+            "description": "User-defined labels (key-value pairs)"
+          }
+        }
+      },
+      "replace_ssh_key_response": {
         "type": "object",
         "properties": {
           "ssh_key": {
@@ -3158,7 +3108,28 @@
           "ssh_key"
         ]
       },
-      "response_replace_volume": {
+      "replace_volume_request": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "New Volume name"
+          },
+          "labels": {
+            "type": "object",
+            "properties": {
+              "labelkey": {
+                "type": "string"
+              }
+            },
+            "description": "User-defined labels (key-value pairs)"
+          }
+        },
+        "required": [
+          "name"
+        ]
+      },
+      "replace_volume_response": {
         "type": "object",
         "properties": {
           "volume": {
@@ -3247,7 +3218,7 @@
           "volume"
         ]
       },
-      "response_request_console_for_server": {
+      "request_console_for_server_response": {
         "type": "object",
         "properties": {
           "wss_url": {
@@ -3268,7 +3239,7 @@
           "action"
         ]
       },
-      "response_reset_root_password_of_server": {
+      "reset_root_password_of_server_response": {
         "type": "object",
         "properties": {
           "root_password": {
@@ -3283,7 +3254,7 @@
           "action"
         ]
       },
-      "response_reset_server": {
+      "reset_server_response": {
         "type": "object",
         "properties": {
           "action": {
@@ -3294,7 +3265,19 @@
           "action"
         ]
       },
-      "response_resize_volume": {
+      "resize_volume_request": {
+        "type": "object",
+        "properties": {
+          "size": {
+            "type": "number",
+            "description": "New Volume size in GB (must be greater than current size)"
+          }
+        },
+        "required": [
+          "size"
+        ]
+      },
+      "resize_volume_response": {
         "type": "object",
         "properties": {
           "action": {
@@ -3302,37 +3285,21 @@
           }
         }
       },
-      "response_shutdown_server": {
+      "resource": {
         "type": "object",
         "properties": {
-          "action": {
-            "$ref": "#/components/schemas/action"
+          "id": {
+            "type": "number",
+            "description": "ID of resource referenced"
+          },
+          "type": {
+            "type": "string",
+            "description": "Type of resource referenced"
           }
         },
         "required": [
-          "action"
-        ]
-      },
-      "response_soft_reboot_server": {
-        "type": "object",
-        "properties": {
-          "action": {
-            "$ref": "#/components/schemas/action"
-          }
-        },
-        "required": [
-          "action"
-        ]
-      },
-      "response_unassign_floating_ip": {
-        "type": "object",
-        "properties": {
-          "action": {
-            "$ref": "#/components/schemas/action"
-          }
-        },
-        "required": [
-          "action"
+          "id",
+          "type"
         ]
       },
       "route": {
@@ -3540,6 +3507,28 @@
         ],
         "description": "Type of Server - determines how much ram, disk and cpu a Server has"
       },
+      "shutdown_server_response": {
+        "type": "object",
+        "properties": {
+          "action": {
+            "$ref": "#/components/schemas/action"
+          }
+        },
+        "required": [
+          "action"
+        ]
+      },
+      "soft_reboot_server_response": {
+        "type": "object",
+        "properties": {
+          "action": {
+            "$ref": "#/components/schemas/action"
+          }
+        },
+        "required": [
+          "action"
+        ]
+      },
       "ssh_key": {
         "type": "object",
         "properties": {
@@ -3631,6 +3620,17 @@
           "type",
           "network_zone",
           "gateway"
+        ]
+      },
+      "unassign_floating_ip_response": {
+        "type": "object",
+        "properties": {
+          "action": {
+            "$ref": "#/components/schemas/action"
+          }
+        },
+        "required": [
+          "action"
         ]
       },
       "volume": {
@@ -3750,7 +3750,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/response_list_all_actions"
+                  "$ref": "#/components/schemas/list_all_actions_response"
                 }
               }
             }
@@ -3780,7 +3780,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/response_get_action"
+                  "$ref": "#/components/schemas/get_action_response"
                 }
               }
             }
@@ -3810,7 +3810,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/response_list_datacenters"
+                  "$ref": "#/components/schemas/list_datacenters_response"
                 }
               }
             }
@@ -3840,7 +3840,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/response_get_datacenter"
+                  "$ref": "#/components/schemas/get_datacenter_response"
                 }
               }
             }
@@ -3888,7 +3888,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/response_list_floating_ips"
+                  "$ref": "#/components/schemas/list_floating_ips_response"
                 }
               }
             }
@@ -3904,7 +3904,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/request_create_floating_ip"
+                "$ref": "#/components/schemas/create_floating_ip_request"
               }
             }
           }
@@ -3915,7 +3915,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/response_create_floating_ip"
+                  "$ref": "#/components/schemas/create_floating_ip_response"
                 }
               }
             }
@@ -3945,7 +3945,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/response_get_specific_floating_ip"
+                  "$ref": "#/components/schemas/get_specific_floating_ip_response"
                 }
               }
             }
@@ -3971,7 +3971,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/request_replace_floating_ip"
+                "$ref": "#/components/schemas/replace_floating_ip_request"
               }
             }
           }
@@ -3982,7 +3982,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/response_replace_floating_ip"
+                  "$ref": "#/components/schemas/replace_floating_ip_response"
                 }
               }
             }
@@ -4051,7 +4051,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/response_list_actions_for_floating_ip"
+                  "$ref": "#/components/schemas/list_actions_for_floating_ip_response"
                 }
               }
             }
@@ -4090,7 +4090,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/response_get_action_for_floating_ip"
+                  "$ref": "#/components/schemas/get_action_for_floating_ip_response"
                 }
               }
             }
@@ -4118,7 +4118,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/request_assign_floating_ip_to_server"
+                "$ref": "#/components/schemas/assign_floating_ip_to_server_request"
               }
             }
           }
@@ -4129,7 +4129,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/response_assign_floating_ip_to_server"
+                  "$ref": "#/components/schemas/assign_floating_ip_to_server_response"
                 }
               }
             }
@@ -4159,7 +4159,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/response_unassign_floating_ip"
+                  "$ref": "#/components/schemas/unassign_floating_ip_response"
                 }
               }
             }
@@ -4187,7 +4187,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/request_change_reverse_dns_entry_for_floating_ip"
+                "$ref": "#/components/schemas/change_reverse_dns_entry_for_floating_ip_request"
               }
             }
           }
@@ -4198,7 +4198,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/response_change_reverse_dns_entry_for_floating_ip"
+                  "$ref": "#/components/schemas/change_reverse_dns_entry_for_floating_ip_response"
                 }
               }
             }
@@ -4226,7 +4226,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/request_change_floating_ip_protection"
+                "$ref": "#/components/schemas/change_floating_ip_protection_request"
               }
             }
           }
@@ -4237,7 +4237,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/response_change_floating_ip_protection"
+                  "$ref": "#/components/schemas/change_floating_ip_protection_response"
                 }
               }
             }
@@ -4312,7 +4312,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/response_list_images"
+                  "$ref": "#/components/schemas/list_images_response"
                 }
               }
             }
@@ -4342,7 +4342,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/response_get_image"
+                  "$ref": "#/components/schemas/get_image_response"
                 }
               }
             }
@@ -4368,7 +4368,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/request_replace_image"
+                "$ref": "#/components/schemas/replace_image_request"
               }
             }
           }
@@ -4379,7 +4379,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/response_replace_image"
+                  "$ref": "#/components/schemas/replace_image_response"
                 }
               }
             }
@@ -4448,7 +4448,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/response_list_actions_for_image"
+                  "$ref": "#/components/schemas/list_actions_for_image_response"
                 }
               }
             }
@@ -4487,7 +4487,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/response_get_action_for_image"
+                  "$ref": "#/components/schemas/get_action_for_image_response"
                 }
               }
             }
@@ -4515,7 +4515,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/request_change_image_protection"
+                "$ref": "#/components/schemas/change_image_protection_request"
               }
             }
           }
@@ -4526,7 +4526,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/response_change_image_protection"
+                  "$ref": "#/components/schemas/change_image_protection_response"
                 }
               }
             }
@@ -4556,7 +4556,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/response_list_isos"
+                  "$ref": "#/components/schemas/list_isos_response"
                 }
               }
             }
@@ -4586,7 +4586,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/response_get_iso"
+                  "$ref": "#/components/schemas/get_iso_response"
                 }
               }
             }
@@ -4616,7 +4616,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/response_list_locations"
+                  "$ref": "#/components/schemas/list_locations_response"
                 }
               }
             }
@@ -4646,7 +4646,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/response_get_location"
+                  "$ref": "#/components/schemas/get_location_response"
                 }
               }
             }
@@ -4685,7 +4685,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/response_list_networks"
+                  "$ref": "#/components/schemas/list_networks_response"
                 }
               }
             }
@@ -4701,7 +4701,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/request_create_network"
+                "$ref": "#/components/schemas/create_network_request"
               }
             }
           }
@@ -4712,7 +4712,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/response_create_network"
+                  "$ref": "#/components/schemas/create_network_response"
                 }
               }
             }
@@ -4742,7 +4742,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/response_get_network"
+                  "$ref": "#/components/schemas/get_network_response"
                 }
               }
             }
@@ -4768,7 +4768,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/request_replace_network"
+                "$ref": "#/components/schemas/replace_network_request"
               }
             }
           }
@@ -4779,7 +4779,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/response_replace_network"
+                  "$ref": "#/components/schemas/replace_network_response"
                 }
               }
             }
@@ -4848,7 +4848,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/response_list_actions_for_network"
+                  "$ref": "#/components/schemas/list_actions_for_network_response"
                 }
               }
             }
@@ -4887,7 +4887,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/response_get_action_for_network"
+                  "$ref": "#/components/schemas/get_action_for_network_response"
                 }
               }
             }
@@ -4915,7 +4915,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/request_add_subnet_to_network"
+                "$ref": "#/components/schemas/add_subnet_to_network_request"
               }
             }
           }
@@ -4926,7 +4926,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/response_add_subnet_to_network"
+                  "$ref": "#/components/schemas/add_subnet_to_network_response"
                 }
               }
             }
@@ -4954,7 +4954,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/request_delete_subnet_from_network"
+                "$ref": "#/components/schemas/delete_subnet_from_network_request"
               }
             }
           }
@@ -4965,7 +4965,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/response_delete_subnet_from_network"
+                  "$ref": "#/components/schemas/delete_subnet_from_network_response"
                 }
               }
             }
@@ -4993,7 +4993,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/request_add_route_to_network"
+                "$ref": "#/components/schemas/add_route_to_network_request"
               }
             }
           }
@@ -5004,7 +5004,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/response_add_route_to_network"
+                  "$ref": "#/components/schemas/add_route_to_network_response"
                 }
               }
             }
@@ -5032,7 +5032,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/request_delete_route_from_network"
+                "$ref": "#/components/schemas/delete_route_from_network_request"
               }
             }
           }
@@ -5043,7 +5043,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/response_delete_route_from_network"
+                  "$ref": "#/components/schemas/delete_route_from_network_response"
                 }
               }
             }
@@ -5071,7 +5071,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/request_change_ip_range_of_network"
+                "$ref": "#/components/schemas/change_ip_range_of_network_request"
               }
             }
           }
@@ -5082,7 +5082,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/response_change_ip_range_of_network"
+                  "$ref": "#/components/schemas/change_ip_range_of_network_response"
                 }
               }
             }
@@ -5110,7 +5110,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/request_change_network_protection"
+                "$ref": "#/components/schemas/change_network_protection_request"
               }
             }
           }
@@ -5121,7 +5121,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/response_change_network_protection"
+                  "$ref": "#/components/schemas/change_network_protection_response"
                 }
               }
             }
@@ -5141,7 +5141,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/response_list_prices"
+                  "$ref": "#/components/schemas/list_prices_response"
                 }
               }
             }
@@ -5198,7 +5198,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/response_list_servers"
+                  "$ref": "#/components/schemas/list_servers_response"
                 }
               }
             }
@@ -5214,7 +5214,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/request_create_server"
+                "$ref": "#/components/schemas/create_server_request"
               }
             }
           }
@@ -5225,7 +5225,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/response_create_server"
+                  "$ref": "#/components/schemas/create_server_response"
                 }
               }
             }
@@ -5255,7 +5255,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/response_get_server"
+                  "$ref": "#/components/schemas/get_server_response"
                 }
               }
             }
@@ -5281,7 +5281,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/request_replace_server"
+                "$ref": "#/components/schemas/replace_server_request"
               }
             }
           }
@@ -5292,7 +5292,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/response_replace_server"
+                  "$ref": "#/components/schemas/replace_server_response"
                 }
               }
             }
@@ -5320,7 +5320,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/response_delete_server"
+                  "$ref": "#/components/schemas/delete_server_response"
                 }
               }
             }
@@ -5386,7 +5386,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/response_get_metrics_for_server"
+                  "$ref": "#/components/schemas/get_metrics_for_server_response"
                 }
               }
             }
@@ -5434,7 +5434,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/response_list_actions_for_server"
+                  "$ref": "#/components/schemas/list_actions_for_server_response"
                 }
               }
             }
@@ -5473,7 +5473,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/response_get_action_for_server"
+                  "$ref": "#/components/schemas/get_action_for_server_response"
                 }
               }
             }
@@ -5503,7 +5503,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/response_power_on_server"
+                  "$ref": "#/components/schemas/power_on_server_response"
                 }
               }
             }
@@ -5533,7 +5533,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/response_soft_reboot_server"
+                  "$ref": "#/components/schemas/soft_reboot_server_response"
                 }
               }
             }
@@ -5563,7 +5563,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/response_reset_server"
+                  "$ref": "#/components/schemas/reset_server_response"
                 }
               }
             }
@@ -5593,7 +5593,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/response_shutdown_server"
+                  "$ref": "#/components/schemas/shutdown_server_response"
                 }
               }
             }
@@ -5623,7 +5623,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/response_power_off_server"
+                  "$ref": "#/components/schemas/power_off_server_response"
                 }
               }
             }
@@ -5653,7 +5653,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/response_reset_root_password_of_server"
+                  "$ref": "#/components/schemas/reset_root_password_of_server_response"
                 }
               }
             }
@@ -5681,7 +5681,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/request_enable_rescue_mode_for_server"
+                "$ref": "#/components/schemas/enable_rescue_mode_for_server_request"
               }
             }
           }
@@ -5692,7 +5692,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/response_enable_rescue_mode_for_server"
+                  "$ref": "#/components/schemas/enable_rescue_mode_for_server_response"
                 }
               }
             }
@@ -5722,7 +5722,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/response_disable_rescue_mode_for_server"
+                  "$ref": "#/components/schemas/disable_rescue_mode_for_server_response"
                 }
               }
             }
@@ -5750,7 +5750,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/request_create_image_from_server"
+                "$ref": "#/components/schemas/create_image_from_server_request"
               }
             }
           }
@@ -5761,7 +5761,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/response_create_image_from_server"
+                  "$ref": "#/components/schemas/create_image_from_server_response"
                 }
               }
             }
@@ -5789,7 +5789,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/request_rebuild_server_from_image"
+                "$ref": "#/components/schemas/rebuild_server_from_image_request"
               }
             }
           }
@@ -5800,7 +5800,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/response_rebuild_server_from_image"
+                  "$ref": "#/components/schemas/rebuild_server_from_image_response"
                 }
               }
             }
@@ -5828,7 +5828,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/request_change_type_of_server"
+                "$ref": "#/components/schemas/change_type_of_server_request"
               }
             }
           }
@@ -5839,7 +5839,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/response_change_type_of_server"
+                  "$ref": "#/components/schemas/change_type_of_server_response"
                 }
               }
             }
@@ -5869,7 +5869,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/response_enable_and_configure_backups_for_server"
+                  "$ref": "#/components/schemas/enable_and_configure_backups_for_server_response"
                 }
               }
             }
@@ -5899,7 +5899,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/response_disable_backups_for_server"
+                  "$ref": "#/components/schemas/disable_backups_for_server_response"
                 }
               }
             }
@@ -5927,7 +5927,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/request_attach_iso_to_server"
+                "$ref": "#/components/schemas/attach_iso_to_server_request"
               }
             }
           }
@@ -5938,7 +5938,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/response_attach_iso_to_server"
+                  "$ref": "#/components/schemas/attach_iso_to_server_response"
                 }
               }
             }
@@ -5968,7 +5968,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/response_detach_iso_from_server"
+                  "$ref": "#/components/schemas/detach_iso_from_server_response"
                 }
               }
             }
@@ -5996,7 +5996,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/request_change_reverse_dns_entry_for_this_server"
+                "$ref": "#/components/schemas/change_reverse_dns_entry_for_this_server_request"
               }
             }
           }
@@ -6007,7 +6007,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/response_change_reverse_dns_entry_for_this_server"
+                  "$ref": "#/components/schemas/change_reverse_dns_entry_for_this_server_response"
                 }
               }
             }
@@ -6035,7 +6035,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/request_change_server_protection"
+                "$ref": "#/components/schemas/change_server_protection_request"
               }
             }
           }
@@ -6046,7 +6046,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/response_change_server_protection"
+                  "$ref": "#/components/schemas/change_server_protection_response"
                 }
               }
             }
@@ -6076,7 +6076,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/response_request_console_for_server"
+                  "$ref": "#/components/schemas/request_console_for_server_response"
                 }
               }
             }
@@ -6104,7 +6104,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/request_attach_server_to_network"
+                "$ref": "#/components/schemas/attach_server_to_network_request"
               }
             }
           }
@@ -6115,7 +6115,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/response_attach_server_to_network"
+                  "$ref": "#/components/schemas/attach_server_to_network_response"
                 }
               }
             }
@@ -6143,7 +6143,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/request_detach_server_from_network"
+                "$ref": "#/components/schemas/detach_server_from_network_request"
               }
             }
           }
@@ -6154,7 +6154,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/response_detach_server_from_network"
+                  "$ref": "#/components/schemas/detach_server_from_network_response"
                 }
               }
             }
@@ -6182,7 +6182,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/request_change_alias_ips_of_network"
+                "$ref": "#/components/schemas/change_alias_ips_of_network_request"
               }
             }
           }
@@ -6193,7 +6193,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/response_change_alias_ips_of_network"
+                  "$ref": "#/components/schemas/change_alias_ips_of_network_response"
                 }
               }
             }
@@ -6223,7 +6223,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/response_list_server_types"
+                  "$ref": "#/components/schemas/list_server_types_response"
                 }
               }
             }
@@ -6253,7 +6253,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/response_get_server_type"
+                  "$ref": "#/components/schemas/get_server_type_response"
                 }
               }
             }
@@ -6310,7 +6310,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/response_list_ssh_keys"
+                  "$ref": "#/components/schemas/list_ssh_keys_response"
                 }
               }
             }
@@ -6326,7 +6326,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/request_create_ssh_key"
+                "$ref": "#/components/schemas/create_ssh_key_request"
               }
             }
           }
@@ -6337,7 +6337,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/response_create_ssh_key"
+                  "$ref": "#/components/schemas/create_ssh_key_response"
                 }
               }
             }
@@ -6367,7 +6367,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/response_get_ssh_key"
+                  "$ref": "#/components/schemas/get_ssh_key_response"
                 }
               }
             }
@@ -6393,7 +6393,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/request_replace_ssh_key"
+                "$ref": "#/components/schemas/replace_ssh_key_request"
               }
             }
           }
@@ -6404,7 +6404,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/response_replace_ssh_key"
+                  "$ref": "#/components/schemas/replace_ssh_key_response"
                 }
               }
             }
@@ -6482,7 +6482,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/response_list_volumes"
+                  "$ref": "#/components/schemas/list_volumes_response"
                 }
               }
             }
@@ -6498,7 +6498,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/request_create_volume"
+                "$ref": "#/components/schemas/create_volume_request"
               }
             }
           }
@@ -6509,7 +6509,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/response_create_volume"
+                  "$ref": "#/components/schemas/create_volume_response"
                 }
               }
             }
@@ -6539,7 +6539,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/response_get_volume"
+                  "$ref": "#/components/schemas/get_volume_response"
                 }
               }
             }
@@ -6565,7 +6565,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/request_replace_volume"
+                "$ref": "#/components/schemas/replace_volume_request"
               }
             }
           }
@@ -6576,7 +6576,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/response_replace_volume"
+                  "$ref": "#/components/schemas/replace_volume_response"
                 }
               }
             }
@@ -6645,7 +6645,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/response_list_actions_for_volume"
+                  "$ref": "#/components/schemas/list_actions_for_volume_response"
                 }
               }
             }
@@ -6684,7 +6684,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/response_get_action_for_volume"
+                  "$ref": "#/components/schemas/get_action_for_volume_response"
                 }
               }
             }
@@ -6712,7 +6712,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/request_attach_volume_to_server"
+                "$ref": "#/components/schemas/attach_volume_to_server_request"
               }
             }
           }
@@ -6723,7 +6723,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/response_attach_volume_to_server"
+                  "$ref": "#/components/schemas/attach_volume_to_server_response"
                 }
               }
             }
@@ -6753,7 +6753,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/response_detach_volume"
+                  "$ref": "#/components/schemas/detach_volume_response"
                 }
               }
             }
@@ -6781,7 +6781,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/request_resize_volume"
+                "$ref": "#/components/schemas/resize_volume_request"
               }
             }
           }
@@ -6792,7 +6792,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/response_resize_volume"
+                  "$ref": "#/components/schemas/resize_volume_response"
                 }
               }
             }
@@ -6820,7 +6820,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/request_change_volume_protection"
+                "$ref": "#/components/schemas/change_volume_protection_request"
               }
             }
           }
@@ -6831,7 +6831,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/response_change_volume_protection"
+                  "$ref": "#/components/schemas/change_volume_protection_response"
                 }
               }
             }
