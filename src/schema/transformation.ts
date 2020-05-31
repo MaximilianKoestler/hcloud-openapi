@@ -3,9 +3,9 @@ const fs = require("fs").promises;
 import objectHash = require("object-hash");
 import pluralize = require("pluralize");
 
-import { OpenApiDocumentFragment } from "./types";
+import { OpenApiDocumentFragment } from "../types";
 
-import { walkSchema } from "./schema_actions";
+import { walkSchema } from "./actions";
 
 interface CommonComponent {
   name: string;

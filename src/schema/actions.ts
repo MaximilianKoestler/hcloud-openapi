@@ -1,4 +1,4 @@
-import { OpenApiDocumentFragment } from "./types";
+import { OpenApiDocumentFragment } from "../types";
 
 type PartAction = (part: OpenApiDocumentFragment) => void;
 type PropertyAction = (property: string) => void;

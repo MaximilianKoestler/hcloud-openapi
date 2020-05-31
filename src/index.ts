@@ -9,7 +9,7 @@ import validUrl = require("valid-url");
 import yargs = require("yargs");
 
 import { OpenApiDocumentFragment } from "./types";
-import { fixSchema, deduplicateSchemas } from "./transform";
+import { fixSchema, deduplicateSchemas } from "./schema/transformation";
 
 interface Arguments {
   source: string;
