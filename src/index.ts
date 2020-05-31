@@ -598,7 +598,7 @@ async function createOpenApiDocument(
 async function validateOpenApiDocument(document: OpenApiDocumentFragment) {
   console.log("Checking validity of generated document");
 
-  const results = await validator(document, true);
+  const results = await validator(document);
 
   for (const item of results.warnings) {
     console.warn(`WARNING: ${item.message} (${item.path})`);
