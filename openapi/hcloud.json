@@ -6,7 +6,7 @@
     "contact": {
       "url": "https://docs.hetzner.cloud/"
     },
-    "version": "142957a-dirty"
+    "version": "372209b-dirty"
   },
   "servers": [
     {
@@ -2416,11 +2416,13 @@
         "properties": {
           "net": {
             "type": "string",
-            "description": "Price without VAT"
+            "description": "Price without VAT",
+            "format": "decimal"
           },
           "gross": {
             "type": "string",
-            "description": "Price with VAT added"
+            "description": "Price with VAT added",
+            "format": "decimal"
           }
         },
         "required": [

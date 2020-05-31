@@ -10,6 +10,7 @@ import yargs = require("yargs");
 
 import { OpenApiDocumentFragment } from "./types";
 import { fixSchema, deduplicateSchemas } from "./schema/transformation";
+import { transformDocument } from "./document/transformation";
 
 interface Arguments {
   source: string;
@@ -618,6 +619,7 @@ async function main() {
     const contents = await getContents(args.source);
     const sections = parseHtmlDocumentation(contents);
     const document = await createOpenApiDocument(sections, args.schema_version);
+    await transformDocument(document);
     validateOpenApiDocument(document);
 
     const json = JSON.stringify(document, null, 2);

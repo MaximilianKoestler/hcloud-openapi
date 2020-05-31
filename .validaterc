@@ -47,7 +47,7 @@
       "invalid_non_empty_security_array": "error"
     },
     "schemas": {
-      "invalid_type_format_pair": "error",
+      "invalid_type_format_pair": "off",
       "snake_case_only": "off",
       "no_schema_description": "warning",
       "no_property_description": "warning",

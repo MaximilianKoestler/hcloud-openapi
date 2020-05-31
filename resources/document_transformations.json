@@ -1,0 +1,14 @@
+[
+  {
+    "path": ["components", "schemas", "price", "properties", "net"],
+    "set": {
+      "format": "decimal"
+    }
+  },
+  {
+    "path": ["components", "schemas", "price", "properties", "gross"],
+    "set": {
+      "format": "decimal"
+    }
+  }
+]
