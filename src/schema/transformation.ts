@@ -30,6 +30,33 @@ function fixItem(part: OpenApiDocumentFragment, location: string[]) {
   if (part.type == "string" && part.enum !== undefined) {
     part.enum = (part.enum as string[]).sort();
   }
+
+  // we assume that all numbers are integers by default
+  const allowedFloats = [
+    "disk_size",
+    "disk",
+    "image_size",
+    "latitude",
+    "longitude",
+    "memory",
+    "progress",
+    "size",
+  ];
+
+  const longIntegers = [
+    "included_traffic",
+    "ingoing_traffic",
+    "outgoing_traffic",
+  ];
+  if (
+    part.type == "number" &&
+    !allowedFloats.includes(location[location.length - 1])
+  ) {
+    part.type = "integer";
+    if (longIntegers.includes(location[location.length - 1])) {
+      part.format = "int64";
+    }
+  }
 }
 
 export function fixSchema(id: string, schemas: OpenApiDocumentFragment) {

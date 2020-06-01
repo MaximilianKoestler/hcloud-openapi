@@ -6,7 +6,7 @@
     "contact": {
       "url": "https://docs.hetzner.cloud/"
     },
-    "version": "372209b-dirty"
+    "version": "4635435-dirty"
   },
   "servers": [
     {
@@ -20,7 +20,7 @@
         "type": "object",
         "properties": {
           "id": {
-            "type": "number",
+            "type": "integer",
             "description": "ID of the Action"
           },
           "command": {
@@ -104,7 +104,7 @@
         "type": "object",
         "properties": {
           "server": {
-            "type": "number",
+            "type": "integer",
             "description": "ID of the Server the Floating IP shall be assigned to"
           }
         },
@@ -150,7 +150,7 @@
         "type": "object",
         "properties": {
           "network": {
-            "type": "number",
+            "type": "integer",
             "description": "ID of an existing network to attach the Server to"
           },
           "ip": {
@@ -185,7 +185,7 @@
         "type": "object",
         "properties": {
           "server": {
-            "type": "number",
+            "type": "integer",
             "description": "ID of the Server the Volume will be attached to"
           },
           "automount": {
@@ -212,7 +212,7 @@
         "type": "object",
         "properties": {
           "network": {
-            "type": "number",
+            "type": "integer",
             "description": "ID of an existing Network already attached to the Server"
           },
           "alias_ips": {
@@ -465,7 +465,7 @@
             "description": "Floating IP type"
           },
           "server": {
-            "type": "number",
+            "type": "integer",
             "description": "Server to assign the Floating IP to"
           },
           "home_location": {
@@ -673,7 +673,7 @@
             "type": "object",
             "properties": {
               "id": {
-                "type": "number",
+                "type": "integer",
                 "description": "ID of Server"
               },
               "name": {
@@ -735,18 +735,21 @@
                 "nullable": true
               },
               "outgoing_traffic": {
-                "type": "number",
+                "type": "integer",
                 "description": "Outbound Traffic for the current billing period in bytes",
-                "nullable": true
+                "nullable": true,
+                "format": "int64"
               },
               "ingoing_traffic": {
-                "type": "number",
+                "type": "integer",
                 "description": "Inbound Traffic for the current billing period in bytes",
-                "nullable": true
+                "nullable": true,
+                "format": "int64"
               },
               "included_traffic": {
-                "type": "number",
-                "description": "Free Traffic for the current billing period in bytes"
+                "type": "integer",
+                "description": "Free Traffic for the current billing period in bytes",
+                "format": "int64"
               },
               "protection": {
                 "$ref": "#/components/schemas/protection"
@@ -900,7 +903,7 @@
             "type": "object",
             "properties": {
               "id": {
-                "type": "number",
+                "type": "integer",
                 "description": "ID of the Action"
               },
               "command": {
@@ -970,7 +973,7 @@
         "type": "object",
         "properties": {
           "id": {
-            "type": "number",
+            "type": "integer",
             "description": "ID of the Server the Image was created from"
           },
           "name": {
@@ -989,7 +992,7 @@
         "type": "object",
         "properties": {
           "id": {
-            "type": "number",
+            "type": "integer",
             "description": "ID of the Datacenter"
           },
           "name": {
@@ -1009,21 +1012,21 @@
               "supported": {
                 "type": "array",
                 "items": {
-                  "type": "number"
+                  "type": "integer"
                 },
                 "description": "IDs of Server types that are supported in the Datacenter"
               },
               "available": {
                 "type": "array",
                 "items": {
-                  "type": "number"
+                  "type": "integer"
                 },
                 "description": "IDs of Server types that are supported and for which the Datacenter has enough resources left"
               },
               "available_for_migration": {
                 "type": "array",
                 "items": {
-                  "type": "number"
+                  "type": "integer"
                 },
                 "description": "IDs of Server types that are supported and for which the Datacenter has enough resources left"
               }
@@ -1108,7 +1111,7 @@
         "type": "object",
         "properties": {
           "network": {
-            "type": "number",
+            "type": "integer",
             "description": "ID of an existing network to detach the Server from"
           }
         },
@@ -1203,7 +1206,7 @@
           "ssh_keys": {
             "type": "array",
             "items": {
-              "type": "number"
+              "type": "integer"
             },
             "description": "Array of SSH key IDs which should be injected into the rescue system. Only available for types: `linux64` and `linux32`."
           }
@@ -1247,7 +1250,7 @@
         "type": "object",
         "properties": {
           "id": {
-            "type": "number",
+            "type": "integer",
             "description": "ID of the Floating IP"
           },
           "name": {
@@ -1272,7 +1275,7 @@
             "description": "Type of the Floating IP"
           },
           "server": {
-            "type": "number",
+            "type": "integer",
             "description": "ID of the Server the Floating IP is assigned to, null if it is not assigned at all",
             "nullable": true
           },
@@ -1453,7 +1456,7 @@
                 "description": "End of period of metrics reported (in ISO-8601 format)"
               },
               "step": {
-                "type": "number",
+                "type": "integer",
                 "description": "Resolution of results in seconds."
               },
               "time_series": {
@@ -1560,7 +1563,7 @@
         "type": "object",
         "properties": {
           "id": {
-            "type": "number",
+            "type": "integer",
             "description": "ID of the Image"
           },
           "type": {
@@ -1606,7 +1609,7 @@
             "$ref": "#/components/schemas/created_from"
           },
           "bound_to": {
-            "type": "number",
+            "type": "integer",
             "description": "ID of Server the Image is bound to. Only set for Images of type `backup`.",
             "nullable": true
           },
@@ -1677,7 +1680,7 @@
         "type": "object",
         "properties": {
           "id": {
-            "type": "number",
+            "type": "integer",
             "description": "ID of the Image"
           },
           "type": {
@@ -1723,7 +1726,7 @@
             "$ref": "#/components/schemas/created_from"
           },
           "bound_to": {
-            "type": "number",
+            "type": "integer",
             "description": "ID of Server the Image is bound to. Only set for Images of type `backup`.",
             "nullable": true
           },
@@ -1845,7 +1848,7 @@
         "type": "object",
         "properties": {
           "id": {
-            "type": "number",
+            "type": "integer",
             "description": "ID of the ISO"
           },
           "name": {
@@ -1883,7 +1886,7 @@
         "type": "object",
         "properties": {
           "id": {
-            "type": "number",
+            "type": "integer",
             "description": "ID of the ISO"
           },
           "name": {
@@ -2013,7 +2016,7 @@
             }
           },
           "recommendation": {
-            "type": "number",
+            "type": "integer",
             "description": "The Datacenter which is recommended to be used to create new Servers."
           }
         },
@@ -2173,7 +2176,7 @@
                   "type": "object",
                   "properties": {
                     "id": {
-                      "type": "number",
+                      "type": "integer",
                       "description": "ID of the Server type the price is for"
                     },
                     "name": {
@@ -2274,7 +2277,7 @@
         "type": "object",
         "properties": {
           "id": {
-            "type": "number",
+            "type": "integer",
             "description": "ID of the Location"
           },
           "name": {
@@ -2322,7 +2325,7 @@
         "type": "object",
         "properties": {
           "id": {
-            "type": "number",
+            "type": "integer",
             "description": "ID of the Network"
           },
           "name": {
@@ -2350,7 +2353,7 @@
           "servers": {
             "type": "array",
             "items": {
-              "type": "number"
+              "type": "integer"
             },
             "description": "Array of IDs of Servers attached to this Network"
           },
@@ -2481,7 +2484,7 @@
           "floating_ips": {
             "type": "array",
             "items": {
-              "type": "number"
+              "type": "integer"
             },
             "description": "IDs of Floating IPs assigned to this Server"
           }
@@ -2551,7 +2554,7 @@
             "type": "object",
             "properties": {
               "id": {
-                "type": "number",
+                "type": "integer",
                 "description": "ID of the Floating IP"
               },
               "name": {
@@ -2576,7 +2579,7 @@
                 "description": "Type of the Floating IP"
               },
               "server": {
-                "type": "number",
+                "type": "integer",
                 "description": "ID of the Server the Floating IP is assigned to, null if it is not assigned at all",
                 "nullable": true
               },
@@ -2674,7 +2677,7 @@
             "type": "object",
             "properties": {
               "id": {
-                "type": "number",
+                "type": "integer",
                 "description": "ID of the Image"
               },
               "type": {
@@ -2720,7 +2723,7 @@
                 "$ref": "#/components/schemas/created_from"
               },
               "bound_to": {
-                "type": "number",
+                "type": "integer",
                 "description": "ID of Server the Image is bound to. Only set for Images of type `backup`.",
                 "nullable": true
               },
@@ -2818,7 +2821,7 @@
             "type": "object",
             "properties": {
               "id": {
-                "type": "number",
+                "type": "integer",
                 "description": "ID of the Network"
               },
               "name": {
@@ -2846,7 +2849,7 @@
               "servers": {
                 "type": "array",
                 "items": {
-                  "type": "number"
+                  "type": "integer"
                 },
                 "description": "Array of IDs of Servers attached to this Network"
               },
@@ -2919,7 +2922,7 @@
             "type": "object",
             "properties": {
               "id": {
-                "type": "number",
+                "type": "integer",
                 "description": "ID of Server"
               },
               "name": {
@@ -2982,18 +2985,21 @@
                 "nullable": true
               },
               "outgoing_traffic": {
-                "type": "number",
+                "type": "integer",
                 "description": "Outbound Traffic for the current billing period in bytes",
-                "nullable": true
+                "nullable": true,
+                "format": "int64"
               },
               "ingoing_traffic": {
-                "type": "number",
+                "type": "integer",
                 "description": "Inbound Traffic for the current billing period in bytes",
-                "nullable": true
+                "nullable": true,
+                "format": "int64"
               },
               "included_traffic": {
-                "type": "number",
-                "description": "Free Traffic for the current billing period in bytes"
+                "type": "integer",
+                "description": "Free Traffic for the current billing period in bytes",
+                "format": "int64"
               },
               "protection": {
                 "$ref": "#/components/schemas/protection"
@@ -3067,7 +3073,7 @@
             "type": "object",
             "properties": {
               "id": {
-                "type": "number",
+                "type": "integer",
                 "description": "ID of the SSH key"
               },
               "name": {
@@ -3138,7 +3144,7 @@
             "type": "object",
             "properties": {
               "id": {
-                "type": "number",
+                "type": "integer",
                 "description": "ID of the Volume"
               },
               "created": {
@@ -3150,7 +3156,7 @@
                 "description": "Name of the Volume"
               },
               "server": {
-                "type": "number",
+                "type": "integer",
                 "description": "ID of the Server the Volume is attached to, null if it is not attached at all",
                 "nullable": true
               },
@@ -3291,7 +3297,7 @@
         "type": "object",
         "properties": {
           "id": {
-            "type": "number",
+            "type": "integer",
             "description": "ID of resource referenced"
           },
           "type": {
@@ -3325,7 +3331,7 @@
         "type": "object",
         "properties": {
           "id": {
-            "type": "number",
+            "type": "integer",
             "description": "ID of Server"
           },
           "name": {
@@ -3388,18 +3394,21 @@
             "nullable": true
           },
           "outgoing_traffic": {
-            "type": "number",
+            "type": "integer",
             "description": "Outbound Traffic for the current billing period in bytes",
-            "nullable": true
+            "nullable": true,
+            "format": "int64"
           },
           "ingoing_traffic": {
-            "type": "number",
+            "type": "integer",
             "description": "Inbound Traffic for the current billing period in bytes",
-            "nullable": true
+            "nullable": true,
+            "format": "int64"
           },
           "included_traffic": {
-            "type": "number",
-            "description": "Free Traffic for the current billing period in bytes"
+            "type": "integer",
+            "description": "Free Traffic for the current billing period in bytes",
+            "format": "int64"
           },
           "protection": {
             "$ref": "#/components/schemas/protection"
@@ -3443,7 +3452,7 @@
         "type": "object",
         "properties": {
           "id": {
-            "type": "number",
+            "type": "integer",
             "description": "ID of the Server type"
           },
           "name": {
@@ -3455,7 +3464,7 @@
             "description": "Description of the Server type"
           },
           "cores": {
-            "type": "number",
+            "type": "integer",
             "description": "Number of cpu cores a Server of this type will have"
           },
           "memory": {
@@ -3535,7 +3544,7 @@
         "type": "object",
         "properties": {
           "id": {
-            "type": "number",
+            "type": "integer",
             "description": "ID of the SSH key"
           },
           "name": {
@@ -3639,7 +3648,7 @@
         "type": "object",
         "properties": {
           "id": {
-            "type": "number",
+            "type": "integer",
             "description": "ID of the Volume"
           },
           "created": {
@@ -3651,7 +3660,7 @@
             "description": "Name of the Volume"
           },
           "server": {
-            "type": "number",
+            "type": "integer",
             "description": "ID of the Server the Volume is attached to, null if it is not attached at all",
             "nullable": true
           },
