@@ -439,10 +439,13 @@ async function createPath(section: Section): Promise<PathVerbOperation> {
     .replace(/^(https:\/\/api.hetzner.cloud\/v1)/, "")
     .replace(/(\{\?.*)$/, "");
 
+  const apiGroupName = path.split("/")[1];
+
   return {
     path,
     verb,
     operation: {
+      tags: [apiGroupName],
       summary: data.title,
       description: data.description,
       operationId: toOperationId(verb, data.title),

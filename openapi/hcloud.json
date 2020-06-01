@@ -6,7 +6,7 @@
     "contact": {
       "url": "https://docs.hetzner.cloud/"
     },
-    "version": "d0cd5a3-dirty"
+    "version": "1b5e779-dirty"
   },
   "servers": [
     {
@@ -3731,6 +3731,9 @@
   "paths": {
     "/actions": {
       "get": {
+        "tags": [
+          "actions"
+        ],
         "summary": "List all Actions",
         "description": "Returns all Action objects. You can sort the results by using the sort URI parameter, and filter them with the status parameter.",
         "operationId": "list_all_actions",
@@ -3770,6 +3773,9 @@
     },
     "/actions/{id}": {
       "get": {
+        "tags": [
+          "actions"
+        ],
         "summary": "Get an Action",
         "description": "Returns a specific Action object.",
         "operationId": "get_action",
@@ -3800,6 +3806,9 @@
     },
     "/datacenters": {
       "get": {
+        "tags": [
+          "datacenters"
+        ],
         "summary": "Get all Datacenters",
         "description": "Returns all Datacenter objects.",
         "operationId": "list_datacenters",
@@ -3830,6 +3839,9 @@
     },
     "/datacenters/{id}": {
       "get": {
+        "tags": [
+          "datacenters"
+        ],
         "summary": "Get a Datacenter",
         "description": "Returns a specific Datacenter object.",
         "operationId": "get_datacenter",
@@ -3860,6 +3872,9 @@
     },
     "/floating_ips": {
       "get": {
+        "tags": [
+          "floating_ips"
+        ],
         "summary": "Get all Floating IPs",
         "description": "Returns all Floating IP objects.",
         "operationId": "list_floating_ips",
@@ -3906,6 +3921,9 @@
         }
       },
       "post": {
+        "tags": [
+          "floating_ips"
+        ],
         "summary": "Create a Floating IP",
         "description": "Creates a new Floating IP assigned to a Server. If you want to create a Floating IP that is not bound to a Server, you need to provide the home_location key instead of server. This can be either the ID or the name of the Location this IP shall be created in. Note that a Floating IP can be assigned to a Server in any Location later on. For optimal routing it is advised to use the Floating IP in the same Location it was created in.",
         "operationId": "create_floating_ip",
@@ -3935,6 +3953,9 @@
     },
     "/floating_ips/{id}": {
       "get": {
+        "tags": [
+          "floating_ips"
+        ],
         "summary": "Get a specific Floating IP",
         "description": "Returns a specific Floating IP object.",
         "operationId": "get_specific_floating_ip",
@@ -3963,6 +3984,9 @@
         }
       },
       "put": {
+        "tags": [
+          "floating_ips"
+        ],
         "summary": "Update a Floating IP",
         "description": "Updates the description or labels of a Floating IP. Also note that when updating labels, the Floating IP’s current set of labels will be replaced with the labels provided in the request body. So, for example, if you want to add a new label, you have to provide all existing labels plus the new label in the request body.",
         "operationId": "replace_floating_ip",
@@ -4000,6 +4024,9 @@
         }
       },
       "delete": {
+        "tags": [
+          "floating_ips"
+        ],
         "summary": "Delete a Floating IP",
         "description": "Deletes a Floating IP. If it is currently assigned to a Server it will automatically get unassigned.",
         "operationId": "delete_floating_ip",
@@ -4023,6 +4050,9 @@
     },
     "/floating_ips/{id}/actions": {
       "get": {
+        "tags": [
+          "floating_ips"
+        ],
         "summary": "Get all Actions for a Floating IP",
         "description": "Returns all Action objects for a Floating IP. You can sort the results by using the sort URI parameter, and filter them with the status parameter.",
         "operationId": "list_actions_for_floating_ip",
@@ -4071,6 +4101,9 @@
     },
     "/floating_ips/{id}/actions/{action_id}": {
       "get": {
+        "tags": [
+          "floating_ips"
+        ],
         "summary": "Get an Action for a Floating IP",
         "description": "Returns a specific Action object for a Floating IP.",
         "operationId": "get_action_for_floating_ip",
@@ -4110,6 +4143,9 @@
     },
     "/floating_ips/{id}/actions/assign": {
       "post": {
+        "tags": [
+          "floating_ips"
+        ],
         "summary": "Assign a Floating IP to a Server",
         "description": "Assigns a Floating IP to a Server.",
         "operationId": "assign_floating_ip_to_server",
@@ -4149,6 +4185,9 @@
     },
     "/floating_ips/{id}/actions/unassign": {
       "post": {
+        "tags": [
+          "floating_ips"
+        ],
         "summary": "Unassign a Floating IP",
         "description": "Unassigns a Floating IP, resulting in it being unreachable. You may assign it to a Server again at a later time.",
         "operationId": "unassign_floating_ip",
@@ -4179,6 +4218,9 @@
     },
     "/floating_ips/{id}/actions/change_dns_ptr": {
       "post": {
+        "tags": [
+          "floating_ips"
+        ],
         "summary": "Change reverse DNS entry for a Floating IP",
         "description": "Changes the hostname that will appear when getting the hostname belonging to this Floating IP.",
         "operationId": "change_reverse_dns_entry_for_floating_ip",
@@ -4218,6 +4260,9 @@
     },
     "/floating_ips/{id}/actions/change_protection": {
       "post": {
+        "tags": [
+          "floating_ips"
+        ],
         "summary": "Change Floating IP Protection",
         "description": "Changes the protection configuration of the Floating IP.",
         "operationId": "change_floating_ip_protection",
@@ -4257,6 +4302,9 @@
     },
     "/images": {
       "get": {
+        "tags": [
+          "images"
+        ],
         "summary": "Get all Images",
         "description": "Returns all Image objects. You can select specific Image types only and sort the results by using URI parameters.",
         "operationId": "list_images",
@@ -4332,6 +4380,9 @@
     },
     "/images/{id}": {
       "get": {
+        "tags": [
+          "images"
+        ],
         "summary": "Get an Image",
         "description": "Returns a specific Image object.",
         "operationId": "get_image",
@@ -4360,6 +4411,9 @@
         }
       },
       "put": {
+        "tags": [
+          "images"
+        ],
         "summary": "Update an Image",
         "description": "Updates the Image. You may change the description, convert a Backup Image to a Snapshot Image or change the Image labels. Only Images of type snapshot and backup can be updated. Note that when updating labels, the current set of labels will be replaced with the labels provided in the request body. So, for example, if you want to add a new label, you have to provide all existing labels plus the new label in the request body.",
         "operationId": "replace_image",
@@ -4397,6 +4451,9 @@
         }
       },
       "delete": {
+        "tags": [
+          "images"
+        ],
         "summary": "Delete an Image",
         "description": "Deletes an Image. Only Images of type snapshot and backup can be deleted.",
         "operationId": "delete_image",
@@ -4420,6 +4477,9 @@
     },
     "/images/{id}/actions": {
       "get": {
+        "tags": [
+          "images"
+        ],
         "summary": "Get all Actions for an Image",
         "description": "Returns all Action objects for an Image. You can sort the results by using the sort URI parameter, and filter them with the status parameter.",
         "operationId": "list_actions_for_image",
@@ -4468,6 +4528,9 @@
     },
     "/images/{id}/actions/{action_id}": {
       "get": {
+        "tags": [
+          "images"
+        ],
         "summary": "Get an Action for an Image",
         "description": "Returns a specific Action for an Image.",
         "operationId": "get_action_for_image",
@@ -4507,6 +4570,9 @@
     },
     "/images/{id}/actions/change_protection": {
       "post": {
+        "tags": [
+          "images"
+        ],
         "summary": "Change Image Protection",
         "description": "Changes the protection configuration of the Image. Can only be used on snapshots.",
         "operationId": "change_image_protection",
@@ -4546,6 +4612,9 @@
     },
     "/isos": {
       "get": {
+        "tags": [
+          "isos"
+        ],
         "summary": "Get all ISOs",
         "description": "Returns all available ISO objects.",
         "operationId": "list_isos",
@@ -4576,6 +4645,9 @@
     },
     "/isos/{id}": {
       "get": {
+        "tags": [
+          "isos"
+        ],
         "summary": "Get an ISO",
         "description": "Returns a specific ISO object.",
         "operationId": "get_iso",
@@ -4606,6 +4678,9 @@
     },
     "/locations": {
       "get": {
+        "tags": [
+          "locations"
+        ],
         "summary": "Get all Locations",
         "description": "Returns all Location objects.",
         "operationId": "list_locations",
@@ -4636,6 +4711,9 @@
     },
     "/locations/{id}": {
       "get": {
+        "tags": [
+          "locations"
+        ],
         "summary": "Get a Location",
         "description": "Returns a specific Location object.",
         "operationId": "get_location",
@@ -4666,6 +4744,9 @@
     },
     "/networks": {
       "get": {
+        "tags": [
+          "networks"
+        ],
         "summary": "Get all Networks",
         "description": "Gets all existing networks that you have available.",
         "operationId": "list_networks",
@@ -4703,6 +4784,9 @@
         }
       },
       "post": {
+        "tags": [
+          "networks"
+        ],
         "summary": "Create a Network",
         "description": "Creates a network with the specified ip_range. You may specify one or more subnets. You can also add more Subnets later by using the add subnet action. If you do not specify an ip_range in the subnet we will automatically pick the first available /24 range for you. You may specify one or more routes in routes. You can also add more routes later by using the add route action",
         "operationId": "create_network",
@@ -4732,6 +4816,9 @@
     },
     "/networks/{id}": {
       "get": {
+        "tags": [
+          "networks"
+        ],
         "summary": "Get a Network",
         "description": "Gets a specific network object.",
         "operationId": "get_network",
@@ -4760,6 +4847,9 @@
         }
       },
       "put": {
+        "tags": [
+          "networks"
+        ],
         "summary": "Update a Network",
         "description": "Updates the network properties. Note that when updating labels, the network’s current set of labels will be replaced with the labels provided in the request body. So, for example, if you want to add a new label, you have to provide all existing labels plus the new label in the request body. Note: if the network object changes during the request, the response will be a “conflict” error.",
         "operationId": "replace_network",
@@ -4797,6 +4887,9 @@
         }
       },
       "delete": {
+        "tags": [
+          "networks"
+        ],
         "summary": "Delete a Network",
         "description": "Deletes a network. If there are Servers attached they will be detached in the background. Note: if the network object changes during the request, the response will be a “conflict” error.",
         "operationId": "delete_network",
@@ -4820,6 +4913,9 @@
     },
     "/networks/{id}/actions": {
       "get": {
+        "tags": [
+          "networks"
+        ],
         "summary": "Get all Actions for a Network",
         "description": "Returns all Action objects for a Network. You can sort the results by using the sort URI parameter, and filter them with the status parameter.",
         "operationId": "list_actions_for_network",
@@ -4868,6 +4964,9 @@
     },
     "/networks/{id}/actions/{action_id}": {
       "get": {
+        "tags": [
+          "networks"
+        ],
         "summary": "Get an Action for a Network",
         "description": "Returns a specific Action for a Network.",
         "operationId": "get_action_for_network",
@@ -4907,6 +5006,9 @@
     },
     "/networks/{id}/actions/add_subnet": {
       "post": {
+        "tags": [
+          "networks"
+        ],
         "summary": "Add a subnet to a Network",
         "description": "Adds a new subnet object to the Network. If you do not specify an ip_range for the subnet we will automatically pick the first available /24 range for you if possible. Note: if the parent Network object changes during the request, the response will be a “conflict” error.",
         "operationId": "add_subnet_to_network",
@@ -4946,6 +5048,9 @@
     },
     "/networks/{id}/actions/delete_subnet": {
       "post": {
+        "tags": [
+          "networks"
+        ],
         "summary": "Delete a subnet from a Network",
         "description": "Deletes a single subnet entry from a Network. You cannot delete subnets which still have Servers attached. If you have Servers attached you first need to detach all Servers that use IPs from this subnet before you can delete the subnet. Note: if the Network object changes during the request, the response will be a “conflict” error.",
         "operationId": "delete_subnet_from_network",
@@ -4985,6 +5090,9 @@
     },
     "/networks/{id}/actions/add_route": {
       "post": {
+        "tags": [
+          "networks"
+        ],
         "summary": "Add a route to a Network",
         "description": "Adds a route entry to a Network. Note: if the Network object changes during the request, the response will be a “conflict” error.",
         "operationId": "add_route_to_network",
@@ -5024,6 +5132,9 @@
     },
     "/networks/{id}/actions/delete_route": {
       "post": {
+        "tags": [
+          "networks"
+        ],
         "summary": "Delete a route from a Network",
         "description": "Delete a route entry from a Network. Note: if the Network object changes during the request, the response will be a “conflict” error.",
         "operationId": "delete_route_from_network",
@@ -5063,6 +5174,9 @@
     },
     "/networks/{id}/actions/change_ip_range": {
       "post": {
+        "tags": [
+          "networks"
+        ],
         "summary": "Change IP range of a Network",
         "description": "Changes the IP range of a Network. IP ranges can only be extended and never shrunk. You can only add IPs at the end of an existing IP range. This means that the IP part of your existing range must stay the same and you can only change its netmask. For example if you have a range 10.0.0.0/16 you want to extend then your new range must also start with the IP 10.0.0.0. Your CIDR netmask /16 may change to a number that is smaller than 16 thereby increasing the IP range. So valid entries would be 10.0.0.0/15, 10.0.0.0/14, 10.0.0.0/13 and so on. After changing the IP range you will have to adjust the routes on your connected Servers by either rebooting them or manually changing the routes to your private Network interface. Note: if the Network object changes during the request, the response will be a “conflict” error.",
         "operationId": "change_ip_range_of_network",
@@ -5102,6 +5216,9 @@
     },
     "/networks/{id}/actions/change_protection": {
       "post": {
+        "tags": [
+          "networks"
+        ],
         "summary": "Change Network Protection",
         "description": "Changes the protection configuration of a Network. Note: if the Network object changes during the request, the response will be a “conflict” error.",
         "operationId": "change_network_protection",
@@ -5141,6 +5258,9 @@
     },
     "/pricing": {
       "get": {
+        "tags": [
+          "pricing"
+        ],
         "summary": "Get all prices",
         "description": "Returns prices for all resources available on the platform. VAT and currency of the Project owner are used for calculations. Both net and gross prices are included in the response.",
         "operationId": "list_prices",
@@ -5161,6 +5281,9 @@
     },
     "/servers": {
       "get": {
+        "tags": [
+          "servers"
+        ],
         "summary": "Get all Servers",
         "description": "Returns all existing Server objects.",
         "operationId": "list_servers",
@@ -5216,6 +5339,9 @@
         }
       },
       "post": {
+        "tags": [
+          "servers"
+        ],
         "summary": "Create a Server",
         "description": "Creates a new Server. Returns preliminary information about the Server as well as an Action that covers progress of creation.",
         "operationId": "create_server",
@@ -5245,6 +5371,9 @@
     },
     "/servers/{id}": {
       "get": {
+        "tags": [
+          "servers"
+        ],
         "summary": "Get a Server",
         "description": "Returns a specific Server object. The Server must exist inside the Project.",
         "operationId": "get_server",
@@ -5273,6 +5402,9 @@
         }
       },
       "put": {
+        "tags": [
+          "servers"
+        ],
         "summary": "Update a Server",
         "description": "Updates a Server. You can update a Server’s name and a Server’s labels. Please note that Server names must be unique per Project and valid hostnames as per RFC 1123 (i.e. may only contain letters, digits, periods, and dashes). Also note that when updating labels, the Server’s current set of labels will be replaced with the labels provided in the request body. So, for example, if you want to add a new label, you have to provide all existing labels plus the new label in the request body.",
         "operationId": "replace_server",
@@ -5310,6 +5442,9 @@
         }
       },
       "delete": {
+        "tags": [
+          "servers"
+        ],
         "summary": "Delete a Server",
         "description": "Deletes a Server. This immediately removes the Server from your account, and it is no longer accessible.",
         "operationId": "delete_server",
@@ -5340,6 +5475,9 @@
     },
     "/servers/{id}/metrics": {
       "get": {
+        "tags": [
+          "servers"
+        ],
         "summary": "Get Metrics for a Server",
         "description": "Get Metrics for specified Server. You must specify the type of metric to get: cpu, disk or network. You can also specify more than one type by comma separation, e.g. cpu,disk. Depending on the type you will get different time series data:",
         "operationId": "get_metrics_for_server",
@@ -5406,6 +5544,9 @@
     },
     "/servers/{id}/actions": {
       "get": {
+        "tags": [
+          "servers"
+        ],
         "summary": "Get all Actions for a Server",
         "description": "Returns all Action objects for a Server. You can sort the results by using the sort URI parameter, and filter them with the status parameter.",
         "operationId": "list_actions_for_server",
@@ -5454,6 +5595,9 @@
     },
     "/servers/{id}/actions/{action_id}": {
       "get": {
+        "tags": [
+          "servers"
+        ],
         "summary": "Get an Action for a Server",
         "description": "Returns a specific Action object for a Server.",
         "operationId": "get_action_for_server",
@@ -5493,6 +5637,9 @@
     },
     "/servers/{id}/actions/poweron": {
       "post": {
+        "tags": [
+          "servers"
+        ],
         "summary": "Power on a Server",
         "description": "Starts a Server by turning its power on.",
         "operationId": "power_on_server",
@@ -5523,6 +5670,9 @@
     },
     "/servers/{id}/actions/reboot": {
       "post": {
+        "tags": [
+          "servers"
+        ],
         "summary": "Soft-reboot a Server",
         "description": "Reboots a Server gracefully by sending an ACPI request. The Server operating system must support ACPI and react to the request, otherwise the Server will not reboot.",
         "operationId": "soft_reboot_server",
@@ -5553,6 +5703,9 @@
     },
     "/servers/{id}/actions/reset": {
       "post": {
+        "tags": [
+          "servers"
+        ],
         "summary": "Reset a Server",
         "description": "Cuts power to a Server and starts it again. This forcefully stops it without giving the Server operating system time to gracefully stop. This may lead to data loss, it’s equivalent to pulling the power cord and plugging it in again. Reset should only be used when reboot does not work.",
         "operationId": "reset_server",
@@ -5583,6 +5736,9 @@
     },
     "/servers/{id}/actions/shutdown": {
       "post": {
+        "tags": [
+          "servers"
+        ],
         "summary": "Shutdown a Server",
         "description": "Shuts down a Server gracefully by sending an ACPI shutdown request. The Server operating system must support ACPI and react to the request, otherwise the Server will not shut down.",
         "operationId": "shutdown_server",
@@ -5613,6 +5769,9 @@
     },
     "/servers/{id}/actions/poweroff": {
       "post": {
+        "tags": [
+          "servers"
+        ],
         "summary": "Power off a Server",
         "description": "Cuts power to the Server. This forcefully stops it without giving the Server operating system time to gracefully stop. May lead to data loss, equivalent to pulling the power cord. Power off should only be used when shutdown does not work.",
         "operationId": "power_off_server",
@@ -5643,6 +5802,9 @@
     },
     "/servers/{id}/actions/reset_password": {
       "post": {
+        "tags": [
+          "servers"
+        ],
         "summary": "Reset root Password of a Server",
         "description": "Resets the root password. Only works for Linux systems that are running the qemu guest agent. Server must be powered on (state on) in order for this operation to succeed. This will generate a new password for this Server and return it. If this does not succeed you can use the rescue system to netboot the Server and manually change your Server password by hand.",
         "operationId": "reset_root_password_of_server",
@@ -5673,6 +5835,9 @@
     },
     "/servers/{id}/actions/enable_rescue": {
       "post": {
+        "tags": [
+          "servers"
+        ],
         "summary": "Enable Rescue Mode for a Server",
         "description": "Enable the Hetzner Rescue System for this Server. The next time a Server with enabled rescue mode boots it will start a special minimal Linux distribution designed for repair and reinstall. In case a Server cannot boot on its own you can use this to access a Server’s disks. Rescue Mode is automatically disabled when you first boot into it or if you do not use it for 60 minutes. Enabling rescue mode will not reboot your Server — you will have to do this yourself.",
         "operationId": "enable_rescue_mode_for_server",
@@ -5712,6 +5877,9 @@
     },
     "/servers/{id}/actions/disable_rescue": {
       "post": {
+        "tags": [
+          "servers"
+        ],
         "summary": "Disable Rescue Mode for a Server",
         "description": "Disables the Hetzner Rescue System for a Server. This makes a Server start from its disks on next reboot. Rescue Mode is automatically disabled when you first boot into it or if you do not use it for 60 minutes. Disabling rescue mode will not reboot your Server — you will have to do this yourself.",
         "operationId": "disable_rescue_mode_for_server",
@@ -5742,6 +5910,9 @@
     },
     "/servers/{id}/actions/create_image": {
       "post": {
+        "tags": [
+          "servers"
+        ],
         "summary": "Create Image from a Server",
         "description": "Creates an Image (snapshot) from a Server by copying the contents of its disks. This creates a snapshot of the current state of the disk and copies it into an Image. If the Server is currently running you must make sure that its disk content is consistent. Otherwise, the created Image may not be readable. To make sure disk content is consistent, we recommend to shut down the Server prior to creating an Image. You can either create a backup Image that is bound to the Server and therefore will be deleted when the Server is deleted, or you can create an snapshot Image which is completely independent of the Server it was created from and will survive Server deletion. Backup Images are only available when the backup option is enabled for the Server. Snapshot Images are billed on a per GB basis.",
         "operationId": "create_image_from_server",
@@ -5781,6 +5952,9 @@
     },
     "/servers/{id}/actions/rebuild": {
       "post": {
+        "tags": [
+          "servers"
+        ],
         "summary": "Rebuild a Server from an Image",
         "description": "Rebuilds a Server overwriting its disk with the content of an Image, thereby destroying all data on the target Server The Image can either be one you have created earlier (backup or snapshot Image) or it can be a completely fresh system Image provided by us. You can get a list of all available Images with GET /images. Your Server will automatically be powered off before the rebuild command executes.",
         "operationId": "rebuild_server_from_image",
@@ -5820,6 +5994,9 @@
     },
     "/servers/{id}/actions/change_type": {
       "post": {
+        "tags": [
+          "servers"
+        ],
         "summary": "Change the Type of a Server",
         "description": "Changes the type (Cores, RAM and disk sizes) of a Server. Server must be powered off for this command to succeed. This copies the content of its disk, and starts it again. You can only migrate to Server types with the same storage_type and equal or bigger disks. Shrinking disks is not possible as it might destroy data. If the disk gets upgraded, the Server type can not be downgraded any more. If you plan to downgrade the Server type, set upgrade_disk to false.",
         "operationId": "change_type_of_server",
@@ -5859,6 +6036,9 @@
     },
     "/servers/{id}/actions/enable_backup": {
       "post": {
+        "tags": [
+          "servers"
+        ],
         "summary": "Enable and Configure Backups for a Server",
         "description": "Enables and configures the automatic daily backup option for the Server. Enabling automatic backups will increase the price of the Server by 20%. In return, you will get seven slots where Images of type backup can be stored. Backups are automatically created daily.",
         "operationId": "enable_and_configure_backups_for_server",
@@ -5889,6 +6069,9 @@
     },
     "/servers/{id}/actions/disable_backup": {
       "post": {
+        "tags": [
+          "servers"
+        ],
         "summary": "Disable Backups for a Server",
         "description": "Disables the automatic backup option and deletes all existing Backups for a Server. No more additional charges for backups will be made. Caution: This immediately removes all existing backups for the Server!",
         "operationId": "disable_backups_for_server",
@@ -5919,6 +6102,9 @@
     },
     "/servers/{id}/actions/attach_iso": {
       "post": {
+        "tags": [
+          "servers"
+        ],
         "summary": "Attach an ISO to a Server",
         "description": "Attaches an ISO to a Server. The Server will immediately see it as a new disk. An already attached ISO will automatically be detached before the new ISO is attached. Servers with attached ISOs have a modified boot order: They will try to boot from the ISO first before falling back to hard disk.",
         "operationId": "attach_iso_to_server",
@@ -5958,6 +6144,9 @@
     },
     "/servers/{id}/actions/detach_iso": {
       "post": {
+        "tags": [
+          "servers"
+        ],
         "summary": "Detach an ISO from a Server",
         "description": "Detaches an ISO from a Server. In case no ISO Image is attached to the Server, the status of the returned Action is immediately set to success.",
         "operationId": "detach_iso_from_server",
@@ -5988,6 +6177,9 @@
     },
     "/servers/{id}/actions/change_dns_ptr": {
       "post": {
+        "tags": [
+          "servers"
+        ],
         "summary": "Change reverse DNS entry for this Server",
         "description": "Changes the hostname that will appear when getting the hostname belonging to the primary IPs (IPv4 and IPv6) of this Server. Floating IPs assigned to the Server are not affected by this.",
         "operationId": "change_reverse_dns_entry_for_this_server",
@@ -6027,6 +6219,9 @@
     },
     "/servers/{id}/actions/change_protection": {
       "post": {
+        "tags": [
+          "servers"
+        ],
         "summary": "Change Server Protection",
         "description": "Changes the protection configuration of the Server.",
         "operationId": "change_server_protection",
@@ -6066,6 +6261,9 @@
     },
     "/servers/{id}/actions/request_console": {
       "post": {
+        "tags": [
+          "servers"
+        ],
         "summary": "Request Console for a Server",
         "description": "Requests credentials for remote access via VNC over websocket to keyboard, monitor, and mouse for a Server. The provided URL is valid for 1 minute, after this period a new url needs to be created to connect to the Server. How long the connection is open after the initial connect is not subject to this timeout.",
         "operationId": "request_console_for_server",
@@ -6096,6 +6294,9 @@
     },
     "/servers/{id}/actions/attach_to_network": {
       "post": {
+        "tags": [
+          "servers"
+        ],
         "summary": "Attach a Server to a Network",
         "description": "Attaches a Server to a network. This will complement the fixed public Server interface by adding an additional ethernet interface to the Server which is connected to the specified network. The Server will get an IP auto assigned from a subnet of type server in the same network_zone. Using the alias_ips attribute you can also define one or more additional IPs to the Servers. Please note that you will have to configure these IPs by hand on your Server since only the primary IP will be given out by dhcp.",
         "operationId": "attach_server_to_network",
@@ -6135,6 +6336,9 @@
     },
     "/servers/{id}/actions/detach_from_network": {
       "post": {
+        "tags": [
+          "servers"
+        ],
         "summary": "Detach a Server from a Network",
         "description": "Detaches a Server from a network. The interface for this network will vanish.",
         "operationId": "detach_server_from_network",
@@ -6174,6 +6378,9 @@
     },
     "/servers/{id}/actions/change_alias_ips": {
       "post": {
+        "tags": [
+          "servers"
+        ],
         "summary": "Change alias IPs of a Network",
         "description": "Changes the alias IPs of an already attached Network. Note that the existing aliases for the specified Network will be replaced with these provided in the request body. So if you want to add an alias IP, you have to provide the existing ones from the Network plus the new alias IP in the request body.",
         "operationId": "change_alias_ips_of_network",
@@ -6213,6 +6420,9 @@
     },
     "/server_types": {
       "get": {
+        "tags": [
+          "server_types"
+        ],
         "summary": "Get all Server Types",
         "description": "Gets all Server type objects.",
         "operationId": "list_server_types",
@@ -6243,6 +6453,9 @@
     },
     "/server_types/{id}": {
       "get": {
+        "tags": [
+          "server_types"
+        ],
         "summary": "Get a Server Type",
         "description": "Gets a specific Server type object.",
         "operationId": "get_server_type",
@@ -6273,6 +6486,9 @@
     },
     "/ssh_keys": {
       "get": {
+        "tags": [
+          "ssh_keys"
+        ],
         "summary": "Get all SSH keys",
         "description": "Returns all SSH key objects.",
         "operationId": "list_ssh_keys",
@@ -6328,6 +6544,9 @@
         }
       },
       "post": {
+        "tags": [
+          "ssh_keys"
+        ],
         "summary": "Create an SSH key",
         "description": "Creates a new SSH key with the given name and public_key. Once an SSH key is created, it can be used in other calls such as creating Servers.",
         "operationId": "create_ssh_key",
@@ -6357,6 +6576,9 @@
     },
     "/ssh_keys/{id}": {
       "get": {
+        "tags": [
+          "ssh_keys"
+        ],
         "summary": "Get an SSH key",
         "description": "Returns a specific SSH key object.",
         "operationId": "get_ssh_key",
@@ -6385,6 +6607,9 @@
         }
       },
       "put": {
+        "tags": [
+          "ssh_keys"
+        ],
         "summary": "Update an SSH key",
         "description": "Updates an SSH key. You can update an SSH key name and an SSH key labels. Please note that when updating labels, the SSH key current set of labels will be replaced with the labels provided in the request body. So, for example, if you want to add a new label, you have to provide all existing labels plus the new label in the request body.",
         "operationId": "replace_ssh_key",
@@ -6422,6 +6647,9 @@
         }
       },
       "delete": {
+        "tags": [
+          "ssh_keys"
+        ],
         "summary": "Delete an SSH key",
         "description": "Deletes an SSH key. It cannot be used anymore.",
         "operationId": "delete_ssh_key",
@@ -6445,6 +6673,9 @@
     },
     "/volumes": {
       "get": {
+        "tags": [
+          "volumes"
+        ],
         "summary": "Get all Volumes",
         "description": "Gets all existing Volumes that you have available.",
         "operationId": "list_volumes",
@@ -6500,6 +6731,9 @@
         }
       },
       "post": {
+        "tags": [
+          "volumes"
+        ],
         "summary": "Create a Volume",
         "description": "Creates a new Volume attached to a Server. If you want to create a Volume that is not attached to a Server, you need to provide the location key instead of server. This can be either the ID or the name of the Location this Volume will be created in. Note that a Volume can be attached to a Server only in the same Location as the Volume itself. Specifying the Server during Volume creation will automatically attach the Volume to that Server after it has been initialized. In that case, the next_actions key in the response is an array which contains a single attach_volume action. The minimum Volume size is 10GB and the maximum size is 10TB (10240GB). A volume’s name can consist of alphanumeric characters, dashes, underscores, and dots, but has to start and end with an alphanumeric character. The total length is limited to 64 characters. Volume names must be unique per Project.",
         "operationId": "create_volume",
@@ -6529,6 +6763,9 @@
     },
     "/volumes/{id}": {
       "get": {
+        "tags": [
+          "volumes"
+        ],
         "summary": "Get a Volume",
         "description": "Gets a specific Volume object.",
         "operationId": "get_volume",
@@ -6557,6 +6794,9 @@
         }
       },
       "put": {
+        "tags": [
+          "volumes"
+        ],
         "summary": "Update a Volume",
         "description": "Updates the Volume properties. Note that when updating labels, the volume’s current set of labels will be replaced with the labels provided in the request body. So, for example, if you want to add a new label, you have to provide all existing labels plus the new label in the request body.",
         "operationId": "replace_volume",
@@ -6594,6 +6834,9 @@
         }
       },
       "delete": {
+        "tags": [
+          "volumes"
+        ],
         "summary": "Delete a Volume",
         "description": "Deletes a volume. All Volume data is irreversibly destroyed. The Volume must not be attached to a Server and it must not have delete protection enabled.",
         "operationId": "delete_volume",
@@ -6617,6 +6860,9 @@
     },
     "/volumes/{id}/actions": {
       "get": {
+        "tags": [
+          "volumes"
+        ],
         "summary": "Get all Actions for a Volume",
         "description": "Returns all Action objects for a Volume. You can sort the results by using the sort URI parameter, and filter them with the status parameter.",
         "operationId": "list_actions_for_volume",
@@ -6665,6 +6911,9 @@
     },
     "/volumes/{id}/actions/{action_id}": {
       "get": {
+        "tags": [
+          "volumes"
+        ],
         "summary": "Get an Action for a Volume",
         "description": "Returns a specific Action for a Volume.",
         "operationId": "get_action_for_volume",
@@ -6704,6 +6953,9 @@
     },
     "/volumes/{id}/actions/attach": {
       "post": {
+        "tags": [
+          "volumes"
+        ],
         "summary": "Attach Volume to a Server",
         "description": "Attaches a Volume to a Server. Works only if the Server is in the same Location as the Volume.",
         "operationId": "attach_volume_to_server",
@@ -6743,6 +6995,9 @@
     },
     "/volumes/{id}/actions/detach": {
       "post": {
+        "tags": [
+          "volumes"
+        ],
         "summary": "Detach Volume",
         "description": "Detaches a Volume from the Server it’s attached to. You may attach it to a Server again at a later time.",
         "operationId": "detach_volume",
@@ -6773,6 +7028,9 @@
     },
     "/volumes/{id}/actions/resize": {
       "post": {
+        "tags": [
+          "volumes"
+        ],
         "summary": "Resize Volume",
         "description": "Changes the size of a Volume. Note that downsizing a Volume is not possible.",
         "operationId": "resize_volume",
@@ -6812,6 +7070,9 @@
     },
     "/volumes/{id}/actions/change_protection": {
       "post": {
+        "tags": [
+          "volumes"
+        ],
         "summary": "Change Volume Protection",
         "description": "Changes the protection configuration of a Volume.",
         "operationId": "change_volume_protection",
