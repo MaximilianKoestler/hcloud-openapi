@@ -10,7 +10,6 @@ on:
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
 
     strategy:
@@ -27,7 +26,6 @@ jobs:
     - run: npm run build
 
   generate:
-
     runs-on: ubuntu-latest
 
     steps:
@@ -39,9 +37,23 @@ jobs:
     - run: mkdir -p results
     - run: npm ci
     - run: npm run convert -- --output results/hcloud.json --schema_version ${GITHUB_SHA::7}-ci
-
     - name: Archive generated specification
       uses: actions/upload-artifact@v1
       with:
         name: specification
         path: results/hcloud.json
+
+  validate:
+    needs: generate
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        openapi-version: [v4.3.1, latest]
+
+    steps:
+    - name: Download generated specification
+      uses: actions/download-artifact@v1
+      with:
+        name: specification
+    - run: docker run -v $GITHUB_WORKSPACE:/workspace -w /workspace openapitools/openapi-generator-cli:${{ matrix.openapi-version }} validate --input-spec ./specification/hcloud.json
