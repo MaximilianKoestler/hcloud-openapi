@@ -10,5 +10,13 @@
     "set": {
       "format": "decimal"
     }
+  },
+  {
+    "path": ["components", "schemas", "create_server_response", "properties", "next_actions"],
+    "set": {
+      "items": {
+        "$ref": "#/components/schemas/action"
+      }
+    }
   }
 ]

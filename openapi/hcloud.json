@@ -6,7 +6,7 @@
     "contact": {
       "url": "https://docs.hetzner.cloud/"
     },
-    "version": "4635435-dirty"
+    "version": "d0cd5a3-dirty"
   },
   "servers": [
     {
@@ -795,8 +795,7 @@
           "next_actions": {
             "type": "array",
             "items": {
-              "type": "object",
-              "properties": {}
+              "$ref": "#/components/schemas/action"
             }
           },
           "root_password": {
