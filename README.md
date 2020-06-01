@@ -1,25 +1,33 @@
 # Unofficial OpenAPI Description for the Hetzner Cloud API
 
+![](https://github.com/MaximilianKoestler/hcloud-openapi/workflows/CI%20Build%20and%20OpenAPI%20Spec%20Generation/badge.svg)
+
 - [Link to the openAPI document](openapi/hcloud.json)
-- [Official documentation](https://docs.hetzner.cloud/)
+- [Official API documentation](https://docs.hetzner.cloud/)
 
-# Quick Start
+This repository contains scripts to generate an [OpenAPI](https://swagger.io/specification/) description of the [Hetzner Cloud API](https://docs.hetzner.cloud/).
+
+## Use Cases
+This API description is currently being used by the following projects:
+- [hcloud-rust](https://github.com/HenningHolmDE/hcloud-rust)
+
+## Quick Start
 
 ```
-ts-node src/index.ts -o openapi/hcloud.json
+npm run convert -- --output results/hcloud.json
 ```
 
-# Usage with OpenAPI Generator
+## Usage with OpenAPI Generator
 
-- [Project on GitHub](https://github.com/OpenAPITools/openapi-generator)
+[OpenAPI Generator on GitHub](https://github.com/OpenAPITools/openapi-generator)
 
-## Validate
+### Validate
 
 ```
 java -jar <path>/openapi-generator-cli.jar validate --input-spec openapi/hcloud.json
 ```
 
-## Generate
+### Generate
 
 ```
 java -jar <path>/openapi-generator-cli.jar generate --input-spec openapi/hcloud.json --generator-name <name> --output <path>
