@@ -6,7 +6,7 @@
     "contact": {
       "url": "https://docs.hetzner.cloud/"
     },
-    "version": "1b5e779-dirty"
+    "version": "1b51490-dirty"
   },
   "servers": [
     {
@@ -3933,6 +3933,13 @@
             "application/json": {
               "schema": {
                 "$ref": "#/components/schemas/create_floating_ip_request"
+              },
+              "example": {
+                "type": "ipv4",
+                "server": 42,
+                "home_location": "fsn1",
+                "description": "Web Frontend",
+                "name": "Web Frontend"
               }
             }
           }
@@ -4006,6 +4013,13 @@
             "application/json": {
               "schema": {
                 "$ref": "#/components/schemas/replace_floating_ip_request"
+              },
+              "example": {
+                "name": "New-name",
+                "description": "New description",
+                "labels": {
+                  "labelkey": "value"
+                }
               }
             }
           }
@@ -4165,6 +4179,9 @@
             "application/json": {
               "schema": {
                 "$ref": "#/components/schemas/assign_floating_ip_to_server_request"
+              },
+              "example": {
+                "server": 42
               }
             }
           }
@@ -4240,6 +4257,10 @@
             "application/json": {
               "schema": {
                 "$ref": "#/components/schemas/change_reverse_dns_entry_for_floating_ip_request"
+              },
+              "example": {
+                "ip": "1.2.3.4",
+                "dns_ptr": "server02.example.com"
               }
             }
           }
@@ -4282,6 +4303,9 @@
             "application/json": {
               "schema": {
                 "$ref": "#/components/schemas/change_floating_ip_protection_request"
+              },
+              "example": {
+                "delete": true
               }
             }
           }
@@ -4433,6 +4457,13 @@
             "application/json": {
               "schema": {
                 "$ref": "#/components/schemas/replace_image_request"
+              },
+              "example": {
+                "description": "My new Image description",
+                "type": "snapshot",
+                "labels": {
+                  "labelkey": "value"
+                }
               }
             }
           }
@@ -4592,6 +4623,9 @@
             "application/json": {
               "schema": {
                 "$ref": "#/components/schemas/change_image_protection_request"
+              },
+              "example": {
+                "delete": true
               }
             }
           }
@@ -4796,6 +4830,23 @@
             "application/json": {
               "schema": {
                 "$ref": "#/components/schemas/create_network_request"
+              },
+              "example": {
+                "name": "mynet",
+                "ip_range": "10.0.0.0/16",
+                "subnets": [
+                  {
+                    "type": "server",
+                    "ip_range": "10.0.1.0/24",
+                    "network_zone": "eu-central"
+                  }
+                ],
+                "routes": [
+                  {
+                    "destination": "10.100.1.0/24",
+                    "gateway": "10.0.1.1"
+                  }
+                ]
               }
             }
           }
@@ -4869,6 +4920,12 @@
             "application/json": {
               "schema": {
                 "$ref": "#/components/schemas/replace_network_request"
+              },
+              "example": {
+                "name": "new-name",
+                "labels": {
+                  "labelkey": "value"
+                }
               }
             }
           }
@@ -5028,6 +5085,11 @@
             "application/json": {
               "schema": {
                 "$ref": "#/components/schemas/add_subnet_to_network_request"
+              },
+              "example": {
+                "type": "server",
+                "ip_range": "10.0.1.0/24",
+                "network_zone": "eu-central"
               }
             }
           }
@@ -5070,6 +5132,9 @@
             "application/json": {
               "schema": {
                 "$ref": "#/components/schemas/delete_subnet_from_network_request"
+              },
+              "example": {
+                "ip_range": "10.0.1.0/24"
               }
             }
           }
@@ -5112,6 +5177,10 @@
             "application/json": {
               "schema": {
                 "$ref": "#/components/schemas/add_route_to_network_request"
+              },
+              "example": {
+                "destination": "10.100.1.0/24",
+                "gateway": "10.0.1.1"
               }
             }
           }
@@ -5154,6 +5223,10 @@
             "application/json": {
               "schema": {
                 "$ref": "#/components/schemas/delete_route_from_network_request"
+              },
+              "example": {
+                "destination": "10.100.1.0/24",
+                "gateway": "10.0.1.1"
               }
             }
           }
@@ -5196,6 +5269,9 @@
             "application/json": {
               "schema": {
                 "$ref": "#/components/schemas/change_ip_range_of_network_request"
+              },
+              "example": {
+                "ip_range": "10.0.0.0/12"
               }
             }
           }
@@ -5238,6 +5314,9 @@
             "application/json": {
               "schema": {
                 "$ref": "#/components/schemas/change_network_protection_request"
+              },
+              "example": {
+                "delete": true
               }
             }
           }
@@ -5351,6 +5430,24 @@
             "application/json": {
               "schema": {
                 "$ref": "#/components/schemas/create_server_request"
+              },
+              "example": {
+                "name": "my-server",
+                "server_type": "cx11",
+                "location": "nbg1",
+                "start_after_create": true,
+                "image": "ubuntu-16.04",
+                "ssh_keys": [
+                  "my-ssh-key"
+                ],
+                "volumes": [
+                  1
+                ],
+                "networks": [
+                  1
+                ],
+                "user_data": "#cloud-config\nruncmd:\n- [touch, /root/cloud-init-worked]\n",
+                "automount": false
               }
             }
           }
@@ -5424,6 +5521,12 @@
             "application/json": {
               "schema": {
                 "$ref": "#/components/schemas/replace_server_request"
+              },
+              "example": {
+                "name": "new-name",
+                "labels": {
+                  "labelkey": "value"
+                }
               }
             }
           }
@@ -5857,6 +5960,12 @@
             "application/json": {
               "schema": {
                 "$ref": "#/components/schemas/enable_rescue_mode_for_server_request"
+              },
+              "example": {
+                "type": "linux64",
+                "ssh_keys": [
+                  2323
+                ]
               }
             }
           }
@@ -5932,6 +6041,10 @@
             "application/json": {
               "schema": {
                 "$ref": "#/components/schemas/create_image_from_server_request"
+              },
+              "example": {
+                "description": "my",
+                "type": "snapshot"
               }
             }
           }
@@ -5974,6 +6087,9 @@
             "application/json": {
               "schema": {
                 "$ref": "#/components/schemas/rebuild_server_from_image_request"
+              },
+              "example": {
+                "image": "ubuntu-16.04"
               }
             }
           }
@@ -6016,6 +6132,10 @@
             "application/json": {
               "schema": {
                 "$ref": "#/components/schemas/change_type_of_server_request"
+              },
+              "example": {
+                "upgrade_disk": true,
+                "server_type": "cx11"
               }
             }
           }
@@ -6124,6 +6244,9 @@
             "application/json": {
               "schema": {
                 "$ref": "#/components/schemas/attach_iso_to_server_request"
+              },
+              "example": {
+                "iso": "FreeBSD-11.0-RELEASE-amd64-dvd1"
               }
             }
           }
@@ -6199,6 +6322,10 @@
             "application/json": {
               "schema": {
                 "$ref": "#/components/schemas/change_reverse_dns_entry_for_this_server_request"
+              },
+              "example": {
+                "ip": "1.2.3.4",
+                "dns_ptr": "server01.example.com"
               }
             }
           }
@@ -6241,6 +6368,10 @@
             "application/json": {
               "schema": {
                 "$ref": "#/components/schemas/change_server_protection_request"
+              },
+              "example": {
+                "delete": true,
+                "rebuild": true
               }
             }
           }
@@ -6316,6 +6447,13 @@
             "application/json": {
               "schema": {
                 "$ref": "#/components/schemas/attach_server_to_network_request"
+              },
+              "example": {
+                "network": 4711,
+                "ip": "10.0.1.1",
+                "alias_ips": [
+                  "10.0.1.2"
+                ]
               }
             }
           }
@@ -6358,6 +6496,9 @@
             "application/json": {
               "schema": {
                 "$ref": "#/components/schemas/detach_server_from_network_request"
+              },
+              "example": {
+                "network": 4711
               }
             }
           }
@@ -6400,6 +6541,12 @@
             "application/json": {
               "schema": {
                 "$ref": "#/components/schemas/change_alias_ips_of_network_request"
+              },
+              "example": {
+                "network": 4711,
+                "alias_ips": [
+                  "10.0.1.2"
+                ]
               }
             }
           }
@@ -6556,6 +6703,10 @@
             "application/json": {
               "schema": {
                 "$ref": "#/components/schemas/create_ssh_key_request"
+              },
+              "example": {
+                "name": "My ssh key",
+                "public_key": "ssh-rsa AAAjjk76kgf...Xt"
               }
             }
           }
@@ -6629,6 +6780,12 @@
             "application/json": {
               "schema": {
                 "$ref": "#/components/schemas/replace_ssh_key_request"
+              },
+              "example": {
+                "name": "New name",
+                "labels": {
+                  "labelkey": "value"
+                }
               }
             }
           }
@@ -6743,6 +6900,13 @@
             "application/json": {
               "schema": {
                 "$ref": "#/components/schemas/create_volume_request"
+              },
+              "example": {
+                "size": 42,
+                "name": "test-database",
+                "location": "nbg1",
+                "automount": false,
+                "format": "xfs"
               }
             }
           }
@@ -6816,6 +6980,12 @@
             "application/json": {
               "schema": {
                 "$ref": "#/components/schemas/replace_volume_request"
+              },
+              "example": {
+                "name": "new-name",
+                "labels": {
+                  "labelkey": "value"
+                }
               }
             }
           }
@@ -6975,6 +7145,10 @@
             "application/json": {
               "schema": {
                 "$ref": "#/components/schemas/attach_volume_to_server_request"
+              },
+              "example": {
+                "server": 43,
+                "automount": false
               }
             }
           }
@@ -7050,6 +7224,9 @@
             "application/json": {
               "schema": {
                 "$ref": "#/components/schemas/resize_volume_request"
+              },
+              "example": {
+                "size": 50
               }
             }
           }
@@ -7092,6 +7269,9 @@
             "application/json": {
               "schema": {
                 "$ref": "#/components/schemas/change_volume_protection_request"
+              },
+              "example": {
+                "delete": true
               }
             }
           }

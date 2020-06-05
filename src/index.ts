@@ -47,8 +47,10 @@ interface SectionData {
   uriParameters: Parameter[];
   requestHeaders?: RequestHeaders;
   requestSchema?: JsonSchema;
+  requestExample?: JsonSchema;
   responseHeaders: ResponseHeaders;
   responseSchema?: JsonSchema;
+  responseExample?: JsonSchema;
 }
 
 interface Section {
@@ -262,12 +264,21 @@ function parseSection(section: Element): Section {
       ? parseRequestHeaders(requestHeadersPre)
       : undefined;
 
-  const requestSchemaText = elementAfterText(
+  const requestExampleElement = elementAfterText(
     methodExample,
     "h4",
     "Request",
     "div.tab__content"
-  )?.nextElementSibling?.textContent;
+  );
+
+  const requestExampleText = requestExampleElement?.textContent;
+  let requestExample: JsonSchema =
+    requestExampleText !== undefined && requestExampleText !== null
+      ? JSON.parse(requestExampleText)
+      : undefined;
+
+  const requestSchemaText =
+    requestExampleElement?.nextElementSibling?.textContent;
   let requestSchema: JsonSchema =
     requestSchemaText !== undefined && requestSchemaText !== null
       ? JSON.parse(requestSchemaText)
@@ -329,6 +340,7 @@ function parseSection(section: Element): Section {
       uriParameters: parseParameterTable(uriParameterTable),
       requestHeaders,
       requestSchema,
+      requestExample,
       responseHeaders,
       responseSchema,
     },
@@ -396,13 +408,19 @@ function toRequestBody(data: SectionData): OpenApiDocumentFragment | undefined {
     return undefined;
   }
 
+  const mediaTypeObject: OpenApiDocumentFragment = {
+    schema: {
+      $ref: "#/components/schemas/" + toSchemaName("request", data),
+    },
+  };
+
+  if (data.requestExample !== undefined) {
+    mediaTypeObject["example"] = data.requestExample;
+  }
+
   return {
     content: {
-      [data.requestHeaders.contentType]: {
-        schema: {
-          $ref: "#/components/schemas/" + toSchemaName("request", data),
-        },
-      },
+      [data.requestHeaders.contentType]: mediaTypeObject,
     },
   };
 }
