@@ -493,7 +493,8 @@ async function createPath(section: Section): Promise<PathVerbOperation> {
 async function appendSchema(
   schemas: OpenApiDocumentFragment,
   id: string,
-  schema: OpenApiDocumentFragment | undefined
+  schema: OpenApiDocumentFragment | undefined,
+  description: string
 ) {
   if (schema === undefined) {
     return;
@@ -502,6 +503,7 @@ async function appendSchema(
   schemas[id] = await convertSchema(schema, {
     dereference: true,
   });
+  schemas[id].description = description;
   fixSchema(id, schemas);
 }
 
@@ -514,7 +516,12 @@ async function appendRequestSchema(
     data.responseSchema !== undefined &&
     data.responseHeaders.contentType !== undefined
   ) {
-    await appendSchema(schemas, id, data.requestSchema);
+    await appendSchema(
+      schemas,
+      id,
+      data.requestSchema,
+      `Request for ${data.request.verb} ${data.request.url}`
+    );
   }
 }
 
@@ -527,7 +534,12 @@ async function appendResponseSchema(
     data.responseSchema !== undefined &&
     data.responseHeaders.contentType !== undefined
   ) {
-    await appendSchema(schemas, id, data.responseSchema);
+    await appendSchema(
+      schemas,
+      id,
+      data.responseSchema,
+      `Response to ${data.request.verb} ${data.request.url}`
+    );
   }
 }
 
