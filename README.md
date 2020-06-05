@@ -10,6 +10,8 @@ This repository contains scripts to generate an [OpenAPI](https://swagger.io/spe
 ## Use Cases
 This API description is currently being used by the following projects:
 - [hcloud-rust](https://github.com/HenningHolmDE/hcloud-rust)
+  [![Crates.io](https://img.shields.io/crates/v/hcloud.svg)](https://crates.io/crates/hcloud)
+  [![Documentation](https://docs.rs/hcloud/badge.svg)](https://docs.rs/hcloud/)
 
 ## Quick Start
 
