@@ -89,6 +89,8 @@ export function fixSchema(id: string, schemas: OpenApiDocumentFragment) {
     },
   });
 
+  // call `fixItem()` function with the path for each item, allowing more local
+  // changes
   const location: string[] = [id];
   walkSchema(schemas[id], {
     afterChildren: (part) => {
