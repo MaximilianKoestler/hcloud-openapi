@@ -16,6 +16,7 @@ interface Arguments {
   source: string;
   output?: string;
   schema_version?: string;
+  list_paths?: boolean;
 }
 
 interface Request {
@@ -92,6 +93,10 @@ function parseArgs(): Arguments {
       schema_version: {
         type: "string",
         describe: "version number for the generated API",
+      },
+      list_paths: {
+        type: "boolean",
+        describe: "List all supported request paths",
       },
     })
     .help()
@@ -669,12 +674,21 @@ async function main() {
     const sections = parseHtmlDocumentation(contents);
     const document = await createOpenApiDocument(sections, args.schema_version);
     await transformDocument(document);
-    validateOpenApiDocument(document);
+    await validateOpenApiDocument(JSON.parse(JSON.stringify(document)));
 
     const json = JSON.stringify(document, null, 2);
     if (args.output === undefined) {
     } else {
       fs.writeFile(args.output, json, "utf-8");
+    }
+
+    if (args.list_paths) {
+      Object.keys(document.paths).forEach((path) => {
+        const verbs = Object.keys(document.paths[path]);
+        console.log(
+          `${path} (${verbs.map((verb) => verb.toUpperCase()).join(", ")})`
+        );
+      });
     }
   } catch (error) {
     console.error(error);
