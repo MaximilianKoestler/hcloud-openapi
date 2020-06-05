@@ -8,6 +8,7 @@ import { OpenApiDocumentFragment } from "../types";
 import { walkSchema } from "./actions";
 
 interface CommonComponent {
+  description?: string;
   name: string;
   path: string[];
 }
@@ -282,6 +283,7 @@ export async function deduplicateSchemas(
     directChildren: number;
     locations: string[][];
     name?: string;
+    description?: string;
   }
 
   let objectInfos: { [hash: string]: ObjectInfo } = {};
@@ -341,6 +343,7 @@ export async function deduplicateSchemas(
         objectInfos[hash].locations.forEach((location) => {
           if (location.join("/") == component.path.join("/")) {
             objectInfos[hash].name = component.name;
+            objectInfos[hash].description = component.description;
           }
         });
       });
@@ -373,8 +376,9 @@ export async function deduplicateSchemas(
           .filter((location) => location.length > 1)
           .sort((a, b) => a.length - b.length)[0];
         return {
-          path: path,
+          description: "TODO",
           name: info.name as string,
+          path: path,
         };
       }
     );
@@ -409,6 +413,20 @@ export async function deduplicateSchemas(
         }
       },
     });
+  });
+
+  Object.keys(objectInfos).forEach((hash) => {
+    const info = objectInfos[hash];
+    if (info.name !== undefined && info.description !== undefined) {
+      if (schemas[info.name].description !== undefined) {
+        console.warn(
+          `Overwriting existing schema description ${info.name} ("${
+            schemas[info.name].description
+          }" -> "${info.description})"`
+        );
+      }
+      schemas[info.name].description = info.description;
+    }
   });
 
   const refHistogram: { [ref: string]: number } = {};

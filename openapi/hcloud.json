@@ -6,7 +6,7 @@
     "contact": {
       "url": "https://docs.hetzner.cloud/"
     },
-    "version": "2293ba3"
+    "version": "1da199a-dirty"
   },
   "servers": [
     {
@@ -70,7 +70,7 @@
           "resources",
           "error"
         ],
-        "description": "Assign Action (only present if a Server was provided) | Action created by this call"
+        "description": "Actions show the results and progress of asynchronous requests to the API."
       },
       "add_route_to_network_request": {
         "$ref": "#/components/schemas/route"
@@ -3556,7 +3556,8 @@
           "included_traffic",
           "protection",
           "labels"
-        ]
+        ],
+        "description": "Servers are virtual machines that can be provisioned."
       },
       "server_type": {
         "type": "object",
@@ -3688,7 +3689,8 @@
           "public_key",
           "labels",
           "created"
-        ]
+        ],
+        "description": "SSH keys are public keys you provide to the cloud system. They can be injected into Servers at creation time. We highly recommend that you use keys instead of passwords to manage your Servers."
       },
       "subnet": {
         "type": "object",
@@ -3714,7 +3716,7 @@
           "type",
           "network_zone"
         ],
-        "description": "Request for POST https://api.hetzner.cloud/v1/networks/{id}/actions/add_subnet"
+        "description": "Subnets divide the ip_range from the parent Network object into multiple Subnetworks that you can use for different specific purposes."
       },
       "subnet_with_gateway": {
         "type": "object",
@@ -3744,7 +3746,8 @@
           "type",
           "network_zone",
           "gateway"
-        ]
+        ],
+        "description": "Subnets divide the ip_range from the parent Network object into multiple Subnetworks that you can use for different specific purposes."
       },
       "unassign_floating_ip_response": {
         "type": "object",
@@ -3833,7 +3836,8 @@
           "labels",
           "status",
           "format"
-        ]
+        ],
+        "description": "A Volume is a highly-available, scalable, and SSD-based block storage for Servers. Pricing for Volumes depends on the Volume size and Location, not the actual used storage. Please see [Hetzner Wiki](https://wiki.hetzner.de/index.php/CloudServer/en#Volumes) for more details about Volumes."
       }
     },
     "securitySchemes": {
