@@ -302,12 +302,21 @@ function parseSection(section: Element): Section {
     )
   );
 
-  const responseSchemaText = elementAfterText(
+  const responseExampleElement = elementAfterText(
     methodExample,
     "h4",
     "Response",
     "div.tab__content"
-  )?.nextElementSibling?.textContent;
+  );
+
+  const responseExampleText = responseExampleElement?.textContent;
+  let responseExample: JsonSchema =
+    responseExampleText !== undefined && responseExampleText !== null
+      ? JSON.parse(responseExampleText)
+      : undefined;
+
+  const responseSchemaText =
+    responseExampleElement?.nextElementSibling?.textContent;
   let responseSchema: JsonSchema =
     responseSchemaText !== undefined && responseSchemaText !== null
       ? JSON.parse(responseSchemaText)
@@ -343,6 +352,7 @@ function parseSection(section: Element): Section {
       requestExample,
       responseHeaders,
       responseSchema,
+      responseExample,
     },
   };
 }
@@ -433,12 +443,18 @@ function toResponses(data: SectionData): OpenApiDocumentFragment {
     data.responseSchema !== undefined &&
     data.responseHeaders.contentType !== undefined
   ) {
-    response["content"] = {
-      [data.responseHeaders.contentType]: {
-        schema: {
-          $ref: "#/components/schemas/" + toSchemaName("response", data),
-        },
+    const mediaTypeObject: OpenApiDocumentFragment = {
+      schema: {
+        $ref: "#/components/schemas/" + toSchemaName("response", data),
       },
+    };
+
+    if (data.responseExample !== undefined) {
+      mediaTypeObject["example"] = data.responseExample;
+    }
+
+    response["content"] = {
+      [data.responseHeaders.contentType]: mediaTypeObject,
     };
   }
   return {

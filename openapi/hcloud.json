@@ -6,7 +6,7 @@
     "contact": {
       "url": "https://docs.hetzner.cloud/"
     },
-    "version": "1b51490-dirty"
+    "version": "42f9f10-dirty"
   },
   "servers": [
     {
@@ -3764,6 +3764,28 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/list_all_actions_response"
+                },
+                "example": {
+                  "actions": [
+                    {
+                      "id": 13,
+                      "command": "start_server",
+                      "status": "success",
+                      "progress": 100,
+                      "started": "2016-01-30T23:55:00+00:00",
+                      "finished": "2016-01-30T23:56:00+00:00",
+                      "resources": [
+                        {
+                          "id": 42,
+                          "type": "server"
+                        }
+                      ],
+                      "error": {
+                        "code": "action_failed",
+                        "message": "Action failed"
+                      }
+                    }
+                  ]
                 }
               }
             }
@@ -3797,6 +3819,26 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/get_action_response"
+                },
+                "example": {
+                  "action": {
+                    "id": 13,
+                    "command": "start_server",
+                    "status": "success",
+                    "progress": 100,
+                    "started": "2016-01-30T23:55:00+00:00",
+                    "finished": "2016-01-30T23:56:00+00:00",
+                    "resources": [
+                      {
+                        "id": 42,
+                        "type": "server"
+                      }
+                    ],
+                    "error": {
+                      "code": "action_failed",
+                      "message": "Action failed"
+                    }
+                  }
                 }
               }
             }
@@ -3830,6 +3872,43 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/list_datacenters_response"
+                },
+                "example": {
+                  "datacenters": [
+                    {
+                      "id": 1,
+                      "name": "fsn1-dc8",
+                      "description": "Falkenstein 1 DC 8",
+                      "location": {
+                        "id": 1,
+                        "name": "fsn1",
+                        "description": "Falkenstein DC Park 1",
+                        "country": "DE",
+                        "city": "Falkenstein",
+                        "latitude": 50.47612,
+                        "longitude": 12.370071,
+                        "network_zone": "eu-central"
+                      },
+                      "server_types": {
+                        "supported": [
+                          1,
+                          2,
+                          3
+                        ],
+                        "available": [
+                          1,
+                          2,
+                          3
+                        ],
+                        "available_for_migration": [
+                          1,
+                          2,
+                          3
+                        ]
+                      }
+                    }
+                  ],
+                  "recommendation": 1
                 }
               }
             }
@@ -3863,6 +3942,40 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/get_datacenter_response"
+                },
+                "example": {
+                  "datacenter": {
+                    "id": 1,
+                    "name": "fsn1-dc8",
+                    "description": "Falkenstein 1 DC 8",
+                    "location": {
+                      "id": 1,
+                      "name": "fsn1",
+                      "description": "Falkenstein DC Park 1",
+                      "country": "DE",
+                      "city": "Falkenstein",
+                      "latitude": 50.47612,
+                      "longitude": 12.370071,
+                      "network_zone": "eu-central"
+                    },
+                    "server_types": {
+                      "supported": [
+                        1,
+                        2,
+                        3
+                      ],
+                      "available": [
+                        1,
+                        2,
+                        3
+                      ],
+                      "available_for_migration": [
+                        1,
+                        2,
+                        3
+                      ]
+                    }
+                  }
                 }
               }
             }
@@ -3914,6 +4027,40 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/list_floating_ips_response"
+                },
+                "example": {
+                  "floating_ips": [
+                    {
+                      "id": 4711,
+                      "name": "Web Frontend",
+                      "description": "Web Frontend",
+                      "ip": "131.232.99.1",
+                      "type": "ipv4",
+                      "server": 42,
+                      "dns_ptr": [
+                        {
+                          "ip": "2001:db8::1",
+                          "dns_ptr": "server.example.com"
+                        }
+                      ],
+                      "home_location": {
+                        "id": 1,
+                        "name": "fsn1",
+                        "description": "Falkenstein DC Park 1",
+                        "country": "DE",
+                        "city": "Falkenstein",
+                        "latitude": 50.47612,
+                        "longitude": 12.370071,
+                        "network_zone": "eu-central"
+                      },
+                      "blocked": false,
+                      "protection": {
+                        "delete": false
+                      },
+                      "labels": {},
+                      "created": "2016-01-30T23:50:00+00:00"
+                    }
+                  ]
                 }
               }
             }
@@ -3951,6 +4098,56 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/create_floating_ip_response"
+                },
+                "example": {
+                  "floating_ip": {
+                    "id": 4711,
+                    "name": "Web Frontend",
+                    "description": "Web Frontend",
+                    "ip": "131.232.99.1",
+                    "type": "ipv4",
+                    "server": 42,
+                    "dns_ptr": [
+                      {
+                        "ip": "2001:db8::1",
+                        "dns_ptr": "server.example.com"
+                      }
+                    ],
+                    "home_location": {
+                      "id": 1,
+                      "name": "fsn1",
+                      "description": "Falkenstein DC Park 1",
+                      "country": "DE",
+                      "city": "Falkenstein",
+                      "latitude": 50.47612,
+                      "longitude": 12.370071,
+                      "network_zone": "eu-central"
+                    },
+                    "blocked": false,
+                    "protection": {
+                      "delete": false
+                    },
+                    "labels": {},
+                    "created": "2016-01-30T23:50:00+00:00"
+                  },
+                  "action": {
+                    "id": 13,
+                    "command": "assign_floating_ip",
+                    "status": "running",
+                    "progress": 0,
+                    "started": "2016-01-30T23:50:00+00:00",
+                    "finished": null,
+                    "resources": [
+                      {
+                        "id": 42,
+                        "type": "server"
+                      }
+                    ],
+                    "error": {
+                      "code": "action_failed",
+                      "message": "Action failed"
+                    }
+                  }
                 }
               }
             }
@@ -3984,6 +4181,38 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/get_specific_floating_ip_response"
+                },
+                "example": {
+                  "floating_ip": {
+                    "id": 4711,
+                    "name": "Web Frontend",
+                    "description": "Web Frontend",
+                    "ip": "131.232.99.1",
+                    "type": "ipv4",
+                    "server": 42,
+                    "dns_ptr": [
+                      {
+                        "ip": "2001:db8::1",
+                        "dns_ptr": "server.example.com"
+                      }
+                    ],
+                    "home_location": {
+                      "id": 1,
+                      "name": "fsn1",
+                      "description": "Falkenstein DC Park 1",
+                      "country": "DE",
+                      "city": "Falkenstein",
+                      "latitude": 50.47612,
+                      "longitude": 12.370071,
+                      "network_zone": "eu-central"
+                    },
+                    "blocked": false,
+                    "protection": {
+                      "delete": false
+                    },
+                    "labels": {},
+                    "created": "2016-01-30T23:50:00+00:00"
+                  }
                 }
               }
             }
@@ -4031,6 +4260,40 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/replace_floating_ip_response"
+                },
+                "example": {
+                  "floating_ip": {
+                    "id": 4711,
+                    "name": "Web Frontend",
+                    "description": "New description",
+                    "ip": "131.232.99.1",
+                    "type": "ipv4",
+                    "server": 42,
+                    "dns_ptr": [
+                      {
+                        "ip": "2001:db8::1",
+                        "dns_ptr": "server.example.com"
+                      }
+                    ],
+                    "home_location": {
+                      "id": 1,
+                      "name": "fsn1",
+                      "description": "Falkenstein DC Park 1",
+                      "country": "DE",
+                      "city": "Falkenstein",
+                      "latitude": 50.47612,
+                      "longitude": 12.370071,
+                      "network_zone": "eu-central"
+                    },
+                    "blocked": false,
+                    "protection": {
+                      "delete": false
+                    },
+                    "labels": {
+                      "labelkey": "value"
+                    },
+                    "created": "2016-01-30T23:50:00+00:00"
+                  }
                 }
               }
             }
@@ -4106,6 +4369,32 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/list_actions_for_floating_ip_response"
+                },
+                "example": {
+                  "actions": [
+                    {
+                      "id": 13,
+                      "command": "assign_floating_ip",
+                      "status": "success",
+                      "progress": 100,
+                      "started": "2016-01-30T23:55:00+00:00",
+                      "finished": "2016-01-30T23:56:00+00:00",
+                      "resources": [
+                        {
+                          "id": 42,
+                          "type": "server"
+                        },
+                        {
+                          "id": 4711,
+                          "type": "floating_ip"
+                        }
+                      ],
+                      "error": {
+                        "code": "action_failed",
+                        "message": "Action failed"
+                      }
+                    }
+                  ]
                 }
               }
             }
@@ -4148,6 +4437,26 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/get_action_for_floating_ip_response"
+                },
+                "example": {
+                  "action": {
+                    "id": 13,
+                    "command": "change_protection",
+                    "status": "success",
+                    "progress": 100,
+                    "started": "2016-01-30T23:55:00+00:00",
+                    "finished": "2016-01-30T23:56:00+00:00",
+                    "resources": [
+                      {
+                        "id": 4711,
+                        "type": "floating_ip"
+                      }
+                    ],
+                    "error": {
+                      "code": "action_failed",
+                      "message": "Action failed"
+                    }
+                  }
                 }
               }
             }
@@ -4193,6 +4502,30 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/assign_floating_ip_to_server_response"
+                },
+                "example": {
+                  "action": {
+                    "id": 13,
+                    "command": "assign_floating_ip",
+                    "status": "running",
+                    "progress": 0,
+                    "started": "2016-01-30T23:50:00+00:00",
+                    "finished": null,
+                    "resources": [
+                      {
+                        "id": 42,
+                        "type": "server"
+                      },
+                      {
+                        "id": 4711,
+                        "type": "floating_ip"
+                      }
+                    ],
+                    "error": {
+                      "code": "action_failed",
+                      "message": "Action failed"
+                    }
+                  }
                 }
               }
             }
@@ -4226,6 +4559,30 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/unassign_floating_ip_response"
+                },
+                "example": {
+                  "action": {
+                    "id": 13,
+                    "command": "unassign_floating_ip",
+                    "status": "running",
+                    "progress": 0,
+                    "started": "2016-01-30T23:50:00+00:00",
+                    "finished": null,
+                    "resources": [
+                      {
+                        "id": 42,
+                        "type": "server"
+                      },
+                      {
+                        "id": 4711,
+                        "type": "floating_ip"
+                      }
+                    ],
+                    "error": {
+                      "code": "action_failed",
+                      "message": "Action failed"
+                    }
+                  }
                 }
               }
             }
@@ -4272,6 +4629,26 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/change_reverse_dns_entry_for_floating_ip_response"
+                },
+                "example": {
+                  "action": {
+                    "id": 13,
+                    "command": "change_dns_ptr",
+                    "status": "running",
+                    "progress": 0,
+                    "started": "2016-01-30T23:50:00+00:00",
+                    "finished": null,
+                    "resources": [
+                      {
+                        "id": 4711,
+                        "type": "floating_ip"
+                      }
+                    ],
+                    "error": {
+                      "code": "action_failed",
+                      "message": "Action failed"
+                    }
+                  }
                 }
               }
             }
@@ -4317,6 +4694,26 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/change_floating_ip_protection_response"
+                },
+                "example": {
+                  "action": {
+                    "id": 13,
+                    "command": "change_protection",
+                    "status": "success",
+                    "progress": 100,
+                    "started": "2016-01-30T23:55:00+00:00",
+                    "finished": "2016-01-30T23:56:00+00:00",
+                    "resources": [
+                      {
+                        "id": 4711,
+                        "type": "floating_ip"
+                      }
+                    ],
+                    "error": {
+                      "code": "action_failed",
+                      "message": "Action failed"
+                    }
+                  }
                 }
               }
             }
@@ -4395,6 +4792,33 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/list_images_response"
+                },
+                "example": {
+                  "images": [
+                    {
+                      "id": 4711,
+                      "type": "snapshot",
+                      "status": "available",
+                      "name": "ubuntu-16.04",
+                      "description": "Ubuntu 16.04 Standard 64 bit",
+                      "image_size": 2.3,
+                      "disk_size": 10,
+                      "created": "2016-01-30T23:50:00+00:00",
+                      "created_from": {
+                        "id": 1,
+                        "name": "Server"
+                      },
+                      "bound_to": null,
+                      "os_flavor": "ubuntu",
+                      "os_version": "16.04",
+                      "rapid_deploy": false,
+                      "protection": {
+                        "delete": false
+                      },
+                      "deprecated": "2018-02-28T00:00:00+00:00",
+                      "labels": {}
+                    }
+                  ]
                 }
               }
             }
@@ -4428,6 +4852,31 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/get_image_response"
+                },
+                "example": {
+                  "image": {
+                    "id": 4711,
+                    "type": "snapshot",
+                    "status": "available",
+                    "name": "ubuntu-16.04",
+                    "description": "Ubuntu 16.04 Standard 64 bit",
+                    "image_size": 2.3,
+                    "disk_size": 10,
+                    "created": "2016-01-30T23:50:00+00:00",
+                    "created_from": {
+                      "id": 1,
+                      "name": "Server"
+                    },
+                    "bound_to": null,
+                    "os_flavor": "ubuntu",
+                    "os_version": "16.04",
+                    "rapid_deploy": false,
+                    "protection": {
+                      "delete": false
+                    },
+                    "deprecated": "2018-02-28T00:00:00+00:00",
+                    "labels": {}
+                  }
                 }
               }
             }
@@ -4475,6 +4924,33 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/replace_image_response"
+                },
+                "example": {
+                  "image": {
+                    "id": 4711,
+                    "type": "snapshot",
+                    "status": "available",
+                    "name": null,
+                    "description": "My new Image description",
+                    "image_size": 2.3,
+                    "disk_size": 10,
+                    "created": "2016-01-30T23:50:00+00:00",
+                    "created_from": {
+                      "id": 1,
+                      "name": "Server"
+                    },
+                    "bound_to": null,
+                    "os_flavor": "ubuntu",
+                    "os_version": "16.04",
+                    "rapid_deploy": false,
+                    "protection": {
+                      "delete": false
+                    },
+                    "deprecated": "2018-02-28T00:00:00+00:00",
+                    "labels": {
+                      "labelkey": "value"
+                    }
+                  }
                 }
               }
             }
@@ -4550,6 +5026,28 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/list_actions_for_image_response"
+                },
+                "example": {
+                  "actions": [
+                    {
+                      "id": 13,
+                      "command": "change_protection",
+                      "status": "success",
+                      "progress": 100,
+                      "started": "2016-01-30T23:55:00+00:00",
+                      "finished": "2016-01-30T23:56:00+00:00",
+                      "resources": [
+                        {
+                          "id": 4711,
+                          "type": "image"
+                        }
+                      ],
+                      "error": {
+                        "code": "action_failed",
+                        "message": "Action failed"
+                      }
+                    }
+                  ]
                 }
               }
             }
@@ -4592,6 +5090,26 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/get_action_for_image_response"
+                },
+                "example": {
+                  "action": {
+                    "id": 13,
+                    "command": "change_protection",
+                    "status": "success",
+                    "progress": 100,
+                    "started": "2016-01-30T23:55:00+00:00",
+                    "finished": "2016-01-30T23:56:00+00:00",
+                    "resources": [
+                      {
+                        "id": 4711,
+                        "type": "image"
+                      }
+                    ],
+                    "error": {
+                      "code": "action_failed",
+                      "message": "Action failed"
+                    }
+                  }
                 }
               }
             }
@@ -4637,6 +5155,26 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/change_image_protection_response"
+                },
+                "example": {
+                  "action": {
+                    "id": 13,
+                    "command": "change_protection",
+                    "status": "success",
+                    "progress": 100,
+                    "started": "2016-01-30T23:55:00+00:00",
+                    "finished": "2016-01-30T23:56:00+00:00",
+                    "resources": [
+                      {
+                        "id": 4711,
+                        "type": "image"
+                      }
+                    ],
+                    "error": {
+                      "code": "action_failed",
+                      "message": "Action failed"
+                    }
+                  }
                 }
               }
             }
@@ -4670,6 +5208,17 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/list_isos_response"
+                },
+                "example": {
+                  "isos": [
+                    {
+                      "id": 4711,
+                      "name": "FreeBSD-11.0-RELEASE-amd64-dvd1",
+                      "description": "FreeBSD 11.0 x64",
+                      "type": "public",
+                      "deprecated": "2018-02-28T00:00:00+00:00"
+                    }
+                  ]
                 }
               }
             }
@@ -4703,6 +5252,15 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/get_iso_response"
+                },
+                "example": {
+                  "iso": {
+                    "id": 4711,
+                    "name": "FreeBSD-11.0-RELEASE-amd64-dvd1",
+                    "description": "FreeBSD 11.0 x64",
+                    "type": "public",
+                    "deprecated": "2018-02-28T00:00:00+00:00"
+                  }
                 }
               }
             }
@@ -4736,6 +5294,20 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/list_locations_response"
+                },
+                "example": {
+                  "locations": [
+                    {
+                      "id": 1,
+                      "name": "fsn1",
+                      "description": "Falkenstein DC Park 1",
+                      "country": "DE",
+                      "city": "Falkenstein",
+                      "latitude": 50.47612,
+                      "longitude": 12.370071,
+                      "network_zone": "eu-central"
+                    }
+                  ]
                 }
               }
             }
@@ -4769,6 +5341,18 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/get_location_response"
+                },
+                "example": {
+                  "location": {
+                    "id": 1,
+                    "name": "fsn1",
+                    "description": "Falkenstein DC Park 1",
+                    "country": "DE",
+                    "city": "Falkenstein",
+                    "latitude": 50.47612,
+                    "longitude": 12.370071,
+                    "network_zone": "eu-central"
+                  }
                 }
               }
             }
@@ -4811,6 +5395,37 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/list_networks_response"
+                },
+                "example": {
+                  "networks": [
+                    {
+                      "id": 4711,
+                      "name": "mynet",
+                      "ip_range": "10.0.0.0/16",
+                      "subnets": [
+                        {
+                          "type": "server",
+                          "ip_range": "10.0.1.0/24",
+                          "network_zone": "eu-central",
+                          "gateway": "10.0.0.1"
+                        }
+                      ],
+                      "routes": [
+                        {
+                          "destination": "10.100.1.0/24",
+                          "gateway": "10.0.1.1"
+                        }
+                      ],
+                      "servers": [
+                        42
+                      ],
+                      "protection": {
+                        "delete": false
+                      },
+                      "labels": {},
+                      "created": "2016-01-30T23:50:00+00:00"
+                    }
+                  ]
                 }
               }
             }
@@ -4858,6 +5473,35 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/create_network_response"
+                },
+                "example": {
+                  "network": {
+                    "id": 4711,
+                    "name": "mynet",
+                    "ip_range": "10.0.0.0/16",
+                    "subnets": [
+                      {
+                        "type": "server",
+                        "ip_range": "10.0.1.0/24",
+                        "network_zone": "eu-central",
+                        "gateway": "10.0.0.1"
+                      }
+                    ],
+                    "routes": [
+                      {
+                        "destination": "10.100.1.0/24",
+                        "gateway": "10.0.1.1"
+                      }
+                    ],
+                    "servers": [
+                      42
+                    ],
+                    "protection": {
+                      "delete": false
+                    },
+                    "labels": {},
+                    "created": "2016-01-30T23:50:00+00:00"
+                  }
                 }
               }
             }
@@ -4891,6 +5535,35 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/get_network_response"
+                },
+                "example": {
+                  "network": {
+                    "id": 4711,
+                    "name": "mynet",
+                    "ip_range": "10.0.0.0/16",
+                    "subnets": [
+                      {
+                        "type": "server",
+                        "ip_range": "10.0.1.0/24",
+                        "network_zone": "eu-central",
+                        "gateway": "10.0.0.1"
+                      }
+                    ],
+                    "routes": [
+                      {
+                        "destination": "10.100.1.0/24",
+                        "gateway": "10.0.1.1"
+                      }
+                    ],
+                    "servers": [
+                      42
+                    ],
+                    "protection": {
+                      "delete": false
+                    },
+                    "labels": {},
+                    "created": "2016-01-30T23:50:00+00:00"
+                  }
                 }
               }
             }
@@ -4937,6 +5610,37 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/replace_network_response"
+                },
+                "example": {
+                  "network": {
+                    "id": 4711,
+                    "name": "new-name",
+                    "ip_range": "10.0.0.0/16",
+                    "subnets": [
+                      {
+                        "type": "server",
+                        "ip_range": "10.0.1.0/24",
+                        "network_zone": "eu-central",
+                        "gateway": "10.0.0.1"
+                      }
+                    ],
+                    "routes": [
+                      {
+                        "destination": "10.100.1.0/24",
+                        "gateway": "10.0.1.1"
+                      }
+                    ],
+                    "servers": [
+                      42
+                    ],
+                    "protection": {
+                      "delete": false
+                    },
+                    "labels": {
+                      "labelkey": "value"
+                    },
+                    "created": "2016-01-30T23:50:00+00:00"
+                  }
                 }
               }
             }
@@ -5012,6 +5716,28 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/list_actions_for_network_response"
+                },
+                "example": {
+                  "actions": [
+                    {
+                      "id": 13,
+                      "command": "add_subnet",
+                      "status": "success",
+                      "progress": 100,
+                      "started": "2016-01-30T23:55:00+00:00",
+                      "finished": "2016-01-30T23:56:00+00:00",
+                      "resources": [
+                        {
+                          "id": 4711,
+                          "type": "network"
+                        }
+                      ],
+                      "error": {
+                        "code": "action_failed",
+                        "message": "Action failed"
+                      }
+                    }
+                  ]
                 }
               }
             }
@@ -5054,6 +5780,26 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/get_action_for_network_response"
+                },
+                "example": {
+                  "action": {
+                    "id": 13,
+                    "command": "add_subnet",
+                    "status": "success",
+                    "progress": 100,
+                    "started": "2016-01-30T23:55:00+00:00",
+                    "finished": "2016-01-30T23:56:00+00:00",
+                    "resources": [
+                      {
+                        "id": 4711,
+                        "type": "network"
+                      }
+                    ],
+                    "error": {
+                      "code": "action_failed",
+                      "message": "Action failed"
+                    }
+                  }
                 }
               }
             }
@@ -5101,6 +5847,26 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/add_subnet_to_network_response"
+                },
+                "example": {
+                  "action": {
+                    "id": 13,
+                    "command": "add_subnet",
+                    "status": "running",
+                    "progress": 0,
+                    "started": "2016-01-30T23:50:00+00:00",
+                    "finished": null,
+                    "resources": [
+                      {
+                        "id": 4711,
+                        "type": "network"
+                      }
+                    ],
+                    "error": {
+                      "code": "action_failed",
+                      "message": "Action failed"
+                    }
+                  }
                 }
               }
             }
@@ -5146,6 +5912,26 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/delete_subnet_from_network_response"
+                },
+                "example": {
+                  "action": {
+                    "id": 13,
+                    "command": "delete_subnet",
+                    "status": "running",
+                    "progress": 0,
+                    "started": "2016-01-30T23:50:00+00:00",
+                    "finished": null,
+                    "resources": [
+                      {
+                        "id": 4711,
+                        "type": "network"
+                      }
+                    ],
+                    "error": {
+                      "code": "action_failed",
+                      "message": "Action failed"
+                    }
+                  }
                 }
               }
             }
@@ -5192,6 +5978,26 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/add_route_to_network_response"
+                },
+                "example": {
+                  "action": {
+                    "id": 13,
+                    "command": "add_route",
+                    "status": "running",
+                    "progress": 0,
+                    "started": "2016-01-30T23:50:00+00:00",
+                    "finished": null,
+                    "resources": [
+                      {
+                        "id": 4711,
+                        "type": "network"
+                      }
+                    ],
+                    "error": {
+                      "code": "action_failed",
+                      "message": "Action failed"
+                    }
+                  }
                 }
               }
             }
@@ -5238,6 +6044,26 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/delete_route_from_network_response"
+                },
+                "example": {
+                  "action": {
+                    "id": 13,
+                    "command": "delete_route",
+                    "status": "running",
+                    "progress": 0,
+                    "started": "2016-01-30T23:50:00+00:00",
+                    "finished": null,
+                    "resources": [
+                      {
+                        "id": 4711,
+                        "type": "network"
+                      }
+                    ],
+                    "error": {
+                      "code": "action_failed",
+                      "message": "Action failed"
+                    }
+                  }
                 }
               }
             }
@@ -5283,6 +6109,26 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/change_ip_range_of_network_response"
+                },
+                "example": {
+                  "action": {
+                    "id": 13,
+                    "command": "change_ip_range",
+                    "status": "success",
+                    "progress": 100,
+                    "started": "2016-01-30T23:55:00+00:00",
+                    "finished": "2016-01-30T23:56:00+00:00",
+                    "resources": [
+                      {
+                        "id": 4711,
+                        "type": "network"
+                      }
+                    ],
+                    "error": {
+                      "code": "action_failed",
+                      "message": "Action failed"
+                    }
+                  }
                 }
               }
             }
@@ -5328,6 +6174,26 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/change_network_protection_response"
+                },
+                "example": {
+                  "action": {
+                    "id": 13,
+                    "command": "change_protection",
+                    "status": "success",
+                    "progress": 100,
+                    "started": "2016-01-30T23:55:00+00:00",
+                    "finished": "2016-01-30T23:56:00+00:00",
+                    "resources": [
+                      {
+                        "id": 4711,
+                        "type": "network"
+                      }
+                    ],
+                    "error": {
+                      "code": "action_failed",
+                      "message": "Action failed"
+                    }
+                  }
                 }
               }
             }
@@ -5351,6 +6217,58 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/list_prices_response"
+                },
+                "example": {
+                  "pricing": {
+                    "currency": "EUR",
+                    "vat_rate": "19.000000",
+                    "image": {
+                      "price_per_gb_month": {
+                        "net": "1.0000000000",
+                        "gross": "1.1900000000000000"
+                      }
+                    },
+                    "floating_ip": {
+                      "price_monthly": {
+                        "net": "1.0000000000",
+                        "gross": "1.1900000000000000"
+                      }
+                    },
+                    "traffic": {
+                      "price_per_tb": {
+                        "net": "1.0000000000",
+                        "gross": "1.1900000000000000"
+                      }
+                    },
+                    "server_backup": {
+                      "percentage": "20.0000000000"
+                    },
+                    "volume": {
+                      "price_per_gb_month": {
+                        "net": "1.0000000000",
+                        "gross": "1.1900000000000000"
+                      }
+                    },
+                    "server_types": [
+                      {
+                        "id": 4,
+                        "name": "CX11",
+                        "prices": [
+                          {
+                            "location": "fsn1",
+                            "price_hourly": {
+                              "net": "1.0000000000",
+                              "gross": "1.1900000000000000"
+                            },
+                            "price_monthly": {
+                              "net": "1.0000000000",
+                              "gross": "1.1900000000000000"
+                            }
+                          }
+                        ]
+                      }
+                    ]
+                  }
                 }
               }
             }
@@ -5411,6 +6329,142 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/list_servers_response"
+                },
+                "example": {
+                  "servers": [
+                    {
+                      "id": 42,
+                      "name": "my-server",
+                      "status": "running",
+                      "created": "2016-01-30T23:50:00+00:00",
+                      "public_net": {
+                        "ipv4": {
+                          "ip": "1.2.3.4",
+                          "blocked": false,
+                          "dns_ptr": "server01.example.com"
+                        },
+                        "ipv6": {
+                          "ip": "2001:db8::/64",
+                          "blocked": false,
+                          "dns_ptr": [
+                            {
+                              "ip": "2001:db8::1",
+                              "dns_ptr": "server.example.com"
+                            }
+                          ]
+                        },
+                        "floating_ips": [
+                          478
+                        ]
+                      },
+                      "private_net": [
+                        {
+                          "network": 4711,
+                          "ip": "10.0.0.2",
+                          "alias_ips": [],
+                          "mac_address": "86:00:ff:2a:7d:e1"
+                        }
+                      ],
+                      "server_type": {
+                        "id": 1,
+                        "name": "cx11",
+                        "description": "CX11",
+                        "cores": 1,
+                        "memory": 1,
+                        "disk": 25,
+                        "deprecated": true,
+                        "prices": [
+                          {
+                            "location": "fsn1",
+                            "price_hourly": {
+                              "net": "1.0000000000",
+                              "gross": "1.1900000000000000"
+                            },
+                            "price_monthly": {
+                              "net": "1.0000000000",
+                              "gross": "1.1900000000000000"
+                            }
+                          }
+                        ],
+                        "storage_type": "local",
+                        "cpu_type": "shared"
+                      },
+                      "datacenter": {
+                        "id": 1,
+                        "name": "fsn1-dc8",
+                        "description": "Falkenstein 1 DC 8",
+                        "location": {
+                          "id": 1,
+                          "name": "fsn1",
+                          "description": "Falkenstein DC Park 1",
+                          "country": "DE",
+                          "city": "Falkenstein",
+                          "latitude": 50.47612,
+                          "longitude": 12.370071,
+                          "network_zone": "eu-central"
+                        },
+                        "server_types": {
+                          "supported": [
+                            1,
+                            2,
+                            3
+                          ],
+                          "available": [
+                            1,
+                            2,
+                            3
+                          ],
+                          "available_for_migration": [
+                            1,
+                            2,
+                            3
+                          ]
+                        }
+                      },
+                      "image": {
+                        "id": 4711,
+                        "type": "snapshot",
+                        "status": "available",
+                        "name": "ubuntu-16.04",
+                        "description": "Ubuntu 16.04 Standard 64 bit",
+                        "image_size": 2.3,
+                        "disk_size": 10,
+                        "created": "2016-01-30T23:50:00+00:00",
+                        "created_from": {
+                          "id": 1,
+                          "name": "Server"
+                        },
+                        "bound_to": null,
+                        "os_flavor": "ubuntu",
+                        "os_version": "16.04",
+                        "rapid_deploy": false,
+                        "protection": {
+                          "delete": false
+                        },
+                        "deprecated": "2018-02-28T00:00:00+00:00",
+                        "labels": {}
+                      },
+                      "iso": {
+                        "id": 4711,
+                        "name": "FreeBSD-11.0-RELEASE-amd64-dvd1",
+                        "description": "FreeBSD 11.0 x64",
+                        "type": "public",
+                        "deprecated": "2018-02-28T00:00:00+00:00"
+                      },
+                      "rescue_enabled": false,
+                      "locked": false,
+                      "backup_window": "22-02",
+                      "outgoing_traffic": 123456,
+                      "ingoing_traffic": 123456,
+                      "included_traffic": 654321,
+                      "protection": {
+                        "delete": false,
+                        "rebuild": false
+                      },
+                      "labels": {},
+                      "volumes": []
+                    }
+                  ]
                 }
               }
             }
@@ -5459,6 +6513,179 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/create_server_response"
+                },
+                "example": {
+                  "server": {
+                    "id": 42,
+                    "name": "my-server",
+                    "status": "initializing",
+                    "created": "2016-01-30T23:50:00+00:00",
+                    "public_net": {
+                      "ipv4": {
+                        "ip": "1.2.3.4",
+                        "blocked": false,
+                        "dns_ptr": "server01.example.com"
+                      },
+                      "ipv6": {
+                        "ip": "2001:db8::/64",
+                        "blocked": false,
+                        "dns_ptr": [
+                          {
+                            "ip": "2001:db8::1",
+                            "dns_ptr": "server.example.com"
+                          }
+                        ]
+                      },
+                      "floating_ips": [
+                        478
+                      ]
+                    },
+                    "private_net": [
+                      {
+                        "network": 4711,
+                        "ip": "10.0.0.2",
+                        "alias_ips": [],
+                        "mac_address": "86:00:ff:2a:7d:e1"
+                      }
+                    ],
+                    "server_type": {
+                      "id": 1,
+                      "name": "cx11",
+                      "description": "CX11",
+                      "cores": 1,
+                      "memory": 1,
+                      "disk": 25,
+                      "deprecated": true,
+                      "prices": [
+                        {
+                          "location": "fsn1",
+                          "price_hourly": {
+                            "net": "1.0000000000",
+                            "gross": "1.1900000000000000"
+                          },
+                          "price_monthly": {
+                            "net": "1.0000000000",
+                            "gross": "1.1900000000000000"
+                          }
+                        }
+                      ],
+                      "storage_type": "local",
+                      "cpu_type": "shared"
+                    },
+                    "datacenter": {
+                      "id": 1,
+                      "name": "fsn1-dc8",
+                      "description": "Falkenstein 1 DC 8",
+                      "location": {
+                        "id": 1,
+                        "name": "fsn1",
+                        "description": "Falkenstein DC Park 1",
+                        "country": "DE",
+                        "city": "Falkenstein",
+                        "latitude": 50.47612,
+                        "longitude": 12.370071,
+                        "network_zone": "eu-central"
+                      },
+                      "server_types": {
+                        "supported": [
+                          1,
+                          2,
+                          3
+                        ],
+                        "available": [
+                          1,
+                          2,
+                          3
+                        ],
+                        "available_for_migration": [
+                          1,
+                          2,
+                          3
+                        ]
+                      }
+                    },
+                    "image": {
+                      "id": 4711,
+                      "type": "snapshot",
+                      "status": "available",
+                      "name": "ubuntu-16.04",
+                      "description": "Ubuntu 16.04 Standard 64 bit",
+                      "image_size": 2.3,
+                      "disk_size": 10,
+                      "created": "2016-01-30T23:50:00+00:00",
+                      "created_from": {
+                        "id": 1,
+                        "name": "Server"
+                      },
+                      "bound_to": null,
+                      "os_flavor": "ubuntu",
+                      "os_version": "16.04",
+                      "rapid_deploy": false,
+                      "protection": {
+                        "delete": false
+                      },
+                      "deprecated": "2018-02-28T00:00:00+00:00",
+                      "labels": {}
+                    },
+                    "iso": {
+                      "id": 4711,
+                      "name": "FreeBSD-11.0-RELEASE-amd64-dvd1",
+                      "description": "FreeBSD 11.0 x64",
+                      "type": "public",
+                      "deprecated": "2018-02-28T00:00:00+00:00"
+                    },
+                    "rescue_enabled": false,
+                    "locked": false,
+                    "backup_window": "22-02",
+                    "outgoing_traffic": 123456,
+                    "ingoing_traffic": 123456,
+                    "included_traffic": 654321,
+                    "protection": {
+                      "delete": false,
+                      "rebuild": false
+                    },
+                    "labels": {},
+                    "volumes": []
+                  },
+                  "action": {
+                    "id": 1,
+                    "command": "create_server",
+                    "status": "running",
+                    "progress": 0,
+                    "started": "2016-01-30T23:50:00+00:00",
+                    "finished": null,
+                    "resources": [
+                      {
+                        "id": 42,
+                        "type": "server"
+                      }
+                    ],
+                    "error": {
+                      "code": "action_failed",
+                      "message": "Action failed"
+                    }
+                  },
+                  "next_actions": [
+                    {
+                      "id": 13,
+                      "command": "start_server",
+                      "status": "running",
+                      "progress": 0,
+                      "started": "2016-01-30T23:50:00+00:00",
+                      "finished": null,
+                      "resources": [
+                        {
+                          "id": 42,
+                          "type": "server"
+                        }
+                      ],
+                      "error": {
+                        "code": "action_failed",
+                        "message": "Action failed"
+                      }
+                    }
+                  ],
+                  "root_password": "YItygq1v3GYjjMomLaKc"
                 }
               }
             }
@@ -5492,6 +6719,140 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/get_server_response"
+                },
+                "example": {
+                  "server": {
+                    "id": 42,
+                    "name": "my-server",
+                    "status": "running",
+                    "created": "2016-01-30T23:50:00+00:00",
+                    "public_net": {
+                      "ipv4": {
+                        "ip": "1.2.3.4",
+                        "blocked": false,
+                        "dns_ptr": "server01.example.com"
+                      },
+                      "ipv6": {
+                        "ip": "2001:db8::/64",
+                        "blocked": false,
+                        "dns_ptr": [
+                          {
+                            "ip": "2001:db8::1",
+                            "dns_ptr": "server.example.com"
+                          }
+                        ]
+                      },
+                      "floating_ips": [
+                        478
+                      ]
+                    },
+                    "private_net": [
+                      {
+                        "network": 4711,
+                        "ip": "10.0.0.2",
+                        "alias_ips": [],
+                        "mac_address": "86:00:ff:2a:7d:e1"
+                      }
+                    ],
+                    "server_type": {
+                      "id": 1,
+                      "name": "cx11",
+                      "description": "CX11",
+                      "cores": 1,
+                      "memory": 1,
+                      "disk": 25,
+                      "deprecated": true,
+                      "prices": [
+                        {
+                          "location": "fsn1",
+                          "price_hourly": {
+                            "net": "1.0000000000",
+                            "gross": "1.1900000000000000"
+                          },
+                          "price_monthly": {
+                            "net": "1.0000000000",
+                            "gross": "1.1900000000000000"
+                          }
+                        }
+                      ],
+                      "storage_type": "local",
+                      "cpu_type": "shared"
+                    },
+                    "datacenter": {
+                      "id": 1,
+                      "name": "fsn1-dc8",
+                      "description": "Falkenstein 1 DC 8",
+                      "location": {
+                        "id": 1,
+                        "name": "fsn1",
+                        "description": "Falkenstein DC Park 1",
+                        "country": "DE",
+                        "city": "Falkenstein",
+                        "latitude": 50.47612,
+                        "longitude": 12.370071,
+                        "network_zone": "eu-central"
+                      },
+                      "server_types": {
+                        "supported": [
+                          1,
+                          2,
+                          3
+                        ],
+                        "available": [
+                          1,
+                          2,
+                          3
+                        ],
+                        "available_for_migration": [
+                          1,
+                          2,
+                          3
+                        ]
+                      }
+                    },
+                    "image": {
+                      "id": 4711,
+                      "type": "snapshot",
+                      "status": "available",
+                      "name": "ubuntu-16.04",
+                      "description": "Ubuntu 16.04 Standard 64 bit",
+                      "image_size": 2.3,
+                      "disk_size": 10,
+                      "created": "2016-01-30T23:50:00+00:00",
+                      "created_from": {
+                        "id": 1,
+                        "name": "Server"
+                      },
+                      "bound_to": null,
+                      "os_flavor": "ubuntu",
+                      "os_version": "16.04",
+                      "rapid_deploy": false,
+                      "protection": {
+                        "delete": false
+                      },
+                      "deprecated": "2018-02-28T00:00:00+00:00",
+                      "labels": {}
+                    },
+                    "iso": {
+                      "id": 4711,
+                      "name": "FreeBSD-11.0-RELEASE-amd64-dvd1",
+                      "description": "FreeBSD 11.0 x64",
+                      "type": "public",
+                      "deprecated": "2018-02-28T00:00:00+00:00"
+                    },
+                    "rescue_enabled": false,
+                    "locked": false,
+                    "backup_window": "22-02",
+                    "outgoing_traffic": 123456,
+                    "ingoing_traffic": 123456,
+                    "included_traffic": 654321,
+                    "protection": {
+                      "delete": false,
+                      "rebuild": false
+                    },
+                    "labels": {},
+                    "volumes": []
+                  }
                 }
               }
             }
@@ -5538,6 +6899,142 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/replace_server_response"
+                },
+                "example": {
+                  "server": {
+                    "id": 42,
+                    "name": "new-name",
+                    "status": "running",
+                    "created": "2016-01-30T23:50:00+00:00",
+                    "public_net": {
+                      "ipv4": {
+                        "ip": "1.2.3.4",
+                        "blocked": false,
+                        "dns_ptr": "server01.example.com"
+                      },
+                      "ipv6": {
+                        "ip": "2001:db8::/64",
+                        "blocked": false,
+                        "dns_ptr": [
+                          {
+                            "ip": "2001:db8::1",
+                            "dns_ptr": "server.example.com"
+                          }
+                        ]
+                      },
+                      "floating_ips": [
+                        478
+                      ]
+                    },
+                    "private_net": [
+                      {
+                        "network": 4711,
+                        "ip": "10.0.0.2",
+                        "alias_ips": [],
+                        "mac_address": "86:00:ff:2a:7d:e1"
+                      }
+                    ],
+                    "server_type": {
+                      "id": 1,
+                      "name": "cx11",
+                      "description": "CX11",
+                      "cores": 1,
+                      "memory": 1,
+                      "disk": 25,
+                      "deprecated": true,
+                      "prices": [
+                        {
+                          "location": "fsn1",
+                          "price_hourly": {
+                            "net": "1.0000000000",
+                            "gross": "1.1900000000000000"
+                          },
+                          "price_monthly": {
+                            "net": "1.0000000000",
+                            "gross": "1.1900000000000000"
+                          }
+                        }
+                      ],
+                      "storage_type": "local",
+                      "cpu_type": "shared"
+                    },
+                    "datacenter": {
+                      "id": 1,
+                      "name": "fsn1-dc8",
+                      "description": "Falkenstein 1 DC 8",
+                      "location": {
+                        "id": 1,
+                        "name": "fsn1",
+                        "description": "Falkenstein DC Park 1",
+                        "country": "DE",
+                        "city": "Falkenstein",
+                        "latitude": 50.47612,
+                        "longitude": 12.370071,
+                        "network_zone": "eu-central"
+                      },
+                      "server_types": {
+                        "supported": [
+                          1,
+                          2,
+                          3
+                        ],
+                        "available": [
+                          1,
+                          2,
+                          3
+                        ],
+                        "available_for_migration": [
+                          1,
+                          2,
+                          3
+                        ]
+                      }
+                    },
+                    "image": {
+                      "id": 4711,
+                      "type": "snapshot",
+                      "status": "available",
+                      "name": "ubuntu-16.04",
+                      "description": "Ubuntu 16.04 Standard 64 bit",
+                      "image_size": 2.3,
+                      "disk_size": 10,
+                      "created": "2016-01-30T23:50:00+00:00",
+                      "created_from": {
+                        "id": 1,
+                        "name": "Server"
+                      },
+                      "bound_to": null,
+                      "os_flavor": "ubuntu",
+                      "os_version": "16.04",
+                      "rapid_deploy": false,
+                      "protection": {
+                        "delete": false
+                      },
+                      "deprecated": "2018-02-28T00:00:00+00:00",
+                      "labels": {}
+                    },
+                    "iso": {
+                      "id": 4711,
+                      "name": "FreeBSD-11.0-RELEASE-amd64-dvd1",
+                      "description": "FreeBSD 11.0 x64",
+                      "type": "public",
+                      "deprecated": "2018-02-28T00:00:00+00:00"
+                    },
+                    "rescue_enabled": false,
+                    "locked": false,
+                    "backup_window": "22-02",
+                    "outgoing_traffic": 123456,
+                    "ingoing_traffic": 123456,
+                    "included_traffic": 654321,
+                    "protection": {
+                      "delete": false,
+                      "rebuild": false
+                    },
+                    "labels": {
+                      "labelkey": "value"
+                    },
+                    "volumes": []
+                  }
                 }
               }
             }
@@ -5569,6 +7066,26 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/delete_server_response"
+                },
+                "example": {
+                  "action": {
+                    "id": 13,
+                    "command": "delete_server",
+                    "status": "running",
+                    "progress": 0,
+                    "started": "2016-01-30T23:50:00+00:00",
+                    "finished": null,
+                    "resources": [
+                      {
+                        "id": 42,
+                        "type": "server"
+                      }
+                    ],
+                    "error": {
+                      "code": "action_failed",
+                      "message": "Action failed"
+                    }
+                  }
                 }
               }
             }
@@ -5638,6 +7155,23 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/get_metrics_for_server_response"
+                },
+                "example": {
+                  "metrics": {
+                    "start": "2017-01-01T00:00:00+00:00",
+                    "end": "2017-01-01T23:00:00+00:00",
+                    "step": 60,
+                    "time_series": {
+                      "name_of_timeseries": {
+                        "values": [
+                          [
+                            "1435781470.622",
+                            "42"
+                          ]
+                        ]
+                      }
+                    }
+                  }
                 }
               }
             }
@@ -5689,6 +7223,28 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/list_actions_for_server_response"
+                },
+                "example": {
+                  "actions": [
+                    {
+                      "id": 13,
+                      "command": "start_server",
+                      "status": "success",
+                      "progress": 100,
+                      "started": "2016-01-30T23:55:00+00:00",
+                      "finished": "2016-01-30T23:56:00+00:00",
+                      "resources": [
+                        {
+                          "id": 42,
+                          "type": "server"
+                        }
+                      ],
+                      "error": {
+                        "code": "action_failed",
+                        "message": "Action failed"
+                      }
+                    }
+                  ]
                 }
               }
             }
@@ -5731,6 +7287,26 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/get_action_for_server_response"
+                },
+                "example": {
+                  "action": {
+                    "id": 13,
+                    "command": "start_server",
+                    "status": "success",
+                    "progress": 100,
+                    "started": "2016-01-30T23:55:00+00:00",
+                    "finished": "2016-01-30T23:56:00+00:00",
+                    "resources": [
+                      {
+                        "id": 42,
+                        "type": "server"
+                      }
+                    ],
+                    "error": {
+                      "code": "action_failed",
+                      "message": "Action failed"
+                    }
+                  }
                 }
               }
             }
@@ -5764,6 +7340,26 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/power_on_server_response"
+                },
+                "example": {
+                  "action": {
+                    "id": 13,
+                    "command": "start_server",
+                    "status": "running",
+                    "progress": 0,
+                    "started": "2016-01-30T23:50:00+00:00",
+                    "finished": null,
+                    "resources": [
+                      {
+                        "id": 42,
+                        "type": "server"
+                      }
+                    ],
+                    "error": {
+                      "code": "action_failed",
+                      "message": "Action failed"
+                    }
+                  }
                 }
               }
             }
@@ -5797,6 +7393,26 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/soft_reboot_server_response"
+                },
+                "example": {
+                  "action": {
+                    "id": 13,
+                    "command": "reboot_server",
+                    "status": "running",
+                    "progress": 0,
+                    "started": "2016-01-30T23:50:00+00:00",
+                    "finished": null,
+                    "resources": [
+                      {
+                        "id": 42,
+                        "type": "server"
+                      }
+                    ],
+                    "error": {
+                      "code": "action_failed",
+                      "message": "Action failed"
+                    }
+                  }
                 }
               }
             }
@@ -5830,6 +7446,26 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/reset_server_response"
+                },
+                "example": {
+                  "action": {
+                    "id": 13,
+                    "command": "reset_server",
+                    "status": "running",
+                    "progress": 0,
+                    "started": "2016-01-30T23:50:00+00:00",
+                    "finished": null,
+                    "resources": [
+                      {
+                        "id": 42,
+                        "type": "server"
+                      }
+                    ],
+                    "error": {
+                      "code": "action_failed",
+                      "message": "Action failed"
+                    }
+                  }
                 }
               }
             }
@@ -5863,6 +7499,26 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/shutdown_server_response"
+                },
+                "example": {
+                  "action": {
+                    "id": 13,
+                    "command": "shutdown_server",
+                    "status": "running",
+                    "progress": 0,
+                    "started": "2016-01-30T23:50:00+00:00",
+                    "finished": null,
+                    "resources": [
+                      {
+                        "id": 42,
+                        "type": "server"
+                      }
+                    ],
+                    "error": {
+                      "code": "action_failed",
+                      "message": "Action failed"
+                    }
+                  }
                 }
               }
             }
@@ -5896,6 +7552,26 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/power_off_server_response"
+                },
+                "example": {
+                  "action": {
+                    "id": 13,
+                    "command": "stop_server",
+                    "status": "running",
+                    "progress": 0,
+                    "started": "2016-01-30T23:50:00+00:00",
+                    "finished": null,
+                    "resources": [
+                      {
+                        "id": 42,
+                        "type": "server"
+                      }
+                    ],
+                    "error": {
+                      "code": "action_failed",
+                      "message": "Action failed"
+                    }
+                  }
                 }
               }
             }
@@ -5929,6 +7605,27 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/reset_root_password_of_server_response"
+                },
+                "example": {
+                  "root_password": "zCWbFhnu950dUTko5f40",
+                  "action": {
+                    "id": 13,
+                    "command": "reset_password",
+                    "status": "running",
+                    "progress": 0,
+                    "started": "2016-01-30T23:50:00+00:00",
+                    "finished": null,
+                    "resources": [
+                      {
+                        "id": 42,
+                        "type": "server"
+                      }
+                    ],
+                    "error": {
+                      "code": "action_failed",
+                      "message": "Action failed"
+                    }
+                  }
                 }
               }
             }
@@ -5977,6 +7674,27 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/enable_rescue_mode_for_server_response"
+                },
+                "example": {
+                  "root_password": "zCWbFhnu950dUTko5f40",
+                  "action": {
+                    "id": 13,
+                    "command": "enable_rescue",
+                    "status": "success",
+                    "progress": 100,
+                    "started": "2016-01-30T23:55:00+00:00",
+                    "finished": "2016-01-30T23:56:00+00:00",
+                    "resources": [
+                      {
+                        "id": 42,
+                        "type": "server"
+                      }
+                    ],
+                    "error": {
+                      "code": "action_failed",
+                      "message": "Action failed"
+                    }
+                  }
                 }
               }
             }
@@ -6010,6 +7728,26 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/disable_rescue_mode_for_server_response"
+                },
+                "example": {
+                  "action": {
+                    "id": 13,
+                    "command": "disable_rescue",
+                    "status": "running",
+                    "progress": 0,
+                    "started": "2016-01-30T23:50:00+00:00",
+                    "finished": null,
+                    "resources": [
+                      {
+                        "id": 42,
+                        "type": "server"
+                      }
+                    ],
+                    "error": {
+                      "code": "action_failed",
+                      "message": "Action failed"
+                    }
+                  }
                 }
               }
             }
@@ -6056,6 +7794,49 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/create_image_from_server_response"
+                },
+                "example": {
+                  "image": {
+                    "id": 4711,
+                    "type": "snapshot",
+                    "status": "creating",
+                    "name": null,
+                    "description": "my image",
+                    "image_size": 2.3,
+                    "disk_size": 10,
+                    "created": "2016-01-30T23:50:00+00:00",
+                    "created_from": {
+                      "id": 1,
+                      "name": "Server"
+                    },
+                    "bound_to": null,
+                    "os_flavor": "ubuntu",
+                    "os_version": "16.04",
+                    "rapid_deploy": false,
+                    "protection": {
+                      "delete": false
+                    },
+                    "deprecated": "2018-02-28T00:00:00+00:00",
+                    "labels": {}
+                  },
+                  "action": {
+                    "id": 13,
+                    "command": "create_image",
+                    "status": "success",
+                    "progress": 100,
+                    "started": "2016-01-30T23:55:00+00:00",
+                    "finished": "2016-01-30T23:56:00+00:00",
+                    "resources": [
+                      {
+                        "id": 42,
+                        "type": "server"
+                      }
+                    ],
+                    "error": {
+                      "code": "action_failed",
+                      "message": "Action failed"
+                    }
+                  }
                 }
               }
             }
@@ -6101,6 +7882,27 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/rebuild_server_from_image_response"
+                },
+                "example": {
+                  "action": {
+                    "id": 13,
+                    "command": "rebuild_server",
+                    "status": "running",
+                    "progress": 0,
+                    "started": "2016-01-30T23:50:00+00:00",
+                    "finished": null,
+                    "resources": [
+                      {
+                        "id": 42,
+                        "type": "server"
+                      }
+                    ],
+                    "error": {
+                      "code": "action_failed",
+                      "message": "Action failed"
+                    }
+                  },
+                  "root_password": null
                 }
               }
             }
@@ -6147,6 +7949,26 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/change_type_of_server_response"
+                },
+                "example": {
+                  "action": {
+                    "id": 13,
+                    "command": "change_server_type",
+                    "status": "running",
+                    "progress": 0,
+                    "started": "2016-01-30T23:50:00+00:00",
+                    "finished": null,
+                    "resources": [
+                      {
+                        "id": 42,
+                        "type": "server"
+                      }
+                    ],
+                    "error": {
+                      "code": "action_failed",
+                      "message": "Action failed"
+                    }
+                  }
                 }
               }
             }
@@ -6180,6 +8002,26 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/enable_and_configure_backups_for_server_response"
+                },
+                "example": {
+                  "action": {
+                    "id": 13,
+                    "command": "enable_backup",
+                    "status": "success",
+                    "progress": 100,
+                    "started": "2016-01-30T23:55:00+00:00",
+                    "finished": "2016-01-30T23:56:00+00:00",
+                    "resources": [
+                      {
+                        "id": 42,
+                        "type": "server"
+                      }
+                    ],
+                    "error": {
+                      "code": "action_failed",
+                      "message": "Action failed"
+                    }
+                  }
                 }
               }
             }
@@ -6213,6 +8055,26 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/disable_backups_for_server_response"
+                },
+                "example": {
+                  "action": {
+                    "id": 13,
+                    "command": "disable_backup",
+                    "status": "success",
+                    "progress": 100,
+                    "started": "2016-01-30T23:55:00+00:00",
+                    "finished": "2016-01-30T23:56:00+00:00",
+                    "resources": [
+                      {
+                        "id": 42,
+                        "type": "server"
+                      }
+                    ],
+                    "error": {
+                      "code": "action_failed",
+                      "message": "Action failed"
+                    }
+                  }
                 }
               }
             }
@@ -6258,6 +8120,26 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/attach_iso_to_server_response"
+                },
+                "example": {
+                  "action": {
+                    "id": 13,
+                    "command": "attach_iso",
+                    "status": "running",
+                    "progress": 0,
+                    "started": "2016-01-30T23:50:00+00:00",
+                    "finished": null,
+                    "resources": [
+                      {
+                        "id": 42,
+                        "type": "server"
+                      }
+                    ],
+                    "error": {
+                      "code": "action_failed",
+                      "message": "Action failed"
+                    }
+                  }
                 }
               }
             }
@@ -6291,6 +8173,26 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/detach_iso_from_server_response"
+                },
+                "example": {
+                  "action": {
+                    "id": 13,
+                    "command": "detach_iso",
+                    "status": "running",
+                    "progress": 0,
+                    "started": "2016-01-30T23:50:00+00:00",
+                    "finished": null,
+                    "resources": [
+                      {
+                        "id": 42,
+                        "type": "server"
+                      }
+                    ],
+                    "error": {
+                      "code": "action_failed",
+                      "message": "Action failed"
+                    }
+                  }
                 }
               }
             }
@@ -6337,6 +8239,26 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/change_reverse_dns_entry_for_this_server_response"
+                },
+                "example": {
+                  "action": {
+                    "id": 13,
+                    "command": "change_dns_ptr",
+                    "status": "running",
+                    "progress": 0,
+                    "started": "2016-01-30T23:50:00+00:00",
+                    "finished": null,
+                    "resources": [
+                      {
+                        "id": 42,
+                        "type": "server"
+                      }
+                    ],
+                    "error": {
+                      "code": "action_failed",
+                      "message": "Action failed"
+                    }
+                  }
                 }
               }
             }
@@ -6383,6 +8305,26 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/change_server_protection_response"
+                },
+                "example": {
+                  "action": {
+                    "id": 13,
+                    "command": "change_protection",
+                    "status": "success",
+                    "progress": 100,
+                    "started": "2016-01-30T23:55:00+00:00",
+                    "finished": "2016-01-30T23:56:00+00:00",
+                    "resources": [
+                      {
+                        "id": 42,
+                        "type": "server"
+                      }
+                    ],
+                    "error": {
+                      "code": "action_failed",
+                      "message": "Action failed"
+                    }
+                  }
                 }
               }
             }
@@ -6416,6 +8358,28 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/request_console_for_server_response"
+                },
+                "example": {
+                  "wss_url": "wss://console.hetzner.cloud/?server_id=1&token=3db32d15-af2f-459c-8bf8-dee1fd05f49c",
+                  "password": "9MQaTg2VAGI0FIpc10k3UpRXcHj2wQ6x",
+                  "action": {
+                    "id": 13,
+                    "command": "request_console",
+                    "status": "success",
+                    "progress": 100,
+                    "started": "2016-01-30T23:55:00+00:00",
+                    "finished": "2016-01-30T23:56:00+00:00",
+                    "resources": [
+                      {
+                        "id": 42,
+                        "type": "server"
+                      }
+                    ],
+                    "error": {
+                      "code": "action_failed",
+                      "message": "Action failed"
+                    }
+                  }
                 }
               }
             }
@@ -6465,6 +8429,30 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/attach_server_to_network_response"
+                },
+                "example": {
+                  "action": {
+                    "id": 13,
+                    "command": "attach_to_network",
+                    "status": "running",
+                    "progress": 0,
+                    "started": "2016-01-30T23:50:00+00:00",
+                    "finished": null,
+                    "resources": [
+                      {
+                        "id": 42,
+                        "type": "server"
+                      },
+                      {
+                        "id": 4711,
+                        "type": "network"
+                      }
+                    ],
+                    "error": {
+                      "code": "action_failed",
+                      "message": "Action failed"
+                    }
+                  }
                 }
               }
             }
@@ -6510,6 +8498,30 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/detach_server_from_network_response"
+                },
+                "example": {
+                  "action": {
+                    "id": 13,
+                    "command": "detach_from_network",
+                    "status": "running",
+                    "progress": 0,
+                    "started": "2016-01-30T23:50:00+00:00",
+                    "finished": null,
+                    "resources": [
+                      {
+                        "id": 42,
+                        "type": "server"
+                      },
+                      {
+                        "id": 4711,
+                        "type": "network"
+                      }
+                    ],
+                    "error": {
+                      "code": "action_failed",
+                      "message": "Action failed"
+                    }
+                  }
                 }
               }
             }
@@ -6558,6 +8570,30 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/change_alias_ips_of_network_response"
+                },
+                "example": {
+                  "action": {
+                    "id": 13,
+                    "command": "change_alias_ips",
+                    "status": "running",
+                    "progress": 0,
+                    "started": "2016-01-30T23:50:00+00:00",
+                    "finished": null,
+                    "resources": [
+                      {
+                        "id": 42,
+                        "type": "server"
+                      },
+                      {
+                        "id": 4711,
+                        "type": "network"
+                      }
+                    ],
+                    "error": {
+                      "code": "action_failed",
+                      "message": "Action failed"
+                    }
+                  }
                 }
               }
             }
@@ -6591,6 +8627,34 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/list_server_types_response"
+                },
+                "example": {
+                  "server_types": [
+                    {
+                      "id": 1,
+                      "name": "cx11",
+                      "description": "CX11",
+                      "cores": 1,
+                      "memory": 1,
+                      "disk": 25,
+                      "deprecated": true,
+                      "prices": [
+                        {
+                          "location": "fsn1",
+                          "price_hourly": {
+                            "net": "1.0000000000",
+                            "gross": "1.1900000000000000"
+                          },
+                          "price_monthly": {
+                            "net": "1.0000000000",
+                            "gross": "1.1900000000000000"
+                          }
+                        }
+                      ],
+                      "storage_type": "local",
+                      "cpu_type": "shared"
+                    }
+                  ]
                 }
               }
             }
@@ -6624,6 +8688,32 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/get_server_type_response"
+                },
+                "example": {
+                  "server_type": {
+                    "id": 1,
+                    "name": "cx11",
+                    "description": "CX11",
+                    "cores": 1,
+                    "memory": 1,
+                    "disk": 25,
+                    "deprecated": true,
+                    "prices": [
+                      {
+                        "location": "fsn1",
+                        "price_hourly": {
+                          "net": "1.0000000000",
+                          "gross": "1.1900000000000000"
+                        },
+                        "price_monthly": {
+                          "net": "1.0000000000",
+                          "gross": "1.1900000000000000"
+                        }
+                      }
+                    ],
+                    "storage_type": "local",
+                    "cpu_type": "shared"
+                  }
                 }
               }
             }
@@ -6684,6 +8774,18 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/list_ssh_keys_response"
+                },
+                "example": {
+                  "ssh_keys": [
+                    {
+                      "id": 2323,
+                      "name": "My ssh key",
+                      "fingerprint": "b7:2f:30:a0:2f:6c:58:6c:21:04:58:61:ba:06:3b:2f",
+                      "public_key": "ssh-rsa AAAjjk76kgf...Xt",
+                      "labels": {},
+                      "created": "2016-01-30T23:50:00+00:00"
+                    }
+                  ]
                 }
               }
             }
@@ -6718,6 +8820,16 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/create_ssh_key_response"
+                },
+                "example": {
+                  "ssh_key": {
+                    "id": 2323,
+                    "name": "My ssh key",
+                    "fingerprint": "b7:2f:30:a0:2f:6c:58:6c:21:04:58:61:ba:06:3b:2f",
+                    "public_key": "ssh-rsa AAAjjk76kgf...Xt",
+                    "labels": {},
+                    "created": "2016-01-30T23:50:00+00:00"
+                  }
                 }
               }
             }
@@ -6751,6 +8863,16 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/get_ssh_key_response"
+                },
+                "example": {
+                  "ssh_key": {
+                    "id": 2323,
+                    "name": "My ssh key",
+                    "fingerprint": "b7:2f:30:a0:2f:6c:58:6c:21:04:58:61:ba:06:3b:2f",
+                    "public_key": "ssh-rsa AAAjjk76kgf...Xt",
+                    "labels": {},
+                    "created": "2016-01-30T23:50:00+00:00"
+                  }
                 }
               }
             }
@@ -6797,6 +8919,18 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/replace_ssh_key_response"
+                },
+                "example": {
+                  "ssh_key": {
+                    "id": 2323,
+                    "name": "New name",
+                    "fingerprint": "b7:2f:30:a0:2f:6c:58:6c:21:04:58:61:ba:06:3b:2f",
+                    "public_key": "ssh-rsa AAAjjk76kgf...Xt",
+                    "labels": {
+                      "labelkey": "value"
+                    },
+                    "created": "2016-01-30T23:50:00+00:00"
+                  }
                 }
               }
             }
@@ -6881,6 +9015,34 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/list_volumes_response"
+                },
+                "example": {
+                  "volumes": [
+                    {
+                      "id": 4711,
+                      "created": "2016-01-30T23:50:11+00:00",
+                      "name": "database-storage",
+                      "server": 12,
+                      "location": {
+                        "id": 1,
+                        "name": "fsn1",
+                        "description": "Falkenstein DC Park 1",
+                        "country": "DE",
+                        "city": "Falkenstein",
+                        "latitude": 50.47612,
+                        "longitude": 12.370071,
+                        "network_zone": "eu-central"
+                      },
+                      "size": 42,
+                      "linux_device": "/dev/disk/by-id/scsi-0HC_Volume_4711",
+                      "protection": {
+                        "delete": false
+                      },
+                      "labels": {},
+                      "status": "available",
+                      "format": "xfs"
+                    }
+                  ]
                 }
               }
             }
@@ -6918,6 +9080,70 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/create_volume_response"
+                },
+                "example": {
+                  "volume": {
+                    "id": 4711,
+                    "created": "2016-01-30T23:50:11+00:00",
+                    "name": "database-storage",
+                    "server": 12,
+                    "location": {
+                      "id": 1,
+                      "name": "fsn1",
+                      "description": "Falkenstein DC Park 1",
+                      "country": "DE",
+                      "city": "Falkenstein",
+                      "latitude": 50.47612,
+                      "longitude": 12.370071,
+                      "network_zone": "eu-central"
+                    },
+                    "size": 42,
+                    "linux_device": "/dev/disk/by-id/scsi-0HC_Volume_4711",
+                    "protection": {
+                      "delete": false
+                    },
+                    "labels": {},
+                    "status": "available",
+                    "format": "xfs"
+                  },
+                  "action": {
+                    "id": 13,
+                    "command": "create_volume",
+                    "status": "running",
+                    "progress": 0,
+                    "started": "2016-01-30T23:50:00+00:00",
+                    "finished": null,
+                    "resources": [
+                      {
+                        "id": 42,
+                        "type": "server"
+                      }
+                    ],
+                    "error": {
+                      "code": "action_failed",
+                      "message": "Action failed"
+                    }
+                  },
+                  "next_actions": [
+                    {
+                      "id": 13,
+                      "command": "start_server",
+                      "status": "running",
+                      "progress": 0,
+                      "started": "2016-01-30T23:50:00+00:00",
+                      "finished": null,
+                      "resources": [
+                        {
+                          "id": 42,
+                          "type": "server"
+                        }
+                      ],
+                      "error": {
+                        "code": "action_failed",
+                        "message": "Action failed"
+                      }
+                    }
+                  ]
                 }
               }
             }
@@ -6951,6 +9177,32 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/get_volume_response"
+                },
+                "example": {
+                  "volume": {
+                    "id": 4711,
+                    "created": "2016-01-30T23:50:11+00:00",
+                    "name": "database-storage",
+                    "server": 12,
+                    "location": {
+                      "id": 1,
+                      "name": "fsn1",
+                      "description": "Falkenstein DC Park 1",
+                      "country": "DE",
+                      "city": "Falkenstein",
+                      "latitude": 50.47612,
+                      "longitude": 12.370071,
+                      "network_zone": "eu-central"
+                    },
+                    "size": 42,
+                    "linux_device": "/dev/disk/by-id/scsi-0HC_Volume_4711",
+                    "protection": {
+                      "delete": false
+                    },
+                    "labels": {},
+                    "status": "available",
+                    "format": "xfs"
+                  }
                 }
               }
             }
@@ -6997,6 +9249,34 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/replace_volume_response"
+                },
+                "example": {
+                  "volume": {
+                    "id": 4711,
+                    "created": "2016-01-30T23:50:11+00:00",
+                    "name": "new-name",
+                    "server": 12,
+                    "location": {
+                      "id": 1,
+                      "name": "fsn1",
+                      "description": "Falkenstein DC Park 1",
+                      "country": "DE",
+                      "city": "Falkenstein",
+                      "latitude": 50.47612,
+                      "longitude": 12.370071,
+                      "network_zone": "eu-central"
+                    },
+                    "size": 42,
+                    "linux_device": "/dev/disk/by-id/scsi-0HC_Volume_4711",
+                    "protection": {
+                      "delete": false
+                    },
+                    "labels": {
+                      "labelkey": "value"
+                    },
+                    "status": "available",
+                    "format": "xfs"
+                  }
                 }
               }
             }
@@ -7072,6 +9352,32 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/list_actions_for_volume_response"
+                },
+                "example": {
+                  "actions": [
+                    {
+                      "id": 13,
+                      "command": "attach_volume",
+                      "status": "success",
+                      "progress": 100,
+                      "started": "2016-01-30T23:55:00+00:00",
+                      "finished": "2016-01-30T23:56:00+00:00",
+                      "resources": [
+                        {
+                          "id": 42,
+                          "type": "server"
+                        },
+                        {
+                          "id": 13,
+                          "type": "volume"
+                        }
+                      ],
+                      "error": {
+                        "code": "action_failed",
+                        "message": "Action failed"
+                      }
+                    }
+                  ]
                 }
               }
             }
@@ -7114,6 +9420,26 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/get_action_for_volume_response"
+                },
+                "example": {
+                  "action": {
+                    "id": 13,
+                    "command": "attach_volume",
+                    "status": "success",
+                    "progress": 100,
+                    "started": "2016-01-30T23:55:00+00:00",
+                    "finished": "2016-01-30T23:56:00+00:00",
+                    "resources": [
+                      {
+                        "id": 42,
+                        "type": "server"
+                      }
+                    ],
+                    "error": {
+                      "code": "action_failed",
+                      "message": "Action failed"
+                    }
+                  }
                 }
               }
             }
@@ -7160,6 +9486,26 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/attach_volume_to_server_response"
+                },
+                "example": {
+                  "action": {
+                    "id": 13,
+                    "command": "attach_volume",
+                    "status": "running",
+                    "progress": 0,
+                    "started": "2016-01-30T23:50:00+00:00",
+                    "finished": null,
+                    "resources": [
+                      {
+                        "id": 43,
+                        "type": "server"
+                      }
+                    ],
+                    "error": {
+                      "code": "action_failed",
+                      "message": "Action failed"
+                    }
+                  }
                 }
               }
             }
@@ -7193,6 +9539,26 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/detach_volume_response"
+                },
+                "example": {
+                  "action": {
+                    "id": 13,
+                    "command": "detach_volume",
+                    "status": "running",
+                    "progress": 0,
+                    "started": "2016-01-30T23:50:00+00:00",
+                    "finished": null,
+                    "resources": [
+                      {
+                        "id": 42,
+                        "type": "server"
+                      }
+                    ],
+                    "error": {
+                      "code": "action_failed",
+                      "message": "Action failed"
+                    }
+                  }
                 }
               }
             }
@@ -7238,6 +9604,26 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/resize_volume_response"
+                },
+                "example": {
+                  "action": {
+                    "id": 13,
+                    "command": "resize_volume",
+                    "status": "running",
+                    "progress": 0,
+                    "started": "2016-01-30T23:50:00+00:00",
+                    "finished": null,
+                    "resources": [
+                      {
+                        "id": 42,
+                        "type": "server"
+                      }
+                    ],
+                    "error": {
+                      "code": "action_failed",
+                      "message": "Action failed"
+                    }
+                  }
                 }
               }
             }
@@ -7283,6 +9669,26 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/change_volume_protection_response"
+                },
+                "example": {
+                  "action": {
+                    "id": 13,
+                    "command": "change_protection",
+                    "status": "success",
+                    "progress": 100,
+                    "started": "2016-01-30T23:55:00+00:00",
+                    "finished": "2016-01-30T23:56:00+00:00",
+                    "resources": [
+                      {
+                        "id": 42,
+                        "type": "server"
+                      }
+                    ],
+                    "error": {
+                      "code": "action_failed",
+                      "message": "Action failed"
+                    }
+                  }
                 }
               }
             }
