@@ -6,7 +6,7 @@
     "contact": {
       "url": "https://docs.hetzner.cloud/"
     },
-    "version": "77abc8b-dirty"
+    "version": "465cdb2-dirty"
   },
   "servers": [
     {
@@ -112,113 +112,10 @@
             "description": "Enable the PROXY protocol. Please note that the software running on the targets and handling connections needs to support the PROXY protocol."
           },
           "http": {
-            "type": "object",
-            "properties": {
-              "cookie_name": {
-                "type": "string",
-                "description": "Name of the cookie used for sticky sessions"
-              },
-              "cookie_lifetime": {
-                "type": "integer",
-                "description": "Lifetime of the cookie used for sticky sessions"
-              },
-              "certificates": {
-                "type": "array",
-                "description": "IDs of the Certificates to use for TLS/SSL termination by the Load Balancer; empty for TLS/SSL passthrough or if `protocol` is \"http\"",
-                "items": {
-                  "type": "object",
-                  "properties": {}
-                }
-              },
-              "redirect_http": {
-                "type": "boolean",
-                "description": "Redirect HTTP requests to HTTPS. Only available if protocol is \"https\". Default `false`"
-              },
-              "sticky_sessions": {
-                "type": "boolean",
-                "description": "Use sticky sessions. Only available if protocol is \"http\" or \"https\". Default `false`"
-              }
-            },
-            "required": [
-              "cookie_name",
-              "cookie_lifetime"
-            ],
-            "additionalProperties": false,
-            "description": "Configuration for HTTP and HTTPS services"
+            "$ref": "#/components/schemas/http"
           },
           "health_check": {
-            "type": "object",
-            "properties": {
-              "protocol": {
-                "type": "string",
-                "enum": [
-                  "http",
-                  "tcp"
-                ],
-                "description": "Type of the health check"
-              },
-              "port": {
-                "type": "integer",
-                "description": "Port the health check will be performed on"
-              },
-              "interval": {
-                "type": "integer",
-                "description": "Time interval in seconds health checks are performed"
-              },
-              "timeout": {
-                "type": "integer",
-                "description": "Time in seconds after an attempt is considered a timeout"
-              },
-              "retries": {
-                "type": "integer",
-                "description": "Unsuccessful retries needed until a target is considered unhealthy"
-              },
-              "http": {
-                "type": "object",
-                "properties": {
-                  "domain": {
-                    "type": "string",
-                    "description": "Domain name to send in HTTP request header. Can be null, in that case no domain name is sent.",
-                    "nullable": true
-                  },
-                  "path": {
-                    "type": "string",
-                    "description": "HTTP path to use for health checks"
-                  },
-                  "response": {
-                    "type": "string",
-                    "description": "String that must be contained in HTTP response in order to pass the health check"
-                  },
-                  "status_codes": {
-                    "type": "array",
-                    "description": "List of returned HTTP status codes in order to pass the health check. Supports the wildcards `?` for exactly one character and `*` for multiple ones. The default is to pass the health check for any status code between 2?? and 3??.",
-                    "items": {
-                      "type": "object",
-                      "properties": {}
-                    }
-                  },
-                  "tls": {
-                    "type": "boolean",
-                    "description": "Use HTTPS for health check"
-                  }
-                },
-                "required": [
-                  "domain",
-                  "path"
-                ],
-                "additionalProperties": false,
-                "description": "Additional configuration for protocol http"
-              }
-            },
-            "required": [
-              "protocol",
-              "port",
-              "interval",
-              "timeout",
-              "retries"
-            ],
-            "additionalProperties": false,
-            "description": "Configuration for health checks"
+            "$ref": "#/components/schemas/health_check"
           }
         },
         "required": [
@@ -443,6 +340,71 @@
           "action"
         ],
         "description": "Response to POST https://api.hetzner.cloud/v1/volumes/{id}/actions/attach"
+      },
+      "certificate": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "description": "ID of the Certificate"
+          },
+          "name": {
+            "type": "string",
+            "description": "Unique name of the Certificate"
+          },
+          "labels": {
+            "type": "object",
+            "properties": {},
+            "description": "User-defined labels (key-value pairs)"
+          },
+          "certificate": {
+            "type": "string",
+            "description": "Certificate and chain in PEM format, in order so that each record directly certifies the one preceding"
+          },
+          "created": {
+            "type": "string",
+            "description": "Point in time when the Certificate was created (in ISO-8601 format)"
+          },
+          "not_valid_before": {
+            "type": "string",
+            "description": "Point in time when the Certificate becomes valid (in ISO-8601 format)"
+          },
+          "not_valid_after": {
+            "type": "string",
+            "description": "Point in time when the Certificate stops being valid (in ISO-8601 format)"
+          },
+          "domain_names": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Domains and subdomains covered by the Certificate"
+          },
+          "fingerprint": {
+            "type": "string",
+            "description": "Fingerprint of the Certificate"
+          },
+          "used_by": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/resource"
+            },
+            "description": "Resources currently using the Certificate."
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "labels",
+          "certificate",
+          "created",
+          "not_valid_before",
+          "not_valid_after",
+          "domain_names",
+          "fingerprint",
+          "used_by"
+        ],
+        "description": "TLS/SSL Certificates prove the identity of a Server and are used to encrypt client traffic."
       },
       "change_algorithm_request": {
         "type": "object",
@@ -792,68 +754,7 @@
         "type": "object",
         "properties": {
           "certificate": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "integer",
-                "description": "ID of the Certificate"
-              },
-              "name": {
-                "type": "string",
-                "description": "Unique name of the Certificate"
-              },
-              "labels": {
-                "type": "object",
-                "properties": {},
-                "description": "User-defined labels (key-value pairs)"
-              },
-              "certificate": {
-                "type": "string",
-                "description": "Certificate and chain in PEM format, in order so that each record directly certifies the one preceding"
-              },
-              "created": {
-                "type": "string",
-                "description": "Point in time when the Certificate was created (in ISO-8601 format)"
-              },
-              "not_valid_before": {
-                "type": "string",
-                "description": "Point in time when the Certificate becomes valid (in ISO-8601 format)"
-              },
-              "not_valid_after": {
-                "type": "string",
-                "description": "Point in time when the Certificate stops being valid (in ISO-8601 format)"
-              },
-              "domain_names": {
-                "type": "array",
-                "items": {
-                  "type": "string"
-                },
-                "description": "Domains and subdomains covered by the Certificate"
-              },
-              "fingerprint": {
-                "type": "string",
-                "description": "Fingerprint of the Certificate"
-              },
-              "used_by": {
-                "type": "array",
-                "items": {
-                  "$ref": "#/components/schemas/resource"
-                },
-                "description": "Resources currently using the Certificate."
-              }
-            },
-            "required": [
-              "id",
-              "name",
-              "labels",
-              "certificate",
-              "created",
-              "not_valid_before",
-              "not_valid_after",
-              "domain_names",
-              "fingerprint",
-              "used_by"
-            ]
+            "$ref": "#/components/schemas/certificate"
           }
         },
         "required": [
@@ -992,197 +893,14 @@
           "services": {
             "type": "array",
             "items": {
-              "type": "object",
-              "properties": {
-                "protocol": {
-                  "type": "string",
-                  "enum": [
-                    "http",
-                    "https",
-                    "tcp"
-                  ],
-                  "description": "Protocol of the Load Balancer"
-                },
-                "listen_port": {
-                  "type": "integer",
-                  "description": "Port the Load Balancer listens on"
-                },
-                "destination_port": {
-                  "type": "integer",
-                  "description": "Port the Load Balancer will balance to"
-                },
-                "proxyprotocol": {
-                  "type": "boolean",
-                  "description": "Is Proxyprotocol enabled or not"
-                },
-                "health_check": {
-                  "type": "object",
-                  "properties": {
-                    "protocol": {
-                      "type": "string",
-                      "enum": [
-                        "http",
-                        "tcp"
-                      ],
-                      "description": "Type of the health check"
-                    },
-                    "port": {
-                      "type": "integer",
-                      "description": "Port the health check will be performed on"
-                    },
-                    "interval": {
-                      "type": "integer",
-                      "description": "Time interval in seconds health checks are performed"
-                    },
-                    "timeout": {
-                      "type": "integer",
-                      "description": "Time in seconds after an attempt is considered a timeout"
-                    },
-                    "retries": {
-                      "type": "integer",
-                      "description": "Unsuccessful retries needed until a target is considered unhealthy"
-                    },
-                    "http": {
-                      "type": "object",
-                      "properties": {
-                        "domain": {
-                          "type": "string",
-                          "description": "Domain name to send in HTTP request header. Can be null, in that case no domain name is sent.",
-                          "nullable": true
-                        },
-                        "path": {
-                          "type": "string",
-                          "description": "HTTP path to use for health checks"
-                        },
-                        "response": {
-                          "type": "string",
-                          "description": "String that must be contained in HTTP response in order to pass the health check"
-                        },
-                        "status_codes": {
-                          "type": "array",
-                          "description": "List of returned HTTP status codes in order to pass the health check. Supports the wildcards `?` for exactly one character and `*` for multiple ones. The default is to pass the health check for any status code between 2?? and 3??.",
-                          "items": {
-                            "type": "object",
-                            "properties": {}
-                          }
-                        },
-                        "tls": {
-                          "type": "boolean",
-                          "description": "Use HTTPS for health check"
-                        }
-                      },
-                      "required": [
-                        "domain",
-                        "path"
-                      ],
-                      "additionalProperties": false,
-                      "description": "Additional configuration for protocol http"
-                    }
-                  },
-                  "required": [
-                    "protocol",
-                    "port",
-                    "interval",
-                    "timeout",
-                    "retries"
-                  ],
-                  "additionalProperties": false,
-                  "description": "Health check that belong to this service"
-                },
-                "http": {
-                  "type": "object",
-                  "properties": {
-                    "cookie_name": {
-                      "type": "string",
-                      "description": "Name of the cookie used for sticky sessions"
-                    },
-                    "cookie_lifetime": {
-                      "type": "integer",
-                      "description": "Lifetime of the cookie used for sticky sessions"
-                    },
-                    "certificates": {
-                      "type": "array",
-                      "description": "IDs of the Certificates to use for TLS/SSL termination by the Load Balancer; empty for TLS/SSL passthrough or if `protocol` is \"http\"",
-                      "items": {
-                        "type": "object",
-                        "properties": {}
-                      }
-                    },
-                    "redirect_http": {
-                      "type": "boolean",
-                      "description": "Redirect HTTP requests to HTTPS. Only available if protocol is \"https\". Default `false`"
-                    },
-                    "sticky_sessions": {
-                      "type": "boolean",
-                      "description": "Use sticky sessions. Only available if protocol is \"http\" or \"https\". Default `false`"
-                    }
-                  },
-                  "required": [
-                    "cookie_name",
-                    "cookie_lifetime"
-                  ],
-                  "description": "Configuration option for protocols http and https"
-                }
-              },
-              "required": [
-                "protocol",
-                "listen_port",
-                "destination_port",
-                "proxyprotocol",
-                "health_check"
-              ]
+              "$ref": "#/components/schemas/service"
             },
             "description": "Array of services"
           },
           "targets": {
             "type": "array",
             "items": {
-              "type": "object",
-              "properties": {
-                "type": {
-                  "type": "string",
-                  "enum": [
-                    "server"
-                  ],
-                  "description": "Type of the resource"
-                },
-                "server": {
-                  "type": "object",
-                  "properties": {
-                    "id": {
-                      "type": "integer",
-                      "description": "ID of the Server"
-                    }
-                  },
-                  "required": [
-                    "id"
-                  ],
-                  "description": "Server where the traffic should be routed through"
-                },
-                "health_status": {
-                  "type": "array",
-                  "description": "List of health statuses of the services on this target",
-                  "items": {
-                    "type": "object",
-                    "properties": {}
-                  }
-                },
-                "use_private_ip": {
-                  "type": "boolean",
-                  "description": "Use the private network IP instead of the public IP. Default value is false."
-                },
-                "targets": {
-                  "type": "array",
-                  "description": "List of selected targets",
-                  "items": {
-                    "type": "object",
-                    "properties": {}
-                  }
-                }
-              },
-              "required": [
-                "type"
-              ]
+              "$ref": "#/components/schemas/target"
             },
             "description": "Array of targets"
           },
@@ -1234,392 +952,7 @@
         "type": "object",
         "properties": {
           "load_balancer": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "integer",
-                "description": "ID of the Load Balancer"
-              },
-              "name": {
-                "type": "string",
-                "description": "Unique name of the Load Balancer"
-              },
-              "public_net": {
-                "type": "object",
-                "properties": {
-                  "enabled": {
-                    "type": "boolean",
-                    "description": "Public Interface enabled or not"
-                  },
-                  "ipv4": {
-                    "type": "object",
-                    "properties": {
-                      "ip": {
-                        "type": "string",
-                        "description": "IP address (v4) of this Load Balancer",
-                        "nullable": true
-                      }
-                    },
-                    "description": "IP address (v4)"
-                  },
-                  "ipv6": {
-                    "type": "object",
-                    "properties": {
-                      "ip": {
-                        "type": "string",
-                        "description": "IP address (v6) of this Load Balancer",
-                        "nullable": true
-                      }
-                    },
-                    "description": "IP adresss (v6)"
-                  }
-                },
-                "required": [
-                  "enabled",
-                  "ipv4",
-                  "ipv6"
-                ],
-                "description": "Public network information"
-              },
-              "private_net": {
-                "type": "array",
-                "description": "Private networks information",
-                "items": {
-                  "type": "object",
-                  "properties": {}
-                }
-              },
-              "location": {
-                "$ref": "#/components/schemas/location"
-              },
-              "load_balancer_type": {
-                "type": "object",
-                "properties": {
-                  "id": {
-                    "type": "integer",
-                    "description": "ID of the Load Balancer type"
-                  },
-                  "name": {
-                    "type": "string",
-                    "description": "Unique identifier of the Load Balancer type"
-                  },
-                  "description": {
-                    "type": "string",
-                    "description": "Description of the Load Balancer type"
-                  },
-                  "max_connections": {
-                    "type": "integer",
-                    "description": "Number of maximum simultaneous open connections"
-                  },
-                  "max_services": {
-                    "type": "integer",
-                    "description": "Number of services a Load Balancer of this type can have"
-                  },
-                  "max_targets": {
-                    "type": "integer",
-                    "description": "Number of targets a single Load Balancer can have"
-                  },
-                  "max_assigned_certificates": {
-                    "type": "integer",
-                    "description": "Number of SSL Certificates that can be assigned to a single Load Balancer"
-                  },
-                  "deprecated": {
-                    "type": "string",
-                    "description": "Point in time when the Load Balancer type is deprecated (in ISO-8601 format)",
-                    "nullable": true
-                  },
-                  "prices": {
-                    "type": "array",
-                    "items": {
-                      "$ref": "#/components/schemas/price_per_time"
-                    },
-                    "description": "Prices in different network zones"
-                  }
-                },
-                "required": [
-                  "id",
-                  "name",
-                  "description",
-                  "max_connections",
-                  "max_services",
-                  "max_targets",
-                  "max_assigned_certificates",
-                  "deprecated",
-                  "prices"
-                ],
-                "description": "Load Balancer type"
-              },
-              "protection": {
-                "type": "object",
-                "properties": {
-                  "delete": {
-                    "type": "boolean",
-                    "description": "If true, prevents the Load Balancer from being deleted"
-                  }
-                },
-                "required": [
-                  "delete"
-                ],
-                "description": "Protection configuration for the Load Balancer"
-              },
-              "labels": {
-                "type": "object",
-                "properties": {},
-                "description": "User-defined labels (key-value pairs)"
-              },
-              "created": {
-                "type": "string",
-                "description": "Point in time when the Load Balancer was created (in ISO-8601 format)"
-              },
-              "services": {
-                "type": "array",
-                "items": {
-                  "type": "object",
-                  "properties": {
-                    "protocol": {
-                      "type": "string",
-                      "enum": [
-                        "http",
-                        "https",
-                        "tcp"
-                      ],
-                      "description": "Protocol of the Load Balancer"
-                    },
-                    "listen_port": {
-                      "type": "integer",
-                      "description": "Port the Load Balancer listens on"
-                    },
-                    "destination_port": {
-                      "type": "integer",
-                      "description": "Port the Load Balancer will balance to"
-                    },
-                    "proxyprotocol": {
-                      "type": "boolean",
-                      "description": "Is Proxyprotocol enabled or not"
-                    },
-                    "health_check": {
-                      "type": "object",
-                      "properties": {
-                        "protocol": {
-                          "type": "string",
-                          "enum": [
-                            "http",
-                            "tcp"
-                          ],
-                          "description": "Type of the health check"
-                        },
-                        "port": {
-                          "type": "integer",
-                          "description": "Port the health check will be performed on"
-                        },
-                        "interval": {
-                          "type": "integer",
-                          "description": "Time interval in seconds health checks are performed"
-                        },
-                        "timeout": {
-                          "type": "integer",
-                          "description": "Time in seconds after an attempt is considered a timeout"
-                        },
-                        "retries": {
-                          "type": "integer",
-                          "description": "Unsuccessful retries needed until a target is considered unhealthy"
-                        },
-                        "http": {
-                          "type": "object",
-                          "properties": {
-                            "domain": {
-                              "type": "string",
-                              "description": "Domain name to send in HTTP request header. Can be null, in that case no domain name is sent.",
-                              "nullable": true
-                            },
-                            "path": {
-                              "type": "string",
-                              "description": "HTTP path to use for health checks"
-                            },
-                            "response": {
-                              "type": "string",
-                              "description": "String that must be contained in HTTP response in order to pass the health check"
-                            },
-                            "status_codes": {
-                              "type": "array",
-                              "description": "List of returned HTTP status codes in order to pass the health check. Supports the wildcards `?` for exactly one character and `*` for multiple ones. The default is to pass the health check for any status code between 2?? and 3??.",
-                              "items": {
-                                "type": "object",
-                                "properties": {}
-                              }
-                            },
-                            "tls": {
-                              "type": "boolean",
-                              "description": "Use HTTPS for health check"
-                            }
-                          },
-                          "required": [
-                            "domain",
-                            "path"
-                          ],
-                          "additionalProperties": false,
-                          "description": "Additional configuration for protocol http"
-                        }
-                      },
-                      "required": [
-                        "protocol",
-                        "port",
-                        "interval",
-                        "timeout",
-                        "retries"
-                      ],
-                      "additionalProperties": false,
-                      "description": "Health check that belong to this service"
-                    },
-                    "http": {
-                      "type": "object",
-                      "properties": {
-                        "cookie_name": {
-                          "type": "string",
-                          "description": "Name of the cookie used for sticky sessions"
-                        },
-                        "cookie_lifetime": {
-                          "type": "integer",
-                          "description": "Lifetime of the cookie used for sticky sessions"
-                        },
-                        "certificates": {
-                          "type": "array",
-                          "description": "IDs of the Certificates to use for TLS/SSL termination by the Load Balancer; empty for TLS/SSL passthrough or if `protocol` is \"http\"",
-                          "items": {
-                            "type": "object",
-                            "properties": {}
-                          }
-                        },
-                        "redirect_http": {
-                          "type": "boolean",
-                          "description": "Redirect HTTP requests to HTTPS. Only available if protocol is \"https\". Default `false`"
-                        },
-                        "sticky_sessions": {
-                          "type": "boolean",
-                          "description": "Use sticky sessions. Only available if protocol is \"http\" or \"https\". Default `false`"
-                        }
-                      },
-                      "required": [
-                        "cookie_name",
-                        "cookie_lifetime"
-                      ],
-                      "description": "Configuration option for protocols http and https"
-                    }
-                  },
-                  "required": [
-                    "protocol",
-                    "listen_port",
-                    "destination_port",
-                    "proxyprotocol",
-                    "health_check"
-                  ]
-                },
-                "description": "List of services that belong to this Load Balancer"
-              },
-              "targets": {
-                "type": "array",
-                "items": {
-                  "type": "object",
-                  "properties": {
-                    "type": {
-                      "type": "string",
-                      "enum": [
-                        "server"
-                      ],
-                      "description": "Type of the resource"
-                    },
-                    "server": {
-                      "type": "object",
-                      "properties": {
-                        "id": {
-                          "type": "integer",
-                          "description": "ID of the Server"
-                        }
-                      },
-                      "required": [
-                        "id"
-                      ],
-                      "description": "Server where the traffic should be routed through"
-                    },
-                    "health_status": {
-                      "type": "array",
-                      "description": "List of health statuses of the services on this target",
-                      "items": {
-                        "type": "object",
-                        "properties": {}
-                      }
-                    },
-                    "use_private_ip": {
-                      "type": "boolean",
-                      "description": "Use the private network IP instead of the public IP. Default value is false."
-                    },
-                    "targets": {
-                      "type": "array",
-                      "description": "List of selected targets",
-                      "items": {
-                        "type": "object",
-                        "properties": {}
-                      }
-                    }
-                  },
-                  "required": [
-                    "type"
-                  ]
-                },
-                "description": "List of targets that belong to this Load Balancer"
-              },
-              "algorithm": {
-                "type": "object",
-                "properties": {
-                  "type": {
-                    "type": "string",
-                    "enum": [
-                      "least_connections",
-                      "round_robin"
-                    ],
-                    "description": "Type of the algorithm"
-                  }
-                },
-                "required": [
-                  "type"
-                ],
-                "description": "Algorithm of the Load Balancer"
-              },
-              "outgoing_traffic": {
-                "type": "integer",
-                "description": "Outbound Traffic for the current billing period in bytes",
-                "nullable": true,
-                "format": "int64"
-              },
-              "ingoing_traffic": {
-                "type": "integer",
-                "description": "Inbound Traffic for the current billing period in bytes",
-                "nullable": true,
-                "format": "int64"
-              },
-              "included_traffic": {
-                "type": "integer",
-                "description": "Free Traffic for the current billing period in bytes",
-                "format": "int64"
-              }
-            },
-            "required": [
-              "id",
-              "name",
-              "public_net",
-              "private_net",
-              "location",
-              "load_balancer_type",
-              "protection",
-              "labels",
-              "created",
-              "services",
-              "targets",
-              "algorithm",
-              "outgoing_traffic",
-              "ingoing_traffic",
-              "included_traffic"
-            ]
+            "$ref": "#/components/schemas/load_balancer"
           },
           "action": {
             "$ref": "#/components/schemas/action"
@@ -2620,68 +1953,7 @@
         "type": "object",
         "properties": {
           "certificate": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "integer",
-                "description": "ID of the Certificate"
-              },
-              "name": {
-                "type": "string",
-                "description": "Unique name of the Certificate"
-              },
-              "labels": {
-                "type": "object",
-                "properties": {},
-                "description": "User-defined labels (key-value pairs)"
-              },
-              "certificate": {
-                "type": "string",
-                "description": "Certificate and chain in PEM format, in order so that each record directly certifies the one preceding"
-              },
-              "created": {
-                "type": "string",
-                "description": "Point in time when the Certificate was created (in ISO-8601 format)"
-              },
-              "not_valid_before": {
-                "type": "string",
-                "description": "Point in time when the Certificate becomes valid (in ISO-8601 format)"
-              },
-              "not_valid_after": {
-                "type": "string",
-                "description": "Point in time when the Certificate stops being valid (in ISO-8601 format)"
-              },
-              "domain_names": {
-                "type": "array",
-                "items": {
-                  "type": "string"
-                },
-                "description": "Domains and subdomains covered by the Certificate"
-              },
-              "fingerprint": {
-                "type": "string",
-                "description": "Fingerprint of the Certificate"
-              },
-              "used_by": {
-                "type": "array",
-                "items": {
-                  "$ref": "#/components/schemas/resource"
-                },
-                "description": "Resources currently using the Certificate."
-              }
-            },
-            "required": [
-              "id",
-              "name",
-              "labels",
-              "certificate",
-              "created",
-              "not_valid_before",
-              "not_valid_after",
-              "domain_names",
-              "fingerprint",
-              "used_by"
-            ]
+            "$ref": "#/components/schemas/certificate"
           }
         },
         "required": [
@@ -2729,392 +2001,7 @@
         "type": "object",
         "properties": {
           "load_balancer": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "integer",
-                "description": "ID of the Load Balancer"
-              },
-              "name": {
-                "type": "string",
-                "description": "Unique name of the Load Balancer"
-              },
-              "public_net": {
-                "type": "object",
-                "properties": {
-                  "enabled": {
-                    "type": "boolean",
-                    "description": "Public Interface enabled or not"
-                  },
-                  "ipv4": {
-                    "type": "object",
-                    "properties": {
-                      "ip": {
-                        "type": "string",
-                        "description": "IP address (v4) of this Load Balancer",
-                        "nullable": true
-                      }
-                    },
-                    "description": "IP address (v4)"
-                  },
-                  "ipv6": {
-                    "type": "object",
-                    "properties": {
-                      "ip": {
-                        "type": "string",
-                        "description": "IP address (v6) of this Load Balancer",
-                        "nullable": true
-                      }
-                    },
-                    "description": "IP adresss (v6)"
-                  }
-                },
-                "required": [
-                  "enabled",
-                  "ipv4",
-                  "ipv6"
-                ],
-                "description": "Public network information"
-              },
-              "private_net": {
-                "type": "array",
-                "description": "Private networks information",
-                "items": {
-                  "type": "object",
-                  "properties": {}
-                }
-              },
-              "location": {
-                "$ref": "#/components/schemas/location"
-              },
-              "load_balancer_type": {
-                "type": "object",
-                "properties": {
-                  "id": {
-                    "type": "integer",
-                    "description": "ID of the Load Balancer type"
-                  },
-                  "name": {
-                    "type": "string",
-                    "description": "Unique identifier of the Load Balancer type"
-                  },
-                  "description": {
-                    "type": "string",
-                    "description": "Description of the Load Balancer type"
-                  },
-                  "max_connections": {
-                    "type": "integer",
-                    "description": "Number of maximum simultaneous open connections"
-                  },
-                  "max_services": {
-                    "type": "integer",
-                    "description": "Number of services a Load Balancer of this type can have"
-                  },
-                  "max_targets": {
-                    "type": "integer",
-                    "description": "Number of targets a single Load Balancer can have"
-                  },
-                  "max_assigned_certificates": {
-                    "type": "integer",
-                    "description": "Number of SSL Certificates that can be assigned to a single Load Balancer"
-                  },
-                  "deprecated": {
-                    "type": "string",
-                    "description": "Point in time when the Load Balancer type is deprecated (in ISO-8601 format)",
-                    "nullable": true
-                  },
-                  "prices": {
-                    "type": "array",
-                    "items": {
-                      "$ref": "#/components/schemas/price_per_time"
-                    },
-                    "description": "Prices in different network zones"
-                  }
-                },
-                "required": [
-                  "id",
-                  "name",
-                  "description",
-                  "max_connections",
-                  "max_services",
-                  "max_targets",
-                  "max_assigned_certificates",
-                  "deprecated",
-                  "prices"
-                ],
-                "description": "Load Balancer type"
-              },
-              "protection": {
-                "type": "object",
-                "properties": {
-                  "delete": {
-                    "type": "boolean",
-                    "description": "If true, prevents the Load Balancer from being deleted"
-                  }
-                },
-                "required": [
-                  "delete"
-                ],
-                "description": "Protection configuration for the Load Balancer"
-              },
-              "labels": {
-                "type": "object",
-                "properties": {},
-                "description": "User-defined labels (key-value pairs)"
-              },
-              "created": {
-                "type": "string",
-                "description": "Point in time when the Load Balancer was created (in ISO-8601 format)"
-              },
-              "services": {
-                "type": "array",
-                "items": {
-                  "type": "object",
-                  "properties": {
-                    "protocol": {
-                      "type": "string",
-                      "enum": [
-                        "http",
-                        "https",
-                        "tcp"
-                      ],
-                      "description": "Protocol of the Load Balancer"
-                    },
-                    "listen_port": {
-                      "type": "integer",
-                      "description": "Port the Load Balancer listens on"
-                    },
-                    "destination_port": {
-                      "type": "integer",
-                      "description": "Port the Load Balancer will balance to"
-                    },
-                    "proxyprotocol": {
-                      "type": "boolean",
-                      "description": "Is Proxyprotocol enabled or not"
-                    },
-                    "health_check": {
-                      "type": "object",
-                      "properties": {
-                        "protocol": {
-                          "type": "string",
-                          "enum": [
-                            "http",
-                            "tcp"
-                          ],
-                          "description": "Type of the health check"
-                        },
-                        "port": {
-                          "type": "integer",
-                          "description": "Port the health check will be performed on"
-                        },
-                        "interval": {
-                          "type": "integer",
-                          "description": "Time interval in seconds health checks are performed"
-                        },
-                        "timeout": {
-                          "type": "integer",
-                          "description": "Time in seconds after an attempt is considered a timeout"
-                        },
-                        "retries": {
-                          "type": "integer",
-                          "description": "Unsuccessful retries needed until a target is considered unhealthy"
-                        },
-                        "http": {
-                          "type": "object",
-                          "properties": {
-                            "domain": {
-                              "type": "string",
-                              "description": "Domain name to send in HTTP request header. Can be null, in that case no domain name is sent.",
-                              "nullable": true
-                            },
-                            "path": {
-                              "type": "string",
-                              "description": "HTTP path to use for health checks"
-                            },
-                            "response": {
-                              "type": "string",
-                              "description": "String that must be contained in HTTP response in order to pass the health check"
-                            },
-                            "status_codes": {
-                              "type": "array",
-                              "description": "List of returned HTTP status codes in order to pass the health check. Supports the wildcards `?` for exactly one character and `*` for multiple ones. The default is to pass the health check for any status code between 2?? and 3??.",
-                              "items": {
-                                "type": "object",
-                                "properties": {}
-                              }
-                            },
-                            "tls": {
-                              "type": "boolean",
-                              "description": "Use HTTPS for health check"
-                            }
-                          },
-                          "required": [
-                            "domain",
-                            "path"
-                          ],
-                          "additionalProperties": false,
-                          "description": "Additional configuration for protocol http"
-                        }
-                      },
-                      "required": [
-                        "protocol",
-                        "port",
-                        "interval",
-                        "timeout",
-                        "retries"
-                      ],
-                      "additionalProperties": false,
-                      "description": "Health check that belong to this service"
-                    },
-                    "http": {
-                      "type": "object",
-                      "properties": {
-                        "cookie_name": {
-                          "type": "string",
-                          "description": "Name of the cookie used for sticky sessions"
-                        },
-                        "cookie_lifetime": {
-                          "type": "integer",
-                          "description": "Lifetime of the cookie used for sticky sessions"
-                        },
-                        "certificates": {
-                          "type": "array",
-                          "description": "IDs of the Certificates to use for TLS/SSL termination by the Load Balancer; empty for TLS/SSL passthrough or if `protocol` is \"http\"",
-                          "items": {
-                            "type": "object",
-                            "properties": {}
-                          }
-                        },
-                        "redirect_http": {
-                          "type": "boolean",
-                          "description": "Redirect HTTP requests to HTTPS. Only available if protocol is \"https\". Default `false`"
-                        },
-                        "sticky_sessions": {
-                          "type": "boolean",
-                          "description": "Use sticky sessions. Only available if protocol is \"http\" or \"https\". Default `false`"
-                        }
-                      },
-                      "required": [
-                        "cookie_name",
-                        "cookie_lifetime"
-                      ],
-                      "description": "Configuration option for protocols http and https"
-                    }
-                  },
-                  "required": [
-                    "protocol",
-                    "listen_port",
-                    "destination_port",
-                    "proxyprotocol",
-                    "health_check"
-                  ]
-                },
-                "description": "List of services that belong to this Load Balancer"
-              },
-              "targets": {
-                "type": "array",
-                "items": {
-                  "type": "object",
-                  "properties": {
-                    "type": {
-                      "type": "string",
-                      "enum": [
-                        "server"
-                      ],
-                      "description": "Type of the resource"
-                    },
-                    "server": {
-                      "type": "object",
-                      "properties": {
-                        "id": {
-                          "type": "integer",
-                          "description": "ID of the Server"
-                        }
-                      },
-                      "required": [
-                        "id"
-                      ],
-                      "description": "Server where the traffic should be routed through"
-                    },
-                    "health_status": {
-                      "type": "array",
-                      "description": "List of health statuses of the services on this target",
-                      "items": {
-                        "type": "object",
-                        "properties": {}
-                      }
-                    },
-                    "use_private_ip": {
-                      "type": "boolean",
-                      "description": "Use the private network IP instead of the public IP. Default value is false."
-                    },
-                    "targets": {
-                      "type": "array",
-                      "description": "List of selected targets",
-                      "items": {
-                        "type": "object",
-                        "properties": {}
-                      }
-                    }
-                  },
-                  "required": [
-                    "type"
-                  ]
-                },
-                "description": "List of targets that belong to this Load Balancer"
-              },
-              "algorithm": {
-                "type": "object",
-                "properties": {
-                  "type": {
-                    "type": "string",
-                    "enum": [
-                      "least_connections",
-                      "round_robin"
-                    ],
-                    "description": "Type of the algorithm"
-                  }
-                },
-                "required": [
-                  "type"
-                ],
-                "description": "Algorithm of the Load Balancer"
-              },
-              "outgoing_traffic": {
-                "type": "integer",
-                "description": "Outbound Traffic for the current billing period in bytes",
-                "nullable": true,
-                "format": "int64"
-              },
-              "ingoing_traffic": {
-                "type": "integer",
-                "description": "Inbound Traffic for the current billing period in bytes",
-                "nullable": true,
-                "format": "int64"
-              },
-              "included_traffic": {
-                "type": "integer",
-                "description": "Free Traffic for the current billing period in bytes",
-                "format": "int64"
-              }
-            },
-            "required": [
-              "id",
-              "name",
-              "public_net",
-              "private_net",
-              "location",
-              "load_balancer_type",
-              "protection",
-              "labels",
-              "created",
-              "services",
-              "targets",
-              "algorithm",
-              "outgoing_traffic",
-              "ingoing_traffic",
-              "included_traffic"
-            ]
+            "$ref": "#/components/schemas/load_balancer"
           }
         },
         "required": [
@@ -3126,60 +2013,7 @@
         "type": "object",
         "properties": {
           "load_balancer_type": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "integer",
-                "description": "ID of the Load Balancer type"
-              },
-              "name": {
-                "type": "string",
-                "description": "Unique identifier of the Load Balancer type"
-              },
-              "description": {
-                "type": "string",
-                "description": "Description of the Load Balancer type"
-              },
-              "max_connections": {
-                "type": "integer",
-                "description": "Number of maximum simultaneous open connections"
-              },
-              "max_services": {
-                "type": "integer",
-                "description": "Number of services a Load Balancer of this type can have"
-              },
-              "max_targets": {
-                "type": "integer",
-                "description": "Number of targets a single Load Balancer can have"
-              },
-              "max_assigned_certificates": {
-                "type": "integer",
-                "description": "Number of SSL Certificates that can be assigned to a single Load Balancer"
-              },
-              "deprecated": {
-                "type": "string",
-                "description": "Point in time when the Load Balancer type is deprecated (in ISO-8601 format)",
-                "nullable": true
-              },
-              "prices": {
-                "type": "array",
-                "items": {
-                  "$ref": "#/components/schemas/price_per_time"
-                },
-                "description": "Prices in different network zones"
-              }
-            },
-            "required": [
-              "id",
-              "name",
-              "description",
-              "max_connections",
-              "max_services",
-              "max_targets",
-              "max_assigned_certificates",
-              "deprecated",
-              "prices"
-            ]
+            "$ref": "#/components/schemas/load_balancer_type"
           }
         },
         "required": [
@@ -3323,6 +2157,115 @@
           "volume"
         ],
         "description": "Response to GET https://api.hetzner.cloud/v1/volumes/{id}"
+      },
+      "health_check": {
+        "type": "object",
+        "properties": {
+          "protocol": {
+            "type": "string",
+            "enum": [
+              "http",
+              "tcp"
+            ],
+            "description": "Type of the health check"
+          },
+          "port": {
+            "type": "integer",
+            "description": "Port the health check will be performed on"
+          },
+          "interval": {
+            "type": "integer",
+            "description": "Time interval in seconds health checks are performed"
+          },
+          "timeout": {
+            "type": "integer",
+            "description": "Time in seconds after an attempt is considered a timeout"
+          },
+          "retries": {
+            "type": "integer",
+            "description": "Unsuccessful retries needed until a target is considered unhealthy"
+          },
+          "http": {
+            "type": "object",
+            "properties": {
+              "domain": {
+                "type": "string",
+                "description": "Domain name to send in HTTP request header. Can be null, in that case no domain name is sent.",
+                "nullable": true
+              },
+              "path": {
+                "type": "string",
+                "description": "HTTP path to use for health checks"
+              },
+              "response": {
+                "type": "string",
+                "description": "String that must be contained in HTTP response in order to pass the health check"
+              },
+              "status_codes": {
+                "type": "array",
+                "description": "List of returned HTTP status codes in order to pass the health check. Supports the wildcards `?` for exactly one character and `*` for multiple ones. The default is to pass the health check for any status code between 2?? and 3??.",
+                "items": {
+                  "type": "object",
+                  "properties": {}
+                }
+              },
+              "tls": {
+                "type": "boolean",
+                "description": "Use HTTPS for health check"
+              }
+            },
+            "required": [
+              "domain",
+              "path"
+            ],
+            "additionalProperties": false,
+            "description": "Additional configuration for protocol http"
+          }
+        },
+        "required": [
+          "protocol",
+          "port",
+          "interval",
+          "timeout",
+          "retries"
+        ],
+        "additionalProperties": false,
+        "description": "Configuration for health checks"
+      },
+      "http": {
+        "type": "object",
+        "properties": {
+          "cookie_name": {
+            "type": "string",
+            "description": "Name of the cookie used for sticky sessions"
+          },
+          "cookie_lifetime": {
+            "type": "integer",
+            "description": "Lifetime of the cookie used for sticky sessions"
+          },
+          "certificates": {
+            "type": "array",
+            "description": "IDs of the Certificates to use for TLS/SSL termination by the Load Balancer; empty for TLS/SSL passthrough or if `protocol` is \"http\"",
+            "items": {
+              "type": "object",
+              "properties": {}
+            }
+          },
+          "redirect_http": {
+            "type": "boolean",
+            "description": "Redirect HTTP requests to HTTPS. Only available if protocol is \"https\". Default `false`"
+          },
+          "sticky_sessions": {
+            "type": "boolean",
+            "description": "Use sticky sessions. Only available if protocol is \"http\" or \"https\". Default `false`"
+          }
+        },
+        "required": [
+          "cookie_name",
+          "cookie_lifetime"
+        ],
+        "additionalProperties": false,
+        "description": "Configuration for HTTP and HTTPS services"
       },
       "image": {
         "type": "object",
@@ -3798,68 +2741,7 @@
           "certificates": {
             "type": "array",
             "items": {
-              "type": "object",
-              "properties": {
-                "id": {
-                  "type": "integer",
-                  "description": "ID of the Certificate"
-                },
-                "name": {
-                  "type": "string",
-                  "description": "Unique name of the Certificate"
-                },
-                "labels": {
-                  "type": "object",
-                  "properties": {},
-                  "description": "User-defined labels (key-value pairs)"
-                },
-                "certificate": {
-                  "type": "string",
-                  "description": "Certificate and chain in PEM format, in order so that each record directly certifies the one preceding"
-                },
-                "created": {
-                  "type": "string",
-                  "description": "Point in time when the Certificate was created (in ISO-8601 format)"
-                },
-                "not_valid_before": {
-                  "type": "string",
-                  "description": "Point in time when the Certificate becomes valid (in ISO-8601 format)"
-                },
-                "not_valid_after": {
-                  "type": "string",
-                  "description": "Point in time when the Certificate stops being valid (in ISO-8601 format)"
-                },
-                "domain_names": {
-                  "type": "array",
-                  "items": {
-                    "type": "string"
-                  },
-                  "description": "Domains and subdomains covered by the Certificate"
-                },
-                "fingerprint": {
-                  "type": "string",
-                  "description": "Fingerprint of the Certificate"
-                },
-                "used_by": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/resource"
-                  },
-                  "description": "Resources currently using the Certificate."
-                }
-              },
-              "required": [
-                "id",
-                "name",
-                "labels",
-                "certificate",
-                "created",
-                "not_valid_before",
-                "not_valid_after",
-                "domain_names",
-                "fingerprint",
-                "used_by"
-              ]
+              "$ref": "#/components/schemas/certificate"
             }
           }
         },
@@ -3939,60 +2821,7 @@
           "load_balancer_types": {
             "type": "array",
             "items": {
-              "type": "object",
-              "properties": {
-                "id": {
-                  "type": "integer",
-                  "description": "ID of the Load Balancer type"
-                },
-                "name": {
-                  "type": "string",
-                  "description": "Unique identifier of the Load Balancer type"
-                },
-                "description": {
-                  "type": "string",
-                  "description": "Description of the Load Balancer type"
-                },
-                "max_connections": {
-                  "type": "integer",
-                  "description": "Number of maximum simultaneous open connections"
-                },
-                "max_services": {
-                  "type": "integer",
-                  "description": "Number of services a Load Balancer of this type can have"
-                },
-                "max_targets": {
-                  "type": "integer",
-                  "description": "Number of targets a single Load Balancer can have"
-                },
-                "max_assigned_certificates": {
-                  "type": "integer",
-                  "description": "Number of SSL Certificates that can be assigned to a single Load Balancer"
-                },
-                "deprecated": {
-                  "type": "string",
-                  "description": "Point in time when the Load Balancer type is deprecated (in ISO-8601 format)",
-                  "nullable": true
-                },
-                "prices": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/price_per_time"
-                  },
-                  "description": "Prices in different network zones"
-                }
-              },
-              "required": [
-                "id",
-                "name",
-                "description",
-                "max_connections",
-                "max_services",
-                "max_targets",
-                "max_assigned_certificates",
-                "deprecated",
-                "prices"
-              ]
+              "$ref": "#/components/schemas/load_balancer_type"
             }
           }
         },
@@ -4007,392 +2836,7 @@
           "load_balancers": {
             "type": "array",
             "items": {
-              "type": "object",
-              "properties": {
-                "id": {
-                  "type": "integer",
-                  "description": "ID of the Load Balancer"
-                },
-                "name": {
-                  "type": "string",
-                  "description": "Unique name of the Load Balancer"
-                },
-                "public_net": {
-                  "type": "object",
-                  "properties": {
-                    "enabled": {
-                      "type": "boolean",
-                      "description": "Public Interface enabled or not"
-                    },
-                    "ipv4": {
-                      "type": "object",
-                      "properties": {
-                        "ip": {
-                          "type": "string",
-                          "description": "IP address (v4) of this Load Balancer",
-                          "nullable": true
-                        }
-                      },
-                      "description": "IP address (v4)"
-                    },
-                    "ipv6": {
-                      "type": "object",
-                      "properties": {
-                        "ip": {
-                          "type": "string",
-                          "description": "IP address (v6) of this Load Balancer",
-                          "nullable": true
-                        }
-                      },
-                      "description": "IP adresss (v6)"
-                    }
-                  },
-                  "required": [
-                    "enabled",
-                    "ipv4",
-                    "ipv6"
-                  ],
-                  "description": "Public network information"
-                },
-                "private_net": {
-                  "type": "array",
-                  "description": "Private networks information",
-                  "items": {
-                    "type": "object",
-                    "properties": {}
-                  }
-                },
-                "location": {
-                  "$ref": "#/components/schemas/location"
-                },
-                "load_balancer_type": {
-                  "type": "object",
-                  "properties": {
-                    "id": {
-                      "type": "integer",
-                      "description": "ID of the Load Balancer type"
-                    },
-                    "name": {
-                      "type": "string",
-                      "description": "Unique identifier of the Load Balancer type"
-                    },
-                    "description": {
-                      "type": "string",
-                      "description": "Description of the Load Balancer type"
-                    },
-                    "max_connections": {
-                      "type": "integer",
-                      "description": "Number of maximum simultaneous open connections"
-                    },
-                    "max_services": {
-                      "type": "integer",
-                      "description": "Number of services a Load Balancer of this type can have"
-                    },
-                    "max_targets": {
-                      "type": "integer",
-                      "description": "Number of targets a single Load Balancer can have"
-                    },
-                    "max_assigned_certificates": {
-                      "type": "integer",
-                      "description": "Number of SSL Certificates that can be assigned to a single Load Balancer"
-                    },
-                    "deprecated": {
-                      "type": "string",
-                      "description": "Point in time when the Load Balancer type is deprecated (in ISO-8601 format)",
-                      "nullable": true
-                    },
-                    "prices": {
-                      "type": "array",
-                      "items": {
-                        "$ref": "#/components/schemas/price_per_time"
-                      },
-                      "description": "Prices in different network zones"
-                    }
-                  },
-                  "required": [
-                    "id",
-                    "name",
-                    "description",
-                    "max_connections",
-                    "max_services",
-                    "max_targets",
-                    "max_assigned_certificates",
-                    "deprecated",
-                    "prices"
-                  ],
-                  "description": "Load Balancer type"
-                },
-                "protection": {
-                  "type": "object",
-                  "properties": {
-                    "delete": {
-                      "type": "boolean",
-                      "description": "If true, prevents the Load Balancer from being deleted"
-                    }
-                  },
-                  "required": [
-                    "delete"
-                  ],
-                  "description": "Protection configuration for the Load Balancer"
-                },
-                "labels": {
-                  "type": "object",
-                  "properties": {},
-                  "description": "User-defined labels (key-value pairs)"
-                },
-                "created": {
-                  "type": "string",
-                  "description": "Point in time when the Load Balancer was created (in ISO-8601 format)"
-                },
-                "services": {
-                  "type": "array",
-                  "items": {
-                    "type": "object",
-                    "properties": {
-                      "protocol": {
-                        "type": "string",
-                        "enum": [
-                          "http",
-                          "https",
-                          "tcp"
-                        ],
-                        "description": "Protocol of the Load Balancer"
-                      },
-                      "listen_port": {
-                        "type": "integer",
-                        "description": "Port the Load Balancer listens on"
-                      },
-                      "destination_port": {
-                        "type": "integer",
-                        "description": "Port the Load Balancer will balance to"
-                      },
-                      "proxyprotocol": {
-                        "type": "boolean",
-                        "description": "Is Proxyprotocol enabled or not"
-                      },
-                      "health_check": {
-                        "type": "object",
-                        "properties": {
-                          "protocol": {
-                            "type": "string",
-                            "enum": [
-                              "http",
-                              "tcp"
-                            ],
-                            "description": "Type of the health check"
-                          },
-                          "port": {
-                            "type": "integer",
-                            "description": "Port the health check will be performed on"
-                          },
-                          "interval": {
-                            "type": "integer",
-                            "description": "Time interval in seconds health checks are performed"
-                          },
-                          "timeout": {
-                            "type": "integer",
-                            "description": "Time in seconds after an attempt is considered a timeout"
-                          },
-                          "retries": {
-                            "type": "integer",
-                            "description": "Unsuccessful retries needed until a target is considered unhealthy"
-                          },
-                          "http": {
-                            "type": "object",
-                            "properties": {
-                              "domain": {
-                                "type": "string",
-                                "description": "Domain name to send in HTTP request header. Can be null, in that case no domain name is sent.",
-                                "nullable": true
-                              },
-                              "path": {
-                                "type": "string",
-                                "description": "HTTP path to use for health checks"
-                              },
-                              "response": {
-                                "type": "string",
-                                "description": "String that must be contained in HTTP response in order to pass the health check"
-                              },
-                              "status_codes": {
-                                "type": "array",
-                                "description": "List of returned HTTP status codes in order to pass the health check. Supports the wildcards `?` for exactly one character and `*` for multiple ones. The default is to pass the health check for any status code between 2?? and 3??.",
-                                "items": {
-                                  "type": "object",
-                                  "properties": {}
-                                }
-                              },
-                              "tls": {
-                                "type": "boolean",
-                                "description": "Use HTTPS for health check"
-                              }
-                            },
-                            "required": [
-                              "domain",
-                              "path"
-                            ],
-                            "additionalProperties": false,
-                            "description": "Additional configuration for protocol http"
-                          }
-                        },
-                        "required": [
-                          "protocol",
-                          "port",
-                          "interval",
-                          "timeout",
-                          "retries"
-                        ],
-                        "additionalProperties": false,
-                        "description": "Health check that belong to this service"
-                      },
-                      "http": {
-                        "type": "object",
-                        "properties": {
-                          "cookie_name": {
-                            "type": "string",
-                            "description": "Name of the cookie used for sticky sessions"
-                          },
-                          "cookie_lifetime": {
-                            "type": "integer",
-                            "description": "Lifetime of the cookie used for sticky sessions"
-                          },
-                          "certificates": {
-                            "type": "array",
-                            "description": "IDs of the Certificates to use for TLS/SSL termination by the Load Balancer; empty for TLS/SSL passthrough or if `protocol` is \"http\"",
-                            "items": {
-                              "type": "object",
-                              "properties": {}
-                            }
-                          },
-                          "redirect_http": {
-                            "type": "boolean",
-                            "description": "Redirect HTTP requests to HTTPS. Only available if protocol is \"https\". Default `false`"
-                          },
-                          "sticky_sessions": {
-                            "type": "boolean",
-                            "description": "Use sticky sessions. Only available if protocol is \"http\" or \"https\". Default `false`"
-                          }
-                        },
-                        "required": [
-                          "cookie_name",
-                          "cookie_lifetime"
-                        ],
-                        "description": "Configuration option for protocols http and https"
-                      }
-                    },
-                    "required": [
-                      "protocol",
-                      "listen_port",
-                      "destination_port",
-                      "proxyprotocol",
-                      "health_check"
-                    ]
-                  },
-                  "description": "List of services that belong to this Load Balancer"
-                },
-                "targets": {
-                  "type": "array",
-                  "items": {
-                    "type": "object",
-                    "properties": {
-                      "type": {
-                        "type": "string",
-                        "enum": [
-                          "server"
-                        ],
-                        "description": "Type of the resource"
-                      },
-                      "server": {
-                        "type": "object",
-                        "properties": {
-                          "id": {
-                            "type": "integer",
-                            "description": "ID of the Server"
-                          }
-                        },
-                        "required": [
-                          "id"
-                        ],
-                        "description": "Server where the traffic should be routed through"
-                      },
-                      "health_status": {
-                        "type": "array",
-                        "description": "List of health statuses of the services on this target",
-                        "items": {
-                          "type": "object",
-                          "properties": {}
-                        }
-                      },
-                      "use_private_ip": {
-                        "type": "boolean",
-                        "description": "Use the private network IP instead of the public IP. Default value is false."
-                      },
-                      "targets": {
-                        "type": "array",
-                        "description": "List of selected targets",
-                        "items": {
-                          "type": "object",
-                          "properties": {}
-                        }
-                      }
-                    },
-                    "required": [
-                      "type"
-                    ]
-                  },
-                  "description": "List of targets that belong to this Load Balancer"
-                },
-                "algorithm": {
-                  "type": "object",
-                  "properties": {
-                    "type": {
-                      "type": "string",
-                      "enum": [
-                        "least_connections",
-                        "round_robin"
-                      ],
-                      "description": "Type of the algorithm"
-                    }
-                  },
-                  "required": [
-                    "type"
-                  ],
-                  "description": "Algorithm of the Load Balancer"
-                },
-                "outgoing_traffic": {
-                  "type": "integer",
-                  "description": "Outbound Traffic for the current billing period in bytes",
-                  "nullable": true,
-                  "format": "int64"
-                },
-                "ingoing_traffic": {
-                  "type": "integer",
-                  "description": "Inbound Traffic for the current billing period in bytes",
-                  "nullable": true,
-                  "format": "int64"
-                },
-                "included_traffic": {
-                  "type": "integer",
-                  "description": "Free Traffic for the current billing period in bytes",
-                  "format": "int64"
-                }
-              },
-              "required": [
-                "id",
-                "name",
-                "public_net",
-                "private_net",
-                "location",
-                "load_balancer_type",
-                "protection",
-                "labels",
-                "created",
-                "services",
-                "targets",
-                "algorithm",
-                "outgoing_traffic",
-                "ingoing_traffic",
-                "included_traffic"
-              ]
+              "$ref": "#/components/schemas/load_balancer"
             }
           }
         },
@@ -4643,6 +3087,214 @@
           "volumes"
         ],
         "description": "Response to GET https://api.hetzner.cloud/v1/volumes{?status,sort,name,label_selector}"
+      },
+      "load_balancer": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "description": "ID of the Load Balancer"
+          },
+          "name": {
+            "type": "string",
+            "description": "Unique name of the Load Balancer"
+          },
+          "public_net": {
+            "type": "object",
+            "properties": {
+              "enabled": {
+                "type": "boolean",
+                "description": "Public Interface enabled or not"
+              },
+              "ipv4": {
+                "type": "object",
+                "properties": {
+                  "ip": {
+                    "type": "string",
+                    "description": "IP address (v4) of this Load Balancer",
+                    "nullable": true
+                  }
+                },
+                "description": "IP address (v4)"
+              },
+              "ipv6": {
+                "type": "object",
+                "properties": {
+                  "ip": {
+                    "type": "string",
+                    "description": "IP address (v6) of this Load Balancer",
+                    "nullable": true
+                  }
+                },
+                "description": "IP adresss (v6)"
+              }
+            },
+            "required": [
+              "enabled",
+              "ipv4",
+              "ipv6"
+            ],
+            "description": "Public network information"
+          },
+          "private_net": {
+            "type": "array",
+            "description": "Private networks information",
+            "items": {
+              "type": "object",
+              "properties": {}
+            }
+          },
+          "location": {
+            "$ref": "#/components/schemas/location"
+          },
+          "load_balancer_type": {
+            "$ref": "#/components/schemas/load_balancer_type"
+          },
+          "protection": {
+            "type": "object",
+            "properties": {
+              "delete": {
+                "type": "boolean",
+                "description": "If true, prevents the Load Balancer from being deleted"
+              }
+            },
+            "required": [
+              "delete"
+            ],
+            "description": "Protection configuration for the Load Balancer"
+          },
+          "labels": {
+            "type": "object",
+            "properties": {},
+            "description": "User-defined labels (key-value pairs)"
+          },
+          "created": {
+            "type": "string",
+            "description": "Point in time when the Load Balancer was created (in ISO-8601 format)"
+          },
+          "services": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/service"
+            },
+            "description": "List of services that belong to this Load Balancer"
+          },
+          "targets": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/target"
+            },
+            "description": "List of targets that belong to this Load Balancer"
+          },
+          "algorithm": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string",
+                "enum": [
+                  "least_connections",
+                  "round_robin"
+                ],
+                "description": "Type of the algorithm"
+              }
+            },
+            "required": [
+              "type"
+            ],
+            "description": "Algorithm of the Load Balancer"
+          },
+          "outgoing_traffic": {
+            "type": "integer",
+            "description": "Outbound Traffic for the current billing period in bytes",
+            "nullable": true,
+            "format": "int64"
+          },
+          "ingoing_traffic": {
+            "type": "integer",
+            "description": "Inbound Traffic for the current billing period in bytes",
+            "nullable": true,
+            "format": "int64"
+          },
+          "included_traffic": {
+            "type": "integer",
+            "description": "Free Traffic for the current billing period in bytes",
+            "format": "int64"
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "public_net",
+          "private_net",
+          "location",
+          "load_balancer_type",
+          "protection",
+          "labels",
+          "created",
+          "services",
+          "targets",
+          "algorithm",
+          "outgoing_traffic",
+          "ingoing_traffic",
+          "included_traffic"
+        ]
+      },
+      "load_balancer_type": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "description": "ID of the Load Balancer type"
+          },
+          "name": {
+            "type": "string",
+            "description": "Unique identifier of the Load Balancer type"
+          },
+          "description": {
+            "type": "string",
+            "description": "Description of the Load Balancer type"
+          },
+          "max_connections": {
+            "type": "integer",
+            "description": "Number of maximum simultaneous open connections"
+          },
+          "max_services": {
+            "type": "integer",
+            "description": "Number of services a Load Balancer of this type can have"
+          },
+          "max_targets": {
+            "type": "integer",
+            "description": "Number of targets a single Load Balancer can have"
+          },
+          "max_assigned_certificates": {
+            "type": "integer",
+            "description": "Number of SSL Certificates that can be assigned to a single Load Balancer"
+          },
+          "deprecated": {
+            "type": "string",
+            "description": "Point in time when the Load Balancer type is deprecated (in ISO-8601 format)",
+            "nullable": true
+          },
+          "prices": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/price_per_time"
+            },
+            "description": "Prices in different network zones"
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "description",
+          "max_connections",
+          "max_services",
+          "max_targets",
+          "max_assigned_certificates",
+          "deprecated",
+          "prices"
+        ],
+        "description": "Load Balancer type"
       },
       "location": {
         "type": "object",
@@ -5402,61 +4054,7 @@
                 "$ref": "#/components/schemas/location"
               },
               "load_balancer_type": {
-                "type": "object",
-                "properties": {
-                  "id": {
-                    "type": "integer",
-                    "description": "ID of the Load Balancer type"
-                  },
-                  "name": {
-                    "type": "string",
-                    "description": "Unique identifier of the Load Balancer type"
-                  },
-                  "description": {
-                    "type": "string",
-                    "description": "Description of the Load Balancer type"
-                  },
-                  "max_connections": {
-                    "type": "integer",
-                    "description": "Number of maximum simultaneous open connections"
-                  },
-                  "max_services": {
-                    "type": "integer",
-                    "description": "Number of services a Load Balancer of this type can have"
-                  },
-                  "max_targets": {
-                    "type": "integer",
-                    "description": "Number of targets a single Load Balancer can have"
-                  },
-                  "max_assigned_certificates": {
-                    "type": "integer",
-                    "description": "Number of SSL Certificates that can be assigned to a single Load Balancer"
-                  },
-                  "deprecated": {
-                    "type": "string",
-                    "description": "Point in time when the Load Balancer type is deprecated (in ISO-8601 format)",
-                    "nullable": true
-                  },
-                  "prices": {
-                    "type": "array",
-                    "items": {
-                      "$ref": "#/components/schemas/price_per_time"
-                    },
-                    "description": "Prices in different network zones"
-                  }
-                },
-                "required": [
-                  "id",
-                  "name",
-                  "description",
-                  "max_connections",
-                  "max_services",
-                  "max_targets",
-                  "max_assigned_certificates",
-                  "deprecated",
-                  "prices"
-                ],
-                "description": "Load Balancer type"
+                "$ref": "#/components/schemas/load_balancer_type"
               },
               "protection": {
                 "type": "object",
@@ -5488,197 +4086,14 @@
               "services": {
                 "type": "array",
                 "items": {
-                  "type": "object",
-                  "properties": {
-                    "protocol": {
-                      "type": "string",
-                      "enum": [
-                        "http",
-                        "https",
-                        "tcp"
-                      ],
-                      "description": "Protocol of the Load Balancer"
-                    },
-                    "listen_port": {
-                      "type": "integer",
-                      "description": "Port the Load Balancer listens on"
-                    },
-                    "destination_port": {
-                      "type": "integer",
-                      "description": "Port the Load Balancer will balance to"
-                    },
-                    "proxyprotocol": {
-                      "type": "boolean",
-                      "description": "Is Proxyprotocol enabled or not"
-                    },
-                    "health_check": {
-                      "type": "object",
-                      "properties": {
-                        "protocol": {
-                          "type": "string",
-                          "enum": [
-                            "http",
-                            "tcp"
-                          ],
-                          "description": "Type of the health check"
-                        },
-                        "port": {
-                          "type": "integer",
-                          "description": "Port the health check will be performed on"
-                        },
-                        "interval": {
-                          "type": "integer",
-                          "description": "Time interval in seconds health checks are performed"
-                        },
-                        "timeout": {
-                          "type": "integer",
-                          "description": "Time in seconds after an attempt is considered a timeout"
-                        },
-                        "retries": {
-                          "type": "integer",
-                          "description": "Unsuccessful retries needed until a target is considered unhealthy"
-                        },
-                        "http": {
-                          "type": "object",
-                          "properties": {
-                            "domain": {
-                              "type": "string",
-                              "description": "Domain name to send in HTTP request header. Can be null, in that case no domain name is sent.",
-                              "nullable": true
-                            },
-                            "path": {
-                              "type": "string",
-                              "description": "HTTP path to use for health checks"
-                            },
-                            "response": {
-                              "type": "string",
-                              "description": "String that must be contained in HTTP response in order to pass the health check"
-                            },
-                            "status_codes": {
-                              "type": "array",
-                              "description": "List of returned HTTP status codes in order to pass the health check. Supports the wildcards `?` for exactly one character and `*` for multiple ones. The default is to pass the health check for any status code between 2?? and 3??.",
-                              "items": {
-                                "type": "object",
-                                "properties": {}
-                              }
-                            },
-                            "tls": {
-                              "type": "boolean",
-                              "description": "Use HTTPS for health check"
-                            }
-                          },
-                          "required": [
-                            "domain",
-                            "path"
-                          ],
-                          "additionalProperties": false,
-                          "description": "Additional configuration for protocol http"
-                        }
-                      },
-                      "required": [
-                        "protocol",
-                        "port",
-                        "interval",
-                        "timeout",
-                        "retries"
-                      ],
-                      "additionalProperties": false,
-                      "description": "Health check that belong to this service"
-                    },
-                    "http": {
-                      "type": "object",
-                      "properties": {
-                        "cookie_name": {
-                          "type": "string",
-                          "description": "Name of the cookie used for sticky sessions"
-                        },
-                        "cookie_lifetime": {
-                          "type": "integer",
-                          "description": "Lifetime of the cookie used for sticky sessions"
-                        },
-                        "certificates": {
-                          "type": "array",
-                          "description": "IDs of the Certificates to use for TLS/SSL termination by the Load Balancer; empty for TLS/SSL passthrough or if `protocol` is \"http\"",
-                          "items": {
-                            "type": "object",
-                            "properties": {}
-                          }
-                        },
-                        "redirect_http": {
-                          "type": "boolean",
-                          "description": "Redirect HTTP requests to HTTPS. Only available if protocol is \"https\". Default `false`"
-                        },
-                        "sticky_sessions": {
-                          "type": "boolean",
-                          "description": "Use sticky sessions. Only available if protocol is \"http\" or \"https\". Default `false`"
-                        }
-                      },
-                      "required": [
-                        "cookie_name",
-                        "cookie_lifetime"
-                      ],
-                      "description": "Configuration option for protocols http and https"
-                    }
-                  },
-                  "required": [
-                    "protocol",
-                    "listen_port",
-                    "destination_port",
-                    "proxyprotocol",
-                    "health_check"
-                  ]
+                  "$ref": "#/components/schemas/service"
                 },
                 "description": "List of services that belong to this Load Balancer"
               },
               "targets": {
                 "type": "array",
                 "items": {
-                  "type": "object",
-                  "properties": {
-                    "type": {
-                      "type": "string",
-                      "enum": [
-                        "server"
-                      ],
-                      "description": "Type of the resource"
-                    },
-                    "server": {
-                      "type": "object",
-                      "properties": {
-                        "id": {
-                          "type": "integer",
-                          "description": "ID of the Server"
-                        }
-                      },
-                      "required": [
-                        "id"
-                      ],
-                      "description": "Server where the traffic should be routed through"
-                    },
-                    "health_status": {
-                      "type": "array",
-                      "description": "List of health statuses of the services on this target",
-                      "items": {
-                        "type": "object",
-                        "properties": {}
-                      }
-                    },
-                    "use_private_ip": {
-                      "type": "boolean",
-                      "description": "Use the private network IP instead of the public IP. Default value is false."
-                    },
-                    "targets": {
-                      "type": "array",
-                      "description": "List of selected targets",
-                      "items": {
-                        "type": "object",
-                        "properties": {}
-                      }
-                    }
-                  },
-                  "required": [
-                    "type"
-                  ]
+                  "$ref": "#/components/schemas/target"
                 },
                 "description": "List of targets that belong to this Load Balancer"
               },
@@ -6484,6 +4899,77 @@
         ],
         "description": "Type of Server - determines how much ram, disk and cpu a Server has"
       },
+      "service": {
+        "type": "object",
+        "properties": {
+          "protocol": {
+            "type": "string",
+            "enum": [
+              "http",
+              "https",
+              "tcp"
+            ],
+            "description": "Protocol of the Load Balancer"
+          },
+          "listen_port": {
+            "type": "integer",
+            "description": "Port the Load Balancer listens on"
+          },
+          "destination_port": {
+            "type": "integer",
+            "description": "Port the Load Balancer will balance to"
+          },
+          "proxyprotocol": {
+            "type": "boolean",
+            "description": "Is Proxyprotocol enabled or not"
+          },
+          "health_check": {
+            "$ref": "#/components/schemas/health_check"
+          },
+          "http": {
+            "type": "object",
+            "properties": {
+              "cookie_name": {
+                "type": "string",
+                "description": "Name of the cookie used for sticky sessions"
+              },
+              "cookie_lifetime": {
+                "type": "integer",
+                "description": "Lifetime of the cookie used for sticky sessions"
+              },
+              "certificates": {
+                "type": "array",
+                "description": "IDs of the Certificates to use for TLS/SSL termination by the Load Balancer; empty for TLS/SSL passthrough or if `protocol` is \"http\"",
+                "items": {
+                  "type": "object",
+                  "properties": {}
+                }
+              },
+              "redirect_http": {
+                "type": "boolean",
+                "description": "Redirect HTTP requests to HTTPS. Only available if protocol is \"https\". Default `false`"
+              },
+              "sticky_sessions": {
+                "type": "boolean",
+                "description": "Use sticky sessions. Only available if protocol is \"http\" or \"https\". Default `false`"
+              }
+            },
+            "required": [
+              "cookie_name",
+              "cookie_lifetime"
+            ],
+            "description": "Configuration option for protocols http and https"
+          }
+        },
+        "required": [
+          "protocol",
+          "listen_port",
+          "destination_port",
+          "proxyprotocol",
+          "health_check"
+        ],
+        "description": "A service for a Load Balancer."
+      },
       "shutdown_server_response": {
         "type": "object",
         "properties": {
@@ -6604,6 +5090,55 @@
         ],
         "description": "Subnets divide the ip_range from the parent Network object into multiple Subnetworks that you can use for different specific purposes."
       },
+      "target": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "enum": [
+              "server"
+            ],
+            "description": "Type of the resource"
+          },
+          "server": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "integer",
+                "description": "ID of the Server"
+              }
+            },
+            "required": [
+              "id"
+            ],
+            "description": "Server where the traffic should be routed through"
+          },
+          "health_status": {
+            "type": "array",
+            "description": "List of health statuses of the services on this target",
+            "items": {
+              "type": "object",
+              "properties": {}
+            }
+          },
+          "use_private_ip": {
+            "type": "boolean",
+            "description": "Use the private network IP instead of the public IP. Default value is false."
+          },
+          "targets": {
+            "type": "array",
+            "description": "List of selected targets",
+            "items": {
+              "type": "object",
+              "properties": {}
+            }
+          }
+        },
+        "required": [
+          "type"
+        ],
+        "description": "A target for a load balancer"
+      },
       "unassign_floating_ip_response": {
         "type": "object",
         "properties": {
@@ -6641,113 +5176,10 @@
             "description": "Enable the PROXY protocol. Please note that the software running on the targets and handling connections needs to support the PROXY protocol."
           },
           "http": {
-            "type": "object",
-            "properties": {
-              "cookie_name": {
-                "type": "string",
-                "description": "Name of the cookie used for sticky sessions"
-              },
-              "cookie_lifetime": {
-                "type": "integer",
-                "description": "Lifetime of the cookie used for sticky sessions"
-              },
-              "certificates": {
-                "type": "array",
-                "description": "IDs of the Certificates to use for TLS/SSL termination by the Load Balancer; empty for TLS/SSL passthrough or if `protocol` is \"http\"",
-                "items": {
-                  "type": "object",
-                  "properties": {}
-                }
-              },
-              "redirect_http": {
-                "type": "boolean",
-                "description": "Redirect HTTP requests to HTTPS. Only available if protocol is \"https\". Default `false`"
-              },
-              "sticky_sessions": {
-                "type": "boolean",
-                "description": "Use sticky sessions. Only available if protocol is \"http\" or \"https\". Default `false`"
-              }
-            },
-            "required": [
-              "cookie_name",
-              "cookie_lifetime"
-            ],
-            "additionalProperties": false,
-            "description": "Configuration for HTTP and HTTPS services"
+            "$ref": "#/components/schemas/http"
           },
           "health_check": {
-            "type": "object",
-            "properties": {
-              "protocol": {
-                "type": "string",
-                "enum": [
-                  "http",
-                  "tcp"
-                ],
-                "description": "Type of the health check"
-              },
-              "port": {
-                "type": "integer",
-                "description": "Port the health check will be performed on"
-              },
-              "interval": {
-                "type": "integer",
-                "description": "Time interval in seconds health checks are performed"
-              },
-              "timeout": {
-                "type": "integer",
-                "description": "Time in seconds after an attempt is considered a timeout"
-              },
-              "retries": {
-                "type": "integer",
-                "description": "Unsuccessful retries needed until a target is considered unhealthy"
-              },
-              "http": {
-                "type": "object",
-                "properties": {
-                  "domain": {
-                    "type": "string",
-                    "description": "Domain name to send in HTTP request header. Can be null, in that case no domain name is sent.",
-                    "nullable": true
-                  },
-                  "path": {
-                    "type": "string",
-                    "description": "HTTP path to use for health checks"
-                  },
-                  "response": {
-                    "type": "string",
-                    "description": "String that must be contained in HTTP response in order to pass the health check"
-                  },
-                  "status_codes": {
-                    "type": "array",
-                    "description": "List of returned HTTP status codes in order to pass the health check. Supports the wildcards `?` for exactly one character and `*` for multiple ones. The default is to pass the health check for any status code between 2?? and 3??.",
-                    "items": {
-                      "type": "object",
-                      "properties": {}
-                    }
-                  },
-                  "tls": {
-                    "type": "boolean",
-                    "description": "Use HTTPS for health check"
-                  }
-                },
-                "required": [
-                  "domain",
-                  "path"
-                ],
-                "additionalProperties": false,
-                "description": "Additional configuration for protocol http"
-              }
-            },
-            "required": [
-              "protocol",
-              "port",
-              "interval",
-              "timeout",
-              "retries"
-            ],
-            "additionalProperties": false,
-            "description": "Configuration for health checks"
+            "$ref": "#/components/schemas/health_check"
           }
         },
         "required": [

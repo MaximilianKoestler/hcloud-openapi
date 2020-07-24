@@ -8,6 +8,14 @@
     ]
   },
   {
+    "description": "TLS/SSL Certificates prove the identity of a Server and are used to encrypt client traffic.",
+    "name": "certificate",
+    "path": [
+      "list_certificates_response",
+      "certificates"
+    ]
+  },
+  {
     "name": "created_from",
     "path": [
       "list_images_response",
@@ -43,6 +51,22 @@
     "path": [
       "list_floating_ips_response",
       "floating_ips"
+    ]
+  },
+  {
+    "description": "Configuration for health checks",
+    "name": "health_check",
+    "path": [
+      "add_service_request",
+      "health_check"
+    ]
+  },
+  {
+    "description": "Configuration for HTTP and HTTPS services",
+    "name": "http",
+    "path": [
+      "add_service_request",
+      "http"
     ]
   },
   {
@@ -91,6 +115,20 @@
       "list_servers_response",
       "servers",
       "iso"
+    ]
+  },
+  {
+    "name": "load_balancer",
+    "path": [
+      "list_load_balancers_response",
+      "load_balancers"
+    ]
+  },
+  {
+    "name": "load_balancer_type",
+    "path": [
+      "list_load_balancer_types_response",
+      "load_balancer_types"
     ]
   },
   {
@@ -171,6 +209,14 @@
     ]
   },
   {
+    "description": "A service for a Load Balancer.",
+    "name": "service",
+    "path": [
+      "create_load_balancer_request",
+      "services"
+    ]
+  },
+  {
     "description": "SSH keys are public keys you provide to the cloud system. They can be injected into Servers at creation time. We highly recommend that you use keys instead of passwords to manage your Servers.",
     "name": "ssh_key",
     "path": [
@@ -193,6 +239,14 @@
       "list_networks_response",
       "networks",
       "subnets"
+    ]
+  },
+  {
+    "description": "A target for a load balancer",
+    "name": "target",
+    "path": [
+      "create_load_balancer_request",
+      "targets"
     ]
   },
   {
