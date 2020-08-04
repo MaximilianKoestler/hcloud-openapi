@@ -27,7 +27,7 @@ function applyTransformation(
   }
 
   if (transformation.remove !== undefined) {
-    transformation.remove.forEach(name => {
+    transformation.remove.forEach((name) => {
       objectPath.del(document, transformation.path.concat([name]));
     });
   }
