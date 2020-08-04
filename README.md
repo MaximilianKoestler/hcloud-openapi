@@ -111,7 +111,7 @@ This API description is currently being used by the following projects:
 ## Quick Start
 
 ```
-npm run convert -- --output results/hcloud.json
+npm run convert -- --output openapi/hcloud.json
 ```
 
 ## Usage with OpenAPI Generator
