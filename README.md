@@ -14,6 +14,34 @@ This API description is currently being used by the following projects:
   [![Documentation](https://docs.rs/hcloud/badge.svg)](https://docs.rs/hcloud/)
 
 ## Supported Endpoints
+<table style="text-align: center">
+  <tr height="80">
+    <td style="background-color:#f44336">actions</td>
+    <td style="background-color:#E91E63">certificates</td>
+    <td style="background-color:#9C27B0">datacenters</td>
+  </tr>
+  <tr height="80">
+    <td style="background-color:#673AB7">floating_ips</td>
+    <td style="background-color:#3F51B5">images</td>
+    <td style="background-color:#2196F3">isos</td>
+  </tr>
+  <tr height="80">
+    <td style="background-color:#03A9F4">load_balancer_types</td>
+    <td style="background-color:#00BCD4">load_balancers</td>
+    <td style="background-color:#009688">locations</td>
+  </tr>
+  <tr height="80">
+    <td style="background-color:#4CAF50">networks</td>
+    <td style="background-color:#8BC34A">pricing</td>
+    <td style="background-color:#CDDC39">server_types</td>
+  </tr>
+  <tr height="80">
+    <td style="background-color:#FFEB3B">servers</td>
+    <td style="background-color:#FFC107">ssh_keys</td>
+    <td style="background-color:#FF9800">volumes</td>
+  </tr>
+</table>
+
 ```
 /actions (GET)
 /actions/{id} (GET)
