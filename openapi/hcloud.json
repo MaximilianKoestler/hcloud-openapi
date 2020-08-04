@@ -6,7 +6,7 @@
     "contact": {
       "url": "https://docs.hetzner.cloud/"
     },
-    "version": "9ccd2c1-dirty"
+    "version": "9e519dc-dirty"
   },
   "servers": [
     {
@@ -5309,7 +5309,7 @@
         ],
         "responses": {
           "200": {
-            "description": "TODO",
+            "description": "Response to https://api.hetzner.cloud/v1/actions{?status,sort}",
             "content": {
               "application/json": {
                 "schema": {
@@ -5364,7 +5364,7 @@
         ],
         "responses": {
           "200": {
-            "description": "TODO",
+            "description": "Response to https://api.hetzner.cloud/v1/actions/{id}",
             "content": {
               "application/json": {
                 "schema": {
@@ -5435,7 +5435,7 @@
         ],
         "responses": {
           "200": {
-            "description": "TODO",
+            "description": "Response to https://api.hetzner.cloud/v1/certificates{?sort,name,label_selector,type}",
             "content": {
               "application/json": {
                 "schema": {
@@ -5495,7 +5495,7 @@
         },
         "responses": {
           "201": {
-            "description": "TODO",
+            "description": "Response to https://api.hetzner.cloud/v1/certificates",
             "content": {
               "application/json": {
                 "schema": {
@@ -5551,7 +5551,7 @@
         ],
         "responses": {
           "200": {
-            "description": "TODO",
+            "description": "Response to https://api.hetzner.cloud/v1/certificates/{id}",
             "content": {
               "application/json": {
                 "schema": {
@@ -5620,7 +5620,7 @@
         },
         "responses": {
           "200": {
-            "description": "TODO",
+            "description": "Response to https://api.hetzner.cloud/v1/certificates/{id}",
             "content": {
               "application/json": {
                 "schema": {
@@ -5676,7 +5676,7 @@
         ],
         "responses": {
           "204": {
-            "description": "TODO"
+            "description": "Empty response to https://api.hetzner.cloud/v1/certificates/{id}"
           }
         }
       }
@@ -5702,7 +5702,7 @@
         ],
         "responses": {
           "200": {
-            "description": "TODO",
+            "description": "Response to https://api.hetzner.cloud/v1/datacenters{?name}",
             "content": {
               "application/json": {
                 "schema": {
@@ -5772,7 +5772,7 @@
         ],
         "responses": {
           "200": {
-            "description": "TODO",
+            "description": "Response to https://api.hetzner.cloud/v1/datacenters/{id}",
             "content": {
               "application/json": {
                 "schema": {
@@ -5857,7 +5857,7 @@
         ],
         "responses": {
           "200": {
-            "description": "TODO",
+            "description": "Response to https://api.hetzner.cloud/v1/floating_ips{?sort,label_selector,name}",
             "content": {
               "application/json": {
                 "schema": {
@@ -5931,7 +5931,7 @@
         },
         "responses": {
           "201": {
-            "description": "TODO",
+            "description": "Response to https://api.hetzner.cloud/v1/floating_ips",
             "content": {
               "application/json": {
                 "schema": {
@@ -6014,7 +6014,7 @@
         ],
         "responses": {
           "200": {
-            "description": "TODO",
+            "description": "Response to https://api.hetzner.cloud/v1/floating_ips/{id}",
             "content": {
               "application/json": {
                 "schema": {
@@ -6093,7 +6093,7 @@
         },
         "responses": {
           "200": {
-            "description": "TODO",
+            "description": "Response to https://api.hetzner.cloud/v1/floating_ips/{id}",
             "content": {
               "application/json": {
                 "schema": {
@@ -6158,7 +6158,7 @@
         ],
         "responses": {
           "204": {
-            "description": "TODO"
+            "description": "Empty response to https://api.hetzner.cloud/v1/floating_ips/{id}"
           }
         }
       }
@@ -6202,7 +6202,7 @@
         ],
         "responses": {
           "200": {
-            "description": "TODO",
+            "description": "Response to https://api.hetzner.cloud/v1/floating_ips/{id}/actions{?status,sort}",
             "content": {
               "application/json": {
                 "schema": {
@@ -6270,7 +6270,7 @@
         ],
         "responses": {
           "200": {
-            "description": "TODO",
+            "description": "Response to https://api.hetzner.cloud/v1/floating_ips/{id}/actions/{action_id}",
             "content": {
               "application/json": {
                 "schema": {
@@ -6335,7 +6335,7 @@
         },
         "responses": {
           "201": {
-            "description": "TODO",
+            "description": "Response to https://api.hetzner.cloud/v1/floating_ips/{id}/actions/assign",
             "content": {
               "application/json": {
                 "schema": {
@@ -6392,7 +6392,7 @@
         ],
         "responses": {
           "201": {
-            "description": "TODO",
+            "description": "Response to https://api.hetzner.cloud/v1/floating_ips/{id}/actions/unassign",
             "content": {
               "application/json": {
                 "schema": {
@@ -6462,7 +6462,7 @@
         },
         "responses": {
           "201": {
-            "description": "TODO",
+            "description": "Response to https://api.hetzner.cloud/v1/floating_ips/{id}/actions/change_dns_ptr",
             "content": {
               "application/json": {
                 "schema": {
@@ -6527,7 +6527,7 @@
         },
         "responses": {
           "201": {
-            "description": "TODO",
+            "description": "Response to https://api.hetzner.cloud/v1/floating_ips/{id}/actions/change_protection",
             "content": {
               "application/json": {
                 "schema": {
@@ -6625,7 +6625,7 @@
         ],
         "responses": {
           "200": {
-            "description": "TODO",
+            "description": "Response to https://api.hetzner.cloud/v1/images{?sort,type,status,bound_to,name,label_selector}",
             "content": {
               "application/json": {
                 "schema": {
@@ -6685,7 +6685,7 @@
         ],
         "responses": {
           "200": {
-            "description": "TODO",
+            "description": "Response to https://api.hetzner.cloud/v1/images/{id}",
             "content": {
               "application/json": {
                 "schema": {
@@ -6757,7 +6757,7 @@
         },
         "responses": {
           "200": {
-            "description": "TODO",
+            "description": "Response to https://api.hetzner.cloud/v1/images/{id}",
             "content": {
               "application/json": {
                 "schema": {
@@ -6815,7 +6815,7 @@
         ],
         "responses": {
           "204": {
-            "description": "TODO"
+            "description": "Empty response to https://api.hetzner.cloud/v1/images/{id}"
           }
         }
       }
@@ -6859,7 +6859,7 @@
         ],
         "responses": {
           "200": {
-            "description": "TODO",
+            "description": "Response to https://api.hetzner.cloud/v1/images/{id}/actions{?status,sort}",
             "content": {
               "application/json": {
                 "schema": {
@@ -6923,7 +6923,7 @@
         ],
         "responses": {
           "200": {
-            "description": "TODO",
+            "description": "Response to https://api.hetzner.cloud/v1/images/{id}/actions/{action_id}",
             "content": {
               "application/json": {
                 "schema": {
@@ -6988,7 +6988,7 @@
         },
         "responses": {
           "201": {
-            "description": "TODO",
+            "description": "Response to https://api.hetzner.cloud/v1/images/{id}/actions/change_protection",
             "content": {
               "application/json": {
                 "schema": {
@@ -7041,7 +7041,7 @@
         ],
         "responses": {
           "200": {
-            "description": "TODO",
+            "description": "Response to https://api.hetzner.cloud/v1/isos{?name}",
             "content": {
               "application/json": {
                 "schema": {
@@ -7085,7 +7085,7 @@
         ],
         "responses": {
           "200": {
-            "description": "TODO",
+            "description": "Response to https://api.hetzner.cloud/v1/isos/{id}",
             "content": {
               "application/json": {
                 "schema": {
@@ -7145,7 +7145,7 @@
         ],
         "responses": {
           "200": {
-            "description": "TODO",
+            "description": "Response to https://api.hetzner.cloud/v1/load_balancers{?sort,name,label_selector}",
             "content": {
               "application/json": {
                 "schema": {
@@ -7383,7 +7383,7 @@
         },
         "responses": {
           "201": {
-            "description": "TODO",
+            "description": "Response to https://api.hetzner.cloud/v1/load_balancers",
             "content": {
               "application/json": {
                 "schema": {
@@ -7563,7 +7563,7 @@
         ],
         "responses": {
           "200": {
-            "description": "TODO",
+            "description": "Response to https://api.hetzner.cloud/v1/load_balancers/{id}",
             "content": {
               "application/json": {
                 "schema": {
@@ -7738,7 +7738,7 @@
         },
         "responses": {
           "200": {
-            "description": "TODO",
+            "description": "Response to https://api.hetzner.cloud/v1/load_balancers/{id}",
             "content": {
               "application/json": {
                 "schema": {
@@ -7900,7 +7900,7 @@
         ],
         "responses": {
           "204": {
-            "description": "TODO"
+            "description": "Empty response to https://api.hetzner.cloud/v1/load_balancers/{id}"
           }
         }
       }
@@ -7962,7 +7962,7 @@
         ],
         "responses": {
           "200": {
-            "description": "TODO",
+            "description": "Response to https://api.hetzner.cloud/v1/load_balancers/{id}/metrics{?type,start,end,step}",
             "content": {
               "application/json": {
                 "schema": {
@@ -8030,7 +8030,7 @@
         ],
         "responses": {
           "200": {
-            "description": "TODO",
+            "description": "Response to https://api.hetzner.cloud/v1/load_balancers/{id}/actions{?status,sort}",
             "content": {
               "application/json": {
                 "schema": {
@@ -8094,7 +8094,7 @@
         ],
         "responses": {
           "200": {
-            "description": "TODO",
+            "description": "Response to https://api.hetzner.cloud/v1/load_balancers/{id}/actions/{action_id}",
             "content": {
               "application/json": {
                 "schema": {
@@ -8187,7 +8187,7 @@
         },
         "responses": {
           "201": {
-            "description": "TODO",
+            "description": "Response to https://api.hetzner.cloud/v1/load_balancers/{id}/actions/add_service",
             "content": {
               "application/json": {
                 "schema": {
@@ -8280,7 +8280,7 @@
         },
         "responses": {
           "201": {
-            "description": "TODO",
+            "description": "Response to https://api.hetzner.cloud/v1/load_balancers/{id}/actions/update_service",
             "content": {
               "application/json": {
                 "schema": {
@@ -8345,7 +8345,7 @@
         },
         "responses": {
           "201": {
-            "description": "TODO",
+            "description": "Response to https://api.hetzner.cloud/v1/load_balancers/{id}/actions/delete_service",
             "content": {
               "application/json": {
                 "schema": {
@@ -8417,7 +8417,7 @@
         },
         "responses": {
           "201": {
-            "description": "TODO",
+            "description": "Response to https://api.hetzner.cloud/v1/load_balancers/{id}/actions/add_target",
             "content": {
               "application/json": {
                 "schema": {
@@ -8488,7 +8488,7 @@
         },
         "responses": {
           "201": {
-            "description": "TODO",
+            "description": "Response to https://api.hetzner.cloud/v1/load_balancers/{id}/actions/remove_target",
             "content": {
               "application/json": {
                 "schema": {
@@ -8553,7 +8553,7 @@
         },
         "responses": {
           "201": {
-            "description": "TODO",
+            "description": "Response to https://api.hetzner.cloud/v1/load_balancers/{id}/actions/change_algorithm",
             "content": {
               "application/json": {
                 "schema": {
@@ -8618,7 +8618,7 @@
         },
         "responses": {
           "201": {
-            "description": "TODO",
+            "description": "Response to https://api.hetzner.cloud/v1/load_balancers/{id}/actions/change_type",
             "content": {
               "application/json": {
                 "schema": {
@@ -8684,7 +8684,7 @@
         },
         "responses": {
           "201": {
-            "description": "TODO",
+            "description": "Response to https://api.hetzner.cloud/v1/load_balancers/{id}/actions/attach_to_network",
             "content": {
               "application/json": {
                 "schema": {
@@ -8749,7 +8749,7 @@
         },
         "responses": {
           "201": {
-            "description": "TODO",
+            "description": "Response to https://api.hetzner.cloud/v1/load_balancers/{id}/actions/detach_from_network",
             "content": {
               "application/json": {
                 "schema": {
@@ -8806,7 +8806,7 @@
         ],
         "responses": {
           "201": {
-            "description": "TODO",
+            "description": "Response to https://api.hetzner.cloud/v1/load_balancers/{id}/actions/enable_public_interface",
             "content": {
               "application/json": {
                 "schema": {
@@ -8863,7 +8863,7 @@
         ],
         "responses": {
           "201": {
-            "description": "TODO",
+            "description": "Response to https://api.hetzner.cloud/v1/load_balancers/{id}/actions/disable_public_interface",
             "content": {
               "application/json": {
                 "schema": {
@@ -8932,7 +8932,7 @@
         },
         "responses": {
           "201": {
-            "description": "TODO",
+            "description": "Response to https://api.hetzner.cloud/v1/load_balancers/{id}/actions/change_protection",
             "content": {
               "application/json": {
                 "schema": {
@@ -8985,7 +8985,7 @@
         ],
         "responses": {
           "200": {
-            "description": "TODO",
+            "description": "Response to https://api.hetzner.cloud/v1/load_balancer_types{?name}",
             "content": {
               "application/json": {
                 "schema": {
@@ -9045,7 +9045,7 @@
         ],
         "responses": {
           "200": {
-            "description": "TODO",
+            "description": "Response to https://api.hetzner.cloud/v1/load_balancer_types/{id}",
             "content": {
               "application/json": {
                 "schema": {
@@ -9103,7 +9103,7 @@
         ],
         "responses": {
           "200": {
-            "description": "TODO",
+            "description": "Response to https://api.hetzner.cloud/v1/locations{?name}",
             "content": {
               "application/json": {
                 "schema": {
@@ -9150,7 +9150,7 @@
         ],
         "responses": {
           "200": {
-            "description": "TODO",
+            "description": "Response to https://api.hetzner.cloud/v1/locations/{id}",
             "content": {
               "application/json": {
                 "schema": {
@@ -9204,7 +9204,7 @@
         ],
         "responses": {
           "200": {
-            "description": "TODO",
+            "description": "Response to https://api.hetzner.cloud/v1/networks{?name,label_selector}",
             "content": {
               "application/json": {
                 "schema": {
@@ -9288,7 +9288,7 @@
         },
         "responses": {
           "201": {
-            "description": "TODO",
+            "description": "Response to https://api.hetzner.cloud/v1/networks",
             "content": {
               "application/json": {
                 "schema": {
@@ -9353,7 +9353,7 @@
         ],
         "responses": {
           "200": {
-            "description": "TODO",
+            "description": "Response to https://api.hetzner.cloud/v1/networks/{id}",
             "content": {
               "application/json": {
                 "schema": {
@@ -9431,7 +9431,7 @@
         },
         "responses": {
           "200": {
-            "description": "TODO",
+            "description": "Response to https://api.hetzner.cloud/v1/networks/{id}",
             "content": {
               "application/json": {
                 "schema": {
@@ -9496,7 +9496,7 @@
         ],
         "responses": {
           "204": {
-            "description": "TODO"
+            "description": "Empty response to https://api.hetzner.cloud/v1/networks/{id}"
           }
         }
       }
@@ -9540,7 +9540,7 @@
         ],
         "responses": {
           "200": {
-            "description": "TODO",
+            "description": "Response to https://api.hetzner.cloud/v1/networks/{id}/actions{?status,sort}",
             "content": {
               "application/json": {
                 "schema": {
@@ -9604,7 +9604,7 @@
         ],
         "responses": {
           "200": {
-            "description": "TODO",
+            "description": "Response to https://api.hetzner.cloud/v1/networks/{id}/actions/{action_id}",
             "content": {
               "application/json": {
                 "schema": {
@@ -9671,7 +9671,7 @@
         },
         "responses": {
           "201": {
-            "description": "TODO",
+            "description": "Response to https://api.hetzner.cloud/v1/networks/{id}/actions/add_subnet",
             "content": {
               "application/json": {
                 "schema": {
@@ -9736,7 +9736,7 @@
         },
         "responses": {
           "201": {
-            "description": "TODO",
+            "description": "Response to https://api.hetzner.cloud/v1/networks/{id}/actions/delete_subnet",
             "content": {
               "application/json": {
                 "schema": {
@@ -9802,7 +9802,7 @@
         },
         "responses": {
           "201": {
-            "description": "TODO",
+            "description": "Response to https://api.hetzner.cloud/v1/networks/{id}/actions/add_route",
             "content": {
               "application/json": {
                 "schema": {
@@ -9868,7 +9868,7 @@
         },
         "responses": {
           "201": {
-            "description": "TODO",
+            "description": "Response to https://api.hetzner.cloud/v1/networks/{id}/actions/delete_route",
             "content": {
               "application/json": {
                 "schema": {
@@ -9933,7 +9933,7 @@
         },
         "responses": {
           "201": {
-            "description": "TODO",
+            "description": "Response to https://api.hetzner.cloud/v1/networks/{id}/actions/change_ip_range",
             "content": {
               "application/json": {
                 "schema": {
@@ -9998,7 +9998,7 @@
         },
         "responses": {
           "201": {
-            "description": "TODO",
+            "description": "Response to https://api.hetzner.cloud/v1/networks/{id}/actions/change_protection",
             "content": {
               "application/json": {
                 "schema": {
@@ -10041,7 +10041,7 @@
         "parameters": [],
         "responses": {
           "200": {
-            "description": "TODO",
+            "description": "Response to https://api.hetzner.cloud/v1/pricing",
             "content": {
               "application/json": {
                 "schema": {
@@ -10172,7 +10172,7 @@
         ],
         "responses": {
           "200": {
-            "description": "TODO",
+            "description": "Response to https://api.hetzner.cloud/v1/servers{?status,sort,name,label_selector}",
             "content": {
               "application/json": {
                 "schema": {
@@ -10357,7 +10357,7 @@
         },
         "responses": {
           "201": {
-            "description": "TODO",
+            "description": "Response to https://api.hetzner.cloud/v1/servers",
             "content": {
               "application/json": {
                 "schema": {
@@ -10564,7 +10564,7 @@
         ],
         "responses": {
           "200": {
-            "description": "TODO",
+            "description": "Response to https://api.hetzner.cloud/v1/servers/{id}",
             "content": {
               "application/json": {
                 "schema": {
@@ -10745,7 +10745,7 @@
         },
         "responses": {
           "200": {
-            "description": "TODO",
+            "description": "Response to https://api.hetzner.cloud/v1/servers/{id}",
             "content": {
               "application/json": {
                 "schema": {
@@ -10913,7 +10913,7 @@
         ],
         "responses": {
           "200": {
-            "description": "TODO",
+            "description": "Response to https://api.hetzner.cloud/v1/servers/{id}",
             "content": {
               "application/json": {
                 "schema": {
@@ -11002,7 +11002,7 @@
         ],
         "responses": {
           "200": {
-            "description": "TODO",
+            "description": "Response to https://api.hetzner.cloud/v1/servers/{id}/metrics{?type,start,end,step}",
             "content": {
               "application/json": {
                 "schema": {
@@ -11070,7 +11070,7 @@
         ],
         "responses": {
           "200": {
-            "description": "TODO",
+            "description": "Response to https://api.hetzner.cloud/v1/servers/{id}/actions{?status,sort}",
             "content": {
               "application/json": {
                 "schema": {
@@ -11134,7 +11134,7 @@
         ],
         "responses": {
           "200": {
-            "description": "TODO",
+            "description": "Response to https://api.hetzner.cloud/v1/servers/{id}/actions/{action_id}",
             "content": {
               "application/json": {
                 "schema": {
@@ -11187,7 +11187,7 @@
         ],
         "responses": {
           "201": {
-            "description": "TODO",
+            "description": "Response to https://api.hetzner.cloud/v1/servers/{id}/actions/poweron",
             "content": {
               "application/json": {
                 "schema": {
@@ -11240,7 +11240,7 @@
         ],
         "responses": {
           "201": {
-            "description": "TODO",
+            "description": "Response to https://api.hetzner.cloud/v1/servers/{id}/actions/reboot",
             "content": {
               "application/json": {
                 "schema": {
@@ -11293,7 +11293,7 @@
         ],
         "responses": {
           "201": {
-            "description": "TODO",
+            "description": "Response to https://api.hetzner.cloud/v1/servers/{id}/actions/reset",
             "content": {
               "application/json": {
                 "schema": {
@@ -11346,7 +11346,7 @@
         ],
         "responses": {
           "201": {
-            "description": "TODO",
+            "description": "Response to https://api.hetzner.cloud/v1/servers/{id}/actions/shutdown",
             "content": {
               "application/json": {
                 "schema": {
@@ -11399,7 +11399,7 @@
         ],
         "responses": {
           "201": {
-            "description": "TODO",
+            "description": "Response to https://api.hetzner.cloud/v1/servers/{id}/actions/poweroff",
             "content": {
               "application/json": {
                 "schema": {
@@ -11452,7 +11452,7 @@
         ],
         "responses": {
           "201": {
-            "description": "TODO",
+            "description": "Response to https://api.hetzner.cloud/v1/servers/{id}/actions/reset_password",
             "content": {
               "application/json": {
                 "schema": {
@@ -11521,7 +11521,7 @@
         },
         "responses": {
           "201": {
-            "description": "TODO",
+            "description": "Response to https://api.hetzner.cloud/v1/servers/{id}/actions/enable_rescue",
             "content": {
               "application/json": {
                 "schema": {
@@ -11575,7 +11575,7 @@
         ],
         "responses": {
           "201": {
-            "description": "TODO",
+            "description": "Response to https://api.hetzner.cloud/v1/servers/{id}/actions/disable_rescue",
             "content": {
               "application/json": {
                 "schema": {
@@ -11644,7 +11644,7 @@
         },
         "responses": {
           "201": {
-            "description": "TODO",
+            "description": "Response to https://api.hetzner.cloud/v1/servers/{id}/actions/create_image",
             "content": {
               "application/json": {
                 "schema": {
@@ -11732,7 +11732,7 @@
         },
         "responses": {
           "201": {
-            "description": "TODO",
+            "description": "Response to https://api.hetzner.cloud/v1/servers/{id}/actions/rebuild",
             "content": {
               "application/json": {
                 "schema": {
@@ -11799,7 +11799,7 @@
         },
         "responses": {
           "201": {
-            "description": "TODO",
+            "description": "Response to https://api.hetzner.cloud/v1/servers/{id}/actions/change_type",
             "content": {
               "application/json": {
                 "schema": {
@@ -11852,7 +11852,7 @@
         ],
         "responses": {
           "201": {
-            "description": "TODO",
+            "description": "Response to https://api.hetzner.cloud/v1/servers/{id}/actions/enable_backup",
             "content": {
               "application/json": {
                 "schema": {
@@ -11905,7 +11905,7 @@
         ],
         "responses": {
           "201": {
-            "description": "TODO",
+            "description": "Response to https://api.hetzner.cloud/v1/servers/{id}/actions/disable_backup",
             "content": {
               "application/json": {
                 "schema": {
@@ -11970,7 +11970,7 @@
         },
         "responses": {
           "201": {
-            "description": "TODO",
+            "description": "Response to https://api.hetzner.cloud/v1/servers/{id}/actions/attach_iso",
             "content": {
               "application/json": {
                 "schema": {
@@ -12023,7 +12023,7 @@
         ],
         "responses": {
           "201": {
-            "description": "TODO",
+            "description": "Response to https://api.hetzner.cloud/v1/servers/{id}/actions/detach_iso",
             "content": {
               "application/json": {
                 "schema": {
@@ -12089,7 +12089,7 @@
         },
         "responses": {
           "201": {
-            "description": "TODO",
+            "description": "Response to https://api.hetzner.cloud/v1/servers/{id}/actions/change_dns_ptr",
             "content": {
               "application/json": {
                 "schema": {
@@ -12155,7 +12155,7 @@
         },
         "responses": {
           "201": {
-            "description": "TODO",
+            "description": "Response to https://api.hetzner.cloud/v1/servers/{id}/actions/change_protection",
             "content": {
               "application/json": {
                 "schema": {
@@ -12208,7 +12208,7 @@
         ],
         "responses": {
           "201": {
-            "description": "TODO",
+            "description": "Response to https://api.hetzner.cloud/v1/servers/{id}/actions/request_console",
             "content": {
               "application/json": {
                 "schema": {
@@ -12279,7 +12279,7 @@
         },
         "responses": {
           "201": {
-            "description": "TODO",
+            "description": "Response to https://api.hetzner.cloud/v1/servers/{id}/actions/attach_to_network",
             "content": {
               "application/json": {
                 "schema": {
@@ -12348,7 +12348,7 @@
         },
         "responses": {
           "201": {
-            "description": "TODO",
+            "description": "Response to https://api.hetzner.cloud/v1/servers/{id}/actions/detach_from_network",
             "content": {
               "application/json": {
                 "schema": {
@@ -12420,7 +12420,7 @@
         },
         "responses": {
           "201": {
-            "description": "TODO",
+            "description": "Response to https://api.hetzner.cloud/v1/servers/{id}/actions/change_alias_ips",
             "content": {
               "application/json": {
                 "schema": {
@@ -12477,7 +12477,7 @@
         ],
         "responses": {
           "200": {
-            "description": "TODO",
+            "description": "Response to https://api.hetzner.cloud/v1/server_types{?name}",
             "content": {
               "application/json": {
                 "schema": {
@@ -12538,7 +12538,7 @@
         ],
         "responses": {
           "200": {
-            "description": "TODO",
+            "description": "Response to https://api.hetzner.cloud/v1/server_types/{id}",
             "content": {
               "application/json": {
                 "schema": {
@@ -12624,7 +12624,7 @@
         ],
         "responses": {
           "200": {
-            "description": "TODO",
+            "description": "Response to https://api.hetzner.cloud/v1/ssh_keys{?sort,name,fingerprint,label_selector}",
             "content": {
               "application/json": {
                 "schema": {
@@ -12673,7 +12673,7 @@
         },
         "responses": {
           "201": {
-            "description": "TODO",
+            "description": "Response to https://api.hetzner.cloud/v1/ssh_keys",
             "content": {
               "application/json": {
                 "schema": {
@@ -12716,7 +12716,7 @@
         ],
         "responses": {
           "200": {
-            "description": "TODO",
+            "description": "Response to https://api.hetzner.cloud/v1/ssh_keys/{id}",
             "content": {
               "application/json": {
                 "schema": {
@@ -12772,7 +12772,7 @@
         },
         "responses": {
           "200": {
-            "description": "TODO",
+            "description": "Response to https://api.hetzner.cloud/v1/ssh_keys/{id}",
             "content": {
               "application/json": {
                 "schema": {
@@ -12815,7 +12815,7 @@
         ],
         "responses": {
           "204": {
-            "description": "TODO"
+            "description": "Empty response to https://api.hetzner.cloud/v1/ssh_keys/{id}"
           }
         }
       }
@@ -12868,7 +12868,7 @@
         ],
         "responses": {
           "200": {
-            "description": "TODO",
+            "description": "Response to https://api.hetzner.cloud/v1/volumes{?status,sort,name,label_selector}",
             "content": {
               "application/json": {
                 "schema": {
@@ -12936,7 +12936,7 @@
         },
         "responses": {
           "201": {
-            "description": "TODO",
+            "description": "Response to https://api.hetzner.cloud/v1/volumes",
             "content": {
               "application/json": {
                 "schema": {
@@ -13033,7 +13033,7 @@
         ],
         "responses": {
           "200": {
-            "description": "TODO",
+            "description": "Response to https://api.hetzner.cloud/v1/volumes/{id}",
             "content": {
               "application/json": {
                 "schema": {
@@ -13105,7 +13105,7 @@
         },
         "responses": {
           "200": {
-            "description": "TODO",
+            "description": "Response to https://api.hetzner.cloud/v1/volumes/{id}",
             "content": {
               "application/json": {
                 "schema": {
@@ -13164,7 +13164,7 @@
         ],
         "responses": {
           "204": {
-            "description": "TODO"
+            "description": "Empty response to https://api.hetzner.cloud/v1/volumes/{id}"
           }
         }
       }
@@ -13208,7 +13208,7 @@
         ],
         "responses": {
           "200": {
-            "description": "TODO",
+            "description": "Response to https://api.hetzner.cloud/v1/volumes/{id}/actions{?status,sort}",
             "content": {
               "application/json": {
                 "schema": {
@@ -13276,7 +13276,7 @@
         ],
         "responses": {
           "200": {
-            "description": "TODO",
+            "description": "Response to https://api.hetzner.cloud/v1/volumes/{id}/actions/{action_id}",
             "content": {
               "application/json": {
                 "schema": {
@@ -13342,7 +13342,7 @@
         },
         "responses": {
           "201": {
-            "description": "TODO",
+            "description": "Response to https://api.hetzner.cloud/v1/volumes/{id}/actions/attach",
             "content": {
               "application/json": {
                 "schema": {
@@ -13395,7 +13395,7 @@
         ],
         "responses": {
           "201": {
-            "description": "TODO",
+            "description": "Response to https://api.hetzner.cloud/v1/volumes/{id}/actions/detach",
             "content": {
               "application/json": {
                 "schema": {
@@ -13460,7 +13460,7 @@
         },
         "responses": {
           "201": {
-            "description": "TODO",
+            "description": "Response to https://api.hetzner.cloud/v1/volumes/{id}/actions/resize",
             "content": {
               "application/json": {
                 "schema": {
@@ -13525,7 +13525,7 @@
         },
         "responses": {
           "201": {
-            "description": "TODO",
+            "description": "Response to https://api.hetzner.cloud/v1/volumes/{id}/actions/change_protection",
             "content": {
               "application/json": {
                 "schema": {

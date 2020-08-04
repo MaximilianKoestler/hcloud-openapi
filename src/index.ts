@@ -441,13 +441,13 @@ function toRequestBody(data: SectionData): OpenApiDocumentFragment | undefined {
 }
 
 function toResponses(data: SectionData): OpenApiDocumentFragment {
-  const response: OpenApiDocumentFragment = {
-    description: "TODO", // TODO: construct from data
-  };
+  const response: OpenApiDocumentFragment = {};
   if (
     data.responseSchema !== undefined &&
     data.responseHeaders.contentType !== undefined
   ) {
+    response["description"] = `Response to ${data.request.url}`;
+
     const mediaTypeObject: OpenApiDocumentFragment = {
       schema: {
         $ref: "#/components/schemas/" + toSchemaName("response", data),
@@ -461,6 +461,8 @@ function toResponses(data: SectionData): OpenApiDocumentFragment {
     response["content"] = {
       [data.responseHeaders.contentType]: mediaTypeObject,
     };
+  } else {
+    response["description"] = `Empty response to ${data.request.url}`;
   }
   return {
     [data.responseHeaders.status.toString()]: response,
