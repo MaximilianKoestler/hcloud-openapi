@@ -6,7 +6,7 @@
     "contact": {
       "url": "https://docs.hetzner.cloud/"
     },
-    "version": "4325e85-dirty"
+    "version": "81e79bd-dirty"
   },
   "servers": [
     {
@@ -156,6 +156,7 @@
           "type": {
             "type": "string",
             "enum": [
+              "label_selector",
               "server"
             ],
             "description": "Type of the resource"
@@ -177,6 +178,19 @@
           "use_private_ip": {
             "type": "boolean",
             "description": "Use the private network IP instead of the public IP of the Server, requires the Server and Load Balancer to be in the same network. Default value is false."
+          },
+          "label_selector": {
+            "type": "object",
+            "properties": {
+              "selector": {
+                "type": "string",
+                "description": "Label selector"
+              }
+            },
+            "required": [
+              "selector"
+            ],
+            "description": "Configuration for label selector targets, required if type is `label_selector`"
           }
         },
         "required": [
@@ -669,6 +683,31 @@
           "action"
         ],
         "description": "Response to POST https://api.hetzner.cloud/v1/servers/{id}/actions/change_protection"
+      },
+      "change_type_of_load_balancer_request": {
+        "type": "object",
+        "properties": {
+          "load_balancer_type": {
+            "type": "string",
+            "description": "ID or name of Load Balancer type the Load Balancer should migrate to"
+          }
+        },
+        "required": [
+          "load_balancer_type"
+        ],
+        "description": "Request for POST https://api.hetzner.cloud/v1/load_balancers/{id}/actions/change_type"
+      },
+      "change_type_of_load_balancer_response": {
+        "type": "object",
+        "properties": {
+          "action": {
+            "$ref": "#/components/schemas/action"
+          }
+        },
+        "required": [
+          "action"
+        ],
+        "description": "Response to POST https://api.hetzner.cloud/v1/load_balancers/{id}/actions/change_type"
       },
       "change_type_of_server_request": {
         "type": "object",
@@ -1195,6 +1234,14 @@
               "volumes": {
                 "type": "array",
                 "description": "IDs of Volumes assigned to this Server",
+                "items": {
+                  "type": "object",
+                  "properties": {}
+                }
+              },
+              "load_balancers": {
+                "type": "array",
+                "description": "IDs of load balancers lined to this Server",
                 "items": {
                   "type": "object",
                   "properties": {}
@@ -2032,6 +2079,59 @@
           "location"
         ],
         "description": "Response to GET https://api.hetzner.cloud/v1/locations/{id}"
+      },
+      "get_metrics_for_loadbalancer_response": {
+        "type": "object",
+        "properties": {
+          "metrics": {
+            "type": "object",
+            "properties": {
+              "start": {
+                "type": "string",
+                "description": "Start of period of metrics reported (in ISO-8601 format)"
+              },
+              "end": {
+                "type": "string",
+                "description": "End of period of metrics reported (in ISO-8601 format)"
+              },
+              "step": {
+                "type": "integer",
+                "description": "Resolution of results in seconds."
+              },
+              "time_series": {
+                "type": "object",
+                "x-patternProperties": {
+                  "": {
+                    "type": "object",
+                    "properties": {
+                      "values": {
+                        "type": "array",
+                        "items": {
+                          "type": "array"
+                        },
+                        "description": "Metrics Timestamps with values"
+                      }
+                    },
+                    "required": [
+                      "values"
+                    ]
+                  }
+                },
+                "additionalProperties": true
+              }
+            },
+            "required": [
+              "start",
+              "end",
+              "step",
+              "time_series"
+            ]
+          }
+        },
+        "required": [
+          "metrics"
+        ],
+        "description": "Response to GET https://api.hetzner.cloud/v1/load_balancers/{id}/metrics{?type,start,end,step}"
       },
       "get_metrics_for_server_response": {
         "type": "object",
@@ -3565,6 +3665,7 @@
           "type": {
             "type": "string",
             "enum": [
+              "label_selector",
               "server"
             ],
             "description": "Type of the resource"
@@ -3582,6 +3683,19 @@
             ],
             "additionalProperties": false,
             "description": "Configuration for type Server, required if type is `server`"
+          },
+          "label_selector": {
+            "type": "object",
+            "properties": {
+              "selector": {
+                "type": "string",
+                "description": "Label selector"
+              }
+            },
+            "required": [
+              "selector"
+            ],
+            "description": "Configuration for label selector targets, required if type is `label_selector`"
           }
         },
         "required": [
@@ -4390,6 +4504,14 @@
                   "type": "object",
                   "properties": {}
                 }
+              },
+              "load_balancers": {
+                "type": "array",
+                "description": "IDs of load balancers lined to this Server",
+                "items": {
+                  "type": "object",
+                  "properties": {}
+                }
               }
             },
             "required": [
@@ -4801,6 +4923,14 @@
           "volumes": {
             "type": "array",
             "description": "IDs of Volumes assigned to this Server",
+            "items": {
+              "type": "object",
+              "properties": {}
+            }
+          },
+          "load_balancers": {
+            "type": "array",
+            "description": "IDs of load balancers lined to this Server",
             "items": {
               "type": "object",
               "properties": {}
@@ -7912,6 +8042,92 @@
         }
       }
     },
+    "/load_balancers/{id}/metrics": {
+      "get": {
+        "tags": [
+          "load_balancers"
+        ],
+        "summary": "Get Metrics for a LoadBalancer",
+        "description": "Get Metrics for a LoadBalancer. You must specify the type of metric to get: open_connections, requests_per_second or bandwidth. You can also specify more than one type by comma separation, e.g. requests_per_second,bandwidth. Depending on the type you will get different time series data:",
+        "operationId": "get_metrics_for_loadbalancer",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID of the LoadBalancer",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "type",
+            "in": "query",
+            "description": "Type of metrics to get open_connections requests_per_second bandwidth",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "start",
+            "in": "query",
+            "description": "Start of period to get Metrics for (in ISO-8601 format)",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "end",
+            "in": "query",
+            "description": "End of period to get Metrics for (in ISO-8601 format)",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "step",
+            "in": "query",
+            "description": "Resolution of results in seconds",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "TODO",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/get_metrics_for_loadbalancer_response"
+                },
+                "example": {
+                  "metrics": {
+                    "start": "2017-01-01T00:00:00+00:00",
+                    "end": "2017-01-01T23:00:00+00:00",
+                    "step": 60,
+                    "time_series": {
+                      "name_of_timeseries": {
+                        "values": [
+                          [
+                            "1435781470.622",
+                            "42"
+                          ]
+                        ]
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/load_balancers/{id}/actions": {
       "get": {
         "tags": [
@@ -8328,7 +8544,10 @@
                 "server": {
                   "id": 80
                 },
-                "use_private_ip": true
+                "use_private_ip": true,
+                "label_selector": {
+                  "selector": "env=prod"
+                }
               }
             }
           }
@@ -8396,6 +8615,9 @@
                 "type": "server",
                 "server": {
                   "id": 80
+                },
+                "label_selector": {
+                  "selector": "env=prod"
                 }
               }
             }
@@ -8486,6 +8708,71 @@
                       {
                         "id": 4711,
                         "type": "load_balancer"
+                      }
+                    ],
+                    "error": {
+                      "code": "action_failed",
+                      "message": "Action failed"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/load_balancers/{id}/actions/change_type": {
+      "post": {
+        "tags": [
+          "load_balancers"
+        ],
+        "summary": "Change the Type of a Load Balancer",
+        "description": "Changes the type (Max Services, Max Targets and Max Connections) of a Load Balancer.",
+        "operationId": "change_type_of_load_balancer",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID of the Load Balancer",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/change_type_of_load_balancer_request"
+              },
+              "example": {
+                "load_balancer_type": "lb21"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "TODO",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/change_type_of_load_balancer_response"
+                },
+                "example": {
+                  "action": {
+                    "id": 13,
+                    "command": "change_load_balancer_type",
+                    "status": "running",
+                    "progress": 0,
+                    "started": "2016-01-30T23:50:00+00:00",
+                    "finished": null,
+                    "resources": [
+                      {
+                        "id": 42,
+                        "type": "server"
                       }
                     ],
                     "error": {
@@ -8698,7 +8985,7 @@
           "load_balancers"
         ],
         "summary": "Disable the public interface of a Load Balancer",
-        "description": "Disable the public interface of a Load Balancer. The Load Balancer will be not accessible from the internet via its public IPs.",
+        "description": "Disable the public interface of a Load Balancer. The Load Balancer will be not accessible from the internet via its public IPs. The interface can only be disabled when all targets use the private IP.",
         "operationId": "disable_public_interface_of_load_balancer",
         "parameters": [
           {
@@ -10160,7 +10447,8 @@
                         "rebuild": false
                       },
                       "labels": {},
-                      "volumes": []
+                      "volumes": [],
+                      "load_balancers": []
                     }
                   ]
                 }
@@ -10343,7 +10631,8 @@
                       "rebuild": false
                     },
                     "labels": {},
-                    "volumes": []
+                    "volumes": [],
+                    "load_balancers": []
                   },
                   "action": {
                     "id": 1,
@@ -10549,7 +10838,8 @@
                       "rebuild": false
                     },
                     "labels": {},
-                    "volumes": []
+                    "volumes": [],
+                    "load_balancers": []
                   }
                 }
               }
@@ -10731,7 +11021,8 @@
                     "labels": {
                       "labelkey": "value"
                     },
-                    "volumes": []
+                    "volumes": [],
+                    "load_balancers": []
                   }
                 }
               }
