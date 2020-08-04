@@ -18,11 +18,5 @@
         "$ref": "#/components/schemas/action"
       }
     }
-  },
-  {
-    "path": ["components", "schemas", "labels", "properties", "labelkey"],
-    "remove": [
-      "description"
-    ]
   }
 ]

@@ -58,6 +58,22 @@ function fixItem(part: OpenApiDocumentFragment, location: string[]) {
       part.format = "int64";
     }
   }
+
+  // add additionalProperties to mark labels as key/value pairs
+  if (
+    part.type == "object" &&
+    location[location.length - 1] == "labels" &&
+    part.properties !== undefined &&
+    (Object.keys(part.properties).length == 0 || "labelkey" in part.properties)
+  ) {
+    part["additionalProperties"] = {
+      type: "string",
+      pattern:
+        "^(()|[a-z0-9A-Z]|([a-z0-9A-Z][a-z0-9A-Z\\._-]{0,61}[a-z0-9A-Z]))$",
+    };
+    delete part["properties"];
+    console.error(location);
+  }
 }
 
 export function fixSchema(id: string, schemas: OpenApiDocumentFragment) {

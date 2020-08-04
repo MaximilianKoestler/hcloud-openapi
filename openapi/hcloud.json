@@ -6,7 +6,7 @@
     "contact": {
       "url": "https://docs.hetzner.cloud/"
     },
-    "version": "ec89e10-dirty"
+    "version": "3d5e619-dirty"
   },
   "servers": [
     {
@@ -367,9 +367,7 @@
             "description": "Unique name of the Certificate"
           },
           "labels": {
-            "type": "object",
-            "properties": {},
-            "description": "User-defined labels (key-value pairs)"
+            "$ref": "#/components/schemas/labels"
           },
           "certificate": {
             "type": "string",
@@ -769,9 +767,7 @@
             "description": "Name of the Certificate"
           },
           "labels": {
-            "type": "object",
-            "properties": {},
-            "description": "User-defined labels (key-value pairs)"
+            "$ref": "#/components/schemas/labels"
           },
           "certificate": {
             "type": "string",
@@ -1076,9 +1072,7 @@
             "description": "Cloud-Init user data to use during Server creation. This field is limited to 32KiB."
           },
           "labels": {
-            "type": "object",
-            "properties": {},
-            "description": "User-defined labels (key-value pairs)"
+            "$ref": "#/components/schemas/labels"
           },
           "automount": {
             "type": "boolean",
@@ -1199,9 +1193,7 @@
                 "$ref": "#/components/schemas/protection"
               },
               "labels": {
-                "type": "object",
-                "properties": {},
-                "description": "User-defined labels (key-value pairs)"
+                "$ref": "#/components/schemas/labels"
               },
               "volumes": {
                 "type": "array",
@@ -1846,9 +1838,7 @@
             "description": "Protection configuration for the Floating IP"
           },
           "labels": {
-            "type": "object",
-            "properties": {},
-            "description": "User-defined labels (key-value pairs)"
+            "$ref": "#/components/schemas/labels"
           },
           "created": {
             "type": "string",
@@ -2418,9 +2408,7 @@
             "nullable": true
           },
           "labels": {
-            "type": "object",
-            "properties": {},
-            "description": "User-defined labels (key-value pairs)"
+            "$ref": "#/components/schemas/labels"
           }
         },
         "required": [
@@ -2535,9 +2523,7 @@
             "nullable": true
           },
           "labels": {
-            "type": "object",
-            "properties": {},
-            "description": "User-defined labels (key-value pairs)"
+            "$ref": "#/components/schemas/labels"
           }
         },
         "required": [
@@ -2690,12 +2676,11 @@
       },
       "labels": {
         "type": "object",
-        "properties": {
-          "labelkey": {
-            "type": "string"
-          }
-        },
-        "description": "User-defined labels (key-value pairs)"
+        "description": "User-defined labels (key-value pairs)",
+        "additionalProperties": {
+          "type": "string",
+          "pattern": "^(()|[a-z0-9A-Z]|([a-z0-9A-Z][a-z0-9A-Z\\._-]{0,61}[a-z0-9A-Z]))$"
+        }
       },
       "list_actions_for_floating_ip_response": {
         "type": "object",
@@ -3231,9 +3216,7 @@
             "description": "Protection configuration for the Load Balancer"
           },
           "labels": {
-            "type": "object",
-            "properties": {},
-            "description": "User-defined labels (key-value pairs)"
+            "$ref": "#/components/schemas/labels"
           },
           "created": {
             "type": "string",
@@ -3468,9 +3451,7 @@
             "description": "Protection configuration for the Network"
           },
           "labels": {
-            "type": "object",
-            "properties": {},
-            "description": "User-defined labels (key-value pairs)"
+            "$ref": "#/components/schemas/labels"
           },
           "created": {
             "type": "string",
@@ -3786,87 +3767,7 @@
         "type": "object",
         "properties": {
           "floating_ip": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "integer",
-                "description": "ID of the Floating IP"
-              },
-              "name": {
-                "type": "string",
-                "description": "Unique name of the Floating IP"
-              },
-              "description": {
-                "type": "string",
-                "description": "Description of the Floating IP",
-                "nullable": true
-              },
-              "ip": {
-                "type": "string",
-                "description": "IP address of the Floating IP"
-              },
-              "type": {
-                "type": "string",
-                "enum": [
-                  "ipv4",
-                  "ipv6"
-                ],
-                "description": "Type of the Floating IP"
-              },
-              "server": {
-                "type": "integer",
-                "description": "ID of the Server the Floating IP is assigned to, null if it is not assigned at all",
-                "nullable": true
-              },
-              "dns_ptr": {
-                "type": "array",
-                "items": {
-                  "$ref": "#/components/schemas/dns_ptr"
-                },
-                "description": "Array of reverse DNS entries"
-              },
-              "home_location": {
-                "$ref": "#/components/schemas/location"
-              },
-              "blocked": {
-                "type": "boolean",
-                "description": "Whether the IP is blocked"
-              },
-              "protection": {
-                "type": "object",
-                "properties": {
-                  "delete": {
-                    "type": "boolean",
-                    "description": "If true, prevents the Floating IP from being deleted"
-                  }
-                },
-                "required": [
-                  "delete"
-                ],
-                "description": "Protection configuration for the Floating IP"
-              },
-              "labels": {
-                "$ref": "#/components/schemas/labels"
-              },
-              "created": {
-                "type": "string",
-                "description": "Point in time when the Floating IP was created (in ISO-8601 format)"
-              }
-            },
-            "required": [
-              "id",
-              "name",
-              "description",
-              "ip",
-              "type",
-              "server",
-              "dns_ptr",
-              "home_location",
-              "blocked",
-              "protection",
-              "labels",
-              "created"
-            ]
+            "$ref": "#/components/schemas/floating_ip"
           }
         },
         "required": [
@@ -3898,118 +3799,7 @@
         "type": "object",
         "properties": {
           "image": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "integer",
-                "description": "ID of the Image"
-              },
-              "type": {
-                "type": "string",
-                "enum": [
-                  "backup",
-                  "snapshot",
-                  "system"
-                ],
-                "description": "Type of the Image"
-              },
-              "status": {
-                "type": "string",
-                "enum": [
-                  "available",
-                  "creating"
-                ],
-                "description": "Whether the Image can be used or if it's still being created"
-              },
-              "name": {
-                "type": "string",
-                "description": "Unique identifier of the Image. This value is only set for system Images.",
-                "nullable": true
-              },
-              "description": {
-                "type": "string",
-                "description": "Description of the Image"
-              },
-              "image_size": {
-                "type": "number",
-                "description": "Size of the Image file in our storage in GB. For snapshot Images this is the value relevant for calculating costs for the Image.",
-                "nullable": true
-              },
-              "disk_size": {
-                "type": "number",
-                "description": "Size of the disk contained in the Image in GB"
-              },
-              "created": {
-                "type": "string",
-                "description": "Point in time when the Image was created (in ISO-8601 format)"
-              },
-              "created_from": {
-                "$ref": "#/components/schemas/created_from"
-              },
-              "bound_to": {
-                "type": "integer",
-                "description": "ID of Server the Image is bound to. Only set for Images of type `backup`.",
-                "nullable": true
-              },
-              "os_flavor": {
-                "type": "string",
-                "enum": [
-                  "centos",
-                  "debian",
-                  "fedora",
-                  "ubuntu",
-                  "unknown"
-                ],
-                "description": "Flavor of operating system contained in the Image"
-              },
-              "os_version": {
-                "type": "string",
-                "description": "Operating system version",
-                "nullable": true
-              },
-              "rapid_deploy": {
-                "type": "boolean",
-                "description": "Indicates that rapid deploy of the Image is available"
-              },
-              "protection": {
-                "type": "object",
-                "properties": {
-                  "delete": {
-                    "type": "boolean",
-                    "description": "If true, prevents the snapshot from being deleted"
-                  }
-                },
-                "required": [
-                  "delete"
-                ],
-                "description": "Protection configuration for the Image"
-              },
-              "deprecated": {
-                "type": "string",
-                "description": "Point in time when the Image is considered to be deprecated (in ISO-8601 format)",
-                "nullable": true
-              },
-              "labels": {
-                "$ref": "#/components/schemas/labels"
-              }
-            },
-            "required": [
-              "id",
-              "type",
-              "status",
-              "name",
-              "description",
-              "image_size",
-              "disk_size",
-              "created",
-              "created_from",
-              "bound_to",
-              "os_flavor",
-              "os_version",
-              "protection",
-              "deprecated",
-              "labels"
-            ]
+            "$ref": "#/components/schemas/image"
           }
         },
         "description": "Response to PUT https://api.hetzner.cloud/v1/images/{id}"
@@ -4779,9 +4569,7 @@
             "$ref": "#/components/schemas/protection"
           },
           "labels": {
-            "type": "object",
-            "properties": {},
-            "description": "User-defined labels (key-value pairs)"
+            "$ref": "#/components/schemas/labels"
           },
           "volumes": {
             "type": "array",
@@ -5007,9 +4795,7 @@
             "description": "Public key"
           },
           "labels": {
-            "type": "object",
-            "properties": {},
-            "description": "User-defined labels (key-value pairs)"
+            "$ref": "#/components/schemas/labels"
           },
           "created": {
             "type": "string",
@@ -5237,9 +5023,7 @@
             "description": "Protection configuration for the Volume"
           },
           "labels": {
-            "type": "object",
-            "properties": {},
-            "description": "User-defined labels (key-value pairs)"
+            "$ref": "#/components/schemas/labels"
           },
           "status": {
             "type": "string",
