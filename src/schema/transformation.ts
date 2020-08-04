@@ -319,17 +319,30 @@ export async function deduplicateSchemas(
     });
   });
 
+  // paths in schema_types.json are always considered "interesting"
+  let paths_to_definitely_extract: string[] = [];
+  if (fromFile) {
+    const json = await fs.readFile("resources/schema_types.json", "utf-8");
+    let commonComponents: CommonComponent[] = JSON.parse(json);
+    commonComponents.forEach((component) => {
+      paths_to_definitely_extract.push(component.path.join("/"));
+    });
+  }
+
   // filter for interesting objects
   objectInfos = filterObject(
     objectInfos,
     (_key, value) =>
-      value.count > 1 &&
-      value.complexity > 1 &&
-      value.directChildren > 1 &&
-      Math.max.apply(
-        null,
-        value.locations.map((location: any) => location.length)
-      ) > 1
+      (value.count > 1 &&
+        value.complexity > 1 &&
+        value.directChildren > 1 &&
+        Math.max.apply(
+          null,
+          value.locations.map((location: any) => location.length)
+        ) > 1) ||
+      value.locations.some((location: any) =>
+        paths_to_definitely_extract.includes(location.join("/"))
+      )
   );
 
   if (fromFile) {

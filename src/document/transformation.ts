@@ -7,6 +7,7 @@ import { OpenApiDocumentFragment } from "../types";
 interface Transformation {
   path: string[];
   set?: { [key: string]: any };
+  remove?: string[];
 }
 
 function applyTransformation(
@@ -22,6 +23,12 @@ function applyTransformation(
   if (transformation.set !== undefined) {
     Object.entries(transformation.set).forEach(([key, value]) => {
       objectPath.set(document, transformation.path.concat([key]), value);
+    });
+  }
+
+  if (transformation.remove !== undefined) {
+    transformation.remove.forEach(name => {
+      objectPath.del(document, transformation.path.concat([name]));
     });
   }
 }

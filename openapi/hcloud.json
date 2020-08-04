@@ -6,7 +6,7 @@
     "contact": {
       "url": "https://docs.hetzner.cloud/"
     },
-    "version": "81e79bd-dirty"
+    "version": "9ccd2c1-dirty"
   },
   "servers": [
     {
@@ -827,14 +827,7 @@
             "type": "string"
           },
           "labels": {
-            "type": "object",
-            "properties": {
-              "labelkey": {
-                "type": "string",
-                "description": "New label"
-              }
-            },
-            "description": "User-defined labels (key-value pairs)"
+            "$ref": "#/components/schemas/labels"
           }
         },
         "required": [
@@ -873,14 +866,7 @@
             "description": "Type of Image to create (default: `snapshot`)"
           },
           "labels": {
-            "type": "object",
-            "properties": {
-              "labelkey": {
-                "type": "string",
-                "description": "New label"
-              }
-            },
-            "description": "User-defined labels (key-value pairs)"
+            "$ref": "#/components/schemas/labels"
           }
         },
         "description": "Request for POST https://api.hetzner.cloud/v1/servers/{id}/actions/create_image"
@@ -944,14 +930,7 @@
             "description": "Array of targets"
           },
           "labels": {
-            "type": "object",
-            "properties": {
-              "labelkey": {
-                "type": "string",
-                "description": "New label"
-              }
-            },
-            "description": "User-defined labels (key-value pairs)"
+            "$ref": "#/components/schemas/labels"
           },
           "public_interface": {
             "type": "boolean",
@@ -1015,14 +994,7 @@
             "description": "IP range of the whole network which must span all included subnets. Must be one of the private IPv4 ranges of RFC1918. Minimum network size is /24. We highly recommend that you pick a larger network with a /16 netmask."
           },
           "labels": {
-            "type": "object",
-            "properties": {
-              "labelkey": {
-                "type": "string",
-                "description": "New label"
-              }
-            },
-            "description": "User-defined labels (key-value pairs)"
+            "$ref": "#/components/schemas/labels"
           },
           "subnets": {
             "type": "array",
@@ -1304,14 +1276,7 @@
             "description": "Public key"
           },
           "labels": {
-            "type": "object",
-            "properties": {
-              "labelkey": {
-                "type": "string",
-                "description": "New label"
-              }
-            },
-            "description": "User-defined labels (key-value pairs)"
+            "$ref": "#/components/schemas/labels"
           }
         },
         "required": [
@@ -1344,14 +1309,7 @@
             "description": "Name of the volume"
           },
           "labels": {
-            "type": "object",
-            "properties": {
-              "labelkey": {
-                "type": "string",
-                "description": "New label"
-              }
-            },
-            "description": "User-defined labels (key-value pairs)"
+            "$ref": "#/components/schemas/labels"
           },
           "automount": {
             "type": "boolean",
@@ -2730,6 +2688,15 @@
         "description": "ISO Image that is attached to this Server. Null if no ISO is attached.",
         "nullable": true
       },
+      "labels": {
+        "type": "object",
+        "properties": {
+          "labelkey": {
+            "type": "string"
+          }
+        },
+        "description": "User-defined labels (key-value pairs)"
+      },
       "list_actions_for_floating_ip_response": {
         "type": "object",
         "properties": {
@@ -3723,13 +3690,7 @@
             "description": "New Certificate name"
           },
           "labels": {
-            "type": "object",
-            "properties": {
-              "labelkey": {
-                "type": "string"
-              }
-            },
-            "description": "User-defined labels (key-value pairs)"
+            "$ref": "#/components/schemas/labels"
           }
         },
         "description": "Request for PUT https://api.hetzner.cloud/v1/certificates/{id}"
@@ -3749,14 +3710,7 @@
                 "description": "Name of the Certificate"
               },
               "labels": {
-                "type": "object",
-                "properties": {
-                  "labelkey": {
-                    "type": "string",
-                    "description": "New label"
-                  }
-                },
-                "description": "User-defined labels (key-value pairs)"
+                "$ref": "#/components/schemas/labels"
               },
               "certificate": {
                 "type": "string",
@@ -3823,13 +3777,7 @@
             "description": "New Description to set"
           },
           "labels": {
-            "type": "object",
-            "properties": {
-              "labelkey": {
-                "type": "string"
-              }
-            },
-            "description": "User-defined labels (key-value pairs)"
+            "$ref": "#/components/schemas/labels"
           }
         },
         "description": "Request for PUT https://api.hetzner.cloud/v1/floating_ips/{id}"
@@ -3898,14 +3846,7 @@
                 "description": "Protection configuration for the Floating IP"
               },
               "labels": {
-                "type": "object",
-                "properties": {
-                  "labelkey": {
-                    "type": "string",
-                    "description": "New label"
-                  }
-                },
-                "description": "User-defined labels (key-value pairs)"
+                "$ref": "#/components/schemas/labels"
               },
               "created": {
                 "type": "string",
@@ -3948,13 +3889,7 @@
             "description": "Destination Image type to convert to"
           },
           "labels": {
-            "type": "object",
-            "properties": {
-              "labelkey": {
-                "type": "string"
-              }
-            },
-            "description": "User-defined labels (key-value pairs)"
+            "$ref": "#/components/schemas/labels"
           }
         },
         "description": "Request for PUT https://api.hetzner.cloud/v1/images/{id}"
@@ -4055,14 +3990,7 @@
                 "nullable": true
               },
               "labels": {
-                "type": "object",
-                "properties": {
-                  "labelkey": {
-                    "type": "string",
-                    "description": "New label"
-                  }
-                },
-                "description": "User-defined labels (key-value pairs)"
+                "$ref": "#/components/schemas/labels"
               }
             },
             "required": [
@@ -4094,13 +4022,7 @@
             "description": "New Load Balancer name"
           },
           "labels": {
-            "type": "object",
-            "properties": {
-              "labelkey": {
-                "type": "string"
-              }
-            },
-            "description": "User-defined labels (key-value pairs)"
+            "$ref": "#/components/schemas/labels"
           }
         },
         "description": "Request for PUT https://api.hetzner.cloud/v1/load_balancers/{id}"
@@ -4184,14 +4106,7 @@
                 "description": "Protection configuration for the Load Balancer"
               },
               "labels": {
-                "type": "object",
-                "properties": {
-                  "labelkey": {
-                    "type": "string",
-                    "description": "New label"
-                  }
-                },
-                "description": "User-defined labels (key-value pairs)"
+                "$ref": "#/components/schemas/labels"
               },
               "created": {
                 "type": "string",
@@ -4277,13 +4192,7 @@
             "description": "New network name"
           },
           "labels": {
-            "type": "object",
-            "properties": {
-              "labelkey": {
-                "type": "string"
-              }
-            },
-            "description": "User-defined labels (key-value pairs)"
+            "$ref": "#/components/schemas/labels"
           }
         },
         "description": "Request for PUT https://api.hetzner.cloud/v1/networks/{id}"
@@ -4348,14 +4257,7 @@
                 "description": "Protection configuration for the Network"
               },
               "labels": {
-                "type": "object",
-                "properties": {
-                  "labelkey": {
-                    "type": "string",
-                    "description": "New label"
-                  }
-                },
-                "description": "User-defined labels (key-value pairs)"
+                "$ref": "#/components/schemas/labels"
               },
               "created": {
                 "type": "string",
@@ -4387,13 +4289,7 @@
             "description": "New name to set"
           },
           "labels": {
-            "type": "object",
-            "properties": {
-              "labelkey": {
-                "type": "string"
-              }
-            },
-            "description": "User-defined labels (key-value pairs)"
+            "$ref": "#/components/schemas/labels"
           }
         },
         "description": "Request for PUT https://api.hetzner.cloud/v1/servers/{id}"
@@ -4488,14 +4384,7 @@
                 "$ref": "#/components/schemas/protection"
               },
               "labels": {
-                "type": "object",
-                "properties": {
-                  "labelkey": {
-                    "type": "string",
-                    "description": "New label"
-                  }
-                },
-                "description": "User-defined labels (key-value pairs)"
+                "$ref": "#/components/schemas/labels"
               },
               "volumes": {
                 "type": "array",
@@ -4548,13 +4437,7 @@
             "description": "New name Name to set"
           },
           "labels": {
-            "type": "object",
-            "properties": {
-              "labelkey": {
-                "type": "string"
-              }
-            },
-            "description": "User-defined labels (key-value pairs)"
+            "$ref": "#/components/schemas/labels"
           }
         },
         "description": "Request for PUT https://api.hetzner.cloud/v1/ssh_keys/{id}"
@@ -4582,14 +4465,7 @@
                 "description": "Public key"
               },
               "labels": {
-                "type": "object",
-                "properties": {
-                  "labelkey": {
-                    "type": "string",
-                    "description": "New label"
-                  }
-                },
-                "description": "User-defined labels (key-value pairs)"
+                "$ref": "#/components/schemas/labels"
               },
               "created": {
                 "type": "string",
@@ -4618,13 +4494,7 @@
             "description": "New Volume name"
           },
           "labels": {
-            "type": "object",
-            "properties": {
-              "labelkey": {
-                "type": "string"
-              }
-            },
-            "description": "User-defined labels (key-value pairs)"
+            "$ref": "#/components/schemas/labels"
           }
         },
         "required": [
@@ -4680,14 +4550,7 @@
                 "description": "Protection configuration for the Volume"
               },
               "labels": {
-                "type": "object",
-                "properties": {
-                  "labelkey": {
-                    "type": "string",
-                    "description": "New label"
-                  }
-                },
-                "description": "User-defined labels (key-value pairs)"
+                "$ref": "#/components/schemas/labels"
               },
               "status": {
                 "type": "string",

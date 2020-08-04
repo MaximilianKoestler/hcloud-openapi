@@ -118,6 +118,14 @@
     ]
   },
   {
+    "description": "User-defined labels (key-value pairs)",
+    "name": "labels",
+    "path": [
+      "create_floating_ip_request",
+      "labels"
+    ]
+  },
+  {
     "name": "load_balancer",
     "path": [
       "list_load_balancers_response",
