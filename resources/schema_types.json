@@ -147,6 +147,14 @@
     ]
   },
   {
+    "description": "You must specify the type of metric to get: open_connections, requests_per_second or bandwidth. You can also specify more than one type by comma separation, e.g. requests_per_second,bandwidth. Depending on the type you will get different time series data.",
+    "name": "metrics",
+    "path": [
+      "get_metrics_for_loadbalancer_response",
+      "metrics"
+    ]
+  },
+  {
     "name": "network",
     "path": [
       "list_networks_response",

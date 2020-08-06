@@ -6,7 +6,7 @@
     "contact": {
       "url": "https://docs.hetzner.cloud/"
     },
-    "version": "3d5e619-dirty"
+    "version": "a50d263-dirty"
   },
   "servers": [
     {
@@ -2032,48 +2032,7 @@
         "type": "object",
         "properties": {
           "metrics": {
-            "type": "object",
-            "properties": {
-              "start": {
-                "type": "string",
-                "description": "Start of period of metrics reported (in ISO-8601 format)"
-              },
-              "end": {
-                "type": "string",
-                "description": "End of period of metrics reported (in ISO-8601 format)"
-              },
-              "step": {
-                "type": "integer",
-                "description": "Resolution of results in seconds."
-              },
-              "time_series": {
-                "type": "object",
-                "x-patternProperties": {
-                  "": {
-                    "type": "object",
-                    "properties": {
-                      "values": {
-                        "type": "array",
-                        "items": {
-                          "type": "array"
-                        },
-                        "description": "Metrics Timestamps with values"
-                      }
-                    },
-                    "required": [
-                      "values"
-                    ]
-                  }
-                },
-                "additionalProperties": true
-              }
-            },
-            "required": [
-              "start",
-              "end",
-              "step",
-              "time_series"
-            ]
+            "$ref": "#/components/schemas/metrics"
           }
         },
         "required": [
@@ -2085,48 +2044,7 @@
         "type": "object",
         "properties": {
           "metrics": {
-            "type": "object",
-            "properties": {
-              "start": {
-                "type": "string",
-                "description": "Start of period of metrics reported (in ISO-8601 format)"
-              },
-              "end": {
-                "type": "string",
-                "description": "End of period of metrics reported (in ISO-8601 format)"
-              },
-              "step": {
-                "type": "integer",
-                "description": "Resolution of results in seconds."
-              },
-              "time_series": {
-                "type": "object",
-                "x-patternProperties": {
-                  "": {
-                    "type": "object",
-                    "properties": {
-                      "values": {
-                        "type": "array",
-                        "items": {
-                          "type": "array"
-                        },
-                        "description": "Metrics Timestamps with values"
-                      }
-                    },
-                    "required": [
-                      "values"
-                    ]
-                  }
-                },
-                "additionalProperties": true
-              }
-            },
-            "required": [
-              "start",
-              "end",
-              "step",
-              "time_series"
-            ]
+            "$ref": "#/components/schemas/metrics"
           }
         },
         "required": [
@@ -3393,6 +3311,51 @@
           "network_zone"
         ],
         "description": "Location where the Datacenter resides in | Location the Floating IP was created in. Routing is optimized for this Location. | Location where the routing is optimised for | Location of the Volume. Volume can only be attached to Servers in the same Location."
+      },
+      "metrics": {
+        "type": "object",
+        "properties": {
+          "start": {
+            "type": "string",
+            "description": "Start of period of metrics reported (in ISO-8601 format)"
+          },
+          "end": {
+            "type": "string",
+            "description": "End of period of metrics reported (in ISO-8601 format)"
+          },
+          "step": {
+            "type": "integer",
+            "description": "Resolution of results in seconds."
+          },
+          "time_series": {
+            "type": "object",
+            "x-patternProperties": {
+              "": {
+                "type": "object",
+                "properties": {
+                  "values": {
+                    "type": "array",
+                    "items": {
+                      "type": "array"
+                    },
+                    "description": "Metrics Timestamps with values"
+                  }
+                },
+                "required": [
+                  "values"
+                ]
+              }
+            },
+            "additionalProperties": true
+          }
+        },
+        "required": [
+          "start",
+          "end",
+          "step",
+          "time_series"
+        ],
+        "description": "You must specify the type of metric to get: open_connections, requests_per_second or bandwidth. You can also specify more than one type by comma separation, e.g. requests_per_second,bandwidth. Depending on the type you will get different time series data."
       },
       "network": {
         "type": "object",
