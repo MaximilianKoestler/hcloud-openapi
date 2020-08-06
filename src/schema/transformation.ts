@@ -72,7 +72,6 @@ function fixItem(part: OpenApiDocumentFragment, location: string[]) {
         "^(()|[a-z0-9A-Z]|([a-z0-9A-Z][a-z0-9A-Z\\._-]{0,61}[a-z0-9A-Z]))$",
     };
     delete part["properties"];
-    console.error(location);
   }
 }
 
