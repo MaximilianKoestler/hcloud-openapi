@@ -371,7 +371,7 @@ function parseHtmlDocumentation(contents: string): Section[] {
   console.log(`Processing document of size ${contents.length}`);
   const dom = jsdom.JSDOM.fragment(contents);
 
-  const sections = Array.from(dom.querySelectorAll("section.method"))
+  const sections = Array.from(dom.querySelectorAll("div.method"))
     .map(parseSection)
     .filter((section) => section.valid);
 
