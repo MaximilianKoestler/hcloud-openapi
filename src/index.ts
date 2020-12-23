@@ -231,135 +231,140 @@ function parseSection(section: Element): Section {
     return { valid: false };
   }
 
-  const description = consecutiveSiblings(titleElement, "p")
-    .map((element) => element.textContent)
-    .join(" ")
-    .replace(/\s+/g, " ")
-    .trim();
+  try {
+    const description = consecutiveSiblings(titleElement, "p")
+      .map((element) => element.textContent)
+      .join(" ")
+      .replace(/\s+/g, " ")
+      .trim();
 
-  const request = elementAfterText(
-    methodDescription,
-    "h4",
-    "HTTP Request",
-    "code"
-  )?.textContent;
-  if (request === undefined || request === null) {
-    return { valid: false };
-  }
+    const request = elementAfterText(
+      methodDescription,
+      "h4",
+      "HTTP Request",
+      "code"
+    )?.textContent;
+    if (request === undefined || request === null) {
+      return { valid: false };
+    }
 
-  const uriParameterTable = elementAfterText(
-    methodDescription,
-    "h4",
-    "URI Parameters",
-    "div.table-wrapper > table"
-  );
-
-  const methodExample = assertElement(
-    section.querySelector("div.method__example")
-  );
-
-  const requestHeadersPre = elementAfterText(
-    methodExample,
-    "h4",
-    "Request headers",
-    "pre"
-  );
-  const requestHeaders =
-    requestHeadersPre !== null
-      ? parseRequestHeaders(requestHeadersPre)
-      : undefined;
-
-  const requestExampleElement = elementAfterText(
-    methodExample,
-    "h4",
-    "Request",
-    "div.tab__content"
-  );
-
-  const requestExampleText = requestExampleElement?.textContent;
-  let requestExample: JsonSchema =
-    requestExampleText !== undefined && requestExampleText !== null
-      ? JSON.parse(requestExampleText)
-      : undefined;
-
-  const requestSchemaText =
-    requestExampleElement?.nextElementSibling?.textContent;
-  let requestSchema: JsonSchema =
-    requestSchemaText !== undefined && requestSchemaText !== null
-      ? JSON.parse(requestSchemaText)
-      : undefined;
-
-  if (requestSchema === undefined && requestHeaders !== undefined) {
-    console.warn(
-      `Section "${title}": Request schema is missing but contentType is present!`
+    const uriParameterTable = elementAfterText(
+      methodDescription,
+      "h4",
+      "URI Parameters",
+      "div.table-wrapper > table"
     );
-  }
 
-  if (requestSchema !== undefined && requestHeaders === undefined) {
-    throw Error(
-      `Section "${title}": Encountered request schema for section without contentType!`
+    const methodExample = assertElement(
+      section.querySelector("div.method__example")
     );
-  }
 
-  const responseHeaders = parseResponseHeaders(
-    assertElement(
-      elementAfterText(methodExample, "h4", "Response headers", "pre")
-    )
-  );
-
-  const responseExampleElement = elementAfterText(
-    methodExample,
-    "h4",
-    "Response",
-    "div.tab__content"
-  );
-
-  const responseExampleText = responseExampleElement?.textContent;
-  let responseExample: JsonSchema =
-    responseExampleText !== undefined && responseExampleText !== null
-      ? JSON.parse(responseExampleText)
-      : undefined;
-
-  const responseSchemaText =
-    responseExampleElement?.nextElementSibling?.textContent;
-  let responseSchema: JsonSchema =
-    responseSchemaText !== undefined && responseSchemaText !== null
-      ? JSON.parse(responseSchemaText)
-      : undefined;
-
-  if (
-    responseSchema === undefined &&
-    responseHeaders.contentType !== undefined
-  ) {
-    console.warn(
-      `Section "${title}": Response schema is missing but contentType is present!`
+    const requestHeadersPre = elementAfterText(
+      methodExample,
+      "h4",
+      "Request headers",
+      "pre"
     );
-  }
+    const requestHeaders =
+      requestHeadersPre !== null
+        ? parseRequestHeaders(requestHeadersPre)
+        : undefined;
 
-  if (
-    responseSchema !== undefined &&
-    responseHeaders.contentType === undefined
-  ) {
-    throw Error(
-      `Section "${title}": Encountered response schema for section without contentType!`
+    const requestExampleElement = elementAfterText(
+      methodExample,
+      "h4",
+      "Request",
+      "div.tab__content"
     );
-  }
 
-  return {
-    valid: true,
-    data: {
-      title,
-      description,
-      request: parseRequest(request),
-      uriParameters: parseParameterTable(uriParameterTable),
-      requestHeaders,
-      requestSchema,
-      requestExample,
-      responseHeaders,
-      responseSchema,
-      responseExample,
-    },
-  };
+    const requestExampleText = requestExampleElement?.textContent;
+    let requestExample: JsonSchema =
+      requestExampleText !== undefined && requestExampleText !== null
+        ? JSON.parse(requestExampleText)
+        : undefined;
+
+    const requestSchemaText =
+      requestExampleElement?.nextElementSibling?.textContent;
+    let requestSchema: JsonSchema =
+      requestSchemaText !== undefined && requestSchemaText !== null
+        ? JSON.parse(requestSchemaText)
+        : undefined;
+
+    if (requestSchema === undefined && requestHeaders !== undefined) {
+      console.warn(
+        `Section "${title}": Request schema is missing but contentType is present!`
+      );
+    }
+
+    if (requestSchema !== undefined && requestHeaders === undefined) {
+      throw Error(
+        `Section "${title}": Encountered request schema for section without contentType!`
+      );
+    }
+
+    const responseHeaders = parseResponseHeaders(
+      assertElement(
+        elementAfterText(methodExample, "h4", "Response headers", "pre")
+      )
+    );
+
+    const responseExampleElement = elementAfterText(
+      methodExample,
+      "h4",
+      "Response",
+      "div.tab__content"
+    );
+
+    const responseExampleText = responseExampleElement?.textContent;
+    let responseExample: JsonSchema =
+      responseExampleText !== undefined && responseExampleText !== null
+        ? JSON.parse(responseExampleText)
+        : undefined;
+
+    const responseSchemaText =
+      responseExampleElement?.nextElementSibling?.textContent;
+    let responseSchema: JsonSchema =
+      responseSchemaText !== undefined && responseSchemaText !== null
+        ? JSON.parse(responseSchemaText)
+        : undefined;
+
+    if (
+      responseSchema === undefined &&
+      responseHeaders.contentType !== undefined
+    ) {
+      console.warn(
+        `Section "${title}": Response schema is missing but contentType is present!`
+      );
+    }
+
+    if (
+      responseSchema !== undefined &&
+      responseHeaders.contentType === undefined
+    ) {
+      throw Error(
+        `Section "${title}": Encountered response schema for section without contentType!`
+      );
+    }
+
+    return {
+      valid: true,
+      data: {
+        title,
+        description,
+        request: parseRequest(request),
+        uriParameters: parseParameterTable(uriParameterTable),
+        requestHeaders,
+        requestSchema,
+        requestExample,
+        responseHeaders,
+        responseSchema,
+        responseExample,
+      },
+    };
+  } catch (error) {
+    console.error("Error in section:", title);
+    throw error;
+  }
 }
 
 function parseHtmlDocumentation(contents: string): Section[] {
