@@ -185,10 +185,12 @@ function parseParameterTable(table: Element | null): Parameter[] {
 }
 
 function parseHeaders(pre: Element): Map<string, string> {
+  const text = Array.from(pre.querySelectorAll("code"))
+    .map((code) => code.textContent)
+    .join("\n");
+
   return new Map(
-    Array.from(pre.querySelectorAll("code"))
-      .map((code) => code.textContent)
-      .map((line) => line?.split(": ") as [string, string])
+    text.split("\n").map((line) => line?.split(": ") as [string, string])
   );
 }
 
