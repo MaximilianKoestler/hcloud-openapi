@@ -24,5 +24,13 @@
     "set": {
       "type": "number"
     }
+  },
+  {
+    "path": ["components", "schemas"],
+    "set": {
+      "add_subnet_to_network_request": {
+        "$ref": "#/components/schemas/subnet"
+      }
+    }
   }
 ]

@@ -6,7 +6,7 @@
     "contact": {
       "url": "https://docs.hetzner.cloud/"
     },
-    "version": "f5d3d35-dirty"
+    "version": "831f97c-dirty"
   },
   "servers": [
     {
@@ -111,38 +111,7 @@
         "description": "Response to POST https://api.hetzner.cloud/v1/load_balancers/{id}/actions/add_service"
       },
       "add_subnet_to_network_request": {
-        "type": "object",
-        "properties": {
-          "type": {
-            "type": "string",
-            "enum": [
-              "cloud",
-              "server",
-              "vswitch"
-            ],
-            "description": "Type of Subnetwork"
-          },
-          "ip_range": {
-            "type": "string",
-            "description": "Range to allocate IPs from. Must be a Subnet of the ip_range of the parent network object and must not overlap with any other subnets or with any destinations in routes. If the Subnet is of type vSwitch, it also can not overlap with any gateway in routes. Minimum Network size is /30. We suggest that you pick a bigger Network with a /24 netmask.",
-            "example": "10.0.1.0/24"
-          },
-          "network_zone": {
-            "type": "string",
-            "description": "Name of Network zone. Currently eu-central is the only available zone.",
-            "example": "eu-central"
-          },
-          "vswitch_id": {
-            "type": "integer",
-            "description": "ID of the robot vSwitch. Must be supplied if the subnet is of type vswitch.",
-            "example": 1000
-          }
-        },
-        "required": [
-          "type",
-          "network_zone"
-        ],
-        "description": "Request for POST https://api.hetzner.cloud/v1/networks/{id}/actions/add_subnet"
+        "$ref": "#/components/schemas/subnet"
       },
       "add_subnet_to_network_response": {
         "type": "object",
