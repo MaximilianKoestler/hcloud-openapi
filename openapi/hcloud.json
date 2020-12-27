@@ -6,7 +6,7 @@
     "contact": {
       "url": "https://docs.hetzner.cloud/"
     },
-    "version": "feb61f5-dirty"
+    "version": "42c1ffa-dirty"
   },
   "servers": [
     {
@@ -3234,7 +3234,7 @@
             "example": "2017-01-01T23:00:00+00:00"
           },
           "step": {
-            "type": "integer",
+            "type": "number",
             "description": "Resolution of results in seconds.",
             "example": 60
           },

@@ -18,5 +18,11 @@
         "$ref": "#/components/schemas/action"
       }
     }
+  },
+  {
+    "path": ["components", "schemas", "metrics", "properties", "step"],
+    "set": {
+      "type": "number"
+    }
   }
 ]
