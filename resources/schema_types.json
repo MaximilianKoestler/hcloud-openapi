@@ -77,14 +77,6 @@
     ]
   },
   {
-    "name": "image_optional",
-    "path": [
-      "list_servers_response",
-      "servers",
-      "image"
-    ]
-  },
-  {
     "name": "ipv4",
     "path": [
       "list_servers_response",
