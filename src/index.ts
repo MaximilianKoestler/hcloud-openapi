@@ -159,12 +159,16 @@ async function createComponents(document: OpenApiDocumentFragment) {
   };
 }
 
+function tagFromPath(path: string): string {
+  return path.split("/")[1];
+}
+
 function transformPath(
   path: string,
   verb: string,
   verb_data: OpenApiDocumentFragment
 ) {
-  verb_data.tags = [path.split("/")[1]];
+  verb_data.tags = [tagFromPath(path)];
   verb_data.operationId = toOperationId(verb, verb_data.summary);
 
   const request_content = verb_data?.requestBody?.content?.["application/json"];
@@ -262,6 +266,26 @@ function overWriteMetaData(
   ];
 }
 
+async function overWriteTagList(document: OpenApiDocumentFragment) {
+  const paths = document.paths as OpenApiDocumentFragment;
+  const usedTags = new Set(Object.keys(paths).map(tagFromPath));
+
+  const mapping: any = {};
+  for (const tag of document.tags) {
+    const canonical_name = (tag.name as string)
+      .toLowerCase()
+      .replace(/\s+/g, "_");
+    mapping[canonical_name] = tag;
+  }
+
+  const tags = [];
+  for (const name of usedTags) {
+    const description = mapping[name]?.description?.split("\n")[0];
+    tags.push({ name, description });
+  }
+  document.tags = tags.sort((a, b) => a.name.localeCompare(b.name));
+}
+
 async function outputDocument(
   document: OpenApiDocumentFragment,
   output?: string
@@ -282,16 +306,17 @@ async function main() {
     transformPaths(document);
     await transformDocument(document);
     overWriteMetaData(document, args.schema_version);
+    await overWriteTagList(document);
 
     document = sortObjectWithList(document, [
       "openapi",
       "info",
       "servers",
+      "tags",
       "components",
       "paths",
       "security",
     ]);
-    delete document.tags;
 
     await validateOpenApiDocument(JSON.parse(JSON.stringify(document)));
     await outputDocument(document, args.output);

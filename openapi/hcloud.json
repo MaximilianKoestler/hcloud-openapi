@@ -6,12 +6,73 @@
     "contact": {
       "url": "https://docs.hetzner.cloud/"
     },
-    "version": "a1c70c5-dirty"
+    "version": "6ef0dfb-dirty"
   },
   "servers": [
     {
       "url": "https://api.hetzner.cloud/v1",
       "description": "Official production server"
+    }
+  ],
+  "tags": [
+    {
+      "name": "actions",
+      "description": "Actions show the results and progress of asynchronous requests to the API."
+    },
+    {
+      "name": "certificates",
+      "description": "TLS/SSL Certificates prove the identity of a Server and are used to encrypt client traffic."
+    },
+    {
+      "name": "datacenters",
+      "description": "Each Datacenter represents a physical entity where virtual machines are hosted. Note that Datacenters are **not** guaranteed to be entirely independent failure domains."
+    },
+    {
+      "name": "floating_ips",
+      "description": "Floating IPs help you to create highly available setups. You can assign a Floating IP to any Server. The Server can then use this IP. You can reassign it to a different Server at any time, or you can choose to unassign the IP from Servers all together."
+    },
+    {
+      "name": "images",
+      "description": "Images are blueprints for your VM disks. They can be of different types:"
+    },
+    {
+      "name": "isos",
+      "description": "ISOs are read-only Images of DVDs. While we recommend using our Image functionality to install your Servers we also provide some stock ISOs so you can install more exotic operating systems by yourself."
+    },
+    {
+      "name": "load_balancer_types",
+      "description": "Load Balancer types define kinds of Load Balancers offered. Each type has an hourly and a monthly cost. You will pay whichever amount is lower for your usage of this specific Load Balancer. Costs may differ between Locations."
+    },
+    {
+      "name": "load_balancers"
+    },
+    {
+      "name": "locations",
+      "description": "Datacenters are organized by Locations. Datacenters in the same Location are connected with very low latency links."
+    },
+    {
+      "name": "networks",
+      "description": "Networks is a private networks feature. These Networks are optional and they coexist with the public network that every Server has by default."
+    },
+    {
+      "name": "pricing",
+      "description": "Returns prices for resources."
+    },
+    {
+      "name": "server_types",
+      "description": "Server types define kinds of Servers offered. Each type has an hourly and a monthly cost. You will pay whichever cost is lower for your usage of this specific Server. Costs may differ between Locations."
+    },
+    {
+      "name": "servers",
+      "description": "Servers are virtual machines that can be provisioned."
+    },
+    {
+      "name": "ssh_keys",
+      "description": "SSH keys are public keys you provide to the cloud system. They can be injected into Servers at creation time. We highly recommend that you use keys instead of passwords to manage your Servers."
+    },
+    {
+      "name": "volumes",
+      "description": "A Volume is a highly-available, scalable, and SSD-based block storage for Servers."
     }
   ],
   "components": {
