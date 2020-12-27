@@ -94,13 +94,20 @@ function appendSchema(
   fixSchema(id, schemas);
 }
 
-function sortObject(obj: OpenApiDocumentFragment) {
+function sortObject(
+  obj: OpenApiDocumentFragment,
+  compareFn?: (a: string, b: string) => number
+) {
   return Object.keys(obj)
-    .sort()
+    .sort(compareFn)
     .reduce(function (result: OpenApiDocumentFragment, key) {
       result[key] = obj[key];
       return result;
     }, {});
+}
+
+function sortObjectWithList(obj: OpenApiDocumentFragment, order: string[]) {
+  return sortObject(obj, (a, b) => order.indexOf(a) - order.indexOf(b));
 }
 
 async function createComponents(document: OpenApiDocumentFragment) {
@@ -230,6 +237,42 @@ async function validateOpenApiDocument(document: OpenApiDocumentFragment) {
   console.log(`Found ${warnings.length} warnings and ${errors.length} errors`);
 }
 
+function overWriteMetaData(
+  document: OpenApiDocumentFragment,
+  version?: string
+) {
+  document.openapi = "3.0.3";
+  document.info = {
+    title: "Hetzner Cloud API",
+    description:
+      "Copied from the official API documentation for the Public Hetzner Cloud.",
+    contact: { url: "https://docs.hetzner.cloud/" },
+    version: version === undefined ? getVersion() : version,
+  };
+  document.servers = [
+    {
+      url: "https://api.hetzner.cloud/v1",
+      description: "Official production server",
+    },
+  ];
+  document.security = [
+    {
+      bearerAuth: [],
+    },
+  ];
+}
+
+async function outputDocument(
+  document: OpenApiDocumentFragment,
+  output?: string
+) {
+  const json = JSON.stringify(document, null, 2);
+  if (output === undefined) {
+  } else {
+    await fs.writeFile(output, json, "utf-8");
+  }
+}
+
 async function main() {
   const args = parseArgs();
 
@@ -238,43 +281,20 @@ async function main() {
     await createComponents(document);
     transformPaths(document);
     await transformDocument(document);
+    overWriteMetaData(document, args.schema_version);
 
-    document = {
-      openapi: document.openapi,
-      info: document.info,
-      servers: document.servers,
-      components: document.components,
-      paths: document.paths,
-    };
-
-    document.openapi = "3.0.3";
-    document.info = {
-      title: "Hetzner Cloud API",
-      description:
-        "Copied from the official API documentation for the Public Hetzner Cloud.",
-      contact: { url: "https://docs.hetzner.cloud/" },
-      version:
-        args.schema_version === undefined ? getVersion() : args.schema_version,
-    };
-    document.servers = [
-      {
-        url: "https://api.hetzner.cloud/v1",
-        description: "Official production server",
-      },
-    ];
-    document.security = [
-      {
-        bearerAuth: [],
-      },
-    ];
+    document = sortObjectWithList(document, [
+      "openapi",
+      "info",
+      "servers",
+      "components",
+      "paths",
+      "security",
+    ]);
+    delete document.tags;
 
     await validateOpenApiDocument(JSON.parse(JSON.stringify(document)));
-
-    const json = JSON.stringify(document, null, 2);
-    if (args.output === undefined) {
-    } else {
-      fs.writeFile(args.output, json, "utf-8");
-    }
+    await outputDocument(document, args.output);
 
     if (args.list_paths) {
       Object.keys(document.paths).forEach((path) => {
