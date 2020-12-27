@@ -26,9 +26,9 @@
     }
   },
   {
-    "path": ["components", "schemas"],
+    "path": ["components", "schemas", "create_network_request", "properties", "subnets"],
     "set": {
-      "add_subnet_to_network_request": {
+      "items": {
         "$ref": "#/components/schemas/subnet"
       }
     }
