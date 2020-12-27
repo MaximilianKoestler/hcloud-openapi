@@ -79,7 +79,7 @@ function toSchemaName(postfix: string, verb: string, summary: string): string {
   return `${toOperationId(verb.toLowerCase(), summary)}_${postfix}`;
 }
 
-async function appendSchema(
+function appendSchema(
   schemas: OpenApiDocumentFragment,
   id: string,
   schema: OpenApiDocumentFragment | undefined,
@@ -114,7 +114,7 @@ async function createComponents(document: OpenApiDocumentFragment) {
       const verb_data = verb_obj as OpenApiDocumentFragment;
 
       const id = toSchemaName("request", verb, verb_data.summary);
-      await appendSchema(
+      appendSchema(
         schemas,
         id,
         verb_data?.requestBody?.content?.["application/json"]?.schema,
@@ -127,7 +127,7 @@ async function createComponents(document: OpenApiDocumentFragment) {
         const response_data = response_obj as OpenApiDocumentFragment;
 
         const id = toSchemaName("response", verb, verb_data.summary);
-        await appendSchema(
+        appendSchema(
           schemas,
           id,
           response_data?.content?.["application/json"]?.schema,
@@ -236,7 +236,7 @@ async function main() {
   try {
     let document = (await getContents(args.source)) as OpenApiDocumentFragment;
     await createComponents(document);
-    await transformPaths(document);
+    transformPaths(document);
     await transformDocument(document);
 
     document = {
