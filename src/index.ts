@@ -48,12 +48,14 @@ function parseArgs(): Arguments {
     .strict().argv;
 }
 
-async function getContents(source: string): Promise<string> {
+async function getContents(source: string): Promise<any> {
   console.log(`Loading JSON from ${source}`);
   if (validUrl.isWebUri(source)) {
     return (await needle("get", source)).body;
   } else {
-    return fs.readFile(source, "utf-8");
+    return fs
+      .readFile(source, "utf-8")
+      .then((contents: string) => JSON.parse(contents));
   }
 }
 
@@ -218,8 +220,7 @@ async function main() {
   const args = parseArgs();
 
   try {
-    const contents = await getContents(args.source);
-    let document = JSON.parse(contents) as OpenApiDocumentFragment;
+    let document = (await getContents(args.source)) as OpenApiDocumentFragment;
     await createComponents(document);
     await transformPaths(document);
     await transformDocument(document);
