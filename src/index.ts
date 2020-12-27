@@ -1,8 +1,6 @@
 #!/usr/bin/env node
 const fs = require("fs").promises;
 
-const convertSchema = require("@openapi-contrib/json-schema-to-openapi-schema");
-import jsdom = require("jsdom");
 import needle = require("needle");
 import validator = require("ibm-openapi-validator");
 import validUrl = require("valid-url");
@@ -19,71 +17,18 @@ interface Arguments {
   list_paths?: boolean;
 }
 
-interface Request {
-  verb: string;
-  url: string;
-}
-
-interface Parameter {
-  name: string;
-  typeText: string;
-  description: string;
-}
-
-interface RequestHeaders {
-  contentType: string;
-}
-
-interface ResponseHeaders {
-  status: number;
-  contentType?: string;
-}
-
-type JsonSchema = { [property: string]: any };
-
-interface SectionData {
-  title: string;
-  description: string;
-  request: Request;
-  uriParameters: Parameter[];
-  requestHeaders?: RequestHeaders;
-  requestSchema?: JsonSchema;
-  requestExample?: JsonSchema;
-  responseHeaders: ResponseHeaders;
-  responseSchema?: JsonSchema;
-  responseExample?: JsonSchema;
-}
-
-interface Section {
-  valid: boolean;
-  data?: SectionData;
-}
-
-interface PathVerbOperation {
-  path: string;
-  verb: string;
-  operation: OpenApiDocumentFragment;
-}
-
-function assertElement(element: Element | null | undefined): Element {
-  if (element === null || element === undefined) {
-    throw Error(`Encountered ${element} element where it was not expected!`);
-  }
-  return element;
-}
-
 function parseArgs(): Arguments {
   return yargs
     .scriptName("hloud-apify")
     .command(
       "--source <source> -o <output>",
-      "Convert HTML documentation to openapi format"
+      "Convert Hetzner OpenAPI spec to better OpenAPI document"
     )
     .options({
       source: {
         type: "string",
-        describe: "URL or local file with HTML documentation",
-        default: "https://docs.hetzner.cloud/",
+        describe: "URL or local file with OpenAPI spec in JSON",
+        default: "https://docs.hetzner.cloud/spec.json",
       },
       output: {
         alias: "o",
@@ -104,282 +49,12 @@ function parseArgs(): Arguments {
 }
 
 async function getContents(source: string): Promise<string> {
-  console.log(`Loading HTML documentation from ${source}`);
+  console.log(`Loading JSON from ${source}`);
   if (validUrl.isWebUri(source)) {
     return (await needle("get", source)).body;
   } else {
     return fs.readFile(source, "utf-8");
   }
-}
-
-function parseRequest(request: string): Request {
-  const parts = request.split(" ");
-  return {
-    verb: parts[0],
-    url: parts[1],
-  };
-}
-
-function elementAfterText(
-  root: Element,
-  textTag: string,
-  textContent: string,
-  selector: string
-): Element | null {
-  const possibleSearchBases = Array.from(root.querySelectorAll(textTag));
-  let searchBase: Element | null | undefined = possibleSearchBases.find(
-    (element) => element.textContent === textContent
-  );
-
-  const selectedElements = new Set(root.querySelectorAll(selector));
-  while (searchBase !== undefined && searchBase !== null) {
-    // check searchBase itself
-    if (selectedElements.has(searchBase)) {
-      return searchBase;
-    }
-
-    // check everything below searchBase
-    const allChildrenOfSearchBase = Array.from(
-      searchBase.querySelectorAll("*")
-    );
-    const intersection = allChildrenOfSearchBase.find((element) =>
-      selectedElements.has(element)
-    );
-    if (intersection !== undefined) {
-      return intersection;
-    }
-
-    searchBase = searchBase.nextElementSibling;
-  }
-  return null;
-}
-
-function consecutiveSiblings(
-  element: Element | null,
-  tagName: string
-): Element[] {
-  if (element === null) {
-    return [];
-  }
-
-  let siblings: Element[] = [];
-  let sibling = element.nextElementSibling;
-  while (sibling?.tagName.toLowerCase() === tagName.toLowerCase()) {
-    siblings.push(sibling);
-    sibling = sibling.nextElementSibling;
-  }
-  return siblings;
-}
-
-function parseParameterTable(table: Element | null): Parameter[] {
-  if (table === null) {
-    return [];
-  }
-
-  return Array.from(table.querySelectorAll("tbody > tr")).map((row) => {
-    const [name, typeText, description] = Array.from(
-      row.querySelectorAll("td")
-    ).map((td) => td.textContent?.replace(/\s+/g, " ").trim() as string);
-    return { name, typeText, description };
-  });
-}
-
-function parseHeaders(pre: Element): Map<string, string> {
-  const text = Array.from(pre.querySelectorAll("code"))
-    .map((code) => code.textContent)
-    .join("\n");
-
-  return new Map(
-    text.split("\n").map((line) => line?.split(": ") as [string, string])
-  );
-}
-
-function parseRequestHeaders(pre: Element): RequestHeaders {
-  const parts = parseHeaders(pre);
-
-  const contentType = parts.get("Content-Type");
-  if (contentType === undefined) {
-    throw Error("ContentType missing from request headers!");
-  }
-
-  return {
-    contentType,
-  };
-}
-
-function parseResponseHeaders(pre: Element): ResponseHeaders {
-  const parts = parseHeaders(pre);
-
-  const status = parts.get("Status");
-  if (status === undefined) {
-    throw Error("Status missing from response headers!");
-  }
-
-  return {
-    status: parseInt(status),
-    contentType: parts.get("Content-Type"),
-  };
-}
-
-function parseSection(section: Element): Section {
-  const methodDescription = section.querySelector("div.method__description");
-  if (methodDescription === null) {
-    return { valid: false };
-  }
-
-  const titleElement = methodDescription.querySelector("h3");
-  const title = titleElement?.textContent;
-  if (title === undefined || title === null) {
-    return { valid: false };
-  }
-
-  try {
-    const description = consecutiveSiblings(titleElement, "p")
-      .map((element) => element.textContent)
-      .join(" ")
-      .replace(/\s+/g, " ")
-      .trim();
-
-    const request = elementAfterText(
-      methodDescription,
-      "h4",
-      "HTTP Request",
-      "code"
-    )?.textContent;
-    if (request === undefined || request === null) {
-      return { valid: false };
-    }
-
-    const uriParameterTable = elementAfterText(
-      methodDescription,
-      "h4",
-      "URI Parameters",
-      "div.table-wrapper > table"
-    );
-
-    const methodExample = assertElement(
-      section.querySelector("div.method__example")
-    );
-
-    const requestHeadersPre = elementAfterText(
-      methodExample,
-      "h4",
-      "Request headers",
-      "pre"
-    );
-    const requestHeaders =
-      requestHeadersPre !== null
-        ? parseRequestHeaders(requestHeadersPre)
-        : undefined;
-
-    const requestExampleElement = elementAfterText(
-      methodExample,
-      "h4",
-      "Request",
-      "div.tab__content"
-    );
-
-    const requestExampleText = requestExampleElement?.textContent;
-    let requestExample: JsonSchema =
-      requestExampleText !== undefined && requestExampleText !== null
-        ? JSON.parse(requestExampleText)
-        : undefined;
-
-    const requestSchemaText =
-      requestExampleElement?.nextElementSibling?.textContent;
-    let requestSchema: JsonSchema =
-      requestSchemaText !== undefined && requestSchemaText !== null
-        ? JSON.parse(requestSchemaText)
-        : undefined;
-
-    if (requestSchema === undefined && requestHeaders !== undefined) {
-      console.warn(
-        `Section "${title}": Request schema is missing but contentType is present!`
-      );
-    }
-
-    if (requestSchema !== undefined && requestHeaders === undefined) {
-      throw Error(
-        `Section "${title}": Encountered request schema for section without contentType!`
-      );
-    }
-
-    const responseHeaders = parseResponseHeaders(
-      assertElement(
-        elementAfterText(methodExample, "h4", "Response headers", "pre")
-      )
-    );
-
-    const responseExampleElement = elementAfterText(
-      methodExample,
-      "h4",
-      "Response",
-      "div.tab__content"
-    );
-
-    const responseExampleText = responseExampleElement?.textContent;
-    let responseExample: JsonSchema =
-      responseExampleText !== undefined && responseExampleText !== null
-        ? JSON.parse(responseExampleText)
-        : undefined;
-
-    const responseSchemaText =
-      responseExampleElement?.nextElementSibling?.textContent;
-    let responseSchema: JsonSchema =
-      responseSchemaText !== undefined && responseSchemaText !== null
-        ? JSON.parse(responseSchemaText)
-        : undefined;
-
-    if (
-      responseSchema === undefined &&
-      responseHeaders.contentType !== undefined
-    ) {
-      console.warn(
-        `Section "${title}": Response schema is missing but contentType is present!`
-      );
-    }
-
-    if (
-      responseSchema !== undefined &&
-      responseHeaders.contentType === undefined
-    ) {
-      throw Error(
-        `Section "${title}": Encountered response schema for section without contentType!`
-      );
-    }
-
-    return {
-      valid: true,
-      data: {
-        title,
-        description,
-        request: parseRequest(request),
-        uriParameters: parseParameterTable(uriParameterTable),
-        requestHeaders,
-        requestSchema,
-        requestExample,
-        responseHeaders,
-        responseSchema,
-        responseExample,
-      },
-    };
-  } catch (error) {
-    console.error("Error in section:", title);
-    throw error;
-  }
-}
-
-function parseHtmlDocumentation(contents: string): Section[] {
-  console.log(`Processing document of size ${contents.length}`);
-  const dom = jsdom.JSDOM.fragment(contents);
-
-  const sections = Array.from(dom.querySelectorAll("div.method"))
-    .map(parseSection)
-    .filter((section) => section.valid);
-
-  console.log(`Found ${sections.length} valid sections`);
-
-  return sections;
 }
 
 function toOperationId(verb: string, text: string) {
@@ -398,110 +73,8 @@ function toOperationId(verb: string, text: string) {
   return id;
 }
 
-function toSchemaName(postfix: string, data: SectionData): string {
-  return `${toOperationId(
-    data.request.verb.toLowerCase(),
-    data.title
-  )}_${postfix}`;
-}
-
-function toParameters(data: SectionData): OpenApiDocumentFragment[] {
-  let parameters: OpenApiDocumentFragment[] = [];
-
-  data.uriParameters.forEach(({ name, typeText, description }) => {
-    const required = typeText.search("(required)") !== -1;
-    const inPath = data.request.url.search(`{${name}}`) !== -1;
-    parameters.push({
-      name,
-      in: inPath ? "path" : "query",
-      description,
-      required,
-      schema: {
-        type: "string", // TODO: construct from typeText
-      },
-    });
-  });
-
-  return parameters;
-}
-
-function toRequestBody(data: SectionData): OpenApiDocumentFragment | undefined {
-  if (data.requestHeaders === undefined || data.requestSchema === undefined) {
-    return undefined;
-  }
-
-  const mediaTypeObject: OpenApiDocumentFragment = {
-    schema: {
-      $ref: "#/components/schemas/" + toSchemaName("request", data),
-    },
-  };
-
-  if (data.requestExample !== undefined) {
-    mediaTypeObject["example"] = data.requestExample;
-  }
-
-  return {
-    content: {
-      [data.requestHeaders.contentType]: mediaTypeObject,
-    },
-  };
-}
-
-function toResponses(data: SectionData): OpenApiDocumentFragment {
-  const response: OpenApiDocumentFragment = {};
-  if (
-    data.responseSchema !== undefined &&
-    data.responseHeaders.contentType !== undefined
-  ) {
-    response["description"] = `Response to ${data.request.url}`;
-
-    const mediaTypeObject: OpenApiDocumentFragment = {
-      schema: {
-        $ref: "#/components/schemas/" + toSchemaName("response", data),
-      },
-    };
-
-    if (data.responseExample !== undefined) {
-      mediaTypeObject["example"] = data.responseExample;
-    }
-
-    response["content"] = {
-      [data.responseHeaders.contentType]: mediaTypeObject,
-    };
-  } else {
-    response["description"] = `Empty response to ${data.request.url}`;
-  }
-  return {
-    [data.responseHeaders.status.toString()]: response,
-  };
-}
-
-async function createPath(section: Section): Promise<PathVerbOperation> {
-  if (section.data === undefined) {
-    throw Error("Encountered valid section without data!");
-  }
-
-  const data = section.data;
-  const verb = data.request.verb.toLowerCase();
-  const path = data.request.url
-    .replace(/^(https:\/\/api.hetzner.cloud\/v1)/, "")
-    .replace(/(\{\?.*)$/, "");
-
-  const apiGroupName = path.split("/")[1];
-
-  return {
-    path,
-    verb,
-    operation: {
-      tags: [apiGroupName],
-      summary: data.title,
-      description: data.description,
-      operationId: toOperationId(verb, data.title),
-      parameters: toParameters(section.data),
-      requestBody: toRequestBody(section.data),
-      responses: toResponses(section.data),
-    },
-  };
+function toSchemaName(postfix: string, verb: string, summary: string): string {
+  return `${toOperationId(verb.toLowerCase(), summary)}_${postfix}`;
 }
 
 async function appendSchema(
@@ -514,47 +87,9 @@ async function appendSchema(
     return;
   }
 
-  schemas[id] = await convertSchema(schema, {
-    dereference: true,
-  });
+  schemas[id] = schema;
   schemas[id].description = description;
   fixSchema(id, schemas);
-}
-
-async function appendRequestSchema(
-  schemas: OpenApiDocumentFragment,
-  data: SectionData
-) {
-  const id = toSchemaName("request", data);
-  if (
-    data.responseSchema !== undefined &&
-    data.responseHeaders.contentType !== undefined
-  ) {
-    await appendSchema(
-      schemas,
-      id,
-      data.requestSchema,
-      `Request for ${data.request.verb} ${data.request.url}`
-    );
-  }
-}
-
-async function appendResponseSchema(
-  schemas: OpenApiDocumentFragment,
-  data: SectionData
-) {
-  const id = toSchemaName("response", data);
-  if (
-    data.responseSchema !== undefined &&
-    data.responseHeaders.contentType !== undefined
-  ) {
-    await appendSchema(
-      schemas,
-      id,
-      data.responseSchema,
-      `Response to ${data.request.verb} ${data.request.url}`
-    );
-  }
 }
 
 function sortObject(obj: OpenApiDocumentFragment) {
@@ -566,19 +101,38 @@ function sortObject(obj: OpenApiDocumentFragment) {
     }, {});
 }
 
-async function createComponents(
-  sections: Section[]
-): Promise<OpenApiDocumentFragment> {
+async function createComponents(document: OpenApiDocumentFragment) {
+  const paths = document.paths as OpenApiDocumentFragment;
+  const base_url = "https://api.hetzner.cloud/v1";
+
   const schemas = {};
 
-  for (let i = 0; i < sections.length; ++i) {
-    const data = sections[i].data;
-    if (data === undefined) {
-      throw Error("Encountered valid section without data!");
-    }
+  for (const [path, path_obj] of Object.entries(paths)) {
+    for (const [verb, verb_obj] of Object.entries(path_obj)) {
+      const verb_data = verb_obj as OpenApiDocumentFragment;
 
-    await appendRequestSchema(schemas, data);
-    await appendResponseSchema(schemas, data);
+      const id = toSchemaName("request", verb, verb_data.summary);
+      await appendSchema(
+        schemas,
+        id,
+        verb_data?.requestBody?.content?.["application/json"]?.schema,
+        `Request for ${verb.toUpperCase()} ${base_url}${path}`
+      );
+
+      for (const [status_code, response_obj] of Object.entries(
+        verb_data.responses
+      )) {
+        const response_data = response_obj as OpenApiDocumentFragment;
+
+        const id = toSchemaName("response", verb, verb_data.summary);
+        await appendSchema(
+          schemas,
+          id,
+          response_data?.content?.["application/json"]?.schema,
+          `Response to ${verb.toUpperCase()} ${base_url}${path}`
+        );
+      }
+    }
   }
 
   await deduplicateSchemas(schemas, true);
@@ -590,25 +144,47 @@ async function createComponents(
     },
   };
 
-  return {
+  document.components = {
     schemas: sortObject(schemas),
     securitySchemes,
   };
 }
 
-async function createPaths(
-  sections: Section[]
-): Promise<OpenApiDocumentFragment> {
-  let result: OpenApiDocumentFragment = {};
+function transformPath(
+  path: string,
+  verb: string,
+  verb_data: OpenApiDocumentFragment
+) {
+  verb_data.tags = [path.split("/")[1]];
+  verb_data.operationId = toOperationId(verb, verb_data.summary);
 
-  for (let i = 0; i < sections.length; ++i) {
-    let { path, verb, operation } = await createPath(sections[i]);
-    if (!(path in result)) {
-      result[path] = {};
-    }
-    result[path][verb] = operation;
+  const request_content = verb_data?.requestBody?.content?.["application/json"];
+  if (request_content?.schema !== undefined) {
+    const id = toSchemaName("request", verb, verb_data.summary);
+    request_content.schema = { $ref: "#/components/schemas/" + id };
   }
-  return result;
+
+  for (const [status_code, response_obj] of Object.entries(
+    verb_data.responses
+  )) {
+    const response_data = response_obj as OpenApiDocumentFragment;
+    const response_content = response_data?.content?.["application/json"];
+
+    if (response_content?.schema !== undefined) {
+      const id = toSchemaName("response", verb, verb_data.summary);
+      response_content.schema = { $ref: "#/components/schemas/" + id };
+    }
+  }
+}
+
+async function transformPaths(document: OpenApiDocumentFragment) {
+  const paths = document.paths as OpenApiDocumentFragment;
+
+  for (const [path, path_obj] of Object.entries(paths)) {
+    for (const [verb, verb_obj] of Object.entries(path_obj)) {
+      transformPath(path, verb, verb_obj as OpenApiDocumentFragment);
+    }
+  }
 }
 
 function getVersion(): string {
@@ -620,43 +196,6 @@ function getVersion(): string {
   } catch {
     return "unknown";
   }
-}
-
-async function createOpenApiDocument(
-  sections: Section[],
-  version?: string
-): Promise<OpenApiDocumentFragment> {
-  const openapi = "3.0.3";
-
-  const info = {
-    title: "Hetzner Cloud API",
-    description:
-      "Copied from the official API documentation for the Public Hetzner Cloud.",
-    contact: { url: "https://docs.hetzner.cloud/" },
-    version: version === undefined ? getVersion() : version,
-  };
-
-  const servers = [
-    {
-      url: "https://api.hetzner.cloud/v1",
-      description: "Official production server",
-    },
-  ];
-
-  const security = [
-    {
-      bearerAuth: [],
-    },
-  ];
-
-  return {
-    openapi,
-    info,
-    servers,
-    components: await createComponents(sections),
-    paths: await createPaths(sections),
-    security,
-  };
 }
 
 async function validateOpenApiDocument(document: OpenApiDocumentFragment) {
@@ -680,9 +219,40 @@ async function main() {
 
   try {
     const contents = await getContents(args.source);
-    const sections = parseHtmlDocumentation(contents);
-    const document = await createOpenApiDocument(sections, args.schema_version);
+    let document = JSON.parse(contents) as OpenApiDocumentFragment;
+    await createComponents(document);
+    await transformPaths(document);
     await transformDocument(document);
+
+    document = {
+      openapi: document.openapi,
+      info: document.info,
+      servers: document.servers,
+      components: document.components,
+      paths: document.paths,
+    };
+
+    document.openapi = "3.0.3";
+    document.info = {
+      title: "Hetzner Cloud API",
+      description:
+        "Copied from the official API documentation for the Public Hetzner Cloud.",
+      contact: { url: "https://docs.hetzner.cloud/" },
+      version:
+        args.schema_version === undefined ? getVersion() : args.schema_version,
+    };
+    document.servers = [
+      {
+        url: "https://api.hetzner.cloud/v1",
+        description: "Official production server",
+      },
+    ];
+    document.security = [
+      {
+        bearerAuth: [],
+      },
+    ];
+
     await validateOpenApiDocument(JSON.parse(JSON.stringify(document)));
 
     const json = JSON.stringify(document, null, 2);

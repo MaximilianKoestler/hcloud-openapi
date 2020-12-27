@@ -251,19 +251,19 @@ export async function deduplicateSchemas(
       afterChildren: (part) => {
         if (part.type == "array") {
           if (part.items !== undefined) {
-            const { description, items, ...hashableParts } = part;
+            const { description, example, items, ...hashableParts } = part;
             hashableParts.items = items["x-hash"];
             part["x-hash"] = objectHash(hashableParts);
             part["x-complexity"] = items["x-complexity"] + 1;
           } else {
             console.warn(`Found array without "items"`);
-            const { description, ...hashableParts } = part;
+            const { description, example, ...hashableParts } = part;
             part["x-hash"] = objectHash(hashableParts);
             part["x-complexity"] = 1;
           }
         } else if (part.type == "object") {
           if (part.properties !== undefined) {
-            const { description, properties, ...hashableParts } = part;
+            const { description, example, properties, ...hashableParts } = part;
             hashableParts.properties = {};
             Object.keys(properties).forEach((property) => {
               hashableParts.properties[property] =
@@ -275,12 +275,12 @@ export async function deduplicateSchemas(
               1
             );
           } else {
-            const { description, ...hashableParts } = part;
+            const { description, example, ...hashableParts } = part;
             part["x-hash"] = objectHash(hashableParts);
             part["x-complexity"] = 1;
           }
         } else {
-          const { description, ...hashableParts } = part;
+          const { description, example, ...hashableParts } = part;
           part["x-hash"] = objectHash(hashableParts);
           part["x-complexity"] = 1;
         }

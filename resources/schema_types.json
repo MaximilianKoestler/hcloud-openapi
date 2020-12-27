@@ -3,7 +3,7 @@
     "description": "Actions show the results and progress of asynchronous requests to the API.",
     "name": "action",
     "path": [
-      "list_all_actions_response",
+      "list_actions_response",
       "actions"
     ]
   },
@@ -41,7 +41,7 @@
   {
     "name": "error",
     "path": [
-      "list_all_actions_response",
+      "list_actions_response",
       "actions",
       "error"
     ]
@@ -54,11 +54,11 @@
     ]
   },
   {
-    "description": "Configuration for health checks",
-    "name": "health_check",
+    "name": "health_status",
     "path": [
-      "add_service_request",
-      "health_check"
+      "create_load_balancer_request",
+      "targets",
+      "health_status"
     ]
   },
   {
@@ -164,18 +164,34 @@
   {
     "name": "price",
     "path": [
-      "list_prices_response",
-      "pricing",
-      "image",
-      "price_per_gb_month"
+      "list_load_balancer_types_response",
+      "load_balancer_types",
+      "prices",
+      "price_hourly"
     ]
   },
   {
     "name": "price_per_time",
     "path": [
-      "list_server_types_response",
-      "server_types",
+      "list_load_balancer_types_response",
+      "load_balancer_types",
       "prices"
+    ]
+  },
+  {
+    "name": "private_net_load_balancer",
+    "path": [
+      "list_load_balancers_response",
+      "load_balancers",
+      "private_net"
+    ]
+  },
+  {
+    "name": "private_net_server",
+    "path": [
+      "list_servers_response",
+      "servers",
+      "private_net"
     ]
   },
   {
@@ -187,7 +203,15 @@
     ]
   },
   {
-    "name": "public_net",
+    "name": "public_net_load_balancer",
+    "path": [
+      "list_load_balancers_response",
+      "load_balancers",
+      "public_net"
+    ]
+  },
+  {
+    "name": "public_net_server",
     "path": [
       "list_servers_response",
       "servers",
@@ -197,7 +221,7 @@
   {
     "name": "resource",
     "path": [
-      "list_all_actions_response",
+      "list_actions_response",
       "actions",
       "resources"
     ]
@@ -207,6 +231,14 @@
     "path": [
       "create_network_request",
       "routes"
+    ]
+  },
+  {
+    "name": "selected_target",
+    "path": [
+      "create_load_balancer_request",
+      "targets",
+      "targets"
     ]
   },
   {
@@ -243,14 +275,6 @@
   {
     "description": "Subnets divide the ip_range from the parent Network object into multiple Subnetworks that you can use for different specific purposes.",
     "name": "subnet",
-    "path": [
-      "create_network_request",
-      "subnets"
-    ]
-  },
-  {
-    "description": "Subnets divide the ip_range from the parent Network object into multiple Subnetworks that you can use for different specific purposes.",
-    "name": "subnet_with_gateway",
     "path": [
       "list_networks_response",
       "networks",
