@@ -6,7 +6,7 @@
     "contact": {
       "url": "https://docs.hetzner.cloud/"
     },
-    "version": "55066ae-dirty"
+    "version": "f5d3d35-dirty"
   },
   "servers": [
     {
@@ -1094,32 +1094,7 @@
           "subnets": {
             "type": "array",
             "items": {
-              "type": "object",
-              "properties": {
-                "type": {
-                  "type": "string",
-                  "enum": [
-                    "cloud",
-                    "server",
-                    "vswitch"
-                  ],
-                  "description": "Type of Subnetwork"
-                },
-                "ip_range": {
-                  "type": "string",
-                  "description": "Range to allocate IPs from. Must be a Subnet of the ip_range of the parent network object and must not overlap with any other subnets or with any destinations in routes. Minimum Network size is /30. We suggest that you pick a bigger Network with a /24 netmask.",
-                  "example": "10.0.1.0/24"
-                },
-                "network_zone": {
-                  "type": "string",
-                  "description": "Name of Network zone. Currently eu-central is the only available zone.",
-                  "example": "eu-central"
-                }
-              },
-              "required": [
-                "type",
-                "network_zone"
-              ]
+              "$ref": "#/components/schemas/subnet"
             },
             "description": "Array of subnets allocated."
           },
@@ -3311,7 +3286,7 @@
           "subnets": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/subnet"
+              "$ref": "#/components/schemas/subnet_with_gateway"
             },
             "description": "Array subnets allocated in this Network"
           },
@@ -4474,6 +4449,35 @@
             "type": "string",
             "description": "Name of Network zone. Currently eu-central is the only available zone.",
             "example": "eu-central"
+          }
+        },
+        "required": [
+          "type",
+          "network_zone"
+        ],
+        "description": "Subnets divide the ip_range from the parent Network object into multiple Subnetworks that you can use for different specific purposes."
+      },
+      "subnet_with_gateway": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "enum": [
+              "cloud",
+              "server",
+              "vswitch"
+            ],
+            "description": "Type of Subnetwork"
+          },
+          "ip_range": {
+            "type": "string",
+            "description": "Range to allocate IPs from. Must be a Subnet of the ip_range of the parent network object and must not overlap with any other subnets or with any destinations in routes. Minimum Network size is /30. We suggest that you pick a bigger Network with a /24 netmask.",
+            "example": "10.0.1.0/24"
+          },
+          "network_zone": {
+            "type": "string",
+            "description": "Name of Network zone. Currently eu-central is the only available zone.",
+            "example": "eu-central"
           },
           "gateway": {
             "type": "string",
@@ -4485,8 +4489,7 @@
           "type",
           "network_zone",
           "gateway"
-        ],
-        "description": "Subnets divide the ip_range from the parent Network object into multiple Subnetworks that you can use for different specific purposes."
+        ]
       },
       "target": {
         "type": "object",
