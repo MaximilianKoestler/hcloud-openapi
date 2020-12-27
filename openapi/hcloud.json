@@ -6,7 +6,7 @@
     "contact": {
       "url": "https://docs.hetzner.cloud/"
     },
-    "version": "7c9d199-dirty"
+    "version": "a12b0ad-dirty"
   },
   "servers": [
     {
@@ -2173,7 +2173,7 @@
           "cookie_name",
           "cookie_lifetime"
         ],
-        "description": "Configuration for HTTP and HTTPS services"
+        "description": "Configuration option for protocols http and https"
       },
       "image": {
         "type": "object",

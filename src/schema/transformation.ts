@@ -476,9 +476,9 @@ export async function deduplicateSchemas(
   );
   if (singleUseEntries.length > 0) {
     console.warn(
-      `Found ${singleUseEntries.length} entries which only occur once:`
+      `Found ${singleUseEntries.length} component entries which only occur once`
     );
-    console.warn(singleUseEntries);
+    // console.warn(singleUseEntries);
   }
 
   // remove hashes again

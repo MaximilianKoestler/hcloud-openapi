@@ -14,7 +14,7 @@ function applyTransformation(
   document: OpenApiDocumentFragment,
   transformation: Transformation
 ) {
-  if (objectPath.get(document, transformation.path) === undefined) {
+  if (!objectPath.has(document, transformation.path)) {
     throw Error(
       `Found transformation with invalid path: ${transformation.path.join("/")}`
     );
@@ -28,6 +28,7 @@ function applyTransformation(
 
   if (transformation.remove !== undefined) {
     transformation.remove.forEach((name) => {
+      console.log(transformation.path, name);
       objectPath.del(document, transformation.path.concat([name]));
     });
   }

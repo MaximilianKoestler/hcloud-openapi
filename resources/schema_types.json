@@ -62,7 +62,6 @@
     ]
   },
   {
-    "description": "Configuration for HTTP and HTTPS services",
     "name": "http",
     "path": [
       "add_service_request",
@@ -110,7 +109,6 @@
     ]
   },
   {
-    "description": "User-defined labels (key-value pairs)",
     "name": "labels",
     "path": [
       "create_floating_ip_request",

@@ -205,15 +205,29 @@ async function validateOpenApiDocument(document: OpenApiDocumentFragment) {
 
   const results = await validator(document);
 
-  for (const item of results.warnings) {
+  let warnings = Array.from(results.warnings);
+
+  let errors = Array.from(results.errors);
+  errors = errors.filter(
+    (item) =>
+      !item.message.startsWith("Enum values must follow case convention:")
+  );
+  errors = errors.filter(
+    (item) =>
+      !(
+        item.message.startsWith(
+          "Null values are not allowed for any property."
+        ) && item.path.endsWith("example")
+      )
+  );
+
+  for (const item of warnings) {
     console.warn(`WARNING: ${item.message} (${item.path})`);
   }
-  for (const item of results.errors) {
+  for (const item of errors) {
     console.error(`ERROR: ${item.message} (${item.path})`);
   }
-  console.log(
-    `Found ${results.warnings.length} warnings and ${results.errors.length} errors`
-  );
+  console.log(`Found ${warnings.length} warnings and ${errors.length} errors`);
 }
 
 async function main() {
