@@ -266,7 +266,7 @@ function overWriteMetaData(
   ];
 }
 
-async function overWriteTagList(document: OpenApiDocumentFragment) {
+function overWriteTagList(document: OpenApiDocumentFragment) {
   const paths = document.paths as OpenApiDocumentFragment;
   const usedTags = new Set(Object.keys(paths).map(tagFromPath));
 
@@ -306,7 +306,7 @@ async function main() {
     transformPaths(document);
     await transformDocument(document);
     overWriteMetaData(document, args.schema_version);
-    await overWriteTagList(document);
+    overWriteTagList(document);
 
     document = sortObjectWithList(document, [
       "openapi",
