@@ -301,10 +301,17 @@ async function main() {
   const args = parseArgs();
 
   try {
+    // load document from source
     let document = (await getContents(args.source)) as OpenApiDocumentFragment;
+
+    // create components (and deduplicate them) and add references to components to the paths
     await createComponents(document);
     transformPaths(document);
+
+    // apply transformations from `resources/document_transformations.json`
     await transformDocument(document);
+
+    // overwrite various spec parts
     overWriteMetaData(document, args.schema_version);
     overWriteTagList(document);
 
