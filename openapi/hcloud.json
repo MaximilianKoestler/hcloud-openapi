@@ -6,7 +6,7 @@
     "contact": {
       "url": "https://docs.hetzner.cloud/"
     },
-    "version": "134bb24-dirty"
+    "version": "8a2c025-dirty"
   },
   "servers": [
     {
@@ -3480,7 +3480,11 @@
             "nullable": true,
             "description": "The total number of entries"
           }
-        }
+        },
+        "required": [
+          "page",
+          "per_page"
+        ]
       },
       "power_off_server_response": {
         "type": "object",

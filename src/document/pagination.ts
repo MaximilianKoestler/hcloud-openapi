@@ -38,6 +38,7 @@ function addPaginationMetadataToProperties(
             description: "The total number of entries",
           },
         },
+        required: ["page", "per_page"],
       },
     },
   };
