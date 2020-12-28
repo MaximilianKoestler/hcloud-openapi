@@ -6,9 +6,10 @@ import validator = require("ibm-openapi-validator");
 import validUrl = require("valid-url");
 import yargs = require("yargs");
 
-import { OpenApiDocumentFragment } from "./types";
-import { fixSchema, deduplicateSchemas } from "./schema/transformation";
+import { addPagination } from "./document/pagination";
 import { transformDocument } from "./document/transformation";
+import { deduplicateSchemas, fixSchema } from "./schema/transformation";
+import { OpenApiDocumentFragment } from "./types";
 
 interface Arguments {
   source: string;
@@ -303,6 +304,9 @@ async function main() {
   try {
     // load document from source
     let document = (await getContents(args.source)) as OpenApiDocumentFragment;
+
+    // add pagination support where it makes sense
+    addPagination(document);
 
     // create components (and deduplicate them) and add references to components to the paths
     await createComponents(document);
