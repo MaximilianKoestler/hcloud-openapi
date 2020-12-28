@@ -2,10 +2,25 @@
 
 ![](https://github.com/MaximilianKoestler/hcloud-openapi/workflows/CI%20Build%20and%20OpenAPI%20Spec%20Generation/badge.svg)
 
-- [Link to the openAPI document](openapi/hcloud.json)
-- [Official API documentation](https://docs.hetzner.cloud/)
+This is an attempt to improve Hetzner's own OpenAPI specification to make it usable in code generation.
+When this project was started, Hetzner had not published their own OpenAPI specification for their cloud API, so I decided to build my own based on the HTML documentation on their website.
+Luckily, Hetzner has actually published an [OpenAPI spec for their API](https://docs.hetzner.cloud/spec.json) in the meantime but I think this project still adds some value.
+While Hetzner now appears to generate their documentation website from the OpenAPI spec, the spec is not very useful for automatic code generation.
+This project aims to convert the official spec to an improved version with the following main features:
 
-This repository contains scripts to generate an [OpenAPI](https://swagger.io/specification/) description of the [Hetzner Cloud API](https://docs.hetzner.cloud/).
+- Definition of common components that are reused throughout the schema
+- Added pagination support
+- API-friendly tag names
+- Unique `operationId`s
+
+As an added benefit, mainly from use of common components, the improved spec much smaller (414 KiB vs 1 MiB) than the original.
+
+## Further Reading
+
+- [Link to the generated openAPI document](openapi/hcloud.json)
+- [Official API documentation](https://docs.hetzner.cloud/)
+- [OpenAPI spec document provided by Hetzner](https://docs.hetzner.cloud/spec.json)
+- [OpenAPI standard](https://swagger.io/specification/)
 
 ## Use Cases
 This API description is currently being used by the following projects:
