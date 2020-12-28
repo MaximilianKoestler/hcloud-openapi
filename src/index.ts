@@ -242,7 +242,7 @@ async function validateOpenApiDocument(document: OpenApiDocumentFragment) {
   console.log(`Found ${warnings.length} warnings and ${errors.length} errors`);
 }
 
-function overWriteMetaData(
+function overWriteMetadata(
   document: OpenApiDocumentFragment,
   version?: string
 ) {
@@ -316,7 +316,7 @@ async function main() {
     await transformDocument(document);
 
     // overwrite various spec parts
-    overWriteMetaData(document, args.schema_version);
+    overWriteMetadata(document, args.schema_version);
     overWriteTagList(document);
 
     document = sortObjectWithList(document, [

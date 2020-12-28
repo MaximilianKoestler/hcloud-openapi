@@ -6,7 +6,7 @@
     "contact": {
       "url": "https://docs.hetzner.cloud/"
     },
-    "version": "cdd7e19-dirty"
+    "version": "134bb24-dirty"
   },
   "servers": [
     {
@@ -2521,6 +2521,9 @@
             "items": {
               "$ref": "#/components/schemas/action"
             }
+          },
+          "meta": {
+            "$ref": "#/components/schemas/meta"
           }
         },
         "required": [
@@ -2537,6 +2540,9 @@
             "items": {
               "$ref": "#/components/schemas/action"
             }
+          },
+          "meta": {
+            "$ref": "#/components/schemas/meta"
           }
         },
         "required": [
@@ -2553,6 +2559,9 @@
             "items": {
               "$ref": "#/components/schemas/action"
             }
+          },
+          "meta": {
+            "$ref": "#/components/schemas/meta"
           }
         },
         "required": [
@@ -2569,6 +2578,9 @@
             "items": {
               "$ref": "#/components/schemas/action"
             }
+          },
+          "meta": {
+            "$ref": "#/components/schemas/meta"
           }
         },
         "required": [
@@ -2585,6 +2597,9 @@
             "items": {
               "$ref": "#/components/schemas/action"
             }
+          },
+          "meta": {
+            "$ref": "#/components/schemas/meta"
           }
         },
         "required": [
@@ -2601,6 +2616,9 @@
             "items": {
               "$ref": "#/components/schemas/action"
             }
+          },
+          "meta": {
+            "$ref": "#/components/schemas/meta"
           }
         },
         "required": [
@@ -2617,6 +2635,9 @@
             "items": {
               "$ref": "#/components/schemas/action"
             }
+          },
+          "meta": {
+            "$ref": "#/components/schemas/meta"
           }
         },
         "required": [
@@ -2633,6 +2654,9 @@
             "items": {
               "$ref": "#/components/schemas/certificate"
             }
+          },
+          "meta": {
+            "$ref": "#/components/schemas/meta"
           }
         },
         "required": [
@@ -2669,6 +2693,9 @@
             "items": {
               "$ref": "#/components/schemas/floating_ip"
             }
+          },
+          "meta": {
+            "$ref": "#/components/schemas/meta"
           }
         },
         "required": [
@@ -2684,6 +2711,9 @@
             "items": {
               "$ref": "#/components/schemas/image"
             }
+          },
+          "meta": {
+            "$ref": "#/components/schemas/meta"
           }
         },
         "required": [
@@ -2699,6 +2729,9 @@
             "items": {
               "$ref": "#/components/schemas/iso"
             }
+          },
+          "meta": {
+            "$ref": "#/components/schemas/meta"
           }
         },
         "required": [
@@ -2714,6 +2747,9 @@
             "items": {
               "$ref": "#/components/schemas/load_balancer_type"
             }
+          },
+          "meta": {
+            "$ref": "#/components/schemas/meta"
           }
         },
         "required": [
@@ -2729,6 +2765,9 @@
             "items": {
               "$ref": "#/components/schemas/load_balancer"
             }
+          },
+          "meta": {
+            "$ref": "#/components/schemas/meta"
           }
         },
         "required": [
@@ -2744,6 +2783,9 @@
             "items": {
               "$ref": "#/components/schemas/location"
             }
+          },
+          "meta": {
+            "$ref": "#/components/schemas/meta"
           }
         },
         "required": [
@@ -2759,6 +2801,9 @@
             "items": {
               "$ref": "#/components/schemas/network"
             }
+          },
+          "meta": {
+            "$ref": "#/components/schemas/meta"
           }
         },
         "required": [
@@ -2934,6 +2979,9 @@
             "items": {
               "$ref": "#/components/schemas/server_type"
             }
+          },
+          "meta": {
+            "$ref": "#/components/schemas/meta"
           }
         },
         "required": [
@@ -2949,6 +2997,9 @@
             "items": {
               "$ref": "#/components/schemas/server"
             }
+          },
+          "meta": {
+            "$ref": "#/components/schemas/meta"
           }
         },
         "required": [
@@ -2964,6 +3015,9 @@
             "items": {
               "$ref": "#/components/schemas/ssh_key"
             }
+          },
+          "meta": {
+            "$ref": "#/components/schemas/meta"
           }
         },
         "required": [
@@ -2979,6 +3033,9 @@
             "items": {
               "$ref": "#/components/schemas/volume"
             }
+          },
+          "meta": {
+            "$ref": "#/components/schemas/meta"
           }
         },
         "required": [
@@ -3225,6 +3282,15 @@
         ],
         "description": "Location where the Datacenter resides in | Location the Floating IP was created in. Routing is optimized for this Location."
       },
+      "meta": {
+        "type": "object",
+        "description": "Metadata contained in the response",
+        "properties": {
+          "pagination": {
+            "$ref": "#/components/schemas/pagination"
+          }
+        }
+      },
       "metrics": {
         "type": "object",
         "properties": {
@@ -3381,6 +3447,40 @@
           "labels",
           "created"
         ]
+      },
+      "pagination": {
+        "description": "Information about the current pagination. The keys previous_page, next_page, last_page, and total_entries may be null when on the first page, last page, or when the total number of entries is unknown",
+        "type": "object",
+        "properties": {
+          "page": {
+            "type": "integer",
+            "description": "The current page number"
+          },
+          "per_page": {
+            "type": "integer",
+            "description": "The number of entries per page"
+          },
+          "previous_page": {
+            "type": "integer",
+            "nullable": true,
+            "description": "The previous page number"
+          },
+          "next_page": {
+            "type": "integer",
+            "nullable": true,
+            "description": "The next page number"
+          },
+          "last_page": {
+            "type": "integer",
+            "nullable": true,
+            "description": "The last page number"
+          },
+          "total_entries": {
+            "type": "integer",
+            "nullable": true,
+            "description": "The total number of entries"
+          }
+        }
       },
       "power_off_server_response": {
         "type": "object",
