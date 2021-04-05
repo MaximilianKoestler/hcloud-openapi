@@ -6,7 +6,7 @@
     "contact": {
       "url": "https://docs.hetzner.cloud/"
     },
-    "version": "8a2c025-dirty"
+    "version": "391b004-dirty"
   },
   "servers": [
     {
@@ -26,6 +26,10 @@
     {
       "name": "datacenters",
       "description": "Each Datacenter represents a physical entity where virtual machines are hosted. Note that Datacenters are **not** guaranteed to be entirely independent failure domains."
+    },
+    {
+      "name": "firewalls",
+      "description": "Firewalls can limit the network access to or from your resources."
     },
     {
       "name": "floating_ips",
@@ -80,6 +84,69 @@
       "action": {
         "title": "Action",
         "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "description": "ID of the Action",
+            "example": 13
+          },
+          "command": {
+            "type": "string",
+            "description": "Command executed in the Action",
+            "example": "start_server"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "error",
+              "running",
+              "success"
+            ],
+            "description": "Status of the Action"
+          },
+          "progress": {
+            "type": "number",
+            "description": "Progress of Action in percent",
+            "example": 100
+          },
+          "started": {
+            "type": "string",
+            "description": "Point in time when the Action was started (in ISO-8601 format)",
+            "example": "2016-01-30T23:55:00+00:00"
+          },
+          "finished": {
+            "type": "string",
+            "nullable": true,
+            "description": "Point in time when the Action was finished (in ISO-8601 format). Only set if the Action is finished otherwise null.",
+            "example": "2016-01-30T23:56:00+00:00"
+          },
+          "resources": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/resource"
+            },
+            "description": "Resources the Action relates to"
+          },
+          "error": {
+            "$ref": "#/components/schemas/error"
+          }
+        },
+        "required": [
+          "id",
+          "command",
+          "status",
+          "progress",
+          "started",
+          "finished",
+          "resources",
+          "error"
+        ],
+        "description": "Actions show the results and progress of asynchronous requests to the API."
+      },
+      "action_optional": {
+        "title": "NullableAction",
+        "type": "object",
+        "nullable": true,
         "properties": {
           "id": {
             "type": "integer",
@@ -266,6 +333,39 @@
         ],
         "description": "Response to POST https://api.hetzner.cloud/v1/load_balancers/{id}/actions/add_target"
       },
+      "apply_to_resources_request": {
+        "title": "ApplyToResources",
+        "type": "object",
+        "properties": {
+          "apply_to": {
+            "type": "array",
+            "description": "Resources the Firewall should be applied to",
+            "items": {
+              "$ref": "#/components/schemas/firewall_resource"
+            }
+          }
+        },
+        "required": [
+          "apply_to"
+        ],
+        "description": "Request for POST https://api.hetzner.cloud/v1/firewalls/{id}/actions/apply_to_resources"
+      },
+      "apply_to_resources_response": {
+        "type": "object",
+        "title": "ActionsResponse",
+        "properties": {
+          "actions": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/action"
+            }
+          }
+        },
+        "required": [
+          "actions"
+        ],
+        "description": "Response to POST https://api.hetzner.cloud/v1/firewalls/{id}/actions/apply_to_resources"
+      },
       "assign_floating_ip_to_server_request": {
         "type": "object",
         "properties": {
@@ -354,6 +454,7 @@
       },
       "attach_server_to_network_request": {
         "type": "object",
+        "title": "AttachToNetworkRequest",
         "properties": {
           "network": {
             "type": "integer",
@@ -396,6 +497,7 @@
       },
       "attach_volume_to_server_request": {
         "type": "object",
+        "title": "AttachVolumeRequest",
         "properties": {
           "server": {
             "type": "integer",
@@ -443,8 +545,18 @@
           "labels": {
             "$ref": "#/components/schemas/labels"
           },
+          "type": {
+            "type": "string",
+            "enum": [
+              "managed",
+              "uploaded"
+            ],
+            "example": "uploaded",
+            "description": "Type of the Certificate"
+          },
           "certificate": {
             "type": "string",
+            "nullable": true,
             "description": "Certificate and chain in PEM format, in order so that each record directly certifies the one preceding",
             "example": "-----BEGIN CERTIFICATE-----\n..."
           },
@@ -455,11 +567,13 @@
           },
           "not_valid_before": {
             "type": "string",
+            "nullable": true,
             "description": "Point in time when the Certificate becomes valid (in ISO-8601 format)",
             "example": "2019-01-08T10:00:00+00:00"
           },
           "not_valid_after": {
             "type": "string",
+            "nullable": true,
             "description": "Point in time when the Certificate stops being valid (in ISO-8601 format)",
             "example": "2019-07-08T09:59:59+00:00"
           },
@@ -477,15 +591,58 @@
           },
           "fingerprint": {
             "type": "string",
-            "description": "Fingerprint of the Certificate",
+            "nullable": true,
+            "description": "SHA256 fingerprint of the Certificate",
             "example": "03:c7:55:9b:2a:d1:04:17:09:f6:d0:7f:18:34:63:d4:3e:5f"
+          },
+          "status": {
+            "type": "object",
+            "nullable": true,
+            "properties": {
+              "issuance": {
+                "type": "string",
+                "enum": [
+                  "completed",
+                  "failed",
+                  "pending"
+                ],
+                "example": "valid",
+                "description": "Status of the issuance process of the Certificate"
+              },
+              "renewal": {
+                "type": "string",
+                "enum": [
+                  "failed",
+                  "pending",
+                  "scheduled",
+                  "unavailable"
+                ],
+                "example": "scheduled",
+                "description": "Status of the renewal process of the Certificate."
+              },
+              "error": {
+                "type": "object",
+                "nullable": true,
+                "properties": {
+                  "code": {
+                    "type": "string"
+                  },
+                  "message": {
+                    "type": "string"
+                  }
+                },
+                "example": null,
+                "description": "If issuance or renewal reports `failed`, this property contains information about what happened"
+              }
+            },
+            "description": "Current status of a type `managed` Certificate, always *null* for type `uploaded` Certificates"
           },
           "used_by": {
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/resource"
             },
-            "description": "Resources currently using the Certificate."
+            "description": "Resources currently using the Certificate"
           }
         },
         "required": [
@@ -503,21 +660,7 @@
         "description": "TLS/SSL Certificates prove the identity of a Server and are used to encrypt client traffic."
       },
       "change_algorithm_request": {
-        "type": "object",
-        "properties": {
-          "type": {
-            "type": "string",
-            "enum": [
-              "least_connections",
-              "round_robin"
-            ],
-            "description": "Algorithm of the Load Balancer"
-          }
-        },
-        "required": [
-          "type"
-        ],
-        "description": "Request for POST https://api.hetzner.cloud/v1/load_balancers/{id}/actions/change_algorithm"
+        "$ref": "#/components/schemas/load_balancer_algorithm"
       },
       "change_algorithm_response": {
         "type": "object",
@@ -620,6 +763,7 @@
       },
       "change_ip_range_of_network_request": {
         "type": "object",
+        "title": "ChangeIPRangeRequest",
         "properties": {
           "ip_range": {
             "type": "string",
@@ -671,6 +815,7 @@
       },
       "change_network_protection_request": {
         "type": "object",
+        "title": "ChangeProtectionRequest",
         "properties": {
           "delete": {
             "type": "boolean",
@@ -875,7 +1020,7 @@
         "description": "Response to POST https://api.hetzner.cloud/v1/volumes/{id}/actions/change_protection"
       },
       "create_certificate_request": {
-        "title": "CreateCertificate",
+        "title": "CreateCertificateRequest",
         "type": "object",
         "properties": {
           "name": {
@@ -886,30 +1031,48 @@
           "labels": {
             "$ref": "#/components/schemas/labels"
           },
+          "type": {
+            "type": "string",
+            "description": "Choose between uploading a Certificate in PEM format or requesting a managed *Let's Encrypt* Certificate. If omitted defaults to `uploaded`.",
+            "enum": [
+              "managed",
+              "uploaded"
+            ],
+            "example": "uploaded"
+          },
           "certificate": {
             "type": "string",
-            "description": "Certificate and chain in PEM format, in order so that each record directly certifies the one preceding",
+            "description": "Certificate and chain in PEM format, in order so that each record directly certifies the one preceding. Required for type `uploaded` Certificates.",
             "example": "-----BEGIN CERTIFICATE-----\n..."
           },
           "private_key": {
             "type": "string",
-            "description": "Certificate key in PEM format",
+            "description": "Certificate key in PEM format. Required for type `uploaded` Certificates.",
             "example": "-----BEGIN PRIVATE KEY-----\n..."
+          },
+          "domain_names": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Domains and subdomains that should be contained in the Certificate issued by *Let's Encrypt*. Required for type `managed` Certificates.",
+            "example": null
           }
         },
         "required": [
-          "name",
-          "certificate",
-          "private_key"
+          "name"
         ],
         "description": "Request for POST https://api.hetzner.cloud/v1/certificates"
       },
       "create_certificate_response": {
-        "title": "CertificateResponse",
+        "title": "CreateCertificateResponse",
         "type": "object",
         "properties": {
           "certificate": {
             "$ref": "#/components/schemas/certificate"
+          },
+          "action": {
+            "$ref": "#/components/schemas/action_optional"
           }
         },
         "required": [
@@ -917,8 +1080,111 @@
         ],
         "description": "Response to POST https://api.hetzner.cloud/v1/certificates"
       },
+      "create_firewall_request": {
+        "title": "CreateFirewallRequest",
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Name of the Firewall",
+            "example": "Corporate Intranet Protection"
+          },
+          "labels": {
+            "$ref": "#/components/schemas/labels"
+          },
+          "rules": {
+            "type": "array",
+            "description": "Array of rules",
+            "items": {
+              "$ref": "#/components/schemas/rule"
+            },
+            "example": [
+              {
+                "direction": "in",
+                "source_ips": [
+                  "28.239.13.1/32",
+                  "28.239.14.0/24",
+                  "ff21:1eac:9a3b:ee58:5ca:990c:8bc9:c03b/128"
+                ],
+                "protocol": "tcp",
+                "port": "80"
+              }
+            ]
+          },
+          "apply_to": {
+            "type": "array",
+            "description": "Resources the Firewall should be applied to after creation",
+            "items": {
+              "$ref": "#/components/schemas/firewall_resource"
+            }
+          }
+        },
+        "required": [
+          "name"
+        ],
+        "description": "Request for POST https://api.hetzner.cloud/v1/firewalls"
+      },
+      "create_firewall_response": {
+        "title": "CreateFirewallResponse",
+        "type": "object",
+        "properties": {
+          "firewall": {
+            "$ref": "#/components/schemas/firewall"
+          },
+          "actions": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/action"
+            },
+            "example": [
+              {
+                "id": 13,
+                "command": "set_firewall_rules",
+                "status": "success",
+                "progress": 100,
+                "started": "2016-01-30T23:55:00+00:00",
+                "finished": "2016-01-30T23:56:00+00:00",
+                "resources": [
+                  {
+                    "id": 38,
+                    "type": "firewall"
+                  }
+                ],
+                "error": {
+                  "code": "action_failed",
+                  "message": "Action failed"
+                }
+              },
+              {
+                "id": 14,
+                "command": "apply_firewall",
+                "status": "success",
+                "progress": 100,
+                "started": "2016-01-30T23:55:00+00:00",
+                "finished": "2016-01-30T23:56:00+00:00",
+                "resources": [
+                  {
+                    "id": 42,
+                    "type": "server"
+                  },
+                  {
+                    "id": 38,
+                    "type": "firewall"
+                  }
+                ],
+                "error": {
+                  "code": "action_failed",
+                  "message": "Action failed"
+                }
+              }
+            ]
+          }
+        },
+        "description": "Response to POST https://api.hetzner.cloud/v1/firewalls"
+      },
       "create_floating_ip_request": {
         "type": "object",
+        "title": "CreateFloatingIPRequest",
         "properties": {
           "type": {
             "type": "string",
@@ -972,6 +1238,7 @@
       },
       "create_image_from_server_request": {
         "type": "object",
+        "title": "CreateImageRequest",
         "properties": {
           "description": {
             "type": "string",
@@ -1007,6 +1274,7 @@
       },
       "create_load_balancer_request": {
         "type": "object",
+        "title": "CreateLoadBalancerRequest",
         "properties": {
           "name": {
             "type": "string",
@@ -1019,21 +1287,7 @@
             "example": "lb11"
           },
           "algorithm": {
-            "type": "object",
-            "properties": {
-              "type": {
-                "type": "string",
-                "enum": [
-                  "least_connections",
-                  "round_robin"
-                ],
-                "description": "Type of the algorithm"
-              }
-            },
-            "required": [
-              "type"
-            ],
-            "description": "Algorithm of the Load Balancer"
+            "$ref": "#/components/schemas/load_balancer_algorithm"
           },
           "services": {
             "type": "array",
@@ -1061,31 +1315,21 @@
             "type": "integer",
             "description": "ID of the network the Load Balancer should be attached to on creation",
             "example": 123
+          },
+          "network_zone": {
+            "type": "string",
+            "description": "Name of network zone",
+            "example": "eu-central"
+          },
+          "location": {
+            "type": "string",
+            "description": "ID or name of Location to create Load Balancer in"
           }
         },
         "required": [
           "name",
           "load_balancer_type",
           "algorithm"
-        ],
-        "oneOf": [
-          {
-            "properties": {
-              "network_zone": {
-                "type": "string",
-                "description": "Name of network zone",
-                "example": "eu-central"
-              }
-            }
-          },
-          {
-            "properties": {
-              "location": {
-                "type": "string",
-                "description": "ID or name of Location to create Load Balancer in"
-              }
-            }
-          }
         ],
         "description": "Request for POST https://api.hetzner.cloud/v1/load_balancers"
       },
@@ -1107,6 +1351,7 @@
       },
       "create_network_request": {
         "type": "object",
+        "title": "CreateNetworkRequest",
         "properties": {
           "name": {
             "type": "string",
@@ -1211,6 +1456,27 @@
               "properties": {}
             }
           },
+          "firewalls": {
+            "type": "array",
+            "description": "Firewalls which should be applied on the Server's public network interface at creation time",
+            "items": {
+              "type": "object",
+              "properties": {
+                "firewall": {
+                  "type": "integer",
+                  "description": "ID of the Firewall"
+                }
+              },
+              "required": [
+                "firewall"
+              ]
+            },
+            "example": [
+              {
+                "firewall": 38
+              }
+            ]
+          },
           "user_data": {
             "type": "string",
             "description": "Cloud-Init user data to use during Server creation. This field is limited to 32KiB.",
@@ -1300,6 +1566,7 @@
       },
       "create_volume_request": {
         "type": "object",
+        "title": "CreateVolumeRequest",
         "properties": {
           "size": {
             "type": "number",
@@ -1323,30 +1590,20 @@
             "type": "string",
             "description": "Format Volume after creation. One of: `xfs`, `ext4`",
             "example": "xfs"
+          },
+          "location": {
+            "type": "string",
+            "description": "Location to create the Volume in (can be omitted if Server is specified)",
+            "example": "nbg1"
+          },
+          "server": {
+            "type": "integer",
+            "description": "Server to which to attach the Volume once it's created (Volume will be created in the same Location as the server)"
           }
         },
         "required": [
           "size",
           "name"
-        ],
-        "oneOf": [
-          {
-            "properties": {
-              "location": {
-                "type": "string",
-                "description": "Location to create the Volume in (can be omitted if Server is specified)",
-                "example": "nbg1"
-              }
-            }
-          },
-          {
-            "properties": {
-              "server": {
-                "type": "number",
-                "description": "Server to which to attach the Volume once it's created (Volume will be created in the same Location as the server)"
-              }
-            }
-          }
         ],
         "description": "Request for POST https://api.hetzner.cloud/v1/volumes"
       },
@@ -1362,64 +1619,7 @@
           "next_actions": {
             "type": "array",
             "items": {
-              "type": "object",
-              "properties": {
-                "id": {
-                  "type": "integer",
-                  "description": "ID of the Action",
-                  "example": 13
-                },
-                "command": {
-                  "type": "string",
-                  "description": "Command executed in the Action",
-                  "example": "start_server"
-                },
-                "status": {
-                  "type": "string",
-                  "enum": [
-                    "error",
-                    "running",
-                    "success"
-                  ],
-                  "description": "Status of the Action"
-                },
-                "progress": {
-                  "type": "number",
-                  "description": "Progress of Action in percent",
-                  "example": 100
-                },
-                "started": {
-                  "type": "string",
-                  "description": "Point in time when the Action was started (in ISO-8601 format)",
-                  "example": "2016-01-30T23:55:00+00:00"
-                },
-                "finished": {
-                  "type": "string",
-                  "nullable": true,
-                  "description": "Point in time when the Action was finished (in ISO-8601 format). Only set if the Action is finished otherwise null.",
-                  "example": "2016-01-30T23:56:00+00:00"
-                },
-                "resources": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/resource"
-                  },
-                  "description": "Resources the Action relates to"
-                },
-                "error": {
-                  "$ref": "#/components/schemas/error"
-                }
-              },
-              "required": [
-                "id",
-                "command",
-                "status",
-                "progress",
-                "started",
-                "finished",
-                "resources",
-                "error"
-              ]
+              "$ref": "#/components/schemas/action"
             }
           }
         },
@@ -1583,6 +1783,7 @@
       },
       "delete_subnet_from_network_request": {
         "type": "object",
+        "title": "DeleteSubnetRequest",
         "properties": {
           "ip_range": {
             "type": "string",
@@ -1650,6 +1851,7 @@
       },
       "detach_server_from_network_request": {
         "type": "object",
+        "title": "DetachFromNetworkRequest",
         "properties": {
           "network": {
             "type": "integer",
@@ -1832,6 +2034,106 @@
         ],
         "description": "Error message for the Action if error occurred, otherwise null"
       },
+      "firewall": {
+        "title": "Firewall",
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "description": "ID of the Firewall",
+            "example": 38
+          },
+          "name": {
+            "type": "string",
+            "description": "Unique name of the Firewall",
+            "example": "Corporate Intranet Protection"
+          },
+          "labels": {
+            "$ref": "#/components/schemas/labels"
+          },
+          "created": {
+            "type": "string",
+            "description": "Point in time when the Firewall was created (in ISO-8601 format)",
+            "example": "2016-01-30T23:50:00+00:00"
+          },
+          "rules": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/rule"
+            }
+          },
+          "applied_to": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/firewall_resource_id"
+            }
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "created",
+          "rules",
+          "applied_to"
+        ],
+        "description": "Firewalls can limit the network access to or from your resources."
+      },
+      "firewall_resource": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "enum": [
+              "server"
+            ],
+            "description": "Type of the resource"
+          },
+          "server": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "integer",
+                "description": "ID of the Server"
+              }
+            },
+            "required": [
+              "id"
+            ],
+            "description": "Configuration for type Server, required if type is `server`"
+          }
+        },
+        "required": [
+          "type"
+        ],
+        "description": "Resource a Firewall should be applied to."
+      },
+      "firewall_resource_id": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "enum": [
+              "server"
+            ],
+            "description": "Type of resource referenced",
+            "example": "server"
+          },
+          "server": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "integer",
+                "description": "ID of the Server",
+                "example": 42
+              }
+            }
+          }
+        },
+        "required": [
+          "type"
+        ],
+        "description": "Resource a Firewall should be applied to."
+      },
       "floating_ip": {
         "type": "object",
         "properties": {
@@ -1922,6 +2224,32 @@
           "labels",
           "created"
         ]
+      },
+      "get_action_for_certificate_response": {
+        "type": "object",
+        "title": "ActionResponse",
+        "properties": {
+          "action": {
+            "$ref": "#/components/schemas/action"
+          }
+        },
+        "required": [
+          "action"
+        ],
+        "description": "Response to GET https://api.hetzner.cloud/v1/certificates/{id}/actions/{action_id}"
+      },
+      "get_action_for_firewall_response": {
+        "type": "object",
+        "title": "ActionResponse",
+        "properties": {
+          "action": {
+            "$ref": "#/components/schemas/action"
+          }
+        },
+        "required": [
+          "action"
+        ],
+        "description": "Response to GET https://api.hetzner.cloud/v1/firewalls/{id}/actions/{action_id}"
       },
       "get_action_for_floating_ip_response": {
         "type": "object",
@@ -2038,6 +2366,19 @@
           "datacenter"
         ],
         "description": "Response to GET https://api.hetzner.cloud/v1/datacenters/{id}"
+      },
+      "get_firewall_response": {
+        "title": "FirewallResponse",
+        "type": "object",
+        "properties": {
+          "firewall": {
+            "$ref": "#/components/schemas/firewall"
+          }
+        },
+        "required": [
+          "firewall"
+        ],
+        "description": "Response to GET https://api.hetzner.cloud/v1/firewalls/{id}"
       },
       "get_floating_ip_response": {
         "type": "object",
@@ -2513,6 +2854,44 @@
           "pattern": "^(()|[a-z0-9A-Z]|([a-z0-9A-Z][a-z0-9A-Z\\._-]{0,61}[a-z0-9A-Z]))$"
         }
       },
+      "list_actions_for_certificate_response": {
+        "type": "object",
+        "title": "ActionsResponse",
+        "properties": {
+          "actions": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/action"
+            }
+          },
+          "meta": {
+            "$ref": "#/components/schemas/meta"
+          }
+        },
+        "required": [
+          "actions"
+        ],
+        "description": "Response to GET https://api.hetzner.cloud/v1/certificates/{id}/actions"
+      },
+      "list_actions_for_firewall_response": {
+        "type": "object",
+        "title": "ActionsResponse",
+        "properties": {
+          "actions": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/action"
+            }
+          },
+          "meta": {
+            "$ref": "#/components/schemas/meta"
+          }
+        },
+        "required": [
+          "actions"
+        ],
+        "description": "Response to GET https://api.hetzner.cloud/v1/firewalls/{id}/actions"
+      },
       "list_actions_for_floating_ip_response": {
         "type": "object",
         "properties": {
@@ -2684,6 +3063,25 @@
           "recommendation"
         ],
         "description": "Response to GET https://api.hetzner.cloud/v1/datacenters"
+      },
+      "list_firewalls_response": {
+        "title": "FirewallsResponse",
+        "type": "object",
+        "properties": {
+          "firewalls": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/firewall"
+            }
+          },
+          "meta": {
+            "$ref": "#/components/schemas/meta"
+          }
+        },
+        "required": [
+          "firewalls"
+        ],
+        "description": "Response to GET https://api.hetzner.cloud/v1/firewalls"
       },
       "list_floating_ips_response": {
         "type": "object",
@@ -3109,21 +3507,7 @@
             "description": "List of targets that belong to this Load Balancer"
           },
           "algorithm": {
-            "type": "object",
-            "properties": {
-              "type": {
-                "type": "string",
-                "enum": [
-                  "least_connections",
-                  "round_robin"
-                ],
-                "description": "Type of the algorithm"
-              }
-            },
-            "required": [
-              "type"
-            ],
-            "description": "Algorithm of the Load Balancer"
+            "$ref": "#/components/schemas/load_balancer_algorithm"
           },
           "outgoing_traffic": {
             "type": "integer",
@@ -3161,6 +3545,23 @@
           "ingoing_traffic",
           "included_traffic"
         ]
+      },
+      "load_balancer_algorithm": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "enum": [
+              "least_connections",
+              "round_robin"
+            ],
+            "description": "Type of the algorithm | Algorithm of the Load Balancer"
+          }
+        },
+        "required": [
+          "type"
+        ],
+        "description": "Algorithm of the Load Balancer | Request for POST https://api.hetzner.cloud/v1/load_balancers/{id}/actions/change_algorithm"
       },
       "load_balancer_type": {
         "type": "object",
@@ -3242,7 +3643,7 @@
           "description": {
             "type": "string",
             "description": "Description of the Location",
-            "example": "Faleknstein DC Park 1"
+            "example": "Falkenstein DC Park 1"
           },
           "country": {
             "type": "string",
@@ -3668,6 +4069,29 @@
             "example": [
               478
             ]
+          },
+          "firewalls": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "integer",
+                  "example": 38,
+                  "description": "ID of the Firewall"
+                },
+                "status": {
+                  "type": "string",
+                  "enum": [
+                    "applied",
+                    "pending"
+                  ],
+                  "example": "applied",
+                  "description": "Status of the Firewall on the Server"
+                }
+              }
+            },
+            "description": "Firewalls applied to the public network interface of this Server"
           }
         },
         "required": [
@@ -3679,6 +4103,7 @@
       },
       "rebuild_server_from_image_request": {
         "type": "object",
+        "title": "RebuildServerRequest",
         "properties": {
           "image": {
             "type": "string",
@@ -3704,6 +4129,39 @@
           }
         },
         "description": "Response to POST https://api.hetzner.cloud/v1/servers/{id}/actions/rebuild"
+      },
+      "remove_from_resources_request": {
+        "title": "RemoveFromResources",
+        "type": "object",
+        "properties": {
+          "remove_from": {
+            "type": "array",
+            "description": "Resources the Firewall should be removed from",
+            "items": {
+              "$ref": "#/components/schemas/firewall_resource"
+            }
+          }
+        },
+        "required": [
+          "remove_from"
+        ],
+        "description": "Request for POST https://api.hetzner.cloud/v1/firewalls/{id}/actions/remove_from_resources"
+      },
+      "remove_from_resources_response": {
+        "type": "object",
+        "title": "ActionsResponse",
+        "properties": {
+          "actions": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/action"
+            }
+          }
+        },
+        "required": [
+          "actions"
+        ],
+        "description": "Response to POST https://api.hetzner.cloud/v1/firewalls/{id}/actions/remove_from_resources"
       },
       "remove_target_request": {
         "type": "object",
@@ -3780,7 +4238,7 @@
         "description": "Response to POST https://api.hetzner.cloud/v1/load_balancers/{id}/actions/remove_target"
       },
       "replace_certificate_request": {
-        "title": "UpdateCertificate",
+        "title": "UpdateCertificateRequest",
         "type": "object",
         "properties": {
           "name": {
@@ -3807,8 +4265,37 @@
         ],
         "description": "Response to PUT https://api.hetzner.cloud/v1/certificates/{id}"
       },
+      "replace_firewall_request": {
+        "title": "UpdateFirewallRequest",
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "New Firewall name",
+            "example": "new-name"
+          },
+          "labels": {
+            "$ref": "#/components/schemas/labels"
+          }
+        },
+        "description": "Request for PUT https://api.hetzner.cloud/v1/firewalls/{id}"
+      },
+      "replace_firewall_response": {
+        "title": "FirewallResponse",
+        "type": "object",
+        "properties": {
+          "firewall": {
+            "$ref": "#/components/schemas/firewall"
+          }
+        },
+        "required": [
+          "firewall"
+        ],
+        "description": "Response to PUT https://api.hetzner.cloud/v1/firewalls/{id}"
+      },
       "replace_floating_ip_request": {
         "type": "object",
+        "title": "UpdateFloatingIPRequest",
         "properties": {
           "name": {
             "type": "string",
@@ -3840,6 +4327,7 @@
       },
       "replace_image_request": {
         "type": "object",
+        "title": "UpdateImageRequest",
         "properties": {
           "description": {
             "type": "string",
@@ -3896,6 +4384,7 @@
       },
       "replace_network_request": {
         "type": "object",
+        "title": "UpdateNetworkRequest",
         "properties": {
           "name": {
             "type": "string",
@@ -3968,6 +4457,7 @@
       },
       "replace_volume_request": {
         "type": "object",
+        "title": "UpdateVolumeRequest",
         "properties": {
           "name": {
             "type": "string",
@@ -4092,6 +4582,19 @@
           "type"
         ]
       },
+      "retry_issuance_or_renewal_response": {
+        "type": "object",
+        "title": "ActionResponse",
+        "properties": {
+          "action": {
+            "$ref": "#/components/schemas/action"
+          }
+        },
+        "required": [
+          "action"
+        ],
+        "description": "Response to POST https://api.hetzner.cloud/v1/certificates/{id}/actions/retry"
+      },
       "route": {
         "type": "object",
         "properties": {
@@ -4112,6 +4615,63 @@
         ],
         "description": "Request for POST https://api.hetzner.cloud/v1/networks/{id}/actions/add_route | Request for POST https://api.hetzner.cloud/v1/networks/{id}/actions/delete_route"
       },
+      "rule": {
+        "title": "Rule",
+        "type": "object",
+        "properties": {
+          "direction": {
+            "type": "string",
+            "enum": [
+              "in",
+              "out"
+            ],
+            "description": "Select traffic direction on which rule should be applied. Use `source_ips` for direction `in` and `destination_ips` for direction `out`."
+          },
+          "source_ips": {
+            "type": "array",
+            "description": "List of permitted IPv4/IPv6 addresses in CIDR notation. Use `0.0.0.0/0` to allow all IPv4 addresses and `::/0` to allow all IPv6 addresses. You can specify 100 CIDRs at most.",
+            "items": {
+              "type": "string"
+            },
+            "example": [
+              "28.239.13.1/32",
+              "28.239.14.0/24",
+              "ff21:1eac:9a3b:ee58:5ca:990c:8bc9:c03b/128"
+            ]
+          },
+          "destination_ips": {
+            "type": "array",
+            "description": "List of permitted IPv4/IPv6 addresses in CIDR notation. Use `0.0.0.0/0` to allow all IPv4 addresses and `::/0` to allow all IPv6 addresses. You can specify 100 CIDRs at most.",
+            "items": {
+              "type": "string"
+            },
+            "example": [
+              "28.239.13.1/32",
+              "28.239.14.0/24",
+              "ff21:1eac:9a3b:ee58:5ca:990c:8bc9:c03b/128"
+            ]
+          },
+          "protocol": {
+            "type": "string",
+            "enum": [
+              "icmp",
+              "tcp",
+              "udp"
+            ],
+            "description": "Type of traffic to allow"
+          },
+          "port": {
+            "type": "string",
+            "description": "Port or port range to which traffic will be allowed, only applicable for protocols TCP and UDP. A port range can be specified by separating two ports with a dash, e.g `1024-5000`.",
+            "example": "80"
+          }
+        },
+        "required": [
+          "direction",
+          "protocol"
+        ],
+        "description": "Rule of a firewall."
+      },
       "selected_target": {
         "type": "object",
         "properties": {
@@ -4119,17 +4679,13 @@
             "type": "string",
             "example": "server"
           },
-          "label_selector": {
-            "type": "string",
-            "nullable": true
-          },
           "server": {
             "type": "object",
             "properties": {
               "id": {
                 "type": "integer",
                 "description": "ID of the Server",
-                "example": 80
+                "example": 85
               }
             },
             "required": [
@@ -4141,6 +4697,10 @@
             "items": {
               "$ref": "#/components/schemas/health_status"
             }
+          },
+          "use_private_ip": {
+            "type": "boolean",
+            "example": false
           }
         }
       },
@@ -4404,22 +4964,22 @@
                     "example": "http"
                   },
                   "port": {
-                    "type": "number",
+                    "type": "integer",
                     "description": "Port the health check will be performed on",
                     "example": 4711
                   },
                   "interval": {
-                    "type": "number",
+                    "type": "integer",
                     "description": "Time interval in seconds health checks are performed",
                     "example": 15
                   },
                   "timeout": {
-                    "type": "number",
+                    "type": "integer",
                     "description": "Time in seconds after an attempt is considered a timeout",
                     "example": 10
                   },
                   "retries": {
-                    "type": "number",
+                    "type": "integer",
                     "description": "Unsuccessful retries needed until a target is considered unhealthy",
                     "example": 3
                   },
@@ -4494,6 +5054,51 @@
         ],
         "description": "A service for a Load Balancer."
       },
+      "set_rules_request": {
+        "title": "SetRules",
+        "type": "object",
+        "properties": {
+          "rules": {
+            "type": "array",
+            "description": "Array of rules",
+            "items": {
+              "$ref": "#/components/schemas/rule"
+            },
+            "example": [
+              {
+                "direction": "in",
+                "source_ips": [
+                  "28.239.13.1/32",
+                  "28.239.14.0/24",
+                  "ff21:1eac:9a3b:ee58:5ca:990c:8bc9:c03b/128"
+                ],
+                "protocol": "tcp",
+                "port": "80"
+              }
+            ]
+          }
+        },
+        "required": [
+          "rules"
+        ],
+        "description": "Request for POST https://api.hetzner.cloud/v1/firewalls/{id}/actions/set_rules"
+      },
+      "set_rules_response": {
+        "type": "object",
+        "title": "ActionsResponse",
+        "properties": {
+          "actions": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/action"
+            }
+          }
+        },
+        "required": [
+          "actions"
+        ],
+        "description": "Response to POST https://api.hetzner.cloud/v1/firewalls/{id}/actions/set_rules"
+      },
       "shutdown_server_response": {
         "type": "object",
         "title": "ActionResponse",
@@ -4564,6 +5169,7 @@
       },
       "subnet": {
         "type": "object",
+        "title": "AddSubnetRequest",
         "properties": {
           "type": {
             "type": "string",
@@ -5069,6 +5675,20 @@
             }
           },
           {
+            "name": "type",
+            "in": "query",
+            "description": "Can be used multiple times. The response will only contain Certificates matching the type.",
+            "required": false,
+            "schema": {
+              "title": "ParameterType",
+              "type": "string",
+              "enum": [
+                "uploaded",
+                "managed"
+              ]
+            }
+          },
+          {
             "name": "page",
             "in": "query",
             "description": "Specifies the page to fetch. The number of the first page is 1",
@@ -5097,6 +5717,33 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/list_certificates_response"
+                },
+                "example": {
+                  "certificates": [
+                    {
+                      "id": 897,
+                      "name": "my website cert",
+                      "labels": {},
+                      "type": "uploaded",
+                      "certificate": "-----BEGIN CERTIFICATE-----\n...",
+                      "created": "2019-01-08T12:10:00+00:00",
+                      "not_valid_before": "2019-01-08T10:00:00+00:00",
+                      "not_valid_after": "2019-07-08T09:59:59+00:00",
+                      "domain_names": [
+                        "example.com",
+                        "webmail.example.com",
+                        "www.example.com"
+                      ],
+                      "fingerprint": "03:c7:55:9b:2a:d1:04:17:09:f6:d0:7f:18:34:63:d4:3e:5f",
+                      "status": null,
+                      "used_by": [
+                        {
+                          "id": 4711,
+                          "type": "load_balancer"
+                        }
+                      ]
+                    }
+                  ]
                 }
               }
             }
@@ -5106,7 +5753,7 @@
       },
       "post": {
         "summary": "Create a Certificate",
-        "description": "Creates a new Certificate.",
+        "description": "Creates a new Certificate.\n\nThe default type **uploaded** allows for uploading your existing `certificate` and `private_key` in PEM format. You have to monitor its expiration date and handle renewal yourself.\n\nIn contrast, type **managed** requests a new Certificate from *Let's Encrypt* for the specified `domain_names`. Only domains managed by *Hetzner DNS* are supported. We handle renewal and timely alert the project owner via email if problems occur.\n\nFor type `managed` Certificates the `action` key of the response contains the Action that allows for tracking the issuance process. For type `uploaded` Certificates the `action` is always null.\n",
         "tags": [
           "certificates"
         ],
@@ -5115,17 +5762,121 @@
             "application/json": {
               "schema": {
                 "$ref": "#/components/schemas/create_certificate_request"
+              },
+              "examples": {
+                "uploaded": {
+                  "summary": "Creating a type `uploaded` Certificate",
+                  "value": {
+                    "name": "my website cert",
+                    "type": "uploaded",
+                    "certificate": "-----BEGIN CERTIFICATE-----\n...",
+                    "private_key": "-----BEGIN PRIVATE KEY-----\n..."
+                  }
+                },
+                "managed": {
+                  "summary": "Creating a type `managed` Certificate",
+                  "value": {
+                    "name": "my website cert",
+                    "type": "managed",
+                    "domain_names": [
+                      "example.com",
+                      "webmail.example.com",
+                      "www.example.com"
+                    ]
+                  }
+                }
               }
             }
           }
         },
         "responses": {
           "201": {
-            "description": "The `certificate` key contains the Certificate that was just created",
+            "description": "The `certificate` key contains the Certificate that was just created. For type `managed` Certificates the `action` key contains the Action that allows for tracking the issuance process. For type `uploaded` Certificates the `action` is always null.",
             "content": {
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/create_certificate_response"
+                },
+                "examples": {
+                  "uploaded": {
+                    "summary": "Response when creating a type `uploaded` Certificate",
+                    "value": {
+                      "certificate": {
+                        "id": 897,
+                        "name": "my website cert",
+                        "labels": {},
+                        "type": "uploaded",
+                        "certificate": "-----BEGIN CERTIFICATE-----\n...",
+                        "created": "2019-01-08T12:10:00+00:00",
+                        "not_valid_before": "2019-01-08T10:00:00+00:00",
+                        "not_valid_after": "2019-07-08T09:59:59+00:00",
+                        "domain_names": [
+                          "example.com",
+                          "webmail.example.com",
+                          "www.example.com"
+                        ],
+                        "fingerprint": "03:c7:55:9b:2a:d1:04:17:09:f6:d0:7f:18:34:63:d4:3e:5f",
+                        "status": null,
+                        "used_by": [
+                          {
+                            "id": 4711,
+                            "type": "load_balancer"
+                          }
+                        ]
+                      },
+                      "action": null
+                    }
+                  },
+                  "managed": {
+                    "summary": "Response when creating a type `managed` Certificate",
+                    "value": {
+                      "certificate": {
+                        "id": 897,
+                        "name": "my website cert",
+                        "labels": {},
+                        "type": "managed",
+                        "certificate": null,
+                        "created": "2019-01-08T12:10:00+00:00",
+                        "not_valid_before": null,
+                        "not_valid_after": null,
+                        "domain_names": [
+                          "example.com",
+                          "webmail.example.com",
+                          "www.example.com"
+                        ],
+                        "fingerprint": null,
+                        "status": {
+                          "issuance": "pending",
+                          "renewal": "unavailable",
+                          "error": null
+                        },
+                        "used_by": [
+                          {
+                            "id": 4711,
+                            "type": "load_balancer"
+                          }
+                        ]
+                      },
+                      "action": {
+                        "id": 13,
+                        "command": "create_certificate",
+                        "status": "running",
+                        "progress": 0,
+                        "started": "2019-01-08T12:10:00+00:00",
+                        "finished": null,
+                        "resources": [
+                          {
+                            "id": 879,
+                            "type": "certificate"
+                          }
+                        ],
+                        "error": {
+                          "code": "action_failed",
+                          "message": "Action failed"
+                        }
+                      }
+                    }
+                  }
                 }
               }
             }
@@ -5159,6 +5910,31 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/get_certificate_response"
+                },
+                "example": {
+                  "certificate": {
+                    "id": 897,
+                    "name": "my website cert",
+                    "labels": {},
+                    "type": "uploaded",
+                    "certificate": "-----BEGIN CERTIFICATE-----\n...",
+                    "created": "2019-01-08T12:10:00+00:00",
+                    "not_valid_before": "2019-01-08T10:00:00+00:00",
+                    "not_valid_after": "2019-07-08T09:59:59+00:00",
+                    "domain_names": [
+                      "example.com",
+                      "webmail.example.com",
+                      "www.example.com"
+                    ],
+                    "fingerprint": "03:c7:55:9b:2a:d1:04:17:09:f6:d0:7f:18:34:63:d4:3e:5f",
+                    "status": null,
+                    "used_by": [
+                      {
+                        "id": 4711,
+                        "type": "load_balancer"
+                      }
+                    ]
+                  }
                 }
               }
             }
@@ -5204,6 +5980,7 @@
                     "labels": {
                       "labelkey": "value"
                     },
+                    "type": "uploaded",
                     "certificate": "-----BEGIN CERTIFICATE-----\n...",
                     "created": "2019-01-08T12:10:00+00:00",
                     "not_valid_before": "2019-01-08T10:00:00+00:00",
@@ -5214,10 +5991,11 @@
                       "www.example.com"
                     ],
                     "fingerprint": "03:c7:55:9b:2a:d1:04:17:09:f6:d0:7f:18:34:63:d4:3e:5f",
+                    "status": null,
                     "used_by": [
                       {
-                        "id": 42,
-                        "type": "server"
+                        "id": 4711,
+                        "type": "load_balancer"
                       }
                     ]
                   }
@@ -5254,6 +6032,242 @@
           }
         },
         "operationId": "delete_certificate"
+      }
+    },
+    "/certificates/{id}/actions": {
+      "get": {
+        "summary": "Get all Actions for a Certificate",
+        "description": "Returns all Action objects for a Certificate. You can sort the results by using the `sort` URI parameter, and filter them with the `status` parameter.\n\nOnly type `managed` Certificates can have Actions. For type `uploaded` Certificates the `actions` key will always contain an empty array.\n",
+        "tags": [
+          "certificates"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID of the Resource",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "sort",
+            "in": "query",
+            "description": "Can be used multiple times.",
+            "required": false,
+            "schema": {
+              "title": "ParameterSort",
+              "type": "string",
+              "enum": [
+                "id",
+                "id:asc",
+                "id:desc",
+                "command",
+                "command:asc",
+                "command:desc",
+                "status",
+                "status:asc",
+                "status:desc",
+                "progress",
+                "progress:asc",
+                "progress:desc",
+                "started",
+                "started:asc",
+                "started:desc",
+                "finished",
+                "finished:asc",
+                "finished:desc"
+              ]
+            }
+          },
+          {
+            "name": "status",
+            "in": "query",
+            "description": "Can be used multiple times, the response will contain only Actions with specified statuses",
+            "required": false,
+            "schema": {
+              "title": "ParameterStatus",
+              "type": "string",
+              "enum": [
+                "running",
+                "success",
+                "error"
+              ]
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "Specifies the page to fetch. The number of the first page is 1",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 1
+            }
+          },
+          {
+            "name": "per_page",
+            "in": "query",
+            "description": "Specifies the number of items returned per page. The default value is 25, the maximum value is 50 except otherwise specified in the documentation.",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 50
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The `actions` key contains a list of Actions",
+            "content": {
+              "application/json": {
+                "example": {
+                  "actions": [
+                    {
+                      "id": 14,
+                      "command": "issue_certificate",
+                      "status": "success",
+                      "progress": 100,
+                      "started": "2021-01-30T23:55:00+00:00",
+                      "finished": "2021-01-30T23:57:00+00:00",
+                      "resources": [
+                        {
+                          "id": 896,
+                          "type": "certificate"
+                        }
+                      ],
+                      "error": {
+                        "code": "action_failed",
+                        "message": "Action failed"
+                      }
+                    }
+                  ]
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/list_actions_for_certificate_response"
+                }
+              }
+            }
+          }
+        },
+        "operationId": "list_actions_for_certificate"
+      }
+    },
+    "/certificates/{id}/actions/{action_id}": {
+      "get": {
+        "summary": "Get an Action for a Certificate",
+        "description": "Returns a specific Action for a Certificate. Only type `managed` Certificates have Actions.",
+        "tags": [
+          "certificates"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID of the Certificate",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "action_id",
+            "in": "path",
+            "description": "ID of the Action",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The `action` key contains the Certificate Action",
+            "content": {
+              "application/json": {
+                "example": {
+                  "action": {
+                    "id": 14,
+                    "command": "issue_certificate",
+                    "status": "success",
+                    "progress": 100,
+                    "started": "2021-01-30T23:55:00+00:00",
+                    "finished": "2021-01-30T23:57:00+00:00",
+                    "resources": [
+                      {
+                        "id": 896,
+                        "type": "certificate"
+                      }
+                    ],
+                    "error": {
+                      "code": "action_failed",
+                      "message": "Action failed"
+                    }
+                  }
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/get_action_for_certificate_response"
+                }
+              }
+            }
+          }
+        },
+        "operationId": "get_action_for_certificate"
+      }
+    },
+    "/certificates/{id}/actions/retry": {
+      "post": {
+        "summary": "Retry Issuance or Renewal",
+        "description": "Retry a failed Certificate issuance or renewal.\n\nOnly applicable if the type of the Certificate is `managed` and the issuance or renewal status is `failed`.\n\n#### Call specific error codes\n\n| Code                                                    | Description                                                               |\n|---------------------------------------------------------|---------------------------------------------------------------------------|\n| `caa_record_does_not_allow_ca`                          | CAA record does not allow certificate authority                           |\n| `ca_dns_validation_failed`                              | Certificate Authority: DNS validation failed                              |\n| `ca_too_many_authorizations_failed_recently`            | Certificate Authority: Too many authorizations failed recently            |\n| `ca_too_many_certificates_issued_for_registered_domain` | Certificate Authority: Too many certificates issued for registered domain |\n| `ca_too_many_duplicate_certificates`                    | Certificate Authority: Too many duplicate certificates                    |\n| `could_not_verify_domain_delegated_to_zone`             | Could not verify domain delegated to zone                                 |\n| `dns_zone_not_found`                                    | DNS zone not found                                                        |\n",
+        "tags": [
+          "certificates"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID of the Certificate",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "The `action` key contains the resulting Action",
+            "content": {
+              "application/json": {
+                "example": {
+                  "action": {
+                    "id": 14,
+                    "command": "issue_certificate",
+                    "status": "success",
+                    "progress": 100,
+                    "started": "2021-01-30T23:55:00+00:00",
+                    "finished": "2021-01-30T23:57:00+00:00",
+                    "resources": [
+                      {
+                        "id": 896,
+                        "type": "certificate"
+                      }
+                    ],
+                    "error": {
+                      "code": "action_failed",
+                      "message": "Action failed"
+                    }
+                  }
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/retry_issuance_or_renewal_response"
+                }
+              }
+            }
+          }
+        },
+        "operationId": "retry_issuance_or_renewal"
       }
     },
     "/datacenters": {
@@ -5320,6 +6334,664 @@
           }
         },
         "operationId": "get_datacenter"
+      }
+    },
+    "/firewalls": {
+      "get": {
+        "summary": "Get all Firewalls",
+        "description": "Returns all Firewall objects.",
+        "tags": [
+          "firewalls"
+        ],
+        "parameters": [
+          {
+            "name": "sort",
+            "in": "query",
+            "description": "Can be used multiple times.",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "id",
+                "id:asc",
+                "id:desc",
+                "name",
+                "name:asc",
+                "name:desc",
+                "created",
+                "created:asc",
+                "created:desc"
+              ]
+            }
+          },
+          {
+            "name": "name",
+            "in": "query",
+            "description": "Can be used to filter resources by their name. The response will only contain the resources matching the specified name",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "label_selector",
+            "in": "query",
+            "description": "Can be used to filter resources by labels. The response will only contain resources matching the label selector.",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "Specifies the page to fetch. The number of the first page is 1",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 1
+            }
+          },
+          {
+            "name": "per_page",
+            "in": "query",
+            "description": "Specifies the number of items returned per page. The default value is 25, the maximum value is 50 except otherwise specified in the documentation.",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 50
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The `firewalls` key contains an array of Firewall objects",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/list_firewalls_response"
+                }
+              }
+            }
+          }
+        },
+        "operationId": "list_firewalls"
+      },
+      "post": {
+        "summary": "Create a Firewall",
+        "description": "Creates a new Firewall.\n\n#### Call specific error codes\n\n| Code                        | Description                                             |\n|-----------------------------|---------------------------------------------------------|\n| `server_already_added`      | Server added more than one time to resource             |\n| `incompatible_network_type` | The Network type is incompatible for the given resource |\n",
+        "tags": [
+          "firewalls"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "example": {
+                "name": "Corporate Intranet Protection",
+                "labels": {},
+                "rules": [
+                  {
+                    "direction": "in",
+                    "source_ips": [
+                      "28.239.13.1/32",
+                      "28.239.14.0/24",
+                      "ff21:1eac:9a3b:ee58:5ca:990c:8bc9:c03b/128"
+                    ],
+                    "protocol": "tcp",
+                    "port": "80"
+                  }
+                ],
+                "apply_to": [
+                  {
+                    "type": "server",
+                    "server": {
+                      "id": 42
+                    }
+                  }
+                ]
+              },
+              "schema": {
+                "$ref": "#/components/schemas/create_firewall_request"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "The `firewall` key contains the Firewall that was just created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/create_firewall_response"
+                }
+              }
+            }
+          }
+        },
+        "operationId": "create_firewall"
+      }
+    },
+    "/firewalls/{id}": {
+      "get": {
+        "summary": "Get a Firewall",
+        "description": "Gets a specific Firewall object.",
+        "tags": [
+          "firewalls"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID of the resource",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The `firewall` key contains a Firewall object",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/get_firewall_response"
+                }
+              }
+            }
+          }
+        },
+        "operationId": "get_firewall"
+      },
+      "put": {
+        "summary": "Update a Firewall",
+        "description": "Updates the Firewall.\n\nNote that when updating labels, the Firewall's current set of labels will be replaced with the labels provided in the request body. So, for example, if you want to add a new label, you have to provide all existing labels plus the new label in the request body.\n\nNote: if the Firewall object changes during the request, the response will be a “conflict” error.\n",
+        "tags": [
+          "firewalls"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID of the resource",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/replace_firewall_request"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "The `firewall` key contains the Firewall that was just updated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/replace_firewall_response"
+                }
+              }
+            }
+          }
+        },
+        "operationId": "replace_firewall"
+      },
+      "delete": {
+        "summary": "Delete a Firewall",
+        "description": "Deletes a Firewall.\n\n#### Call specific error codes\n\n| Code              | Description                               |\n|-------------------|-------------------------------------------|\n| `resource_in_use` | Firewall must not be in use to be deleted |\n",
+        "tags": [
+          "firewalls"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID of the resource",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Firewall deleted"
+          }
+        },
+        "operationId": "delete_firewall"
+      }
+    },
+    "/firewalls/{id}/actions": {
+      "get": {
+        "summary": "Get all Actions for a Firewall",
+        "description": "Returns all Action objects for a Firewall. You can sort the results by using the `sort` URI parameter, and filter them with the `status` parameter.",
+        "tags": [
+          "firewalls"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID of the Resource",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "sort",
+            "in": "query",
+            "description": "Can be used multiple times.",
+            "required": false,
+            "schema": {
+              "title": "ParameterSort",
+              "type": "string",
+              "enum": [
+                "id",
+                "id:asc",
+                "id:desc",
+                "command",
+                "command:asc",
+                "command:desc",
+                "status",
+                "status:asc",
+                "status:desc",
+                "progress",
+                "progress:asc",
+                "progress:desc",
+                "started",
+                "started:asc",
+                "started:desc",
+                "finished",
+                "finished:asc",
+                "finished:desc"
+              ]
+            }
+          },
+          {
+            "name": "status",
+            "in": "query",
+            "description": "Can be used multiple times, the response will contain only Actions with specified statuses",
+            "required": false,
+            "schema": {
+              "title": "ParameterStatus",
+              "type": "string",
+              "enum": [
+                "running",
+                "success",
+                "error"
+              ]
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "Specifies the page to fetch. The number of the first page is 1",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 1
+            }
+          },
+          {
+            "name": "per_page",
+            "in": "query",
+            "description": "Specifies the number of items returned per page. The default value is 25, the maximum value is 50 except otherwise specified in the documentation.",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 50
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The `actions` key contains a list of Actions",
+            "content": {
+              "application/json": {
+                "example": {
+                  "actions": [
+                    {
+                      "id": 13,
+                      "command": "set_firewall_rules",
+                      "status": "success",
+                      "progress": 100,
+                      "started": "2016-01-30T23:55:00+00:00",
+                      "finished": "2016-01-30T23:56:00+00:00",
+                      "resources": [
+                        {
+                          "id": 38,
+                          "type": "firewall"
+                        }
+                      ],
+                      "error": {
+                        "code": "action_failed",
+                        "message": "Action failed"
+                      }
+                    }
+                  ]
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/list_actions_for_firewall_response"
+                }
+              }
+            }
+          }
+        },
+        "operationId": "list_actions_for_firewall"
+      }
+    },
+    "/firewalls/{id}/actions/{action_id}": {
+      "get": {
+        "summary": "Get an Action for a Firewall",
+        "description": "Returns a specific Action for a Firewall.",
+        "tags": [
+          "firewalls"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID of the Firewall",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "action_id",
+            "in": "path",
+            "description": "ID of the Action",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The `action` key contains the Firewall Action",
+            "content": {
+              "application/json": {
+                "example": {
+                  "action": {
+                    "id": 13,
+                    "command": "set_firewall_rules",
+                    "status": "success",
+                    "progress": 100,
+                    "started": "2016-01-30T23:55:00+00:00",
+                    "finished": "2016-01-30T23:56:00+00:00",
+                    "resources": [
+                      {
+                        "id": 38,
+                        "type": "firewall"
+                      }
+                    ],
+                    "error": {
+                      "code": "action_failed",
+                      "message": "Action failed"
+                    }
+                  }
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/get_action_for_firewall_response"
+                }
+              }
+            }
+          }
+        },
+        "operationId": "get_action_for_firewall"
+      }
+    },
+    "/firewalls/{id}/actions/set_rules": {
+      "post": {
+        "summary": "Set Rules",
+        "description": "Sets the rules of a Firewall.\n\nAll existing rules will be overwritten. Pass an empty `rules` array to remove all rules.\n",
+        "tags": [
+          "firewalls"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID of the Firewall",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/set_rules_request"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "The `action` key contains one `set_firewall_rules` Action plus one `apply_firewall` Action per resource where the Firewall is active",
+            "content": {
+              "application/json": {
+                "example": {
+                  "actions": [
+                    {
+                      "id": 13,
+                      "command": "set_firewall_rules",
+                      "status": "success",
+                      "progress": 100,
+                      "started": "2016-01-30T23:55:00+00:00",
+                      "finished": "2016-01-30T23:56:00+00:00",
+                      "resources": [
+                        {
+                          "id": 38,
+                          "type": "firewall"
+                        }
+                      ],
+                      "error": {
+                        "code": "action_failed",
+                        "message": "Action failed"
+                      }
+                    },
+                    {
+                      "id": 14,
+                      "command": "apply_firewall",
+                      "status": "success",
+                      "progress": 100,
+                      "started": "2016-01-30T23:55:00+00:00",
+                      "finished": "2016-01-30T23:56:00+00:00",
+                      "resources": [
+                        {
+                          "id": 38,
+                          "type": "firewall"
+                        },
+                        {
+                          "id": 42,
+                          "type": "server"
+                        }
+                      ],
+                      "error": {
+                        "code": "action_failed",
+                        "message": "Action failed"
+                      }
+                    }
+                  ]
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/set_rules_response"
+                }
+              }
+            }
+          }
+        },
+        "operationId": "set_rules"
+      }
+    },
+    "/firewalls/{id}/actions/apply_to_resources": {
+      "post": {
+        "summary": "Apply to Resources",
+        "description": "Applies one Firewall to multiple resources.\n\nCurrently only Servers (and their public network interfaces) are supported.\n\n#### Call specific error codes\n\n| Code                        | Description                                             |\n|-----------------------------|---------------------------------------------------------|\n| `firewall_already_applied`  | Firewall was already applied on resource                |\n| `incompatible_network_type` | The Network type is incompatible for the given resource |\n",
+        "tags": [
+          "firewalls"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID of the Firewall",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/apply_to_resources_request"
+              },
+              "example": {
+                "apply_to": [
+                  {
+                    "type": "server",
+                    "server": {
+                      "id": 42
+                    }
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "The `actions` key contains multiple `apply_firewall` Actions",
+            "content": {
+              "application/json": {
+                "example": {
+                  "actions": [
+                    {
+                      "id": 14,
+                      "command": "apply_firewall",
+                      "status": "success",
+                      "progress": 100,
+                      "started": "2016-01-30T23:55:00+00:00",
+                      "finished": "2016-01-30T23:56:00+00:00",
+                      "resources": [
+                        {
+                          "id": 42,
+                          "type": "server"
+                        },
+                        {
+                          "id": 38,
+                          "type": "firewall"
+                        }
+                      ],
+                      "error": {
+                        "code": "action_failed",
+                        "message": "Action failed"
+                      }
+                    }
+                  ]
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/apply_to_resources_response"
+                }
+              }
+            }
+          }
+        },
+        "operationId": "apply_to_resources"
+      }
+    },
+    "/firewalls/{id}/actions/remove_from_resources": {
+      "post": {
+        "summary": "Remove from Resources",
+        "description": "Removes one Firewall from multiple resources.\n\nCurrently only Servers (and their public network interfaces) are supported.\n\n#### Call specific error codes\n\n| Code                       | Description                                    |\n|----------------------------|------------------------------------------------|\n| `firewall_already_removed` | Firewall was already removed from the resource |\n",
+        "tags": [
+          "firewalls"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID of the Firewall",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/remove_from_resources_request"
+              },
+              "example": {
+                "remove_from": [
+                  {
+                    "type": "server",
+                    "server": {
+                      "id": 42
+                    }
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "The `actions` key contains multiple `remove_firewall` Actions",
+            "content": {
+              "application/json": {
+                "example": {
+                  "actions": [
+                    {
+                      "id": 14,
+                      "command": "remove_firewall",
+                      "status": "success",
+                      "progress": 100,
+                      "started": "2016-01-30T23:55:00+00:00",
+                      "finished": "2016-01-30T23:56:00+00:00",
+                      "resources": [
+                        {
+                          "id": 42,
+                          "type": "server"
+                        },
+                        {
+                          "id": 38,
+                          "type": "firewall"
+                        }
+                      ],
+                      "error": {
+                        "code": "action_failed",
+                        "message": "Action failed"
+                      }
+                    }
+                  ]
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/remove_from_resources_response"
+                }
+              }
+            }
+          }
+        },
+        "operationId": "remove_from_resources"
       }
     },
     "/floating_ips": {
@@ -9257,6 +10929,12 @@
                       },
                       "floating_ips": [
                         478
+                      ],
+                      "firewalls": [
+                        {
+                          "id": 38,
+                          "status": "applied"
+                        }
                       ]
                     },
                     "private_net": [
@@ -9365,7 +11043,8 @@
                     },
                     "labels": {},
                     "volumes": [],
-                    "load_balancers": []
+                    "load_balancers": [],
+                    "primary_disk_size": 50
                   },
                   "action": {
                     "id": 1,
@@ -11431,7 +13110,7 @@
       },
       "post": {
         "summary": "Create a Volume",
-        "description": "Creates a new Volume attached to a Server. If you want to create a Volume that is not attached to a Server, you need to provide the `location` key instead of `server`. This can be either the ID or the name of the Location this Volume will be created in. Note that a Volume can be attached to a Server only in the same Location as the Volume itself.\n\nSpecifying the Server during Volume creation will automatically attach the Volume to that Server after it has been initialized. In that case, the `next_actions` key in the response is an array which contains a single `attach_volume` action.\n\nThe minimum Volume size is 10GB and the maximum size is 10TB (10240GB).\n\nA volume’s name can consist of alphanumeric characters, dashes, underscores, and dots, but has to start and end with an alphanumeric character. The total length is limited to 64 characters. Volume names must be unique per Project.\n\n#### Call specific error codes\n\n| Code                                | Description                                                          |\n|-------------------------------------|----------------------------------------------------------------------|\n| `no_space_left_in_location`         | There is no volume space left in the given location                    |\n",
+        "description": "Creates a new Volume attached to a Server. If you want to create a Volume that is not attached to a Server, you need to provide the `location` key instead of `server`. This can be either the ID or the name of the Location this Volume will be created in. Note that a Volume can be attached to a Server only in the same Location as the Volume itself.\n\nSpecifying the Server during Volume creation will automatically attach the Volume to that Server after it has been initialized. In that case, the `next_actions` key in the response is an array which contains a single `attach_volume` action.\n\nThe minimum Volume size is 10GB and the maximum size is 10TB (10240GB).\n\nA volume’s name can consist of alphanumeric characters, dashes, underscores, and dots, but has to start and end with an alphanumeric character. The total length is limited to 64 characters. Volume names must be unique per Project.\n\n#### Call specific error codes\n\n| Code                                | Description                                         |\n|-------------------------------------|-----------------------------------------------------|\n| `no_space_left_in_location`         | There is no volume space left in the given location |\n",
         "tags": [
           "volumes"
         ],

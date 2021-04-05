@@ -54,9 +54,13 @@ function fixItem(part: OpenApiDocumentFragment, location: string[]) {
     !allowedFloats.includes(location[location.length - 1])
   ) {
     part.type = "integer";
-    if (longIntegers.includes(location[location.length - 1])) {
-      part.format = "int64";
-    }
+  }
+
+  if (
+    part.type == "integer" &&
+    longIntegers.includes(location[location.length - 1])
+  ) {
+    part.format = "int64";
   }
 
   // add additionalProperties to mark labels as key/value pairs
@@ -263,7 +267,13 @@ export async function deduplicateSchemas(
           }
         } else if (part.type == "object") {
           if (part.properties !== undefined) {
-            const { description, example, properties, ...hashableParts } = part;
+            const {
+              description,
+              example,
+              properties,
+              title,
+              ...hashableParts
+            } = part;
             hashableParts.properties = {};
             Object.keys(properties).forEach((property) => {
               hashableParts.properties[property] =

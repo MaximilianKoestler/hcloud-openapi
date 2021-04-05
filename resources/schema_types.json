@@ -8,6 +8,14 @@
     ]
   },
   {
+    "description": "Actions show the results and progress of asynchronous requests to the API.",
+    "name": "action_optional",
+    "path": [
+      "create_certificate_response",
+      "action"
+    ]
+  },
+  {
     "description": "TLS/SSL Certificates prove the identity of a Server and are used to encrypt client traffic.",
     "name": "certificate",
     "path": [
@@ -44,6 +52,31 @@
       "list_actions_response",
       "actions",
       "error"
+    ]
+  },
+  {
+    "description": "Firewalls can limit the network access to or from your resources.",
+    "name": "firewall",
+    "path": [
+      "create_firewall_response",
+      "firewall"
+    ]
+  },
+  {
+    "description": "Resource a Firewall should be applied to.",
+    "name": "firewall_resource",
+    "path": [
+      "create_firewall_request",
+      "apply_to"
+    ]
+  },
+  {
+    "description": "Resource a Firewall should be applied to.",
+    "name": "firewall_resource_id",
+    "path": [
+      "get_firewall_response",
+      "firewall",
+      "applied_to"
     ]
   },
   {
@@ -120,6 +153,13 @@
     "path": [
       "list_load_balancers_response",
       "load_balancers"
+    ]
+  },
+  {
+    "name": "load_balancer_algorithm",
+    "path": [
+      "create_load_balancer_request",
+      "algorithm"
     ]
   },
   {
@@ -236,6 +276,14 @@
     "path": [
       "create_network_request",
       "routes"
+    ]
+  },
+  {
+    "description": "Rule of a firewall.",
+    "name": "rule",
+    "path": [
+      "create_firewall_request",
+      "rules"
     ]
   },
   {

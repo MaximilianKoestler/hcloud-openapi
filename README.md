@@ -57,6 +57,9 @@ This API description is currently being used by the following projects:
     <td style="background-color:#FFC107">ssh_keys</td>
     <td style="background-color:#FF9800">volumes</td>
   </tr>
+  <tr height="80">
+    <td style="background-color:#795548">firewalls</td>
+  </tr>
 </table>
 
 ```
@@ -64,8 +67,18 @@ This API description is currently being used by the following projects:
 /actions/{id} (GET)
 /certificates (GET, POST)
 /certificates/{id} (GET, PUT, DELETE)
+/certificates/{id}/actions (GET)
+/certificates/{id}/actions/{action_id} (GET)
+/certificates/{id}/actions/retry (POST)
 /datacenters (GET)
 /datacenters/{id} (GET)
+/firewalls (GET, POST)
+/firewalls/{id} (GET, PUT, DELETE)
+/firewalls/{id}/actions (GET)
+/firewalls/{id}/actions/{action_id} (GET)
+/firewalls/{id}/actions/set_rules (POST)
+/firewalls/{id}/actions/apply_to_resources (POST)
+/firewalls/{id}/actions/remove_from_resources (POST)
 /floating_ips (GET, POST)
 /floating_ips/{id} (GET, PUT, DELETE)
 /floating_ips/{id}/actions (GET)
