@@ -6,7 +6,7 @@
     "contact": {
       "url": "https://docs.hetzner.cloud/"
     },
-    "version": "391b004-dirty"
+    "version": "c2399ff-dirty"
   },
   "servers": [
     {
@@ -2084,6 +2084,7 @@
           "type": {
             "type": "string",
             "enum": [
+              "label_selector",
               "server"
             ],
             "description": "Type of the resource"
@@ -2099,7 +2100,20 @@
             "required": [
               "id"
             ],
-            "description": "Configuration for type Server, required if type is `server`"
+            "description": "Configuration for type Server, required if type is `server` | Configuration for type server, required if type is `server`"
+          },
+          "label_selector": {
+            "type": "object",
+            "properties": {
+              "selector": {
+                "type": "string",
+                "description": "Label selector"
+              }
+            },
+            "required": [
+              "selector"
+            ],
+            "description": "Configuration for type LabelSelector, required if type is `label_selector` | Configuration for type label_selector, required if type is `label_selector`"
           }
         },
         "required": [
@@ -2113,6 +2127,7 @@
           "type": {
             "type": "string",
             "enum": [
+              "label_selector",
               "server"
             ],
             "description": "Type of resource referenced",
@@ -2125,6 +2140,51 @@
                 "type": "integer",
                 "description": "ID of the Server",
                 "example": 42
+              }
+            },
+            "required": [
+              "id"
+            ]
+          },
+          "label_selector": {
+            "type": "object",
+            "properties": {
+              "selector": {
+                "type": "string",
+                "description": "Label selector",
+                "example": "env=prod"
+              }
+            },
+            "required": [
+              "selector"
+            ]
+          },
+          "applied_to_resources": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "type": {
+                  "type": "string",
+                  "enum": [
+                    "server"
+                  ],
+                  "description": "Type of resource referenced",
+                  "example": "server"
+                },
+                "server": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "integer",
+                      "description": "ID of the Server",
+                      "example": 42
+                    }
+                  },
+                  "required": [
+                    "id"
+                  ]
+                }
               }
             }
           }
@@ -2579,6 +2639,135 @@
       },
       "image": {
         "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "description": "ID of the Image",
+            "example": 4711
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "backup",
+              "snapshot",
+              "system",
+              "temporary"
+            ],
+            "description": "Type of the Image",
+            "example": "snapshot"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "available",
+              "creating"
+            ],
+            "description": "Whether the Image can be used or if it's still being created"
+          },
+          "name": {
+            "type": "string",
+            "description": "Unique identifier of the Image. This value is only set for system Images.",
+            "nullable": true,
+            "example": "ubuntu-20.04"
+          },
+          "description": {
+            "type": "string",
+            "description": "Description of the Image",
+            "example": "Ubuntu 20.04 Standard 64 bit"
+          },
+          "image_size": {
+            "type": "number",
+            "description": "Size of the Image file in our storage in GB. For snapshot Images this is the value relevant for calculating costs for the Image.",
+            "nullable": true,
+            "example": 2.3
+          },
+          "disk_size": {
+            "type": "number",
+            "description": "Size of the disk contained in the Image in GB",
+            "example": 10
+          },
+          "created": {
+            "type": "string",
+            "description": "Point in time when the Image was created (in ISO-8601 format)",
+            "example": "2016-01-30T23:50:00+00:00"
+          },
+          "created_from": {
+            "$ref": "#/components/schemas/created_from"
+          },
+          "bound_to": {
+            "type": "integer",
+            "description": "ID of Server the Image is bound to. Only set for Images of type `backup`.",
+            "nullable": true,
+            "example": null
+          },
+          "os_flavor": {
+            "type": "string",
+            "enum": [
+              "centos",
+              "debian",
+              "fedora",
+              "ubuntu",
+              "unknown"
+            ],
+            "description": "Flavor of operating system contained in the Image",
+            "example": "ubuntu"
+          },
+          "os_version": {
+            "type": "string",
+            "description": "Operating system version",
+            "nullable": true,
+            "example": "20.04"
+          },
+          "rapid_deploy": {
+            "type": "boolean",
+            "description": "Indicates that rapid deploy of the Image is available",
+            "example": false
+          },
+          "protection": {
+            "type": "object",
+            "properties": {
+              "delete": {
+                "type": "boolean",
+                "description": "If true, prevents the snapshot from being deleted",
+                "example": false
+              }
+            },
+            "required": [
+              "delete"
+            ],
+            "description": "Protection configuration for the Image"
+          },
+          "deprecated": {
+            "type": "string",
+            "description": "Point in time when the Image is considered to be deprecated (in ISO-8601 format)",
+            "nullable": true,
+            "example": "2018-02-28T00:00:00+00:00"
+          },
+          "labels": {
+            "$ref": "#/components/schemas/labels"
+          }
+        },
+        "required": [
+          "id",
+          "type",
+          "status",
+          "name",
+          "description",
+          "image_size",
+          "disk_size",
+          "created",
+          "created_from",
+          "bound_to",
+          "os_flavor",
+          "os_version",
+          "protection",
+          "deprecated",
+          "labels"
+        ]
+      },
+      "image_optional": {
+        "type": "object",
+        "nullable": true,
         "properties": {
           "id": {
             "type": "integer",
@@ -4408,6 +4597,7 @@
       },
       "replace_server_request": {
         "type": "object",
+        "title": "UpdateServerRequest",
         "properties": {
           "name": {
             "type": "string",
@@ -4754,7 +4944,7 @@
             "$ref": "#/components/schemas/datacenter"
           },
           "image": {
-            "$ref": "#/components/schemas/image"
+            "$ref": "#/components/schemas/image_optional"
           },
           "iso": {
             "$ref": "#/components/schemas/iso_optional"
@@ -6220,7 +6410,7 @@
     "/certificates/{id}/actions/retry": {
       "post": {
         "summary": "Retry Issuance or Renewal",
-        "description": "Retry a failed Certificate issuance or renewal.\n\nOnly applicable if the type of the Certificate is `managed` and the issuance or renewal status is `failed`.\n\n#### Call specific error codes\n\n| Code                                                    | Description                                                               |\n|---------------------------------------------------------|---------------------------------------------------------------------------|\n| `caa_record_does_not_allow_ca`                          | CAA record does not allow certificate authority                           |\n| `ca_dns_validation_failed`                              | Certificate Authority: DNS validation failed                              |\n| `ca_too_many_authorizations_failed_recently`            | Certificate Authority: Too many authorizations failed recently            |\n| `ca_too_many_certificates_issued_for_registered_domain` | Certificate Authority: Too many certificates issued for registered domain |\n| `ca_too_many_duplicate_certificates`                    | Certificate Authority: Too many duplicate certificates                    |\n| `could_not_verify_domain_delegated_to_zone`             | Could not verify domain delegated to zone                                 |\n| `dns_zone_not_found`                                    | DNS zone not found                                                        |\n",
+        "description": "Retry a failed Certificate issuance or renewal.\n\nOnly applicable if the type of the Certificate is `managed` and the issuance or renewal status is `failed`.\n\n#### Call specific error codes\n\n| Code                                                    | Description                                                               |\n|---------------------------------------------------------|---------------------------------------------------------------------------|\n| `caa_record_does_not_allow_ca`                          | CAA record does not allow certificate authority                           |\n| `ca_dns_validation_failed`                              | Certificate Authority: DNS validation failed                              |\n| `ca_too_many_authorizations_failed_recently`            | Certificate Authority: Too many authorizations failed recently            |\n| `ca_too_many_certificates_issued_for_registered_domain` | Certificate Authority: Too many certificates issued for registered domain |\n| `ca_too_many_duplicate_certificates`                    | Certificate Authority: Too many duplicate certificates                    |\n| `could_not_verify_domain_delegated_to_zone`             | Could not verify domain delegated to zone                                 |\n| `dns_zone_not_found`                                    | DNS zone not found                                                        |\n| `dns_zone_is_secondary_zone`                            | DNS zone is a secondary zone                                              |\n",
         "tags": [
           "certificates"
         ],
@@ -6841,7 +7031,7 @@
     "/firewalls/{id}/actions/apply_to_resources": {
       "post": {
         "summary": "Apply to Resources",
-        "description": "Applies one Firewall to multiple resources.\n\nCurrently only Servers (and their public network interfaces) are supported.\n\n#### Call specific error codes\n\n| Code                        | Description                                             |\n|-----------------------------|---------------------------------------------------------|\n| `firewall_already_applied`  | Firewall was already applied on resource                |\n| `incompatible_network_type` | The Network type is incompatible for the given resource |\n",
+        "description": "Applies one Firewall to multiple resources.\n\nCurrently servers (public network interface) and label selectors are supported.\n\n#### Call specific error codes\n\n| Code                        | Description                                             |\n|-----------------------------|---------------------------------------------------------|\n| `firewall_already_applied`  | Firewall was already applied on resource                |\n| `incompatible_network_type` | The Network type is incompatible for the given resource |\n",
         "tags": [
           "firewalls"
         ],
