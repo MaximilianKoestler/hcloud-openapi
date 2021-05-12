@@ -12,20 +12,6 @@
     }
   },
   {
-    "path": ["components", "schemas", "create_server_response", "properties", "next_actions"],
-    "set": {
-      "items": {
-        "$ref": "#/components/schemas/action"
-      }
-    }
-  },
-  {
-    "path": ["components", "schemas", "metrics", "properties", "step"],
-    "set": {
-      "type": "number"
-    }
-  },
-  {
     "path": ["components", "schemas", "create_network_request", "properties", "subnets"],
     "set": {
       "items": {
