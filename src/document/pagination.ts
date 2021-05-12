@@ -38,9 +38,17 @@ function addPaginationMetadataToProperties(
             description: "The total number of entries",
           },
         },
-        required: ["page", "per_page"],
+        required: [
+          "page",
+          "per_page",
+          "previous_page",
+          "next_page",
+          "last_page",
+          "total_entries",
+        ],
       },
     },
+    required: ["pagination"],
   };
 }
 
@@ -49,7 +57,9 @@ function addPaginationMetadataToSchema(
 ): boolean {
   if (schema.type == "object") {
     const property_keys = Object.keys(schema.properties);
-    if (property_keys.length == 1) {
+    if (property_keys.includes("meta")) {
+      return true;
+    } else if (property_keys.length == 1) {
       if (schema.properties[property_keys[0]].type == "array") {
         addPaginationMetadataToProperties(schema.properties);
         return true;
@@ -101,7 +111,6 @@ export function addPagination(document: OpenApiDocumentFragment) {
     for (const [verb, verb_obj] of Object.entries(path_obj)) {
       if (verb == "get") {
         addPaginationToVerb(verb_obj as OpenApiDocumentFragment);
-        // return;
       }
     }
   }
