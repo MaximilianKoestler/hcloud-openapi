@@ -66,8 +66,8 @@
     "description": "Resource a Firewall should be applied to.",
     "name": "firewall_resource",
     "path": [
-      "create_firewall_request",
-      "apply_to"
+      "remove_from_resources_request",
+      "remove_from"
     ]
   },
   {
@@ -77,6 +77,14 @@
       "get_firewall_response",
       "firewall",
       "applied_to"
+    ]
+  },
+  {
+    "description": "Resource a Firewall should be applied to.",
+    "name": "firewall_resource_type_required",
+    "path": [
+      "create_firewall_request",
+      "apply_to"
     ]
   },
   {
