@@ -266,10 +266,11 @@
     ]
   },
   {
+    "description": "Protection configuration for the Resource",
     "name": "protection",
     "path": [
-      "list_servers_response",
-      "servers",
+      "list_floating_ips_response",
+      "floating_ips",
       "protection"
     ]
   },
@@ -336,6 +337,14 @@
     "path": [
       "list_servers_response",
       "servers"
+    ]
+  },
+  {
+    "name": "server_protection",
+    "path": [
+      "list_servers_response",
+      "servers",
+      "protection"
     ]
   },
   {

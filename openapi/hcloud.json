@@ -6,7 +6,7 @@
     "contact": {
       "url": "https://docs.hetzner.cloud/"
     },
-    "version": "4739ece-dirty"
+    "version": "1de6188-dirty"
   },
   "servers": [
     {
@@ -2214,18 +2214,7 @@
             "example": false
           },
           "protection": {
-            "description": "Protection configuration for the Resource",
-            "type": "object",
-            "properties": {
-              "delete": {
-                "type": "boolean",
-                "description": "If true, prevents the Resource from being deleted",
-                "example": false
-              }
-            },
-            "required": [
-              "delete"
-            ]
+            "$ref": "#/components/schemas/protection"
           },
           "labels": {
             "$ref": "#/components/schemas/labels"
@@ -2690,18 +2679,7 @@
             "example": false
           },
           "protection": {
-            "description": "Protection configuration for the Resource",
-            "type": "object",
-            "properties": {
-              "delete": {
-                "type": "boolean",
-                "description": "If true, prevents the Resource from being deleted",
-                "example": false
-              }
-            },
-            "required": [
-              "delete"
-            ]
+            "$ref": "#/components/schemas/protection"
           },
           "deprecated": {
             "type": "string",
@@ -2819,18 +2797,7 @@
             "example": false
           },
           "protection": {
-            "description": "Protection configuration for the Resource",
-            "type": "object",
-            "properties": {
-              "delete": {
-                "type": "boolean",
-                "description": "If true, prevents the Resource from being deleted",
-                "example": false
-              }
-            },
-            "required": [
-              "delete"
-            ]
+            "$ref": "#/components/schemas/protection"
           },
           "deprecated": {
             "type": "string",
@@ -3640,18 +3607,7 @@
             "$ref": "#/components/schemas/load_balancer_type"
           },
           "protection": {
-            "description": "Protection configuration for the Resource",
-            "type": "object",
-            "properties": {
-              "delete": {
-                "type": "boolean",
-                "description": "If true, prevents the Resource from being deleted",
-                "example": false
-              }
-            },
-            "required": [
-              "delete"
-            ]
+            "$ref": "#/components/schemas/protection"
           },
           "labels": {
             "$ref": "#/components/schemas/labels"
@@ -3987,18 +3943,7 @@
             ]
           },
           "protection": {
-            "type": "object",
-            "properties": {
-              "delete": {
-                "type": "boolean",
-                "description": "If true, prevents the Network from being deleted",
-                "example": false
-              }
-            },
-            "required": [
-              "delete"
-            ],
-            "description": "Protection configuration for the Network"
+            "$ref": "#/components/schemas/protection"
           },
           "labels": {
             "$ref": "#/components/schemas/labels"
@@ -4175,24 +4120,18 @@
         }
       },
       "protection": {
+        "description": "Protection configuration for the Resource",
         "type": "object",
         "properties": {
           "delete": {
             "type": "boolean",
-            "description": "If true, prevents the Server from being deleted",
-            "example": false
-          },
-          "rebuild": {
-            "type": "boolean",
-            "description": "If true, prevents the Server from being rebuilt",
+            "description": "If true, prevents the Resource from being deleted | If true, prevents the Network from being deleted",
             "example": false
           }
         },
         "required": [
-          "delete",
-          "rebuild"
-        ],
-        "description": "Protection configuration for the Server"
+          "delete"
+        ]
       },
       "public_net_load_balancer": {
         "type": "object",
@@ -4977,7 +4916,7 @@
             "format": "int64"
           },
           "protection": {
-            "$ref": "#/components/schemas/protection"
+            "$ref": "#/components/schemas/server_protection"
           },
           "labels": {
             "$ref": "#/components/schemas/labels"
@@ -5023,6 +4962,26 @@
           "primary_disk_size"
         ],
         "description": "Servers are virtual machines that can be provisioned."
+      },
+      "server_protection": {
+        "type": "object",
+        "properties": {
+          "delete": {
+            "type": "boolean",
+            "description": "If true, prevents the Server from being deleted",
+            "example": false
+          },
+          "rebuild": {
+            "type": "boolean",
+            "description": "If true, prevents the Server from being rebuilt",
+            "example": false
+          }
+        },
+        "required": [
+          "delete",
+          "rebuild"
+        ],
+        "description": "Protection configuration for the Server"
       },
       "server_type": {
         "type": "object",
@@ -5539,18 +5498,7 @@
             "example": "/dev/disk/by-id/scsi-0HC_Volume_4711"
           },
           "protection": {
-            "description": "Protection configuration for the Resource",
-            "type": "object",
-            "properties": {
-              "delete": {
-                "type": "boolean",
-                "description": "If true, prevents the Resource from being deleted",
-                "example": false
-              }
-            },
-            "required": [
-              "delete"
-            ]
+            "$ref": "#/components/schemas/protection"
           },
           "labels": {
             "$ref": "#/components/schemas/labels"
