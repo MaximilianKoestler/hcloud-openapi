@@ -6,7 +6,7 @@
     "contact": {
       "url": "https://docs.hetzner.cloud/"
     },
-    "version": "ba89a20-dirty"
+    "version": "e33c0e3-dirty"
   },
   "servers": [
     {
@@ -3591,13 +3591,13 @@
             "example": "my-resource"
           },
           "public_net": {
-            "$ref": "#/components/schemas/public_net_load_balancer"
+            "$ref": "#/components/schemas/load_balancer_public_net"
           },
           "private_net": {
             "type": "array",
             "description": "Private networks information",
             "items": {
-              "$ref": "#/components/schemas/private_net_load_balancer"
+              "$ref": "#/components/schemas/load_balancer_private_net"
             }
           },
           "location": {
@@ -3687,6 +3687,58 @@
           "type"
         ],
         "description": "Algorithm of the Load Balancer | Request for POST https://api.hetzner.cloud/v1/load_balancers/{id}/actions/change_algorithm"
+      },
+      "load_balancer_private_net": {
+        "type": "object",
+        "properties": {
+          "network": {
+            "type": "integer",
+            "example": 4711
+          },
+          "ip": {
+            "type": "string",
+            "example": "10.0.0.2"
+          }
+        }
+      },
+      "load_balancer_public_net": {
+        "type": "object",
+        "properties": {
+          "enabled": {
+            "type": "boolean",
+            "description": "Public Interface enabled or not"
+          },
+          "ipv4": {
+            "type": "object",
+            "properties": {
+              "ip": {
+                "type": "string",
+                "description": "IP address (v4) of this Load Balancer",
+                "nullable": true,
+                "example": "1.2.3.4"
+              }
+            },
+            "description": "IP address (v4)"
+          },
+          "ipv6": {
+            "type": "object",
+            "properties": {
+              "ip": {
+                "type": "string",
+                "description": "IP address (v6) of this Load Balancer",
+                "nullable": true,
+                "example": "2001:db8::1"
+              }
+            },
+            "description": "IP address (v6)"
+          }
+        },
+        "required": [
+          "enabled",
+          "ipv4",
+          "ipv6"
+        ],
+        "description": "Public network information"
       },
       "load_balancer_service": {
         "type": "object",
@@ -4212,42 +4264,6 @@
           "price_monthly"
         ]
       },
-      "private_net_load_balancer": {
-        "type": "object",
-        "properties": {
-          "network": {
-            "type": "integer",
-            "example": 4711
-          },
-          "ip": {
-            "type": "string",
-            "example": "10.0.0.2"
-          }
-        }
-      },
-      "private_net_server": {
-        "type": "object",
-        "properties": {
-          "network": {
-            "type": "integer",
-            "example": 4711
-          },
-          "ip": {
-            "type": "string",
-            "example": "10.0.0.2"
-          },
-          "alias_ips": {
-            "type": "array",
-            "items": {
-              "type": "string"
-            }
-          },
-          "mac_address": {
-            "type": "string",
-            "example": "86:00:ff:2a:7d:e1"
-          }
-        }
-      },
       "protection": {
         "description": "Protection configuration for the Resource",
         "type": "object",
@@ -4261,96 +4277,6 @@
         "required": [
           "delete"
         ]
-      },
-      "public_net_load_balancer": {
-        "type": "object",
-        "properties": {
-          "enabled": {
-            "type": "boolean",
-            "description": "Public Interface enabled or not"
-          },
-          "ipv4": {
-            "type": "object",
-            "properties": {
-              "ip": {
-                "type": "string",
-                "description": "IP address (v4) of this Load Balancer",
-                "nullable": true,
-                "example": "1.2.3.4"
-              }
-            },
-            "description": "IP address (v4)"
-          },
-          "ipv6": {
-            "type": "object",
-            "properties": {
-              "ip": {
-                "type": "string",
-                "description": "IP address (v6) of this Load Balancer",
-                "nullable": true,
-                "example": "2001:db8::1"
-              }
-            },
-            "description": "IP address (v6)"
-          }
-        },
-        "required": [
-          "enabled",
-          "ipv4",
-          "ipv6"
-        ],
-        "description": "Public network information"
-      },
-      "public_net_server": {
-        "type": "object",
-        "properties": {
-          "ipv4": {
-            "$ref": "#/components/schemas/ipv4"
-          },
-          "ipv6": {
-            "$ref": "#/components/schemas/ipv6"
-          },
-          "floating_ips": {
-            "type": "array",
-            "items": {
-              "type": "integer"
-            },
-            "description": "IDs of Floating IPs assigned to this Server",
-            "example": [
-              478
-            ]
-          },
-          "firewalls": {
-            "type": "array",
-            "items": {
-              "type": "object",
-              "title": "ServerPublicNetFirewall",
-              "properties": {
-                "id": {
-                  "description": "ID of the Resource",
-                  "type": "integer",
-                  "example": 42
-                },
-                "status": {
-                  "type": "string",
-                  "enum": [
-                    "applied",
-                    "pending"
-                  ],
-                  "example": "applied",
-                  "description": "Status of the Firewall on the Server"
-                }
-              }
-            },
-            "description": "Firewalls applied to the public network interface of this Server"
-          }
-        },
-        "required": [
-          "ipv4",
-          "ipv6",
-          "floating_ips"
-        ],
-        "description": "Public network information. The Server's IPv4 address can be found in `public_net->ipv4->ip`"
       },
       "rebuild_server_from_image_request": {
         "type": "object",
@@ -4986,13 +4912,13 @@
             "example": "2016-01-30T23:55:00+00:00"
           },
           "public_net": {
-            "$ref": "#/components/schemas/public_net_server"
+            "$ref": "#/components/schemas/server_public_net"
           },
           "private_net": {
             "type": "array",
             "description": "Private networks information",
             "items": {
-              "$ref": "#/components/schemas/private_net_server"
+              "$ref": "#/components/schemas/server_private_net"
             }
           },
           "server_type": {
@@ -5092,6 +5018,29 @@
         ],
         "description": "Servers are virtual machines that can be provisioned."
       },
+      "server_private_net": {
+        "type": "object",
+        "properties": {
+          "network": {
+            "type": "integer",
+            "example": 4711
+          },
+          "ip": {
+            "type": "string",
+            "example": "10.0.0.2"
+          },
+          "alias_ips": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "mac_address": {
+            "type": "string",
+            "example": "86:00:ff:2a:7d:e1"
+          }
+        }
+      },
       "server_protection": {
         "type": "object",
         "properties": {
@@ -5111,6 +5060,57 @@
           "rebuild"
         ],
         "description": "Protection configuration for the Server"
+      },
+      "server_public_net": {
+        "type": "object",
+        "properties": {
+          "ipv4": {
+            "$ref": "#/components/schemas/ipv4"
+          },
+          "ipv6": {
+            "$ref": "#/components/schemas/ipv6"
+          },
+          "floating_ips": {
+            "type": "array",
+            "items": {
+              "type": "integer"
+            },
+            "description": "IDs of Floating IPs assigned to this Server",
+            "example": [
+              478
+            ]
+          },
+          "firewalls": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "title": "ServerPublicNetFirewall",
+              "properties": {
+                "id": {
+                  "description": "ID of the Resource",
+                  "type": "integer",
+                  "example": 42
+                },
+                "status": {
+                  "type": "string",
+                  "enum": [
+                    "applied",
+                    "pending"
+                  ],
+                  "example": "applied",
+                  "description": "Status of the Firewall on the Server"
+                }
+              }
+            },
+            "description": "Firewalls applied to the public network interface of this Server"
+          }
+        },
+        "required": [
+          "ipv4",
+          "ipv6",
+          "floating_ips"
+        ],
+        "description": "Public network information. The Server's IPv4 address can be found in `public_net->ipv4->ip`"
       },
       "server_type": {
         "type": "object",

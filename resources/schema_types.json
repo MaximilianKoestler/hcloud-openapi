@@ -189,6 +189,22 @@
     ]
   },
   {
+    "name": "load_balancer_private_net",
+    "path": [
+      "list_load_balancers_response",
+      "load_balancers",
+      "private_net"
+    ]
+  },
+  {
+    "name": "load_balancer_public_net",
+    "path": [
+      "list_load_balancers_response",
+      "load_balancers",
+      "public_net"
+    ]
+  },
+  {
     "description": "A service for a Load Balancer.",
     "name": "load_balancer_service",
     "path": [
@@ -258,44 +274,12 @@
     ]
   },
   {
-    "name": "private_net_load_balancer",
-    "path": [
-      "list_load_balancers_response",
-      "load_balancers",
-      "private_net"
-    ]
-  },
-  {
-    "name": "private_net_server",
-    "path": [
-      "list_servers_response",
-      "servers",
-      "private_net"
-    ]
-  },
-  {
     "description": "Protection configuration for the Resource",
     "name": "protection",
     "path": [
       "list_floating_ips_response",
       "floating_ips",
       "protection"
-    ]
-  },
-  {
-    "name": "public_net_load_balancer",
-    "path": [
-      "list_load_balancers_response",
-      "load_balancers",
-      "public_net"
-    ]
-  },
-  {
-    "name": "public_net_server",
-    "path": [
-      "list_servers_response",
-      "servers",
-      "public_net"
     ]
   },
   {
@@ -348,11 +332,27 @@
     ]
   },
   {
+    "name": "server_private_net",
+    "path": [
+      "list_servers_response",
+      "servers",
+      "private_net"
+    ]
+  },
+  {
     "name": "server_protection",
     "path": [
       "list_servers_response",
       "servers",
       "protection"
+    ]
+  },
+  {
+    "name": "server_public_net",
+    "path": [
+      "list_servers_response",
+      "servers",
+      "public_net"
     ]
   },
   {
