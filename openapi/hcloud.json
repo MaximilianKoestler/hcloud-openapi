@@ -6,7 +6,7 @@
     "contact": {
       "url": "https://docs.hetzner.cloud/"
     },
-    "version": "1de6188-dirty"
+    "version": "ba89a20-dirty"
   },
   "servers": [
     {
@@ -223,7 +223,7 @@
         "description": "Response to POST https://api.hetzner.cloud/v1/networks/{id}/actions/add_route"
       },
       "add_service_request": {
-        "$ref": "#/components/schemas/service"
+        "$ref": "#/components/schemas/load_balancer_service"
       },
       "add_service_response": {
         "type": "object",
@@ -1287,7 +1287,7 @@
           "services": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/service"
+              "$ref": "#/components/schemas/load_balancer_service"
             },
             "description": "Array of services"
           },
@@ -3620,7 +3620,7 @@
           "services": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/service"
+              "$ref": "#/components/schemas/load_balancer_service"
             },
             "description": "List of services that belong to this Load Balancer"
           },
@@ -3687,6 +3687,135 @@
           "type"
         ],
         "description": "Algorithm of the Load Balancer | Request for POST https://api.hetzner.cloud/v1/load_balancers/{id}/actions/change_algorithm"
+      },
+      "load_balancer_service": {
+        "type": "object",
+        "title": "LoadBalancerService",
+        "properties": {
+          "protocol": {
+            "type": "string",
+            "enum": [
+              "http",
+              "https",
+              "tcp"
+            ],
+            "description": "Protocol of the Load Balancer",
+            "example": "https"
+          },
+          "listen_port": {
+            "type": "integer",
+            "description": "Port the Load Balancer listens on",
+            "example": 443
+          },
+          "destination_port": {
+            "type": "integer",
+            "description": "Port the Load Balancer will balance to",
+            "example": 80
+          },
+          "proxyprotocol": {
+            "type": "boolean",
+            "description": "Is Proxyprotocol enabled or not",
+            "example": false
+          },
+          "health_check": {
+            "type": "object",
+            "title": "LoadBalancerServiceHealthCheck",
+            "description": "Service health check",
+            "properties": {
+              "protocol": {
+                "type": "string",
+                "enum": [
+                  "http",
+                  "tcp"
+                ],
+                "description": "Type of the health check",
+                "example": "http"
+              },
+              "port": {
+                "type": "integer",
+                "description": "Port the health check will be performed on",
+                "example": 4711
+              },
+              "interval": {
+                "type": "integer",
+                "description": "Time interval in seconds health checks are performed",
+                "example": 15
+              },
+              "timeout": {
+                "type": "integer",
+                "description": "Time in seconds after an attempt is considered a timeout",
+                "example": 10
+              },
+              "retries": {
+                "type": "integer",
+                "description": "Unsuccessful retries needed until a target is considered unhealthy; an unhealthy target needs the same number of successful retries to become healthy again",
+                "example": 3
+              },
+              "http": {
+                "type": "object",
+                "properties": {
+                  "domain": {
+                    "type": "string",
+                    "description": "Host header to send in the HTTP request. May not contain spaces, percent or backslash symbols. Can be null, in that case no host header is sent.",
+                    "nullable": true,
+                    "example": "example.com"
+                  },
+                  "path": {
+                    "type": "string",
+                    "description": "HTTP path to use for health checks",
+                    "example": "/"
+                  },
+                  "response": {
+                    "type": "string",
+                    "description": "String that must be contained in HTTP response in order to pass the health check",
+                    "example": "{\"status\": \"ok\"}"
+                  },
+                  "status_codes": {
+                    "type": "array",
+                    "description": "List of returned HTTP status codes in order to pass the health check. Supports the wildcards `?` for exactly one character and `*` for multiple ones. The default is to pass the health check for any status code between 2?? and 3??.",
+                    "items": {
+                      "type": "string"
+                    },
+                    "example": [
+                      "2??",
+                      "3??"
+                    ]
+                  },
+                  "tls": {
+                    "type": "boolean",
+                    "description": "Use HTTPS for health check",
+                    "example": false
+                  }
+                },
+                "required": [
+                  "domain",
+                  "path"
+                ],
+                "additionalProperties": false,
+                "description": "Additional configuration for protocol http"
+              }
+            },
+            "required": [
+              "protocol",
+              "port",
+              "interval",
+              "timeout",
+              "retries"
+            ],
+            "additionalProperties": false
+          },
+          "http": {
+            "$ref": "#/components/schemas/http"
+          }
+        },
+        "required": [
+          "protocol",
+          "listen_port",
+          "destination_port",
+          "proxyprotocol",
+          "health_check"
+        ],
+        "description": "A service for a Load Balancer."
       },
       "load_balancer_type": {
         "type": "object",
@@ -5060,135 +5189,6 @@
         ],
         "description": "Type of Server - determines how much ram, disk and cpu a Server has"
       },
-      "service": {
-        "type": "object",
-        "title": "LoadBalancerService",
-        "properties": {
-          "protocol": {
-            "type": "string",
-            "enum": [
-              "http",
-              "https",
-              "tcp"
-            ],
-            "description": "Protocol of the Load Balancer",
-            "example": "https"
-          },
-          "listen_port": {
-            "type": "integer",
-            "description": "Port the Load Balancer listens on",
-            "example": 443
-          },
-          "destination_port": {
-            "type": "integer",
-            "description": "Port the Load Balancer will balance to",
-            "example": 80
-          },
-          "proxyprotocol": {
-            "type": "boolean",
-            "description": "Is Proxyprotocol enabled or not",
-            "example": false
-          },
-          "health_check": {
-            "type": "object",
-            "title": "LoadBalancerServiceHealthCheck",
-            "description": "Service health check",
-            "properties": {
-              "protocol": {
-                "type": "string",
-                "enum": [
-                  "http",
-                  "tcp"
-                ],
-                "description": "Type of the health check",
-                "example": "http"
-              },
-              "port": {
-                "type": "integer",
-                "description": "Port the health check will be performed on",
-                "example": 4711
-              },
-              "interval": {
-                "type": "integer",
-                "description": "Time interval in seconds health checks are performed",
-                "example": 15
-              },
-              "timeout": {
-                "type": "integer",
-                "description": "Time in seconds after an attempt is considered a timeout",
-                "example": 10
-              },
-              "retries": {
-                "type": "integer",
-                "description": "Unsuccessful retries needed until a target is considered unhealthy; an unhealthy target needs the same number of successful retries to become healthy again",
-                "example": 3
-              },
-              "http": {
-                "type": "object",
-                "properties": {
-                  "domain": {
-                    "type": "string",
-                    "description": "Host header to send in the HTTP request. May not contain spaces, percent or backslash symbols. Can be null, in that case no host header is sent.",
-                    "nullable": true,
-                    "example": "example.com"
-                  },
-                  "path": {
-                    "type": "string",
-                    "description": "HTTP path to use for health checks",
-                    "example": "/"
-                  },
-                  "response": {
-                    "type": "string",
-                    "description": "String that must be contained in HTTP response in order to pass the health check",
-                    "example": "{\"status\": \"ok\"}"
-                  },
-                  "status_codes": {
-                    "type": "array",
-                    "description": "List of returned HTTP status codes in order to pass the health check. Supports the wildcards `?` for exactly one character and `*` for multiple ones. The default is to pass the health check for any status code between 2?? and 3??.",
-                    "items": {
-                      "type": "string"
-                    },
-                    "example": [
-                      "2??",
-                      "3??"
-                    ]
-                  },
-                  "tls": {
-                    "type": "boolean",
-                    "description": "Use HTTPS for health check",
-                    "example": false
-                  }
-                },
-                "required": [
-                  "domain",
-                  "path"
-                ],
-                "additionalProperties": false,
-                "description": "Additional configuration for protocol http"
-              }
-            },
-            "required": [
-              "protocol",
-              "port",
-              "interval",
-              "timeout",
-              "retries"
-            ],
-            "additionalProperties": false
-          },
-          "http": {
-            "$ref": "#/components/schemas/http"
-          }
-        },
-        "required": [
-          "protocol",
-          "listen_port",
-          "destination_port",
-          "proxyprotocol",
-          "health_check"
-        ],
-        "description": "A service for a Load Balancer."
-      },
       "set_rules_request": {
         "title": "SetRulesRequest",
         "type": "object",
@@ -5445,7 +5445,7 @@
         "description": "Response to POST https://api.hetzner.cloud/v1/floating_ips/{id}/actions/unassign"
       },
       "update_service_request": {
-        "$ref": "#/components/schemas/service"
+        "$ref": "#/components/schemas/load_balancer_service"
       },
       "update_service_response": {
         "type": "object",

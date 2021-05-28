@@ -189,6 +189,14 @@
     ]
   },
   {
+    "description": "A service for a Load Balancer.",
+    "name": "load_balancer_service",
+    "path": [
+      "create_load_balancer_request",
+      "services"
+    ]
+  },
+  {
     "name": "load_balancer_type",
     "path": [
       "list_load_balancer_types_response",
@@ -352,14 +360,6 @@
     "path": [
       "list_server_types_response",
       "server_types"
-    ]
-  },
-  {
-    "description": "A service for a Load Balancer.",
-    "name": "service",
-    "path": [
-      "create_load_balancer_request",
-      "services"
     ]
   },
   {
