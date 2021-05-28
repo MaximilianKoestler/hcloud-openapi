@@ -81,7 +81,7 @@
   },
   {
     "description": "Resource a Firewall should be applied to.",
-    "name": "firewall_resource_type_required",
+    "name": "firewall_resource_with_required_type",
     "path": [
       "create_firewall_request",
       "apply_to"
@@ -155,6 +155,16 @@
       "list_servers_response",
       "servers",
       "iso"
+    ]
+  },
+  {
+    "description": "Configuration for type LabelSelector, required if type is `label_selector`",
+    "name": "label_selector",
+    "path": [
+      "get_firewall_response",
+      "firewall",
+      "applied_to",
+      "label_selector"
     ]
   },
   {
@@ -285,6 +295,16 @@
       "list_actions_response",
       "actions",
       "resources"
+    ]
+  },
+  {
+    "description": "ID of the Resource",
+    "name": "resource_id",
+    "path": [
+      "get_firewall_response",
+      "firewall",
+      "applied_to",
+      "server"
     ]
   },
   {

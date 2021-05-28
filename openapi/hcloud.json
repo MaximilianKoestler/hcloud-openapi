@@ -6,7 +6,7 @@
     "contact": {
       "url": "https://docs.hetzner.cloud/"
     },
-    "version": "3126a3a-dirty"
+    "version": "4739ece-dirty"
   },
   "servers": [
     {
@@ -287,18 +287,7 @@
             "example": true
           },
           "label_selector": {
-            "type": "object",
-            "properties": {
-              "selector": {
-                "type": "string",
-                "description": "Label selector",
-                "example": "env=prod"
-              }
-            },
-            "required": [
-              "selector"
-            ],
-            "description": "Configuration for label selector targets, required if type is `label_selector`"
+            "$ref": "#/components/schemas/label_selector"
           },
           "ip": {
             "type": "object",
@@ -1121,7 +1110,7 @@
             "type": "array",
             "description": "Resources the Firewall should be applied to after creation",
             "items": {
-              "$ref": "#/components/schemas/firewall_resource_type_required"
+              "$ref": "#/components/schemas/firewall_resource_with_required_type"
             }
           }
         },
@@ -2097,31 +2086,10 @@
             "description": "Type of the resource"
           },
           "server": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "integer",
-                "description": "ID of the Server"
-              }
-            },
-            "required": [
-              "id"
-            ],
-            "description": "Configuration for type server, required if type is `server`"
+            "$ref": "#/components/schemas/resource_id"
           },
           "label_selector": {
-            "type": "object",
-            "properties": {
-              "selector": {
-                "type": "string",
-                "description": "Label selector",
-                "example": "env=prod"
-              }
-            },
-            "required": [
-              "selector"
-            ],
-            "description": "Configuration for type label_selector, required if type is `label_selector`"
+            "$ref": "#/components/schemas/label_selector"
           }
         },
         "description": "Resource a Firewall should be applied to."
@@ -2139,30 +2107,10 @@
             "example": "server"
           },
           "server": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "description": "ID of the Resource",
-                "type": "integer",
-                "example": 42
-              }
-            },
-            "required": [
-              "id"
-            ]
+            "$ref": "#/components/schemas/resource_id"
           },
           "label_selector": {
-            "type": "object",
-            "properties": {
-              "selector": {
-                "type": "string",
-                "description": "Label selector",
-                "example": "env=prod"
-              }
-            },
-            "required": [
-              "selector"
-            ]
+            "$ref": "#/components/schemas/label_selector"
           },
           "applied_to_resources": {
             "type": "array",
@@ -2178,17 +2126,7 @@
                   "example": "server"
                 },
                 "server": {
-                  "type": "object",
-                  "properties": {
-                    "id": {
-                      "description": "ID of the Resource",
-                      "type": "integer",
-                      "example": 42
-                    }
-                  },
-                  "required": [
-                    "id"
-                  ]
+                  "$ref": "#/components/schemas/resource_id"
                 }
               }
             }
@@ -2199,7 +2137,7 @@
         ],
         "description": "Resource a Firewall should be applied to."
       },
-      "firewall_resource_type_required": {
+      "firewall_resource_with_required_type": {
         "type": "object",
         "properties": {
           "type": {
@@ -2211,30 +2149,10 @@
             "description": "Type of the resource"
           },
           "server": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "integer",
-                "description": "ID of the Server"
-              }
-            },
-            "required": [
-              "id"
-            ],
-            "description": "Configuration for type Server, required if type is `server`"
+            "$ref": "#/components/schemas/resource_id"
           },
           "label_selector": {
-            "type": "object",
-            "properties": {
-              "selector": {
-                "type": "string",
-                "description": "Label selector"
-              }
-            },
-            "required": [
-              "selector"
-            ],
-            "description": "Configuration for type LabelSelector, required if type is `label_selector`"
+            "$ref": "#/components/schemas/label_selector"
           }
         },
         "required": [
@@ -3082,6 +3000,20 @@
           "deprecated"
         ],
         "nullable": true
+      },
+      "label_selector": {
+        "type": "object",
+        "properties": {
+          "selector": {
+            "type": "string",
+            "description": "Label selector",
+            "example": "env=prod"
+          }
+        },
+        "required": [
+          "selector"
+        ],
+        "description": "Configuration for type LabelSelector, required if type is `label_selector`"
       },
       "labels": {
         "description": "User-defined labels (key-value pairs)",
@@ -4445,18 +4377,7 @@
             "description": "Configuration for type Server, required if type is `server`"
           },
           "label_selector": {
-            "type": "object",
-            "properties": {
-              "selector": {
-                "type": "string",
-                "description": "Label selector",
-                "example": "env=prod"
-              }
-            },
-            "required": [
-              "selector"
-            ],
-            "description": "Configuration for label selector targets, required if type is `label_selector`"
+            "$ref": "#/components/schemas/label_selector"
           },
           "ip": {
             "type": "object",
@@ -4837,6 +4758,20 @@
           "type"
         ]
       },
+      "resource_id": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "description": "ID of the Resource | ID of the Server",
+            "type": "integer",
+            "example": 42
+          }
+        },
+        "required": [
+          "id"
+        ],
+        "description": "ID of the Resource"
+      },
       "retry_issuance_or_renewal_response": {
         "type": "object",
         "title": "ActionResponse",
@@ -4935,17 +4870,7 @@
             "example": "server"
           },
           "server": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "integer",
-                "description": "ID of the Server",
-                "example": 85
-              }
-            },
-            "required": [
-              "id"
-            ]
+            "$ref": "#/components/schemas/resource_id"
           },
           "health_status": {
             "type": "array",
@@ -5504,19 +5429,7 @@
             "description": "Type of the resource"
           },
           "server": {
-            "type": "object",
-            "title": "LoadBalancerTargetServer",
-            "properties": {
-              "id": {
-                "type": "integer",
-                "description": "ID of the Server",
-                "example": 80
-              }
-            },
-            "required": [
-              "id"
-            ],
-            "description": "Server where the traffic should be routed through"
+            "$ref": "#/components/schemas/resource_id"
           },
           "health_status": {
             "type": "array",
@@ -5530,18 +5443,7 @@
             "description": "Use the private network IP instead of the public IP. Default value is false."
           },
           "label_selector": {
-            "type": "object",
-            "properties": {
-              "selector": {
-                "type": "string",
-                "description": "Label selector",
-                "example": "env=prod"
-              }
-            },
-            "required": [
-              "selector"
-            ],
-            "description": "Label selector and a list of selected targets"
+            "$ref": "#/components/schemas/label_selector"
           },
           "ip": {
             "type": "object",
