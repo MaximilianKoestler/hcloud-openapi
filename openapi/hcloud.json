@@ -6,7 +6,7 @@
     "contact": {
       "url": "https://docs.hetzner.cloud/"
     },
-    "version": "e33c0e3-dirty"
+    "version": "a93b69c-dirty"
   },
   "servers": [
     {
@@ -2615,9 +2615,10 @@
             "type": "string",
             "enum": [
               "available",
-              "creating"
+              "creating",
+              "unavailable"
             ],
-            "description": "Whether the Image can be used or if it's still being created"
+            "description": "Whether the Image can be used or if it's still being created or unavailable"
           },
           "name": {
             "type": "string",
@@ -2687,6 +2688,12 @@
             "nullable": true,
             "example": "2018-02-28T00:00:00+00:00"
           },
+          "deleted": {
+            "type": "string",
+            "description": "Point in time where the Image was deleted (in ISO-8601 format)",
+            "nullable": true,
+            "example": null
+          },
           "labels": {
             "$ref": "#/components/schemas/labels"
           }
@@ -2706,6 +2713,7 @@
           "os_version",
           "protection",
           "deprecated",
+          "deleted",
           "labels"
         ]
       },
@@ -2733,9 +2741,10 @@
             "type": "string",
             "enum": [
               "available",
-              "creating"
+              "creating",
+              "unavailable"
             ],
-            "description": "Whether the Image can be used or if it's still being created"
+            "description": "Whether the Image can be used or if it's still being created or unavailable"
           },
           "name": {
             "type": "string",
@@ -2805,6 +2814,12 @@
             "nullable": true,
             "example": "2018-02-28T00:00:00+00:00"
           },
+          "deleted": {
+            "type": "string",
+            "description": "Point in time where the Image was deleted (in ISO-8601 format)",
+            "nullable": true,
+            "example": null
+          },
           "labels": {
             "$ref": "#/components/schemas/labels"
           }
@@ -2824,6 +2839,7 @@
           "os_version",
           "protection",
           "deprecated",
+          "deleted",
           "labels"
         ]
       },
@@ -7984,6 +8000,7 @@
                       "delete": false
                     },
                     "deprecated": "2018-02-28T00:00:00+00:00",
+                    "deleted": null,
                     "labels": {
                       "labelkey": "value"
                     }
@@ -11069,6 +11086,7 @@
                         "delete": false
                       },
                       "deprecated": "2018-02-28T00:00:00+00:00",
+                      "deleted": null,
                       "labels": {}
                     },
                     "iso": {
@@ -11990,6 +12008,7 @@
                       "delete": false
                     },
                     "deprecated": "2018-02-28T00:00:00+00:00",
+                    "deleted": null,
                     "labels": {}
                   },
                   "action": {
