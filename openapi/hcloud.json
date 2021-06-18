@@ -6,7 +6,7 @@
     "contact": {
       "url": "https://docs.hetzner.cloud/"
     },
-    "version": "9582ac5-dirty"
+    "version": "1ea6184"
   },
   "servers": [
     {
@@ -4854,6 +4854,8 @@
           "protocol": {
             "type": "string",
             "enum": [
+              "esp",
+              "gre",
               "icmp",
               "tcp",
               "udp"
