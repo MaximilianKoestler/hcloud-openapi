@@ -6,7 +6,7 @@
     "contact": {
       "url": "https://docs.hetzner.cloud/"
     },
-    "version": "68dcca3-dirty"
+    "version": "7108a4c-dirty"
   },
   "servers": [
     {
@@ -591,11 +591,7 @@
             "type": "integer"
           },
           "labels": {
-            "additionalProperties": {
-              "type": "string"
-            },
-            "description": "User-defined labels (key-value pairs)",
-            "type": "object"
+            "$ref": "#/components/schemas/labels"
           },
           "name": {
             "description": "Name of the Resource. Must be unique per Project.",
@@ -1312,12 +1308,7 @@
             "type": "string"
           },
           "labels": {
-            "description": "User-defined labels (key-value pairs)",
-            "type": "object",
-            "additionalProperties": {
-              "type": "string",
-              "pattern": "^(()|[a-z0-9A-Z]|([a-z0-9A-Z][a-z0-9A-Z\\._-]{0,61}[a-z0-9A-Z]))$"
-            }
+            "$ref": "#/components/schemas/labels"
           },
           "type": {
             "description": "Type of Image to create (default: `snapshot`)",
@@ -1351,12 +1342,7 @@
             "$ref": "#/components/schemas/load_balancer_algorithm"
           },
           "labels": {
-            "description": "User-defined labels (key-value pairs)",
-            "type": "object",
-            "additionalProperties": {
-              "type": "string",
-              "pattern": "^(()|[a-z0-9A-Z]|([a-z0-9A-Z][a-z0-9A-Z\\._-]{0,61}[a-z0-9A-Z]))$"
-            }
+            "$ref": "#/components/schemas/labels"
           },
           "load_balancer_type": {
             "description": "ID or name of the Load Balancer type this Load Balancer should be created with",
@@ -1435,12 +1421,7 @@
             "type": "string"
           },
           "labels": {
-            "description": "User-defined labels (key-value pairs)",
-            "type": "object",
-            "additionalProperties": {
-              "type": "string",
-              "pattern": "^(()|[a-z0-9A-Z]|([a-z0-9A-Z][a-z0-9A-Z\\._-]{0,61}[a-z0-9A-Z]))$"
-            }
+            "$ref": "#/components/schemas/labels"
           },
           "name": {
             "description": "Name of the network",
@@ -1524,11 +1505,7 @@
                 "type": "integer"
               },
               "labels": {
-                "additionalProperties": {
-                  "type": "string"
-                },
-                "description": "User-defined labels (key-value pairs)",
-                "type": "object"
+                "$ref": "#/components/schemas/labels"
               },
               "name": {
                 "description": "Name of the Resource. Must be unique per Project.",
@@ -2234,11 +2211,7 @@
             "type": "integer"
           },
           "labels": {
-            "additionalProperties": {
-              "type": "string"
-            },
-            "description": "User-defined labels (key-value pairs)",
-            "type": "object"
+            "$ref": "#/components/schemas/labels"
           },
           "name": {
             "description": "Name of the Resource. Must be unique per Project.",
@@ -2389,11 +2362,7 @@
             "type": "string"
           },
           "labels": {
-            "additionalProperties": {
-              "type": "string"
-            },
-            "description": "User-defined labels (key-value pairs)",
-            "type": "object"
+            "$ref": "#/components/schemas/labels"
           },
           "name": {
             "description": "Name of the Resource. Must be unique per Project.",
@@ -2703,11 +2672,7 @@
                 "type": "integer"
               },
               "labels": {
-                "additionalProperties": {
-                  "type": "string"
-                },
-                "description": "User-defined labels (key-value pairs)",
-                "type": "object"
+                "$ref": "#/components/schemas/labels"
               },
               "name": {
                 "description": "Name of the Resource. Must be unique per Project.",
@@ -2906,11 +2871,7 @@
             "type": "number"
           },
           "labels": {
-            "additionalProperties": {
-              "type": "string"
-            },
-            "description": "User-defined labels (key-value pairs)",
-            "type": "object"
+            "$ref": "#/components/schemas/labels"
           },
           "name": {
             "description": "Unique identifier of the Image. This value is only set for system Images.",
@@ -3043,11 +3004,7 @@
             "type": "number"
           },
           "labels": {
-            "additionalProperties": {
-              "type": "string"
-            },
-            "description": "User-defined labels (key-value pairs)",
-            "type": "object"
+            "$ref": "#/components/schemas/labels"
           },
           "name": {
             "description": "Unique identifier of the Image. This value is only set for system Images.",
@@ -3281,6 +3238,10 @@
         "description": "Configuration for type LabelSelector, required if type is `label_selector`"
       },
       "labels": {
+        "additionalProperties": {
+          "type": "string",
+          "pattern": "^(()|[a-z0-9A-Z]|([a-z0-9A-Z][a-z0-9A-Z\\._-]{0,61}[a-z0-9A-Z]))$"
+        },
         "description": "User-defined labels (key-value pairs)",
         "type": "object"
       },
@@ -3658,11 +3619,7 @@
                   "type": "integer"
                 },
                 "labels": {
-                  "additionalProperties": {
-                    "type": "string"
-                  },
-                  "description": "User-defined labels (key-value pairs)",
-                  "type": "object"
+                  "$ref": "#/components/schemas/labels"
                 },
                 "name": {
                   "description": "Name of the Resource. Must be unique per Project.",
@@ -4013,11 +3970,7 @@
             "format": "int64"
           },
           "labels": {
-            "additionalProperties": {
-              "type": "string"
-            },
-            "description": "User-defined labels (key-value pairs)",
-            "type": "object"
+            "$ref": "#/components/schemas/labels"
           },
           "load_balancer_type": {
             "$ref": "#/components/schemas/load_balancer_type"
@@ -4992,12 +4945,7 @@
       "replace_network_request": {
         "properties": {
           "labels": {
-            "description": "User-defined labels (key-value pairs)",
-            "type": "object",
-            "additionalProperties": {
-              "type": "string",
-              "pattern": "^(()|[a-z0-9A-Z]|([a-z0-9A-Z][a-z0-9A-Z\\._-]{0,61}[a-z0-9A-Z]))$"
-            }
+            "$ref": "#/components/schemas/labels"
           },
           "name": {
             "description": "New network name",
@@ -5048,11 +4996,7 @@
                 "type": "integer"
               },
               "labels": {
-                "additionalProperties": {
-                  "type": "string"
-                },
-                "description": "User-defined labels (key-value pairs)",
-                "type": "object"
+                "$ref": "#/components/schemas/labels"
               },
               "name": {
                 "description": "Name of the Resource. Must be unique per Project.",
@@ -5150,12 +5094,7 @@
       "replace_volume_request": {
         "properties": {
           "labels": {
-            "description": "User-defined labels (key-value pairs)",
-            "type": "object",
-            "additionalProperties": {
-              "type": "string",
-              "pattern": "^(()|[a-z0-9A-Z]|([a-z0-9A-Z][a-z0-9A-Z\\._-]{0,61}[a-z0-9A-Z]))$"
-            }
+            "$ref": "#/components/schemas/labels"
           },
           "name": {
             "description": "New Volume name",
@@ -5455,11 +5394,7 @@
             "$ref": "#/components/schemas/iso_optional"
           },
           "labels": {
-            "additionalProperties": {
-              "type": "string"
-            },
-            "description": "User-defined labels (key-value pairs)",
-            "type": "object"
+            "$ref": "#/components/schemas/labels"
           },
           "load_balancers": {
             "items": {
@@ -5498,11 +5433,7 @@
                 "type": "integer"
               },
               "labels": {
-                "additionalProperties": {
-                  "type": "string"
-                },
-                "description": "User-defined labels (key-value pairs)",
-                "type": "object"
+                "$ref": "#/components/schemas/labels"
               },
               "name": {
                 "description": "Name of the Resource. Must be unique per Project.",
@@ -5863,11 +5794,7 @@
             "type": "integer"
           },
           "labels": {
-            "additionalProperties": {
-              "type": "string"
-            },
-            "description": "User-defined labels (key-value pairs)",
-            "type": "object"
+            "$ref": "#/components/schemas/labels"
           },
           "name": {
             "description": "Name of the Resource. Must be unique per Project.",
@@ -6065,11 +5992,7 @@
             "type": "integer"
           },
           "labels": {
-            "additionalProperties": {
-              "type": "string"
-            },
-            "description": "User-defined labels (key-value pairs)",
-            "type": "object"
+            "$ref": "#/components/schemas/labels"
           },
           "linux_device": {
             "description": "Device path on the file system for the Volume",

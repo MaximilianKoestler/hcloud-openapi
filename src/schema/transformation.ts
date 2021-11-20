@@ -66,9 +66,7 @@ function fixItem(part: OpenApiDocumentFragment, location: string[]) {
   // add additionalProperties to mark labels as key/value pairs
   if (
     part.type == "object" &&
-    location[location.length - 1] == "labels" &&
-    part.properties !== undefined &&
-    (Object.keys(part.properties).length == 0 || "labelkey" in part.properties)
+    location[location.length - 1] == "labels"
   ) {
     part["additionalProperties"] = {
       type: "string",
