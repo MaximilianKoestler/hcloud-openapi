@@ -273,7 +273,7 @@ function overWriteTagList(document: OpenApiDocumentFragment) {
 
   const tags = [];
   for (const name of usedTags) {
-    const description = mapping[name]?.description?.split("\n")[0];
+    const description = mapping[name]?.description;
     tags.push({ name, description });
   }
   document.tags = tags.sort((a, b) => a.name.localeCompare(b.name));

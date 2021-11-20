@@ -6,7 +6,7 @@
     "contact": {
       "url": "https://docs.hetzner.cloud/"
     },
-    "version": "b8197fa"
+    "version": "68dcca3-dirty"
   },
   "servers": [
     {
@@ -25,27 +25,27 @@
     },
     {
       "name": "datacenters",
-      "description": "Each Datacenter represents a physical entity where virtual machines are hosted. Note that Datacenters are **not** guaranteed to be entirely independent failure domains."
+      "description": "Each Datacenter represents a physical entity where virtual machines are hosted. Note that Datacenters are **not** guaranteed to be entirely independent failure domains.\n\nDatacenters in the same Location are connected by very low latency links.\n\nDatacenter names are made up of their Location and Datacenter number, for example `fsn1-dc8` means Datacenter `8` in Location `fsn1`.\n"
     },
     {
       "name": "firewalls",
-      "description": "Firewalls can limit the network access to or from your resources."
+      "description": "Firewalls can limit the network access to or from your resources.\n\n* When applying a firewall with no `in` rule all inbound traffic will be dropped. The default for `in` is `DROP`.\n* When applying a firewall with no `out` rule all outbound traffic will be accepted. The default for `out` is `ACCEPT`.\n"
     },
     {
       "name": "floating_ips",
-      "description": "Floating IPs help you to create highly available setups. You can assign a Floating IP to any Server. The Server can then use this IP. You can reassign it to a different Server at any time, or you can choose to unassign the IP from Servers all together."
+      "description": "Floating IPs help you to create highly available setups. You can assign a Floating IP to any Server. The Server can then use this IP. You can reassign it to a different Server at any time, or you can choose to unassign the IP from Servers all together.\n\nFloating IPs can be used globally. This means you can assign a Floating IP to a Server in one Location and later reassign it to a Server in a different Location. For optimal routing and latency Floating IPs should be used in the Location they were created in.\n\nFor Floating IPs to work with your Server, you must configure them inside your operation system.\n\nFloating IPs of type `ipv4` use a single IPv4 address as their `ip` property. Floating IPs of type `ipv6` use a /64 network such as `fc00::/64` as their `ip` property. Any IP address within that network can be used on your host.\n\nFloating IPs are billed on a monthly basis.\n"
     },
     {
       "name": "images",
-      "description": "Images are blueprints for your VM disks. They can be of different types:"
+      "description": "Images are blueprints for your VM disks. They can be of different types:\n\n### System Images\nDistribution Images maintained by us, e.g. “Ubuntu 20.04”\n\n### Snapshot Images\nMaintained by you, for example “Ubuntu 20.04 with my own settings”. These are billed per GB per month.\n\n### Backup Images\nDaily Backups of your Server. Will automatically be created for Servers which have backups enabled (`POST /servers/{id}/actions/enable_backup`)\n\nBound to exactly one Server. If you delete the Server, you also delete all backups bound to it. You may convert backup Images to snapshot Images to keep them.\n\nThese are billed at 20% of your instance price for 7 backup slots.\n\n### App Images\nPrebuild images with specific software configurations, e.g. “Wordpress”. All app images are created by us.\n"
     },
     {
       "name": "isos",
-      "description": "ISOs are read-only Images of DVDs. While we recommend using our Image functionality to install your Servers we also provide some stock ISOs so you can install more exotic operating systems by yourself."
+      "description": "ISOs are read-only Images of DVDs. While we recommend using our Image functionality to install your Servers we also provide some stock ISOs so you can install more exotic operating systems by yourself.\n\nOn request our support uploads a private ISO just for you. These are marked with type `private` and only visible in your Project.\n\nTo attach an ISO to your Server use `POST /servers/{id}/actions/attach_iso`.\n"
     },
     {
       "name": "load_balancer_types",
-      "description": "Load Balancer types define kinds of Load Balancers offered. Each type has an hourly and a monthly cost. You will pay whichever amount is lower for your usage of this specific Load Balancer. Costs may differ between Locations."
+      "description": "Load Balancer types define kinds of Load Balancers offered. Each type has an hourly and a monthly cost. You will pay whichever amount is lower for your usage of this specific Load Balancer. Costs may differ between Locations.\n\nCurrency for all amounts is €. All prices exclude VAT.\n"
     },
     {
       "name": "load_balancers"
@@ -56,11 +56,11 @@
     },
     {
       "name": "networks",
-      "description": "Networks is a private networks feature. These Networks are optional and they coexist with the public network that every Server has by default."
+      "description": "Networks is a private networks feature. These Networks are optional and they coexist with the public network that every Server has by default.\n\nThey allow Servers to talk to each other over a dedicated network interface using private IP addresses not available publicly.\n\nThe IP addresses are allocated and managed via the API, they must conform to [RFC1918](https://tools.ietf.org/html/rfc1918#section-3) standard. IPs and network interfaces defined under Networks do not provide public internet connectivity, you will need to use the already existing public network interface for that.\n\nEach network has a user selected `ip_range` which defines all available IP addresses which can be used for Subnets within the Network.\n\nTo assign individual IPs to Servers you will need to create Network Subnets, described below.\n\nCurrently Networks support IPv4 only.\n\n### Subnets\nSubnets divide the `ip_range` from the parent Network object into multiple Subnetworks that you can use for different specific purposes.\n\nFor each subnet you need to specify its own `ip_range` which must be contained within the parent Network’s `ip_range`. Additionally each subnet must belong to one of the available Network Zones described below. Subnets can not have overlapping IP ranges.\n\nCurrently there are three types of subnet:\n* type `cloud` is used to connect cloud Resources into your Network.\n* type `server` was used to connect only cloud Servers into your Network. This type is deprecated and is replaced by type cloud.\n* type `vswitch` allows you to connect [Dedicated Server vSwitch](https://docs.hetzner.com/robot/dedicated-server/network/vswitch) - and all Dedicated Servers attached to it - into your Network\n\nSubnets of type `vswitch` must set a `vswitch_id` which is the ID of the existing vSwitch in Hetzner Robot that should be coupled.\n\n### Network Zones\nNetwork Zones are groups of Locations which have special high-speed network connections between them. The [Location object](https://docs.hetzner.cloud/#locations-get-a-location) contains the `network_zone` property each Location belongs to. Currently only one Network zone exists and is called `eu-central`. It spans the `nbg1`, `fsn1` and `hel1` Locations.\n\n### IP address management\nWhen a cloud Server is attached to a network without the user specifying an IP it automatically gets an IP address assigned from a subnet of type `server` in the same network zone. If you specify the optional `ip` parameter when attaching then we will try to assign that IP. Keep in mind that the Server’s location must be covered by the Subnet’s Network Zone if you specify an IP, or that at least one Subnet with the zone covering Server’s location must exist.\n\nA cloud Server can also have more than one IP address in a Network by specifying aliases. For details see the [attach to network action](https://docs.hetzner.cloud/#server-actions-attach-a-server-to-a-network).\n\nThe following IP addresses are reserved in networks and can not be used:\n  * the first IP of the network `ip_range` as it will be used as a default gateway for the private Network interface.\n  * `172.31.1.1` as it is being used as default gateway for our public Network interfaces.\n\n### Coupling Dedicated Servers\n\nBy using subnets of type `vswitch` you can couple the Cloud Networks with an existing [Dedicated Server vSwitch](https://docs.hetzner.com/robot/dedicated-server/network/vswitch) and enable dedicated and cloud servers to\ntalk to each other over the Network.\nIn order for this to work the dedicated servers may only use IPs from the subnet and must have a special network configuration. Please refer to [FAQ](https://docs.hetzner.com/cloud/networks/connect-dedi-vswitch). vSwitch Layer 2 features are not supported.\n\n### Routes\nNetworks also support the notion of routes which are automatically applied to private traffic. A route makes sure that all packets for a given `destination` IP prefix will be sent to the address specified in its `gateway`.\n"
     },
     {
       "name": "placement_groups",
-      "description": "Placement groups are used to influence the location of interdependent virtual servers in our data centers. The distribution of the different instances within a group is based on a pattern specified in the type. By enforcing certain rules on the placement of instances within our infrastructure, availability can be influenced in a way that fits your needs best."
+      "description": "Placement groups are used to influence the location of interdependent virtual servers in our data centers. The distribution of the different instances within a group is based on a pattern specified in the type. By enforcing certain rules on the placement of instances within our infrastructure, availability can be influenced in a way that fits your needs best.\n\nIn `spread` placement groups, all virtual servers will run on different physical servers. This decreases the probability that some instances might fail together.\n"
     },
     {
       "name": "pricing",
@@ -68,7 +68,7 @@
     },
     {
       "name": "server_types",
-      "description": "Server types define kinds of Servers offered. Each type has an hourly and a monthly cost. You will pay whichever cost is lower for your usage of this specific Server. Costs may differ between Locations."
+      "description": "Server types define kinds of Servers offered. Each type has an hourly and a monthly cost. You will pay whichever cost is lower for your usage of this specific Server. Costs may differ between Locations.\n\nCurrency for all amounts is €. All prices exclude VAT.\n"
     },
     {
       "name": "servers",
@@ -80,7 +80,7 @@
     },
     {
       "name": "volumes",
-      "description": "A Volume is a highly-available, scalable, and SSD-based block storage for Servers."
+      "description": "A Volume is a highly-available, scalable, and SSD-based block storage for Servers.\n\nPricing for Volumes depends on the Volume size and Location, not the actual used storage.\n\nPlease see [Hetzner Docs](https://docs.hetzner.com/cloud/#Volumes) for more details about Volumes.\n"
     }
   ],
   "components": {
