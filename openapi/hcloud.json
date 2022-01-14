@@ -3095,6 +3095,11 @@
             "example": "server01.example.com",
             "type": "string"
           },
+          "id": {
+            "description": "ID of the Resource",
+            "example": 42,
+            "type": "integer"
+          },
           "ip": {
             "description": "IP address (v4) of this Server",
             "example": "1.2.3.4",
@@ -3124,6 +3129,11 @@
             },
             "nullable": true,
             "type": "array"
+          },
+          "id": {
+            "description": "ID of the Resource",
+            "example": 42,
+            "type": "integer"
           },
           "ip": {
             "description": "IP address (v4) of this Server",
