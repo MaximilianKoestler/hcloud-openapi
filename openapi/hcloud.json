@@ -13701,7 +13701,7 @@
     },
     "/servers/{id}/actions/reset_password": {
       "post": {
-        "description": "Resets the root password. Only works for Linux systems that are running the qemu guest agent. Server must be powered on (state `on`) in order for this operation to succeed.\n\nThis will generate a new password for this Server and return it.\n\nIf this does not succeed you can use the rescue system to netboot the Server and manually change your Server password by hand.\n",
+        "description": "Resets the root password. Only works for Linux systems that are running the qemu guest agent. Server must be powered on (status `running`) in order for this operation to succeed.\n\nThis will generate a new password for this Server and return it.\n\nIf this does not succeed you can use the rescue system to netboot the Server and manually change your Server password by hand.\n",
         "parameters": [
           {
             "description": "ID of the Server",
