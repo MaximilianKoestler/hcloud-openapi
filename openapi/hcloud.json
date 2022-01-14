@@ -2814,10 +2814,6 @@
             "type": "boolean"
           }
         },
-        "required": [
-          "cookie_name",
-          "cookie_lifetime"
-        ],
         "type": "object"
       },
       "image": {
