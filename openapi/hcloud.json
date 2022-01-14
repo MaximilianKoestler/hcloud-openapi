@@ -3137,7 +3137,7 @@
             "type": "integer"
           },
           "ip": {
-            "description": "IP address (v4) of this Server",
+            "description": "IP address (v6) of this Server",
             "example": "2001:db8::/64",
             "type": "string"
           }
