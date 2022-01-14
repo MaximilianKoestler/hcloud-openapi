@@ -1611,6 +1611,11 @@
             },
             "type": "array"
           },
+          "placement_group": {
+            "description": "ID of the Placement Group the server should be in",
+            "example": 1,
+            "type": "integer"
+          },
           "server_type": {
             "description": "ID or name of the Server type this Server should be created with",
             "example": "cx11",
