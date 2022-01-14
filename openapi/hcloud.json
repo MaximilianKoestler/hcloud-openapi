@@ -2814,6 +2814,7 @@
             "type": "boolean"
           }
         },
+        "title": "LoadBalancerServiceHTTP",
         "type": "object"
       },
       "image": {
