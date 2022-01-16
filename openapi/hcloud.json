@@ -6,7 +6,7 @@
     "contact": {
       "url": "https://docs.hetzner.cloud/"
     },
-    "version": "2deb313"
+    "version": "ea9dde8"
   },
   "servers": [
     {
@@ -1611,6 +1611,11 @@
             },
             "type": "array"
           },
+          "placement_group": {
+            "description": "ID of the Placement Group the server should be in",
+            "example": 1,
+            "type": "integer"
+          },
           "server_type": {
             "description": "ID or name of the Server type this Server should be created with",
             "example": "cx11",
@@ -2809,10 +2814,7 @@
             "type": "boolean"
           }
         },
-        "required": [
-          "cookie_name",
-          "cookie_lifetime"
-        ],
+        "title": "LoadBalancerServiceHTTP",
         "type": "object"
       },
       "image": {
@@ -3094,6 +3096,11 @@
             "example": "server01.example.com",
             "type": "string"
           },
+          "id": {
+            "description": "ID of the Resource",
+            "example": 42,
+            "type": "integer"
+          },
           "ip": {
             "description": "IP address (v4) of this Server",
             "example": "1.2.3.4",
@@ -3124,8 +3131,13 @@
             "nullable": true,
             "type": "array"
           },
+          "id": {
+            "description": "ID of the Resource",
+            "example": 42,
+            "type": "integer"
+          },
           "ip": {
-            "description": "IP address (v4) of this Server",
+            "description": "IP address (v6) of this Server",
             "example": "2001:db8::/64",
             "type": "string"
           }
@@ -13358,7 +13370,7 @@
     },
     "/servers/{id}/actions/poweron": {
       "post": {
-        "description": "Starts a Server by turning its power on.",
+        "description": "Starts a Server by turning its power on.\n\nOnly Servers that have at least one network interface (public or private) attached can be powered on.\n",
         "parameters": [
           {
             "description": "ID of the Server",
@@ -13689,7 +13701,7 @@
     },
     "/servers/{id}/actions/reset_password": {
       "post": {
-        "description": "Resets the root password. Only works for Linux systems that are running the qemu guest agent. Server must be powered on (state `on`) in order for this operation to succeed.\n\nThis will generate a new password for this Server and return it.\n\nIf this does not succeed you can use the rescue system to netboot the Server and manually change your Server password by hand.\n",
+        "description": "Resets the root password. Only works for Linux systems that are running the qemu guest agent. Server must be powered on (status `running`) in order for this operation to succeed.\n\nThis will generate a new password for this Server and return it.\n\nIf this does not succeed you can use the rescue system to netboot the Server and manually change your Server password by hand.\n",
         "parameters": [
           {
             "description": "ID of the Server",
