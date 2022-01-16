@@ -8,6 +8,8 @@ interface Transformation {
   path: string[];
   set?: { [key: string]: any };
   remove?: string[];
+  add?: any;
+  sort?: boolean;
 }
 
 function applyTransformation(
@@ -31,6 +33,21 @@ function applyTransformation(
       console.log(transformation.path, name);
       objectPath.del(document, transformation.path.concat([name]));
     });
+  }
+
+  if (transformation.add !== undefined) {
+    let value = objectPath.get(document, transformation.path);
+    if (!value.includes(transformation.add)) {
+      objectPath.push(document, transformation.path, transformation.add);
+    }
+  }
+
+  if (transformation.sort !== undefined) {
+    if (transformation.sort) {
+      let value = objectPath.get(document, transformation.path);
+      value.sort();
+      objectPath.set(document, transformation.path, value);
+    }
   }
 }
 

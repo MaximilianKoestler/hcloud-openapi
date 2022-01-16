@@ -24,5 +24,15 @@
     "set": {
       "required": ["firewall"]
     }
+  },
+  {
+    "path": ["components", "schemas", "image", "properties", "os_flavor", "enum"],
+    "add": "rocky",
+    "sort": true
+  },
+  {
+    "path": ["components", "schemas", "image_optional", "properties", "os_flavor", "enum"],
+    "add": "rocky",
+    "sort": true
   }
 ]
