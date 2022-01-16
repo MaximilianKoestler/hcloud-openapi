@@ -6,7 +6,7 @@
     "contact": {
       "url": "https://docs.hetzner.cloud/"
     },
-    "version": "ea9dde8"
+    "version": "2baf759"
   },
   "servers": [
     {
@@ -2887,6 +2887,7 @@
               "centos",
               "debian",
               "fedora",
+              "rocky",
               "ubuntu",
               "unknown"
             ],
@@ -3020,6 +3021,7 @@
               "centos",
               "debian",
               "fedora",
+              "rocky",
               "ubuntu",
               "unknown"
             ],
