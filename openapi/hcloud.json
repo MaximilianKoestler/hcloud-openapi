@@ -6,7 +6,7 @@
     "contact": {
       "url": "https://docs.hetzner.cloud/"
     },
-    "version": "e13b2e2"
+    "version": "0b4ddc7"
   },
   "servers": [
     {
@@ -7421,7 +7421,7 @@
     },
     "/firewalls/{id}/actions/remove_from_resources": {
       "post": {
-        "description": "Removes one Firewall from multiple resources.\n\nCurrently only Servers (and their public network interfaces) are supported.\n\n#### Call specific error codes\n\n| Code                          | Description                                                   |\n|-------------------------------|---------------------------------------------------------------|\n| `firewall_already_removed`    | Firewall was already removed from the resource                |\n| `firewall_resource_not_found` | The resource the Firewall should be attached to was not found |\n",
+        "description": "Removes one Firewall from multiple resources.\n\nCurrently only Servers (and their public network interfaces) are supported.\n\n#### Call specific error codes\n\n| Code                                  | Description                                                            |\n|---------------------------------------|------------------------------------------------------------------------|\n| `firewall_already_removed`            | Firewall was already removed from the resource                         |\n| `firewall_resource_not_found`         | The resource the Firewall should be attached to was not found          |\n| `firewall_managed_by_label_selector`  | Firewall was applied via label selector and cannot be removed manually |\n",
         "parameters": [
           {
             "description": "ID of the Firewall",
