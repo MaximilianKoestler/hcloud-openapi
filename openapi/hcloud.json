@@ -5410,7 +5410,7 @@
             "type": "boolean"
           },
           "name": {
-            "description": "Name of the Resource. Must be unique per Project.",
+            "description": "Name of the Server (must be unique per Project and a valid hostname as per RFC 1123)",
             "example": "my-resource",
             "type": "string"
           },
