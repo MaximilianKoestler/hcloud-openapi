@@ -2825,12 +2825,6 @@
             "nullable": true,
             "type": "integer"
           },
-          "build_id": {
-            "description": "Build ID of the Image",
-            "example": "c313fe40383af26094a5a92026054320ab55abc7",
-            "nullable": true,
-            "type": "string"
-          },
           "created": {
             "description": "Point in time when the Resource was created (in ISO-8601 format)",
             "example": "2016-01-30T23:55:00+00:00",
@@ -2958,12 +2952,6 @@
             "example": null,
             "nullable": true,
             "type": "integer"
-          },
-          "build_id": {
-            "description": "Build ID of the Image",
-            "example": "c313fe40383af26094a5a92026054320ab55abc7",
-            "nullable": true,
-            "type": "string"
           },
           "created": {
             "description": "Point in time when the Resource was created (in ISO-8601 format)",
