@@ -217,12 +217,23 @@ async function validateOpenApiDocument(document: OpenApiDocumentFragment) {
 
   const results = await validator(document);
 
-  let warnings = Array.from(results.warnings);
+  const filters = [
+    /A paginated list operation should include a .*/,
+    /Enum values must be snake case/,
+    /Null values are not allowed for any property/,
+    /Properties with the same name have inconsistent types: .*/,
+    /Response bodies should include an example response/,
+    /Schema of type string should use one of the following formats/,
+    /Schema property should have a non-empty description/,
+    /Should define a .* for a valid string/,
+  ];
 
-  let errors = Array.from(results.errors);
-  errors = errors.filter(
-    (item) =>
-      !item.message.startsWith("Enum values must follow case convention:")
+  let warnings = Array.from(results.warnings).filter(
+    (item) => !filters.some((regex) => item.message.match(regex))
+  );
+
+  let errors = Array.from(results.errors).filter(
+    (item) => !filters.some((regex) => item.message.match(regex))
   );
 
   for (const item of warnings) {
