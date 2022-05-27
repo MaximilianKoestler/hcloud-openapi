@@ -5723,6 +5723,7 @@
             "items": {
               "$ref": "#/components/schemas/rule"
             },
+            "maxItems": 50,
             "type": "array"
           }
         },
@@ -7487,7 +7488,7 @@
     },
     "/firewalls/{id}/actions/set_rules": {
       "post": {
-        "description": "Sets the rules of a Firewall.\n\nAll existing rules will be overwritten. Pass an empty `rules` array to remove all rules.\n\n#### Call specific error codes\n\n| Code                          | Description                                                   |\n|-------------------------------|---------------------------------------------------------------|\n| `firewall_resource_not_found` | The resource the Firewall should be attached to was not found |\n",
+        "description": "Sets the rules of a Firewall.\n\nAll existing rules will be overwritten. Pass an empty `rules` array to remove all rules.\nThe maximum amount of rules that can be defined is 50.\n\n#### Call specific error codes\n\n| Code                          | Description                                                   |\n|-------------------------------|---------------------------------------------------------------|\n| `firewall_resource_not_found` | The resource the Firewall should be attached to was not found |\n",
         "parameters": [
           {
             "description": "ID of the Firewall",
