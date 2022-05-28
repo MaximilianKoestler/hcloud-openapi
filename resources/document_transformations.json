@@ -34,5 +34,47 @@
     "path": ["components", "schemas", "image_optional", "properties", "os_flavor", "enum"],
     "add": "rocky",
     "sort": true
+  },
+  {
+    "path": ["components", "schemas", "metrics", "properties", "time_series"],
+    "set": {
+      "title": "MetricsTimeSeries"
+    }
+  },
+  {
+    "path": ["components", "schemas", "metrics", "properties", "time_series", "additionalProperties", "properties", "values", "items", "items"],
+    "set": {
+      "title": "MetricsTimeSeriesValue"
+    }
+  },
+  {
+    "path": ["components", "schemas", "create_server_request", "properties", "firewalls", "items"],
+    "set": {
+      "title": "CreateServerRequestFirewalls"
+    }
+  },
+  {
+    "path": ["components", "schemas", "firewall_resource_id", "properties", "applied_to_resources", "items"],
+    "set": {
+      "title": "FirewallResourceIdAppliedToResources"
+    }
+  },
+  {
+    "path": ["components", "schemas", "list_prices_response", "properties", "pricing", "properties", "floating_ips", "items"],
+    "set": {
+      "title": "ListPricesResponsePricingFloatingIps"
+    }
+  },
+  {
+    "path": ["components", "schemas", "list_prices_response", "properties", "pricing", "properties", "load_balancer_types", "items"],
+    "set": {
+      "title": "ListPricesResponsePricingLoadBalancerTypes"
+    }
+  },
+  {
+    "path": ["components", "schemas", "list_prices_response", "properties", "pricing", "properties", "server_types", "items"],
+    "set": {
+      "title": "ListPricesResponsePricingServerTypes"
+    }
   }
 ]

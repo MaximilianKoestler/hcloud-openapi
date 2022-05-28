@@ -274,6 +274,15 @@
     ]
   },
   {
+    "name": "price_per_time_monthly",
+    "path": [
+      "list_prices_response",
+      "pricing",
+      "floating_ips",
+      "prices"
+    ]
+  },
+  {
     "description": "Protection configuration for the Resource",
     "name": "protection",
     "path": [

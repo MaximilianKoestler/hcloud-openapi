@@ -1579,7 +1579,8 @@
               "type": "object",
               "required": [
                 "firewall"
-              ]
+              ],
+              "title": "CreateServerRequestFirewalls"
             },
             "type": "array"
           },
@@ -2279,7 +2280,8 @@
                   "type": "string"
                 }
               },
-              "type": "object"
+              "type": "object",
+              "title": "FirewallResourceIdAppliedToResources"
             },
             "type": "array"
           },
@@ -3697,21 +3699,7 @@
                     "prices": {
                       "description": "Floating IP type costs per Location",
                       "items": {
-                        "properties": {
-                          "location": {
-                            "description": "Name of the Location the price is for",
-                            "example": "fsn1",
-                            "type": "string"
-                          },
-                          "price_monthly": {
-                            "$ref": "#/components/schemas/price"
-                          }
-                        },
-                        "required": [
-                          "location",
-                          "price_monthly"
-                        ],
-                        "type": "object"
+                        "$ref": "#/components/schemas/price_per_time_monthly"
                       },
                       "type": "array"
                     },
@@ -3729,7 +3717,8 @@
                     "type",
                     "prices"
                   ],
-                  "type": "object"
+                  "type": "object",
+                  "title": "ListPricesResponsePricingFloatingIps"
                 },
                 "type": "array"
               },
@@ -3772,7 +3761,8 @@
                     "name",
                     "prices"
                   ],
-                  "type": "object"
+                  "type": "object",
+                  "title": "ListPricesResponsePricingLoadBalancerTypes"
                 },
                 "type": "array"
               },
@@ -3817,7 +3807,8 @@
                     "name",
                     "prices"
                   ],
-                  "type": "object"
+                  "type": "object",
+                  "title": "ListPricesResponsePricingServerTypes"
                 },
                 "type": "array"
               },
@@ -4411,7 +4402,8 @@
                         {
                           "type": "string"
                         }
-                      ]
+                      ],
+                      "title": "MetricsTimeSeriesValue"
                     },
                     "type": "array"
                   },
@@ -4438,7 +4430,8 @@
                 ]
               }
             },
-            "type": "object"
+            "type": "object",
+            "title": "MetricsTimeSeries"
           }
         },
         "required": [
@@ -4639,6 +4632,23 @@
         "required": [
           "location",
           "price_hourly",
+          "price_monthly"
+        ],
+        "type": "object"
+      },
+      "price_per_time_monthly": {
+        "properties": {
+          "location": {
+            "description": "Name of the Location the price is for",
+            "example": "fsn1",
+            "type": "string"
+          },
+          "price_monthly": {
+            "$ref": "#/components/schemas/price"
+          }
+        },
+        "required": [
+          "location",
           "price_monthly"
         ],
         "type": "object"
