@@ -58,5 +58,23 @@
     "set": {
       "title": "FirewallResourceIdAppliedToResources"
     }
+  },
+  {
+    "path": ["components", "schemas", "list_prices_response", "properties", "pricing", "properties", "floating_ips", "items"],
+    "set": {
+      "title": "ListPricesResponsePricingFloatingIps"
+    }
+  },
+  {
+    "path": ["components", "schemas", "list_prices_response", "properties", "pricing", "properties", "load_balancer_types", "items"],
+    "set": {
+      "title": "ListPricesResponsePricingLoadBalancerTypes"
+    }
+  },
+  {
+    "path": ["components", "schemas", "list_prices_response", "properties", "pricing", "properties", "server_types", "items"],
+    "set": {
+      "title": "ListPricesResponsePricingServerTypes"
+    }
   }
 ]

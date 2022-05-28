@@ -3717,7 +3717,8 @@
                     "type",
                     "prices"
                   ],
-                  "type": "object"
+                  "type": "object",
+                  "title": "ListPricesResponsePricingFloatingIps"
                 },
                 "type": "array"
               },
@@ -3760,7 +3761,8 @@
                     "name",
                     "prices"
                   ],
-                  "type": "object"
+                  "type": "object",
+                  "title": "ListPricesResponsePricingLoadBalancerTypes"
                 },
                 "type": "array"
               },
@@ -3805,7 +3807,8 @@
                     "name",
                     "prices"
                   ],
-                  "type": "object"
+                  "type": "object",
+                  "title": "ListPricesResponsePricingServerTypes"
                 },
                 "type": "array"
               },
