@@ -46,5 +46,11 @@
     "set": {
       "title": "MetricsTimeSeriesValue"
     }
+  },
+  {
+    "path": ["components", "schemas", "create_server_request", "properties", "firewalls", "items"],
+    "set": {
+      "title": "CreateServerRequestFirewalls"
+    }
   }
 ]

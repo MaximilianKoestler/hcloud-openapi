@@ -1579,7 +1579,8 @@
               "type": "object",
               "required": [
                 "firewall"
-              ]
+              ],
+              "title": "CreateServerRequestFirewalls"
             },
             "type": "array"
           },
