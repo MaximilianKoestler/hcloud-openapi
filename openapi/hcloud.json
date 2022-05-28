@@ -2280,7 +2280,8 @@
                   "type": "string"
                 }
               },
-              "type": "object"
+              "type": "object",
+              "title": "FirewallResourceIdAppliedToResources"
             },
             "type": "array"
           },

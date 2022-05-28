@@ -52,5 +52,11 @@
     "set": {
       "title": "CreateServerRequestFirewalls"
     }
+  },
+  {
+    "path": ["components", "schemas", "firewall_resource_id", "properties", "applied_to_resources", "items"],
+    "set": {
+      "title": "FirewallResourceIdAppliedToResources"
+    }
   }
 ]
