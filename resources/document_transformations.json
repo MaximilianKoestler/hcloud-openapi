@@ -34,5 +34,17 @@
     "path": ["components", "schemas", "image_optional", "properties", "os_flavor", "enum"],
     "add": "rocky",
     "sort": true
+  },
+  {
+    "path": ["components", "schemas", "metrics", "properties", "time_series"],
+    "set": {
+      "title": "MetricsTimeSeries"
+    }
+  },
+  {
+    "path": ["components", "schemas", "metrics", "properties", "time_series", "additionalProperties", "properties", "values", "items", "items"],
+    "set": {
+      "title": "MetricsTimeSeriesValue"
+    }
   }
 ]
