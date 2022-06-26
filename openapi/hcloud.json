@@ -6,7 +6,7 @@
     "contact": {
       "url": "https://docs.hetzner.cloud/"
     },
-    "version": "379f4f2"
+    "version": "93c3ff0-dirty"
   },
   "servers": [
     {
@@ -2141,7 +2141,7 @@
       "enable_rescue_mode_for_server_request": {
         "properties": {
           "ssh_keys": {
-            "description": "Array of SSH key IDs which should be injected into the rescue system. Only available for types: `linux64` and `linux32`.",
+            "description": "Array of SSH key IDs which should be injected into the rescue system.",
             "example": [
               2323
             ],
@@ -2153,7 +2153,6 @@
           "type": {
             "description": "Type of rescue system to boot (default: `linux64`)",
             "enum": [
-              "freebsd64",
               "linux32",
               "linux64"
             ],
