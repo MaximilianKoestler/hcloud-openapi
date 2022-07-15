@@ -33,33 +33,34 @@ This API description is currently being used by the following projects:
 ## Supported Endpoints
 <table style="text-align: center">
   <tr height="80">
-    <td style="background-color:#f44336">actions</td>
-    <td style="background-color:#E91E63">certificates</td>
-    <td style="background-color:#9C27B0">datacenters</td>
+    <td>actions</td>
+    <td>certificates</td>
+    <td>datacenters</td>
   </tr>
   <tr height="80">
-    <td style="background-color:#673AB7">floating_ips</td>
-    <td style="background-color:#3F51B5">images</td>
-    <td style="background-color:#2196F3">isos</td>
+    <td>floating_ips</td>
+    <td>images</td>
+    <td>isos</td>
   </tr>
   <tr height="80">
-    <td style="background-color:#03A9F4">load_balancer_types</td>
-    <td style="background-color:#00BCD4">load_balancers</td>
-    <td style="background-color:#009688">locations</td>
+    <td>load_balancer_types</td>
+    <td>load_balancers</td>
+    <td>locations</td>
   </tr>
   <tr height="80">
-    <td style="background-color:#4CAF50">networks</td>
-    <td style="background-color:#8BC34A">pricing</td>
-    <td style="background-color:#CDDC39">server_types</td>
+    <td>networks</td>
+    <td>pricing</td>
+    <td>server_types</td>
   </tr>
   <tr height="80">
-    <td style="background-color:#FFEB3B">servers</td>
-    <td style="background-color:#FFC107">ssh_keys</td>
-    <td style="background-color:#FF9800">volumes</td>
+    <td>servers</td>
+    <td>ssh_keys</td>
+    <td>volumes</td>
   </tr>
   <tr height="80">
-    <td style="background-color:#795548">firewalls</td>
-    <td style="background-color:#9E9E9E">placement_groups</td>
+    <td>firewalls</td>
+    <td>placement_groups</td>
+    <td>primary_ips</td>
   </tr>
 </table>
 
@@ -130,6 +131,12 @@ This API description is currently being used by the following projects:
 /placement_groups (GET, POST)
 /placement_groups/{id} (DELETE, GET, PUT)
 /pricing (GET)
+/primary_ips (GET, POST)
+/primary_ips/{id} (DELETE, GET, PUT)
+/primary_ips/{id}/actions/assign (POST)
+/primary_ips/{id}/actions/change_dns_ptr (POST)
+/primary_ips/{id}/actions/change_protection (POST)
+/primary_ips/{id}/actions/unassign (POST)
 /server_types (GET)
 /server_types/{id} (GET)
 /servers (GET, POST)
@@ -169,7 +176,7 @@ This API description is currently being used by the following projects:
 /volumes/{id}/actions/attach (POST)
 /volumes/{id}/actions/change_protection (POST)
 /volumes/{id}/actions/detach (POST)
-/volumes/{id}/actions/resize (POST
+/volumes/{id}/actions/resize (POST)
 ```
 
 ## Quick Start

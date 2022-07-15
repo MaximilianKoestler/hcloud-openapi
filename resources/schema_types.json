@@ -125,6 +125,14 @@
     ]
   },
   {
+    "description": "The type of the IP",
+    "name": "ip_type",
+    "path": [
+      "create_floating_ip_request",
+      "type"
+    ]
+  },
+  {
     "name": "ipv4",
     "path": [
       "list_servers_response",
