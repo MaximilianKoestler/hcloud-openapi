@@ -64,10 +64,7 @@ function fixItem(part: OpenApiDocumentFragment, location: string[]) {
   }
 
   // add additionalProperties to mark labels as key/value pairs
-  if (
-    part.type == "object" &&
-    location[location.length - 1] == "labels"
-  ) {
+  if (part.type == "object" && location[location.length - 1] == "labels") {
     part["additionalProperties"] = {
       type: "string",
       pattern:
@@ -307,6 +304,8 @@ export async function deduplicateSchemas(
     locations: string[][];
     name?: string;
     description?: string;
+    type?: string;
+    enum?: boolean;
   }
 
   let objectInfos: { [hash: string]: ObjectInfo } = {};
@@ -314,7 +313,7 @@ export async function deduplicateSchemas(
     const location: string[] = [id];
     walkSchema(schemas[id], {
       afterChildren: (part) => {
-        if (part.type == "object") {
+        if (part.type == "object" || part.type == "string") {
           const hash = part["x-hash"];
           if (!(hash in objectInfos)) {
             objectInfos[hash] = {
@@ -322,6 +321,8 @@ export async function deduplicateSchemas(
               complexity: 0,
               directChildren: 0,
               locations: [],
+              type: part.type,
+              enum: part.enum !== undefined,
             };
           }
           objectInfos[hash].count += 1;
@@ -357,12 +358,11 @@ export async function deduplicateSchemas(
     objectInfos,
     (_key, value) =>
       (value.count > 1 &&
-        value.complexity > 1 &&
-        value.directChildren > 1 &&
         Math.max.apply(
           null,
           value.locations.map((location: any) => location.length)
-        ) > 1) ||
+        ) > 1 &&
+        ((value.complexity > 1 && value.directChildren > 1) || value.enum)) ||
       value.locations.some((location: any) =>
         paths_to_definitely_extract.includes(location.join("/"))
       )

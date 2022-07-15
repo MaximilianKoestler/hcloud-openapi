@@ -6,7 +6,7 @@
     "contact": {
       "url": "https://docs.hetzner.cloud/"
     },
-    "version": "50289a0-dirty"
+    "version": "6c482c4-dirty"
   },
   "servers": [
     {
@@ -1371,12 +1371,7 @@
             "type": "integer"
           },
           "type": {
-            "description": "Floating IP type",
-            "enum": [
-              "ipv4",
-              "ipv6"
-            ],
-            "type": "string"
+            "$ref": "#/components/schemas/ip_type"
           }
         },
         "required": [
@@ -1684,12 +1679,7 @@
             "type": "string"
           },
           "type": {
-            "description": "Primary IP type",
-            "enum": [
-              "ipv4",
-              "ipv6"
-            ],
-            "type": "string"
+            "$ref": "#/components/schemas/ip_type"
           }
         },
         "required": [
@@ -1768,12 +1758,7 @@
                 "$ref": "#/components/schemas/protection"
               },
               "type": {
-                "description": "Type of the Primary IP",
-                "enum": [
-                  "ipv4",
-                  "ipv6"
-                ],
-                "type": "string"
+                "$ref": "#/components/schemas/ip_type"
               }
             },
             "required": [
@@ -2661,12 +2646,7 @@
             "type": "integer"
           },
           "type": {
-            "description": "Type of the Floating IP",
-            "enum": [
-              "ipv4",
-              "ipv6"
-            ],
-            "type": "string"
+            "$ref": "#/components/schemas/ip_type"
           }
         },
         "required": [
@@ -3063,12 +3043,7 @@
                 "$ref": "#/components/schemas/protection"
               },
               "type": {
-                "description": "Type of the Primary IP",
-                "enum": [
-                  "ipv4",
-                  "ipv6"
-                ],
-                "type": "string"
+                "$ref": "#/components/schemas/ip_type"
               }
             },
             "required": [
@@ -3446,6 +3421,14 @@
           "labels"
         ],
         "type": "object"
+      },
+      "ip_type": {
+        "description": "The type of the IP",
+        "enum": [
+          "ipv4",
+          "ipv6"
+        ],
+        "type": "string"
       },
       "ipv4": {
         "description": "IP address (v4) and its reverse DNS entry of this Server",
@@ -4077,13 +4060,7 @@
                       "type": "array"
                     },
                     "type": {
-                      "description": "The type of the Floating IP",
-                      "enum": [
-                        "ipv4",
-                        "ipv6"
-                      ],
-                      "example": "ipv4",
-                      "type": "string"
+                      "$ref": "#/components/schemas/ip_type"
                     }
                   },
                   "required": [
@@ -4151,13 +4128,7 @@
                       "type": "array"
                     },
                     "type": {
-                      "description": "The type of the Primary IP",
-                      "enum": [
-                        "ipv4",
-                        "ipv6"
-                      ],
-                      "example": "ipv4",
-                      "type": "string"
+                      "$ref": "#/components/schemas/ip_type"
                     }
                   },
                   "required": [
@@ -4334,12 +4305,7 @@
                   "$ref": "#/components/schemas/protection"
                 },
                 "type": {
-                  "description": "Type of the Primary IP",
-                  "enum": [
-                    "ipv4",
-                    "ipv6"
-                  ],
-                  "type": "string"
+                  "$ref": "#/components/schemas/ip_type"
                 }
               },
               "required": [
@@ -5644,12 +5610,7 @@
                 "$ref": "#/components/schemas/protection"
               },
               "type": {
-                "description": "Type of the Primary IP",
-                "enum": [
-                  "ipv4",
-                  "ipv6"
-                ],
-                "type": "string"
+                "$ref": "#/components/schemas/ip_type"
               }
             },
             "required": [
