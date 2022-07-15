@@ -6,7 +6,7 @@
     "contact": {
       "url": "https://docs.hetzner.cloud/"
     },
-    "version": "93c3ff0-dirty"
+    "version": "50289a0-dirty"
   },
   "servers": [
     {
@@ -65,6 +65,10 @@
     {
       "name": "pricing",
       "description": "Returns prices for resources."
+    },
+    {
+      "name": "primary_ips",
+      "description": "Primary IPs help you to create more flexible networking setups. You can assign at most one Primary IP of type `ipv4` and one of type `ipv6` per Server. This Server then uses these IPs.\n\nYou can only unassign a Primary IP from a Server when it's powered off. This Primary IP can then be assigned to a different powered off Server, or you can keep it around for later use.\n\nPrimary IPs are bound to a specific Datacenter. You can not assign a Primary IP from one Datacenter to a Server in a different Datacenter. If you need this capability use Floating IPs instead.\n\nIf your Server's operating system supports cloud-init there is no further configuration needed to make Primary IPs work.\n\nPrimary IPs of type `ipv4` use a single IPv4 address as their `ip` property. Primary IPs of type `ipv6` use a /64 network such as `fc00::/64` as their `ip` property. Any IP address within that network can be used on your host.\n\nPrimary IPs are billed on an hourly basis.\n"
     },
     {
       "name": "server_types",
@@ -418,6 +422,43 @@
         "title": "ActionResponse",
         "type": "object",
         "description": "Response to POST https://api.hetzner.cloud/v1/floating_ips/{id}/actions/assign"
+      },
+      "assign_primary_ip_to_resource_request": {
+        "properties": {
+          "assignee_id": {
+            "description": "ID of a resource of type `assignee_type`",
+            "example": 4711,
+            "type": "integer"
+          },
+          "assignee_type": {
+            "description": "Type of resource assigning the Primary IP to",
+            "enum": [
+              "server"
+            ],
+            "example": "server",
+            "type": "string"
+          }
+        },
+        "required": [
+          "assignee_type",
+          "assignee_id"
+        ],
+        "title": "AssignPrimaryIPRequest",
+        "type": "object",
+        "description": "Request for POST https://api.hetzner.cloud/v1/primary_ips/{id}/actions/assign"
+      },
+      "assign_primary_ip_to_resource_response": {
+        "properties": {
+          "action": {
+            "$ref": "#/components/schemas/action"
+          }
+        },
+        "required": [
+          "action"
+        ],
+        "title": "ActionResponse",
+        "type": "object",
+        "description": "Response to POST https://api.hetzner.cloud/v1/primary_ips/{id}/actions/assign"
       },
       "attach_iso_to_server_request": {
         "properties": {
@@ -865,6 +906,31 @@
         "type": "object",
         "description": "Response to POST https://api.hetzner.cloud/v1/networks/{id}/actions/change_protection"
       },
+      "change_primary_ip_protection_request": {
+        "properties": {
+          "delete": {
+            "description": "If true, prevents the Primary IP from being deleted",
+            "example": true,
+            "type": "boolean"
+          }
+        },
+        "title": "ChangeProtectionRequest",
+        "type": "object",
+        "description": "Request for POST https://api.hetzner.cloud/v1/primary_ips/{id}/actions/change_protection"
+      },
+      "change_primary_ip_protection_response": {
+        "properties": {
+          "action": {
+            "$ref": "#/components/schemas/action"
+          }
+        },
+        "required": [
+          "action"
+        ],
+        "title": "ActionResponse",
+        "type": "object",
+        "description": "Response to POST https://api.hetzner.cloud/v1/primary_ips/{id}/actions/change_protection"
+      },
       "change_reverse_dns_entry_for_floating_ip_request": {
         "properties": {
           "dns_ptr": {
@@ -899,6 +965,41 @@
         "title": "ActionResponse",
         "type": "object",
         "description": "Response to POST https://api.hetzner.cloud/v1/floating_ips/{id}/actions/change_dns_ptr"
+      },
+      "change_reverse_dns_entry_for_primary_ip_request": {
+        "properties": {
+          "dns_ptr": {
+            "description": "Hostname to set as a reverse DNS PTR entry, will reset to original default value if `null`",
+            "example": "server02.example.com",
+            "nullable": true,
+            "type": "string"
+          },
+          "ip": {
+            "description": "IP address for which to set the reverse DNS entry",
+            "example": "1.2.3.4",
+            "type": "string"
+          }
+        },
+        "required": [
+          "ip",
+          "dns_ptr"
+        ],
+        "title": "ChangeDNSPTRRequest",
+        "type": "object",
+        "description": "Request for POST https://api.hetzner.cloud/v1/primary_ips/{id}/actions/change_dns_ptr"
+      },
+      "change_reverse_dns_entry_for_primary_ip_response": {
+        "properties": {
+          "action": {
+            "$ref": "#/components/schemas/action"
+          }
+        },
+        "required": [
+          "action"
+        ],
+        "title": "ActionResponse",
+        "type": "object",
+        "description": "Response to POST https://api.hetzner.cloud/v1/primary_ips/{id}/actions/change_dns_ptr"
       },
       "change_reverse_dns_entry_for_this_load_balancer_request": {
         "properties": {
@@ -1550,6 +1651,157 @@
         "type": "object",
         "description": "Response to POST https://api.hetzner.cloud/v1/placement_groups"
       },
+      "create_primary_ip_request": {
+        "properties": {
+          "assignee_id": {
+            "description": "ID of the resource the Primary IP should be assigned to. Omitted if it should not be assigned.",
+            "example": 17,
+            "type": "integer"
+          },
+          "assignee_type": {
+            "description": "Resource type the Primary IP can be assigned to",
+            "enum": [
+              "server"
+            ],
+            "example": "server",
+            "type": "string"
+          },
+          "auto_delete": {
+            "description": "Delete the Primary IP when the Server it is assigned to is deleted. If omitted defaults to `false`.",
+            "example": false,
+            "type": "boolean"
+          },
+          "datacenter": {
+            "description": "ID or name of Datacenter the Primary IP will be bound to. Needs to be omitted if `assignee_id` is passed.",
+            "example": "fsn1-dc8",
+            "type": "string"
+          },
+          "labels": {
+            "$ref": "#/components/schemas/labels"
+          },
+          "name": {
+            "example": "my-ip",
+            "type": "string"
+          },
+          "type": {
+            "description": "Primary IP type",
+            "enum": [
+              "ipv4",
+              "ipv6"
+            ],
+            "type": "string"
+          }
+        },
+        "required": [
+          "name",
+          "type",
+          "assignee_type"
+        ],
+        "title": "CreatePrimaryIPRequest",
+        "type": "object",
+        "description": "Request for POST https://api.hetzner.cloud/v1/primary_ips"
+      },
+      "create_primary_ip_response": {
+        "properties": {
+          "action": {
+            "$ref": "#/components/schemas/action"
+          },
+          "primary_ip": {
+            "properties": {
+              "assignee_id": {
+                "description": "ID of the resource the Primary IP is assigned to, null if it is not assigned at all",
+                "example": 17,
+                "nullable": true,
+                "type": "integer"
+              },
+              "assignee_type": {
+                "description": "Resource type the Primary IP can be assigned to",
+                "enum": [
+                  "server"
+                ],
+                "type": "string"
+              },
+              "auto_delete": {
+                "description": "Delete this Primary IP when the resource it is assigned to is deleted",
+                "example": true,
+                "type": "boolean"
+              },
+              "blocked": {
+                "description": "Whether the IP is blocked",
+                "example": false,
+                "type": "boolean"
+              },
+              "created": {
+                "description": "Point in time when the Resource was created (in ISO-8601 format)",
+                "example": "2016-01-30T23:55:00+00:00",
+                "type": "string"
+              },
+              "datacenter": {
+                "$ref": "#/components/schemas/datacenter"
+              },
+              "dns_ptr": {
+                "description": "Array of reverse DNS entries",
+                "items": {
+                  "$ref": "#/components/schemas/dns_ptr"
+                },
+                "type": "array"
+              },
+              "id": {
+                "description": "ID of the Resource",
+                "example": 42,
+                "type": "integer"
+              },
+              "ip": {
+                "description": "IP address",
+                "example": "131.232.99.1",
+                "type": "string"
+              },
+              "labels": {
+                "$ref": "#/components/schemas/labels"
+              },
+              "name": {
+                "description": "Name of the Resource. Must be unique per Project.",
+                "example": "my-resource",
+                "type": "string"
+              },
+              "protection": {
+                "$ref": "#/components/schemas/protection"
+              },
+              "type": {
+                "description": "Type of the Primary IP",
+                "enum": [
+                  "ipv4",
+                  "ipv6"
+                ],
+                "type": "string"
+              }
+            },
+            "required": [
+              "id",
+              "name",
+              "labels",
+              "created",
+              "blocked",
+              "datacenter",
+              "ip",
+              "dns_ptr",
+              "protection",
+              "type",
+              "auto_delete",
+              "assignee_type",
+              "assignee_id"
+            ],
+            "title": "PrimaryIP",
+            "type": "object"
+          }
+        },
+        "required": [
+          "primary_ip"
+        ],
+        "title": "CreatePrimaryIPResponse",
+        "type": "object",
+        "description": "Response to POST https://api.hetzner.cloud/v1/primary_ips"
+      },
       "create_server_request": {
         "properties": {
           "automount": {
@@ -1616,6 +1868,30 @@
             "description": "ID of the Placement Group the server should be in",
             "example": 1,
             "type": "integer"
+          },
+          "public_net": {
+            "description": "Public Network options",
+            "properties": {
+              "enable_ipv4": {
+                "description": "Attach an IPv4 on the public NIC. If false, no IPv4 address will be attached. Defaults to true.",
+                "type": "boolean"
+              },
+              "enable_ipv6": {
+                "description": "Attach an IPv6 on the public NIC. If false, no IPv6 address will be attached. Defaults to true.",
+                "type": "boolean"
+              },
+              "ipv4": {
+                "description": "ID of the ipv4 Primary IP to use. If omitted and enable_ipv4 is true, a new ipv4 Primary IP will automatically be created.",
+                "nullable": true,
+                "type": "integer"
+              },
+              "ipv6": {
+                "description": "ID of the ipv6 Primary IP to use. If omitted and enable_ipv6 is true, a new ipv6 Primary IP will automatically be created.",
+                "nullable": true,
+                "type": "integer"
+              }
+            },
+            "type": "object"
           },
           "server_type": {
             "description": "ID or name of the Server type this Server should be created with",
@@ -1891,7 +2167,7 @@
           "server_types"
         ],
         "type": "object",
-        "description": "Datacenter this Resource is located at"
+        "description": "Datacenter this Primary IP is located at | Datacenter this Resource is located at"
       },
       "delete_route_from_network_request": {
         "$ref": "#/components/schemas/route"
@@ -2722,6 +2998,104 @@
         "title": "PlacementGroupResponse",
         "type": "object",
         "description": "Response to GET https://api.hetzner.cloud/v1/placement_groups/{id}"
+      },
+      "get_primary_ip_response": {
+        "properties": {
+          "primary_ip": {
+            "properties": {
+              "assignee_id": {
+                "description": "ID of the resource the Primary IP is assigned to, null if it is not assigned at all",
+                "example": 17,
+                "nullable": true,
+                "type": "integer"
+              },
+              "assignee_type": {
+                "description": "Resource type the Primary IP can be assigned to",
+                "enum": [
+                  "server"
+                ],
+                "type": "string"
+              },
+              "auto_delete": {
+                "description": "Delete this Primary IP when the resource it is assigned to is deleted",
+                "example": true,
+                "type": "boolean"
+              },
+              "blocked": {
+                "description": "Whether the IP is blocked",
+                "example": false,
+                "type": "boolean"
+              },
+              "created": {
+                "description": "Point in time when the Resource was created (in ISO-8601 format)",
+                "example": "2016-01-30T23:55:00+00:00",
+                "type": "string"
+              },
+              "datacenter": {
+                "$ref": "#/components/schemas/datacenter"
+              },
+              "dns_ptr": {
+                "description": "Array of reverse DNS entries",
+                "items": {
+                  "$ref": "#/components/schemas/dns_ptr"
+                },
+                "type": "array"
+              },
+              "id": {
+                "description": "ID of the Resource",
+                "example": 42,
+                "type": "integer"
+              },
+              "ip": {
+                "description": "IP address",
+                "example": "131.232.99.1",
+                "type": "string"
+              },
+              "labels": {
+                "$ref": "#/components/schemas/labels"
+              },
+              "name": {
+                "description": "Name of the Resource. Must be unique per Project.",
+                "example": "my-resource",
+                "type": "string"
+              },
+              "protection": {
+                "$ref": "#/components/schemas/protection"
+              },
+              "type": {
+                "description": "Type of the Primary IP",
+                "enum": [
+                  "ipv4",
+                  "ipv6"
+                ],
+                "type": "string"
+              }
+            },
+            "required": [
+              "id",
+              "name",
+              "labels",
+              "created",
+              "blocked",
+              "datacenter",
+              "ip",
+              "dns_ptr",
+              "protection",
+              "type",
+              "auto_delete",
+              "assignee_type",
+              "assignee_id"
+            ],
+            "title": "PrimaryIP",
+            "type": "object"
+          }
+        },
+        "required": [
+          "primary_ip"
+        ],
+        "title": "PrimaryIPResponse",
+        "type": "object",
+        "description": "Response to GET https://api.hetzner.cloud/v1/primary_ips/{id}"
       },
       "get_server_response": {
         "properties": {
@@ -3765,6 +4139,35 @@
                 },
                 "type": "array"
               },
+              "primary_ips": {
+                "description": "Costs of Primary IPs types per Location",
+                "items": {
+                  "properties": {
+                    "prices": {
+                      "description": "Primary IP type costs per Location",
+                      "items": {
+                        "$ref": "#/components/schemas/price_per_time"
+                      },
+                      "type": "array"
+                    },
+                    "type": {
+                      "description": "The type of the Primary IP",
+                      "enum": [
+                        "ipv4",
+                        "ipv6"
+                      ],
+                      "example": "ipv4",
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "type",
+                    "prices"
+                  ],
+                  "type": "object"
+                },
+                "type": "array"
+              },
               "server_backup": {
                 "description": "Will increase base Server costs by specific percentage",
                 "properties": {
@@ -3851,7 +4254,8 @@
               "server_backup",
               "volume",
               "server_types",
-              "load_balancer_types"
+              "load_balancer_types",
+              "primary_ips"
             ],
             "type": "object"
           }
@@ -3861,6 +4265,110 @@
         ],
         "type": "object",
         "description": "Response to GET https://api.hetzner.cloud/v1/pricing"
+      },
+      "list_primary_ips_response": {
+        "properties": {
+          "meta": {
+            "$ref": "#/components/schemas/meta"
+          },
+          "primary_ips": {
+            "items": {
+              "properties": {
+                "assignee_id": {
+                  "description": "ID of the resource the Primary IP is assigned to, null if it is not assigned at all",
+                  "example": 17,
+                  "nullable": true,
+                  "type": "integer"
+                },
+                "assignee_type": {
+                  "description": "Resource type the Primary IP can be assigned to",
+                  "enum": [
+                    "server"
+                  ],
+                  "type": "string"
+                },
+                "auto_delete": {
+                  "description": "Delete this Primary IP when the resource it is assigned to is deleted",
+                  "example": true,
+                  "type": "boolean"
+                },
+                "blocked": {
+                  "description": "Whether the IP is blocked",
+                  "example": false,
+                  "type": "boolean"
+                },
+                "created": {
+                  "description": "Point in time when the Resource was created (in ISO-8601 format)",
+                  "example": "2016-01-30T23:55:00+00:00",
+                  "type": "string"
+                },
+                "datacenter": {
+                  "$ref": "#/components/schemas/datacenter"
+                },
+                "dns_ptr": {
+                  "description": "Array of reverse DNS entries",
+                  "items": {
+                    "$ref": "#/components/schemas/dns_ptr"
+                  },
+                  "type": "array"
+                },
+                "id": {
+                  "description": "ID of the Resource",
+                  "example": 42,
+                  "type": "integer"
+                },
+                "ip": {
+                  "description": "IP address",
+                  "example": "131.232.99.1",
+                  "type": "string"
+                },
+                "labels": {
+                  "$ref": "#/components/schemas/labels"
+                },
+                "name": {
+                  "description": "Name of the Resource. Must be unique per Project.",
+                  "example": "my-resource",
+                  "type": "string"
+                },
+                "protection": {
+                  "$ref": "#/components/schemas/protection"
+                },
+                "type": {
+                  "description": "Type of the Primary IP",
+                  "enum": [
+                    "ipv4",
+                    "ipv6"
+                  ],
+                  "type": "string"
+                }
+              },
+              "required": [
+                "id",
+                "name",
+                "labels",
+                "created",
+                "blocked",
+                "datacenter",
+                "ip",
+                "dns_ptr",
+                "protection",
+                "type",
+                "auto_delete",
+                "assignee_type",
+                "assignee_id"
+              ],
+              "title": "PrimaryIP",
+              "type": "object"
+            },
+            "type": "array"
+          }
+        },
+        "required": [
+          "primary_ips"
+        ],
+        "title": "PrimaryIPsResponse",
+        "type": "object",
+        "description": "Response to GET https://api.hetzner.cloud/v1/primary_ips"
       },
       "list_server_types_response": {
         "properties": {
@@ -4593,7 +5101,7 @@
         "description": "Response to POST https://api.hetzner.cloud/v1/servers/{id}/actions/poweron"
       },
       "price": {
-        "description": "Hourly costs for a Resource in this Location | Monthly costs for a Resource in this Location | Monthly costs for a Floating IP type in this Location | Hourly costs for a Load Balancer type in this network zone | Monthly costs for a Load Balancer type in this network zone | Hourly costs for a Server type in this Location | Monthly costs for a Server type in this Location",
+        "description": "Hourly costs for a Resource in this Location | Monthly costs for a Resource in this Location | Monthly costs for a Floating IP type in this Location | Hourly costs for a Load Balancer type in this network zone | Monthly costs for a Load Balancer type in this network zone | Hourly costs for a Primary IP type in this Location | Monthly costs for a Primary IP type in this Location | Hourly costs for a Server type in this Location | Monthly costs for a Server type in this Location",
         "properties": {
           "gross": {
             "description": "Price with VAT added",
@@ -5051,6 +5559,124 @@
         "title": "PlacementGroupResponse",
         "type": "object",
         "description": "Response to PUT https://api.hetzner.cloud/v1/placement_groups/{id}"
+      },
+      "replace_primary_ip_request": {
+        "properties": {
+          "auto_delete": {
+            "description": "Delete this Primary IP when the resource it is assigned to is deleted",
+            "example": true,
+            "type": "boolean"
+          },
+          "labels": {
+            "$ref": "#/components/schemas/labels"
+          },
+          "name": {
+            "description": "New unique name to set",
+            "example": "my-ip",
+            "type": "string"
+          }
+        },
+        "title": "UpdatePrimaryIPRequest",
+        "type": "object",
+        "description": "Request for PUT https://api.hetzner.cloud/v1/primary_ips/{id}"
+      },
+      "replace_primary_ip_response": {
+        "properties": {
+          "primary_ip": {
+            "properties": {
+              "assignee_id": {
+                "description": "ID of the resource the Primary IP is assigned to, null if it is not assigned at all",
+                "example": 17,
+                "nullable": true,
+                "type": "integer"
+              },
+              "assignee_type": {
+                "description": "Resource type the Primary IP can be assigned to",
+                "enum": [
+                  "server"
+                ],
+                "type": "string"
+              },
+              "auto_delete": {
+                "description": "Delete this Primary IP when the resource it is assigned to is deleted",
+                "example": true,
+                "type": "boolean"
+              },
+              "blocked": {
+                "description": "Whether the IP is blocked",
+                "example": false,
+                "type": "boolean"
+              },
+              "created": {
+                "description": "Point in time when the Resource was created (in ISO-8601 format)",
+                "example": "2016-01-30T23:55:00+00:00",
+                "type": "string"
+              },
+              "datacenter": {
+                "$ref": "#/components/schemas/datacenter"
+              },
+              "dns_ptr": {
+                "description": "Array of reverse DNS entries",
+                "items": {
+                  "$ref": "#/components/schemas/dns_ptr"
+                },
+                "type": "array"
+              },
+              "id": {
+                "description": "ID of the Resource",
+                "example": 42,
+                "type": "integer"
+              },
+              "ip": {
+                "description": "IP address",
+                "example": "131.232.99.1",
+                "type": "string"
+              },
+              "labels": {
+                "$ref": "#/components/schemas/labels"
+              },
+              "name": {
+                "description": "Name of the Resource. Must be unique per Project.",
+                "example": "my-resource",
+                "type": "string"
+              },
+              "protection": {
+                "$ref": "#/components/schemas/protection"
+              },
+              "type": {
+                "description": "Type of the Primary IP",
+                "enum": [
+                  "ipv4",
+                  "ipv6"
+                ],
+                "type": "string"
+              }
+            },
+            "required": [
+              "id",
+              "name",
+              "labels",
+              "created",
+              "blocked",
+              "datacenter",
+              "ip",
+              "dns_ptr",
+              "protection",
+              "type",
+              "auto_delete",
+              "assignee_type",
+              "assignee_id"
+            ],
+            "title": "PrimaryIP",
+            "type": "object"
+          }
+        },
+        "required": [
+          "primary_ip"
+        ],
+        "title": "PrimaryIPResponse",
+        "type": "object",
+        "description": "Response to PUT https://api.hetzner.cloud/v1/primary_ips/{id}"
       },
       "replace_server_request": {
         "properties": {
@@ -5968,6 +6594,19 @@
         "title": "ActionResponse",
         "type": "object",
         "description": "Response to POST https://api.hetzner.cloud/v1/floating_ips/{id}/actions/unassign"
+      },
+      "unassign_primary_ip_from_resource_response": {
+        "properties": {
+          "action": {
+            "$ref": "#/components/schemas/action"
+          }
+        },
+        "required": [
+          "action"
+        ],
+        "title": "ActionResponse",
+        "type": "object",
+        "description": "Response to POST https://api.hetzner.cloud/v1/primary_ips/{id}/actions/unassign"
       },
       "update_service_request": {
         "$ref": "#/components/schemas/load_balancer_service"
@@ -11740,6 +12379,546 @@
           "pricing"
         ],
         "operationId": "list_prices"
+      }
+    },
+    "/primary_ips": {
+      "get": {
+        "description": "Returns all Primary IP objects.",
+        "parameters": [
+          {
+            "description": "Can be used to filter resources by their name. The response will only contain the resources matching the specified name",
+            "in": "query",
+            "name": "name",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Can be used to filter resources by labels. The response will only contain resources matching the label selector.",
+            "in": "query",
+            "name": "label_selector",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Can be used to filter resources by their ip. The response will only contain the resources matching the specified ip.",
+            "example": "127.0.0.1",
+            "in": "query",
+            "name": "ip",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Can be used multiple times. Choices id id:asc id:desc created created:asc created:desc",
+            "in": "query",
+            "name": "sort",
+            "required": false,
+            "schema": {
+              "enum": [
+                "id",
+                "id:asc",
+                "id:desc",
+                "created",
+                "created:asc",
+                "created:desc"
+              ],
+              "type": "string"
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "Specifies the page to fetch. The number of the first page is 1",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 1
+            }
+          },
+          {
+            "name": "per_page",
+            "in": "query",
+            "description": "Specifies the number of items returned per page. The default value is 25, the maximum value is 50 except otherwise specified in the documentation.",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 50
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/list_primary_ips_response"
+                }
+              }
+            },
+            "description": "The `primary_ips` key contains an array of Primary IP objects"
+          }
+        },
+        "summary": "Get all Primary IPs",
+        "tags": [
+          "primary_ips"
+        ],
+        "operationId": "list_primary_ips"
+      },
+      "post": {
+        "description": "Creates a new Primary IP, optionally assigned to a Server.\n\nIf you want to create a Primary IP that is not assigned to a Server, you need to provide the `datacenter` key instead of `assignee_id`. This can be either the ID or the name of the Datacenter this Primary IP shall be created in.\n\nNote that a Primary IP can only be assigned to a Server in the same Datacenter later on.\n\n#### Call specific error codes\n\n| Code                          | Description                                                   |\n|------------------------------ |-------------------------------------------------------------- |\n| `server_not_stopped`          | The specified server is running, but needs to be powered off  |\n| `server_has_ipv4`             | The server already has an ipv4 address                        |\n| `server_has_ipv6`             | The server already has an ipv6 address                        |\n",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/create_primary_ip_request"
+              }
+            }
+          },
+          "description": "The `type` argument is required while `datacenter` and `assignee_id` are mutually exclusive."
+        },
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {
+                "example": {
+                  "action": {
+                    "command": "create_primary_ip",
+                    "error": {
+                      "code": "action_failed",
+                      "message": "Action failed"
+                    },
+                    "finished": null,
+                    "id": 13,
+                    "progress": 0,
+                    "resources": [
+                      {
+                        "id": 17,
+                        "type": "server"
+                      }
+                    ],
+                    "started": "2016-01-30T23:50:00+00:00",
+                    "status": "running"
+                  },
+                  "primary_ip": {
+                    "assignee_id": 17,
+                    "assignee_type": "server",
+                    "auto_delete": true,
+                    "blocked": false,
+                    "created": "2016-01-30T23:50:00+00:00",
+                    "datacenter": {
+                      "description": "Falkenstein DC Park 8",
+                      "id": 42,
+                      "location": {
+                        "city": "Falkenstein",
+                        "country": "DE",
+                        "description": "Falkenstein DC Park 1",
+                        "id": 1,
+                        "latitude": 50.47612,
+                        "longitude": 12.370071,
+                        "name": "fsn1",
+                        "network_zone": "eu-central"
+                      },
+                      "name": "fsn1-dc8",
+                      "server_types": {
+                        "available": [
+                          1,
+                          2,
+                          3
+                        ],
+                        "available_for_migration": [
+                          1,
+                          2,
+                          3
+                        ],
+                        "supported": [
+                          1,
+                          2,
+                          3
+                        ]
+                      }
+                    },
+                    "dns_ptr": [
+                      {
+                        "dns_ptr": "server.example.com",
+                        "ip": "2001:db8::1"
+                      }
+                    ],
+                    "id": 42,
+                    "ip": "131.232.99.1",
+                    "labels": {
+                      "labelkey": "value"
+                    },
+                    "name": "my-ip",
+                    "protection": {
+                      "delete": false
+                    },
+                    "type": "ipv4"
+                  }
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/create_primary_ip_response"
+                }
+              }
+            },
+            "description": "The `primary_ip` key contains the Primary IP that was just created"
+          }
+        },
+        "summary": "Create a Primary IP",
+        "tags": [
+          "primary_ips"
+        ],
+        "operationId": "create_primary_ip"
+      }
+    },
+    "/primary_ips/{id}": {
+      "delete": {
+        "description": "Deletes a Primary IP.\n\nThe Primary IP may be assigned to a Server. In this case it is unassigned automatically. The Server must be powered off (status `off`) in order for this operation to succeed.\n",
+        "parameters": [
+          {
+            "description": "ID of the resource",
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Primary IP deleted"
+          }
+        },
+        "summary": "Delete a Primary IP",
+        "tags": [
+          "primary_ips"
+        ],
+        "operationId": "delete_primary_ip"
+      },
+      "get": {
+        "description": "Returns a specific Primary IP object.",
+        "parameters": [
+          {
+            "description": "ID of the resource",
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/get_primary_ip_response"
+                }
+              }
+            },
+            "description": "The `primary_ip` key contains a Primary IP object"
+          }
+        },
+        "summary": "Get a Primary IP",
+        "tags": [
+          "primary_ips"
+        ],
+        "operationId": "get_primary_ip"
+      },
+      "put": {
+        "description": "Updates the Primary IP.\n\nNote that when updating labels, the Primary IP's current set of labels will be replaced with the labels provided in the request body. So, for example, if you want to add a new label, you have to provide all existing labels plus the new label in the request body.\n\nIf the Primary IP object changes during the request, the response will be a “conflict” error.\n",
+        "parameters": [
+          {
+            "description": "ID of the resource",
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/replace_primary_ip_request"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/replace_primary_ip_response"
+                }
+              }
+            },
+            "description": "The `primary_ip` key contains the Primary IP that was just updated"
+          }
+        },
+        "summary": "Update a Primary IP",
+        "tags": [
+          "primary_ips"
+        ],
+        "operationId": "replace_primary_ip"
+      }
+    },
+    "/primary_ips/{id}/actions/assign": {
+      "post": {
+        "description": "Assigns a Primary IP to a Server.\n\nA Server can only have one Primary IP of type `ipv4` and one of type `ipv6` assigned. If you need more IPs use Floating IPs.\n\nThe Server must be powered off (status `off`) in order for this operation to succeed.\n\n#### Call specific error codes\n\n| Code                          | Description                                                   |\n|------------------------------ |-------------------------------------------------------------- |\n| `server_not_stopped`          | The server is running, but needs to be powered off            |\n| `primary_ip_already_assigned` | Primary ip is already assigned to a different server          |\n| `server_has_ipv4`             | The server already has an ipv4 address                        |\n| `server_has_ipv6`             | The server already has an ipv6 address                        |\n",
+        "parameters": [
+          {
+            "description": "ID of the Primary IP",
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/assign_primary_ip_to_resource_request"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {
+                "example": {
+                  "action": {
+                    "command": "assign_primary_ip",
+                    "error": {
+                      "code": "action_failed",
+                      "message": "Action failed"
+                    },
+                    "finished": null,
+                    "id": 13,
+                    "progress": 0,
+                    "resources": [
+                      {
+                        "id": 42,
+                        "type": "server"
+                      },
+                      {
+                        "id": 4711,
+                        "type": "primary_ip"
+                      }
+                    ],
+                    "started": "2016-01-30T23:50:00+00:00",
+                    "status": "running"
+                  }
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/assign_primary_ip_to_resource_response"
+                }
+              }
+            },
+            "description": "The `action` key in the reply contains an Action object with this structure"
+          }
+        },
+        "summary": "Assign a Primary IP to a resource",
+        "tags": [
+          "primary_ips"
+        ],
+        "operationId": "assign_primary_ip_to_resource"
+      }
+    },
+    "/primary_ips/{id}/actions/change_dns_ptr": {
+      "post": {
+        "description": "Changes the hostname that will appear when getting the hostname belonging to this Primary IP.",
+        "parameters": [
+          {
+            "description": "ID of the Primary IP",
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/change_reverse_dns_entry_for_primary_ip_request"
+              }
+            }
+          },
+          "description": "Select the IP address for which to change the DNS entry by passing `ip`. For a Primary IP of type `ipv4` this must exactly match the IP address of the Primary IP. For a Primary IP of type `ipv6` this must be a single IP within the IPv6 /64 range that belongs to this Primary IP.\n\nThe target hostname is set by passing `dns_ptr`.\n"
+        },
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {
+                "example": {
+                  "action": {
+                    "command": "change_dns_ptr",
+                    "error": {
+                      "code": "action_failed",
+                      "message": "Action failed"
+                    },
+                    "finished": "2016-01-30T23:56:00+00:00",
+                    "id": 13,
+                    "progress": 100,
+                    "resources": [
+                      {
+                        "id": 4711,
+                        "type": "primary_ip"
+                      }
+                    ],
+                    "started": "2016-01-30T23:55:00+00:00",
+                    "status": "success"
+                  }
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/change_reverse_dns_entry_for_primary_ip_response"
+                }
+              }
+            },
+            "description": "The `action` key contains the `change_dns_ptr` Action"
+          }
+        },
+        "summary": "Change reverse DNS entry for a Primary IP",
+        "tags": [
+          "primary_ips"
+        ],
+        "operationId": "change_reverse_dns_entry_for_primary_ip"
+      }
+    },
+    "/primary_ips/{id}/actions/change_protection": {
+      "post": {
+        "description": "Changes the protection configuration of a Primary IP.\n\nA Primary IP can only be delete protected if its `auto_delete` property is set to `false`.\n",
+        "parameters": [
+          {
+            "description": "ID of the Primary IP",
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/change_primary_ip_protection_request"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {
+                "example": {
+                  "action": {
+                    "command": "change_protection",
+                    "error": {
+                      "code": "action_failed",
+                      "message": "Action failed"
+                    },
+                    "finished": "2016-01-30T23:56:00+00:00",
+                    "id": 13,
+                    "progress": 100,
+                    "resources": [
+                      {
+                        "id": 4711,
+                        "type": "primary_ip"
+                      }
+                    ],
+                    "started": "2016-01-30T23:55:00+00:00",
+                    "status": "success"
+                  }
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/change_primary_ip_protection_response"
+                }
+              }
+            },
+            "description": "The `action` key contains the `change_protection` Action"
+          }
+        },
+        "summary": "Change Primary IP Protection",
+        "tags": [
+          "primary_ips"
+        ],
+        "operationId": "change_primary_ip_protection"
+      }
+    },
+    "/primary_ips/{id}/actions/unassign": {
+      "post": {
+        "description": "Unassigns a Primary IP from a Server.\n\nThe Server must be powered off (status `off`) in order for this operation to succeed.\n\nNote that only Servers that have at least one network interface (public or private) attached can be powered on.\n\n#### Call specific error codes\n\n| Code                              | Description                                                   |\n|---------------------------------- |-------------------------------------------------------------- |\n| `server_not_stopped`              | The server is running, but needs to be powered off            |\n| `server_is_load_balancer_target`  | The server ipv4 address is a loadbalancer target              |\n",
+        "parameters": [
+          {
+            "description": "ID of the Primary IP",
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {
+                "example": {
+                  "action": {
+                    "command": "unassign_primary_ip",
+                    "error": {
+                      "code": "action_failed",
+                      "message": "Action failed"
+                    },
+                    "finished": null,
+                    "id": 13,
+                    "progress": 0,
+                    "resources": [
+                      {
+                        "id": 42,
+                        "type": "server"
+                      },
+                      {
+                        "id": 4711,
+                        "type": "primary_ip"
+                      }
+                    ],
+                    "started": "2016-01-30T23:50:00+00:00",
+                    "status": "running"
+                  }
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/unassign_primary_ip_from_resource_response"
+                }
+              }
+            },
+            "description": "The `action` key in the reply contains an Action object with this structure"
+          }
+        },
+        "summary": "Unassign a Primary IP from a resource",
+        "tags": [
+          "primary_ips"
+        ],
+        "operationId": "unassign_primary_ip_from_resource"
       }
     },
     "/server_types": {
