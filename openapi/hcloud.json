@@ -6,7 +6,7 @@
     "contact": {
       "url": "https://docs.hetzner.cloud/"
     },
-    "version": "6c482c4-dirty"
+    "version": "21b5277-dirty"
   },
   "servers": [
     {
@@ -3124,6 +3124,11 @@
             "type": "integer"
           },
           "status": {
+            "enum": [
+              "healthy",
+              "unhealthy",
+              "unknown"
+            ],
             "example": "healthy",
             "type": "string"
           }
