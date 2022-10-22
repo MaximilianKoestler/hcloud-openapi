@@ -72,6 +72,12 @@
     }
   },
   {
+    "path": ["components", "schemas", "list_prices_response", "properties", "pricing", "properties", "primary_ips", "items"],
+    "set": {
+      "title": "ListPricesResponsePricingPrimaryIps"
+    }
+  },
+  {
     "path": ["components", "schemas", "list_prices_response", "properties", "pricing", "properties", "server_types", "items"],
     "set": {
       "title": "ListPricesResponsePricingServerTypes"

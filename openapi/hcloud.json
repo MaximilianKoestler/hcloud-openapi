@@ -6,7 +6,7 @@
     "contact": {
       "url": "https://docs.hetzner.cloud/"
     },
-    "version": "f929f0d"
+    "version": "4ea4924-dirty"
   },
   "servers": [
     {
@@ -4140,7 +4140,8 @@
                     "type",
                     "prices"
                   ],
-                  "type": "object"
+                  "type": "object",
+                  "title": "ListPricesResponsePricingPrimaryIps"
                 },
                 "type": "array"
               },
