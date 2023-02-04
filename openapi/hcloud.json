@@ -6,7 +6,7 @@
     "contact": {
       "url": "https://docs.hetzner.cloud/"
     },
-    "version": "4ea4924-dirty"
+    "version": "440006d-dirty"
   },
   "servers": [
     {
@@ -25,7 +25,7 @@
     },
     {
       "name": "datacenters",
-      "description": "Each Datacenter represents a physical entity where virtual machines are hosted. Note that Datacenters are **not** guaranteed to be entirely independent failure domains.\n\nDatacenters in the same Location are connected by very low latency links.\n\nDatacenter names are made up of their Location and Datacenter number, for example `fsn1-dc8` means Datacenter `8` in Location `fsn1`.\n"
+      "description": "Each Datacenter represents a *virtual* Datacenter which is made up of possible many physical Datacenters where Servers are hosted.\n\nDatacenter names are composed from their Location and virtual Datacenter number, for example `fsn1-dc14` means virtual Datacenter `14` in Location `fsn1`.\n\nRight now there is only one Datacenter for each Location. The Datacenter numbers for `fsn`, `nbg` and `hel` are arbitrarily set to `14`, `3` and `2` for historic reasons and do not represent real physical Hetzner datacenters.\n"
     },
     {
       "name": "firewalls",
@@ -13095,7 +13095,7 @@
               }
             }
           },
-          "description": "Please note that Server names must be unique per Project and valid hostnames as per RFC 1123 (i.e. may only contain letters, digits, periods, and dashes).\n\nFor `server_type` you can either use the ID as listed in `/server_types` or its name.\n\nFor `image` you can either use the ID as listed in `/images` or its name.\n\nIf you want to create the Server in a Location, you must set `location` to the ID or name as listed in `/locations`. This is the recommended way. You can be even more specific by setting `datacenter` to the ID or name as listed in `/datacenters`. However directly specifying the Datacenter is discouraged since supply availability in Datacenters varies greatly and Datacenters may be out of stock for extended periods of time or not serve certain Server types at all.\n\nSome properties like `start_after_create` or `automount` will trigger Actions after the Server is created. Those Actions are listed in the `next_actions` field in the response.\n\nFor accessing your Server we strongly recommend to use SSH keys by passing the respective key IDs in `ssh_keys`. If you do not specify any `ssh_keys` we will generate a root password for you and return it in the response.\n\nPlease note that provided user-data is stored in our systems. While we take measures to protect it we highly recommend that you don’t use it to store passwords or other sensitive information.\n\n#### Call specific error codes\n\n| Code                             | Description                                                |\n|----------------------------------|------------------------------------------------------------|\n| `placement_error`                | An error during the placement occurred                     |\n| `primary_ip_assigned`            | The specified Primary IP is already assigned to a server   |\n| `primary_ip_datacenter_mismatch` | The specified Primary IP is in a different datacenter      |\n| `primary_ip_version_mismatch`    | The specified Primary IP has the wrong IP Version          |\n"
+          "description": "Please note that Server names must be unique per Project and valid hostnames as per RFC 1123 (i.e. may only contain letters, digits, periods, and dashes).\n\nFor `server_type` you can either use the ID as listed in `/server_types` or its name.\n\nFor `image` you can either use the ID as listed in `/images` or its name.\n\nIf you want to create the Server in a Location, you must set `location` to the ID or name as listed in `/locations`. This is the recommended way. You can be even more specific by setting `datacenter` to the ID or name as listed in `/datacenters`. However we only recommend this if you want to assign a specific Primary IP to the Server which is located in the specified Datacenter.\n\nSome properties like `start_after_create` or `automount` will trigger Actions after the Server is created. Those Actions are listed in the `next_actions` field in the response.\n\nFor accessing your Server we strongly recommend to use SSH keys by passing the respective key IDs in `ssh_keys`. If you do not specify any `ssh_keys` we will generate a root password for you and return it in the response.\n\nPlease note that provided user-data is stored in our systems. While we take measures to protect it we highly recommend that you don’t use it to store passwords or other sensitive information.\n\n#### Call specific error codes\n\n| Code                             | Description                                                |\n|----------------------------------|------------------------------------------------------------|\n| `placement_error`                | An error during the placement occurred                     |\n| `primary_ip_assigned`            | The specified Primary IP is already assigned to a server   |\n| `primary_ip_datacenter_mismatch` | The specified Primary IP is in a different datacenter      |\n| `primary_ip_version_mismatch`    | The specified Primary IP has the wrong IP Version          |\n"
         },
         "responses": {
           "201": {
