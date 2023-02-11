@@ -15,7 +15,7 @@
   "license": "MIT",
   "dependencies": {
     "@openapi-contrib/json-schema-to-openapi-schema": "^1.3.0",
-    "ibm-openapi-validator": "^0.71.0",
+    "ibm-openapi-validator": "^0.97.3",
     "needle": "^2.9.1",
     "object-hash": "^2.2.0",
     "object-path": "^0.11.8",
