@@ -6,7 +6,7 @@
     "contact": {
       "url": "https://docs.hetzner.cloud/"
     },
-    "version": "e56b6eb"
+    "version": "0a47bd0-dirty"
   },
   "servers": [
     {
@@ -395,6 +395,25 @@
         "title": "ActionsResponse",
         "type": "object",
         "description": "Response to POST https://api.hetzner.cloud/v1/firewalls/{id}/actions/apply_to_resources"
+      },
+      "architecture": {
+        "description": "Type of cpu architecture",
+        "enum": [
+          "arm",
+          "x86"
+        ],
+        "example": "x86",
+        "type": "string"
+      },
+      "architecture_optional": {
+        "description": "Type of cpu architecture this iso is compatible with. Null indicates no restriction on the architecture (wildcard).",
+        "enum": [
+          "arm",
+          "x86"
+        ],
+        "example": "x86",
+        "nullable": true,
+        "type": "string"
       },
       "assign_floating_ip_to_server_request": {
         "description": "Request for POST https://api.hetzner.cloud/v1/floating_ips/{id}/actions/assign",
@@ -3505,6 +3524,9 @@
       },
       "iso": {
         "properties": {
+          "architecture": {
+            "$ref": "#/components/schemas/architecture_optional"
+          },
           "deprecated": {
             "description": "ISO 8601 timestamp of deprecation, null if ISO is still available. After the deprecation time it will no longer be possible to attach the ISO to Servers.",
             "example": "2018-02-28T00:00:00+00:00",
@@ -3541,7 +3563,8 @@
           "name",
           "description",
           "type",
-          "deprecated"
+          "deprecated",
+          "architecture"
         ],
         "type": "object"
       },
@@ -3549,6 +3572,9 @@
         "description": "ISO Image that is attached to this Server. Null if no ISO is attached.",
         "nullable": true,
         "properties": {
+          "architecture": {
+            "$ref": "#/components/schemas/architecture_optional"
+          },
           "deprecated": {
             "description": "ISO 8601 timestamp of deprecation, null if ISO is still available. After the deprecation time it will no longer be possible to attach the ISO to Servers.",
             "example": "2018-02-28T00:00:00+00:00",
@@ -3585,7 +3611,8 @@
           "name",
           "description",
           "type",
-          "deprecated"
+          "deprecated",
+          "architecture"
         ],
         "type": "object"
       },
@@ -6105,7 +6132,7 @@
             "type": "boolean"
           },
           "server_type": {
-            "$ref": "#/components/schemas/server_type"
+            "$ref": "#/components/schemas/server_type_no_architecture"
           },
           "status": {
             "description": "Status of the Server",
@@ -6250,6 +6277,9 @@
       },
       "server_type": {
         "properties": {
+          "architecture": {
+            "$ref": "#/components/schemas/architecture"
+          },
           "cores": {
             "description": "Number of cpu cores a Server of this type will have",
             "example": 1,
@@ -6320,10 +6350,87 @@
           "deprecated",
           "prices",
           "storage_type",
+          "cpu_type",
+          "architecture"
+        ],
+        "type": "object"
+      },
+      "server_type_no_architecture": {
+        "description": "Type of Server - determines how much ram, disk and cpu a Server has",
+        "properties": {
+          "cores": {
+            "description": "Number of cpu cores a Server of this type will have",
+            "example": 1,
+            "type": "integer"
+          },
+          "cpu_type": {
+            "description": "Type of cpu",
+            "enum": [
+              "dedicated",
+              "shared"
+            ],
+            "type": "string"
+          },
+          "deprecated": {
+            "description": "True if Server type is deprecated",
+            "example": false,
+            "type": "boolean",
+            "nullable": true
+          },
+          "description": {
+            "description": "Description of the Server type",
+            "example": "CX11",
+            "type": "string"
+          },
+          "disk": {
+            "description": "Disk size a Server of this type will have in GB",
+            "example": 25,
+            "type": "number"
+          },
+          "id": {
+            "description": "ID of the Server type",
+            "example": 1,
+            "type": "integer"
+          },
+          "memory": {
+            "description": "Memory a Server of this type will have in GB",
+            "example": 1,
+            "type": "number"
+          },
+          "name": {
+            "description": "Unique identifier of the Server type",
+            "example": "cx11",
+            "type": "string"
+          },
+          "prices": {
+            "description": "Prices in different Locations",
+            "items": {
+              "$ref": "#/components/schemas/price_per_time"
+            },
+            "type": "array"
+          },
+          "storage_type": {
+            "description": "Type of Server boot drive. Local has higher speed. Network has better availability.",
+            "enum": [
+              "local",
+              "network"
+            ],
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "description",
+          "cores",
+          "memory",
+          "disk",
+          "deprecated",
+          "prices",
+          "storage_type",
           "cpu_type"
         ],
-        "type": "object",
-        "description": "Type of Server - determines how much ram, disk and cpu a Server has"
+        "type": "object"
       },
       "set_rules_request": {
         "properties": {
@@ -8787,7 +8894,7 @@
               }
             }
           },
-          "description": "Select the IP address for which to change the DNS entry by passing `ip`. For a Floating IP of type `ipv4` this must exactly match the IP address of the Floating IP. For a Floating IP of type `ipv6` this must be a single IP within the IPv6 /64 range that belongs to this Floating IP.\n\nThe target hostname is set by passing `dns_ptr`.\n"
+          "description": "Select the IP address for which to change the DNS entry by passing `ip`. For a Floating IP of type `ipv4` this must exactly match the IP address of the Floating IP. For a Floating IP of type `ipv6` this must be a single IP within the IPv6 /64 range that belongs to this Floating IP. You can add up to 100 IPv6 reverse DNS entries.\n\nThe target hostname is set by passing `dns_ptr`.\n"
         },
         "responses": {
           "201": {
@@ -9030,6 +9137,15 @@
             "description": "Can be used to filter resources by labels. The response will only contain resources matching the label selector.",
             "in": "query",
             "name": "label_selector",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Return only Images with the given architecture.",
+            "in": "query",
+            "name": "architecture",
             "required": false,
             "schema": {
               "type": "string"
@@ -9458,6 +9574,24 @@
             "required": false,
             "schema": {
               "type": "string"
+            }
+          },
+          {
+            "description": "Return only ISOs with the given architecture.",
+            "in": "query",
+            "name": "architecture",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Include Images with wildcard architecture (architecture is null). Works only if architecture filter is specified.",
+            "in": "query",
+            "name": "include_architecture_wildcard",
+            "required": false,
+            "schema": {
+              "type": "boolean"
             }
           },
           {
@@ -12737,7 +12871,7 @@
               }
             }
           },
-          "description": "Select the IP address for which to change the DNS entry by passing `ip`. For a Primary IP of type `ipv4` this must exactly match the IP address of the Primary IP. For a Primary IP of type `ipv6` this must be a single IP within the IPv6 /64 range that belongs to this Primary IP.\n\nThe target hostname is set by passing `dns_ptr`.\n"
+          "description": "Select the IP address for which to change the DNS entry by passing `ip`. For a Primary IP of type `ipv4` this must exactly match the IP address of the Primary IP. For a Primary IP of type `ipv6` this must be a single IP within the IPv6 /64 range that belongs to this Primary IP. You can add up to 100 IPv6 reverse DNS entries.\n\nThe target hostname is set by passing `dns_ptr`.\n"
         },
         "responses": {
           "201": {
@@ -13187,6 +13321,7 @@
                     },
                     "id": 42,
                     "image": {
+                      "architecture": "x86",
                       "bound_to": null,
                       "created": "2016-01-30T23:50:00+00:00",
                       "created_from": {
@@ -13215,6 +13350,7 @@
                     "included_traffic": 654321,
                     "ingoing_traffic": 123456,
                     "iso": {
+                      "architecture": "x86",
                       "deprecated": "2018-02-28T00:00:00+00:00",
                       "description": "FreeBSD 11.0 x64",
                       "id": 4711,
@@ -13269,6 +13405,7 @@
                     },
                     "rescue_enabled": false,
                     "server_type": {
+                      "architecture": "x86",
                       "cores": 1,
                       "cpu_type": "shared",
                       "deprecated": true,

@@ -16,6 +16,23 @@
     ]
   },
   {
+    "name": "architecture",
+    "path": [
+      "list_server_types_response",
+      "server_types",
+      "architecture"
+    ]
+  },
+  {
+    "name": "architecture_optional",
+    "path": [
+      "list_servers_response",
+      "servers",
+      "iso",
+      "architecture"
+    ]
+  },
+  {
     "description": "TLS/SSL Certificates prove the identity of a Server and are used to encrypt client traffic.",
     "name": "certificate",
     "path": [
@@ -377,6 +394,14 @@
     "path": [
       "list_server_types_response",
       "server_types"
+    ]
+  },
+  {
+    "name": "server_type_no_architecture",
+    "path": [
+      "create_server_response",
+      "server",
+      "server_type"
     ]
   },
   {
