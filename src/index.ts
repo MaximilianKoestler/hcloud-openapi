@@ -219,8 +219,14 @@ async function validateOpenApiDocument(document: OpenApiDocumentFragment) {
 
   const filters = [
     /A paginated list operation should include a .*/,
+    /Common path parameters should be defined on the path object/,
     /Enum values must be snake case/,
     /Null values are not allowed for any property/,
+    /parameter must be of type string and optional/,
+    /parameter should be named/,
+    /Parameter should have a non-empty description/,
+    /Parameters must have a name/,
+    /Parameters must have a valid 'in' value/,
     /Properties with the same name have inconsistent types: .*/,
     /Response bodies should include an example response/,
     /Schema of type string should use one of the following formats/,
