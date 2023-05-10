@@ -6,7 +6,7 @@
     "contact": {
       "url": "https://docs.hetzner.cloud/"
     },
-    "version": "0a47bd0-dirty"
+    "version": "b35e8b3"
   },
   "servers": [
     {
@@ -397,7 +397,7 @@
         "description": "Response to POST https://api.hetzner.cloud/v1/firewalls/{id}/actions/apply_to_resources"
       },
       "architecture": {
-        "description": "Type of cpu architecture",
+        "description": "Type of cpu architecture this image is compatible with. | Type of cpu architecture",
         "enum": [
           "arm",
           "x86"
@@ -3194,6 +3194,9 @@
       },
       "image": {
         "properties": {
+          "architecture": {
+            "$ref": "#/components/schemas/architecture"
+          },
           "bound_to": {
             "description": "ID of Server the Image is bound to. Only set for Images of type `backup`.",
             "example": null,
@@ -3315,13 +3318,17 @@
           "protection",
           "deprecated",
           "deleted",
-          "labels"
+          "labels",
+          "architecture"
         ],
         "type": "object"
       },
       "image_optional": {
         "nullable": true,
         "properties": {
+          "architecture": {
+            "$ref": "#/components/schemas/architecture"
+          },
           "bound_to": {
             "description": "ID of Server the Image is bound to. Only set for Images of type `backup`.",
             "example": null,
@@ -3443,7 +3450,8 @@
           "protection",
           "deprecated",
           "deleted",
-          "labels"
+          "labels",
+          "architecture"
         ],
         "type": "object"
       },
@@ -9276,6 +9284,7 @@
               "application/json": {
                 "example": {
                   "image": {
+                    "architecture": "x86",
                     "bound_to": null,
                     "build_id": "c313fe40383af26094a5a92026054320ab55abc7",
                     "created": "2016-01-30T23:50:00+00:00",
@@ -14225,6 +14234,7 @@
                     "status": "success"
                   },
                   "image": {
+                    "architecture": "x86",
                     "bound_to": null,
                     "created": "2016-01-30T23:50:00+00:00",
                     "created_from": {
