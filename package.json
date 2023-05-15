@@ -8,7 +8,7 @@
   },
   "scripts": {
     "build": "tsc -p .",
-    "convert": "./node_modules/.bin/ts-node ./src/index.ts",
+    "convert": "ts-node ./src/index.ts",
     "preinstall": "npx npm-force-resolutions"
   },
   "author": "Maximilian Köstler",
