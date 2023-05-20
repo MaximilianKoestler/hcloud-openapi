@@ -6,7 +6,7 @@
     "contact": {
       "url": "https://docs.hetzner.cloud/"
     },
-    "version": "2b85701-dirty"
+    "version": "61b6efb"
   },
   "servers": [
     {
@@ -108,6 +108,7 @@
           "id": {
             "description": "ID of the Resource",
             "example": 42,
+            "format": "int64",
             "type": "integer"
           },
           "progress": {
@@ -171,6 +172,7 @@
           "id": {
             "description": "ID of the Resource",
             "example": 42,
+            "format": "int64",
             "type": "integer"
           },
           "progress": {
@@ -235,6 +237,7 @@
           "placement_group": {
             "description": "ID of Placement Group the Server should be added to",
             "example": 1,
+            "format": "int64",
             "type": "integer"
           }
         },
@@ -317,6 +320,7 @@
               "id": {
                 "description": "ID of the Server",
                 "example": 80,
+                "format": "int64",
                 "type": "integer"
               }
             },
@@ -421,6 +425,7 @@
           "server": {
             "description": "ID of the Server the Floating IP shall be assigned to",
             "example": 42,
+            "format": "int64",
             "type": "integer"
           }
         },
@@ -448,6 +453,7 @@
           "assignee_id": {
             "description": "ID of a resource of type `assignee_type`",
             "example": 4711,
+            "format": "int64",
             "type": "integer"
           },
           "assignee_type": {
@@ -517,6 +523,7 @@
           "network": {
             "description": "ID of an existing network to attach the Load Balancer to",
             "example": 4711,
+            "format": "int64",
             "type": "integer"
           }
         },
@@ -559,6 +566,7 @@
           "network": {
             "description": "ID of an existing network to attach the Server to",
             "example": 4711,
+            "format": "int64",
             "type": "integer"
           }
         },
@@ -592,6 +600,7 @@
           "server": {
             "description": "ID of the Server the Volume will be attached to",
             "example": 43,
+            "format": "int64",
             "type": "integer"
           }
         },
@@ -649,6 +658,7 @@
           "id": {
             "description": "ID of the Resource",
             "example": 42,
+            "format": "int64",
             "type": "integer"
           },
           "labels": {
@@ -777,6 +787,7 @@
           "network": {
             "description": "ID of an existing Network already attached to the Server",
             "example": 4711,
+            "format": "int64",
             "type": "integer"
           }
         },
@@ -1386,8 +1397,9 @@
             "type": "string"
           },
           "server": {
-            "description": "Server to assign the Floating IP to",
+            "description": "ID of the Server to assign the Floating IP to",
             "example": 42,
+            "format": "int64",
             "type": "integer"
           },
           "type": {
@@ -1477,6 +1489,7 @@
           "network": {
             "description": "ID of the network the Load Balancer should be attached to on creation",
             "example": 123,
+            "format": "int64",
             "type": "integer"
           },
           "network_zone": {
@@ -1618,6 +1631,7 @@
               "id": {
                 "description": "ID of the Resource",
                 "example": 42,
+                "format": "int64",
                 "type": "integer"
               },
               "labels": {
@@ -1634,6 +1648,7 @@
                   42
                 ],
                 "items": {
+                  "format": "int64",
                   "type": "integer"
                 },
                 "type": "array"
@@ -1671,6 +1686,7 @@
           "assignee_id": {
             "description": "ID of the resource the Primary IP should be assigned to. Omitted if it should not be assigned.",
             "example": 17,
+            "format": "int64",
             "type": "integer"
           },
           "assignee_type": {
@@ -1721,6 +1737,7 @@
               "assignee_id": {
                 "description": "ID of the resource the Primary IP is assigned to, null if it is not assigned at all",
                 "example": 17,
+                "format": "int64",
                 "nullable": true,
                 "type": "integer"
               },
@@ -1759,6 +1776,7 @@
               "id": {
                 "description": "ID of the Resource",
                 "example": 42,
+                "format": "int64",
                 "type": "integer"
               },
               "ip": {
@@ -1830,6 +1848,7 @@
               "properties": {
                 "firewall": {
                   "description": "ID of the Firewall",
+                  "format": "int64",
                   "type": "integer"
                 }
               },
@@ -1872,6 +1891,7 @@
           "placement_group": {
             "description": "ID of the Placement Group the server should be in",
             "example": 1,
+            "format": "int64",
             "type": "integer"
           },
           "public_net": {
@@ -2036,6 +2056,7 @@
           },
           "server": {
             "description": "Server to which to attach the Volume once it's created (Volume will be created in the same Location as the server)",
+            "format": "int64",
             "type": "integer"
           },
           "size": {
@@ -2106,6 +2127,7 @@
           "id": {
             "description": "ID of the Resource",
             "example": 42,
+            "format": "int64",
             "type": "integer"
           },
           "location": {
@@ -2272,6 +2294,7 @@
           "network": {
             "description": "ID of an existing network to detach the Load Balancer from",
             "example": 4711,
+            "format": "int64",
             "type": "integer"
           }
         },
@@ -2299,6 +2322,7 @@
           "network": {
             "description": "ID of an existing network to detach the Server from",
             "example": 4711,
+            "format": "int64",
             "type": "integer"
           }
         },
@@ -2494,6 +2518,7 @@
           "id": {
             "description": "ID of the Resource",
             "example": 42,
+            "format": "int64",
             "type": "integer"
           },
           "labels": {
@@ -2641,6 +2666,7 @@
           "id": {
             "description": "ID of the Resource",
             "example": 42,
+            "format": "int64",
             "type": "integer"
           },
           "ip": {
@@ -2662,6 +2688,7 @@
           "server": {
             "description": "ID of the Server the Floating IP is assigned to, null if it is not assigned at all",
             "example": 42,
+            "format": "int64",
             "nullable": true,
             "type": "integer"
           },
@@ -2951,6 +2978,7 @@
               "id": {
                 "description": "ID of the Resource",
                 "example": 42,
+                "format": "int64",
                 "type": "integer"
               },
               "labels": {
@@ -2967,6 +2995,7 @@
                   42
                 ],
                 "items": {
+                  "format": "int64",
                   "type": "integer"
                 },
                 "type": "array"
@@ -3006,6 +3035,7 @@
               "assignee_id": {
                 "description": "ID of the resource the Primary IP is assigned to, null if it is not assigned at all",
                 "example": 17,
+                "format": "int64",
                 "nullable": true,
                 "type": "integer"
               },
@@ -3044,6 +3074,7 @@
               "id": {
                 "description": "ID of the Resource",
                 "example": 42,
+                "format": "int64",
                 "type": "integer"
               },
               "ip": {
@@ -3200,6 +3231,7 @@
           "bound_to": {
             "description": "ID of Server the Image is bound to. Only set for Images of type `backup`.",
             "example": null,
+            "format": "int64",
             "nullable": true,
             "type": "integer"
           },
@@ -3236,6 +3268,7 @@
           "id": {
             "description": "ID of the Resource",
             "example": 42,
+            "format": "int64",
             "type": "integer"
           },
           "image_size": {
@@ -3332,6 +3365,7 @@
           "bound_to": {
             "description": "ID of Server the Image is bound to. Only set for Images of type `backup`.",
             "example": null,
+            "format": "int64",
             "nullable": true,
             "type": "integer"
           },
@@ -3368,6 +3402,7 @@
           "id": {
             "description": "ID of the Resource",
             "example": 42,
+            "format": "int64",
             "type": "integer"
           },
           "image_size": {
@@ -3480,6 +3515,7 @@
           "id": {
             "description": "ID of the Resource",
             "example": 42,
+            "format": "int64",
             "type": "integer"
           },
           "ip": {
@@ -3515,6 +3551,7 @@
           "id": {
             "description": "ID of the Resource",
             "example": 42,
+            "format": "int64",
             "type": "integer"
           },
           "ip": {
@@ -3549,6 +3586,7 @@
           "id": {
             "description": "ID of the Resource",
             "example": 42,
+            "format": "int64",
             "type": "integer"
           },
           "name": {
@@ -3597,6 +3635,7 @@
           "id": {
             "description": "ID of the Resource",
             "example": 42,
+            "format": "int64",
             "type": "integer"
           },
           "name": {
@@ -4017,6 +4056,7 @@
                 "id": {
                   "description": "ID of the Resource",
                   "example": 42,
+                  "format": "int64",
                   "type": "integer"
                 },
                 "labels": {
@@ -4033,6 +4073,7 @@
                     42
                   ],
                   "items": {
+                    "format": "int64",
                     "type": "integer"
                   },
                   "type": "array"
@@ -4132,6 +4173,7 @@
                     "id": {
                       "description": "ID of the Load Balancer type the price is for",
                       "example": 1,
+                      "format": "int64",
                       "type": "integer"
                     },
                     "name": {
@@ -4202,6 +4244,7 @@
                     "id": {
                       "description": "ID of the Server type the price is for",
                       "example": 4,
+                      "format": "int64",
                       "type": "integer"
                     },
                     "name": {
@@ -4290,6 +4333,7 @@
                 "assignee_id": {
                   "description": "ID of the resource the Primary IP is assigned to, null if it is not assigned at all",
                   "example": 17,
+                  "format": "int64",
                   "nullable": true,
                   "type": "integer"
                 },
@@ -4328,6 +4372,7 @@
                 "id": {
                   "description": "ID of the Resource",
                   "example": 42,
+                  "format": "int64",
                   "type": "integer"
                 },
                 "ip": {
@@ -4463,6 +4508,7 @@
           "id": {
             "description": "ID of the Resource",
             "example": 42,
+            "format": "int64",
             "type": "integer"
           },
           "included_traffic": {
@@ -4564,11 +4610,14 @@
       "load_balancer_private_net": {
         "properties": {
           "ip": {
+            "description": "IP address (v4) of this Load Balancer in this Network",
             "example": "10.0.0.2",
             "type": "string"
           },
           "network": {
+            "description": "ID of the Network",
             "example": 4711,
+            "format": "int64",
             "type": "integer"
           }
         },
@@ -4770,6 +4819,7 @@
           "id": {
             "description": "ID of the Load Balancer type",
             "example": 1,
+            "format": "int64",
             "type": "integer"
           },
           "max_assigned_certificates": {
@@ -4838,6 +4888,7 @@
           "id": {
             "description": "ID of the Location",
             "example": 1,
+            "format": "int64",
             "type": "integer"
           },
           "latitude": {
@@ -4968,6 +5019,7 @@
           "id": {
             "description": "ID of the Network",
             "example": 4711,
+            "format": "int64",
             "type": "integer"
           },
           "ip_range": {
@@ -4984,6 +5036,7 @@
               42
             ],
             "items": {
+              "format": "int64",
               "type": "integer"
             },
             "type": "array"
@@ -5009,6 +5062,7 @@
               42
             ],
             "items": {
+              "format": "int64",
               "type": "integer"
             },
             "type": "array"
@@ -5287,6 +5341,7 @@
               "id": {
                 "description": "ID of the Server",
                 "example": 80,
+                "format": "int64",
                 "type": "integer"
               }
             },
@@ -5521,6 +5576,7 @@
               "id": {
                 "description": "ID of the Resource",
                 "example": 42,
+                "format": "int64",
                 "type": "integer"
               },
               "labels": {
@@ -5537,6 +5593,7 @@
                   42
                 ],
                 "items": {
+                  "format": "int64",
                   "type": "integer"
                 },
                 "type": "array"
@@ -5596,6 +5653,7 @@
               "assignee_id": {
                 "description": "ID of the resource the Primary IP is assigned to, null if it is not assigned at all",
                 "example": 17,
+                "format": "int64",
                 "nullable": true,
                 "type": "integer"
               },
@@ -5634,6 +5692,7 @@
               "id": {
                 "description": "ID of the Resource",
                 "example": 42,
+                "format": "int64",
                 "type": "integer"
               },
               "ip": {
@@ -5845,6 +5904,7 @@
           "id": {
             "description": "ID of the Resource | ID of resource referenced",
             "example": 42,
+            "format": "int64",
             "type": "integer"
           },
           "type": {
@@ -5864,6 +5924,7 @@
           "id": {
             "description": "ID of the Resource | ID of the Server",
             "example": 42,
+            "format": "int64",
             "type": "integer"
           }
         },
@@ -6017,6 +6078,7 @@
           "id": {
             "description": "ID of the Resource",
             "example": 42,
+            "format": "int64",
             "type": "integer"
           },
           "image": {
@@ -6076,6 +6138,7 @@
               "id": {
                 "description": "ID of the Resource",
                 "example": 42,
+                "format": "int64",
                 "type": "integer"
               },
               "labels": {
@@ -6092,6 +6155,7 @@
                   42
                 ],
                 "items": {
+                  "format": "int64",
                   "type": "integer"
                 },
                 "type": "array"
@@ -6160,6 +6224,7 @@
           "volumes": {
             "description": "IDs of Volumes assigned to this Server",
             "items": {
+              "format": "int64",
               "type": "integer"
             },
             "type": "array"
@@ -6206,7 +6271,9 @@
             "type": "string"
           },
           "network": {
+            "description": "ID of the Network",
             "example": 4711,
+            "format": "int64",
             "type": "integer"
           }
         },
@@ -6242,6 +6309,7 @@
                 "id": {
                   "description": "ID of the Resource",
                   "example": 42,
+                  "format": "int64",
                   "type": "integer"
                 },
                 "status": {
@@ -6320,6 +6388,7 @@
           "id": {
             "description": "ID of the Server type",
             "example": 1,
+            "format": "int64",
             "type": "integer"
           },
           "included_traffic": {
@@ -6405,6 +6474,7 @@
           "id": {
             "description": "ID of the Server type",
             "example": 1,
+            "format": "int64",
             "type": "integer"
           },
           "memory": {
@@ -6525,6 +6595,7 @@
           "id": {
             "description": "ID of the Resource",
             "example": 42,
+            "format": "int64",
             "type": "integer"
           },
           "labels": {
@@ -6576,6 +6647,7 @@
           "vswitch_id": {
             "description": "ID of the robot vSwitch. Must be supplied if the subnet is of type vswitch.",
             "example": 1000,
+            "format": "int64",
             "type": "integer"
           }
         },
@@ -6738,6 +6810,7 @@
           "id": {
             "description": "ID of the Resource",
             "example": 42,
+            "format": "int64",
             "type": "integer"
           },
           "labels": {
@@ -6762,6 +6835,7 @@
           "server": {
             "description": "ID of the Server the Volume is attached to, null if it is not attached at all",
             "example": 12,
+            "format": "int64",
             "nullable": true,
             "type": "integer"
           },
@@ -6815,6 +6889,7 @@
             "name": "id",
             "required": false,
             "schema": {
+              "format": "int64",
               "type": "integer"
             }
           },
@@ -6914,6 +6989,7 @@
             "name": "id",
             "required": true,
             "schema": {
+              "format": "int64",
               "type": "integer"
             }
           }
@@ -7210,6 +7286,7 @@
             "name": "id",
             "required": true,
             "schema": {
+              "format": "int64",
               "type": "integer"
             }
           }
@@ -7234,6 +7311,7 @@
             "name": "id",
             "required": true,
             "schema": {
+              "format": "int64",
               "type": "integer"
             }
           }
@@ -7292,6 +7370,7 @@
             "name": "id",
             "required": true,
             "schema": {
+              "format": "int64",
               "type": "integer"
             }
           }
@@ -7361,6 +7440,7 @@
             "name": "id",
             "required": true,
             "schema": {
+              "format": "int64",
               "type": "integer"
             }
           },
@@ -7482,6 +7562,7 @@
             "name": "id",
             "required": true,
             "schema": {
+              "format": "int64",
               "type": "integer"
             }
           },
@@ -7491,6 +7572,7 @@
             "name": "action_id",
             "required": true,
             "schema": {
+              "format": "int64",
               "type": "integer"
             }
           }
@@ -7544,6 +7626,7 @@
             "name": "id",
             "required": true,
             "schema": {
+              "format": "int64",
               "type": "integer"
             }
           }
@@ -7630,6 +7713,7 @@
             "name": "id",
             "required": true,
             "schema": {
+              "format": "int64",
               "type": "integer"
             }
           }
@@ -7806,6 +7890,7 @@
             "name": "id",
             "required": true,
             "schema": {
+              "format": "int64",
               "type": "integer"
             }
           }
@@ -7830,6 +7915,7 @@
             "name": "id",
             "required": true,
             "schema": {
+              "format": "int64",
               "type": "integer"
             }
           }
@@ -7861,6 +7947,7 @@
             "name": "id",
             "required": true,
             "schema": {
+              "format": "int64",
               "type": "integer"
             }
           }
@@ -7903,6 +7990,7 @@
             "name": "id",
             "required": true,
             "schema": {
+              "format": "int64",
               "type": "integer"
             }
           },
@@ -8024,6 +8112,7 @@
             "name": "id",
             "required": true,
             "schema": {
+              "format": "int64",
               "type": "integer"
             }
           },
@@ -8033,6 +8122,7 @@
             "name": "action_id",
             "required": true,
             "schema": {
+              "format": "int64",
               "type": "integer"
             }
           }
@@ -8086,6 +8176,7 @@
             "name": "id",
             "required": true,
             "schema": {
+              "format": "int64",
               "type": "integer"
             }
           }
@@ -8164,6 +8255,7 @@
             "name": "id",
             "required": true,
             "schema": {
+              "format": "int64",
               "type": "integer"
             }
           }
@@ -8242,6 +8334,7 @@
             "name": "id",
             "required": true,
             "schema": {
+              "format": "int64",
               "type": "integer"
             }
           }
@@ -8509,6 +8602,7 @@
             "name": "id",
             "required": true,
             "schema": {
+              "format": "int64",
               "type": "integer"
             }
           }
@@ -8533,6 +8627,7 @@
             "name": "id",
             "required": true,
             "schema": {
+              "format": "int64",
               "type": "integer"
             }
           }
@@ -8564,6 +8659,7 @@
             "name": "id",
             "required": true,
             "schema": {
+              "format": "int64",
               "type": "integer"
             }
           }
@@ -8640,6 +8736,7 @@
             "name": "id",
             "required": true,
             "schema": {
+              "format": "int64",
               "type": "integer"
             }
           },
@@ -8765,6 +8862,7 @@
             "name": "id",
             "required": true,
             "schema": {
+              "format": "int64",
               "type": "integer"
             }
           },
@@ -8774,6 +8872,7 @@
             "name": "action_id",
             "required": true,
             "schema": {
+              "format": "int64",
               "type": "integer"
             }
           }
@@ -8831,6 +8930,7 @@
             "name": "id",
             "required": true,
             "schema": {
+              "format": "int64",
               "type": "integer"
             }
           }
@@ -8897,6 +8997,7 @@
             "name": "id",
             "required": true,
             "schema": {
+              "format": "int64",
               "type": "integer"
             }
           }
@@ -8960,6 +9061,7 @@
             "name": "id",
             "required": true,
             "schema": {
+              "format": "int64",
               "type": "integer"
             }
           }
@@ -9022,6 +9124,7 @@
             "name": "id",
             "required": true,
             "schema": {
+              "format": "int64",
               "type": "integer"
             }
           }
@@ -9217,6 +9320,7 @@
             "name": "id",
             "required": true,
             "schema": {
+              "format": "int64",
               "type": "integer"
             }
           }
@@ -9241,6 +9345,7 @@
             "name": "id",
             "required": true,
             "schema": {
+              "format": "int64",
               "type": "integer"
             }
           }
@@ -9272,6 +9377,7 @@
             "name": "id",
             "required": true,
             "schema": {
+              "format": "int64",
               "type": "integer"
             }
           }
@@ -9344,6 +9450,7 @@
             "name": "id",
             "required": true,
             "schema": {
+              "format": "int64",
               "type": "integer"
             }
           },
@@ -9465,6 +9572,7 @@
             "name": "id",
             "required": true,
             "schema": {
+              "format": "int64",
               "type": "integer"
             }
           },
@@ -9474,6 +9582,7 @@
             "name": "action_id",
             "required": true,
             "schema": {
+              "format": "int64",
               "type": "integer"
             }
           }
@@ -9527,6 +9636,7 @@
             "name": "id",
             "required": true,
             "schema": {
+              "format": "int64",
               "type": "integer"
             }
           }
@@ -9661,6 +9771,7 @@
             "name": "id",
             "required": true,
             "schema": {
+              "format": "int64",
               "type": "integer"
             }
           }
@@ -10042,6 +10153,7 @@
             "name": "id",
             "required": true,
             "schema": {
+              "format": "int64",
               "type": "integer"
             }
           }
@@ -10066,6 +10178,7 @@
             "name": "id",
             "required": true,
             "schema": {
+              "format": "int64",
               "type": "integer"
             }
           }
@@ -10097,6 +10210,7 @@
             "name": "id",
             "required": true,
             "schema": {
+              "format": "int64",
               "type": "integer"
             }
           }
@@ -10276,6 +10390,7 @@
             "name": "id",
             "required": true,
             "schema": {
+              "format": "int64",
               "type": "integer"
             }
           },
@@ -10397,6 +10512,7 @@
             "name": "id",
             "required": true,
             "schema": {
+              "format": "int64",
               "type": "integer"
             }
           },
@@ -10406,6 +10522,7 @@
             "name": "action_id",
             "required": true,
             "schema": {
+              "format": "int64",
               "type": "integer"
             }
           }
@@ -10459,6 +10576,7 @@
             "name": "id",
             "required": true,
             "schema": {
+              "format": "int64",
               "type": "integer"
             }
           }
@@ -10521,6 +10639,7 @@
             "name": "id",
             "required": true,
             "schema": {
+              "format": "int64",
               "type": "integer"
             }
           }
@@ -10583,6 +10702,7 @@
             "name": "id",
             "required": true,
             "schema": {
+              "format": "int64",
               "type": "integer"
             }
           }
@@ -10645,6 +10765,7 @@
             "name": "id",
             "required": true,
             "schema": {
+              "format": "int64",
               "type": "integer"
             }
           }
@@ -10707,6 +10828,7 @@
             "name": "id",
             "required": true,
             "schema": {
+              "format": "int64",
               "type": "integer"
             }
           }
@@ -10770,6 +10892,7 @@
             "name": "id",
             "required": true,
             "schema": {
+              "format": "int64",
               "type": "integer"
             }
           }
@@ -10832,6 +10955,7 @@
             "name": "id",
             "required": true,
             "schema": {
+              "format": "int64",
               "type": "integer"
             }
           }
@@ -10894,6 +11018,7 @@
             "name": "id",
             "required": true,
             "schema": {
+              "format": "int64",
               "type": "integer"
             }
           }
@@ -10956,6 +11081,7 @@
             "name": "id",
             "required": true,
             "schema": {
+              "format": "int64",
               "type": "integer"
             }
           }
@@ -11022,6 +11148,7 @@
             "name": "id",
             "required": true,
             "schema": {
+              "format": "int64",
               "type": "integer"
             }
           }
@@ -11079,6 +11206,7 @@
             "name": "id",
             "required": true,
             "schema": {
+              "format": "int64",
               "type": "integer"
             }
           }
@@ -11136,6 +11264,7 @@
             "name": "id",
             "required": true,
             "schema": {
+              "format": "int64",
               "type": "integer"
             }
           }
@@ -11198,6 +11327,7 @@
             "name": "id",
             "required": true,
             "schema": {
+              "format": "int64",
               "type": "integer"
             }
           }
@@ -11260,6 +11390,7 @@
             "name": "id",
             "required": true,
             "schema": {
+              "format": "int64",
               "type": "integer"
             }
           },
@@ -11389,6 +11520,7 @@
             "name": "id",
             "required": true,
             "schema": {
+              "format": "int64",
               "type": "integer"
             }
           }
@@ -11514,6 +11646,7 @@
             "name": "id",
             "required": true,
             "schema": {
+              "format": "int64",
               "type": "integer"
             }
           }
@@ -11538,6 +11671,7 @@
             "name": "id",
             "required": true,
             "schema": {
+              "format": "int64",
               "type": "integer"
             }
           }
@@ -11569,6 +11703,7 @@
             "name": "id",
             "required": true,
             "schema": {
+              "format": "int64",
               "type": "integer"
             }
           }
@@ -11645,6 +11780,7 @@
             "name": "id",
             "required": true,
             "schema": {
+              "format": "int64",
               "type": "integer"
             }
           },
@@ -11766,6 +11902,7 @@
             "name": "id",
             "required": true,
             "schema": {
+              "format": "int64",
               "type": "integer"
             }
           },
@@ -11775,6 +11912,7 @@
             "name": "action_id",
             "required": true,
             "schema": {
+              "format": "int64",
               "type": "integer"
             }
           }
@@ -11828,6 +11966,7 @@
             "name": "id",
             "required": true,
             "schema": {
+              "format": "int64",
               "type": "integer"
             }
           }
@@ -11890,6 +12029,7 @@
             "name": "id",
             "required": true,
             "schema": {
+              "format": "int64",
               "type": "integer"
             }
           }
@@ -11952,6 +12092,7 @@
             "name": "id",
             "required": true,
             "schema": {
+              "format": "int64",
               "type": "integer"
             }
           }
@@ -12014,6 +12155,7 @@
             "name": "id",
             "required": true,
             "schema": {
+              "format": "int64",
               "type": "integer"
             }
           }
@@ -12076,6 +12218,7 @@
             "name": "id",
             "required": true,
             "schema": {
+              "format": "int64",
               "type": "integer"
             }
           }
@@ -12138,6 +12281,7 @@
             "name": "id",
             "required": true,
             "schema": {
+              "format": "int64",
               "type": "integer"
             }
           }
@@ -12368,6 +12512,7 @@
             "name": "id",
             "required": true,
             "schema": {
+              "format": "int64",
               "type": "integer"
             }
           }
@@ -12392,6 +12537,7 @@
             "name": "id",
             "required": true,
             "schema": {
+              "format": "int64",
               "type": "integer"
             }
           }
@@ -12438,6 +12584,7 @@
             "name": "id",
             "required": true,
             "schema": {
+              "format": "int64",
               "type": "integer"
             }
           }
@@ -12712,6 +12859,7 @@
             "name": "id",
             "required": true,
             "schema": {
+              "format": "int64",
               "type": "integer"
             }
           }
@@ -12736,6 +12884,7 @@
             "name": "id",
             "required": true,
             "schema": {
+              "format": "int64",
               "type": "integer"
             }
           }
@@ -12767,6 +12916,7 @@
             "name": "id",
             "required": true,
             "schema": {
+              "format": "int64",
               "type": "integer"
             }
           }
@@ -12809,6 +12959,7 @@
             "name": "id",
             "required": true,
             "schema": {
+              "format": "int64",
               "type": "integer"
             }
           }
@@ -12875,6 +13026,7 @@
             "name": "id",
             "required": true,
             "schema": {
+              "format": "int64",
               "type": "integer"
             }
           }
@@ -12938,6 +13090,7 @@
             "name": "id",
             "required": true,
             "schema": {
+              "format": "int64",
               "type": "integer"
             }
           }
@@ -13000,6 +13153,7 @@
             "name": "id",
             "required": true,
             "schema": {
+              "format": "int64",
               "type": "integer"
             }
           }
@@ -13474,6 +13628,7 @@
             "name": "id",
             "required": true,
             "schema": {
+              "format": "int64",
               "type": "integer"
             }
           }
@@ -13505,6 +13660,7 @@
             "name": "id",
             "required": true,
             "schema": {
+              "format": "int64",
               "type": "integer"
             }
           }
@@ -13536,6 +13692,7 @@
             "name": "id",
             "required": true,
             "schema": {
+              "format": "int64",
               "type": "integer"
             }
           }
@@ -13578,6 +13735,7 @@
             "name": "id",
             "required": true,
             "schema": {
+              "format": "int64",
               "type": "integer"
             }
           },
@@ -13699,6 +13857,7 @@
             "name": "id",
             "required": true,
             "schema": {
+              "format": "int64",
               "type": "integer"
             }
           },
@@ -13708,6 +13867,7 @@
             "name": "action_id",
             "required": true,
             "schema": {
+              "format": "int64",
               "type": "integer"
             }
           }
@@ -13761,6 +13921,7 @@
             "name": "id",
             "required": true,
             "schema": {
+              "format": "int64",
               "type": "integer"
             }
           }
@@ -13823,6 +13984,7 @@
             "name": "id",
             "required": true,
             "schema": {
+              "format": "int64",
               "type": "integer"
             }
           }
@@ -13885,6 +14047,7 @@
             "name": "id",
             "required": true,
             "schema": {
+              "format": "int64",
               "type": "integer"
             }
           }
@@ -13951,6 +14114,7 @@
             "name": "id",
             "required": true,
             "schema": {
+              "format": "int64",
               "type": "integer"
             }
           }
@@ -14017,6 +14181,7 @@
             "name": "id",
             "required": true,
             "schema": {
+              "format": "int64",
               "type": "integer"
             }
           }
@@ -14080,6 +14245,7 @@
             "name": "id",
             "required": true,
             "schema": {
+              "format": "int64",
               "type": "integer"
             }
           }
@@ -14142,6 +14308,7 @@
             "name": "id",
             "required": true,
             "schema": {
+              "format": "int64",
               "type": "integer"
             }
           }
@@ -14204,6 +14371,7 @@
             "name": "id",
             "required": true,
             "schema": {
+              "format": "int64",
               "type": "integer"
             }
           }
@@ -14293,6 +14461,7 @@
             "name": "id",
             "required": true,
             "schema": {
+              "format": "int64",
               "type": "integer"
             }
           }
@@ -14359,6 +14528,7 @@
             "name": "id",
             "required": true,
             "schema": {
+              "format": "int64",
               "type": "integer"
             }
           }
@@ -14412,6 +14582,7 @@
             "name": "id",
             "required": true,
             "schema": {
+              "format": "int64",
               "type": "integer"
             }
           }
@@ -14465,6 +14636,7 @@
             "name": "id",
             "required": true,
             "schema": {
+              "format": "int64",
               "type": "integer"
             }
           }
@@ -14518,6 +14690,7 @@
             "name": "id",
             "required": true,
             "schema": {
+              "format": "int64",
               "type": "integer"
             }
           }
@@ -14571,6 +14744,7 @@
             "name": "id",
             "required": true,
             "schema": {
+              "format": "int64",
               "type": "integer"
             }
           }
@@ -14634,6 +14808,7 @@
             "name": "id",
             "required": true,
             "schema": {
+              "format": "int64",
               "type": "integer"
             }
           }
@@ -14687,6 +14862,7 @@
             "name": "id",
             "required": true,
             "schema": {
+              "format": "int64",
               "type": "integer"
             }
           }
@@ -14740,6 +14916,7 @@
             "name": "id",
             "required": true,
             "schema": {
+              "format": "int64",
               "type": "integer"
             }
           }
@@ -14793,6 +14970,7 @@
             "name": "id",
             "required": true,
             "schema": {
+              "format": "int64",
               "type": "integer"
             }
           }
@@ -14857,6 +15035,7 @@
             "name": "id",
             "required": true,
             "schema": {
+              "format": "int64",
               "type": "integer"
             }
           }
@@ -14910,6 +15089,7 @@
             "name": "id",
             "required": true,
             "schema": {
+              "format": "int64",
               "type": "integer"
             }
           }
@@ -14965,6 +15145,7 @@
             "name": "id",
             "required": true,
             "schema": {
+              "format": "int64",
               "type": "integer"
             }
           }
@@ -15018,6 +15199,7 @@
             "name": "id",
             "required": true,
             "schema": {
+              "format": "int64",
               "type": "integer"
             }
           }
@@ -15072,6 +15254,7 @@
             "name": "id",
             "required": true,
             "schema": {
+              "format": "int64",
               "type": "integer"
             }
           }
@@ -15125,6 +15308,7 @@
             "name": "id",
             "required": true,
             "schema": {
+              "format": "int64",
               "type": "integer"
             }
           },
@@ -15317,7 +15501,8 @@
             "name": "id",
             "required": true,
             "schema": {
-              "type": "string"
+              "format": "int64",
+              "type": "integer"
             }
           }
         ],
@@ -15341,6 +15526,7 @@
             "name": "id",
             "required": true,
             "schema": {
+              "format": "int64",
               "type": "integer"
             }
           }
@@ -15372,7 +15558,8 @@
             "name": "id",
             "required": true,
             "schema": {
-              "type": "string"
+              "format": "int64",
+              "type": "integer"
             }
           }
         ],
@@ -15635,7 +15822,8 @@
             "name": "id",
             "required": true,
             "schema": {
-              "type": "string"
+              "format": "int64",
+              "type": "integer"
             }
           }
         ],
@@ -15659,6 +15847,7 @@
             "name": "id",
             "required": true,
             "schema": {
+              "format": "int64",
               "type": "integer"
             }
           }
@@ -15690,7 +15879,8 @@
             "name": "id",
             "required": true,
             "schema": {
-              "type": "string"
+              "format": "int64",
+              "type": "integer"
             }
           }
         ],
@@ -15760,6 +15950,7 @@
             "name": "id",
             "required": true,
             "schema": {
+              "format": "int64",
               "type": "integer"
             }
           },
@@ -15885,6 +16076,7 @@
             "name": "id",
             "required": true,
             "schema": {
+              "format": "int64",
               "type": "integer"
             }
           },
@@ -15894,6 +16086,7 @@
             "name": "action_id",
             "required": true,
             "schema": {
+              "format": "int64",
               "type": "integer"
             }
           }
@@ -15947,6 +16140,7 @@
             "name": "id",
             "required": true,
             "schema": {
+              "format": "int64",
               "type": "integer"
             }
           }
@@ -16013,6 +16207,7 @@
             "name": "id",
             "required": true,
             "schema": {
+              "format": "int64",
               "type": "integer"
             }
           }
@@ -16079,6 +16274,7 @@
             "name": "id",
             "required": true,
             "schema": {
+              "format": "int64",
               "type": "integer"
             }
           }
@@ -16132,6 +16328,7 @@
             "name": "id",
             "required": true,
             "schema": {
+              "format": "int64",
               "type": "integer"
             }
           }
