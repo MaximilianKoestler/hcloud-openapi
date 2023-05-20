@@ -6322,6 +6322,12 @@
             "example": 1,
             "type": "integer"
           },
+          "included_traffic": {
+            "description": "Free traffic per month in bytes",
+            "example": 654321,
+            "type": "integer",
+            "format": "int64"
+          },
           "memory": {
             "description": "Memory a Server of this type will have in GB",
             "example": 1,
@@ -6359,7 +6365,8 @@
           "prices",
           "storage_type",
           "cpu_type",
-          "architecture"
+          "architecture",
+          "included_traffic"
         ],
         "type": "object"
       },
