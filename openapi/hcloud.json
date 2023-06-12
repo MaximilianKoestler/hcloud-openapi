@@ -6,7 +6,7 @@
     "contact": {
       "url": "https://docs.hetzner.cloud/"
     },
-    "version": "60a2f38"
+    "version": "a76fb54"
   },
   "servers": [
     {
@@ -9423,7 +9423,6 @@
                   "image": {
                     "architecture": "x86",
                     "bound_to": null,
-                    "build_id": "c313fe40383af26094a5a92026054320ab55abc7",
                     "created": "2016-01-30T23:50:00+00:00",
                     "created_from": {
                       "id": 1,
