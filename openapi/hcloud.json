@@ -6,7 +6,7 @@
     "contact": {
       "url": "https://docs.hetzner.cloud/"
     },
-    "version": "a76fb54"
+    "version": "9da9ae0"
   },
   "servers": [
     {
@@ -15269,7 +15269,7 @@
     },
     "/servers/{id}/actions/shutdown": {
       "post": {
-        "description": "Shuts down a Server gracefully by sending an ACPI shutdown request. The Server operating system must support ACPI and react to the request, otherwise the Server will not shut down.",
+        "description": "Shuts down a Server gracefully by sending an ACPI shutdown request. The Server operating system must support ACPI\nand react to the request, otherwise the Server will not shut down. Please note that the `action` status in this case\nonly reflects whether the action was sent to the server. It does not mean that the server actually shut down\nsuccessfully. If you need to ensure that the server is off, use the `poweroff` action\n",
         "parameters": [
           {
             "description": "ID of the Server",
