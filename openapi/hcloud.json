@@ -6,7 +6,7 @@
     "contact": {
       "url": "https://docs.hetzner.cloud/"
     },
-    "version": "9da9ae0"
+    "version": "857eac3"
   },
   "servers": [
     {
@@ -1544,6 +1544,11 @@
       },
       "create_network_request": {
         "properties": {
+          "expose_routes_to_vswitch": {
+            "description": "Indicates if the routes from this network should be exposed to the vSwitch connection. The exposing only takes effect if a vSwitch connection is active.",
+            "example": false,
+            "type": "boolean"
+          },
           "ip_range": {
             "description": "IP range of the whole network which must span all included subnets. Must be one of the private IPv4 ranges of RFC1918. Minimum network size is /24. We highly recommend that you pick a larger network with a /16 netmask.",
             "example": "10.0.0.0/16",
@@ -5016,6 +5021,11 @@
             "example": "2016-01-30T23:50:00+00:00",
             "type": "string"
           },
+          "expose_routes_to_vswitch": {
+            "description": "Indicates if the routes from this network should be exposed to the vSwitch connection.",
+            "example": false,
+            "type": "boolean"
+          },
           "id": {
             "description": "ID of the Network",
             "example": 4711,
@@ -5084,7 +5094,8 @@
           "servers",
           "protection",
           "labels",
-          "created"
+          "created",
+          "expose_routes_to_vswitch"
         ],
         "type": "object"
       },
@@ -5527,6 +5538,11 @@
       },
       "replace_network_request": {
         "properties": {
+          "expose_routes_to_vswitch": {
+            "description": "Indicates if the routes from this network should be exposed to the vSwitch connection. The exposing only takes effect if a vSwitch connection is active.",
+            "example": false,
+            "type": "boolean"
+          },
           "labels": {
             "$ref": "#/components/schemas/labels"
           },
@@ -11747,6 +11763,7 @@
                 "example": {
                   "network": {
                     "created": "2016-01-30T23:50:00+00:00",
+                    "expose_routes_to_vswitch": true,
                     "id": 4711,
                     "ip_range": "10.0.0.0/16",
                     "labels": {
