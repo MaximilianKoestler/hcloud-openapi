@@ -6,7 +6,7 @@
     "contact": {
       "url": "https://docs.hetzner.cloud/"
     },
-    "version": "857eac3"
+    "version": "8e7d10a"
   },
   "servers": [
     {
@@ -1545,7 +1545,7 @@
       "create_network_request": {
         "properties": {
           "expose_routes_to_vswitch": {
-            "description": "Indicates if the routes from this network should be exposed to the vSwitch connection. The exposing only takes effect if a vSwitch connection is active.",
+            "description": "Indicates if the routes from this network should be exposed to the vSwitch connection. The exposing only takes effect if a vSwitch connection is active.\n\nCurrently the default route 0.0.0.0/0 is not exposed to the vSwitch connection. We are aware of the issue and are working on a solution.\n",
             "example": false,
             "type": "boolean"
           },
@@ -5022,7 +5022,7 @@
             "type": "string"
           },
           "expose_routes_to_vswitch": {
-            "description": "Indicates if the routes from this network should be exposed to the vSwitch connection.",
+            "description": "Indicates if the routes from this network should be exposed to the vSwitch connection. The exposing only takes effect if a vSwitch connection is active.\n\nCurrently the default route 0.0.0.0/0 is not exposed to the vSwitch connection. We are aware of the issue and are working on a solution.\n",
             "example": false,
             "type": "boolean"
           },
@@ -5539,7 +5539,7 @@
       "replace_network_request": {
         "properties": {
           "expose_routes_to_vswitch": {
-            "description": "Indicates if the routes from this network should be exposed to the vSwitch connection. The exposing only takes effect if a vSwitch connection is active.",
+            "description": "Indicates if the routes from this network should be exposed to the vSwitch connection. The exposing only takes effect if a vSwitch connection is active.\n\nCurrently the default route 0.0.0.0/0 is not exposed to the vSwitch connection. We are aware of the issue and are working on a solution.\n",
             "example": false,
             "type": "boolean"
           },
