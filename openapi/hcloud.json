@@ -6,7 +6,7 @@
     "contact": {
       "url": "https://docs.hetzner.cloud/"
     },
-    "version": "8e7d10a"
+    "version": "5dbcf43"
   },
   "servers": [
     {
@@ -6723,6 +6723,13 @@
               "vswitch"
             ],
             "type": "string"
+          },
+          "vswitch_id": {
+            "description": "ID of the robot vSwitch if the subnet is of type vswitch.",
+            "example": 1000,
+            "format": "int64",
+            "nullable": true,
+            "type": "integer"
           }
         },
         "required": [
