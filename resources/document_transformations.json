@@ -25,6 +25,7 @@
       "required": ["firewall"]
     }
   },
+
   {
     "path": ["components", "schemas", "image", "properties", "os_flavor", "enum"],
     "add": "rocky",
@@ -35,6 +36,17 @@
     "add": "rocky",
     "sort": true
   },
+  {
+    "path": ["components", "schemas", "image", "properties", "os_flavor", "enum"],
+    "add": "alma",
+    "sort": true
+  },
+  {
+    "path": ["components", "schemas", "image_optional", "properties", "os_flavor", "enum"],
+    "add": "alma",
+    "sort": true
+  },
+
   {
     "path": ["components", "schemas", "metrics", "properties", "time_series"],
     "set": {

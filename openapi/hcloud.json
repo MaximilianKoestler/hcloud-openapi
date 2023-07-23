@@ -6,7 +6,7 @@
     "contact": {
       "url": "https://docs.hetzner.cloud/"
     },
-    "version": "66cfcc4-dirty"
+    "version": "02c6830-dirty"
   },
   "servers": [
     {
@@ -3294,6 +3294,7 @@
           "os_flavor": {
             "description": "Flavor of operating system contained in the Image",
             "enum": [
+              "alma",
               "centos",
               "debian",
               "fedora",
@@ -3428,6 +3429,7 @@
           "os_flavor": {
             "description": "Flavor of operating system contained in the Image",
             "enum": [
+              "alma",
               "centos",
               "debian",
               "fedora",
