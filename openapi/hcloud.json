@@ -6,7 +6,7 @@
     "contact": {
       "url": "https://docs.hetzner.cloud/"
     },
-    "version": "cce7a49"
+    "version": "66cfcc4-dirty"
   },
   "servers": [
     {
@@ -7031,7 +7031,7 @@
         "description": "Returns a specific Action object.",
         "parameters": [
           {
-            "description": "ID of the Resource",
+            "description": "ID of the Action",
             "in": "path",
             "name": "id",
             "required": true,
@@ -7822,7 +7822,7 @@
         "description": "Returns a specific Action object.",
         "parameters": [
           {
-            "description": "ID of the Resource",
+            "description": "ID of the Action",
             "in": "path",
             "name": "id",
             "required": true,
@@ -8716,7 +8716,7 @@
         "description": "Returns a specific Action object.",
         "parameters": [
           {
-            "description": "ID of the Resource",
+            "description": "ID of the Action",
             "in": "path",
             "name": "id",
             "required": true,
@@ -9592,7 +9592,7 @@
         "description": "Returns a specific Action object.",
         "parameters": [
           {
-            "description": "ID of the Resource",
+            "description": "ID of the Action",
             "in": "path",
             "name": "id",
             "required": true,
@@ -10242,7 +10242,7 @@
         "description": "Returns a specific Action object.",
         "parameters": [
           {
-            "description": "ID of the Resource",
+            "description": "ID of the Action",
             "in": "path",
             "name": "id",
             "required": true,
@@ -12143,7 +12143,7 @@
         "description": "Returns a specific Action object.",
         "parameters": [
           {
-            "description": "ID of the Resource",
+            "description": "ID of the Action",
             "in": "path",
             "name": "id",
             "required": true,
@@ -13156,7 +13156,7 @@
         "description": "Returns a specific Action object.",
         "parameters": [
           {
-            "description": "ID of the Resource",
+            "description": "ID of the Action",
             "in": "path",
             "name": "id",
             "required": true,
@@ -14157,7 +14157,7 @@
         "description": "Returns a specific Action object.",
         "parameters": [
           {
-            "description": "ID of the Resource",
+            "description": "ID of the Action",
             "in": "path",
             "name": "id",
             "required": true,
@@ -16463,7 +16463,7 @@
         "description": "Returns a specific Action object.",
         "parameters": [
           {
-            "description": "ID of the Resource",
+            "description": "ID of the Action",
             "in": "path",
             "name": "id",
             "required": true,
@@ -17605,7 +17605,7 @@
         "description": "Returns a specific Action object.",
         "parameters": [
           {
-            "description": "ID of the Resource",
+            "description": "ID of the Action",
             "in": "path",
             "name": "id",
             "required": true,

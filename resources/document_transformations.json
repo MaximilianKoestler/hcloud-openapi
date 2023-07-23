@@ -96,6 +96,12 @@
       "operationId": "get_primary_ip_action"
     }
   },
+  {
+    "path": ["paths", "/primary_ips/actions/{id}", "get", "parameters", 0],
+    "set": {
+      "description": "ID of the Action"
+    }
+  },
 
   {
     "path": ["paths", "/certificates/actions", "get"],
@@ -107,6 +113,12 @@
     "path": ["paths", "/certificates/actions/{id}", "get"],
     "set": {
       "operationId": "get_certificate_action"
+    }
+  },
+  {
+    "path": ["paths", "/certificates/actions/{id}", "get", "parameters", 0],
+    "set": {
+      "description": "ID of the Action"
     }
   },
 
@@ -122,6 +134,12 @@
       "operationId": "get_firewall_action"
     }
   },
+  {
+    "path": ["paths", "/firewalls/actions/{id}", "get", "parameters", 0],
+    "set": {
+      "description": "ID of the Action"
+    }
+  },
 
   {
     "path": ["paths", "/images/actions", "get"],
@@ -133,6 +151,12 @@
     "path": ["paths", "/images/actions/{id}", "get"],
     "set": {
       "operationId": "get_image_action"
+    }
+  },
+  {
+    "path": ["paths", "/images/actions/{id}", "get", "parameters", 0],
+    "set": {
+      "description": "ID of the Action"
     }
   },
 
@@ -148,6 +172,12 @@
       "operationId": "get_load_balancer_action"
     }
   },
+  {
+    "path": ["paths", "/load_balancers/actions/{id}", "get", "parameters", 0],
+    "set": {
+      "description": "ID of the Action"
+    }
+  },
 
   {
     "path": ["paths", "/floating_ips/actions", "get"],
@@ -159,6 +189,12 @@
     "path": ["paths", "/floating_ips/actions/{id}", "get"],
     "set": {
       "operationId": "get_floating_ip_action"
+    }
+  },
+  {
+    "path": ["paths", "/floating_ips/actions/{id}", "get", "parameters", 0],
+    "set": {
+      "description": "ID of the Action"
     }
   },
 
@@ -174,6 +210,12 @@
       "operationId": "get_network_action"
     }
   },
+  {
+    "path": ["paths", "/networks/actions/{id}", "get", "parameters", 0],
+    "set": {
+      "description": "ID of the Action"
+    }
+  },
 
   {
     "path": ["paths", "/servers/actions", "get"],
@@ -187,6 +229,12 @@
       "operationId": "get_server_action"
     }
   },
+  {
+    "path": ["paths", "/servers/actions/{id}", "get", "parameters", 0],
+    "set": {
+      "description": "ID of the Action"
+    }
+  },
 
   {
     "path": ["paths", "/volumes/actions", "get"],
@@ -198,6 +246,12 @@
     "path": ["paths", "/volumes/actions/{id}", "get"],
     "set": {
       "operationId": "get_volume_action"
+    }
+  },
+  {
+    "path": ["paths", "/volumes/actions/{id}", "get", "parameters", 0],
+    "set": {
+      "description": "ID of the Action"
     }
   },
 
@@ -214,6 +268,12 @@
     }
   },
 
+  {
+    "path": ["paths", "/actions/{id}", "get", "parameters", 0],
+    "set": {
+      "description": "ID of the Action"
+    }
+  },
   {
     "path": ["components", "schemas", "action", "properties", "id"],
     "set": {
