@@ -6,7 +6,7 @@
     "contact": {
       "url": "https://docs.hetzner.cloud/"
     },
-    "version": "5dbcf43"
+    "version": "3feafd8-dirty"
   },
   "servers": [
     {
@@ -93,7 +93,7 @@
         "properties": {
           "command": {
             "description": "Command executed in the Action",
-            "example": "start_server",
+            "example": "start_resource",
             "type": "string"
           },
           "error": {
@@ -157,7 +157,7 @@
         "properties": {
           "command": {
             "description": "Command executed in the Action",
-            "example": "start_server",
+            "example": "start_resource",
             "type": "string"
           },
           "error": {
@@ -2832,7 +2832,7 @@
         ],
         "title": "ActionResponse",
         "type": "object",
-        "description": "Response to GET https://api.hetzner.cloud/v1/actions/{id}"
+        "description": "Response to GET https://api.hetzner.cloud/v1/{resource}/actions"
       },
       "get_certificate_response": {
         "properties": {
@@ -3858,7 +3858,7 @@
         ],
         "title": "ActionsResponse",
         "type": "object",
-        "description": "Response to GET https://api.hetzner.cloud/v1/actions"
+        "description": "Response to GET https://api.hetzner.cloud/v1/{resource}/actions/{id}"
       },
       "list_certificates_response": {
         "properties": {
@@ -7717,6 +7717,140 @@
         "operationId": "retry_issuance_or_renewal"
       }
     },
+    "/certificates/actions": {
+      "get": {
+        "description": "Returns all Action objects. You can `sort` the results by using the sort URI parameter, and filter them with the `status` and `id` parameter.",
+        "parameters": [
+          {
+            "description": "Can be used multiple times, the response will contain only Actions with specified IDs",
+            "in": "query",
+            "name": "id",
+            "required": false,
+            "schema": {
+              "format": "int64",
+              "type": "integer"
+            }
+          },
+          {
+            "description": "Can be used multiple times.",
+            "in": "query",
+            "name": "sort",
+            "required": false,
+            "schema": {
+              "enum": [
+                "id",
+                "id:asc",
+                "id:desc",
+                "command",
+                "command:asc",
+                "command:desc",
+                "status",
+                "status:asc",
+                "status:desc",
+                "progress",
+                "progress:asc",
+                "progress:desc",
+                "started",
+                "started:asc",
+                "started:desc",
+                "finished",
+                "finished:asc",
+                "finished:desc"
+              ],
+              "title": "ParameterSort",
+              "type": "string"
+            }
+          },
+          {
+            "description": "Can be used multiple times, the response will contain only Actions with specified statuses",
+            "in": "query",
+            "name": "status",
+            "required": false,
+            "schema": {
+              "enum": [
+                "running",
+                "success",
+                "error"
+              ],
+              "title": "ParameterStatus",
+              "type": "string"
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "Specifies the page to fetch. The number of the first page is 1",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 1
+            }
+          },
+          {
+            "name": "per_page",
+            "in": "query",
+            "description": "Specifies the number of items returned per page. The default value is 25, the maximum value is 50 except otherwise specified in the documentation.",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 50
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/list_actions_response"
+                }
+              }
+            },
+            "description": "The `actions` key contains a list of Actions"
+          }
+        },
+        "summary": "Get all Actions",
+        "tags": [
+          "certificates"
+        ],
+        "operationId": "list_certificate_actions"
+      }
+    },
+    "/certificates/actions/{id}": {
+      "get": {
+        "description": "Returns a specific Action object.",
+        "parameters": [
+          {
+            "description": "ID of the Resource",
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "format": "int64",
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/get_action_response"
+                }
+              }
+            },
+            "description": "The `action` key in the reply has this structure"
+          }
+        },
+        "summary": "Get an Action",
+        "tags": [
+          "certificates"
+        ],
+        "operationId": "get_certificate_action"
+      }
+    },
     "/datacenters": {
       "get": {
         "description": "Returns all Datacenter objects.",
@@ -8477,6 +8611,140 @@
         "operationId": "set_rules"
       }
     },
+    "/firewalls/actions": {
+      "get": {
+        "description": "Returns all Action objects. You can `sort` the results by using the sort URI parameter, and filter them with the `status` and `id` parameter.",
+        "parameters": [
+          {
+            "description": "Can be used multiple times, the response will contain only Actions with specified IDs",
+            "in": "query",
+            "name": "id",
+            "required": false,
+            "schema": {
+              "format": "int64",
+              "type": "integer"
+            }
+          },
+          {
+            "description": "Can be used multiple times.",
+            "in": "query",
+            "name": "sort",
+            "required": false,
+            "schema": {
+              "enum": [
+                "id",
+                "id:asc",
+                "id:desc",
+                "command",
+                "command:asc",
+                "command:desc",
+                "status",
+                "status:asc",
+                "status:desc",
+                "progress",
+                "progress:asc",
+                "progress:desc",
+                "started",
+                "started:asc",
+                "started:desc",
+                "finished",
+                "finished:asc",
+                "finished:desc"
+              ],
+              "title": "ParameterSort",
+              "type": "string"
+            }
+          },
+          {
+            "description": "Can be used multiple times, the response will contain only Actions with specified statuses",
+            "in": "query",
+            "name": "status",
+            "required": false,
+            "schema": {
+              "enum": [
+                "running",
+                "success",
+                "error"
+              ],
+              "title": "ParameterStatus",
+              "type": "string"
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "Specifies the page to fetch. The number of the first page is 1",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 1
+            }
+          },
+          {
+            "name": "per_page",
+            "in": "query",
+            "description": "Specifies the number of items returned per page. The default value is 25, the maximum value is 50 except otherwise specified in the documentation.",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 50
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/list_actions_response"
+                }
+              }
+            },
+            "description": "The `actions` key contains a list of Actions"
+          }
+        },
+        "summary": "Get all Actions",
+        "tags": [
+          "firewalls"
+        ],
+        "operationId": "list_firewall_actions"
+      }
+    },
+    "/firewalls/actions/{id}": {
+      "get": {
+        "description": "Returns a specific Action object.",
+        "parameters": [
+          {
+            "description": "ID of the Resource",
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "format": "int64",
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/get_action_response"
+                }
+              }
+            },
+            "description": "The `action` key in the reply has this structure"
+          }
+        },
+        "summary": "Get an Action",
+        "tags": [
+          "firewalls"
+        ],
+        "operationId": "get_firewall_action"
+      }
+    },
     "/floating_ips": {
       "get": {
         "description": "Returns all Floating IP objects.",
@@ -9219,6 +9487,140 @@
         "operationId": "unassign_floating_ip"
       }
     },
+    "/floating_ips/actions": {
+      "get": {
+        "description": "Returns all Action objects. You can `sort` the results by using the sort URI parameter, and filter them with the `status` and `id` parameter.",
+        "parameters": [
+          {
+            "description": "Can be used multiple times, the response will contain only Actions with specified IDs",
+            "in": "query",
+            "name": "id",
+            "required": false,
+            "schema": {
+              "format": "int64",
+              "type": "integer"
+            }
+          },
+          {
+            "description": "Can be used multiple times.",
+            "in": "query",
+            "name": "sort",
+            "required": false,
+            "schema": {
+              "enum": [
+                "id",
+                "id:asc",
+                "id:desc",
+                "command",
+                "command:asc",
+                "command:desc",
+                "status",
+                "status:asc",
+                "status:desc",
+                "progress",
+                "progress:asc",
+                "progress:desc",
+                "started",
+                "started:asc",
+                "started:desc",
+                "finished",
+                "finished:asc",
+                "finished:desc"
+              ],
+              "title": "ParameterSort",
+              "type": "string"
+            }
+          },
+          {
+            "description": "Can be used multiple times, the response will contain only Actions with specified statuses",
+            "in": "query",
+            "name": "status",
+            "required": false,
+            "schema": {
+              "enum": [
+                "running",
+                "success",
+                "error"
+              ],
+              "title": "ParameterStatus",
+              "type": "string"
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "Specifies the page to fetch. The number of the first page is 1",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 1
+            }
+          },
+          {
+            "name": "per_page",
+            "in": "query",
+            "description": "Specifies the number of items returned per page. The default value is 25, the maximum value is 50 except otherwise specified in the documentation.",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 50
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/list_actions_response"
+                }
+              }
+            },
+            "description": "The `actions` key contains a list of Actions"
+          }
+        },
+        "summary": "Get all Actions",
+        "tags": [
+          "floating_ips"
+        ],
+        "operationId": "list_floating_ip_actions"
+      }
+    },
+    "/floating_ips/actions/{id}": {
+      "get": {
+        "description": "Returns a specific Action object.",
+        "parameters": [
+          {
+            "description": "ID of the Resource",
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "format": "int64",
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/get_action_response"
+                }
+              }
+            },
+            "description": "The `action` key in the reply has this structure"
+          }
+        },
+        "summary": "Get an Action",
+        "tags": [
+          "floating_ips"
+        ],
+        "operationId": "get_floating_ip_action"
+      }
+    },
     "/images": {
       "get": {
         "description": "Returns all Image objects. You can select specific Image types only and sort the results by using URI parameters.",
@@ -9733,6 +10135,140 @@
           "images"
         ],
         "operationId": "change_image_protection"
+      }
+    },
+    "/images/actions": {
+      "get": {
+        "description": "Returns all Action objects. You can `sort` the results by using the sort URI parameter, and filter them with the `status` and `id` parameter.",
+        "parameters": [
+          {
+            "description": "Can be used multiple times, the response will contain only Actions with specified IDs",
+            "in": "query",
+            "name": "id",
+            "required": false,
+            "schema": {
+              "format": "int64",
+              "type": "integer"
+            }
+          },
+          {
+            "description": "Can be used multiple times.",
+            "in": "query",
+            "name": "sort",
+            "required": false,
+            "schema": {
+              "enum": [
+                "id",
+                "id:asc",
+                "id:desc",
+                "command",
+                "command:asc",
+                "command:desc",
+                "status",
+                "status:asc",
+                "status:desc",
+                "progress",
+                "progress:asc",
+                "progress:desc",
+                "started",
+                "started:asc",
+                "started:desc",
+                "finished",
+                "finished:asc",
+                "finished:desc"
+              ],
+              "title": "ParameterSort",
+              "type": "string"
+            }
+          },
+          {
+            "description": "Can be used multiple times, the response will contain only Actions with specified statuses",
+            "in": "query",
+            "name": "status",
+            "required": false,
+            "schema": {
+              "enum": [
+                "running",
+                "success",
+                "error"
+              ],
+              "title": "ParameterStatus",
+              "type": "string"
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "Specifies the page to fetch. The number of the first page is 1",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 1
+            }
+          },
+          {
+            "name": "per_page",
+            "in": "query",
+            "description": "Specifies the number of items returned per page. The default value is 25, the maximum value is 50 except otherwise specified in the documentation.",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 50
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/list_actions_response"
+                }
+              }
+            },
+            "description": "The `actions` key contains a list of Actions"
+          }
+        },
+        "summary": "Get all Actions",
+        "tags": [
+          "images"
+        ],
+        "operationId": "list_image_actions"
+      }
+    },
+    "/images/actions/{id}": {
+      "get": {
+        "description": "Returns a specific Action object.",
+        "parameters": [
+          {
+            "description": "ID of the Resource",
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "format": "int64",
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/get_action_response"
+                }
+              }
+            },
+            "description": "The `action` key in the reply has this structure"
+          }
+        },
+        "summary": "Get an Action",
+        "tags": [
+          "images"
+        ],
+        "operationId": "get_image_action"
       }
     },
     "/isos": {
@@ -11502,6 +12038,140 @@
         "operationId": "get_metrics_for_loadbalancer"
       }
     },
+    "/load_balancers/actions": {
+      "get": {
+        "description": "Returns all Action objects. You can `sort` the results by using the sort URI parameter, and filter them with the `status` and `id` parameter.",
+        "parameters": [
+          {
+            "description": "Can be used multiple times, the response will contain only Actions with specified IDs",
+            "in": "query",
+            "name": "id",
+            "required": false,
+            "schema": {
+              "format": "int64",
+              "type": "integer"
+            }
+          },
+          {
+            "description": "Can be used multiple times.",
+            "in": "query",
+            "name": "sort",
+            "required": false,
+            "schema": {
+              "enum": [
+                "id",
+                "id:asc",
+                "id:desc",
+                "command",
+                "command:asc",
+                "command:desc",
+                "status",
+                "status:asc",
+                "status:desc",
+                "progress",
+                "progress:asc",
+                "progress:desc",
+                "started",
+                "started:asc",
+                "started:desc",
+                "finished",
+                "finished:asc",
+                "finished:desc"
+              ],
+              "title": "ParameterSort",
+              "type": "string"
+            }
+          },
+          {
+            "description": "Can be used multiple times, the response will contain only Actions with specified statuses",
+            "in": "query",
+            "name": "status",
+            "required": false,
+            "schema": {
+              "enum": [
+                "running",
+                "success",
+                "error"
+              ],
+              "title": "ParameterStatus",
+              "type": "string"
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "Specifies the page to fetch. The number of the first page is 1",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 1
+            }
+          },
+          {
+            "name": "per_page",
+            "in": "query",
+            "description": "Specifies the number of items returned per page. The default value is 25, the maximum value is 50 except otherwise specified in the documentation.",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 50
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/list_actions_response"
+                }
+              }
+            },
+            "description": "The `actions` key contains a list of Actions"
+          }
+        },
+        "summary": "Get all Actions",
+        "tags": [
+          "load_balancers"
+        ],
+        "operationId": "list_load_balancer_actions"
+      }
+    },
+    "/load_balancers/actions/{id}": {
+      "get": {
+        "description": "Returns a specific Action object.",
+        "parameters": [
+          {
+            "description": "ID of the Resource",
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "format": "int64",
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/get_action_response"
+                }
+              }
+            },
+            "description": "The `action` key in the reply has this structure"
+          }
+        },
+        "summary": "Get an Action",
+        "tags": [
+          "load_balancers"
+        ],
+        "operationId": "get_load_balancer_action"
+      }
+    },
     "/locations": {
       "get": {
         "description": "Returns all Location objects.",
@@ -12381,6 +13051,140 @@
         "operationId": "delete_subnet_from_network"
       }
     },
+    "/networks/actions": {
+      "get": {
+        "description": "Returns all Action objects. You can `sort` the results by using the sort URI parameter, and filter them with the `status` and `id` parameter.",
+        "parameters": [
+          {
+            "description": "Can be used multiple times, the response will contain only Actions with specified IDs",
+            "in": "query",
+            "name": "id",
+            "required": false,
+            "schema": {
+              "format": "int64",
+              "type": "integer"
+            }
+          },
+          {
+            "description": "Can be used multiple times.",
+            "in": "query",
+            "name": "sort",
+            "required": false,
+            "schema": {
+              "enum": [
+                "id",
+                "id:asc",
+                "id:desc",
+                "command",
+                "command:asc",
+                "command:desc",
+                "status",
+                "status:asc",
+                "status:desc",
+                "progress",
+                "progress:asc",
+                "progress:desc",
+                "started",
+                "started:asc",
+                "started:desc",
+                "finished",
+                "finished:asc",
+                "finished:desc"
+              ],
+              "title": "ParameterSort",
+              "type": "string"
+            }
+          },
+          {
+            "description": "Can be used multiple times, the response will contain only Actions with specified statuses",
+            "in": "query",
+            "name": "status",
+            "required": false,
+            "schema": {
+              "enum": [
+                "running",
+                "success",
+                "error"
+              ],
+              "title": "ParameterStatus",
+              "type": "string"
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "Specifies the page to fetch. The number of the first page is 1",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 1
+            }
+          },
+          {
+            "name": "per_page",
+            "in": "query",
+            "description": "Specifies the number of items returned per page. The default value is 25, the maximum value is 50 except otherwise specified in the documentation.",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 50
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/list_actions_response"
+                }
+              }
+            },
+            "description": "The `actions` key contains a list of Actions"
+          }
+        },
+        "summary": "Get all Actions",
+        "tags": [
+          "networks"
+        ],
+        "operationId": "list_network_actions"
+      }
+    },
+    "/networks/actions/{id}": {
+      "get": {
+        "description": "Returns a specific Action object.",
+        "parameters": [
+          {
+            "description": "ID of the Resource",
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "format": "int64",
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/get_action_response"
+                }
+              }
+            },
+            "description": "The `action` key in the reply has this structure"
+          }
+        },
+        "summary": "Get an Action",
+        "tags": [
+          "networks"
+        ],
+        "operationId": "get_network_action"
+      }
+    },
     "/placement_groups": {
       "get": {
         "description": "Returns all PlacementGroup objects.",
@@ -13246,6 +14050,140 @@
           "primary_ips"
         ],
         "operationId": "unassign_primary_ip_from_resource"
+      }
+    },
+    "/primary_ips/actions": {
+      "get": {
+        "description": "Returns all Action objects. You can `sort` the results by using the sort URI parameter, and filter them with the `status` and `id` parameter.",
+        "parameters": [
+          {
+            "description": "Can be used multiple times, the response will contain only Actions with specified IDs",
+            "in": "query",
+            "name": "id",
+            "required": false,
+            "schema": {
+              "format": "int64",
+              "type": "integer"
+            }
+          },
+          {
+            "description": "Can be used multiple times.",
+            "in": "query",
+            "name": "sort",
+            "required": false,
+            "schema": {
+              "enum": [
+                "id",
+                "id:asc",
+                "id:desc",
+                "command",
+                "command:asc",
+                "command:desc",
+                "status",
+                "status:asc",
+                "status:desc",
+                "progress",
+                "progress:asc",
+                "progress:desc",
+                "started",
+                "started:asc",
+                "started:desc",
+                "finished",
+                "finished:asc",
+                "finished:desc"
+              ],
+              "title": "ParameterSort",
+              "type": "string"
+            }
+          },
+          {
+            "description": "Can be used multiple times, the response will contain only Actions with specified statuses",
+            "in": "query",
+            "name": "status",
+            "required": false,
+            "schema": {
+              "enum": [
+                "running",
+                "success",
+                "error"
+              ],
+              "title": "ParameterStatus",
+              "type": "string"
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "Specifies the page to fetch. The number of the first page is 1",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 1
+            }
+          },
+          {
+            "name": "per_page",
+            "in": "query",
+            "description": "Specifies the number of items returned per page. The default value is 25, the maximum value is 50 except otherwise specified in the documentation.",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 50
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/list_actions_response"
+                }
+              }
+            },
+            "description": "The `actions` key contains a list of Actions"
+          }
+        },
+        "summary": "Get all Actions",
+        "tags": [
+          "primary_ips"
+        ],
+        "operationId": "list_primary_ip_actions"
+      }
+    },
+    "/primary_ips/actions/{id}": {
+      "get": {
+        "description": "Returns a specific Action object.",
+        "parameters": [
+          {
+            "description": "ID of the Resource",
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "format": "int64",
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/get_action_response"
+                }
+              }
+            },
+            "description": "The `action` key in the reply has this structure"
+          }
+        },
+        "summary": "Get an Action",
+        "tags": [
+          "primary_ips"
+        ],
+        "operationId": "get_primary_ip_action"
       }
     },
     "/server_types": {
@@ -15420,6 +16358,140 @@
         "operationId": "get_metrics_for_server"
       }
     },
+    "/servers/actions": {
+      "get": {
+        "description": "Returns all Action objects. You can `sort` the results by using the sort URI parameter, and filter them with the `status` and `id` parameter.",
+        "parameters": [
+          {
+            "description": "Can be used multiple times, the response will contain only Actions with specified IDs",
+            "in": "query",
+            "name": "id",
+            "required": false,
+            "schema": {
+              "format": "int64",
+              "type": "integer"
+            }
+          },
+          {
+            "description": "Can be used multiple times.",
+            "in": "query",
+            "name": "sort",
+            "required": false,
+            "schema": {
+              "enum": [
+                "id",
+                "id:asc",
+                "id:desc",
+                "command",
+                "command:asc",
+                "command:desc",
+                "status",
+                "status:asc",
+                "status:desc",
+                "progress",
+                "progress:asc",
+                "progress:desc",
+                "started",
+                "started:asc",
+                "started:desc",
+                "finished",
+                "finished:asc",
+                "finished:desc"
+              ],
+              "title": "ParameterSort",
+              "type": "string"
+            }
+          },
+          {
+            "description": "Can be used multiple times, the response will contain only Actions with specified statuses",
+            "in": "query",
+            "name": "status",
+            "required": false,
+            "schema": {
+              "enum": [
+                "running",
+                "success",
+                "error"
+              ],
+              "title": "ParameterStatus",
+              "type": "string"
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "Specifies the page to fetch. The number of the first page is 1",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 1
+            }
+          },
+          {
+            "name": "per_page",
+            "in": "query",
+            "description": "Specifies the number of items returned per page. The default value is 25, the maximum value is 50 except otherwise specified in the documentation.",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 50
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/list_actions_response"
+                }
+              }
+            },
+            "description": "The `actions` key contains a list of Actions"
+          }
+        },
+        "summary": "Get all Actions",
+        "tags": [
+          "servers"
+        ],
+        "operationId": "list_server_actions"
+      }
+    },
+    "/servers/actions/{id}": {
+      "get": {
+        "description": "Returns a specific Action object.",
+        "parameters": [
+          {
+            "description": "ID of the Resource",
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "format": "int64",
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/get_action_response"
+                }
+              }
+            },
+            "description": "The `action` key in the reply has this structure"
+          }
+        },
+        "summary": "Get an Action",
+        "tags": [
+          "servers"
+        ],
+        "operationId": "get_server_action"
+      }
+    },
     "/ssh_keys": {
       "get": {
         "description": "Returns all SSH key objects.",
@@ -16426,6 +17498,140 @@
           "volumes"
         ],
         "operationId": "resize_volume"
+      }
+    },
+    "/volumes/actions": {
+      "get": {
+        "description": "Returns all Action objects. You can `sort` the results by using the sort URI parameter, and filter them with the `status` and `id` parameter.",
+        "parameters": [
+          {
+            "description": "Can be used multiple times, the response will contain only Actions with specified IDs",
+            "in": "query",
+            "name": "id",
+            "required": false,
+            "schema": {
+              "format": "int64",
+              "type": "integer"
+            }
+          },
+          {
+            "description": "Can be used multiple times.",
+            "in": "query",
+            "name": "sort",
+            "required": false,
+            "schema": {
+              "enum": [
+                "id",
+                "id:asc",
+                "id:desc",
+                "command",
+                "command:asc",
+                "command:desc",
+                "status",
+                "status:asc",
+                "status:desc",
+                "progress",
+                "progress:asc",
+                "progress:desc",
+                "started",
+                "started:asc",
+                "started:desc",
+                "finished",
+                "finished:asc",
+                "finished:desc"
+              ],
+              "title": "ParameterSort",
+              "type": "string"
+            }
+          },
+          {
+            "description": "Can be used multiple times, the response will contain only Actions with specified statuses",
+            "in": "query",
+            "name": "status",
+            "required": false,
+            "schema": {
+              "enum": [
+                "running",
+                "success",
+                "error"
+              ],
+              "title": "ParameterStatus",
+              "type": "string"
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "Specifies the page to fetch. The number of the first page is 1",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 1
+            }
+          },
+          {
+            "name": "per_page",
+            "in": "query",
+            "description": "Specifies the number of items returned per page. The default value is 25, the maximum value is 50 except otherwise specified in the documentation.",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 50
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/list_actions_response"
+                }
+              }
+            },
+            "description": "The `actions` key contains a list of Actions"
+          }
+        },
+        "summary": "Get all Actions",
+        "tags": [
+          "volumes"
+        ],
+        "operationId": "list_volume_actions"
+      }
+    },
+    "/volumes/actions/{id}": {
+      "get": {
+        "description": "Returns a specific Action object.",
+        "parameters": [
+          {
+            "description": "ID of the Resource",
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "format": "int64",
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/get_action_response"
+                }
+              }
+            },
+            "description": "The `action` key in the reply has this structure"
+          }
+        },
+        "summary": "Get an Action",
+        "tags": [
+          "volumes"
+        ],
+        "operationId": "get_volume_action"
       }
     }
   },

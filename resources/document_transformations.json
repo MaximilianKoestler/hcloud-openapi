@@ -82,5 +82,135 @@
     "set": {
       "title": "ListPricesResponsePricingServerTypes"
     }
+  },
+
+  {
+    "path": ["paths", "/primary_ips/actions", "get"],
+    "set": {
+      "operationId": "list_primary_ip_actions"
+    }
+  },
+  {
+    "path": ["paths", "/primary_ips/actions/{id}", "get"],
+    "set": {
+      "operationId": "get_primary_ip_action"
+    }
+  },
+
+  {
+    "path": ["paths", "/certificates/actions", "get"],
+    "set": {
+      "operationId": "list_certificate_actions"
+    }
+  },
+  {
+    "path": ["paths", "/certificates/actions/{id}", "get"],
+    "set": {
+      "operationId": "get_certificate_action"
+    }
+  },
+
+  {
+    "path": ["paths", "/firewalls/actions", "get"],
+    "set": {
+      "operationId": "list_firewall_actions"
+    }
+  },
+  {
+    "path": ["paths", "/firewalls/actions/{id}", "get"],
+    "set": {
+      "operationId": "get_firewall_action"
+    }
+  },
+
+  {
+    "path": ["paths", "/images/actions", "get"],
+    "set": {
+      "operationId": "list_image_actions"
+    }
+  },
+  {
+    "path": ["paths", "/images/actions/{id}", "get"],
+    "set": {
+      "operationId": "get_image_action"
+    }
+  },
+
+  {
+    "path": ["paths", "/load_balancers/actions", "get"],
+    "set": {
+      "operationId": "list_load_balancer_actions"
+    }
+  },
+  {
+    "path": ["paths", "/load_balancers/actions/{id}", "get"],
+    "set": {
+      "operationId": "get_load_balancer_action"
+    }
+  },
+
+  {
+    "path": ["paths", "/floating_ips/actions", "get"],
+    "set": {
+      "operationId": "list_floating_ip_actions"
+    }
+  },
+  {
+    "path": ["paths", "/floating_ips/actions/{id}", "get"],
+    "set": {
+      "operationId": "get_floating_ip_action"
+    }
+  },
+
+  {
+    "path": ["paths", "/networks/actions", "get"],
+    "set": {
+      "operationId": "list_network_actions"
+    }
+  },
+  {
+    "path": ["paths", "/networks/actions/{id}", "get"],
+    "set": {
+      "operationId": "get_network_action"
+    }
+  },
+
+  {
+    "path": ["paths", "/servers/actions", "get"],
+    "set": {
+      "operationId": "list_server_actions"
+    }
+  },
+  {
+    "path": ["paths", "/servers/actions/{id}", "get"],
+    "set": {
+      "operationId": "get_server_action"
+    }
+  },
+
+  {
+    "path": ["paths", "/volumes/actions", "get"],
+    "set": {
+      "operationId": "list_volume_actions"
+    }
+  },
+  {
+    "path": ["paths", "/volumes/actions/{id}", "get"],
+    "set": {
+      "operationId": "get_volume_action"
+    }
+  },
+
+  {
+    "path": ["components", "schemas", "list_actions_response"],
+    "set": {
+      "description": "Response to GET https://api.hetzner.cloud/v1/{resource}/actions/{id}"
+    }
+  },
+  {
+    "path": ["components", "schemas", "get_action_response"],
+    "set": {
+      "description": "Response to GET https://api.hetzner.cloud/v1/{resource}/actions"
+    }
   }
 ]
