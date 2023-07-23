@@ -212,5 +212,18 @@
     "set": {
       "description": "Response to GET https://api.hetzner.cloud/v1/{resource}/actions"
     }
+  },
+
+  {
+    "path": ["components", "schemas", "action", "properties", "id"],
+    "set": {
+      "description": "ID of the Action"
+    }
+  },
+  {
+    "path": ["components", "schemas", "action_optional", "properties", "id"],
+    "set": {
+      "description": "ID of the Action"
+    }
   }
 ]

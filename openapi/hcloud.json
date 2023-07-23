@@ -6,7 +6,7 @@
     "contact": {
       "url": "https://docs.hetzner.cloud/"
     },
-    "version": "3feafd8-dirty"
+    "version": "6702678-dirty"
   },
   "servers": [
     {
@@ -106,7 +106,7 @@
             "type": "string"
           },
           "id": {
-            "description": "ID of the Resource",
+            "description": "ID of the Action",
             "example": 42,
             "format": "int64",
             "type": "integer"
@@ -170,7 +170,7 @@
             "type": "string"
           },
           "id": {
-            "description": "ID of the Resource",
+            "description": "ID of the Action",
             "example": 42,
             "format": "int64",
             "type": "integer"
