@@ -6,7 +6,7 @@
     "contact": {
       "url": "https://docs.hetzner.cloud/"
     },
-    "version": "c54d5e9"
+    "version": "aa169b2-dirty"
   },
   "servers": [
     {
@@ -1889,7 +1889,8 @@
               456
             ],
             "items": {
-              "type": "integer"
+              "type": "integer",
+              "format": "int64"
             },
             "type": "array"
           },
@@ -1954,7 +1955,8 @@
               123
             ],
             "items": {
-              "type": "integer"
+              "type": "integer",
+              "format": "int64"
             },
             "type": "array"
           }
@@ -2108,7 +2110,8 @@
           "id": {
             "description": "ID of the Server the Image was created from",
             "example": 1,
-            "type": "integer"
+            "type": "integer",
+            "format": "int64"
           },
           "name": {
             "description": "Server name at the time the Image was created",
@@ -2154,7 +2157,8 @@
                   3
                 ],
                 "items": {
-                  "type": "integer"
+                  "type": "integer",
+                  "format": "int64"
                 },
                 "type": "array"
               },
@@ -2166,7 +2170,8 @@
                   3
                 ],
                 "items": {
-                  "type": "integer"
+                  "type": "integer",
+                  "format": "int64"
                 },
                 "type": "array"
               },
@@ -2178,7 +2183,8 @@
                   3
                 ],
                 "items": {
-                  "type": "integer"
+                  "type": "integer",
+                  "format": "int64"
                 },
                 "type": "array"
               }
@@ -2456,7 +2462,8 @@
               2323
             ],
             "items": {
-              "type": "integer"
+              "type": "integer",
+              "format": "int64"
             },
             "type": "array"
           },
@@ -3200,7 +3207,8 @@
               897
             ],
             "items": {
-              "type": "integer"
+              "type": "integer",
+              "format": "int64"
             },
             "type": "array"
           },
@@ -6129,7 +6137,8 @@
           },
           "load_balancers": {
             "items": {
-              "type": "integer"
+              "type": "integer",
+              "format": "int64"
             },
             "type": "array"
           },
@@ -6356,7 +6365,8 @@
               478
             ],
             "items": {
-              "type": "integer"
+              "type": "integer",
+              "format": "int64"
             },
             "type": "array"
           },

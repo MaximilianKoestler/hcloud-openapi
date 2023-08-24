@@ -12,6 +12,12 @@
     }
   },
   {
+    "path": ["components", "schemas", "server", "properties", "load_balancers", "items"],
+    "set": {
+      "format": "int64"
+    }
+  },
+  {
     "path": ["components", "schemas", "create_server_request", "properties", "firewalls", "items"],
     "set": {
       "required": ["firewall"]

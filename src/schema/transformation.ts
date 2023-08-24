@@ -63,6 +63,26 @@ function fixItem(part: OpenApiDocumentFragment, location: string[]) {
     part.format = "int64";
   }
 
+  // hack to make everything that looks like an ID an int64
+  const id_description = /^((ID)|(Network ID)|(Volume IDs)|(Array of SSH key IDs))/;
+  if (
+    (location.length > 3 && location[1] !== "meta" && location[2] !== "pagination") &&
+    part.type == "integer" &&
+    part.format === undefined &&
+    id_description.test(part.description)
+  ) {
+    part.format = "int64";
+  }
+  if (
+    (location.length <= 3 || (location[1] !== "meta" && location[2] !== "pagination")) &&
+    part.type == "array" &&
+    part.items?.type === "integer" &&
+    part.items?.format === undefined &&
+    id_description.test(part.description)
+  ) {
+    part.items.format = "int64";
+  }
+
   // add additionalProperties to mark labels as key/value pairs
   if (part.type == "object" && location[location.length - 1] == "labels") {
     part["additionalProperties"] = {
