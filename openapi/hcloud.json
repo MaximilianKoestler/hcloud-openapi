@@ -6,7 +6,7 @@
     "contact": {
       "url": "https://docs.hetzner.cloud/"
     },
-    "version": "e52686e-dirty"
+    "version": "52ffa58"
   },
   "servers": [
     {
@@ -1889,8 +1889,8 @@
               456
             ],
             "items": {
-              "type": "integer",
-              "format": "int64"
+              "format": "int64",
+              "type": "integer"
             },
             "type": "array"
           },
@@ -1955,8 +1955,8 @@
               123
             ],
             "items": {
-              "type": "integer",
-              "format": "int64"
+              "format": "int64",
+              "type": "integer"
             },
             "type": "array"
           }
@@ -2110,8 +2110,8 @@
           "id": {
             "description": "ID of the Server the Image was created from",
             "example": 1,
-            "type": "integer",
-            "format": "int64"
+            "format": "int64",
+            "type": "integer"
           },
           "name": {
             "description": "Server name at the time the Image was created",
@@ -2157,8 +2157,8 @@
                   3
                 ],
                 "items": {
-                  "type": "integer",
-                  "format": "int64"
+                  "format": "int64",
+                  "type": "integer"
                 },
                 "type": "array"
               },
@@ -2170,8 +2170,8 @@
                   3
                 ],
                 "items": {
-                  "type": "integer",
-                  "format": "int64"
+                  "format": "int64",
+                  "type": "integer"
                 },
                 "type": "array"
               },
@@ -2183,8 +2183,8 @@
                   3
                 ],
                 "items": {
-                  "type": "integer",
-                  "format": "int64"
+                  "format": "int64",
+                  "type": "integer"
                 },
                 "type": "array"
               }
@@ -2462,8 +2462,8 @@
               2323
             ],
             "items": {
-              "type": "integer",
-              "format": "int64"
+              "format": "int64",
+              "type": "integer"
             },
             "type": "array"
           },
@@ -3207,8 +3207,8 @@
               897
             ],
             "items": {
-              "type": "integer",
-              "format": "int64"
+              "format": "int64",
+              "type": "integer"
             },
             "type": "array"
           },
@@ -3903,8 +3903,8 @@
           "recommendation": {
             "description": "The Datacenter which is recommended to be used to create new Servers.",
             "example": 1,
-            "type": "integer",
-            "format": "int64"
+            "format": "int64",
+            "type": "integer"
           }
         },
         "required": [
@@ -6138,8 +6138,8 @@
           },
           "load_balancers": {
             "items": {
-              "type": "integer",
-              "format": "int64"
+              "format": "int64",
+              "type": "integer"
             },
             "type": "array"
           },
@@ -6366,8 +6366,8 @@
               478
             ],
             "items": {
-              "type": "integer",
-              "format": "int64"
+              "format": "int64",
+              "type": "integer"
             },
             "type": "array"
           },
@@ -6974,9 +6974,6 @@
                 "status",
                 "status:asc",
                 "status:desc",
-                "progress",
-                "progress:asc",
-                "progress:desc",
                 "started",
                 "started:asc",
                 "started:desc",
@@ -7525,9 +7522,6 @@
                 "status",
                 "status:asc",
                 "status:desc",
-                "progress",
-                "progress:asc",
-                "progress:desc",
                 "started",
                 "started:asc",
                 "started:desc",
@@ -7765,9 +7759,6 @@
                 "status",
                 "status:asc",
                 "status:desc",
-                "progress",
-                "progress:asc",
-                "progress:desc",
                 "started",
                 "started:asc",
                 "started:desc",
@@ -8247,9 +8238,6 @@
                 "status",
                 "status:asc",
                 "status:desc",
-                "progress",
-                "progress:asc",
-                "progress:desc",
                 "started",
                 "started:asc",
                 "started:desc",
@@ -8697,9 +8685,6 @@
                 "status",
                 "status:asc",
                 "status:desc",
-                "progress",
-                "progress:asc",
-                "progress:desc",
                 "started",
                 "started:asc",
                 "started:desc",
@@ -9127,9 +9112,6 @@
                 "status",
                 "status:asc",
                 "status:desc",
-                "progress",
-                "progress:asc",
-                "progress:desc",
                 "started",
                 "started:asc",
                 "started:desc",
@@ -9573,9 +9555,6 @@
                 "status",
                 "status:asc",
                 "status:desc",
-                "progress",
-                "progress:asc",
-                "progress:desc",
                 "started",
                 "started:asc",
                 "started:desc",
@@ -9974,9 +9953,6 @@
                 "status",
                 "status:asc",
                 "status:desc",
-                "progress",
-                "progress:asc",
-                "progress:desc",
                 "started",
                 "started:asc",
                 "started:desc",
@@ -10223,9 +10199,6 @@
                 "status",
                 "status:asc",
                 "status:desc",
-                "progress",
-                "progress:asc",
-                "progress:desc",
                 "started",
                 "started:asc",
                 "started:desc",
@@ -11048,9 +11021,6 @@
                 "status",
                 "status:asc",
                 "status:desc",
-                "progress",
-                "progress:asc",
-                "progress:desc",
                 "started",
                 "started:asc",
                 "started:desc",
@@ -12124,9 +12094,6 @@
                 "status",
                 "status:asc",
                 "status:desc",
-                "progress",
-                "progress:asc",
-                "progress:desc",
                 "started",
                 "started:asc",
                 "started:desc",
@@ -12590,9 +12557,6 @@
                 "status",
                 "status:asc",
                 "status:desc",
-                "progress",
-                "progress:asc",
-                "progress:desc",
                 "started",
                 "started:asc",
                 "started:desc",
@@ -13154,9 +13118,6 @@
                 "status",
                 "status:asc",
                 "status:desc",
-                "progress",
-                "progress:asc",
-                "progress:desc",
                 "started",
                 "started:asc",
                 "started:desc",
@@ -14155,9 +14116,6 @@
                 "status",
                 "status:asc",
                 "status:desc",
-                "progress",
-                "progress:asc",
-                "progress:desc",
                 "started",
                 "started:asc",
                 "started:desc",
@@ -14813,9 +14771,6 @@
                 "status",
                 "status:asc",
                 "status:desc",
-                "progress",
-                "progress:asc",
-                "progress:desc",
                 "started",
                 "started:asc",
                 "started:desc",
@@ -16461,9 +16416,6 @@
                 "status",
                 "status:asc",
                 "status:desc",
-                "progress",
-                "progress:asc",
-                "progress:desc",
                 "started",
                 "started:asc",
                 "started:desc",
@@ -17162,9 +17114,6 @@
                 "status",
                 "status:asc",
                 "status:desc",
-                "progress",
-                "progress:asc",
-                "progress:desc",
                 "started",
                 "started:asc",
                 "started:desc",
@@ -17603,9 +17552,6 @@
                 "status",
                 "status:asc",
                 "status:desc",
-                "progress",
-                "progress:asc",
-                "progress:desc",
                 "started",
                 "started:asc",
                 "started:desc",
