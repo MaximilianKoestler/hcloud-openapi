@@ -18,6 +18,12 @@
     }
   },
   {
+    "path": ["components", "schemas", "list_datacenters_response", "properties", "recommendation"],
+    "set": {
+      "format": "int64"
+    }
+  },
+  {
     "path": ["components", "schemas", "create_server_request", "properties", "firewalls", "items"],
     "set": {
       "required": ["firewall"]

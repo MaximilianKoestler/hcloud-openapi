@@ -6,7 +6,7 @@
     "contact": {
       "url": "https://docs.hetzner.cloud/"
     },
-    "version": "aa169b2-dirty"
+    "version": "e52686e-dirty"
   },
   "servers": [
     {
@@ -3903,7 +3903,8 @@
           "recommendation": {
             "description": "The Datacenter which is recommended to be used to create new Servers.",
             "example": 1,
-            "type": "integer"
+            "type": "integer",
+            "format": "int64"
           }
         },
         "required": [
