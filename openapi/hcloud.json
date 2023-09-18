@@ -6,7 +6,7 @@
     "contact": {
       "url": "https://docs.hetzner.cloud/"
     },
-    "version": "6df8ad1-dirty"
+    "version": "7f60f32"
   },
   "servers": [
     {
@@ -5834,9 +5834,6 @@
             "type": "string"
           }
         },
-        "required": [
-          "name"
-        ],
         "title": "UpdateVolumeRequest",
         "type": "object",
         "description": "Request for PUT https://api.hetzner.cloud/v1/volumes/{id}"
