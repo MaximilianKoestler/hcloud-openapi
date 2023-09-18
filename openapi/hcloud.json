@@ -6,7 +6,7 @@
     "contact": {
       "url": "https://docs.hetzner.cloud/"
     },
-    "version": "7f60f32"
+    "version": "231fed8"
   },
   "servers": [
     {
@@ -1519,8 +1519,7 @@
         },
         "required": [
           "name",
-          "load_balancer_type",
-          "algorithm"
+          "load_balancer_type"
         ],
         "title": "CreateLoadBalancerRequest",
         "type": "object",
@@ -4615,7 +4614,7 @@
         "description": "Algorithm of the Load Balancer | Request for POST https://api.hetzner.cloud/v1/load_balancers/{id}/actions/change_algorithm",
         "properties": {
           "type": {
-            "description": "Type of the algorithm | Algorithm of the Load Balancer",
+            "description": "Type of the algorithm | Type of the algorithm. If omitted defaults to 'round_robin'. | Algorithm of the Load Balancer",
             "enum": [
               "least_connections",
               "round_robin"
