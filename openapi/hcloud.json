@@ -6,7 +6,7 @@
     "contact": {
       "url": "https://docs.hetzner.cloud/"
     },
-    "version": "231fed8"
+    "version": "2a5dc98"
   },
   "servers": [
     {
@@ -14632,7 +14632,7 @@
     },
     "/servers/{id}": {
       "delete": {
-        "description": "Deletes a Server. This immediately removes the Server from your account, and it is no longer accessible.",
+        "description": "Deletes a Server. This immediately removes the Server from your account, and it is no longer accessible. Any resources attached to the server (like Volumes, Primary IPs, Floating IPs, Firewalls, Placement Groups) are detached while the server is deleted.\n",
         "parameters": [
           {
             "description": "ID of the Server",
