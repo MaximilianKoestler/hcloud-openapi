@@ -6,7 +6,7 @@
     "contact": {
       "url": "https://docs.hetzner.cloud/"
     },
-    "version": "2a5dc98"
+    "version": "4e01d06"
   },
   "servers": [
     {
@@ -3212,7 +3212,7 @@
             "type": "array"
           },
           "cookie_lifetime": {
-            "description": "Lifetime of the cookie used for sticky sessions",
+            "description": "Lifetime of the cookie used for sticky sessions (in seconds)",
             "example": 300,
             "type": "integer"
           },
