@@ -6,7 +6,7 @@
     "contact": {
       "url": "https://docs.hetzner.cloud/"
     },
-    "version": "4e01d06"
+    "version": "3055679"
   },
   "servers": [
     {
@@ -3615,6 +3615,7 @@
               "private",
               "public"
             ],
+            "nullable": true,
             "type": "string"
           }
         },
@@ -3664,6 +3665,7 @@
               "private",
               "public"
             ],
+            "nullable": true,
             "type": "string"
           }
         },
