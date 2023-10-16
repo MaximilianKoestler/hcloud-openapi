@@ -56,6 +56,14 @@
     ]
   },
   {
+    "name": "deprecation",
+    "path": [
+      "list_isos_response",
+      "isos",
+      "deprecation"
+    ]
+  },
+  {
     "name": "dns_ptr",
     "path": [
       "list_floating_ips_response",

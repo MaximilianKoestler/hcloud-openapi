@@ -6,7 +6,7 @@
     "contact": {
       "url": "https://docs.hetzner.cloud/"
     },
-    "version": "13950ce"
+    "version": "e75cf79-dirty"
   },
   "servers": [
     {
@@ -2286,6 +2286,30 @@
         "type": "object",
         "description": "Response to POST https://api.hetzner.cloud/v1/networks/{id}/actions/delete_subnet"
       },
+      "deprecation": {
+        "description": "Describes if, when & how the resources was deprecated. If this field is\nset to `null` the resource is not deprecated. If it has a value, it is\nconsidered deprecated.\n",
+        "nullable": true,
+        "properties": {
+          "announced": {
+            "description": "Date of when the deprecation was announced.\n",
+            "example": "2023-06-01T00:00:00+00:00",
+            "format": "iso-8601",
+            "type": "string"
+          },
+          "unavailable_after": {
+            "description": "After the time in this field, the resource will not be available\nfrom the general listing endpoint of the resource type, and it \ncan not be used in new resources. For example, if this is an \nimage, you can not create new servers with this image after the \nmentioned date.\n",
+            "example": "2023-09-01T00:00:00+00:00",
+            "format": "iso-8601",
+            "type": "string"
+          }
+        },
+        "required": [
+          "unavailable_after",
+          "announced"
+        ],
+        "title": "DeprecationInfo",
+        "type": "object"
+      },
       "detach_iso_from_server_response": {
         "properties": {
           "action": {
@@ -3592,6 +3616,9 @@
             "nullable": true,
             "type": "string"
           },
+          "deprecation": {
+            "$ref": "#/components/schemas/deprecation"
+          },
           "description": {
             "description": "Description of the ISO",
             "example": "FreeBSD 11.0 x64",
@@ -3625,6 +3652,7 @@
           "description",
           "type",
           "deprecated",
+          "deprecation",
           "architecture"
         ],
         "type": "object"
@@ -3642,6 +3670,9 @@
             "nullable": true,
             "type": "string"
           },
+          "deprecation": {
+            "$ref": "#/components/schemas/deprecation"
+          },
           "description": {
             "description": "Description of the ISO",
             "example": "FreeBSD 11.0 x64",
@@ -3675,6 +3706,7 @@
           "description",
           "type",
           "deprecated",
+          "deprecation",
           "architecture"
         ],
         "type": "object"
@@ -6408,28 +6440,7 @@
             "nullable": true
           },
           "deprecation": {
-            "description": "Describes if, when & how the resources was deprecated. If this field is\nset to `null` the resource is not deprecated. If it has a value, it is\nconsidered deprecated.\n",
-            "nullable": true,
-            "properties": {
-              "announced": {
-                "description": "Date of when the deprecation was announced.\n",
-                "example": "2023-06-01T00:00:00+00:00",
-                "format": "iso-8601",
-                "type": "string"
-              },
-              "unavailable_after": {
-                "description": "After the time in this field, the resource will not be available\nfrom the general listing endpoint of the resource type, and it \ncan not be used in new resources. For example, if this is an \nimage, you can not create new servers with this image after the \nmentioned date.\n",
-                "example": "2023-09-01T00:00:00+00:00",
-                "format": "iso-8601",
-                "type": "string"
-              }
-            },
-            "required": [
-              "unavailable_after",
-              "announced"
-            ],
-            "title": "DeprecationInfo",
-            "type": "object"
+            "$ref": "#/components/schemas/deprecation"
           },
           "description": {
             "description": "Description of the Server type",
@@ -14536,6 +14547,10 @@
                     "iso": {
                       "architecture": "x86",
                       "deprecated": "2018-02-28T00:00:00+00:00",
+                      "deprecation": {
+                        "announced": "2018-02-28T00:00:00+00:00",
+                        "unavailable_after": "2018-05-31T00:00:00+00:00"
+                      },
                       "description": "FreeBSD 11.0 x64",
                       "id": 4711,
                       "name": "FreeBSD-11.0-RELEASE-amd64-dvd1",
