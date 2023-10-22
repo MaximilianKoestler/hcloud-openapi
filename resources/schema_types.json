@@ -56,7 +56,7 @@
     ]
   },
   {
-    "name": "deprecation",
+    "name": "deprecation_info",
     "path": [
       "list_isos_response",
       "isos",

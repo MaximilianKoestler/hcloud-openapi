@@ -6,7 +6,7 @@
     "contact": {
       "url": "https://docs.hetzner.cloud/"
     },
-    "version": "e75cf79-dirty"
+    "version": "b9a7fcd-dirty"
   },
   "servers": [
     {
@@ -2286,7 +2286,7 @@
         "type": "object",
         "description": "Response to POST https://api.hetzner.cloud/v1/networks/{id}/actions/delete_subnet"
       },
-      "deprecation": {
+      "deprecation_info": {
         "description": "Describes if, when & how the resources was deprecated. If this field is\nset to `null` the resource is not deprecated. If it has a value, it is\nconsidered deprecated.\n",
         "nullable": true,
         "properties": {
@@ -3617,7 +3617,7 @@
             "type": "string"
           },
           "deprecation": {
-            "$ref": "#/components/schemas/deprecation"
+            "$ref": "#/components/schemas/deprecation_info"
           },
           "description": {
             "description": "Description of the ISO",
@@ -3671,7 +3671,7 @@
             "type": "string"
           },
           "deprecation": {
-            "$ref": "#/components/schemas/deprecation"
+            "$ref": "#/components/schemas/deprecation_info"
           },
           "description": {
             "description": "Description of the ISO",
@@ -6440,7 +6440,7 @@
             "nullable": true
           },
           "deprecation": {
-            "$ref": "#/components/schemas/deprecation"
+            "$ref": "#/components/schemas/deprecation_info"
           },
           "description": {
             "description": "Description of the Server type",
