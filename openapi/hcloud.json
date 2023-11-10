@@ -6,7 +6,7 @@
     "contact": {
       "url": "https://docs.hetzner.cloud/"
     },
-    "version": "b9a7fcd-dirty"
+    "version": "e411db5"
   },
   "servers": [
     {
@@ -2297,7 +2297,7 @@
             "type": "string"
           },
           "unavailable_after": {
-            "description": "After the time in this field, the resource will not be available\nfrom the general listing endpoint of the resource type, and it \ncan not be used in new resources. For example, if this is an \nimage, you can not create new servers with this image after the \nmentioned date.\n",
+            "description": "After the time in this field, the resource will not be available\nfrom the general listing endpoint of the resource type, and it\ncan not be used in new resources. For example, if this is an\nimage, you can not create new servers with this image after the\nmentioned date.\n",
             "example": "2023-09-01T00:00:00+00:00",
             "format": "iso-8601",
             "type": "string"
