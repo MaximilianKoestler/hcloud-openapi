@@ -6,7 +6,7 @@
     "contact": {
       "url": "https://docs.hetzner.cloud/"
     },
-    "version": "e411db5"
+    "version": "e02c304"
   },
   "servers": [
     {
@@ -109,6 +109,8 @@
             "description": "ID of the Action",
             "example": 42,
             "format": "int64",
+            "maximum": 9007199254740991,
+            "title": "Action ID",
             "type": "integer"
           },
           "progress": {
@@ -173,6 +175,8 @@
             "description": "ID of the Action",
             "example": 42,
             "format": "int64",
+            "maximum": 9007199254740991,
+            "title": "Action ID",
             "type": "integer"
           },
           "progress": {
@@ -6958,12 +6962,16 @@
         "description": "Returns all Action objects. You can `sort` the results by using the sort URI parameter, and filter them with the `status` parameter.",
         "parameters": [
           {
-            "description": "Can be used multiple times, the response will contain only Actions with specified IDs",
+            "description": "Can be used multiple times, the response will contain only Actions with specified IDs.",
             "in": "query",
             "name": "id",
             "required": false,
             "schema": {
+              "description": "ID of the Action. Limited to 52 bits to ensure compatability with JSON double precision floats.",
+              "example": 42,
               "format": "int64",
+              "maximum": 9007199254740991,
+              "title": "Action ID",
               "type": "integer"
             }
           },
@@ -7506,12 +7514,16 @@
         "description": "Returns all Action objects for a Certificate. You can sort the results by using the `sort` URI parameter, and filter them with the `status` parameter.\n\nOnly type `managed` Certificates can have Actions. For type `uploaded` Certificates the `actions` key will always contain an empty array.\n",
         "parameters": [
           {
-            "description": "ID of the Resource",
+            "description": "ID of the Action.",
             "in": "path",
             "name": "id",
             "required": true,
             "schema": {
+              "description": "ID of the Action. Limited to 52 bits to ensure compatability with JSON double precision floats.",
+              "example": 42,
               "format": "int64",
+              "maximum": 9007199254740991,
+              "title": "Action ID",
               "type": "integer"
             }
           },
@@ -7743,12 +7755,16 @@
         "description": "Returns all Action objects. You can `sort` the results by using the sort URI parameter, and filter them with the `status` and `id` parameter.",
         "parameters": [
           {
-            "description": "Can be used multiple times, the response will contain only Actions with specified IDs",
+            "description": "Can be used multiple times, the response will contain only Actions with specified IDs.",
             "in": "query",
             "name": "id",
             "required": false,
             "schema": {
+              "description": "ID of the Action. Limited to 52 bits to ensure compatability with JSON double precision floats.",
+              "example": 42,
               "format": "int64",
+              "maximum": 9007199254740991,
+              "title": "Action ID",
               "type": "integer"
             }
           },
@@ -7845,7 +7861,11 @@
             "name": "id",
             "required": true,
             "schema": {
+              "description": "ID of the Action. Limited to 52 bits to ensure compatability with JSON double precision floats.",
+              "example": 42,
               "format": "int64",
+              "maximum": 9007199254740991,
+              "title": "Action ID",
               "type": "integer"
             }
           }
@@ -8222,12 +8242,16 @@
         "description": "Returns all Action objects for a Firewall. You can sort the results by using the `sort` URI parameter, and filter them with the `status` parameter.",
         "parameters": [
           {
-            "description": "ID of the Resource",
+            "description": "ID of the Action.",
             "in": "path",
             "name": "id",
             "required": true,
             "schema": {
+              "description": "ID of the Action. Limited to 52 bits to ensure compatability with JSON double precision floats.",
+              "example": 42,
               "format": "int64",
+              "maximum": 9007199254740991,
+              "title": "Action ID",
               "type": "integer"
             }
           },
@@ -8669,12 +8693,16 @@
         "description": "Returns all Action objects. You can `sort` the results by using the sort URI parameter, and filter them with the `status` and `id` parameter.",
         "parameters": [
           {
-            "description": "Can be used multiple times, the response will contain only Actions with specified IDs",
+            "description": "Can be used multiple times, the response will contain only Actions with specified IDs.",
             "in": "query",
             "name": "id",
             "required": false,
             "schema": {
+              "description": "ID of the Action. Limited to 52 bits to ensure compatability with JSON double precision floats.",
+              "example": 42,
               "format": "int64",
+              "maximum": 9007199254740991,
+              "title": "Action ID",
               "type": "integer"
             }
           },
@@ -9539,12 +9567,16 @@
         "description": "Returns all Action objects. You can `sort` the results by using the sort URI parameter, and filter them with the `status` and `id` parameter.",
         "parameters": [
           {
-            "description": "Can be used multiple times, the response will contain only Actions with specified IDs",
+            "description": "Can be used multiple times, the response will contain only Actions with specified IDs.",
             "in": "query",
             "name": "id",
             "required": false,
             "schema": {
+              "description": "ID of the Action. Limited to 52 bits to ensure compatability with JSON double precision floats.",
+              "example": 42,
               "format": "int64",
+              "maximum": 9007199254740991,
+              "title": "Action ID",
               "type": "integer"
             }
           },
@@ -9641,7 +9673,11 @@
             "name": "id",
             "required": true,
             "schema": {
+              "description": "ID of the Action. Limited to 52 bits to ensure compatability with JSON double precision floats.",
+              "example": 42,
               "format": "int64",
+              "maximum": 9007199254740991,
+              "title": "Action ID",
               "type": "integer"
             }
           }
@@ -10183,12 +10219,16 @@
         "description": "Returns all Action objects. You can `sort` the results by using the sort URI parameter, and filter them with the `status` and `id` parameter.",
         "parameters": [
           {
-            "description": "Can be used multiple times, the response will contain only Actions with specified IDs",
+            "description": "Can be used multiple times, the response will contain only Actions with specified IDs.",
             "in": "query",
             "name": "id",
             "required": false,
             "schema": {
+              "description": "ID of the Action. Limited to 52 bits to ensure compatability with JSON double precision floats.",
+              "example": 42,
               "format": "int64",
+              "maximum": 9007199254740991,
+              "title": "Action ID",
               "type": "integer"
             }
           },
@@ -12078,12 +12118,16 @@
         "description": "Returns all Action objects. You can `sort` the results by using the sort URI parameter, and filter them with the `status` and `id` parameter.",
         "parameters": [
           {
-            "description": "Can be used multiple times, the response will contain only Actions with specified IDs",
+            "description": "Can be used multiple times, the response will contain only Actions with specified IDs.",
             "in": "query",
             "name": "id",
             "required": false,
             "schema": {
+              "description": "ID of the Action. Limited to 52 bits to ensure compatability with JSON double precision floats.",
+              "example": 42,
               "format": "int64",
+              "maximum": 9007199254740991,
+              "title": "Action ID",
               "type": "integer"
             }
           },
@@ -12180,7 +12224,11 @@
             "name": "id",
             "required": true,
             "schema": {
+              "description": "ID of the Action. Limited to 52 bits to ensure compatability with JSON double precision floats.",
+              "example": 42,
               "format": "int64",
+              "maximum": 9007199254740991,
+              "title": "Action ID",
               "type": "integer"
             }
           }
@@ -13102,12 +13150,16 @@
         "description": "Returns all Action objects. You can `sort` the results by using the sort URI parameter, and filter them with the `status` and `id` parameter.",
         "parameters": [
           {
-            "description": "Can be used multiple times, the response will contain only Actions with specified IDs",
+            "description": "Can be used multiple times, the response will contain only Actions with specified IDs.",
             "in": "query",
             "name": "id",
             "required": false,
             "schema": {
+              "description": "ID of the Action. Limited to 52 bits to ensure compatability with JSON double precision floats.",
+              "example": 42,
               "format": "int64",
+              "maximum": 9007199254740991,
+              "title": "Action ID",
               "type": "integer"
             }
           },
@@ -14100,12 +14152,16 @@
         "description": "Returns all Action objects. You can `sort` the results by using the sort URI parameter, and filter them with the `status` and `id` parameter.",
         "parameters": [
           {
-            "description": "Can be used multiple times, the response will contain only Actions with specified IDs",
+            "description": "Can be used multiple times, the response will contain only Actions with specified IDs.",
             "in": "query",
             "name": "id",
             "required": false,
             "schema": {
+              "description": "ID of the Action. Limited to 52 bits to ensure compatability with JSON double precision floats.",
+              "example": 42,
               "format": "int64",
+              "maximum": 9007199254740991,
+              "title": "Action ID",
               "type": "integer"
             }
           },
@@ -14202,7 +14258,11 @@
             "name": "id",
             "required": true,
             "schema": {
+              "description": "ID of the Action. Limited to 52 bits to ensure compatability with JSON double precision floats.",
+              "example": 42,
               "format": "int64",
+              "maximum": 9007199254740991,
+              "title": "Action ID",
               "type": "integer"
             }
           }
@@ -14759,12 +14819,16 @@
         "description": "Returns all Action objects for a Server. You can `sort` the results by using the sort URI parameter, and filter them with the `status` parameter.",
         "parameters": [
           {
-            "description": "ID of the Resource",
+            "description": "ID of the Action.",
             "in": "path",
             "name": "id",
             "required": true,
             "schema": {
+              "description": "ID of the Action. Limited to 52 bits to ensure compatability with JSON double precision floats.",
+              "example": 42,
               "format": "int64",
+              "maximum": 9007199254740991,
+              "title": "Action ID",
               "type": "integer"
             }
           },
@@ -16404,12 +16468,16 @@
         "description": "Returns all Action objects. You can `sort` the results by using the sort URI parameter, and filter them with the `status` and `id` parameter.",
         "parameters": [
           {
-            "description": "Can be used multiple times, the response will contain only Actions with specified IDs",
+            "description": "Can be used multiple times, the response will contain only Actions with specified IDs.",
             "in": "query",
             "name": "id",
             "required": false,
             "schema": {
+              "description": "ID of the Action. Limited to 52 bits to ensure compatability with JSON double precision floats.",
+              "example": 42,
               "format": "int64",
+              "maximum": 9007199254740991,
+              "title": "Action ID",
               "type": "integer"
             }
           },
@@ -16506,7 +16574,11 @@
             "name": "id",
             "required": true,
             "schema": {
+              "description": "ID of the Action. Limited to 52 bits to ensure compatability with JSON double precision floats.",
+              "example": 42,
               "format": "int64",
+              "maximum": 9007199254740991,
+              "title": "Action ID",
               "type": "integer"
             }
           }
@@ -17540,12 +17612,16 @@
         "description": "Returns all Action objects. You can `sort` the results by using the sort URI parameter, and filter them with the `status` and `id` parameter.",
         "parameters": [
           {
-            "description": "Can be used multiple times, the response will contain only Actions with specified IDs",
+            "description": "Can be used multiple times, the response will contain only Actions with specified IDs.",
             "in": "query",
             "name": "id",
             "required": false,
             "schema": {
+              "description": "ID of the Action. Limited to 52 bits to ensure compatability with JSON double precision floats.",
+              "example": 42,
               "format": "int64",
+              "maximum": 9007199254740991,
+              "title": "Action ID",
               "type": "integer"
             }
           },
@@ -17642,7 +17718,11 @@
             "name": "id",
             "required": true,
             "schema": {
+              "description": "ID of the Action. Limited to 52 bits to ensure compatability with JSON double precision floats.",
+              "example": 42,
               "format": "int64",
+              "maximum": 9007199254740991,
+              "title": "Action ID",
               "type": "integer"
             }
           }
