@@ -6,7 +6,7 @@
     "contact": {
       "url": "https://docs.hetzner.cloud/"
     },
-    "version": "e02c304"
+    "version": "a043108"
   },
   "servers": [
     {
@@ -3398,6 +3398,7 @@
         "type": "object"
       },
       "image_optional": {
+        "description": "Image the server is based on.",
         "nullable": true,
         "properties": {
           "architecture": {
@@ -4927,6 +4928,7 @@
         "type": "object"
       },
       "location": {
+        "description": "The location of the datacenter. | Location the Floating IP was created in. Routing is optimized for this Location. | Location of the Volume. Volume can only be attached to Servers in the same Location.",
         "properties": {
           "city": {
             "description": "City the Location is closest to",
@@ -4980,8 +4982,7 @@
           "longitude",
           "network_zone"
         ],
-        "type": "object",
-        "description": "Location the Floating IP was created in. Routing is optimized for this Location. | Location of the Volume. Volume can only be attached to Servers in the same Location."
+        "type": "object"
       },
       "meta": {
         "properties": {
@@ -6171,6 +6172,7 @@
             "$ref": "#/components/schemas/labels"
           },
           "load_balancers": {
+            "description": "Load Balancer IDs assigned to the server.",
             "items": {
               "format": "int64",
               "type": "integer"
@@ -6195,6 +6197,7 @@
             "format": "int64"
           },
           "placement_group": {
+            "description": "The placement group the server is assigned to.",
             "nullable": true,
             "properties": {
               "created": {
@@ -6324,21 +6327,24 @@
       "server_private_net": {
         "properties": {
           "alias_ips": {
+            "description": "Additional IP addresses of the server on the network.",
             "items": {
               "type": "string"
             },
             "type": "array"
           },
           "ip": {
+            "description": "The server IP address on the network.",
             "example": "10.0.0.2",
             "type": "string"
           },
           "mac_address": {
+            "description": "The server MAC address on the network.",
             "example": "86:00:ff:2a:7d:e1",
             "type": "string"
           },
           "network": {
-            "description": "ID of the Network",
+            "description": "The Network ID the server is attached to.",
             "example": 4711,
             "format": "int64",
             "type": "integer"
