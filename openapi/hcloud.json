@@ -6,7 +6,7 @@
     "contact": {
       "url": "https://docs.hetzner.cloud/"
     },
-    "version": "a043108"
+    "version": "05802d1-dirty"
   },
   "servers": [
     {
@@ -4288,6 +4288,7 @@
                   "percentage": {
                     "description": "Percentage by how much the base price will increase",
                     "example": "20.0000000000",
+                    "format": "decimal",
                     "type": "string"
                   }
                 },
@@ -4344,6 +4345,7 @@
               "vat_rate": {
                 "description": "The VAT rate used for calculating prices with VAT",
                 "example": "19.000000",
+                "format": "decimal",
                 "type": "string"
               },
               "volume": {
@@ -5233,14 +5235,14 @@
           "gross": {
             "description": "Price with VAT added",
             "example": "1.1900000000000000",
-            "type": "string",
-            "format": "decimal"
+            "format": "decimal",
+            "type": "string"
           },
           "net": {
             "description": "Price without VAT",
             "example": "1.0000000000",
-            "type": "string",
-            "format": "decimal"
+            "format": "decimal",
+            "type": "string"
           }
         },
         "required": [

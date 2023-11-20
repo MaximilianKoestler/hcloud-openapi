@@ -1,17 +1,5 @@
 [
   {
-    "path": ["components", "schemas", "price", "properties", "net"],
-    "set": {
-      "format": "decimal"
-    }
-  },
-  {
-    "path": ["components", "schemas", "price", "properties", "gross"],
-    "set": {
-      "format": "decimal"
-    }
-  },
-  {
     "path": ["components", "schemas", "create_server_request", "properties", "firewalls", "items"],
     "set": {
       "required": ["firewall"]
