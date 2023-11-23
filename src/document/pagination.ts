@@ -12,30 +12,39 @@ function addPaginationMetadataToProperties(
           "Information about the current pagination. The keys previous_page, next_page, last_page, and total_entries may be null when on the first page, last page, or when the total number of entries is unknown",
         type: "object",
         properties: {
-          page: { type: "integer", description: "The current page number" },
+          page: {
+            type: "integer",
+            format: "int64",
+            description: "Current page number"
+          },
           per_page: {
             type: "integer",
-            description: "The number of entries per page",
+            format: "int64",
+            description: "Maximum number of items shown per page in the response",
           },
           previous_page: {
             type: "integer",
+            format: "int64",
             nullable: true,
-            description: "The previous page number",
+            description: "ID of the previous page. Can be null if the current page is the first one.",
           },
           next_page: {
             type: "integer",
+            format: "int64",
             nullable: true,
-            description: "The next page number",
+            description: "ID of the next page. Can be null if the current page is the last one.",
           },
           last_page: {
             type: "integer",
+            format: "int64",
             nullable: true,
-            description: "The last page number",
+            description: "ID of the last page available. Can be null if the current page is the last one.",
           },
           total_entries: {
             type: "integer",
+            format: "int64",
             nullable: true,
-            description: "The total number of entries",
+            description: "The total number of entries that exist in the database for this query. Nullable if unknown.",
           },
         },
         required: [

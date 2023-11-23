@@ -6,7 +6,7 @@
     "contact": {
       "url": "https://docs.hetzner.cloud/"
     },
-    "version": "832a100-dirty"
+    "version": "d85d959-dirty"
   },
   "servers": [
     {
@@ -5004,7 +5004,8 @@
         "required": [
           "pagination"
         ],
-        "type": "object"
+        "type": "object",
+        "description": "Metadata contained in the response"
       },
       "metrics": {
         "properties": {
@@ -5214,7 +5215,8 @@
           "last_page",
           "total_entries"
         ],
-        "type": "object"
+        "type": "object",
+        "description": "Information about the current pagination. The keys previous_page, next_page, last_page, and total_entries may be null when on the first page, last page, or when the total number of entries is unknown"
       },
       "power_off_server_response": {
         "properties": {
