@@ -6,7 +6,7 @@
     "contact": {
       "url": "https://docs.hetzner.cloud/"
     },
-    "version": "05802d1-dirty"
+    "version": "832a100-dirty"
   },
   "servers": [
     {
@@ -116,7 +116,8 @@
           "progress": {
             "description": "Progress of Action in percent",
             "example": 100,
-            "type": "number"
+            "format": "int32",
+            "type": "integer"
           },
           "resources": {
             "description": "Resources the Action relates to",
@@ -182,7 +183,8 @@
           "progress": {
             "description": "Progress of Action in percent",
             "example": 100,
-            "type": "number"
+            "format": "int32",
+            "type": "integer"
           },
           "resources": {
             "description": "Resources the Action relates to",
@@ -2240,6 +2242,7 @@
           "listen_port": {
             "description": "The listen port of the service you want to delete",
             "example": 4711,
+            "format": "int64",
             "type": "integer"
           }
         },
@@ -4575,14 +4578,14 @@
           "included_traffic": {
             "description": "Free Traffic for the current billing period in bytes",
             "example": 10000,
-            "type": "integer",
-            "format": "int64"
+            "format": "int64",
+            "type": "integer"
           },
           "ingoing_traffic": {
             "description": "Inbound Traffic for the current billing period in bytes",
+            "format": "int64",
             "nullable": true,
-            "type": "integer",
-            "format": "int64"
+            "type": "integer"
           },
           "labels": {
             "$ref": "#/components/schemas/labels"
@@ -4600,9 +4603,9 @@
           },
           "outgoing_traffic": {
             "description": "Outbound Traffic for the current billing period in bytes",
+            "format": "int64",
             "nullable": true,
-            "type": "integer",
-            "format": "int64"
+            "type": "integer"
           },
           "private_net": {
             "description": "Private networks information",
@@ -4886,21 +4889,25 @@
           "max_assigned_certificates": {
             "description": "Number of SSL Certificates that can be assigned to a single Load Balancer",
             "example": 10,
+            "format": "int64",
             "type": "integer"
           },
           "max_connections": {
             "description": "Number of maximum simultaneous open connections",
             "example": 20000,
+            "format": "int64",
             "type": "integer"
           },
           "max_services": {
             "description": "Number of services a Load Balancer of this type can have",
             "example": 5,
+            "format": "int64",
             "type": "integer"
           },
           "max_targets": {
             "description": "Number of targets a single Load Balancer can have",
             "example": 25,
+            "format": "int64",
             "type": "integer"
           },
           "name": {
@@ -4956,11 +4963,13 @@
           "latitude": {
             "description": "Latitude of the city closest to the Location",
             "example": 50.47612,
+            "format": "double",
             "type": "number"
           },
           "longitude": {
             "description": "Longitude of the city closest to the Location",
             "example": 12.370071,
+            "format": "double",
             "type": "number"
           },
           "name": {
@@ -4995,8 +5004,7 @@
         "required": [
           "pagination"
         ],
-        "type": "object",
-        "description": "Metadata contained in the response"
+        "type": "object"
       },
       "metrics": {
         "properties": {
@@ -5158,36 +5166,42 @@
       "pagination": {
         "properties": {
           "last_page": {
-            "description": "ID of the last page available. Can be null if the current page is the last one. | The last page number",
+            "description": "ID of the last page available. Can be null if the current page is the last one.",
             "example": 4,
+            "format": "int64",
             "nullable": true,
             "type": "integer"
           },
           "next_page": {
-            "description": "ID of the next page. Can be null if the current page is the last one. | The next page number",
+            "description": "ID of the next page. Can be null if the current page is the last one.",
             "example": 4,
+            "format": "int64",
             "nullable": true,
             "type": "integer"
           },
           "page": {
-            "description": "Current page number | The current page number",
+            "description": "Current page number",
             "example": 3,
+            "format": "int64",
             "type": "integer"
           },
           "per_page": {
-            "description": "Maximum number of items shown per page in the response | The number of entries per page",
+            "description": "Maximum number of items shown per page in the response",
             "example": 25,
+            "format": "int64",
             "type": "integer"
           },
           "previous_page": {
-            "description": "ID of the previous page. Can be null if the current page is the first one. | The previous page number",
+            "description": "ID of the previous page. Can be null if the current page is the first one.",
             "example": 2,
+            "format": "int64",
             "nullable": true,
             "type": "integer"
           },
           "total_entries": {
-            "description": "The total number of entries that exist in the database for this query. Nullable if unknown. | The total number of entries",
+            "description": "The total number of entries that exist in the database for this query. Nullable if unknown.",
             "example": 100,
+            "format": "int64",
             "nullable": true,
             "type": "integer"
           }
@@ -5200,8 +5214,7 @@
           "last_page",
           "total_entries"
         ],
-        "type": "object",
-        "description": "Information about the current pagination. The keys previous_page, next_page, last_page, and total_entries may be null when on the first page, last page, or when the total number of entries is unknown"
+        "type": "object"
       },
       "power_off_server_response": {
         "properties": {
@@ -6156,16 +6169,16 @@
           "included_traffic": {
             "description": "Free Traffic for the current billing period in bytes",
             "example": 654321,
+            "format": "int64",
             "nullable": true,
-            "type": "integer",
-            "format": "int64"
+            "type": "integer"
           },
           "ingoing_traffic": {
             "description": "Inbound Traffic for the current billing period in bytes",
             "example": 123456,
+            "format": "int64",
             "nullable": true,
-            "type": "integer",
-            "format": "int64"
+            "type": "integer"
           },
           "iso": {
             "$ref": "#/components/schemas/iso_optional"
@@ -6194,9 +6207,9 @@
           "outgoing_traffic": {
             "description": "Outbound Traffic for the current billing period in bytes",
             "example": 123456,
+            "format": "int64",
             "nullable": true,
-            "type": "integer",
-            "format": "int64"
+            "type": "integer"
           },
           "placement_group": {
             "description": "The placement group the server is assigned to.",
@@ -6473,8 +6486,8 @@
           "included_traffic": {
             "description": "Free traffic per month in bytes",
             "example": 654321,
-            "type": "integer",
-            "format": "int64"
+            "format": "int64",
+            "type": "integer"
           },
           "memory": {
             "description": "Memory a Server of this type will have in GB",
@@ -6524,6 +6537,7 @@
           "cores": {
             "description": "Number of cpu cores a Server of this type will have",
             "example": 1,
+            "format": "int64",
             "type": "integer"
           },
           "cpu_type": {

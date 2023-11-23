@@ -44,23 +44,12 @@ function fixItem(part: OpenApiDocumentFragment, location: string[]) {
     "size",
   ];
 
-  const longIntegers = [
-    "included_traffic",
-    "ingoing_traffic",
-    "outgoing_traffic",
-  ];
   if (
     part.type == "number" &&
-    !allowedFloats.includes(location[location.length - 1])
+    !allowedFloats.includes(location[location.length - 1]) ||
+    (part.format !== undefined && part.format.startsWith("int"))
   ) {
     part.type = "integer";
-  }
-
-  if (
-    part.type == "integer" &&
-    longIntegers.includes(location[location.length - 1])
-  ) {
-    part.format = "int64";
   }
 
   // add additionalProperties to mark labels as key/value pairs

@@ -256,5 +256,18 @@
     "set": {
       "description": "ID of the Action"
     }
+  },
+
+  {
+    "path": ["components", "schemas", "list_server_types_response", "properties"],
+    "set": {
+      "meta": {"$ref": "#/components/schemas/meta"}
+    }
+  },
+  {
+    "path": ["components", "schemas", "list_load_balancer_types_response", "properties"],
+    "set": {
+      "meta": {"$ref": "#/components/schemas/meta"}
+    }
   }
 ]
