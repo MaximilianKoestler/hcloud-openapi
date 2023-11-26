@@ -6,7 +6,7 @@
     "contact": {
       "url": "https://docs.hetzner.cloud/"
     },
-    "version": "72b8def-dirty"
+    "version": "7a8e6b5-dirty"
   },
   "servers": [
     {
@@ -7088,9 +7088,9 @@
       }
     },
     "securitySchemes": {
-      "bearerAuth": {
-        "type": "http",
-        "scheme": "bearer"
+      "APIToken": {
+        "scheme": "bearer",
+        "type": "http"
       }
     }
   },
@@ -17887,7 +17887,7 @@
   },
   "security": [
     {
-      "bearerAuth": []
+      "APIToken": []
     }
   ]
 }

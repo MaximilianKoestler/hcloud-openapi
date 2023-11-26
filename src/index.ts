@@ -147,16 +147,9 @@ async function createComponents(document: OpenApiDocumentFragment) {
 
   await deduplicateSchemas(schemas, true);
 
-  const securitySchemes = {
-    bearerAuth: {
-      type: "http",
-      scheme: "bearer",
-    },
-  };
-
   document.components = {
     schemas: sortObject(schemas),
-    securitySchemes,
+    ...document.components,
   };
 }
 
@@ -267,11 +260,6 @@ function overWriteMetadata(
     {
       url: "https://api.hetzner.cloud/v1",
       description: "Official production server",
-    },
-  ];
-  document.security = [
-    {
-      bearerAuth: [],
     },
   ];
 }
