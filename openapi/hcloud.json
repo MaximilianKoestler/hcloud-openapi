@@ -6,7 +6,7 @@
     "contact": {
       "url": "https://docs.hetzner.cloud/"
     },
-    "version": "d85d959-dirty"
+    "version": "b096cec"
   },
   "servers": [
     {
@@ -712,7 +712,7 @@
                   "failed",
                   "pending"
                 ],
-                "example": "valid",
+                "example": "completed",
                 "type": "string"
               },
               "renewal": {
