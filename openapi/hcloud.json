@@ -6,7 +6,7 @@
     "contact": {
       "url": "https://docs.hetzner.cloud/"
     },
-    "version": "7a8e6b5-dirty"
+    "version": "c861291-dirty"
   },
   "servers": [
     {
@@ -7156,24 +7156,27 @@
             }
           },
           {
-            "name": "page",
+            "description": "Page to load.",
             "in": "query",
-            "description": "Specifies the page to fetch. The number of the first page is 1",
+            "name": "page",
             "required": false,
             "schema": {
-              "type": "integer",
-              "minimum": 1
+              "default": 1,
+              "example": 2,
+              "format": "int64",
+              "type": "integer"
             }
           },
           {
-            "name": "per_page",
+            "description": "Items to load per page.",
             "in": "query",
-            "description": "Specifies the number of items returned per page. The default value is 25, the maximum value is 50 except otherwise specified in the documentation.",
+            "name": "per_page",
             "required": false,
             "schema": {
-              "type": "integer",
-              "minimum": 1,
-              "maximum": 50
+              "default": 25,
+              "example": 25,
+              "format": "int64",
+              "type": "integer"
             }
           }
         ],
@@ -7287,24 +7290,27 @@
             }
           },
           {
-            "name": "page",
+            "description": "Page to load.",
             "in": "query",
-            "description": "Specifies the page to fetch. The number of the first page is 1",
+            "name": "page",
             "required": false,
             "schema": {
-              "type": "integer",
-              "minimum": 1
+              "default": 1,
+              "example": 2,
+              "format": "int64",
+              "type": "integer"
             }
           },
           {
-            "name": "per_page",
+            "description": "Items to load per page.",
             "in": "query",
-            "description": "Specifies the number of items returned per page. The default value is 25, the maximum value is 50 except otherwise specified in the documentation.",
+            "name": "per_page",
             "required": false,
             "schema": {
-              "type": "integer",
-              "minimum": 1,
-              "maximum": 50
+              "default": 25,
+              "example": 25,
+              "format": "int64",
+              "type": "integer"
             }
           }
         ],
@@ -7708,24 +7714,27 @@
             }
           },
           {
-            "name": "page",
+            "description": "Page to load.",
             "in": "query",
-            "description": "Specifies the page to fetch. The number of the first page is 1",
+            "name": "page",
             "required": false,
             "schema": {
-              "type": "integer",
-              "minimum": 1
+              "default": 1,
+              "example": 2,
+              "format": "int64",
+              "type": "integer"
             }
           },
           {
-            "name": "per_page",
+            "description": "Items to load per page.",
             "in": "query",
-            "description": "Specifies the number of items returned per page. The default value is 25, the maximum value is 50 except otherwise specified in the documentation.",
+            "name": "per_page",
             "required": false,
             "schema": {
-              "type": "integer",
-              "minimum": 1,
-              "maximum": 50
+              "default": 25,
+              "example": 25,
+              "format": "int64",
+              "type": "integer"
             }
           }
         ],
@@ -7949,24 +7958,27 @@
             }
           },
           {
-            "name": "page",
+            "description": "Page to load.",
             "in": "query",
-            "description": "Specifies the page to fetch. The number of the first page is 1",
+            "name": "page",
             "required": false,
             "schema": {
-              "type": "integer",
-              "minimum": 1
+              "default": 1,
+              "example": 2,
+              "format": "int64",
+              "type": "integer"
             }
           },
           {
-            "name": "per_page",
+            "description": "Items to load per page.",
             "in": "query",
-            "description": "Specifies the number of items returned per page. The default value is 25, the maximum value is 50 except otherwise specified in the documentation.",
+            "name": "per_page",
             "required": false,
             "schema": {
-              "type": "integer",
-              "minimum": 1,
-              "maximum": 50
+              "default": 25,
+              "example": 25,
+              "format": "int64",
+              "type": "integer"
             }
           }
         ],
@@ -8058,24 +8070,27 @@
             }
           },
           {
-            "name": "page",
+            "description": "Page to load.",
             "in": "query",
-            "description": "Specifies the page to fetch. The number of the first page is 1",
+            "name": "page",
             "required": false,
             "schema": {
-              "type": "integer",
-              "minimum": 1
+              "default": 1,
+              "example": 2,
+              "format": "int64",
+              "type": "integer"
             }
           },
           {
-            "name": "per_page",
+            "description": "Items to load per page.",
             "in": "query",
-            "description": "Specifies the number of items returned per page. The default value is 25, the maximum value is 50 except otherwise specified in the documentation.",
+            "name": "per_page",
             "required": false,
             "schema": {
-              "type": "integer",
-              "minimum": 1,
-              "maximum": 50
+              "default": 25,
+              "example": 25,
+              "format": "int64",
+              "type": "integer"
             }
           }
         ],
@@ -8175,24 +8190,27 @@
             }
           },
           {
-            "name": "page",
+            "description": "Page to load.",
             "in": "query",
-            "description": "Specifies the page to fetch. The number of the first page is 1",
+            "name": "page",
             "required": false,
             "schema": {
-              "type": "integer",
-              "minimum": 1
+              "default": 1,
+              "example": 2,
+              "format": "int64",
+              "type": "integer"
             }
           },
           {
-            "name": "per_page",
+            "description": "Items to load per page.",
             "in": "query",
-            "description": "Specifies the number of items returned per page. The default value is 25, the maximum value is 50 except otherwise specified in the documentation.",
+            "name": "per_page",
             "required": false,
             "schema": {
-              "type": "integer",
-              "minimum": 1,
-              "maximum": 50
+              "default": 25,
+              "example": 25,
+              "format": "int64",
+              "type": "integer"
             }
           }
         ],
@@ -8436,24 +8454,27 @@
             }
           },
           {
-            "name": "page",
+            "description": "Page to load.",
             "in": "query",
-            "description": "Specifies the page to fetch. The number of the first page is 1",
+            "name": "page",
             "required": false,
             "schema": {
-              "type": "integer",
-              "minimum": 1
+              "default": 1,
+              "example": 2,
+              "format": "int64",
+              "type": "integer"
             }
           },
           {
-            "name": "per_page",
+            "description": "Items to load per page.",
             "in": "query",
-            "description": "Specifies the number of items returned per page. The default value is 25, the maximum value is 50 except otherwise specified in the documentation.",
+            "name": "per_page",
             "required": false,
             "schema": {
-              "type": "integer",
-              "minimum": 1,
-              "maximum": 50
+              "default": 25,
+              "example": 25,
+              "format": "int64",
+              "type": "integer"
             }
           }
         ],
@@ -8887,24 +8908,27 @@
             }
           },
           {
-            "name": "page",
+            "description": "Page to load.",
             "in": "query",
-            "description": "Specifies the page to fetch. The number of the first page is 1",
+            "name": "page",
             "required": false,
             "schema": {
-              "type": "integer",
-              "minimum": 1
+              "default": 1,
+              "example": 2,
+              "format": "int64",
+              "type": "integer"
             }
           },
           {
-            "name": "per_page",
+            "description": "Items to load per page.",
             "in": "query",
-            "description": "Specifies the number of items returned per page. The default value is 25, the maximum value is 50 except otherwise specified in the documentation.",
+            "name": "per_page",
             "required": false,
             "schema": {
-              "type": "integer",
-              "minimum": 1,
-              "maximum": 50
+              "default": 25,
+              "example": 25,
+              "format": "int64",
+              "type": "integer"
             }
           }
         ],
@@ -9001,24 +9025,27 @@
             }
           },
           {
-            "name": "page",
+            "description": "Page to load.",
             "in": "query",
-            "description": "Specifies the page to fetch. The number of the first page is 1",
+            "name": "page",
             "required": false,
             "schema": {
-              "type": "integer",
-              "minimum": 1
+              "default": 1,
+              "example": 2,
+              "format": "int64",
+              "type": "integer"
             }
           },
           {
-            "name": "per_page",
+            "description": "Items to load per page.",
             "in": "query",
-            "description": "Specifies the number of items returned per page. The default value is 25, the maximum value is 50 except otherwise specified in the documentation.",
+            "name": "per_page",
             "required": false,
             "schema": {
-              "type": "integer",
-              "minimum": 1,
-              "maximum": 50
+              "default": 25,
+              "example": 25,
+              "format": "int64",
+              "type": "integer"
             }
           }
         ],
@@ -9314,24 +9341,27 @@
             }
           },
           {
-            "name": "page",
+            "description": "Page to load.",
             "in": "query",
-            "description": "Specifies the page to fetch. The number of the first page is 1",
+            "name": "page",
             "required": false,
             "schema": {
-              "type": "integer",
-              "minimum": 1
+              "default": 1,
+              "example": 2,
+              "format": "int64",
+              "type": "integer"
             }
           },
           {
-            "name": "per_page",
+            "description": "Items to load per page.",
             "in": "query",
-            "description": "Specifies the number of items returned per page. The default value is 25, the maximum value is 50 except otherwise specified in the documentation.",
+            "name": "per_page",
             "required": false,
             "schema": {
-              "type": "integer",
-              "minimum": 1,
-              "maximum": 50
+              "default": 25,
+              "example": 25,
+              "format": "int64",
+              "type": "integer"
             }
           }
         ],
@@ -9761,24 +9791,27 @@
             }
           },
           {
-            "name": "page",
+            "description": "Page to load.",
             "in": "query",
-            "description": "Specifies the page to fetch. The number of the first page is 1",
+            "name": "page",
             "required": false,
             "schema": {
-              "type": "integer",
-              "minimum": 1
+              "default": 1,
+              "example": 2,
+              "format": "int64",
+              "type": "integer"
             }
           },
           {
-            "name": "per_page",
+            "description": "Items to load per page.",
             "in": "query",
-            "description": "Specifies the number of items returned per page. The default value is 25, the maximum value is 50 except otherwise specified in the documentation.",
+            "name": "per_page",
             "required": false,
             "schema": {
-              "type": "integer",
-              "minimum": 1,
-              "maximum": 50
+              "default": 25,
+              "example": 25,
+              "format": "int64",
+              "type": "integer"
             }
           }
         ],
@@ -9937,24 +9970,27 @@
             }
           },
           {
-            "name": "page",
+            "description": "Page to load.",
             "in": "query",
-            "description": "Specifies the page to fetch. The number of the first page is 1",
+            "name": "page",
             "required": false,
             "schema": {
-              "type": "integer",
-              "minimum": 1
+              "default": 1,
+              "example": 2,
+              "format": "int64",
+              "type": "integer"
             }
           },
           {
-            "name": "per_page",
+            "description": "Items to load per page.",
             "in": "query",
-            "description": "Specifies the number of items returned per page. The default value is 25, the maximum value is 50 except otherwise specified in the documentation.",
+            "name": "per_page",
             "required": false,
             "schema": {
-              "type": "integer",
-              "minimum": 1,
-              "maximum": 50
+              "default": 25,
+              "example": 25,
+              "format": "int64",
+              "type": "integer"
             }
           }
         ],
@@ -10163,24 +10199,27 @@
             }
           },
           {
-            "name": "page",
+            "description": "Page to load.",
             "in": "query",
-            "description": "Specifies the page to fetch. The number of the first page is 1",
+            "name": "page",
             "required": false,
             "schema": {
-              "type": "integer",
-              "minimum": 1
+              "default": 1,
+              "example": 2,
+              "format": "int64",
+              "type": "integer"
             }
           },
           {
-            "name": "per_page",
+            "description": "Items to load per page.",
             "in": "query",
-            "description": "Specifies the number of items returned per page. The default value is 25, the maximum value is 50 except otherwise specified in the documentation.",
+            "name": "per_page",
             "required": false,
             "schema": {
-              "type": "integer",
-              "minimum": 1,
-              "maximum": 50
+              "default": 25,
+              "example": 25,
+              "format": "int64",
+              "type": "integer"
             }
           }
         ],
@@ -10413,24 +10452,27 @@
             }
           },
           {
-            "name": "page",
+            "description": "Page to load.",
             "in": "query",
-            "description": "Specifies the page to fetch. The number of the first page is 1",
+            "name": "page",
             "required": false,
             "schema": {
-              "type": "integer",
-              "minimum": 1
+              "default": 1,
+              "example": 2,
+              "format": "int64",
+              "type": "integer"
             }
           },
           {
-            "name": "per_page",
+            "description": "Items to load per page.",
             "in": "query",
-            "description": "Specifies the number of items returned per page. The default value is 25, the maximum value is 50 except otherwise specified in the documentation.",
+            "name": "per_page",
             "required": false,
             "schema": {
-              "type": "integer",
-              "minimum": 1,
-              "maximum": 50
+              "default": 25,
+              "example": 25,
+              "format": "int64",
+              "type": "integer"
             }
           }
         ],
@@ -10519,24 +10561,27 @@
             }
           },
           {
-            "name": "page",
+            "description": "Page to load.",
             "in": "query",
-            "description": "Specifies the page to fetch. The number of the first page is 1",
+            "name": "page",
             "required": false,
             "schema": {
-              "type": "integer",
-              "minimum": 1
+              "default": 1,
+              "example": 2,
+              "format": "int64",
+              "type": "integer"
             }
           },
           {
-            "name": "per_page",
+            "description": "Items to load per page.",
             "in": "query",
-            "description": "Specifies the number of items returned per page. The default value is 25, the maximum value is 50 except otherwise specified in the documentation.",
+            "name": "per_page",
             "required": false,
             "schema": {
-              "type": "integer",
-              "minimum": 1,
-              "maximum": 50
+              "default": 25,
+              "example": 25,
+              "format": "int64",
+              "type": "integer"
             }
           }
         ],
@@ -10607,24 +10652,27 @@
             }
           },
           {
-            "name": "page",
+            "description": "Page to load.",
             "in": "query",
-            "description": "Specifies the page to fetch. The number of the first page is 1",
+            "name": "page",
             "required": false,
             "schema": {
-              "type": "integer",
-              "minimum": 1
+              "default": 1,
+              "example": 2,
+              "format": "int64",
+              "type": "integer"
             }
           },
           {
-            "name": "per_page",
+            "description": "Items to load per page.",
             "in": "query",
-            "description": "Specifies the number of items returned per page. The default value is 25, the maximum value is 50 except otherwise specified in the documentation.",
+            "name": "per_page",
             "required": false,
             "schema": {
-              "type": "integer",
-              "minimum": 1,
-              "maximum": 50
+              "default": 25,
+              "example": 25,
+              "format": "int64",
+              "type": "integer"
             }
           }
         ],
@@ -10723,24 +10771,27 @@
             }
           },
           {
-            "name": "page",
+            "description": "Page to load.",
             "in": "query",
-            "description": "Specifies the page to fetch. The number of the first page is 1",
+            "name": "page",
             "required": false,
             "schema": {
-              "type": "integer",
-              "minimum": 1
+              "default": 1,
+              "example": 2,
+              "format": "int64",
+              "type": "integer"
             }
           },
           {
-            "name": "per_page",
+            "description": "Items to load per page.",
             "in": "query",
-            "description": "Specifies the number of items returned per page. The default value is 25, the maximum value is 50 except otherwise specified in the documentation.",
+            "name": "per_page",
             "required": false,
             "schema": {
-              "type": "integer",
-              "minimum": 1,
-              "maximum": 50
+              "default": 25,
+              "example": 25,
+              "format": "int64",
+              "type": "integer"
             }
           }
         ],
@@ -11235,24 +11286,27 @@
             }
           },
           {
-            "name": "page",
+            "description": "Page to load.",
             "in": "query",
-            "description": "Specifies the page to fetch. The number of the first page is 1",
+            "name": "page",
             "required": false,
             "schema": {
-              "type": "integer",
-              "minimum": 1
+              "default": 1,
+              "example": 2,
+              "format": "int64",
+              "type": "integer"
             }
           },
           {
-            "name": "per_page",
+            "description": "Items to load per page.",
             "in": "query",
-            "description": "Specifies the number of items returned per page. The default value is 25, the maximum value is 50 except otherwise specified in the documentation.",
+            "name": "per_page",
             "required": false,
             "schema": {
-              "type": "integer",
-              "minimum": 1,
-              "maximum": 50
+              "default": 25,
+              "example": 25,
+              "format": "int64",
+              "type": "integer"
             }
           }
         ],
@@ -12312,24 +12366,27 @@
             }
           },
           {
-            "name": "page",
+            "description": "Page to load.",
             "in": "query",
-            "description": "Specifies the page to fetch. The number of the first page is 1",
+            "name": "page",
             "required": false,
             "schema": {
-              "type": "integer",
-              "minimum": 1
+              "default": 1,
+              "example": 2,
+              "format": "int64",
+              "type": "integer"
             }
           },
           {
-            "name": "per_page",
+            "description": "Items to load per page.",
             "in": "query",
-            "description": "Specifies the number of items returned per page. The default value is 25, the maximum value is 50 except otherwise specified in the documentation.",
+            "name": "per_page",
             "required": false,
             "schema": {
-              "type": "integer",
-              "minimum": 1,
-              "maximum": 50
+              "default": 25,
+              "example": 25,
+              "format": "int64",
+              "type": "integer"
             }
           }
         ],
@@ -12421,24 +12478,27 @@
             }
           },
           {
-            "name": "page",
+            "description": "Page to load.",
             "in": "query",
-            "description": "Specifies the page to fetch. The number of the first page is 1",
+            "name": "page",
             "required": false,
             "schema": {
-              "type": "integer",
-              "minimum": 1
+              "default": 1,
+              "example": 2,
+              "format": "int64",
+              "type": "integer"
             }
           },
           {
-            "name": "per_page",
+            "description": "Items to load per page.",
             "in": "query",
-            "description": "Specifies the number of items returned per page. The default value is 25, the maximum value is 50 except otherwise specified in the documentation.",
+            "name": "per_page",
             "required": false,
             "schema": {
-              "type": "integer",
-              "minimum": 1,
-              "maximum": 50
+              "default": 25,
+              "example": 25,
+              "format": "int64",
+              "type": "integer"
             }
           }
         ],
@@ -12518,24 +12578,27 @@
             }
           },
           {
-            "name": "page",
+            "description": "Page to load.",
             "in": "query",
-            "description": "Specifies the page to fetch. The number of the first page is 1",
+            "name": "page",
             "required": false,
             "schema": {
-              "type": "integer",
-              "minimum": 1
+              "default": 1,
+              "example": 2,
+              "format": "int64",
+              "type": "integer"
             }
           },
           {
-            "name": "per_page",
+            "description": "Items to load per page.",
             "in": "query",
-            "description": "Specifies the number of items returned per page. The default value is 25, the maximum value is 50 except otherwise specified in the documentation.",
+            "name": "per_page",
             "required": false,
             "schema": {
-              "type": "integer",
-              "minimum": 1,
-              "maximum": 50
+              "default": 25,
+              "example": 25,
+              "format": "int64",
+              "type": "integer"
             }
           }
         ],
@@ -12779,24 +12842,27 @@
             }
           },
           {
-            "name": "page",
+            "description": "Page to load.",
             "in": "query",
-            "description": "Specifies the page to fetch. The number of the first page is 1",
+            "name": "page",
             "required": false,
             "schema": {
-              "type": "integer",
-              "minimum": 1
+              "default": 1,
+              "example": 2,
+              "format": "int64",
+              "type": "integer"
             }
           },
           {
-            "name": "per_page",
+            "description": "Items to load per page.",
             "in": "query",
-            "description": "Specifies the number of items returned per page. The default value is 25, the maximum value is 50 except otherwise specified in the documentation.",
+            "name": "per_page",
             "required": false,
             "schema": {
-              "type": "integer",
-              "minimum": 1,
-              "maximum": 50
+              "default": 25,
+              "example": 25,
+              "format": "int64",
+              "type": "integer"
             }
           }
         ],
@@ -13344,24 +13410,27 @@
             }
           },
           {
-            "name": "page",
+            "description": "Page to load.",
             "in": "query",
-            "description": "Specifies the page to fetch. The number of the first page is 1",
+            "name": "page",
             "required": false,
             "schema": {
-              "type": "integer",
-              "minimum": 1
+              "default": 1,
+              "example": 2,
+              "format": "int64",
+              "type": "integer"
             }
           },
           {
-            "name": "per_page",
+            "description": "Items to load per page.",
             "in": "query",
-            "description": "Specifies the number of items returned per page. The default value is 25, the maximum value is 50 except otherwise specified in the documentation.",
+            "name": "per_page",
             "required": false,
             "schema": {
-              "type": "integer",
-              "minimum": 1,
-              "maximum": 50
+              "default": 25,
+              "example": 25,
+              "format": "int64",
+              "type": "integer"
             }
           }
         ],
@@ -13474,24 +13543,27 @@
             }
           },
           {
-            "name": "page",
+            "description": "Page to load.",
             "in": "query",
-            "description": "Specifies the page to fetch. The number of the first page is 1",
+            "name": "page",
             "required": false,
             "schema": {
-              "type": "integer",
-              "minimum": 1
+              "default": 1,
+              "example": 2,
+              "format": "int64",
+              "type": "integer"
             }
           },
           {
-            "name": "per_page",
+            "description": "Items to load per page.",
             "in": "query",
-            "description": "Specifies the number of items returned per page. The default value is 25, the maximum value is 50 except otherwise specified in the documentation.",
+            "name": "per_page",
             "required": false,
             "schema": {
-              "type": "integer",
-              "minimum": 1,
-              "maximum": 50
+              "default": 25,
+              "example": 25,
+              "format": "int64",
+              "type": "integer"
             }
           }
         ],
@@ -13771,6 +13843,30 @@
             }
           },
           {
+            "description": "Page to load.",
+            "in": "query",
+            "name": "page",
+            "required": false,
+            "schema": {
+              "default": 1,
+              "example": 2,
+              "format": "int64",
+              "type": "integer"
+            }
+          },
+          {
+            "description": "Items to load per page.",
+            "in": "query",
+            "name": "per_page",
+            "required": false,
+            "schema": {
+              "default": 25,
+              "example": 25,
+              "format": "int64",
+              "type": "integer"
+            }
+          },
+          {
             "description": "Can be used multiple times. Choices id id:asc id:desc created created:asc created:desc",
             "in": "query",
             "name": "sort",
@@ -13785,27 +13881,6 @@
                 "created:desc"
               ],
               "type": "string"
-            }
-          },
-          {
-            "name": "page",
-            "in": "query",
-            "description": "Specifies the page to fetch. The number of the first page is 1",
-            "required": false,
-            "schema": {
-              "type": "integer",
-              "minimum": 1
-            }
-          },
-          {
-            "name": "per_page",
-            "in": "query",
-            "description": "Specifies the number of items returned per page. The default value is 25, the maximum value is 50 except otherwise specified in the documentation.",
-            "required": false,
-            "schema": {
-              "type": "integer",
-              "minimum": 1,
-              "maximum": 50
             }
           }
         ],
@@ -14346,24 +14421,27 @@
             }
           },
           {
-            "name": "page",
+            "description": "Page to load.",
             "in": "query",
-            "description": "Specifies the page to fetch. The number of the first page is 1",
+            "name": "page",
             "required": false,
             "schema": {
-              "type": "integer",
-              "minimum": 1
+              "default": 1,
+              "example": 2,
+              "format": "int64",
+              "type": "integer"
             }
           },
           {
-            "name": "per_page",
+            "description": "Items to load per page.",
             "in": "query",
-            "description": "Specifies the number of items returned per page. The default value is 25, the maximum value is 50 except otherwise specified in the documentation.",
+            "name": "per_page",
             "required": false,
             "schema": {
-              "type": "integer",
-              "minimum": 1,
-              "maximum": 50
+              "default": 25,
+              "example": 25,
+              "format": "int64",
+              "type": "integer"
             }
           }
         ],
@@ -14438,24 +14516,27 @@
             }
           },
           {
-            "name": "page",
+            "description": "Page to load.",
             "in": "query",
-            "description": "Specifies the page to fetch. The number of the first page is 1",
+            "name": "page",
             "required": false,
             "schema": {
-              "type": "integer",
-              "minimum": 1
+              "default": 1,
+              "example": 2,
+              "format": "int64",
+              "type": "integer"
             }
           },
           {
-            "name": "per_page",
+            "description": "Items to load per page.",
             "in": "query",
-            "description": "Specifies the number of items returned per page. The default value is 25, the maximum value is 50 except otherwise specified in the documentation.",
+            "name": "per_page",
             "required": false,
             "schema": {
-              "type": "integer",
-              "minimum": 1,
-              "maximum": 50
+              "default": 25,
+              "example": 25,
+              "format": "int64",
+              "type": "integer"
             }
           }
         ],
@@ -14574,24 +14655,27 @@
             }
           },
           {
-            "name": "page",
+            "description": "Page to load.",
             "in": "query",
-            "description": "Specifies the page to fetch. The number of the first page is 1",
+            "name": "page",
             "required": false,
             "schema": {
-              "type": "integer",
-              "minimum": 1
+              "default": 1,
+              "example": 2,
+              "format": "int64",
+              "type": "integer"
             }
           },
           {
-            "name": "per_page",
+            "description": "Items to load per page.",
             "in": "query",
-            "description": "Specifies the number of items returned per page. The default value is 25, the maximum value is 50 except otherwise specified in the documentation.",
+            "name": "per_page",
             "required": false,
             "schema": {
-              "type": "integer",
-              "minimum": 1,
-              "maximum": 50
+              "default": 25,
+              "example": 25,
+              "format": "int64",
+              "type": "integer"
             }
           }
         ],
@@ -15013,24 +15097,27 @@
             }
           },
           {
-            "name": "page",
+            "description": "Page to load.",
             "in": "query",
-            "description": "Specifies the page to fetch. The number of the first page is 1",
+            "name": "page",
             "required": false,
             "schema": {
-              "type": "integer",
-              "minimum": 1
+              "default": 1,
+              "example": 2,
+              "format": "int64",
+              "type": "integer"
             }
           },
           {
-            "name": "per_page",
+            "description": "Items to load per page.",
             "in": "query",
-            "description": "Specifies the number of items returned per page. The default value is 25, the maximum value is 50 except otherwise specified in the documentation.",
+            "name": "per_page",
             "required": false,
             "schema": {
-              "type": "integer",
-              "minimum": 1,
-              "maximum": 50
+              "default": 25,
+              "example": 25,
+              "format": "int64",
+              "type": "integer"
             }
           }
         ],
@@ -16662,24 +16749,27 @@
             }
           },
           {
-            "name": "page",
+            "description": "Page to load.",
             "in": "query",
-            "description": "Specifies the page to fetch. The number of the first page is 1",
+            "name": "page",
             "required": false,
             "schema": {
-              "type": "integer",
-              "minimum": 1
+              "default": 1,
+              "example": 2,
+              "format": "int64",
+              "type": "integer"
             }
           },
           {
-            "name": "per_page",
+            "description": "Items to load per page.",
             "in": "query",
-            "description": "Specifies the number of items returned per page. The default value is 25, the maximum value is 50 except otherwise specified in the documentation.",
+            "name": "per_page",
             "required": false,
             "schema": {
-              "type": "integer",
-              "minimum": 1,
-              "maximum": 50
+              "default": 25,
+              "example": 25,
+              "format": "int64",
+              "type": "integer"
             }
           }
         ],
@@ -16789,24 +16879,27 @@
             }
           },
           {
-            "name": "page",
+            "description": "Page to load.",
             "in": "query",
-            "description": "Specifies the page to fetch. The number of the first page is 1",
+            "name": "page",
             "required": false,
             "schema": {
-              "type": "integer",
-              "minimum": 1
+              "default": 1,
+              "example": 2,
+              "format": "int64",
+              "type": "integer"
             }
           },
           {
-            "name": "per_page",
+            "description": "Items to load per page.",
             "in": "query",
-            "description": "Specifies the number of items returned per page. The default value is 25, the maximum value is 50 except otherwise specified in the documentation.",
+            "name": "per_page",
             "required": false,
             "schema": {
-              "type": "integer",
-              "minimum": 1,
-              "maximum": 50
+              "default": 25,
+              "example": 25,
+              "format": "int64",
+              "type": "integer"
             }
           }
         ],
@@ -17026,24 +17119,27 @@
             }
           },
           {
-            "name": "page",
+            "description": "Page to load.",
             "in": "query",
-            "description": "Specifies the page to fetch. The number of the first page is 1",
+            "name": "page",
             "required": false,
             "schema": {
-              "type": "integer",
-              "minimum": 1
+              "default": 1,
+              "example": 2,
+              "format": "int64",
+              "type": "integer"
             }
           },
           {
-            "name": "per_page",
+            "description": "Items to load per page.",
             "in": "query",
-            "description": "Specifies the number of items returned per page. The default value is 25, the maximum value is 50 except otherwise specified in the documentation.",
+            "name": "per_page",
             "required": false,
             "schema": {
-              "type": "integer",
-              "minimum": 1,
-              "maximum": 50
+              "default": 25,
+              "example": 25,
+              "format": "int64",
+              "type": "integer"
             }
           }
         ],
@@ -17364,24 +17460,27 @@
             }
           },
           {
-            "name": "page",
+            "description": "Page to load.",
             "in": "query",
-            "description": "Specifies the page to fetch. The number of the first page is 1",
+            "name": "page",
             "required": false,
             "schema": {
-              "type": "integer",
-              "minimum": 1
+              "default": 1,
+              "example": 2,
+              "format": "int64",
+              "type": "integer"
             }
           },
           {
-            "name": "per_page",
+            "description": "Items to load per page.",
             "in": "query",
-            "description": "Specifies the number of items returned per page. The default value is 25, the maximum value is 50 except otherwise specified in the documentation.",
+            "name": "per_page",
             "required": false,
             "schema": {
-              "type": "integer",
-              "minimum": 1,
-              "maximum": 50
+              "default": 25,
+              "example": 25,
+              "format": "int64",
+              "type": "integer"
             }
           }
         ],
@@ -17806,24 +17905,27 @@
             }
           },
           {
-            "name": "page",
+            "description": "Page to load.",
             "in": "query",
-            "description": "Specifies the page to fetch. The number of the first page is 1",
+            "name": "page",
             "required": false,
             "schema": {
-              "type": "integer",
-              "minimum": 1
+              "default": 1,
+              "example": 2,
+              "format": "int64",
+              "type": "integer"
             }
           },
           {
-            "name": "per_page",
+            "description": "Items to load per page.",
             "in": "query",
-            "description": "Specifies the number of items returned per page. The default value is 25, the maximum value is 50 except otherwise specified in the documentation.",
+            "name": "per_page",
             "required": false,
             "schema": {
-              "type": "integer",
-              "minimum": 1,
-              "maximum": 50
+              "default": 25,
+              "example": 25,
+              "format": "int64",
+              "type": "integer"
             }
           }
         ],

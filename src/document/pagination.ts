@@ -92,23 +92,31 @@ function addPaginationToVerb(verb_data: OpenApiDocumentFragment) {
     }
   }
 
-  if (has_response_with_pages) {
-    const parameters = verb_data.parameters as any[];
-    parameters.push({
-      name: "page",
+  const parameters = verb_data.parameters as any[];
+  if (has_response_with_pages && !parameters.find((p) => p.name === "page")) {
+    parameters.push(          {
+      description: "Page to load.",
       in: "query",
-      description:
-        "Specifies the page to fetch. The number of the first page is 1",
+      name: "page",
       required: false,
-      schema: { type: "integer", minimum: 1 },
+      schema: {
+        default: 1,
+        example: 2,
+        format: "int64",
+        type: "integer",
+      },
     });
     parameters.push({
-      name: "per_page",
+      description: "Items to load per page.",
       in: "query",
-      description:
-        "Specifies the number of items returned per page. The default value is 25, the maximum value is 50 except otherwise specified in the documentation.",
+      name: "per_page",
       required: false,
-      schema: { type: "integer", minimum: 1, maximum: 50 },
+      schema: {
+        default: 25,
+        example: 25,
+        format: "int64",
+        type: "integer",
+      },
     });
   }
 }
