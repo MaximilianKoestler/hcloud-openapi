@@ -316,6 +316,13 @@ async function main() {
     overWriteMetadata(document, args.schema_version);
     overWriteTagList(document);
 
+    const paths = Object.keys(document.paths);
+    await fs.writeFile(
+      "resources/paths.json",
+      JSON.stringify(paths, null, 2),
+      "utf-8",
+    );
+
     document = sortObjectWithList(document, [
       "openapi",
       "info",
