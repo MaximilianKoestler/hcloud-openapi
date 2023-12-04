@@ -316,10 +316,16 @@ async function main() {
     overWriteMetadata(document, args.schema_version);
     overWriteTagList(document);
 
-    const paths = Object.keys(document.paths);
+    // keep order of paths stable
+    const oldPaths = JSON.parse(await fs.readFile(
+      "resources/paths.json",
+      "utf-8"
+    ));
+    document.paths = sortObjectWithList(document.paths, oldPaths);
+    const newPaths = Object.keys(document.paths);
     await fs.writeFile(
       "resources/paths.json",
-      JSON.stringify(paths, null, 2),
+      JSON.stringify(newPaths, null, 2),
       "utf-8",
     );
 
