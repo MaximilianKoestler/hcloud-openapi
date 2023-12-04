@@ -6,7 +6,7 @@
     "contact": {
       "url": "https://docs.hetzner.cloud/"
     },
-    "version": "c861291-dirty"
+    "version": "4053943-dirty"
   },
   "servers": [
     {
@@ -1862,10 +1862,10 @@
                   "type": "integer"
                 }
               },
-              "type": "object",
               "required": [
                 "firewall"
               ],
+              "type": "object",
               "title": "CreateServerRequestFirewalls"
             },
             "type": "array"
