@@ -6,7 +6,7 @@
     "contact": {
       "url": "https://docs.hetzner.cloud/"
     },
-    "version": "d4b9ef2-dirty"
+    "version": "6c1dad9-dirty"
   },
   "servers": [
     {
@@ -2242,7 +2242,6 @@
           "listen_port": {
             "description": "The listen port of the service you want to delete",
             "example": 4711,
-            "format": "int64",
             "type": "integer"
           }
         },

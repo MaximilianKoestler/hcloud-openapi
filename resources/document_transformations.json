@@ -306,5 +306,10 @@
     "set": {
       "title": "Server ID"
     }
+  },
+
+  {
+    "path": ["components", "schemas", "delete_service_request", "properties", "listen_port"],
+    "remove": ["format"]
   }
 ]

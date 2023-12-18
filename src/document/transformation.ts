@@ -30,7 +30,6 @@ function applyTransformation(
 
   if (transformation.remove !== undefined) {
     transformation.remove.forEach((name) => {
-      console.log(transformation.path, name);
       objectPath.del(document, transformation.path.concat([name]));
     });
   }
