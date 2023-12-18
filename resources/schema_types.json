@@ -246,13 +246,6 @@
     ]
   },
   {
-    "description": "An update to a service for a Load Balancer.",
-    "name": "load_balancer_service_update",
-    "path": [
-      "update_service_request"
-    ]
-  },
-  {
     "name": "load_balancer_type",
     "path": [
       "list_load_balancer_types_response",
@@ -448,6 +441,13 @@
     "path": [
       "create_load_balancer_request",
       "targets"
+    ]
+  },
+  {
+    "description": "An update to a service for a Load Balancer.",
+    "name": "update_load_balancer_service",
+    "path": [
+      "update_service_request"
     ]
   },
   {
