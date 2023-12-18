@@ -249,5 +249,62 @@
     "set": {
       "description": "ID of the Action"
     }
+  },
+
+  {
+    "path": ["paths", "/firewalls/{id}/actions", "get", "parameters", 0],
+    "set": {
+      "description": "ID of the Firewall"
+    }
+  },
+  {
+    "path": ["paths", "/firewalls/{id}/actions", "get", "parameters", 0, "schema"],
+    "set": {
+      "description": "ID of the Firewall. Limited to 52 bits to ensure compatability with JSON double precision floats."
+    }
+  },
+  {
+    "path": ["paths", "/firewalls/{id}/actions", "get", "parameters", 0, "schema"],
+    "set": {
+      "title": "Firewall ID"
+    }
+  },
+
+  {
+    "path": ["paths", "/certificates/{id}/actions", "get", "parameters", 0],
+    "set": {
+      "description": "ID of the Certificate"
+    }
+  },
+  {
+    "path": ["paths", "/certificates/{id}/actions", "get", "parameters", 0, "schema"],
+    "set": {
+      "description": "ID of the Certificate. Limited to 52 bits to ensure compatability with JSON double precision floats."
+    }
+  },
+  {
+    "path": ["paths", "/certificates/{id}/actions", "get", "parameters", 0, "schema"],
+    "set": {
+      "title": "Certificate ID"
+    }
+  },
+
+  {
+    "path": ["paths", "/servers/{id}/actions", "get", "parameters", 0],
+    "set": {
+      "description": "ID of the Server"
+    }
+  },
+  {
+    "path": ["paths", "/servers/{id}/actions", "get", "parameters", 0, "schema"],
+    "set": {
+      "description": "ID of the Server. Limited to 52 bits to ensure compatability with JSON double precision floats."
+    }
+  },
+  {
+    "path": ["paths", "/servers/{id}/actions", "get", "parameters", 0, "schema"],
+    "set": {
+      "title": "Server ID"
+    }
   }
 ]
