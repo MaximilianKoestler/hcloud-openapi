@@ -311,5 +311,24 @@
   {
     "path": ["components", "schemas", "delete_service_request", "properties", "listen_port"],
     "remove": ["format"]
+  },
+
+  {
+    "path": ["components", "schemas", "load_balancer", "properties"],
+    "set": {
+      "algorithm": {"$ref": "#/components/schemas/load_balancer_algorithm"}
+    }
+  },
+  {
+    "path": ["components", "schemas"],
+    "set": {
+      "change_algorithm_request": {"$ref": "#/components/schemas/load_balancer_algorithm"}
+    }
+  },
+  {
+    "path": ["components", "schemas", "update_load_balancer_service", "properties"],
+    "set": {
+      "http": {"$ref": "#/components/schemas/http"}
+    }
   }
 ]

@@ -6,7 +6,7 @@
     "contact": {
       "url": "https://docs.hetzner.cloud/"
     },
-    "version": "7de31e1-dirty"
+    "version": "b407098-dirty"
   },
   "servers": [
     {
@@ -345,7 +345,8 @@
             "type": "string"
           },
           "use_private_ip": {
-            "description": "Use the private network IP instead of the public IP of the Server, requires the Server and Load Balancer to be in the same network. Default value is false.",
+            "default": false,
+            "description": "Use the private network IP instead of the public IP of the Server, requires the Server and Load Balancer to be in the same network.",
             "example": true,
             "type": "boolean"
           }
@@ -1250,7 +1251,8 @@
             "type": "string"
           },
           "type": {
-            "description": "Choose between uploading a Certificate in PEM format or requesting a managed *Let's Encrypt* Certificate. If omitted defaults to `uploaded`.",
+            "default": "uploaded",
+            "description": "Choose between uploading a Certificate in PEM format or requesting a managed *Let's Encrypt* Certificate.",
             "enum": [
               "managed",
               "uploaded"
@@ -1445,7 +1447,8 @@
             "$ref": "#/components/schemas/labels"
           },
           "type": {
-            "description": "Type of Image to create (default: `snapshot`)",
+            "default": "snapshot",
+            "description": "Type of Image to create.",
             "enum": [
               "backup",
               "snapshot"
@@ -1708,7 +1711,8 @@
             "type": "string"
           },
           "auto_delete": {
-            "description": "Delete the Primary IP when the Server it is assigned to is deleted. If omitted defaults to `false`.",
+            "default": false,
+            "description": "Delete the Primary IP when the Server it is assigned to is deleted.",
             "example": false,
             "type": "boolean"
           },
@@ -1909,11 +1913,13 @@
             "description": "Public Network options",
             "properties": {
               "enable_ipv4": {
-                "description": "Attach an IPv4 on the public NIC. If false, no IPv4 address will be attached. Defaults to true.",
+                "default": true,
+                "description": "Attach an IPv4 on the public NIC. If false, no IPv4 address will be attached.",
                 "type": "boolean"
               },
               "enable_ipv6": {
-                "description": "Attach an IPv6 on the public NIC. If false, no IPv6 address will be attached. Defaults to true.",
+                "default": true,
+                "description": "Attach an IPv6 on the public NIC. If false, no IPv6 address will be attached.",
                 "type": "boolean"
               },
               "ipv4": {
@@ -1945,7 +1951,8 @@
             "type": "array"
           },
           "start_after_create": {
-            "description": "Start Server right after creation. Defaults to true.",
+            "default": true,
+            "description": "Start Server right after creation.",
             "example": true,
             "type": "boolean"
           },
@@ -2497,7 +2504,8 @@
             "type": "array"
           },
           "type": {
-            "description": "Type of rescue system to boot (default: `linux64`)",
+            "default": "linux64",
+            "description": "Type of rescue system to boot.",
             "enum": [
               "linux32",
               "linux64"
@@ -3231,7 +3239,7 @@
         "description": "Configuration option for protocols http and https",
         "properties": {
           "certificates": {
-            "description": "IDs of the Certificates to use for TLS/SSL termination by the Load Balancer; empty for TLS/SSL passthrough or if `protocol` is \"http\"",
+            "description": "IDs of the Certificates to use for TLS/SSL termination by the Load Balancer; empty for TLS/SSL passthrough or if `protocol` is `http`.",
             "example": [
               897
             ],
@@ -3242,22 +3250,26 @@
             "type": "array"
           },
           "cookie_lifetime": {
-            "description": "Lifetime of the cookie used for sticky sessions (in seconds)",
+            "default": 300,
+            "description": "Lifetime of the cookie used for sticky sessions (in seconds).",
             "example": 300,
             "type": "integer"
           },
           "cookie_name": {
-            "description": "Name of the cookie used for sticky sessions",
+            "default": "HCLBSTICKY",
+            "description": "Name of the cookie used for sticky sessions.",
             "example": "HCLBSTICKY",
             "type": "string"
           },
           "redirect_http": {
-            "description": "Redirect HTTP requests to HTTPS. Only available if protocol is \"https\". Default `false`",
+            "default": false,
+            "description": "Redirect HTTP requests to HTTPS. Only available if `protocol` is `https`.",
             "example": true,
             "type": "boolean"
           },
           "sticky_sessions": {
-            "description": "Use sticky sessions. Only available if protocol is \"http\" or \"https\". Default `false`",
+            "default": false,
+            "description": "Use sticky sessions. Only available if `protocol` is `http` or `https`.",
             "example": true,
             "type": "boolean"
           }
@@ -3586,7 +3598,7 @@
             "type": "boolean"
           },
           "dns_ptr": {
-            "description": "Reverse DNS PTR entries for the IPv6 addresses of this Server, `null` by default",
+            "description": "Reverse DNS PTR entries for the IPv6 addresses of this Server",
             "items": {
               "$ref": "#/components/schemas/dns_ptr"
             },
@@ -4654,10 +4666,11 @@
         "type": "object"
       },
       "load_balancer_algorithm": {
-        "description": "Algorithm of the Load Balancer | Request for POST https://api.hetzner.cloud/v1/load_balancers/{id}/actions/change_algorithm",
+        "description": "Algorithm of the Load Balancer",
         "properties": {
           "type": {
-            "description": "Type of the algorithm | Type of the algorithm. If omitted defaults to 'round_robin'. | Algorithm of the Load Balancer",
+            "default": "round_robin",
+            "description": "Type of the algorithm.",
             "enum": [
               "least_connections",
               "round_robin"
@@ -4668,6 +4681,7 @@
         "required": [
           "type"
         ],
+        "title": "LoadBalancerAlgorithm",
         "type": "object"
       },
       "load_balancer_private_net": {
@@ -4769,7 +4783,11 @@
                     "type": "string"
                   },
                   "status_codes": {
-                    "description": "List of returned HTTP status codes in order to pass the health check. Supports the wildcards `?` for exactly one character and `*` for multiple ones. The default is to pass the health check for any status code between 2?? and 3??.",
+                    "default": [
+                      "2??",
+                      "3??"
+                    ],
+                    "description": "List of returned HTTP status codes in order to pass the health check. Supports the wildcards `?` for exactly one character and `*` for multiple ones.",
                     "example": [
                       "2??",
                       "3??"
@@ -6134,7 +6152,8 @@
             "type": "string"
           },
           "use_private_ip": {
-            "description": "Use the private network IP instead of the public IP. Default value is false. Only present for target types \"server\" and \"label_selector\".",
+            "default": false,
+            "description": "Use the private network IP instead of the public IP. Only present for target types \"server\" and \"label_selector\".",
             "title": "LoadBalancerTargetUsePrivateIP",
             "type": "boolean"
           }
@@ -6841,7 +6860,8 @@
             "type": "string"
           },
           "use_private_ip": {
-            "description": "Use the private network IP instead of the public IP. Default value is false. Only present for target types \"server\" and \"label_selector\".",
+            "default": false,
+            "description": "Use the private network IP instead of the public IP. Only present for target types \"server\" and \"label_selector\".",
             "title": "LoadBalancerTargetUsePrivateIP",
             "type": "boolean"
           }
@@ -6911,7 +6931,11 @@
                     "type": "string"
                   },
                   "status_codes": {
-                    "description": "List of returned HTTP status codes in order to pass the health check. Supports the wildcards `?` for exactly one character and `*` for multiple ones. The default is to pass the health check for any status code between 2?? and 3??.",
+                    "default": [
+                      "2??",
+                      "3??"
+                    ],
+                    "description": "List of returned HTTP status codes in order to pass the health check. Supports the wildcards `?` for exactly one character and `*` for multiple ones.",
                     "example": [
                       "2??",
                       "3??"
