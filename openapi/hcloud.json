@@ -6,7 +6,7 @@
     "contact": {
       "url": "https://docs.hetzner.cloud/"
     },
-    "version": "78bf173"
+    "version": "85e65f0"
   },
   "servers": [
     {
@@ -3628,12 +3628,6 @@
           "architecture": {
             "$ref": "#/components/schemas/architecture_optional"
           },
-          "deprecated": {
-            "description": "ISO 8601 timestamp of deprecation, null if ISO is still available. After the deprecation time it will no longer be possible to attach the ISO to Servers.",
-            "example": "2018-02-28T00:00:00+00:00",
-            "nullable": true,
-            "type": "string"
-          },
           "deprecation": {
             "$ref": "#/components/schemas/deprecation_info"
           },
@@ -3669,7 +3663,6 @@
           "name",
           "description",
           "type",
-          "deprecated",
           "deprecation",
           "architecture"
         ],
@@ -3682,12 +3675,6 @@
           "architecture": {
             "$ref": "#/components/schemas/architecture_optional"
           },
-          "deprecated": {
-            "description": "ISO 8601 timestamp of deprecation, null if ISO is still available. After the deprecation time it will no longer be possible to attach the ISO to Servers.",
-            "example": "2018-02-28T00:00:00+00:00",
-            "nullable": true,
-            "type": "string"
-          },
           "deprecation": {
             "$ref": "#/components/schemas/deprecation_info"
           },
@@ -3723,7 +3710,6 @@
           "name",
           "description",
           "type",
-          "deprecated",
           "deprecation",
           "architecture"
         ],
