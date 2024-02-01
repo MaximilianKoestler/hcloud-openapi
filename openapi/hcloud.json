@@ -6,7 +6,7 @@
     "contact": {
       "url": "https://docs.hetzner.cloud/"
     },
-    "version": "b407098-dirty"
+    "version": "78bf173"
   },
   "servers": [
     {
@@ -2507,7 +2507,6 @@
             "default": "linux64",
             "description": "Type of rescue system to boot.",
             "enum": [
-              "linux32",
               "linux64"
             ],
             "type": "string"
