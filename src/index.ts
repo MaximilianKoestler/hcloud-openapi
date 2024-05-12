@@ -115,7 +115,7 @@ async function createComponents(document: OpenApiDocumentFragment) {
   const paths = document.paths as OpenApiDocumentFragment;
   const base_url = "https://api.hetzner.cloud/v1";
 
-  const schemas = {};
+  const schemas = document.components.schemas ?? {};
 
   for (const [path, path_obj] of Object.entries(paths)) {
     for (const [verb, verb_obj] of Object.entries(path_obj)) {
@@ -148,8 +148,8 @@ async function createComponents(document: OpenApiDocumentFragment) {
   await deduplicateSchemas(schemas, true);
 
   document.components = {
-    schemas: sortObject(schemas),
     ...document.components,
+    schemas: sortObject(schemas),
   };
 }
 
