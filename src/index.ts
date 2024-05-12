@@ -115,7 +115,8 @@ async function createComponents(document: OpenApiDocumentFragment) {
   const paths = document.paths as OpenApiDocumentFragment;
   const base_url = "https://api.hetzner.cloud/v1";
 
-  const schemas = document.components.schemas ?? {};
+  // const schemas = document.components.schemas ?? {};
+  const schemas = {}; // all components in the original spec are currently not referenced
 
   for (const [path, path_obj] of Object.entries(paths)) {
     for (const [verb, verb_obj] of Object.entries(path_obj)) {
