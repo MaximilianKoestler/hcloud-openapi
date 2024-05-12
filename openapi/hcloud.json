@@ -6,7 +6,7 @@
     "contact": {
       "url": "https://docs.hetzner.cloud/"
     },
-    "version": "14d3fe4-dirty"
+    "version": "d750c93-dirty"
   },
   "servers": [
     {
@@ -774,7 +774,7 @@
           "apply_to": {
             "description": "Resources the Firewall should be applied to",
             "items": {
-              "$ref": "#/components/schemas/firewall_resource_with_required_type"
+              "$ref": "#/components/schemas/firewall_resource"
             },
             "type": "array"
           }
@@ -1685,7 +1685,7 @@
           "apply_to": {
             "description": "Resources the Firewall should be applied to after creation",
             "items": {
-              "$ref": "#/components/schemas/firewall_resource_with_required_type"
+              "$ref": "#/components/schemas/firewall_resource"
             },
             "type": "array"
           },
@@ -3059,6 +3059,29 @@
         "type": "object",
         "description": "Firewalls can limit the network access to or from your resources."
       },
+      "firewall_resource": {
+        "properties": {
+          "label_selector": {
+            "$ref": "#/components/schemas/label_selector"
+          },
+          "server": {
+            "$ref": "#/components/schemas/resource_id"
+          },
+          "type": {
+            "description": "Type of the resource",
+            "enum": [
+              "label_selector",
+              "server"
+            ],
+            "type": "string"
+          }
+        },
+        "required": [
+          "type"
+        ],
+        "type": "object",
+        "description": "Resource a Firewall should be applied to."
+      },
       "firewall_resource_id": {
         "properties": {
           "applied_to_resources": {
@@ -3094,29 +3117,6 @@
               "server"
             ],
             "example": "server",
-            "type": "string"
-          }
-        },
-        "required": [
-          "type"
-        ],
-        "type": "object",
-        "description": "Resource a Firewall should be applied to."
-      },
-      "firewall_resource_with_required_type": {
-        "properties": {
-          "label_selector": {
-            "$ref": "#/components/schemas/label_selector"
-          },
-          "server": {
-            "$ref": "#/components/schemas/resource_id"
-          },
-          "type": {
-            "description": "Type of the resource",
-            "enum": [
-              "label_selector",
-              "server"
-            ],
             "type": "string"
           }
         },
@@ -5861,7 +5861,7 @@
           "remove_from": {
             "description": "Resources the Firewall should be removed from",
             "items": {
-              "$ref": "#/components/schemas/firewall_resource_with_required_type"
+              "$ref": "#/components/schemas/firewall_resource"
             },
             "type": "array"
           }
