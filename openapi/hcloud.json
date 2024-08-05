@@ -6,7 +6,7 @@
     "contact": {
       "url": "https://docs.hetzner.cloud/"
     },
-    "version": "d750c93-dirty"
+    "version": "5d49908"
   },
   "servers": [
     {
@@ -390,6 +390,26 @@
           "type": "string"
         }
       },
+      "QueryCreatedAfter": {
+        "description": "Limit the items in the response to be created after a specified time.\n\nThe parameter is a datetime formatted as specified by RFC3339.\n",
+        "in": "query",
+        "name": "created_after",
+        "required": false,
+        "schema": {
+          "example": "2016-07-02T01:02:03.04Z",
+          "type": "string"
+        }
+      },
+      "QueryCreatedBefore": {
+        "description": "Limit the items in the response to be created before a specified time.\n\nThe parameter is a datetime formatted as specified by RFC3339.\n",
+        "in": "query",
+        "name": "created_before",
+        "required": false,
+        "schema": {
+          "example": "2016-07-02T01:02:03.04Z",
+          "type": "string"
+        }
+      },
       "QueryLabelSelector": {
         "description": "Filter resources by labels. The response will only contain resources matching the\nlabel selector. For more information, see \"[Label Selector](#label-selector)\".\n",
         "in": "query",
@@ -430,6 +450,19 @@
           "example": 25,
           "format": "int64",
           "type": "integer"
+        }
+      },
+      "QueryProjectIDList": {
+        "description": "Filter for project IDs.Can be used multiple times.\n\nThe response will only contain items with the specified projects.\n",
+        "in": "query",
+        "name": "project_ids",
+        "required": false,
+        "schema": {
+          "items": {
+            "format": "int64",
+            "type": "integer"
+          },
+          "type": "array"
         }
       },
       "QuerySortByIDAndCreated": {
@@ -825,16 +858,17 @@
         "description": "Request for POST https://api.hetzner.cloud/v1/floating_ips/{id}/actions/assign",
         "properties": {
           "server": {
-            "description": "ID of the Server the Floating IP shall be assigned to",
+            "description": "[Server](#servers) the [Floating IP](#floating-ips) is assigned to.\n\n`null` if not assigned.\n",
             "example": 42,
             "format": "int64",
+            "nullable": true,
             "type": "integer"
           }
         },
         "required": [
           "server"
         ],
-        "title": "AssignFloatingIPRequest",
+        "title": "FloatingIPActionsAssignRequest",
         "type": "object"
       },
       "assign_floating_ip_to_server_response": {
@@ -1215,16 +1249,7 @@
         "description": "Response to POST https://api.hetzner.cloud/v1/servers/{id}/actions/change_alias_ips"
       },
       "change_floating_ip_protection_request": {
-        "properties": {
-          "delete": {
-            "description": "If true, prevents the Floating IP from being deleted",
-            "example": true,
-            "type": "boolean"
-          }
-        },
-        "title": "ChangeProtectionRequest",
-        "type": "object",
-        "description": "Request for POST https://api.hetzner.cloud/v1/floating_ips/{id}/actions/change_protection"
+        "$ref": "#/components/schemas/protection"
       },
       "change_floating_ip_protection_response": {
         "properties": {
@@ -1266,8 +1291,8 @@
       "change_ip_range_of_network_request": {
         "properties": {
           "ip_range": {
-            "description": "The new prefix for the whole Network",
-            "example": "10.0.0.0/12",
+            "description": "IP range in CIDR block notation of the whole network.\n\nMust span all included subnets. Must be one of the private IPv4 ranges of RFC1918.\n\nMinimum network size is /24. We highly recommend that you pick a larger network with a /16 netmask.\n",
+            "example": "10.0.0.0/16",
             "type": "string"
           }
         },
@@ -1364,41 +1389,6 @@
         "title": "ActionResponse",
         "type": "object",
         "description": "Response to POST https://api.hetzner.cloud/v1/primary_ips/{id}/actions/change_protection"
-      },
-      "change_reverse_dns_entry_for_floating_ip_request": {
-        "properties": {
-          "dns_ptr": {
-            "description": "Hostname to set as a reverse DNS PTR entry, will reset to original default value if `null`",
-            "example": "server02.example.com",
-            "nullable": true,
-            "type": "string"
-          },
-          "ip": {
-            "description": "IP address for which to set the reverse DNS entry",
-            "example": "1.2.3.4",
-            "type": "string"
-          }
-        },
-        "required": [
-          "ip",
-          "dns_ptr"
-        ],
-        "title": "ChangeDNSPTRRequest",
-        "type": "object",
-        "description": "Request for POST https://api.hetzner.cloud/v1/floating_ips/{id}/actions/change_dns_ptr"
-      },
-      "change_reverse_dns_entry_for_floating_ip_response": {
-        "properties": {
-          "action": {
-            "$ref": "#/components/schemas/action"
-          }
-        },
-        "required": [
-          "action"
-        ],
-        "title": "ActionResponse",
-        "type": "object",
-        "description": "Response to POST https://api.hetzner.cloud/v1/floating_ips/{id}/actions/change_dns_ptr"
       },
       "change_reverse_dns_entry_for_primary_ip_request": {
         "properties": {
@@ -1503,6 +1493,22 @@
         "title": "ActionResponse",
         "type": "object",
         "description": "Response to POST https://api.hetzner.cloud/v1/servers/{id}/actions/change_dns_ptr"
+      },
+      "change_reverse_dns_records_for_floating_ip_request": {
+        "$ref": "#/components/schemas/dns_ptr"
+      },
+      "change_reverse_dns_records_for_floating_ip_response": {
+        "properties": {
+          "action": {
+            "$ref": "#/components/schemas/action"
+          }
+        },
+        "required": [
+          "action"
+        ],
+        "title": "ActionResponse",
+        "type": "object",
+        "description": "Response to POST https://api.hetzner.cloud/v1/floating_ips/{id}/actions/change_dns_ptr"
       },
       "change_server_protection_request": {
         "properties": {
@@ -1785,11 +1791,13 @@
       "create_floating_ip_request": {
         "properties": {
           "description": {
-            "example": "Web Frontend",
+            "description": "Description of the Resource.",
+            "example": "This describes my resource",
+            "nullable": true,
             "type": "string"
           },
           "home_location": {
-            "description": "Home Location (routing is optimized for that Location). Only optional if Server argument is passed.",
+            "description": "Home [Location](#locations) for the [Floating IP](#floating-ips).\n\nEither the ID or the name of the [Location](#locations).\n\nOnly optional if no [Server](#servers) is provided. Routing is optimized for this [Locations](#locations).\n",
             "example": "fsn1",
             "type": "string"
           },
@@ -1797,13 +1805,15 @@
             "$ref": "#/components/schemas/labels"
           },
           "name": {
-            "example": "Web Frontend",
+            "description": "Name of the Resource. Must be unique per Project.",
+            "example": "my-resource",
             "type": "string"
           },
           "server": {
-            "description": "ID of the Server to assign the Floating IP to",
+            "description": "[Server](#servers) the [Floating IP](#floating-ips) is assigned to.\n\n`null` if not assigned.\n",
             "example": 42,
             "format": "int64",
+            "nullable": true,
             "type": "integer"
           },
           "type": {
@@ -1813,7 +1823,7 @@
         "required": [
           "type"
         ],
-        "title": "CreateFloatingIPRequest",
+        "title": "FloatingIPCreateRequest",
         "type": "object",
         "description": "Request for POST https://api.hetzner.cloud/v1/floating_ips"
       },
@@ -1949,12 +1959,12 @@
       "create_network_request": {
         "properties": {
           "expose_routes_to_vswitch": {
-            "description": "Indicates if the routes from this network should be exposed to the vSwitch connection. The exposing only takes effect if a vSwitch connection is active.",
+            "description": "Toggle to expose routes to the networks vSwitch.\n\nIndicates if the routes from this network should be exposed to the vSwitch in this network. Only takes effect if a vSwitch is setup in this network.\n",
             "example": false,
             "type": "boolean"
           },
           "ip_range": {
-            "description": "IP range of the whole network which must span all included subnets. Must be one of the private IPv4 ranges of RFC1918. Minimum network size is /24. We highly recommend that you pick a larger network with a /16 netmask.",
+            "description": "IP range in CIDR block notation of the whole network.\n\nMust span all included subnets. Must be one of the private IPv4 ranges of RFC1918.\n\nMinimum network size is /24. We highly recommend that you pick a larger network with a /16 netmask.\n",
             "example": "10.0.0.0/16",
             "type": "string"
           },
@@ -1967,7 +1977,7 @@
             "type": "string"
           },
           "routes": {
-            "description": "Array of routes set in this network. The destination of the route must be one of the private IPv4 ranges of RFC1918. The gateway must be a subnet/IP of the ip_range of the network object. The destination must not overlap with an existing ip_range in any subnets or with any destinations in other routes or with the first IP of the networks ip_range or with 172.31.1.1. The gateway cannot be the first IP of the networks ip_range and also cannot be 172.31.1.1.",
+            "description": "Array of routes set in this network.",
             "items": {
               "$ref": "#/components/schemas/route"
             },
@@ -1985,7 +1995,7 @@
           "name",
           "ip_range"
         ],
-        "title": "CreateNetworkRequest",
+        "title": "NetworkCreateRequest",
         "type": "object",
         "description": "Request for POST https://api.hetzner.cloud/v1/networks"
       },
@@ -2539,7 +2549,7 @@
       "datacenter": {
         "properties": {
           "description": {
-            "description": "Human readable description of the Datacenter.",
+            "description": "Descriptive name for the [Datacenter](#datacenters).\n\nDesired to be easy to understand for humans. Might be changed for cosmetic reasons. Do not use this as an identifier.\n",
             "example": "Falkenstein DC Park 8",
             "type": "string"
           },
@@ -2554,16 +2564,16 @@
             "$ref": "#/components/schemas/location"
           },
           "name": {
-            "description": "Unique identifier of the Datacenter.",
+            "description": "Unique name for the [Datacenter](#datacenters).\n\nCan be used as a more descriptive identifier.\n",
             "example": "fsn1-dc8",
             "pattern": "^[a-z0-9]+(-?[a-z0-9]*)*$",
             "type": "string"
           },
           "server_types": {
-            "description": "[Server Types](#server-types) that are supported in this Datacenter.\n",
+            "description": "[Server Types](#server-types) supported and available in this [Datacenter](#datacenters).\n",
             "properties": {
               "available": {
-                "description": "IDs of the [Server Types](#server-types) currently available in this Datacenter.\n\nThe listed Server Types can currently be purchased. Types that are temporarily unavailable\nbut are supported in this Datacenter are listed as `supported`.\n",
+                "description": "[Server Types](#server-types) currently available in this [Datacenter](#datacenters).\n\nThese [Server Types](#server-types) can currently be purchased. Types that are temporarily unavailable\nbut are supported in this [Datacenter](#datacenters) are listed as `supported`.\n",
                 "example": [
                   1,
                   2,
@@ -2576,7 +2586,7 @@
                 "type": "array"
               },
               "available_for_migration": {
-                "description": "IDs of the [Server Types](#server-types) that are available to migrate to in this Datacenter.\n\nExisting Servers can be migrated to the Server Types listed here.\n",
+                "description": "[Server Types](#server-types) available to migrate to in this [Datacenter](#datacenters).\n\nExisting [Servers](#servers) can be migrated to these [Server Types](#server-types).\n",
                 "example": [
                   1,
                   2,
@@ -2589,7 +2599,7 @@
                 "type": "array"
               },
               "supported": {
-                "description": "IDs of the [Server Types](#server-types) that are supported in this Datacenter.\n\nThose Server Types are generally available in this Datacenter, but might be\ntemporarily out of stock.\n",
+                "description": "List of [Server Types](#server-types) supported in this [Datacenter](#datacenters).\n\nThese [Server Types](#server-types) are generally available in this Datacenter, but might be\ntemporarily out of stock.\n",
                 "example": [
                   1,
                   2,
@@ -2675,7 +2685,7 @@
       "delete_subnet_from_network_request": {
         "properties": {
           "ip_range": {
-            "description": "IP range of subnet to delete",
+            "description": "IP range in CIDR block notation of the Subnet to delete.",
             "example": "10.0.1.0/24",
             "type": "string"
           }
@@ -2849,12 +2859,12 @@
       "dns_ptr": {
         "properties": {
           "dns_ptr": {
-            "description": "DNS pointer for the specific IP address",
+            "description": "Domain Name to point to.\n\nPTR record content used for reverse DNS.\n | DNS pointer for the specific IP address",
             "example": "server.example.com",
             "type": "string"
           },
           "ip": {
-            "description": "Single IPv4 or IPv6 address | Single IPv6 address of this Server for which the reverse DNS entry has been set up",
+            "description": "Single IPv4 or IPv6 address to create pointer for.\n | Single IPv4 or IPv6 address | Single IPv6 address of this Server for which the reverse DNS entry has been set up",
             "example": "2001:db8::1",
             "type": "string"
           }
@@ -2863,7 +2873,8 @@
           "ip",
           "dns_ptr"
         ],
-        "type": "object"
+        "type": "object",
+        "description": "Request for POST https://api.hetzner.cloud/v1/floating_ips/{id}/actions/change_dns_ptr"
       },
       "enable_and_configure_backups_for_server_response": {
         "properties": {
@@ -3129,7 +3140,7 @@
       "floating_ip": {
         "properties": {
           "blocked": {
-            "description": "Whether the IP is blocked",
+            "description": "Indicates whether the [Floating IP](#floating-ips) is blocked.",
             "example": false,
             "type": "boolean"
           },
@@ -3145,7 +3156,7 @@
             "type": "string"
           },
           "dns_ptr": {
-            "description": "Array of reverse DNS entries",
+            "description": "List of reverse DNS entries for the [Floating IP](#floating-ips)\n",
             "items": {
               "$ref": "#/components/schemas/dns_ptr"
             },
@@ -3178,7 +3189,7 @@
             "$ref": "#/components/schemas/protection"
           },
           "server": {
-            "description": "ID of the Server the Floating IP is assigned to, null if it is not assigned at all",
+            "description": "[Server](#servers) the [Floating IP](#floating-ips) is assigned to.\n\n`null` if not assigned.\n",
             "example": 42,
             "format": "int64",
             "nullable": true,
@@ -4396,7 +4407,7 @@
       "list_datacenters_response": {
         "properties": {
           "datacenters": {
-            "description": "List of Datacenters.",
+            "description": "List of [Datacenters](#datacenters).",
             "items": {
               "$ref": "#/components/schemas/datacenter"
             },
@@ -4406,7 +4417,7 @@
             "$ref": "#/components/schemas/meta"
           },
           "recommendation": {
-            "description": "Recommended Datacenter ID for new Resources.",
+            "description": "Recommended [Datacenter](#datacenters) for creating new resources.",
             "example": 1,
             "format": "int64",
             "type": "integer"
@@ -4742,7 +4753,25 @@
                     "prices": {
                       "description": "Primary IP type costs per Location",
                       "items": {
-                        "$ref": "#/components/schemas/price_per_time"
+                        "properties": {
+                          "location": {
+                            "description": "Name of the Location the price is for",
+                            "example": "fsn1",
+                            "type": "string"
+                          },
+                          "price_hourly": {
+                            "$ref": "#/components/schemas/price"
+                          },
+                          "price_monthly": {
+                            "$ref": "#/components/schemas/price"
+                          }
+                        },
+                        "required": [
+                          "location",
+                          "price_hourly",
+                          "price_monthly"
+                        ],
+                        "type": "object"
                       },
                       "type": "array"
                     },
@@ -4809,15 +4838,10 @@
                 "type": "array"
               },
               "traffic": {
-                "description": "The cost of additional traffic per TB",
-                "properties": {
-                  "price_per_tb": {
-                    "$ref": "#/components/schemas/price"
-                  }
-                },
-                "required": [
-                  "price_per_tb"
-                ],
+                "deprecated": true,
+                "description": "**Deprecated**: This field is deprecated and set to `null` since 5 August 2024.\nPlease refer to the `price_per_tb_traffic` fields in `server_types` and `load_balancer_types` instead.\n\nLearn more about this change in [the Changelog](https://docs.hetzner.cloud/changelog#2024-07-25-cloud-api-returns-traffic-information-in-different-format).\n",
+                "example": null,
+                "nullable": true,
                 "type": "object"
               },
               "vat_rate": {
@@ -5428,7 +5452,7 @@
         "type": "object"
       },
       "location": {
-        "description": "The location of the datacenter. | Location the Floating IP was created in. Routing is optimized for this Location. | Location of the Volume. Volume can only be attached to Servers in the same Location.",
+        "description": "[Location](#locations) the [Datacenter](#datacenters) is located at.\n | [Location](#locations) the for the [Floating IP](#floating-ips) is located at.\n\nRouting is optimized for this [Location](#locations).\n | Location of the Volume. Volume can only be attached to Servers in the same Location.",
         "properties": {
           "city": {
             "description": "Name of the closest city to the Location.\n\nCity name or city name and state in short form. E.g. `Falkenstein` or `Ashburn, VA`.\n",
@@ -5594,7 +5618,7 @@
             "maximum": 9007199254740991
           },
           "ip_range": {
-            "description": "IPv4 prefix of the whole Network",
+            "description": "IP range in CIDR block notation of the whole network.",
             "example": "10.0.0.0/16",
             "type": "string"
           },
@@ -5741,7 +5765,7 @@
         "description": "Response to POST https://api.hetzner.cloud/v1/servers/{id}/actions/poweron"
       },
       "price": {
-        "description": "Hourly costs for a Resource in this Location. | Monthly costs for a Resource in this Location. | Monthly costs for a Floating IP type in this Location | Hourly costs for a Load Balancer type in this network zone | Monthly costs for a Load Balancer type in this network zone | Hourly costs for a Primary IP type in this Location | Monthly costs for a Primary IP type in this Location | Hourly costs for a Server type in this Location | Monthly costs for a Server type in this Location",
+        "description": "Hourly costs for a Resource in this Location. | Monthly costs for a Resource in this Location. | The cost of additional traffic per TB. | Monthly costs for a Floating IP type in this Location | Hourly costs for a Load Balancer type in this network zone | Monthly costs for a Load Balancer type in this network zone | Hourly costs for a Primary IP type in this Location | Monthly costs for a Primary IP type in this Location | Hourly costs for a Server type in this Location | Monthly costs for a Server type in this Location",
         "properties": {
           "gross": {
             "description": "Price with VAT added. | Price with VAT added",
@@ -5764,6 +5788,12 @@
       },
       "price_per_time": {
         "properties": {
+          "included_traffic": {
+            "description": "Free traffic per month in bytes.",
+            "example": 654321,
+            "format": "int64",
+            "type": "integer"
+          },
           "location": {
             "description": "Name of the Location the price is for. | Name of the Location the price is for",
             "example": "fsn1",
@@ -5774,12 +5804,17 @@
           },
           "price_monthly": {
             "$ref": "#/components/schemas/price"
+          },
+          "price_per_tb_traffic": {
+            "$ref": "#/components/schemas/price"
           }
         },
         "required": [
           "location",
           "price_hourly",
-          "price_monthly"
+          "price_monthly",
+          "included_traffic",
+          "price_per_tb_traffic"
         ],
         "type": "object"
       },
@@ -6015,20 +6050,21 @@
       "replace_floating_ip_request": {
         "properties": {
           "description": {
-            "description": "New Description to set",
-            "example": "Web Frontend",
+            "description": "Description of the Resource.",
+            "example": "This describes my resource",
+            "nullable": true,
             "type": "string"
           },
           "labels": {
             "$ref": "#/components/schemas/labels"
           },
           "name": {
-            "description": "New unique name to set",
-            "example": "Web Frontend",
+            "description": "Name of the Resource. Must be unique per Project.",
+            "example": "my-resource",
             "type": "string"
           }
         },
-        "title": "UpdateFloatingIPRequest",
+        "title": "FloatingIPUpdateRequest",
         "type": "object",
         "description": "Request for PUT https://api.hetzner.cloud/v1/floating_ips/{id}"
       },
@@ -6104,7 +6140,7 @@
       "replace_network_request": {
         "properties": {
           "expose_routes_to_vswitch": {
-            "description": "Indicates if the routes from this network should be exposed to the vSwitch connection. The exposing only takes effect if a vSwitch connection is active.",
+            "description": "Toggle to expose routes to the networks vSwitch.\n\nIndicates if the routes from this network should be exposed to the vSwitch in this network. Only takes effect if a vSwitch is setup in this network.\n",
             "example": false,
             "type": "boolean"
           },
@@ -6117,7 +6153,7 @@
             "type": "string"
           }
         },
-        "title": "UpdateNetworkRequest",
+        "title": "NetworkUpdateRequest",
         "type": "object",
         "description": "Request for PUT https://api.hetzner.cloud/v1/networks/{id}"
       },
@@ -6532,12 +6568,12 @@
       "route": {
         "properties": {
           "destination": {
-            "description": "Destination network or host of this route. Must not overlap with an existing ip_range in any subnets or with any destinations in other routes or with the first IP of the networks ip_range or with 172.31.1.1. Must be one of the private IPv4 ranges of RFC1918.",
+            "description": "Destination network or host of the route.\n\nPackages addressed for IPs matching the destination IP prefix will be send to the specified gateway.\n\nMust be one of\n* private IPv4 ranges of RFC1918\n* or `0.0.0.0/0`.\n\nMust not overlap with\n* an existing ip_range in any subnets\n* or with any destinations in other routes\n* or with `172.31.1.1`.\n\n`172.31.1.1` is being used as a gateway for the public network interface of Servers.\n",
             "example": "10.100.1.0/24",
             "type": "string"
           },
           "gateway": {
-            "description": "Gateway for the route. Cannot be the first IP of the networks ip_range and also cannot be 172.31.1.1 as this IP is being used as a gateway for the public network interface of Servers. | Gateway for the route. Cannot be the first IP of the networks ip_range, an IP behind a vSwitch or 172.31.1.1, as this IP is being used as a gateway for the public network interface of Servers.",
+            "description": "Gateway of the route.\n\nPackages addressed for the specified destination will be send to this IP address.\n\nCannot be\n* the first IP of the networks ip_range,\n* an IP behind a vSwitch or\n* `172.31.1.1`.\n\n`172.31.1.1` is being used as a gateway for the public network interface of Servers.\n",
             "example": "10.0.1.1",
             "type": "string"
           }
@@ -6987,9 +7023,11 @@
             "maximum": 9007199254740991
           },
           "included_traffic": {
-            "description": "Free traffic per month in bytes",
-            "example": 654321,
+            "deprecated": true,
+            "description": "**Deprecated**: This field is deprecated and set to `null` since 5 August 2024.\nPlease refer to the `included_traffic` field in `prices` instead.\nLearn more about this change in [the Changelog](https://docs.hetzner.cloud/changelog#2024-07-25-cloud-api-returns-traffic-information-in-different-format).\n",
+            "example": null,
             "format": "int64",
+            "nullable": true,
             "type": "integer"
           },
           "memory": {
@@ -7141,17 +7179,17 @@
       "subnet": {
         "properties": {
           "ip_range": {
-            "description": "Range to allocate IPs from. Must be a Subnet of the ip_range of the parent network object and must not overlap with any other subnets or with any destinations in routes. Minimum Network size is /30. We suggest that you pick a bigger Network with a /24 netmask. | Range to allocate IPs from. Must be a Subnet of the ip_range of the parent network object and must not overlap with any other subnets or with any destinations in routes. If the Subnet is of type vSwitch, it also can not overlap with any gateway in routes. Minimum Network size is /30. We suggest that you pick a bigger Network with a /24 netmask.",
+            "description": "IP range in CIDR block notation of the whole subnetwork.\n\nMust be a subnet of the parent Network `ip_range`.\n\nMust not overlap with any other subnets or with any destinations in routes.\n\nMinimum network size is /30. We highly recommend that you pick a larger network with a /24 netmask.\n",
             "example": "10.0.1.0/24",
             "type": "string"
           },
           "network_zone": {
-            "description": "Name of Network zone. The Location object contains the `network_zone` property each Location belongs to.",
+            "description": "Name of Network zone.\n\nThe Location object contains the `network_zone` property each Location belongs to.\n | Name of Network Zone.\n\nThe Location object contains the `network_zone` it belongs to.\n",
             "example": "eu-central",
             "type": "string"
           },
           "type": {
-            "description": "Type of Subnetwork",
+            "description": "Type of Subnetwork.\n\n- `cloud` - Used to connect cloud servers.\n- `server` - Same as the `cloud` type. **Deprecated**, use the `cloud` type instead.\n- `vswitch` - Used to [connect cloud servers to dedicated servers](https://docs.hetzner.com/cloud/networks/connect-dedi-vswitch).\n",
             "enum": [
               "cloud",
               "server",
@@ -7160,7 +7198,7 @@
             "type": "string"
           },
           "vswitch_id": {
-            "description": "ID of the robot vSwitch. Must be supplied if the subnet is of type vswitch.",
+            "description": "ID of the robot vSwitch.\n\nMust only be supplied for subnets of type vswitch.\n | ID of the robot vSwitch.\n\nMust be supplied if the Subnet is of type `vswitch`.\n",
             "example": 1000,
             "format": "int64",
             "type": "integer"
@@ -7181,7 +7219,7 @@
             "type": "string"
           },
           "ip_range": {
-            "description": "Range to allocate IPs from. Must be a Subnet of the ip_range of the parent network object and must not overlap with any other subnets or with any destinations in routes. Minimum Network size is /30. We suggest that you pick a bigger Network with a /24 netmask.",
+            "description": "IP range in CIDR block notation of the whole subnetwork.",
             "example": "10.0.1.0/24",
             "type": "string"
           },
@@ -7191,7 +7229,7 @@
             "type": "string"
           },
           "type": {
-            "description": "Type of Subnetwork",
+            "description": "Type of Subnetwork.\n\n- `cloud` - Used to connect cloud servers.\n- `server` - Same as the `cloud` type. **Deprecated**, use the `cloud` type instead.\n- `vswitch` - Used to [connect cloud servers to dedicated servers](https://docs.hetzner.com/cloud/networks/connect-dedi-vswitch).\n",
             "enum": [
               "cloud",
               "server",
@@ -8502,7 +8540,7 @@
     },
     "/datacenters": {
       "get": {
-        "description": "Returns all Datacenters.",
+        "description": "Returns all [Datacenters](#datacenters).",
         "parameters": [
           {
             "description": "Filter resources by their name. The response will only contain the resources\nmatching the specified name.\n",
@@ -8564,7 +8602,7 @@
                 }
               }
             },
-            "description": "Contains the queried Datacenters."
+            "description": "Contains the queried [Datacenters](#datacenters)."
           }
         },
         "summary": "Get all Datacenters",
@@ -8576,7 +8614,7 @@
     },
     "/datacenters/{id}": {
       "get": {
-        "description": "Returns a single Datacenter.",
+        "description": "Returns a single [Datacenter](#datacenters).",
         "parameters": [
           {
             "description": "ID of the Datacenter.",
@@ -8601,7 +8639,7 @@
                 }
               }
             },
-            "description": "Contains the queried Datacenter."
+            "description": "Contains the queried [Datacenter](#datacenters)."
           }
         },
         "summary": "Get a Datacenter",
@@ -9485,7 +9523,7 @@
     },
     "/floating_ips": {
       "get": {
-        "description": "Returns all Floating IP objects.",
+        "description": "List multiple [Floating IPs](#floating-ips).\n\nUse the provided URI parameters to modify the result.\n",
         "parameters": [
           {
             "description": "Filter resources by their name. The response will only contain the resources\nmatching the specified name.\n",
@@ -9556,7 +9594,7 @@
                 }
               }
             },
-            "description": "The `floating_ips` key in the reply contains an array of Floating IP objects with this structure"
+            "description": "Response for listing [Floating IPs](#floating-ips)."
           }
         },
         "summary": "Get all Floating IPs",
@@ -9566,7 +9604,7 @@
         "operationId": "list_floating_ips"
       },
       "post": {
-        "description": "Creates a new Floating IP assigned to a Server. If you want to create a Floating IP that is not bound to a Server, you need to provide the `home_location` key instead of `server`. This can be either the ID or the name of the Location this IP shall be created in. Note that a Floating IP can be assigned to a Server in any Location later on. For optimal routing it is advised to use the Floating IP in the same Location it was created in.",
+        "description": "Create a [Floating IP](#floating-ips).\n\nProvide the `server` attribute to assign the [Floating IP](#floating-ips) to that server or provide a `home_location` to locate the [Floating IP](#floating-ips) at. Note that the [Floating IP](#floating-ips) can be assigned to a [Server](#servers) in any [Location](#locations) later on. For optimal routing it is advised to use the [Floating IP](#floating-ips) in the same [Location](#locations) it was created in.\n",
         "requestBody": {
           "content": {
             "application/json": {
@@ -9638,7 +9676,7 @@
                 }
               }
             },
-            "description": "The `floating_ip` key in the reply contains the object that was just created"
+            "description": "Response for creating a [Floating IP](#floating-ips).\n\nContains the created IP.\n"
           }
         },
         "summary": "Create a Floating IP",
@@ -9650,7 +9688,7 @@
     },
     "/floating_ips/{id}": {
       "delete": {
-        "description": "Deletes a Floating IP. If it is currently assigned to a Server it will automatically get unassigned.",
+        "description": "Deletes a [Floating IP](#floating-ips).\n\nIf the IP is assigned to a resource it will be unassigned.\n",
         "parameters": [
           {
             "description": "ID of the Floating IP.",
@@ -9668,7 +9706,7 @@
         ],
         "responses": {
           "204": {
-            "description": "Floating IP deleted"
+            "description": "Floating IP deleted."
           }
         },
         "summary": "Delete a Floating IP",
@@ -9678,7 +9716,7 @@
         "operationId": "delete_floating_ip"
       },
       "get": {
-        "description": "Returns a specific Floating IP object.",
+        "description": "Returns a single [Floating IP](#floating-ips).",
         "parameters": [
           {
             "description": "ID of the Floating IP.",
@@ -9703,7 +9741,7 @@
                 }
               }
             },
-            "description": "The `floating_ip` key in the reply contains a Floating IP object with this structure"
+            "description": "Response for getting a single [Floating IP](#floating-ips)."
           }
         },
         "summary": "Get a Floating IP",
@@ -9713,7 +9751,7 @@
         "operationId": "get_floating_ip"
       },
       "put": {
-        "description": "Updates the description or labels of a Floating IP.\nAlso note that when updating labels, the Floating IP’s current set of labels will be replaced with the labels provided in the request body. So, for example, if you want to add a new label, you have to provide all existing labels plus the new label in the request body.",
+        "description": "Update the description or [Labels](#labels) of a [Floating IP](#floating-ips).\nNote that when updating [Labels](#labels), the [Floating IPs](#floating-ips) current set of [Labels](#labels) will be replaced with the [Labels](#labels) provided with the request. So, for example, if you want to add a new [Label](#labels), you have to provide all existing [Labels](#labels) plus the new [Label](#labels) in the request body.",
         "parameters": [
           {
             "description": "ID of the Floating IP.",
@@ -9781,7 +9819,7 @@
                 }
               }
             },
-            "description": "The `floating_ip` key in the reply contains the modified Floating IP object with the new description"
+            "description": "Response for updating a [Floating IP](#floating-ips).\n\nContains the updated [Floating IP](#floating-ips).\n"
           }
         },
         "summary": "Update a Floating IP",
@@ -9793,7 +9831,7 @@
     },
     "/floating_ips/{id}/actions": {
       "get": {
-        "description": "Returns all Action objects for a Floating IP. You can sort the results by using the `sort` URI parameter, and filter them with the `status` parameter.",
+        "description": "Lists [Actions](#actions) for a [Floating IP](#floating-ips).\n\nUse the provided URI parameters to modify the result.\n",
         "parameters": [
           {
             "description": "ID of the Floating IP.",
@@ -9919,7 +9957,7 @@
                 }
               }
             },
-            "description": "The `actions` key contains a list of Actions"
+            "description": "Response for listing [Actions](#actions)."
           }
         },
         "summary": "Get all Actions for a Floating IP",
@@ -9931,7 +9969,7 @@
     },
     "/floating_ips/{id}/actions/{action_id}": {
       "get": {
-        "description": "Returns a specific Action object for a Floating IP.",
+        "description": "Returns a specific [Action](#actions) for a [Floating IP](#floating-ips).",
         "parameters": [
           {
             "description": "ID of the Floating IP.",
@@ -9993,7 +10031,7 @@
                 }
               }
             },
-            "description": "The `action` key in the reply has this structure"
+            "description": "Response for getting an [Action](#actions)."
           }
         },
         "summary": "Get an Action for a Floating IP",
@@ -10005,7 +10043,7 @@
     },
     "/floating_ips/{id}/actions/assign": {
       "post": {
-        "description": "Assigns a Floating IP to a Server.",
+        "description": "Assigns a [Floating IP](#floating-ips) to a [Server](#servers).",
         "parameters": [
           {
             "description": "ID of the Floating IP.",
@@ -10063,7 +10101,7 @@
                 }
               }
             },
-            "description": "The `action` key contains the `assign` Action"
+            "description": "Response for assigning a [Floating IP](#floating-ips).\n\nContains an [Action](#actions) of type `assign_floating_ip`.\n"
           }
         },
         "summary": "Assign a Floating IP to a Server",
@@ -10075,7 +10113,7 @@
     },
     "/floating_ips/{id}/actions/change_dns_ptr": {
       "post": {
-        "description": "Changes the hostname that will appear when getting the hostname belonging to this Floating IP.",
+        "description": "Change the reverse DNS records for this [Floating IP](#floating-ips).\n\nAllows to modify the PTR records set for the IP address.\n",
         "parameters": [
           {
             "description": "ID of the Floating IP.",
@@ -10095,11 +10133,11 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/change_reverse_dns_entry_for_floating_ip_request"
+                "$ref": "#/components/schemas/change_reverse_dns_records_for_floating_ip_request"
               }
             }
           },
-          "description": "Select the IP address for which to change the DNS entry by passing `ip`. For a Floating IP of type `ipv4` this must exactly match the IP address of the Floating IP. For a Floating IP of type `ipv6` this must be a single IP within the IPv6 /64 range that belongs to this Floating IP. You can add up to 100 IPv6 reverse DNS entries.\n\nThe target hostname is set by passing `dns_ptr`.\n"
+          "description": "The `ip` attributes specifies for which IP address the record is set. For IPv4 addresses this must be the exact address of the [Floating IP](#floating-ips). For IPv6 addresses this must be a single address within the `/64` subnetwork of the [Floating IP](#floating-ips).\n\nThe `dns_ptr` attribute specifies the hostname used for the IP address.\n\nFor IPv6 [Floating IPs](#floating-ips) up to 100 entries can be created.\n"
         },
         "responses": {
           "201": {
@@ -10126,23 +10164,23 @@
                   }
                 },
                 "schema": {
-                  "$ref": "#/components/schemas/change_reverse_dns_entry_for_floating_ip_response"
+                  "$ref": "#/components/schemas/change_reverse_dns_records_for_floating_ip_response"
                 }
               }
             },
-            "description": "The `action` key contains the `change_dns_ptr` Action"
+            "description": "Response for changing a [Floating IPs](#floating-ips) DNS pointer.\n\nContains an [Action](#actions) of type `change_dns_ptr`.\n"
           }
         },
-        "summary": "Change reverse DNS entry for a Floating IP",
+        "summary": "Change reverse DNS records for a Floating IP",
         "tags": [
           "floating_ips"
         ],
-        "operationId": "change_reverse_dns_entry_for_floating_ip"
+        "operationId": "change_reverse_dns_records_for_floating_ip"
       }
     },
     "/floating_ips/{id}/actions/change_protection": {
       "post": {
-        "description": "Changes the protection configuration of the Floating IP.",
+        "description": "Changes the protection settings configured for the [Floating IP](#floating-ips).",
         "parameters": [
           {
             "description": "ID of the Floating IP.",
@@ -10196,7 +10234,7 @@
                 }
               }
             },
-            "description": "The `action` key contains the `change_protection` Action"
+            "description": "Response for changing a [Floating IPs](#floating-ips) protection settings.\n\nContains an [Action](#actions) of type `change_protection`.\n"
           }
         },
         "summary": "Change Floating IP Protection",
@@ -10208,7 +10246,7 @@
     },
     "/floating_ips/{id}/actions/unassign": {
       "post": {
-        "description": "Unassigns a Floating IP, resulting in it being unreachable. You may assign it to a Server again at a later time.",
+        "description": "Unassigns a [Floating IP](#floating-ips).\n\nResults in the IP being unreachable. Can be assigned to another resource again.\n",
         "parameters": [
           {
             "description": "ID of the Floating IP.",
@@ -10257,7 +10295,7 @@
                 }
               }
             },
-            "description": "The `action` key contains the `unassign` Action"
+            "description": "Response for unassigning a [Floating IP](#floating-ips).\n\nContains an [Action](#actions) of type `unassign_floating_ip`.\n"
           }
         },
         "summary": "Unassign a Floating IP",
@@ -10269,7 +10307,7 @@
     },
     "/floating_ips/actions": {
       "get": {
-        "description": "Returns all Action objects. You can `sort` the results by using the sort URI parameter, and filter them with the `status` and `id` parameter.",
+        "description": "Lists multiple [Actions](#actions).\n\nUse the provided URI parameters to modify the result.\n",
         "parameters": [
           {
             "description": "Filter the actions by ID. Can be used multiple times. The response will only contain\nactions matching the specified IDs.\n",
@@ -10359,7 +10397,7 @@
                 }
               }
             },
-            "description": "The `actions` key contains a list of Actions"
+            "description": "Response for listing [Actions](#actions)."
           }
         },
         "summary": "Get all Actions",
@@ -10371,7 +10409,7 @@
     },
     "/floating_ips/actions/{id}": {
       "get": {
-        "description": "Returns a specific Action object.",
+        "description": "Returns a single [Action](#actions).",
         "parameters": [
           {
             "description": "ID of the Action",
@@ -10396,7 +10434,7 @@
                 }
               }
             },
-            "description": "The `action` key in the reply has this structure"
+            "description": "Response for getting a single [Action](#actions)."
           }
         },
         "summary": "Get an Action",
@@ -11441,12 +11479,17 @@
                       "name": "lb11",
                       "prices": [
                         {
+                          "included_traffic": 654321,
                           "location": "fsn1",
                           "price_hourly": {
                             "gross": "1.1900000000000000",
                             "net": "1.0000000000"
                           },
                           "price_monthly": {
+                            "gross": "1.1900000000000000",
+                            "net": "1.0000000000"
+                          },
+                          "price_per_tb_traffic": {
                             "gross": "1.1900000000000000",
                             "net": "1.0000000000"
                           }
@@ -11680,12 +11723,17 @@
                       "name": "lb11",
                       "prices": [
                         {
+                          "included_traffic": 654321,
                           "location": "fsn1",
                           "price_hourly": {
                             "gross": "1.1900000000000000",
                             "net": "1.0000000000"
                           },
                           "price_monthly": {
+                            "gross": "1.1900000000000000",
+                            "net": "1.0000000000"
+                          },
+                          "price_per_tb_traffic": {
                             "gross": "1.1900000000000000",
                             "net": "1.0000000000"
                           }
@@ -15618,17 +15666,22 @@
                       "description": "CX11",
                       "disk": 25,
                       "id": 1,
-                      "included_traffic": 21990232555520,
+                      "included_traffic": null,
                       "memory": 1,
                       "name": "cx11",
                       "prices": [
                         {
+                          "included_traffic": 21990232555520,
                           "location": "fsn1",
                           "price_hourly": {
                             "gross": "1.1900000000000000",
                             "net": "1.0000000000"
                           },
                           "price_monthly": {
+                            "gross": "1.1900000000000000",
+                            "net": "1.0000000000"
+                          },
+                          "price_per_tb_traffic": {
                             "gross": "1.1900000000000000",
                             "net": "1.0000000000"
                           }
