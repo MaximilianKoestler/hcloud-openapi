@@ -6,7 +6,7 @@
     "contact": {
       "url": "https://docs.hetzner.cloud/"
     },
-    "version": "7ca93ee"
+    "version": "caf9151-dirty"
   },
   "servers": [
     {
@@ -4521,7 +4521,8 @@
           }
         },
         "required": [
-          "load_balancer_types"
+          "load_balancer_types",
+          "meta"
         ],
         "type": "object",
         "description": "Response to GET https://api.hetzner.cloud/v1/load_balancer_types"
@@ -5001,7 +5002,8 @@
           }
         },
         "required": [
-          "server_types"
+          "server_types",
+          "meta"
         ],
         "type": "object",
         "description": "Response to GET https://api.hetzner.cloud/v1/server_types"

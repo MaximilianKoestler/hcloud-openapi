@@ -71,6 +71,10 @@ function addPaginationMetadataToSchema(
     } else if (property_keys.length == 1) {
       if (schema.properties[property_keys[0]].type == "array") {
         addPaginationMetadataToProperties(schema.properties);
+        if (schema.required === undefined) {
+          schema.required = [];
+        }
+        schema.required.push("meta");
         return true;
       }
     }
