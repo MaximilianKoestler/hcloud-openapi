@@ -308,6 +308,15 @@
     ]
   },
   {
+    "name": "price_per_time_without_traffic",
+    "path": [
+      "list_prices_response",
+      "pricing",
+      "primary_ips",
+      "prices"
+    ]
+  },
+  {
     "description": "Protection configuration for the Resource",
     "name": "protection",
     "path": [

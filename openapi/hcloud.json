@@ -6,7 +6,7 @@
     "contact": {
       "url": "https://docs.hetzner.cloud/"
     },
-    "version": "caf9151-dirty"
+    "version": "717b6c9-dirty"
   },
   "servers": [
     {
@@ -4754,25 +4754,7 @@
                     "prices": {
                       "description": "Primary IP type costs per Location",
                       "items": {
-                        "properties": {
-                          "location": {
-                            "description": "Name of the Location the price is for",
-                            "example": "fsn1",
-                            "type": "string"
-                          },
-                          "price_hourly": {
-                            "$ref": "#/components/schemas/price"
-                          },
-                          "price_monthly": {
-                            "$ref": "#/components/schemas/price"
-                          }
-                        },
-                        "required": [
-                          "location",
-                          "price_hourly",
-                          "price_monthly"
-                        ],
-                        "type": "object"
+                        "$ref": "#/components/schemas/price_per_time_without_traffic"
                       },
                       "type": "array"
                     },
@@ -5833,6 +5815,27 @@
         },
         "required": [
           "location",
+          "price_monthly"
+        ],
+        "type": "object"
+      },
+      "price_per_time_without_traffic": {
+        "properties": {
+          "location": {
+            "description": "Name of the Location the price is for",
+            "example": "fsn1",
+            "type": "string"
+          },
+          "price_hourly": {
+            "$ref": "#/components/schemas/price"
+          },
+          "price_monthly": {
+            "$ref": "#/components/schemas/price"
+          }
+        },
+        "required": [
+          "location",
+          "price_hourly",
           "price_monthly"
         ],
         "type": "object"
