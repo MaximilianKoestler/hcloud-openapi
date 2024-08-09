@@ -61,6 +61,16 @@ function fixItem(part: OpenApiDocumentFragment, location: string[]) {
     };
     delete part["properties"];
   }
+
+  // add 52 (53?) bit maximum value for IDs
+  if (location[location.length - 1] == "id" && part.format == "int64" && part.type == "integer" && part.maximum == undefined) {
+    part.maximum = 9007199254740991;
+  }
+
+  // all firewall rules have nullable ports because some protocols do not have ports at all
+  if (location[location.length - 1] == "port" && location[location.length - 2] == "rules") {
+    part.nullable = true;
+  }
 }
 
 export function fixSchema(id: string, schemas: OpenApiDocumentFragment) {
