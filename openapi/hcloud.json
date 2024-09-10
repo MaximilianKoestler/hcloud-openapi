@@ -6,7 +6,7 @@
     "contact": {
       "url": "https://docs.hetzner.cloud/"
     },
-    "version": "717b6c9-dirty"
+    "version": "9d085f2-dirty"
   },
   "servers": [
     {
@@ -17,19 +17,19 @@
   "tags": [
     {
       "name": "actions",
-      "description": "Actions show the results and progress of asynchronous requests to the API."
+      "description": "Actions show the results and progress of asynchronous requests to the API.\n"
     },
     {
       "name": "certificates",
-      "description": "TLS/SSL Certificates prove the identity of a Server and are used to encrypt client traffic."
+      "description": "TLS/SSL Certificates prove the identity of a Server and are used to encrypt client traffic.\n"
     },
     {
       "name": "datacenters",
-      "description": "Each Datacenter represents a *virtual* Datacenter which is made up of possible many physical Datacenters where Servers are hosted.\n\nDatacenter names are composed from their Location and virtual Datacenter number, for example `fsn1-dc14` means virtual Datacenter `14` in Location `fsn1`.\n\nRight now there is only one Datacenter for each Location. The Datacenter numbers for `fsn`, `nbg` and `hel` are arbitrarily set to `14`, `3` and `2` for historic reasons and do not represent real physical Hetzner datacenters.\n"
+      "description": "Each Datacenter represents a _virtual_ Datacenter which is made up of possible many physical Datacenters where Servers are hosted.\n\nDatacenter names are composed from their Location and virtual Datacenter number, for example `fsn1-dc14` means virtual Datacenter `14` in Location `fsn1`.\n\nRight now there is only one Datacenter for each Location. The Datacenter numbers for `fsn`, `nbg` and `hel` are arbitrarily set to `14`, `3` and `2` for historic reasons and do not represent real physical Hetzner datacenters.\n"
     },
     {
       "name": "firewalls",
-      "description": "Firewalls can limit the network access to or from your resources.\n\n* When applying a firewall with no `in` rule all inbound traffic will be dropped. The default for `in` is `DROP`.\n* When applying a firewall with no `out` rule all outbound traffic will be accepted. The default for `out` is `ACCEPT`.\n"
+      "description": "Firewalls can limit the network access to or from your resources.\n\n- When applying a firewall with no `in` rule all inbound traffic will be dropped. The default for `in` is `DROP`.\n- When applying a firewall with no `out` rule all outbound traffic will be accepted. The default for `out` is `ACCEPT`.\n"
     },
     {
       "name": "floating_ips",
@@ -37,7 +37,7 @@
     },
     {
       "name": "images",
-      "description": "Images are blueprints for your VM disks. They can be of different types:\n\n### System Images\nDistribution Images maintained by us, e.g. “Ubuntu 20.04”\n\n### Snapshot Images\nMaintained by you, for example “Ubuntu 20.04 with my own settings”. These are billed per GB per month.\n\n### Backup Images\nDaily Backups of your Server. Will automatically be created for Servers which have backups enabled (`POST /servers/{id}/actions/enable_backup`)\n\nBound to exactly one Server. If you delete the Server, you also delete all backups bound to it. You may convert backup Images to snapshot Images to keep them.\n\nThese are billed at 20% of your instance price for 7 backup slots.\n\n### App Images\nPrebuild images with specific software configurations, e.g. “Wordpress”. All app images are created by us.\n"
+      "description": "Images are blueprints for your VM disks. They can be of different types:\n\n### System Images\n\nDistribution Images maintained by us, e.g. “Ubuntu 20.04”\n\n### Snapshot Images\n\nMaintained by you, for example “Ubuntu 20.04 with my own settings”. These are billed per GB per month.\n\n### Backup Images\n\nDaily Backups of your Server. Will automatically be created for Servers which have backups enabled (`POST /servers/{id}/actions/enable_backup`)\n\nBound to exactly one Server. If you delete the Server, you also delete all backups bound to it. You may convert backup Images to snapshot Images to keep them.\n\nThese are billed at 20% of your instance price for 7 backup slots.\n\n### App Images\n\nPrebuild images with specific software configurations, e.g. “Wordpress”. All app images are created by us.\n"
     },
     {
       "name": "isos",
@@ -52,11 +52,11 @@
     },
     {
       "name": "locations",
-      "description": "Datacenters are organized by Locations. Datacenters in the same Location are connected with very low latency links."
+      "description": "Datacenters are organized by Locations. Datacenters in the same Location are connected with very low latency links.\n"
     },
     {
       "name": "networks",
-      "description": "Networks is a private networks feature. These Networks are optional and they coexist with the public network that every Server has by default.\n\nThey allow Servers to talk to each other over a dedicated network interface using private IP addresses not available publicly.\n\nThe IP addresses are allocated and managed via the API, they must conform to [RFC1918](https://tools.ietf.org/html/rfc1918#section-3) standard. IPs and network interfaces defined under Networks do not provide public internet connectivity, you will need to use the already existing public network interface for that.\n\nEach network has a user selected `ip_range` which defines all available IP addresses which can be used for Subnets within the Network.\n\nTo assign individual IPs to Servers you will need to create Network Subnets, described below.\n\nCurrently Networks support IPv4 only.\n\n### Subnets\nSubnets divide the `ip_range` from the parent Network object into multiple Subnetworks that you can use for different specific purposes.\n\nFor each subnet you need to specify its own `ip_range` which must be contained within the parent Network’s `ip_range`. Additionally each subnet must belong to one of the available Network Zones described below. Subnets can not have overlapping IP ranges.\n\nCurrently there are three types of subnet:\n* type `cloud` is used to connect cloud Resources into your Network.\n* type `server` was used to connect only cloud Servers into your Network. This type is deprecated and is replaced by type cloud.\n* type `vswitch` allows you to connect [Dedicated Server vSwitch](https://docs.hetzner.com/robot/dedicated-server/network/vswitch) - and all Dedicated Servers attached to it - into your Network\n\nSubnets of type `vswitch` must set a `vswitch_id` which is the ID of the existing vSwitch in Hetzner Robot that should be coupled.\n\n### Network Zones\nNetwork Zones are groups of Locations which have special high-speed network connections between them. The [Location object](https://docs.hetzner.cloud/#locations-get-a-location) contains the `network_zone` property each Location belongs to. Currently these network zones exist:\n\n|Network Zone|Contains Locations|\n|------------|------------------|\n|eu-central  | nbg1, fsn1, hel1 |\n|us-east     | ash              |\n|us-west     | hil              |\n|ap-southeast| sin              |\n\n### IP address management\nWhen a cloud Server is attached to a network without the user specifying an IP it automatically gets an IP address assigned from a subnet of type `server` in the same network zone. If you specify the optional `ip` parameter when attaching then we will try to assign that IP. Keep in mind that the Server’s location must be covered by the Subnet’s Network Zone if you specify an IP, or that at least one Subnet with the zone covering Server’s location must exist.\n\nA cloud Server can also have more than one IP address in a Network by specifying aliases. For details see the [attach to network action](https://docs.hetzner.cloud/#server-actions-attach-a-server-to-a-network).\n\nThe following IP addresses are reserved in networks and can not be used:\n  * the first IP of the network `ip_range` as it will be used as a default gateway for the private Network interface.\n  * `172.31.1.1` as it is being used as default gateway for our public Network interfaces.\n\n### Coupling Dedicated Servers\n\nBy using subnets of type `vswitch` you can couple the Cloud Networks with an existing [Dedicated Server vSwitch](https://docs.hetzner.com/robot/dedicated-server/network/vswitch) and enable dedicated and cloud servers to\ntalk to each other over the Network.\nIn order for this to work the dedicated servers may only use IPs from the subnet and must have a special network configuration. Please refer to [FAQ](https://docs.hetzner.com/cloud/networks/connect-dedi-vswitch). vSwitch Layer 2 features are not supported.\n\n### Routes\nNetworks also support the notion of routes which are automatically applied to private traffic. A route makes sure that all packets for a given `destination` IP prefix will be sent to the address specified in its `gateway`.\n"
+      "description": "Networks is a private networks feature. These Networks are optional and they coexist with the public network that every Server has by default.\n\nThey allow Servers to talk to each other over a dedicated network interface using private IP addresses not available publicly.\n\nThe IP addresses are allocated and managed via the API, they must conform to [RFC1918](https://tools.ietf.org/html/rfc1918#section-3) standard. IPs and network interfaces defined under Networks do not provide public internet connectivity, you will need to use the already existing public network interface for that.\n\nEach network has a user selected `ip_range` which defines all available IP addresses which can be used for Subnets within the Network.\n\nTo assign individual IPs to Servers you will need to create Network Subnets, described below.\n\nCurrently Networks support IPv4 only.\n\n### Subnets\n\nSubnets divide the `ip_range` from the parent Network object into multiple Subnetworks that you can use for different specific purposes.\n\nFor each subnet you need to specify its own `ip_range` which must be contained within the parent Network’s `ip_range`. Additionally each subnet must belong to one of the available Network Zones described below. Subnets can not have overlapping IP ranges.\n\nCurrently there are three types of subnet:\n\n- type `cloud` is used to connect cloud Resources into your Network.\n- type `server` was used to connect only cloud Servers into your Network. This type is deprecated and is replaced by type cloud.\n- type `vswitch` allows you to connect [Dedicated Server vSwitch](https://docs.hetzner.com/robot/dedicated-server/network/vswitch) - and all Dedicated Servers attached to it - into your Network\n\nSubnets of type `vswitch` must set a `vswitch_id` which is the ID of the existing vSwitch in Hetzner Robot that should be coupled.\n\n### Network Zones\n\nNetwork Zones are groups of Locations which have special high-speed network connections between them. The [Location object](https://docs.hetzner.cloud/#locations-get-a-location) contains the `network_zone` property each Location belongs to. Currently these network zones exist:\n\n| Network Zone | Contains Locations |\n| ------------ | ------------------ |\n| eu-central   | nbg1, fsn1, hel1   |\n| us-east      | ash                |\n| us-west      | hil                |\n| ap-southeast | sin                |\n\n### IP address management\n\nWhen a cloud Server is attached to a network without the user specifying an IP it automatically gets an IP address assigned from a subnet of type `server` in the same network zone. If you specify the optional `ip` parameter when attaching then we will try to assign that IP. Keep in mind that the Server’s location must be covered by the Subnet’s Network Zone if you specify an IP, or that at least one Subnet with the zone covering Server’s location must exist.\n\nA cloud Server can also have more than one IP address in a Network by specifying aliases. For details see the [attach to network action](https://docs.hetzner.cloud/#server-actions-attach-a-server-to-a-network).\n\nThe following IP addresses are reserved in networks and can not be used:\n\n- the first IP of the network `ip_range` as it will be used as a default gateway for the private Network interface.\n- `172.31.1.1` as it is being used as default gateway for our public Network interfaces.\n\n### Coupling Dedicated Servers\n\nBy using subnets of type `vswitch` you can couple the Cloud Networks with an existing [Dedicated Server vSwitch](https://docs.hetzner.com/robot/dedicated-server/network/vswitch) and enable dedicated and cloud servers to\ntalk to each other over the Network.\nIn order for this to work the dedicated servers may only use IPs from the subnet and must have a special network configuration. Please refer to [FAQ](https://docs.hetzner.com/cloud/networks/connect-dedi-vswitch). vSwitch Layer 2 features are not supported.\n\n### Routes\n\nNetworks also support the notion of routes which are automatically applied to private traffic. A route makes sure that all packets for a given `destination` IP prefix will be sent to the address specified in its `gateway`.\n"
     },
     {
       "name": "placement_groups",
@@ -64,7 +64,7 @@
     },
     {
       "name": "pricing",
-      "description": "Returns prices for resources."
+      "description": "Returns prices for resources.\n"
     },
     {
       "name": "primary_ips",
@@ -76,11 +76,11 @@
     },
     {
       "name": "servers",
-      "description": "Servers are virtual machines that can be provisioned."
+      "description": "Servers are virtual machines that can be provisioned.\n"
     },
     {
       "name": "ssh_keys",
-      "description": "SSH keys are public keys you provide to the cloud system. They can be injected into Servers at creation time. We highly recommend that you use keys instead of passwords to manage your Servers."
+      "description": "SSH keys are public keys you provide to the cloud system. They can be injected into Servers at creation time. We highly recommend that you use keys instead of passwords to manage your Servers.\n"
     },
     {
       "name": "volumes",
@@ -452,19 +452,6 @@
           "type": "integer"
         }
       },
-      "QueryProjectIDList": {
-        "description": "Filter for project IDs.Can be used multiple times.\n\nThe response will only contain items with the specified projects.\n",
-        "in": "query",
-        "name": "project_ids",
-        "required": false,
-        "schema": {
-          "items": {
-            "format": "int64",
-            "type": "integer"
-          },
-          "type": "array"
-        }
-      },
       "QuerySortByIDAndCreated": {
         "description": "Sort resources by field and direction. Can be used multiple times. For more\ninformation, see \"[Sorting](#sorting)\".\n",
         "in": "query",
@@ -730,64 +717,7 @@
         "description": "Response to POST https://api.hetzner.cloud/v1/networks/{id}/actions/add_subnet"
       },
       "add_target_request": {
-        "properties": {
-          "ip": {
-            "description": "IP targets where the traffic should be routed to. It is only possible to use the (Public or vSwitch) IPs of Hetzner Online Root Servers belonging to the project owner. IPs belonging to other users are blocked. Additionally IPs belonging to services provided by Hetzner Cloud (Servers, Load Balancers, ...) are blocked as well. Only present for target type \"ip\".",
-            "properties": {
-              "ip": {
-                "description": "IP of a server that belongs to the same customer (public IPv4/IPv6) or private IP in a Subnetwork type vswitch.",
-                "example": "203.0.113.1",
-                "type": "string"
-              }
-            },
-            "required": [
-              "ip"
-            ],
-            "title": "LoadBalancerTargetIP",
-            "type": "object"
-          },
-          "label_selector": {
-            "$ref": "#/components/schemas/label_selector"
-          },
-          "server": {
-            "additionalProperties": false,
-            "description": "Configuration for type Server, required if type is `server`",
-            "properties": {
-              "id": {
-                "description": "ID of the Server",
-                "example": 80,
-                "format": "int64",
-                "type": "integer",
-                "maximum": 9007199254740991
-              }
-            },
-            "required": [
-              "id"
-            ],
-            "type": "object"
-          },
-          "type": {
-            "description": "Type of the resource",
-            "enum": [
-              "ip",
-              "label_selector",
-              "server"
-            ],
-            "type": "string"
-          },
-          "use_private_ip": {
-            "default": false,
-            "description": "Use the private network IP instead of the public IP of the Server, requires the Server and Load Balancer to be in the same network.",
-            "example": true,
-            "type": "boolean"
-          }
-        },
-        "required": [
-          "type"
-        ],
-        "title": "AddTargetRequest",
-        "type": "object",
-        "description": "Request for POST https://api.hetzner.cloud/v1/load_balancers/{id}/actions/add_target"
+        "$ref": "#/components/schemas/target"
       },
       "add_target_response": {
         "properties": {
@@ -805,7 +735,7 @@
       "apply_to_resources_request": {
         "properties": {
           "apply_to": {
-            "description": "Resources the Firewall should be applied to",
+            "description": "Resources to apply the [Firewall](#firewalls) to.\n\nExtends existing resources.\n",
             "items": {
               "$ref": "#/components/schemas/firewall_resource"
             },
@@ -905,7 +835,7 @@
           "assignee_type",
           "assignee_id"
         ],
-        "title": "AssignPrimaryIPRequest",
+        "title": "PrimaryIPActionsAssignRequest",
         "type": "object",
         "description": "Request for POST https://api.hetzner.cloud/v1/primary_ips/{id}/actions/assign"
       },
@@ -1291,7 +1221,7 @@
       "change_ip_range_of_network_request": {
         "properties": {
           "ip_range": {
-            "description": "IP range in CIDR block notation of the whole network.\n\nMust span all included subnets. Must be one of the private IPv4 ranges of RFC1918.\n\nMinimum network size is /24. We highly recommend that you pick a larger network with a /16 netmask.\n",
+            "description": "IP range of the [Network](#networks).\n\nUses CIDR notation.\n\nMust span all included subnets. Must be one of the private IPv4 ranges of RFC1918.\n\nMinimum network size is /24. We highly recommend that you pick a larger [Network](#networks) with a /16 netmask.\n",
             "example": "10.0.0.0/16",
             "type": "string"
           }
@@ -1343,7 +1273,7 @@
       "change_network_protection_request": {
         "properties": {
           "delete": {
-            "description": "If true, prevents the Network from being deleted",
+            "description": "Delete protection setting.\n\nIf true, prevents the [Network](#networks) from being deleted.\n",
             "example": true,
             "type": "boolean"
           }
@@ -1366,16 +1296,7 @@
         "description": "Response to POST https://api.hetzner.cloud/v1/networks/{id}/actions/change_protection"
       },
       "change_primary_ip_protection_request": {
-        "properties": {
-          "delete": {
-            "description": "If true, prevents the Primary IP from being deleted",
-            "example": true,
-            "type": "boolean"
-          }
-        },
-        "title": "ChangeProtectionRequest",
-        "type": "object",
-        "description": "Request for POST https://api.hetzner.cloud/v1/primary_ips/{id}/actions/change_protection"
+        "$ref": "#/components/schemas/protection"
       },
       "change_primary_ip_protection_response": {
         "properties": {
@@ -1389,41 +1310,6 @@
         "title": "ActionResponse",
         "type": "object",
         "description": "Response to POST https://api.hetzner.cloud/v1/primary_ips/{id}/actions/change_protection"
-      },
-      "change_reverse_dns_entry_for_primary_ip_request": {
-        "properties": {
-          "dns_ptr": {
-            "description": "Hostname to set as a reverse DNS PTR entry, will reset to original default value if `null`",
-            "example": "server02.example.com",
-            "nullable": true,
-            "type": "string"
-          },
-          "ip": {
-            "description": "IP address for which to set the reverse DNS entry",
-            "example": "1.2.3.4",
-            "type": "string"
-          }
-        },
-        "required": [
-          "ip",
-          "dns_ptr"
-        ],
-        "title": "ChangeDNSPTRRequest",
-        "type": "object",
-        "description": "Request for POST https://api.hetzner.cloud/v1/primary_ips/{id}/actions/change_dns_ptr"
-      },
-      "change_reverse_dns_entry_for_primary_ip_response": {
-        "properties": {
-          "action": {
-            "$ref": "#/components/schemas/action"
-          }
-        },
-        "required": [
-          "action"
-        ],
-        "title": "ActionResponse",
-        "type": "object",
-        "description": "Response to POST https://api.hetzner.cloud/v1/primary_ips/{id}/actions/change_dns_ptr"
       },
       "change_reverse_dns_entry_for_this_load_balancer_request": {
         "properties": {
@@ -1510,6 +1396,22 @@
         "type": "object",
         "description": "Response to POST https://api.hetzner.cloud/v1/floating_ips/{id}/actions/change_dns_ptr"
       },
+      "change_reverse_dns_records_for_primary_ip_request": {
+        "$ref": "#/components/schemas/dns_ptr"
+      },
+      "change_reverse_dns_records_for_primary_ip_response": {
+        "properties": {
+          "action": {
+            "$ref": "#/components/schemas/action"
+          }
+        },
+        "required": [
+          "action"
+        ],
+        "title": "ActionResponse",
+        "type": "object",
+        "description": "Response to POST https://api.hetzner.cloud/v1/primary_ips/{id}/actions/change_dns_ptr"
+      },
       "change_server_protection_request": {
         "properties": {
           "delete": {
@@ -1571,7 +1473,7 @@
         "properties": {
           "server_type": {
             "description": "ID or name of Server type the Server should migrate to",
-            "example": "cx11",
+            "example": "cpx11",
             "type": "string"
           },
           "upgrade_disk": {
@@ -1689,7 +1591,7 @@
       "create_firewall_request": {
         "properties": {
           "apply_to": {
-            "description": "Resources the Firewall should be applied to after creation",
+            "description": "Resources to apply the [Firewall](#firewalls) to.\n\nResources added directly are taking precedence over those added via a [Label Selector](#label-selector).\n",
             "items": {
               "$ref": "#/components/schemas/firewall_resource"
             },
@@ -1699,12 +1601,12 @@
             "$ref": "#/components/schemas/labels"
           },
           "name": {
-            "description": "Name of the Firewall.\n\nLimited to a maximum of 128 characters.\n",
-            "example": "Corporate Intranet Protection",
+            "description": "Name of the [Firewall](#firewalls).\n\nLimited to a maximum of 128 characters.\n\nMust be unique per Project.\n",
+            "example": "new-name",
             "type": "string"
           },
           "rules": {
-            "description": "Array of rules.\n\nLimited to a maximum of 50 rules per Firewall.\n",
+            "description": "Array of rules.\n\nRules are limited to 50 entries per [Firewall](#firewalls) and [500 effective rules](https://docs.hetzner.com/cloud/firewalls/overview#limits).\n",
             "example": [
               {
                 "direction": "in",
@@ -1959,12 +1861,12 @@
       "create_network_request": {
         "properties": {
           "expose_routes_to_vswitch": {
-            "description": "Toggle to expose routes to the networks vSwitch.\n\nIndicates if the routes from this network should be exposed to the vSwitch in this network. Only takes effect if a vSwitch is setup in this network.\n",
+            "description": "Toggle to expose routes to the [Networks](#networks) vSwitch.\n\nIndicates if the routes from this [Network](#networks) should be exposed to the vSwitch in this [Network](#networks). Only takes effect if a [vSwitch is setup](https://docs.hetzner.com/cloud/networks/connect-dedi-vswitch) in this [Network](#networks).\n",
             "example": false,
             "type": "boolean"
           },
           "ip_range": {
-            "description": "IP range in CIDR block notation of the whole network.\n\nMust span all included subnets. Must be one of the private IPv4 ranges of RFC1918.\n\nMinimum network size is /24. We highly recommend that you pick a larger network with a /16 netmask.\n",
+            "description": "IP range of the [Network](#networks).\n\nUses CIDR notation.\n\nMust span all included subnets. Must be one of the private IPv4 ranges of RFC1918.\n\nMinimum network size is /24. We highly recommend that you pick a larger [Network](#networks) with a /16 netmask.\n",
             "example": "10.0.0.0/16",
             "type": "string"
           },
@@ -1972,19 +1874,19 @@
             "$ref": "#/components/schemas/labels"
           },
           "name": {
-            "description": "Name of the network",
+            "description": "Name of the [Network](#networks).",
             "example": "mynet",
             "type": "string"
           },
           "routes": {
-            "description": "Array of routes set in this network.",
+            "description": "Array of routes set in this [Network](#networks).",
             "items": {
               "$ref": "#/components/schemas/route"
             },
             "type": "array"
           },
           "subnets": {
-            "description": "Array of subnets allocated.",
+            "description": "Array of subnets to allocate.",
             "items": {
               "$ref": "#/components/schemas/subnet"
             },
@@ -2104,13 +2006,14 @@
       "create_primary_ip_request": {
         "properties": {
           "assignee_id": {
-            "description": "ID of the resource the Primary IP should be assigned to. Omitted if it should not be assigned.",
+            "description": "ID of resource to assign the [Primary IP](#primary-ips) to.\n\nOmitted if the [Primary IP](#primary-ips) should not get assigned.\n",
             "example": 17,
             "format": "int64",
+            "nullable": true,
             "type": "integer"
           },
           "assignee_type": {
-            "description": "Resource type the Primary IP can be assigned to",
+            "description": "Type of resource to assign the [Primary IP](#primary-ips) to.\n\nOmitted if the [Primary IP](#primary-ips) should not get assigned.\n",
             "enum": [
               "server"
             ],
@@ -2119,12 +2022,12 @@
           },
           "auto_delete": {
             "default": false,
-            "description": "Delete the Primary IP when the Server it is assigned to is deleted.",
+            "description": "Auto deletion state.\n\nIf enabled the [Primary IP](#primary-ips) will be deleted once the assigned resource gets deleted.\n",
             "example": false,
             "type": "boolean"
           },
           "datacenter": {
-            "description": "ID or name of Datacenter the Primary IP will be bound to. Needs to be omitted if `assignee_id` is passed.",
+            "description": "[Datacenter](#datacenters) ID or name.\n\nThe  [Primary IP](#primary-ips) will be bound to this [Datacenter](#datacenters). Omit if `assignee_id`/`assignee_type` is provided.\n",
             "example": "fsn1-dc8",
             "type": "string"
           },
@@ -2132,11 +2035,18 @@
             "$ref": "#/components/schemas/labels"
           },
           "name": {
-            "example": "my-ip",
+            "description": "Name of the Resource. Must be unique per Project.",
+            "example": "my-resource",
             "type": "string"
           },
           "type": {
-            "$ref": "#/components/schemas/ip_type"
+            "description": "[Primary IP](#primary-ips) type.",
+            "enum": [
+              "ipv4",
+              "ipv6"
+            ],
+            "nullable": true,
+            "type": "string"
           }
         },
         "required": [
@@ -2144,7 +2054,7 @@
           "type",
           "assignee_type"
         ],
-        "title": "CreatePrimaryIPRequest",
+        "title": "PrimaryIPCreateRequest",
         "type": "object",
         "description": "Request for POST https://api.hetzner.cloud/v1/primary_ips"
       },
@@ -2156,26 +2066,28 @@
           "primary_ip": {
             "properties": {
               "assignee_id": {
-                "description": "ID of the resource the Primary IP is assigned to, null if it is not assigned at all",
+                "description": "ID of resource to assign the [Primary IP](#primary-ips) to.\n\n`null` if the [Primary IP](#primary-ips) is not assigned.\n",
                 "example": 17,
                 "format": "int64",
                 "nullable": true,
                 "type": "integer"
               },
               "assignee_type": {
-                "description": "Resource type the Primary IP can be assigned to",
+                "description": "Type of resource to assign the [Primary IP](#primary-ips) to.\n\n`null` if the [Primary IP](#primary-ips) is not assigned.\n",
                 "enum": [
                   "server"
                 ],
+                "example": "server",
                 "type": "string"
               },
               "auto_delete": {
-                "description": "Delete this Primary IP when the resource it is assigned to is deleted",
+                "default": false,
+                "description": "Auto deletion state.\n\nIf enabled the [Primary IP](#primary-ips) will be deleted once the assigned resource gets deleted.\n",
                 "example": true,
                 "type": "boolean"
               },
               "blocked": {
-                "description": "Whether the IP is blocked",
+                "description": "Blocked state of the [Primary IP](#primary-ips).",
                 "example": false,
                 "type": "boolean"
               },
@@ -2188,7 +2100,7 @@
                 "$ref": "#/components/schemas/datacenter"
               },
               "dns_ptr": {
-                "description": "Array of reverse DNS entries",
+                "description": "List of reverse DNS records.",
                 "items": {
                   "$ref": "#/components/schemas/dns_ptr"
                 },
@@ -2218,7 +2130,13 @@
                 "$ref": "#/components/schemas/protection"
               },
               "type": {
-                "$ref": "#/components/schemas/ip_type"
+                "description": "[Primary IP](#primary-ips) type.",
+                "enum": [
+                  "ipv4",
+                  "ipv6"
+                ],
+                "nullable": true,
+                "type": "string"
               }
             },
             "required": [
@@ -2345,7 +2263,7 @@
           },
           "server_type": {
             "description": "ID or name of the Server type this Server should be created with",
-            "example": "cx11",
+            "example": "cpx11",
             "type": "string"
           },
           "ssh_keys": {
@@ -2628,7 +2546,7 @@
           "server_types"
         ],
         "type": "object",
-        "description": "Datacenter this Primary IP is located at | Datacenter this Resource is located at"
+        "description": "[Datacenter](#datacenters) the [Primary IP](#primary-ips) is located at. | Datacenter this Resource is located at"
       },
       "delete_route_from_network_request": {
         "$ref": "#/components/schemas/route"
@@ -2685,7 +2603,7 @@
       "delete_subnet_from_network_request": {
         "properties": {
           "ip_range": {
-            "description": "IP range in CIDR block notation of the Subnet to delete.",
+            "description": "IP range in CIDR block notation of the subnet to delete.",
             "example": "10.0.1.0/24",
             "type": "string"
           }
@@ -2864,7 +2782,7 @@
             "type": "string"
           },
           "ip": {
-            "description": "Single IPv4 or IPv6 address to create pointer for.\n | Single IPv4 or IPv6 address | Single IPv6 address of this Server for which the reverse DNS entry has been set up",
+            "description": "Single IPv4 or IPv6 address to create pointer for.\n | Single IPv6 address of this Server for which the reverse DNS entry has been set up",
             "example": "2001:db8::1",
             "type": "string"
           }
@@ -2874,7 +2792,7 @@
           "dns_ptr"
         ],
         "type": "object",
-        "description": "Request for POST https://api.hetzner.cloud/v1/floating_ips/{id}/actions/change_dns_ptr"
+        "description": "Request for POST https://api.hetzner.cloud/v1/floating_ips/{id}/actions/change_dns_ptr | Request for POST https://api.hetzner.cloud/v1/primary_ips/{id}/actions/change_dns_ptr"
       },
       "enable_and_configure_backups_for_server_response": {
         "properties": {
@@ -2986,21 +2904,21 @@
             "$ref": "#/components/schemas/labels"
           },
           "name": {
-            "description": "Name of the Resource. Must be unique per Project.",
-            "example": "my-resource",
+            "description": "Name of the [Firewall](#firewalls).\n\nLimited to a maximum of 128 characters.\n\nMust be unique per Project.\n",
+            "example": "new-name",
             "type": "string"
           },
           "rules": {
             "items": {
               "properties": {
                 "description": {
-                  "description": "Description of the Rule",
+                  "description": "Description of the rule.",
                   "maxLength": 255,
                   "nullable": true,
                   "type": "string"
                 },
                 "destination_ips": {
-                  "description": "List of permitted IPv4/IPv6 addresses for outgoing traffic (`direction` set to `out`)\nin [CIDR block notation](https://wikipedia.org/wiki/CIDR). You can specify 100 CIDR\nblocks at most.\n\nThe CIDR blocks may refer to networks (with empty host bits) or single hosts.\nFor example, a network could be defined with `10.0.1.0/24` or `2001:db8:ff00:42::/64`,\nand a single host with `10.0.1.1/32` or `2001:db8:ff00:42::8329/128`.\nUse `0.0.0.0/0` to allow any IPv4 addresses and `::/0` to allow any IPv6 addresses.\n",
+                  "description": "List of permitted IPv4/IPv6 addresses for outgoing traffic.\n\nThe `direction` must be set to `out`.\n\nIPs must be in [CIDR block notation](https://wikipedia.org/wiki/CIDR). You can specify 100 CIDR\nblocks at most.\n\nThe CIDR blocks may refer to networks (with empty host bits) or single hosts.\nFor example, a network could be defined with `10.0.1.0/24` or `2001:db8:ff00:42::/64`,\nand a single host with `10.0.1.1/32` or `2001:db8:ff00:42::8329/128`.\n\nUse `0.0.0.0/0` to allow any IPv4 addresses and `::/0` to allow any IPv6 addresses.\n",
                   "example": [],
                   "items": {
                     "type": "string"
@@ -3008,7 +2926,7 @@
                   "type": "array"
                 },
                 "direction": {
-                  "description": "Select traffic direction on which rule should be applied. Use `source_ips` for direction `in` and `destination_ips` for direction `out`.",
+                  "description": "Traffic direction in which the rule should be applied to.\n\nUse `source_ips` for direction `in` and `destination_ips` for direction `out` to specify IPs.\n",
                   "enum": [
                     "in",
                     "out"
@@ -3017,13 +2935,13 @@
                   "type": "string"
                 },
                 "port": {
-                  "description": "Port or port range to which traffic will be allowed, only applicable for protocols TCP and UDP. A port range can be specified by separating two ports with a dash, e.g `1024-5000`.",
+                  "description": "Port or port range to apply the rule for.\n\nOnly applicable for protocols `tcp` and `udp`.\n\nA port range can be specified by separating lower and upper bounds with a dash. `1024-5000` will include\nall ports starting from 1024 up to port 5000.\n",
                   "example": "80",
                   "nullable": true,
                   "type": "string"
                 },
                 "protocol": {
-                  "description": "Type of traffic to allow",
+                  "description": "Network protocol to apply the rule for.",
                   "enum": [
                     "esp",
                     "gre",
@@ -3034,7 +2952,7 @@
                   "type": "string"
                 },
                 "source_ips": {
-                  "description": "List of permitted IPv4/IPv6 addresses for incoming traffic (`direction` set to `in`)\nin [CIDR block notation](https://wikipedia.org/wiki/CIDR). You can specify 100 CIDR\nblocks at most.\n\nThe CIDR blocks may refer to networks (with empty host bits) or single hosts.\nFor example, a network could be defined with `10.0.1.0/24` or `2001:db8:ff00:42::/64`,\nand a single host with `10.0.1.1/32` or `2001:db8:ff00:42::8329/128`.\nUse `0.0.0.0/0` to allow any IPv4 addresses and `::/0` to allow any IPv6 addresses.\n",
+                  "description": "List of permitted IPv4/IPv6 addresses for incoming traffic.\n\nThe `direction` must be set to `in`.\n\nIPs must be provided in [CIDR block notation](https://wikipedia.org/wiki/CIDR). You can specify 100 CIDR\nblocks at most.\n\nThe CIDR blocks may refer to networks (with empty host bits) or single hosts.\nFor example, a network could be defined with `10.0.1.0/24` or `2001:db8:ff00:42::/64`,\nand a single host with `10.0.1.1/32` or `2001:db8:ff00:42::8329/128`.\n\nUse `0.0.0.0/0` to allow any IPv4 addresses and `::/0` to allow any IPv6 addresses.\n",
                   "example": [
                     "28.239.13.1/32",
                     "28.239.14.0/24",
@@ -3079,7 +2997,7 @@
             "$ref": "#/components/schemas/resource_id"
           },
           "type": {
-            "description": "Type of the resource",
+            "description": "Type of the resource.",
             "enum": [
               "label_selector",
               "server"
@@ -3090,19 +3008,21 @@
         "required": [
           "type"
         ],
+        "title": "FirewallResource",
         "type": "object",
         "description": "Resource a Firewall should be applied to."
       },
       "firewall_resource_id": {
         "properties": {
           "applied_to_resources": {
+            "description": "Resources applied to via this [Label Selector](#label-selector).\n",
             "items": {
               "properties": {
                 "server": {
                   "$ref": "#/components/schemas/resource_id"
                 },
                 "type": {
-                  "description": "Type of resource referenced",
+                  "description": "Type of resource.",
                   "enum": [
                     "server"
                   ],
@@ -3122,7 +3042,7 @@
             "$ref": "#/components/schemas/resource_id"
           },
           "type": {
-            "description": "Type of resource referenced",
+            "description": "The type of resource to apply.",
             "enum": [
               "label_selector",
               "server"
@@ -3156,7 +3076,7 @@
             "type": "string"
           },
           "dns_ptr": {
-            "description": "List of reverse DNS entries for the [Floating IP](#floating-ips)\n",
+            "description": "List of reverse DNS entries for the [Floating IP](#floating-ips).\n",
             "items": {
               "$ref": "#/components/schemas/dns_ptr"
             },
@@ -3537,26 +3457,28 @@
           "primary_ip": {
             "properties": {
               "assignee_id": {
-                "description": "ID of the resource the Primary IP is assigned to, null if it is not assigned at all",
+                "description": "ID of resource to assign the [Primary IP](#primary-ips) to.\n\n`null` if the [Primary IP](#primary-ips) is not assigned.\n",
                 "example": 17,
                 "format": "int64",
                 "nullable": true,
                 "type": "integer"
               },
               "assignee_type": {
-                "description": "Resource type the Primary IP can be assigned to",
+                "description": "Type of resource to assign the [Primary IP](#primary-ips) to.\n\n`null` if the [Primary IP](#primary-ips) is not assigned.\n",
                 "enum": [
                   "server"
                 ],
+                "example": "server",
                 "type": "string"
               },
               "auto_delete": {
-                "description": "Delete this Primary IP when the resource it is assigned to is deleted",
+                "default": false,
+                "description": "Auto deletion state.\n\nIf enabled the [Primary IP](#primary-ips) will be deleted once the assigned resource gets deleted.\n",
                 "example": true,
                 "type": "boolean"
               },
               "blocked": {
-                "description": "Whether the IP is blocked",
+                "description": "Blocked state of the [Primary IP](#primary-ips).",
                 "example": false,
                 "type": "boolean"
               },
@@ -3569,7 +3491,7 @@
                 "$ref": "#/components/schemas/datacenter"
               },
               "dns_ptr": {
-                "description": "Array of reverse DNS entries",
+                "description": "List of reverse DNS records.",
                 "items": {
                   "$ref": "#/components/schemas/dns_ptr"
                 },
@@ -3599,7 +3521,13 @@
                 "$ref": "#/components/schemas/protection"
               },
               "type": {
-                "$ref": "#/components/schemas/ip_type"
+                "description": "[Primary IP](#primary-ips) type.",
+                "enum": [
+                  "ipv4",
+                  "ipv6"
+                ],
+                "nullable": true,
+                "type": "string"
               }
             },
             "required": [
@@ -3672,24 +3600,6 @@
         ],
         "type": "object",
         "description": "Response to GET https://api.hetzner.cloud/v1/volumes/{id}"
-      },
-      "health_status": {
-        "properties": {
-          "listen_port": {
-            "example": 443,
-            "type": "integer"
-          },
-          "status": {
-            "enum": [
-              "healthy",
-              "unhealthy",
-              "unknown"
-            ],
-            "example": "healthy",
-            "type": "string"
-          }
-        },
-        "type": "object"
       },
       "http": {
         "description": "Configuration option for protocols http and https",
@@ -4179,9 +4089,10 @@
         "type": "object"
       },
       "label_selector": {
+        "description": "Configuration for type LabelSelector, required if type is `label_selector`",
         "properties": {
           "selector": {
-            "description": "Label selector",
+            "description": "Label selector | The selector.",
             "example": "env=prod",
             "type": "string"
           }
@@ -4189,8 +4100,7 @@
         "required": [
           "selector"
         ],
-        "type": "object",
-        "description": "Configuration for type LabelSelector, required if type is `label_selector`"
+        "type": "object"
       },
       "labels": {
         "additionalProperties": {
@@ -4549,7 +4459,7 @@
       "list_locations_response": {
         "properties": {
           "locations": {
-            "description": "List of Locations.",
+            "description": "List of [Locations](#locations).",
             "items": {
               "$ref": "#/components/schemas/location"
             },
@@ -4658,15 +4568,15 @@
       "list_prices_response": {
         "properties": {
           "pricing": {
-            "additionalProperties": false,
             "properties": {
               "currency": {
-                "description": "Currency the returned prices are expressed in, coded according to ISO 4217",
+                "description": "Currency the returned prices are expressed in, coded according to [ISO 4217](https://wikipedia.org/wiki/ISO_4217).",
                 "example": "EUR",
                 "type": "string"
               },
               "floating_ip": {
-                "description": "The cost of one Floating IP per month",
+                "deprecated": true,
+                "description": "Price of [Floating IPs](#floating-ips).\n\n**Deprecated**: This field is deprecated, please refer to the `floating_ips` field instead.\n\nSee the [Changelog](https://docs.hetzner.cloud/changelog#2024-08-29-field-floating_ip-in-pricing-response-is-now-deprecated) for more details.\n",
                 "properties": {
                   "price_monthly": {
                     "$ref": "#/components/schemas/price"
@@ -4678,11 +4588,11 @@
                 "type": "object"
               },
               "floating_ips": {
-                "description": "Costs of Floating IPs types per Location and type",
+                "description": "Price of [Floating IPs](#floating-ips) per type and per [Location](#locations).",
                 "items": {
                   "properties": {
                     "prices": {
-                      "description": "Floating IP type costs per Location",
+                      "description": "Price of the [Floating IP](#floating-ips) type per [Location](#locations).",
                       "items": {
                         "$ref": "#/components/schemas/price_per_time_monthly"
                       },
@@ -4702,7 +4612,7 @@
                 "type": "array"
               },
               "image": {
-                "description": "The cost of Image per GB/month",
+                "description": "Price of [Images](#images).",
                 "properties": {
                   "price_per_gb_month": {
                     "$ref": "#/components/schemas/price"
@@ -4714,23 +4624,23 @@
                 "type": "object"
               },
               "load_balancer_types": {
-                "description": "Costs of Load Balancer types per Location and type",
+                "description": "Price of Load Balancer per [type](#load-balancer-types) and per [Location](#locations).",
                 "items": {
                   "properties": {
                     "id": {
-                      "description": "ID of the Load Balancer type the price is for",
+                      "description": "ID of the [Load Balancer Types](#load-balancer-types) the price is for.",
                       "example": 1,
                       "format": "int64",
                       "type": "integer",
                       "maximum": 9007199254740991
                     },
                     "name": {
-                      "description": "Name of the Load Balancer type the price is for",
+                      "description": "Name of the [Load Balancer Types](#load-balancer-types) the price is for.",
                       "example": "lb11",
                       "type": "string"
                     },
                     "prices": {
-                      "description": "Load Balancer type costs per Location",
+                      "description": "Price of the [Load Balancer Types](#load-balancer-types) per [Location](#locations).",
                       "items": {
                         "$ref": "#/components/schemas/price_per_time"
                       },
@@ -4748,11 +4658,11 @@
                 "type": "array"
               },
               "primary_ips": {
-                "description": "Costs of Primary IPs types per Location",
+                "description": "Price of [Primary IPs](#primary-ips) per type and per [Location](#locations).",
                 "items": {
                   "properties": {
                     "prices": {
-                      "description": "Primary IP type costs per Location",
+                      "description": "Price of the [Primary IP](#primary-ips) type per [Location](#locations).",
                       "items": {
                         "$ref": "#/components/schemas/price_per_time_without_traffic"
                       },
@@ -4772,11 +4682,11 @@
                 "type": "array"
               },
               "server_backup": {
-                "description": "Will increase base Server costs by specific percentage",
+                "description": "Price of [Server](#servers) backups.",
                 "properties": {
                   "percentage": {
-                    "description": "Percentage by how much the base price will increase",
-                    "example": "20.0000000000",
+                    "description": "Price increase of the [Server](#servers) base price in percentage.",
+                    "example": "20.00",
                     "format": "decimal",
                     "type": "string"
                   }
@@ -4787,23 +4697,23 @@
                 "type": "object"
               },
               "server_types": {
-                "description": "Costs of Server types per Location and type",
+                "description": "Price of Server per [type](#server-types) and per [Location](#locations).",
                 "items": {
                   "properties": {
                     "id": {
-                      "description": "ID of the Server type the price is for",
-                      "example": 4,
+                      "description": "ID of the [Server Types](#server-types) the price is for.",
+                      "example": 104,
                       "format": "int64",
                       "type": "integer",
                       "maximum": 9007199254740991
                     },
                     "name": {
-                      "description": "Name of the Server type the price is for",
-                      "example": "cx11",
+                      "description": "Name of the [Server Types](#server-types) the price is for.",
+                      "example": "cpx11",
                       "type": "string"
                     },
                     "prices": {
-                      "description": "Server type costs per Location",
+                      "description": "Price of the [Server Types](#server-types) per [Location](#locations).",
                       "items": {
                         "$ref": "#/components/schemas/price_per_time"
                       },
@@ -4822,19 +4732,19 @@
               },
               "traffic": {
                 "deprecated": true,
-                "description": "**Deprecated**: This field is deprecated and set to `null` since 5 August 2024.\nPlease refer to the `price_per_tb_traffic` fields in `server_types` and `load_balancer_types` instead.\n\nLearn more about this change in [the Changelog](https://docs.hetzner.cloud/changelog#2024-07-25-cloud-api-returns-traffic-information-in-different-format).\n",
+                "description": "**Deprecated**: This field is deprecated and set to `null` since 5 August 2024.\n\nPlease refer to the `price_per_tb_traffic` fields in `server_types` and `load_balancer_types` instead.\n\nLearn more about this change in [the Changelog](https://docs.hetzner.cloud/changelog#2024-07-25-cloud-api-returns-traffic-information-in-different-format).\n",
                 "example": null,
                 "nullable": true,
                 "type": "object"
               },
               "vat_rate": {
-                "description": "The VAT rate used for calculating prices with VAT",
-                "example": "19.000000",
+                "description": "VAT rate used for calculating prices with VAT.",
+                "example": "19.00",
                 "format": "decimal",
                 "type": "string"
               },
               "volume": {
-                "description": "The cost of Volume per GB/month",
+                "description": "Price of [Volumes](#volumes).",
                 "properties": {
                   "price_per_gb_month": {
                     "$ref": "#/components/schemas/price"
@@ -4849,15 +4759,15 @@
             "required": [
               "currency",
               "vat_rate",
-              "image",
-              "floating_ip",
+              "primary_ips",
               "floating_ips",
-              "traffic",
-              "server_backup",
+              "image",
               "volume",
+              "server_backup",
               "server_types",
               "load_balancer_types",
-              "primary_ips"
+              "floating_ip",
+              "traffic"
             ],
             "type": "object"
           }
@@ -4877,26 +4787,28 @@
             "items": {
               "properties": {
                 "assignee_id": {
-                  "description": "ID of the resource the Primary IP is assigned to, null if it is not assigned at all",
+                  "description": "ID of resource to assign the [Primary IP](#primary-ips) to.\n\n`null` if the [Primary IP](#primary-ips) is not assigned.\n",
                   "example": 17,
                   "format": "int64",
                   "nullable": true,
                   "type": "integer"
                 },
                 "assignee_type": {
-                  "description": "Resource type the Primary IP can be assigned to",
+                  "description": "Type of resource to assign the [Primary IP](#primary-ips) to.\n\n`null` if the [Primary IP](#primary-ips) is not assigned.\n",
                   "enum": [
                     "server"
                   ],
+                  "example": "server",
                   "type": "string"
                 },
                 "auto_delete": {
-                  "description": "Delete this Primary IP when the resource it is assigned to is deleted",
+                  "default": false,
+                  "description": "Auto deletion state.\n\nIf enabled the [Primary IP](#primary-ips) will be deleted once the assigned resource gets deleted.\n",
                   "example": true,
                   "type": "boolean"
                 },
                 "blocked": {
-                  "description": "Whether the IP is blocked",
+                  "description": "Blocked state of the [Primary IP](#primary-ips).",
                   "example": false,
                   "type": "boolean"
                 },
@@ -4909,7 +4821,7 @@
                   "$ref": "#/components/schemas/datacenter"
                 },
                 "dns_ptr": {
-                  "description": "Array of reverse DNS entries",
+                  "description": "List of reverse DNS records.",
                   "items": {
                     "$ref": "#/components/schemas/dns_ptr"
                   },
@@ -4939,7 +4851,13 @@
                   "$ref": "#/components/schemas/protection"
                 },
                 "type": {
-                  "$ref": "#/components/schemas/ip_type"
+                  "description": "[Primary IP](#primary-ips) type.",
+                  "enum": [
+                    "ipv4",
+                    "ipv6"
+                  ],
+                  "nullable": true,
+                  "type": "string"
                 }
               },
               "required": [
@@ -4973,14 +4891,14 @@
       },
       "list_server_types_response": {
         "properties": {
+          "meta": {
+            "$ref": "#/components/schemas/meta"
+          },
           "server_types": {
             "items": {
               "$ref": "#/components/schemas/server_type"
             },
             "type": "array"
-          },
-          "meta": {
-            "$ref": "#/components/schemas/meta"
           }
         },
         "required": [
@@ -5119,7 +5037,119 @@
           "targets": {
             "description": "List of targets that belong to this Load Balancer",
             "items": {
-              "$ref": "#/components/schemas/target"
+              "properties": {
+                "health_status": {
+                  "description": "List of health statuses of the services on this target. Only present for target types \"server\" and \"ip\".",
+                  "items": {
+                    "properties": {
+                      "listen_port": {
+                        "example": 443,
+                        "type": "integer"
+                      },
+                      "status": {
+                        "enum": [
+                          "healthy",
+                          "unhealthy",
+                          "unknown"
+                        ],
+                        "example": "healthy",
+                        "type": "string"
+                      }
+                    },
+                    "type": "object"
+                  },
+                  "title": "LoadBalancerTargetHealthStatus",
+                  "type": "array"
+                },
+                "ip": {
+                  "description": "IP target where the traffic should be routed to. It is only possible to use the (Public or vSwitch) IPs of Hetzner Online Root Servers belonging to the project owner. IPs belonging to other users are blocked. Additionally IPs belonging to services provided by Hetzner Cloud (Servers, Load Balancers, ...) are blocked as well. Only present for target type `ip`.",
+                  "properties": {
+                    "ip": {
+                      "description": "IP of a server that belongs to the same customer (public IPv4/IPv6) or private IP in a subnet type vswitch.",
+                      "example": "203.0.113.1",
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "ip"
+                  ],
+                  "title": "LoadBalancerTargetIP",
+                  "type": "object"
+                },
+                "label_selector": {
+                  "$ref": "#/components/schemas/label_selector"
+                },
+                "server": {
+                  "$ref": "#/components/schemas/resource_id"
+                },
+                "targets": {
+                  "description": "List of resolved label selector target Servers. Only present for type \"label_selector\".",
+                  "items": {
+                    "properties": {
+                      "health_status": {
+                        "description": "List of health statuses of the services on this target. Only present for target types \"server\" and \"ip\".",
+                        "items": {
+                          "properties": {
+                            "listen_port": {
+                              "example": 443,
+                              "type": "integer"
+                            },
+                            "status": {
+                              "enum": [
+                                "healthy",
+                                "unhealthy",
+                                "unknown"
+                              ],
+                              "example": "healthy",
+                              "type": "string"
+                            }
+                          },
+                          "type": "object"
+                        },
+                        "title": "LoadBalancerTargetHealthStatus",
+                        "type": "array"
+                      },
+                      "server": {
+                        "$ref": "#/components/schemas/resource_id"
+                      },
+                      "type": {
+                        "description": "Type of the resource. Here always \"server\".",
+                        "example": "server",
+                        "type": "string"
+                      },
+                      "use_private_ip": {
+                        "default": false,
+                        "description": "Use the private network IP instead of the public IP. Only present for target types \"server\" and \"label_selector\".",
+                        "title": "LoadBalancerTargetUsePrivateIP",
+                        "type": "boolean"
+                      }
+                    },
+                    "title": "LoadBalancerTargetTarget",
+                    "type": "object"
+                  },
+                  "type": "array"
+                },
+                "type": {
+                  "description": "Type of the resource",
+                  "enum": [
+                    "ip",
+                    "label_selector",
+                    "server"
+                  ],
+                  "type": "string"
+                },
+                "use_private_ip": {
+                  "default": false,
+                  "description": "Use the private network IP instead of the public IP. Only present for target types \"server\" and \"label_selector\".",
+                  "title": "LoadBalancerTargetUsePrivateIP",
+                  "type": "boolean"
+                }
+              },
+              "required": [
+                "type"
+              ],
+              "title": "LoadBalancerTarget",
+              "type": "object"
             },
             "type": "array"
           }
@@ -5415,7 +5445,7 @@
             "type": "string"
           },
           "prices": {
-            "description": "Prices in different network zones",
+            "description": "Price per [Location](#locations).",
             "items": {
               "$ref": "#/components/schemas/price_per_time"
             },
@@ -5439,17 +5469,17 @@
         "description": "[Location](#locations) the [Datacenter](#datacenters) is located at.\n | [Location](#locations) the for the [Floating IP](#floating-ips) is located at.\n\nRouting is optimized for this [Location](#locations).\n | Location of the Volume. Volume can only be attached to Servers in the same Location.",
         "properties": {
           "city": {
-            "description": "Name of the closest city to the Location.\n\nCity name or city name and state in short form. E.g. `Falkenstein` or `Ashburn, VA`.\n",
+            "description": "Name of the closest city to the [Location](#locations).\n\nCity name or city name and state in short form. E.g. `Falkenstein` or `Ashburn, VA`.\n",
             "example": "Falkenstein",
             "type": "string"
           },
           "country": {
-            "description": "Country the Location resides in.\n\nISO 3166-1 alpha-2 code of the country.\n",
+            "description": "Country the [Location](#locations) resides in.\n\nISO 3166-1 alpha-2 code of the country.\n",
             "example": "DE",
             "type": "string"
           },
           "description": {
-            "description": "Humand readable description of the Location.",
+            "description": "Humand readable description of the [Location](#locations).",
             "example": "Falkenstein DC Park 1",
             "type": "string"
           },
@@ -5461,25 +5491,25 @@
             "type": "integer"
           },
           "latitude": {
-            "description": "Latitude of the city closest to the Location.",
+            "description": "Latitude of the city closest to the [Location](#locations).",
             "example": 50.47612,
             "format": "double",
             "type": "number"
           },
           "longitude": {
-            "description": "Longitude of the city closest to the Location.",
+            "description": "Longitude of the city closest to the [Location](#locations).",
             "example": 12.370071,
             "format": "double",
             "type": "number"
           },
           "name": {
-            "description": "Unique identifier of the Location.",
+            "description": "Unique identifier of the [Location](#locations).",
             "example": "fsn1",
             "pattern": "^[a-z0-9]+(-?[a-z0-9]*)*$",
             "type": "string"
           },
           "network_zone": {
-            "description": "Name of the Network Zone this Location resides in.",
+            "description": "Name of the Network Zone this [Location](#locations) resides in.",
             "example": "eu-central",
             "pattern": "^[a-z0-9]+(-?[a-z0-9]*)*$",
             "type": "string"
@@ -5507,8 +5537,7 @@
           "pagination"
         ],
         "title": "ListMeta",
-        "type": "object",
-        "description": "Metadata contained in the response"
+        "type": "object"
       },
       "metrics": {
         "properties": {
@@ -5585,24 +5614,24 @@
       "network": {
         "properties": {
           "created": {
-            "description": "Point in time when the Network was created (in ISO-8601 format)",
-            "example": "2016-01-30T23:50:00+00:00",
+            "description": "Point in time when the Resource was created (in ISO-8601 format).",
+            "example": "2016-01-30T23:55:00+00:00",
             "type": "string"
           },
           "expose_routes_to_vswitch": {
-            "description": "Indicates if the routes from this network should be exposed to the vSwitch connection.",
+            "description": "Indicates if the routes from this [Network](#networks) should be exposed to the vSwitch connection.",
             "example": false,
             "type": "boolean"
           },
           "id": {
-            "description": "ID of the Network",
+            "description": "ID of the [Network](#networks).",
             "example": 4711,
             "format": "int64",
             "type": "integer",
             "maximum": 9007199254740991
           },
           "ip_range": {
-            "description": "IP range in CIDR block notation of the whole network.",
+            "description": "IP range of the [Network](#networks).\nUses CIDR notation.",
             "example": "10.0.0.0/16",
             "type": "string"
           },
@@ -5610,7 +5639,7 @@
             "$ref": "#/components/schemas/labels"
           },
           "load_balancers": {
-            "description": "Array of IDs of Load Balancers attached to this Network",
+            "description": "Array of IDs of [Load Balancers](#load-balancers) attached to this [Network](#networks).",
             "example": [
               42
             ],
@@ -5621,7 +5650,7 @@
             "type": "array"
           },
           "name": {
-            "description": "Name of the Network",
+            "description": "Name of the [Network](#networks).",
             "example": "mynet",
             "type": "string"
           },
@@ -5629,14 +5658,14 @@
             "$ref": "#/components/schemas/protection"
           },
           "routes": {
-            "description": "Array of routes set in this Network",
+            "description": "Array of routes set in this [Network](#networks).",
             "items": {
               "$ref": "#/components/schemas/route"
             },
             "type": "array"
           },
           "servers": {
-            "description": "Array of IDs of Servers attached to this Network",
+            "description": "Array of IDs of [Servers](#servers) attached to this [Network](#networks).",
             "example": [
               42
             ],
@@ -5647,7 +5676,7 @@
             "type": "array"
           },
           "subnets": {
-            "description": "Array subnets allocated in this Network",
+            "description": "List of subnets allocated in this [Network](#networks).",
             "items": {
               "$ref": "#/components/schemas/subnet_with_gateway"
             },
@@ -5669,43 +5698,43 @@
         "type": "object"
       },
       "pagination": {
-        "description": "See \"[Pagination](#pagination)\" for more information. | Information about the current pagination. The keys previous_page, next_page, last_page, and total_entries may be null when on the first page, last page, or when the total number of entries is unknown",
+        "description": "See \"[Pagination](#pagination)\" for more information.",
         "properties": {
           "last_page": {
-            "description": "Page number of the last page available. Can be null if the current page is the last one. | ID of the last page available. Can be null if the current page is the last one.",
+            "description": "Page number of the last page available. Can be null if the current page is the last one.",
             "example": 4,
             "format": "int64",
             "nullable": true,
             "type": "integer"
           },
           "next_page": {
-            "description": "Page number of the next page. Can be null if the current page is the last one. | ID of the next page. Can be null if the current page is the last one.",
+            "description": "Page number of the next page. Can be null if the current page is the last one.",
             "example": 4,
             "format": "int64",
             "nullable": true,
             "type": "integer"
           },
           "page": {
-            "description": "Current page number. | Current page number",
+            "description": "Current page number.",
             "example": 3,
             "format": "int64",
             "type": "integer"
           },
           "per_page": {
-            "description": "Maximum number of entries returned per page. | Maximum number of items shown per page in the response",
+            "description": "Maximum number of entries returned per page.",
             "example": 25,
             "format": "int64",
             "type": "integer"
           },
           "previous_page": {
-            "description": "Page number of the previous page. Can be null if the current page is the first one. | ID of the previous page. Can be null if the current page is the first one.",
+            "description": "Page number of the previous page. Can be null if the current page is the first one.",
             "example": 2,
             "format": "int64",
             "nullable": true,
             "type": "integer"
           },
           "total_entries": {
-            "description": "Total number of entries that exist for this query. Can be null if unknown. | The total number of entries that exist in the database for this query. Nullable if unknown.",
+            "description": "Total number of entries that exist for this query. Can be null if unknown.",
             "example": 100,
             "format": "int64",
             "nullable": true,
@@ -5749,17 +5778,17 @@
         "description": "Response to POST https://api.hetzner.cloud/v1/servers/{id}/actions/poweron"
       },
       "price": {
-        "description": "Hourly costs for a Resource in this Location. | Monthly costs for a Resource in this Location. | The cost of additional traffic per TB. | Monthly costs for a Floating IP type in this Location | Hourly costs for a Load Balancer type in this network zone | Monthly costs for a Load Balancer type in this network zone | Hourly costs for a Primary IP type in this Location | Monthly costs for a Primary IP type in this Location | Hourly costs for a Server type in this Location | Monthly costs for a Server type in this Location",
+        "description": "Hourly price in this [Location](#locations). | Monthly price in this [Location](#locations). | Additional traffic price per TB in this [Location](#locations). | Price of one [Floating IP](#floating-ips) per month. | Price of [Images](#images) per GB/month. | Price of [Volumes](#volumes) per GB/month.",
         "properties": {
           "gross": {
-            "description": "Price with VAT added. | Price with VAT added",
-            "example": "1.1900000000000000",
+            "description": "Price with VAT added.",
+            "example": "1.1900",
             "format": "decimal",
             "type": "string"
           },
           "net": {
-            "description": "Price without VAT. | Price without VAT",
-            "example": "1.0000000000",
+            "description": "Price without VAT.",
+            "example": "1.0000",
             "format": "decimal",
             "type": "string"
           }
@@ -5773,13 +5802,13 @@
       "price_per_time": {
         "properties": {
           "included_traffic": {
-            "description": "Free traffic per month in bytes.",
+            "description": "Free traffic per month in bytes in this [Location](#locations).",
             "example": 654321,
             "format": "int64",
             "type": "integer"
           },
           "location": {
-            "description": "Name of the Location the price is for. | Name of the Location the price is for",
+            "description": "Name of the [Location](#locations) the price is for.",
             "example": "fsn1",
             "type": "string"
           },
@@ -5805,7 +5834,7 @@
       "price_per_time_monthly": {
         "properties": {
           "location": {
-            "description": "Name of the Location the price is for",
+            "description": "Name of the [Location](#locations) the price is for.",
             "example": "fsn1",
             "type": "string"
           },
@@ -5822,7 +5851,7 @@
       "price_per_time_without_traffic": {
         "properties": {
           "location": {
-            "description": "Name of the Location the price is for",
+            "description": "Name of the [Location](#locations) the price is for.",
             "example": "fsn1",
             "type": "string"
           },
@@ -5899,7 +5928,7 @@
       "remove_from_resources_request": {
         "properties": {
           "remove_from": {
-            "description": "Resources the Firewall should be removed from",
+            "description": "Resources to remove the [Firewall](#firewalls) from.",
             "items": {
               "$ref": "#/components/schemas/firewall_resource"
             },
@@ -5932,10 +5961,10 @@
       "remove_target_request": {
         "properties": {
           "ip": {
-            "description": "IP targets where the traffic should be routed to. It is only possible to use the (Public or vSwitch) IPs of Hetzner Online Root Servers belonging to the project owner. IPs belonging to other users are blocked. Additionally IPs belonging to services provided by Hetzner Cloud (Servers, Load Balancers, ...) are blocked as well. Only present for target type \"ip\".",
+            "description": "IP target where the traffic should be routed to. It is only possible to use the (Public or vSwitch) IPs of Hetzner Online Root Servers belonging to the project owner. IPs belonging to other users are blocked. Additionally IPs belonging to services provided by Hetzner Cloud (Servers, Load Balancers, ...) are blocked as well. Only present for target type `ip`.",
             "properties": {
               "ip": {
-                "description": "IP of a server that belongs to the same customer (public IPv4/IPv6) or private IP in a Subnetwork type vswitch.",
+                "description": "IP of a server that belongs to the same customer (public IPv4/IPv6) or private IP in a subnet type vswitch.",
                 "example": "203.0.113.1",
                 "type": "string"
               }
@@ -6030,7 +6059,7 @@
             "$ref": "#/components/schemas/labels"
           },
           "name": {
-            "description": "New Firewall name",
+            "description": "Name of the [Firewall](#firewalls).\n\nLimited to a maximum of 128 characters.\n\nMust be unique per Project.\n",
             "example": "new-name",
             "type": "string"
           }
@@ -6145,7 +6174,7 @@
       "replace_network_request": {
         "properties": {
           "expose_routes_to_vswitch": {
-            "description": "Toggle to expose routes to the networks vSwitch.\n\nIndicates if the routes from this network should be exposed to the vSwitch in this network. Only takes effect if a vSwitch is setup in this network.\n",
+            "description": "Toggle to expose routes to the [Networks](#networks) vSwitch.\n\nIndicates if the routes from this [Network](#networks) should be exposed to the vSwitch in this [Network](#networks). Only takes effect if a [vSwitch is setup](https://docs.hetzner.com/cloud/networks/connect-dedi-vswitch) in this [Network](#networks).\n",
             "example": false,
             "type": "boolean"
           },
@@ -6153,7 +6182,7 @@
             "$ref": "#/components/schemas/labels"
           },
           "name": {
-            "description": "New network name",
+            "description": "New [Network](#networks) name.",
             "example": "new-name",
             "type": "string"
           }
@@ -6252,7 +6281,8 @@
       "replace_primary_ip_request": {
         "properties": {
           "auto_delete": {
-            "description": "Delete this Primary IP when the resource it is assigned to is deleted",
+            "default": false,
+            "description": "Auto deletion state.\n\nIf enabled the [Primary IP](#primary-ips) will be deleted once the assigned resource gets deleted.\n",
             "example": true,
             "type": "boolean"
           },
@@ -6260,12 +6290,12 @@
             "$ref": "#/components/schemas/labels"
           },
           "name": {
-            "description": "New unique name to set",
-            "example": "my-ip",
+            "description": "Name of the Resource. Must be unique per Project.",
+            "example": "my-resource",
             "type": "string"
           }
         },
-        "title": "UpdatePrimaryIPRequest",
+        "title": "PrimaryIPUpdateRequest",
         "type": "object",
         "description": "Request for PUT https://api.hetzner.cloud/v1/primary_ips/{id}"
       },
@@ -6274,26 +6304,28 @@
           "primary_ip": {
             "properties": {
               "assignee_id": {
-                "description": "ID of the resource the Primary IP is assigned to, null if it is not assigned at all",
+                "description": "ID of resource to assign the [Primary IP](#primary-ips) to.\n\n`null` if the [Primary IP](#primary-ips) is not assigned.\n",
                 "example": 17,
                 "format": "int64",
                 "nullable": true,
                 "type": "integer"
               },
               "assignee_type": {
-                "description": "Resource type the Primary IP can be assigned to",
+                "description": "Type of resource to assign the [Primary IP](#primary-ips) to.\n\n`null` if the [Primary IP](#primary-ips) is not assigned.\n",
                 "enum": [
                   "server"
                 ],
+                "example": "server",
                 "type": "string"
               },
               "auto_delete": {
-                "description": "Delete this Primary IP when the resource it is assigned to is deleted",
+                "default": false,
+                "description": "Auto deletion state.\n\nIf enabled the [Primary IP](#primary-ips) will be deleted once the assigned resource gets deleted.\n",
                 "example": true,
                 "type": "boolean"
               },
               "blocked": {
-                "description": "Whether the IP is blocked",
+                "description": "Blocked state of the [Primary IP](#primary-ips).",
                 "example": false,
                 "type": "boolean"
               },
@@ -6306,7 +6338,7 @@
                 "$ref": "#/components/schemas/datacenter"
               },
               "dns_ptr": {
-                "description": "Array of reverse DNS entries",
+                "description": "List of reverse DNS records.",
                 "items": {
                   "$ref": "#/components/schemas/dns_ptr"
                 },
@@ -6336,7 +6368,13 @@
                 "$ref": "#/components/schemas/protection"
               },
               "type": {
-                "$ref": "#/components/schemas/ip_type"
+                "description": "[Primary IP](#primary-ips) type.",
+                "enum": [
+                  "ipv4",
+                  "ipv6"
+                ],
+                "nullable": true,
+                "type": "string"
               }
             },
             "required": [
@@ -6542,9 +6580,10 @@
         "type": "object"
       },
       "resource_id": {
+        "description": "ID of the Resource",
         "properties": {
           "id": {
-            "description": "ID of the Server. | ID of the Server",
+            "description": "ID of the Server. | ID of the [Server](#servers). | ID of the Server",
             "example": 42,
             "format": "int64",
             "maximum": 9007199254740991,
@@ -6554,8 +6593,7 @@
         "required": [
           "id"
         ],
-        "type": "object",
-        "description": "ID of the Resource"
+        "type": "object"
       },
       "retry_issuance_or_renewal_response": {
         "properties": {
@@ -6573,12 +6611,12 @@
       "route": {
         "properties": {
           "destination": {
-            "description": "Destination network or host of the route.\n\nPackages addressed for IPs matching the destination IP prefix will be send to the specified gateway.\n\nMust be one of\n* private IPv4 ranges of RFC1918\n* or `0.0.0.0/0`.\n\nMust not overlap with\n* an existing ip_range in any subnets\n* or with any destinations in other routes\n* or with `172.31.1.1`.\n\n`172.31.1.1` is being used as a gateway for the public network interface of Servers.\n",
+            "description": "Destination network or host of the route.\n\nPackages addressed for IPs matching the destination IP prefix will be send to the specified gateway.\n\nMust be one of\n* private IPv4 ranges of RFC1918\n* or `0.0.0.0/0`.\n\nMust not overlap with\n* an existing ip_range in any subnets\n* or with any destinations in other routes\n* or with `172.31.1.1`.\n\n`172.31.1.1` is being used as a gateway for the public network interface of [Servers](#servers).\n",
             "example": "10.100.1.0/24",
             "type": "string"
           },
           "gateway": {
-            "description": "Gateway of the route.\n\nPackages addressed for the specified destination will be send to this IP address.\n\nCannot be\n* the first IP of the networks ip_range,\n* an IP behind a vSwitch or\n* `172.31.1.1`.\n\n`172.31.1.1` is being used as a gateway for the public network interface of Servers.\n",
+            "description": "Gateway of the route.\n\nPackages addressed for the specified destination will be send to this IP address.\n\nCannot be\n* the first IP of the networks ip_range,\n* an IP behind a vSwitch or\n* `172.31.1.1`.\n\n`172.31.1.1` is being used as a gateway for the public network interface of [Servers](#servers).\n",
             "example": "10.0.1.1",
             "type": "string"
           }
@@ -6593,13 +6631,13 @@
       "rule": {
         "properties": {
           "description": {
-            "description": "Description of the Rule",
+            "description": "Description of the rule.",
             "maxLength": 255,
             "nullable": true,
             "type": "string"
           },
           "destination_ips": {
-            "description": "List of permitted IPv4/IPv6 addresses for outgoing traffic (`direction` set to `out`)\nin [CIDR block notation](https://wikipedia.org/wiki/CIDR). You can specify 100 CIDR\nblocks at most.\n\nThe CIDR blocks may refer to networks (with empty host bits) or single hosts.\nFor example, a network could be defined with `10.0.1.0/24` or `2001:db8:ff00:42::/64`,\nand a single host with `10.0.1.1/32` or `2001:db8:ff00:42::8329/128`.\nUse `0.0.0.0/0` to allow any IPv4 addresses and `::/0` to allow any IPv6 addresses.\n",
+            "description": "List of permitted IPv4/IPv6 addresses for outgoing traffic.\n\nThe `direction` must be set to `out`.\n\nIPs must be in [CIDR block notation](https://wikipedia.org/wiki/CIDR). You can specify 100 CIDR\nblocks at most.\n\nThe CIDR blocks may refer to networks (with empty host bits) or single hosts.\nFor example, a network could be defined with `10.0.1.0/24` or `2001:db8:ff00:42::/64`,\nand a single host with `10.0.1.1/32` or `2001:db8:ff00:42::8329/128`.\n\nUse `0.0.0.0/0` to allow any IPv4 addresses and `::/0` to allow any IPv6 addresses.\n",
             "example": [],
             "items": {
               "type": "string"
@@ -6607,7 +6645,7 @@
             "type": "array"
           },
           "direction": {
-            "description": "Select traffic direction on which rule should be applied. Use `source_ips` for direction `in` and `destination_ips` for direction `out`.",
+            "description": "Traffic direction in which the rule should be applied to.\n\nUse `source_ips` for direction `in` and `destination_ips` for direction `out` to specify IPs.\n",
             "enum": [
               "in",
               "out"
@@ -6616,13 +6654,13 @@
             "type": "string"
           },
           "port": {
-            "description": "Port or port range to which traffic will be allowed, only applicable for protocols TCP and UDP. A port range can be specified by separating two ports with a dash, e.g `1024-5000`.",
+            "description": "Port or port range to apply the rule for.\n\nOnly applicable for protocols `tcp` and `udp`.\n\nA port range can be specified by separating lower and upper bounds with a dash. `1024-5000` will include\nall ports starting from 1024 up to port 5000.\n",
             "example": "80",
             "type": "string",
             "nullable": true
           },
           "protocol": {
-            "description": "Type of traffic to allow",
+            "description": "Network protocol to apply the rule for.",
             "enum": [
               "esp",
               "gre",
@@ -6633,7 +6671,7 @@
             "type": "string"
           },
           "source_ips": {
-            "description": "List of permitted IPv4/IPv6 addresses for incoming traffic (`direction` set to `in`)\nin [CIDR block notation](https://wikipedia.org/wiki/CIDR). You can specify 100 CIDR\nblocks at most.\n\nThe CIDR blocks may refer to networks (with empty host bits) or single hosts.\nFor example, a network could be defined with `10.0.1.0/24` or `2001:db8:ff00:42::/64`,\nand a single host with `10.0.1.1/32` or `2001:db8:ff00:42::8329/128`.\nUse `0.0.0.0/0` to allow any IPv4 addresses and `::/0` to allow any IPv6 addresses.\n",
+            "description": "List of permitted IPv4/IPv6 addresses for incoming traffic.\n\nThe `direction` must be set to `in`.\n\nIPs must be provided in [CIDR block notation](https://wikipedia.org/wiki/CIDR). You can specify 100 CIDR\nblocks at most.\n\nThe CIDR blocks may refer to networks (with empty host bits) or single hosts.\nFor example, a network could be defined with `10.0.1.0/24` or `2001:db8:ff00:42::/64`,\nand a single host with `10.0.1.1/32` or `2001:db8:ff00:42::8329/128`.\n\nUse `0.0.0.0/0` to allow any IPv4 addresses and `::/0` to allow any IPv6 addresses.\n",
             "example": [
               "28.239.13.1/32",
               "28.239.14.0/24",
@@ -6652,34 +6690,6 @@
         "title": "Rule",
         "type": "object",
         "description": "Rule of a firewall."
-      },
-      "selected_target": {
-        "properties": {
-          "health_status": {
-            "description": "List of health statuses of the services on this target. Only present for target types \"server\" and \"ip\".",
-            "items": {
-              "$ref": "#/components/schemas/health_status"
-            },
-            "title": "LoadBalancerTargetHealthStatus",
-            "type": "array"
-          },
-          "server": {
-            "$ref": "#/components/schemas/resource_id"
-          },
-          "type": {
-            "description": "Type of the resource. Here always \"server\".",
-            "example": "server",
-            "type": "string"
-          },
-          "use_private_ip": {
-            "default": false,
-            "description": "Use the private network IP instead of the public IP. Only present for target types \"server\" and \"label_selector\".",
-            "title": "LoadBalancerTargetUsePrivateIP",
-            "type": "boolean"
-          }
-        },
-        "title": "LoadBalancerTargetTarget",
-        "type": "object"
       },
       "server": {
         "properties": {
@@ -6990,7 +7000,7 @@
           },
           "cores": {
             "description": "Number of cpu cores a Server of this type will have",
-            "example": 1,
+            "example": 2,
             "type": "integer"
           },
           "cpu_type": {
@@ -6999,6 +7009,7 @@
               "dedicated",
               "shared"
             ],
+            "example": "shared",
             "type": "string"
           },
           "deprecated": {
@@ -7012,12 +7023,12 @@
           },
           "description": {
             "description": "Description of the Server type",
-            "example": "CX11",
+            "example": "CPX11",
             "type": "string"
           },
           "disk": {
             "description": "Disk size a Server of this type will have in GB",
-            "example": 24,
+            "example": 40,
             "type": "number"
           },
           "id": {
@@ -7037,16 +7048,16 @@
           },
           "memory": {
             "description": "Memory a Server of this type will have in GB",
-            "example": 1,
+            "example": 2,
             "type": "number"
           },
           "name": {
             "description": "Unique identifier of the Server type",
-            "example": "cx11",
+            "example": "cpx11",
             "type": "string"
           },
           "prices": {
-            "description": "Prices in different Locations",
+            "description": "Price per [Location](#locations).",
             "items": {
               "$ref": "#/components/schemas/price_per_time"
             },
@@ -7080,7 +7091,7 @@
       "set_rules_request": {
         "properties": {
           "rules": {
-            "description": "Array of rules.\n\nLimited to a maximum of 50 rules per Firewall.\n",
+            "description": "Array of rules.\n\nRules are limited to 50 entries per [Firewall](#firewalls) and [500 effective rules](https://docs.hetzner.com/cloud/firewalls/overview#limits).\n\nExisting rules will be replaced.\n",
             "items": {
               "$ref": "#/components/schemas/rule"
             },
@@ -7184,17 +7195,17 @@
       "subnet": {
         "properties": {
           "ip_range": {
-            "description": "IP range in CIDR block notation of the whole subnetwork.\n\nMust be a subnet of the parent Network `ip_range`.\n\nMust not overlap with any other subnets or with any destinations in routes.\n\nMinimum network size is /30. We highly recommend that you pick a larger network with a /24 netmask.\n",
+            "description": "IP range of the subnet.\n\nUses CIDR notation.\n\nMust be a subnet of the parent [Networks](#networks) `ip_range`.\n\nMust not overlap with any other subnets or with any destinations in routes.\n\nMinimum network size is /30. We highly recommend that you pick a larger subnet with a /24 netmask.\n",
             "example": "10.0.1.0/24",
             "type": "string"
           },
           "network_zone": {
-            "description": "Name of Network zone.\n\nThe Location object contains the `network_zone` property each Location belongs to.\n | Name of Network Zone.\n\nThe Location object contains the `network_zone` it belongs to.\n",
+            "description": "Name of the [Network Zone](#network-zones).\n\nThe [Location](#locations) contains the `network_zone` property it belongs to.\n | Name of the [Network Zone](#network-zones).\n\nThe [Location](#locations) contains the `network_zone` it belongs to.\n",
             "example": "eu-central",
             "type": "string"
           },
           "type": {
-            "description": "Type of Subnetwork.\n\n- `cloud` - Used to connect cloud servers and load balancers.\n- `server` - Same as the `cloud` type. **Deprecated**, use the `cloud` type instead.\n- `vswitch` - Used to [connect cloud servers and load balancers with dedicated servers](https://docs.hetzner.com/cloud/networks/connect-dedi-vswitch).\n",
+            "description": "Type of subnet.\n\n- `cloud` - Used to connect cloud [Servers](#servers) and [Load Balancers](#load-balancers).\n- `server` - Same as the `cloud` type. **Deprecated**, use the `cloud` type instead.\n- `vswitch` - Used to [connect cloud Servers and Load Balancers with dedicated Servers](https://docs.hetzner.com/cloud/networks/connect-dedi-vswitch).\n",
             "enum": [
               "cloud",
               "server",
@@ -7203,7 +7214,7 @@
             "type": "string"
           },
           "vswitch_id": {
-            "description": "ID of the robot vSwitch.\n\nMust only be supplied for subnets of type vswitch.\n | ID of the robot vSwitch.\n\nMust be supplied if the Subnet is of type `vswitch`.\n",
+            "description": "ID of the robot vSwitch.\n\nMust only be supplied for subnets of type `vswitch`.\n | ID of the robot vSwitch.\n\nMust be supplied if the subnet is of type `vswitch`.\n",
             "example": 1000,
             "format": "int64",
             "type": "integer"
@@ -7219,22 +7230,22 @@
       "subnet_with_gateway": {
         "properties": {
           "gateway": {
-            "description": "Gateway for Servers attached to this subnet. For subnets of type Server this is always the first IP of the network IP range.",
+            "description": "Gateway for [Servers](#servers) attached to this subnet.\n\nFor subnets of type `server` this is always the first IP of the subnets IP range.\n",
             "example": "10.0.0.1",
             "type": "string"
           },
           "ip_range": {
-            "description": "IP range in CIDR block notation of the whole subnetwork.",
+            "description": "IP range of the subnet.\n\nUses CIDR notation.\n",
             "example": "10.0.1.0/24",
             "type": "string"
           },
           "network_zone": {
-            "description": "Name of Network zone. The Location object contains the `network_zone` property each Location belongs to.",
+            "description": "Name of the [Network Zone](#network-zones).\n\nThe [Location](#locations) contains the `network_zone` property it belongs to.\n",
             "example": "eu-central",
             "type": "string"
           },
           "type": {
-            "description": "Type of Subnetwork.\n\n- `cloud` - Used to connect cloud servers and load balancers.\n- `server` - Same as the `cloud` type. **Deprecated**, use the `cloud` type instead.\n- `vswitch` - Used to [connect cloud servers and load balancers with dedicated servers](https://docs.hetzner.com/cloud/networks/connect-dedi-vswitch).\n",
+            "description": "Type of subnet.\n\n- `cloud` - Used to connect cloud [Servers](#servers) and [Load Balancers](#load-balancers).\n- `server` - Same as the `cloud` type. **Deprecated**, use the `cloud` type instead.\n- `vswitch` - Used to [connect cloud Servers and Load Balancers with dedicated Servers](https://docs.hetzner.com/cloud/networks/connect-dedi-vswitch).\n",
             "enum": [
               "cloud",
               "server",
@@ -7243,7 +7254,7 @@
             "type": "string"
           },
           "vswitch_id": {
-            "description": "ID of the robot vSwitch if the subnet is of type vswitch.",
+            "description": "ID of the robot vSwitch if the subnet is of type `vswitch`.",
             "example": 1000,
             "format": "int64",
             "nullable": true,
@@ -7259,19 +7270,11 @@
       },
       "target": {
         "properties": {
-          "health_status": {
-            "description": "List of health statuses of the services on this target. Only present for target types \"server\" and \"ip\".",
-            "items": {
-              "$ref": "#/components/schemas/health_status"
-            },
-            "title": "LoadBalancerTargetHealthStatus",
-            "type": "array"
-          },
           "ip": {
-            "description": "IP targets where the traffic should be routed to. It is only possible to use the (Public or vSwitch) IPs of Hetzner Online Root Servers belonging to the project owner. IPs belonging to other users are blocked. Additionally IPs belonging to services provided by Hetzner Cloud (Servers, Load Balancers, ...) are blocked as well. Only present for target type \"ip\".",
+            "description": "Configuration for an IP target. It is only possible to use the (Public or vSwitch) IPs of Hetzner Online Root Servers belonging to the project owner. IPs belonging to other users are blocked. Additionally IPs belonging to services provided by Hetzner Cloud (Servers, Load Balancers, ...) are blocked as well. Only valid and required if type is `ip`.",
             "properties": {
               "ip": {
-                "description": "IP of a server that belongs to the same customer (public IPv4/IPv6) or private IP in a Subnetwork type vswitch.",
+                "description": "IP of a server that belongs to the same customer (public IPv4/IPv6) or private IP in a subnet type vswitch.",
                 "example": "203.0.113.1",
                 "type": "string"
               }
@@ -7279,21 +7282,27 @@
             "required": [
               "ip"
             ],
-            "title": "LoadBalancerTargetIP",
             "type": "object"
           },
           "label_selector": {
             "$ref": "#/components/schemas/label_selector"
           },
           "server": {
-            "$ref": "#/components/schemas/resource_id"
-          },
-          "targets": {
-            "description": "List of resolved label selector target Servers. Only present for type \"label_selector\".",
-            "items": {
-              "$ref": "#/components/schemas/selected_target"
+            "additionalProperties": false,
+            "description": "Configuration for type Server, only valid and required if type is `server`.",
+            "properties": {
+              "id": {
+                "description": "ID of the Server",
+                "example": 80,
+                "format": "int64",
+                "type": "integer",
+                "maximum": 9007199254740991
+              }
             },
-            "type": "array"
+            "required": [
+              "id"
+            ],
+            "type": "object"
           },
           "type": {
             "description": "Type of the resource",
@@ -7306,15 +7315,15 @@
           },
           "use_private_ip": {
             "default": false,
-            "description": "Use the private network IP instead of the public IP. Only present for target types \"server\" and \"label_selector\".",
-            "title": "LoadBalancerTargetUsePrivateIP",
+            "description": "Use the private network IP instead of the public IP of the Server, requires the Server and Load Balancer to be in the same network.",
+            "example": true,
             "type": "boolean"
           }
         },
         "required": [
           "type"
         ],
-        "title": "LoadBalancerTarget",
+        "title": "AddTargetRequest",
         "type": "object",
         "description": "A target for a load balancer"
       },
@@ -8656,7 +8665,7 @@
     },
     "/firewalls": {
       "get": {
-        "description": "Returns all Firewall objects.",
+        "description": "Returns all [Firewalls](#firewalls).\n\nUse the provided URI parameters to modify the result.\n",
         "parameters": [
           {
             "description": "Sort resources by field and direction. Can be used multiple times. For more\ninformation, see \"[Sorting](#sorting)\".\n",
@@ -8730,7 +8739,7 @@
                 }
               }
             },
-            "description": "The `firewalls` key contains an array of Firewall objects"
+            "description": "The `firewalls` key contains the [Firewalls](#firewalls)."
           }
         },
         "summary": "Get all Firewalls",
@@ -8740,7 +8749,7 @@
         "operationId": "list_firewalls"
       },
       "post": {
-        "description": "Creates a new Firewall.\n\n#### Call specific error codes\n\n| Code                          | Description                                                   |\n|------------------------------ |-------------------------------------------------------------- |\n| `server_already_added`        | Server added more than one time to resource                   |\n| `incompatible_network_type`   | The Network type is incompatible for the given resource       |\n| `firewall_resource_not_found` | The resource the Firewall should be attached to was not found |\n",
+        "description": "Create a [Firewall](#firewalls).\n\n#### Error Codes specific to this Call\n\n| Code                          | Description                                                                 |\n|------------------------------ |-----------------------------------------------------------------------------|\n| `server_already_added`        | [Server](#servers) applied more than once                                   |\n| `incompatible_network_type`   | The resources network type is not supported by [Firewalls](#firewalls)      |\n| `firewall_resource_not_found` | The resource the [Firewall](#firewalls) should be attached to was not found |\n",
         "requestBody": {
           "content": {
             "application/json": {
@@ -8790,7 +8799,7 @@
                 }
               }
             },
-            "description": "The `firewall` key contains the Firewall that was just created"
+            "description": "The `firewall` key contains the created [Firewall](#firewalls)."
           }
         },
         "summary": "Create a Firewall",
@@ -8802,7 +8811,7 @@
     },
     "/firewalls/{id}": {
       "delete": {
-        "description": "Deletes a Firewall.\n\n#### Call specific error codes\n\n| Code                 | Description                               |\n|--------------------- |-------------------------------------------|\n| `resource_in_use`    | Firewall must not be in use to be deleted |\n",
+        "description": "Deletes the [Firewall](#firewalls).\n\n#### Error Codes specific to this Call\n\n| Code                 | Description                                        |\n|--------------------- |----------------------------------------------------|\n| `resource_in_use`    | [Firewall](#firewalls) still applied to a resource |\n",
         "parameters": [
           {
             "description": "ID of the Firewall.",
@@ -8830,7 +8839,7 @@
         "operationId": "delete_firewall"
       },
       "get": {
-        "description": "Gets a specific Firewall object.",
+        "description": "Returns a single [Firewall](#firewalls).",
         "parameters": [
           {
             "description": "ID of the Firewall.",
@@ -8855,7 +8864,7 @@
                 }
               }
             },
-            "description": "The `firewall` key contains a Firewall object"
+            "description": "The `firewall` key contains the [Firewall](#firewalls)."
           }
         },
         "summary": "Get a Firewall",
@@ -8865,7 +8874,7 @@
         "operationId": "get_firewall"
       },
       "put": {
-        "description": "Updates the Firewall.\n\nNote that when updating labels, the Firewall's current set of labels will be replaced with the labels provided in the request body. So, for example, if you want to add a new label, you have to provide all existing labels plus the new label in the request body.\n\nNote: if the Firewall object changes during the request, the response will be a “conflict” error.\n",
+        "description": "Update a [Firewall](#firewalls).\n\nProvided [Labels](#labels) will overwritte the existing ones.\n\nIn case of a parallel running change on the [Firewall](#firewalls) a `conflict` error will be returned.\n",
         "parameters": [
           {
             "description": "ID of the Firewall.",
@@ -8899,7 +8908,7 @@
                 }
               }
             },
-            "description": "The `firewall` key contains the Firewall that was just updated"
+            "description": "The `firewall` key contains the updated [Firewall](#firewalls)."
           }
         },
         "summary": "Update a Firewall",
@@ -8911,7 +8920,7 @@
     },
     "/firewalls/{id}/actions": {
       "get": {
-        "description": "Returns all Action objects for a Firewall. You can sort the results by using the `sort` URI parameter, and filter them with the `status` parameter.",
+        "description": "Returns all [Actions](#actions) for the [Firewall](#firewalls).\n\nUse the provided URI parameters to modify the result.\n",
         "parameters": [
           {
             "description": "ID of the Firewall",
@@ -9034,7 +9043,7 @@
                 }
               }
             },
-            "description": "The `actions` key contains a list of Actions"
+            "description": "The `actions` key contains a list of [Actions](#actions)."
           }
         },
         "summary": "Get all Actions for a Firewall",
@@ -9046,7 +9055,7 @@
     },
     "/firewalls/{id}/actions/{action_id}": {
       "get": {
-        "description": "Returns a specific Action for a Firewall.",
+        "description": "Returns a specific [Action](#actions) for a [Firewall](#firewalls).",
         "parameters": [
           {
             "description": "ID of the Firewall.",
@@ -9104,7 +9113,7 @@
                 }
               }
             },
-            "description": "The `action` key contains the Firewall Action"
+            "description": "The `action` key contains the [Firewall](#firewalls) [Action](#actions)."
           }
         },
         "summary": "Get an Action for a Firewall",
@@ -9116,7 +9125,7 @@
     },
     "/firewalls/{id}/actions/apply_to_resources": {
       "post": {
-        "description": "Applies one Firewall to multiple resources.\n\nCurrently servers (public network interface) and label selectors are supported.\n\n#### Call specific error codes\n\n| Code                          | Description                                                   |\n|-------------------------------|---------------------------------------------------------------|\n| `firewall_already_applied`    | Firewall was already applied on resource                      |\n| `incompatible_network_type`   | The Network type is incompatible for the given resource       |\n| `firewall_resource_not_found` | The resource the Firewall should be attached to was not found |\n",
+        "description": "Applies a [Firewall](#firewalls) to multiple resources.\n\nSupported resources:\n- [Servers](#servers) (with a public network interface)\n- [Label Selectors](#label-selector)\n\nA server can be applied to [a maximum of 5 Firewalls](https://docs.hetzner.com/cloud/firewalls/overview#limits).\n\n#### Error Codes specific to this Call\n\n| Code                          | Description                                                                                     |\n|-------------------------------|-------------------------------------------------------------------------------------------------|\n| `firewall_already_applied`    | [Firewall](#firewalls) is already applied to resource                                           |\n| `incompatible_network_type`   | The network type of the resource is not supported by [Firewalls](#firewalls)                    |\n| `firewall_resource_not_found` | The resource the [Firewall](#firewalls) should be applied to was not found                      |\n| `private_net_only_server`     | The [Server](#servers) the [Firewall](#firewalls) should be applied to has no public interface  |\n",
         "parameters": [
           {
             "description": "ID of the Firewall.",
@@ -9186,7 +9195,7 @@
                 }
               }
             },
-            "description": "The `actions` key contains multiple `apply_firewall` Actions"
+            "description": "The `actions` key contains multiple [Actions](#actions) with the `apply_firewall` command."
           }
         },
         "summary": "Apply to Resources",
@@ -9198,7 +9207,7 @@
     },
     "/firewalls/{id}/actions/remove_from_resources": {
       "post": {
-        "description": "Removes one Firewall from multiple resources.\n\nCurrently only Servers (and their public network interfaces) are supported.\n\n#### Call specific error codes\n\n| Code                                  | Description                                                            |\n|---------------------------------------|------------------------------------------------------------------------|\n| `firewall_already_removed`            | Firewall was already removed from the resource                         |\n| `firewall_resource_not_found`         | The resource the Firewall should be attached to was not found          |\n| `firewall_managed_by_label_selector`  | Firewall was applied via label selector and cannot be removed manually |\n",
+        "description": "Removes a [Firewall](#firewalls) from multiple resources.\n\nSupported resources:\n- [Servers](#servers) (with a public network interface)\n\n#### Error Codes specific to this Call\n\n| Code                                  | Description                                                                                             |\n|---------------------------------------|---------------------------------------------------------------------------------------------------------|\n| `firewall_already_removed`            | [Firewall](#firewalls) is already removed from the resource                                             |\n| `firewall_resource_not_found`         | The resource the [Firewall](#firewalls) should be removed from was not found                            |\n| `firewall_managed_by_label_selector`  | [Firewall](#firewall) is applied via a [Label Selector](#label-selector) and cannot be removed manually |\n",
         "parameters": [
           {
             "description": "ID of the Firewall.",
@@ -9268,7 +9277,7 @@
                 }
               }
             },
-            "description": "The `actions` key contains multiple `remove_firewall` Actions"
+            "description": "The `actions` key contains multiple [Actions](#actions) with the `remove_firewall` command."
           }
         },
         "summary": "Remove from Resources",
@@ -9280,7 +9289,7 @@
     },
     "/firewalls/{id}/actions/set_rules": {
       "post": {
-        "description": "Sets the rules of a Firewall.\n\nAll existing rules will be overwritten. Pass an empty `rules` array to remove all rules.\nThe maximum amount of rules that can be defined is 50.\n\n#### Call specific error codes\n\n| Code                          | Description                                                   |\n|-------------------------------|---------------------------------------------------------------|\n| `firewall_resource_not_found` | The resource the Firewall should be attached to was not found |\n",
+        "description": "Set the rules of a [Firewall](#firewalls).\n\nOverwrites the existing rules with the given ones. Pass an empty array to remove all rules.\n\nRules are limited to 50 entries per [Firewall](#firewalls) and [500 effective rules](https://docs.hetzner.com/cloud/firewalls/overview#limits).\n",
         "parameters": [
           {
             "description": "ID of the Firewall.",
@@ -9377,7 +9386,7 @@
                 }
               }
             },
-            "description": "The `action` key contains one `set_firewall_rules` Action plus one `apply_firewall` Action per resource where the Firewall is active"
+            "description": "The `action` key contains an [Action](#actions) with the `set_firewall_rules` command and additionally one with the `apply_firewall` command per resource of the [Firewall](#firewalls)."
           }
         },
         "summary": "Set Rules",
@@ -9389,7 +9398,7 @@
     },
     "/firewalls/actions": {
       "get": {
-        "description": "Returns all Action objects. You can `sort` the results by using the sort URI parameter, and filter them with the `status` and `id` parameter.",
+        "description": "Returns all [Actions](#actions) for [Firewalls](#firewalls).\n\nUse the provided URI parameters to modify the result.\n",
         "parameters": [
           {
             "description": "Filter the actions by ID. Can be used multiple times. The response will only contain\nactions matching the specified IDs.\n",
@@ -9479,7 +9488,7 @@
                 }
               }
             },
-            "description": "The `actions` key contains a list of Actions"
+            "description": "The `actions` key contains a list of [Actions](#actions)."
           }
         },
         "summary": "Get all Actions",
@@ -9491,7 +9500,7 @@
     },
     "/firewalls/actions/{id}": {
       "get": {
-        "description": "Returns a specific Action object.",
+        "description": "Returns the specific [Action](#actions).",
         "parameters": [
           {
             "description": "ID of the Action",
@@ -9516,7 +9525,7 @@
                 }
               }
             },
-            "description": "The `action` key in the reply has this structure"
+            "description": "The `action` key contains the [Action](#actions)."
           }
         },
         "summary": "Get an Action",
@@ -10142,7 +10151,7 @@
               }
             }
           },
-          "description": "The `ip` attributes specifies for which IP address the record is set. For IPv4 addresses this must be the exact address of the [Floating IP](#floating-ips). For IPv6 addresses this must be a single address within the `/64` subnetwork of the [Floating IP](#floating-ips).\n\nThe `dns_ptr` attribute specifies the hostname used for the IP address.\n\nFor IPv6 [Floating IPs](#floating-ips) up to 100 entries can be created.\n"
+          "description": "The `ip` attributes specifies for which IP address the record is set. For IPv4 addresses this must be the exact address of the [Floating IP](#floating-ips). For IPv6 addresses this must be a single address within the `/64` subnet of the [Floating IP](#floating-ips).\n\nThe `dns_ptr` attribute specifies the hostname used for the IP address.\n\nFor IPv6 [Floating IPs](#floating-ips) up to 100 entries can be created.\n"
         },
         "responses": {
           "201": {
@@ -11429,7 +11438,7 @@
         "operationId": "list_load_balancers"
       },
       "post": {
-        "description": "Creates a Load Balancer.\n\n#### Call specific error codes\n\n| Code                                    | Description                                                                                           |\n|-----------------------------------------|-------------------------------------------------------------------------------------------------------|\n| `cloud_resource_ip_not_allowed`         | The IP you are trying to add as a target belongs to a Hetzner Cloud resource                          |\n| `ip_not_owned`                          | The IP is not owned by the owner of the project of the Load Balancer                                  |\n| `load_balancer_not_attached_to_network` | The Load Balancer is not attached to a network                                                        |\n| `robot_unavailable`                     | Robot was not available. The caller may retry the operation after a short delay.                      |\n| `server_not_attached_to_network`        | The server you are trying to add as a target is not attached to the same network as the Load Balancer |\n| `source_port_already_used`              | The source port you are trying to add is already in use                                               |\n| `target_already_defined`                | The Load Balancer target you are trying to define is already defined                                  |\n",
+        "description": "Creates a Load Balancer.\n\n#### Call specific error codes\n\n| Code                                    | Description                                                                                           |\n|-----------------------------------------|-------------------------------------------------------------------------------------------------------|\n| `cloud_resource_ip_not_allowed`         | The IP you are trying to add as a target belongs to a Hetzner Cloud resource                          |\n| `ip_not_owned`                          | The IP is not owned by the owner of the project of the Load Balancer                                  |\n| `load_balancer_not_attached_to_network` | The Load Balancer is not attached to a network                                                        |\n| `robot_unavailable`                     | Robot was not available. The caller may retry the operation after a short delay.                      |\n| `server_not_attached_to_network`        | The server you are trying to add as a target is not attached to the same network as the Load Balancer |\n| `source_port_already_used`              | The source port you are trying to add is already in use                                               |\n| `missing_ipv4`                          | The server that you are trying to add as a public target does not have a public IPv4 address          |\n| `target_already_defined`                | The Load Balancer target you are trying to define is already defined                                  |\n",
         "requestBody": {
           "content": {
             "application/json": {
@@ -12133,7 +12142,7 @@
     },
     "/load_balancers/{id}/actions/add_target": {
       "post": {
-        "description": "Adds a target to a Load Balancer.\n\n#### Call specific error codes\n\n| Code                                    | Description                                                                                           |\n|-----------------------------------------|-------------------------------------------------------------------------------------------------------|\n| `cloud_resource_ip_not_allowed`         | The IP you are trying to add as a target belongs to a Hetzner Cloud resource                          |\n| `ip_not_owned`                          | The IP you are trying to add as a target is not owned by the Project owner                            |\n| `load_balancer_not_attached_to_network` | The Load Balancer is not attached to a network                                                        |\n| `robot_unavailable`                     | Robot was not available. The caller may retry the operation after a short delay.                      |\n| `server_not_attached_to_network`        | The server you are trying to add as a target is not attached to the same network as the Load Balancer |\n| `target_already_defined`                | The Load Balancer target you are trying to define is already defined                                  |\n",
+        "description": "Adds a target to a Load Balancer.\n\n#### Call specific error codes\n\n| Code                                    | Description                                                                                           |\n|-----------------------------------------|-------------------------------------------------------------------------------------------------------|\n| `cloud_resource_ip_not_allowed`         | The IP you are trying to add as a target belongs to a Hetzner Cloud resource                          |\n| `ip_not_owned`                          | The IP you are trying to add as a target is not owned by the Project owner                            |\n| `load_balancer_not_attached_to_network` | The Load Balancer is not attached to a network                                                        |\n| `robot_unavailable`                     | Robot was not available. The caller may retry the operation after a short delay.                      |\n| `server_not_attached_to_network`        | The server you are trying to add as a target is not attached to the same network as the Load Balancer |\n| `missing_ipv4`                          | The server that you are trying to add as a public target does not have a public IPv4 address          |\n| `target_already_defined`                | The Load Balancer target you are trying to define is already defined                                  |\n",
         "parameters": [
           {
             "description": "ID of the Load Balancer.",
@@ -13138,7 +13147,7 @@
     },
     "/locations": {
       "get": {
-        "description": "Returns all Locations.",
+        "description": "Returns all [Locations](#locations).\n\nUse the provided URI parameters to modify the result.\n",
         "parameters": [
           {
             "description": "Filter resources by their name. The response will only contain the resources\nmatching the specified name.\n",
@@ -13200,7 +13209,7 @@
                 }
               }
             },
-            "description": "Contains the queried Locations."
+            "description": "Response with the [Locations](#locations)."
           }
         },
         "summary": "Get all Locations",
@@ -13212,7 +13221,7 @@
     },
     "/locations/{id}": {
       "get": {
-        "description": "Returns a single Location.",
+        "description": "Returns a [Location](#locations).",
         "parameters": [
           {
             "description": "ID of the Location.",
@@ -13237,7 +13246,7 @@
                 }
               }
             },
-            "description": "Contains the queried Location."
+            "description": "Response with the [Location](#locations)."
           }
         },
         "summary": "Get a Location",
@@ -13249,7 +13258,7 @@
     },
     "/networks": {
       "get": {
-        "description": "Gets all existing networks that you have available.",
+        "description": "List multiple [Networks](#networks).\n\nUse the provided URI parameters to modify the result.\n",
         "parameters": [
           {
             "description": "Filter resources by their name. The response will only contain the resources\nmatching the specified name.\n",
@@ -13303,7 +13312,7 @@
                 }
               }
             },
-            "description": "The `networks` key contains a list of networks"
+            "description": "Response for listing [Networks](#networks)."
           }
         },
         "summary": "Get all Networks",
@@ -13313,7 +13322,7 @@
         "operationId": "list_networks"
       },
       "post": {
-        "description": "Creates a network with the specified `ip_range`.\n\nYou may specify one or more `subnets`. You can also add more Subnets later by using the [add subnet action](https://docs.hetzner.cloud/#network-actions-add-a-subnet-to-a-network). If you do not specify an `ip_range` in the subnet we will automatically pick the first available /24 range for you.\n\nYou may specify one or more routes in `routes`. You can also add more routes later by using the [add route action](https://docs.hetzner.cloud/#network-actions-add-a-route-to-a-network).\n",
+        "description": "Creates a [Network](#networks).\n\nThe provided `ip_range` can only be extended later on, but not reduced.\n\nSubnets can be added now or later on using the [add subnet action](#network-actions-add-a-subnet-to-a-network). If you do not specify an `ip_range` for the subnet the first available /24 range will be used.\n\nRoutes can be added now or later by using the [add route action](#network-actions-add-a-route-to-a-network).\n",
         "requestBody": {
           "content": {
             "application/json": {
@@ -13332,7 +13341,7 @@
                 }
               }
             },
-            "description": "The `network` key contains the network that was just created"
+            "description": "Response for creating a [Network](#networks).\n\nContains the newly created [Network](#networks).\n"
           }
         },
         "summary": "Create a Network",
@@ -13344,7 +13353,7 @@
     },
     "/networks/{id}": {
       "delete": {
-        "description": "Deletes a network. If there are Servers attached they will be detached in the background.\n\nNote: if the network object changes during the request, the response will be a “conflict” error.\n",
+        "description": "Deletes a [Network](#networks).\n\nAttached resources will be detached automatically.\n",
         "parameters": [
           {
             "description": "ID of the Network.",
@@ -13362,7 +13371,7 @@
         ],
         "responses": {
           "204": {
-            "description": "Network deleted"
+            "description": "Response for deleting a [Network](#networks)."
           }
         },
         "summary": "Delete a Network",
@@ -13372,7 +13381,7 @@
         "operationId": "delete_network"
       },
       "get": {
-        "description": "Gets a specific network object.",
+        "description": "Get a specific [Network](#networks).",
         "parameters": [
           {
             "description": "ID of the Network.",
@@ -13407,7 +13416,7 @@
         "operationId": "get_network"
       },
       "put": {
-        "description": "Updates the network properties.\n\nNote that when updating labels, the network’s current set of labels will be replaced with the labels provided in the request body. So, for example, if you want to add a new label, you have to provide all existing labels plus the new label in the request body.\n\nNote: if the network object changes during the request, the response will be a “conflict” error.\n",
+        "description": "Update a [Network](#networks).\n\nNote that when updating [Labels](#labels), the [Networks](#networks) current set of [Labels](#labels) will be replaced with the [Labels](#labels) provided with the request. So, for example, if you want to add a new [Label](#labels), you have to provide all existing [Labels](#labels) plus the new [Label](#labels) in the request body.\n\nIf a change is currently being performed on this [Network](#networks), a error response with code `conflict` will be returned.\n",
         "parameters": [
           {
             "description": "ID of the Network.",
@@ -13476,7 +13485,7 @@
                 }
               }
             },
-            "description": "The `network` key contains the updated network"
+            "description": "Response for updating a [Network](#networks).\n\nContains the updated [Network](#networks).\n"
           }
         },
         "summary": "Update a Network",
@@ -13488,7 +13497,7 @@
     },
     "/networks/{id}/actions": {
       "get": {
-        "description": "Returns all Action objects for a Network. You can sort the results by using the `sort` URI parameter, and filter them with the `status` parameter.",
+        "description": "Lists [Actions](#actions) for a [Network](#networks).\n\nUse the provided URI parameters to modify the result.\n",
         "parameters": [
           {
             "description": "ID of the Network.",
@@ -13610,7 +13619,7 @@
                 }
               }
             },
-            "description": "The `actions` key contains a list of Actions"
+            "description": "Response for listing [Actions](#actions)."
           }
         },
         "summary": "Get all Actions for a Network",
@@ -13622,7 +13631,7 @@
     },
     "/networks/{id}/actions/{action_id}": {
       "get": {
-        "description": "Returns a specific Action for a Network.",
+        "description": "Returns a specific [Action](#actions) for a [Network](#networks).",
         "parameters": [
           {
             "description": "ID of the Network.",
@@ -13680,7 +13689,7 @@
                 }
               }
             },
-            "description": "The `action` key contains the Network Action"
+            "description": "Response for getting an [Action](#actions)."
           }
         },
         "summary": "Get an Action for a Network",
@@ -13692,7 +13701,7 @@
     },
     "/networks/{id}/actions/add_route": {
       "post": {
-        "description": "Adds a route entry to a Network.\n\nNote: if the Network object changes during the request, the response will be a “conflict” error.\n",
+        "description": "Adds a route entry to a [Network](#networks).\n\nIf a change is currently being performed on this [Network](#networks), a error response with code `conflict` will be returned.\n",
         "parameters": [
           {
             "description": "ID of the Network.",
@@ -13746,7 +13755,7 @@
                 }
               }
             },
-            "description": "The `action` key contains the `add_route` Action"
+            "description": "Response for adding a route to a [Network](#networks).\n\nThe `action` key contains an [Action](#actions) with command `add_route`.\n"
           }
         },
         "summary": "Add a route to a Network",
@@ -13758,7 +13767,7 @@
     },
     "/networks/{id}/actions/add_subnet": {
       "post": {
-        "description": "Adds a new subnet object to the Network. If you do not specify an `ip_range` for the subnet we will automatically pick the first available /24 range for you if possible.\n\nNote: if the parent Network object changes during the request, the response will be a “conflict” error.\n",
+        "description": "Adds a new subnet to the [Network](#networks).\n\nIf the subnet `ip_range` is not provided, the first available `/24` IP range will be used.\n\nIf a change is currently being performed on this [Network](#networks), a error response with code `conflict` will be returned.\n",
         "parameters": [
           {
             "description": "ID of the Network.",
@@ -13812,7 +13821,7 @@
                 }
               }
             },
-            "description": "The `action` key contains the `add_subnet` Action"
+            "description": "Response for adding a subnet to a [Network](#networks).\n\nThe `action` key contains an [Action](#actions) with command `add_subnet`.\n"
           }
         },
         "summary": "Add a subnet to a Network",
@@ -13824,7 +13833,7 @@
     },
     "/networks/{id}/actions/change_ip_range": {
       "post": {
-        "description": "Changes the IP range of a Network. IP ranges can only be extended and never shrunk. You can only add IPs at the end of an existing IP range. This means that the IP part of your existing range must stay the same and you can only change its netmask.\n\nFor example if you have a range `10.0.0.0/16` you want to extend then your new range must also start with the IP `10.0.0.0`. Your CIDR netmask `/16` may change to a number that is smaller than `16` thereby increasing the IP range. So valid entries would be `10.0.0.0/15`, `10.0.0.0/14`, `10.0.0.0/13` and so on.\n\nAfter changing the IP range you will have to adjust the routes on your connected Servers by either rebooting them or manually changing the routes to your private Network interface.\n\nNote: if the Network object changes during the request, the response will be a “conflict” error.\n",
+        "description": "Changes the IP range of a [Network](#networks).\n\nThe following restrictions apply to changing the IP range:\n- IP ranges can only be extended and never shrunk.\n- IPs can only be added to the end of the existing range, therefore only the netmask is allowed to be changed.\n\nTo update the routes on the connected [Servers](#servers), they need to be rebooted or the routes to be updated manually.\n\nFor example if the [Network](#networks) has a range of `10.0.0.0/16` to extend it the new range has to start with the IP `10.0.0.0` as well. The netmask `/16` can be changed to a smaller one then `16` therefore increasing the IP range. A valid entry would be `10.0.0.0/15`, `10.0.0.0/14` or `10.0.0.0/13` and so on.\n\nIf a change is currently being performed on this [Network](#networks), a error response with code `conflict` will be returned.\n",
         "parameters": [
           {
             "description": "ID of the Network.",
@@ -13878,7 +13887,7 @@
                 }
               }
             },
-            "description": "The `action` key contains the `change_ip_range` Action"
+            "description": "Response for changing the [Networks](#networks) IP range.\n\nThe `action` key contains an [Action](#actions) with command `change_ip_range`.\n"
           }
         },
         "summary": "Change IP range of a Network",
@@ -13890,7 +13899,7 @@
     },
     "/networks/{id}/actions/change_protection": {
       "post": {
-        "description": "Changes the protection configuration of a Network.\n\nNote: if the Network object changes during the request, the response will be a “conflict” error.\n",
+        "description": "Changes the protection settings of a [Network](#networks).\n\nIf a change is currently being performed on this [Network](#networks), a error response with code `conflict` will be returned.\n",
         "parameters": [
           {
             "description": "ID of the Network.",
@@ -13944,7 +13953,7 @@
                 }
               }
             },
-            "description": "The `action` key contains the `change_protection` Action"
+            "description": "Response for changing the [Networks](#networks) protection.\n\nThe `action` key contains an [Action](#actions) with command `change_protection`.\n"
           }
         },
         "summary": "Change Network Protection",
@@ -13956,7 +13965,7 @@
     },
     "/networks/{id}/actions/delete_route": {
       "post": {
-        "description": "Delete a route entry from a Network.\n\nNote: if the Network object changes during the request, the response will be a “conflict” error.\n",
+        "description": "Delete a route entry from a [Network](#networks).\n\nIf a change is currently being performed on this [Network](#networks), a error response with code `conflict` will be returned.\n",
         "parameters": [
           {
             "description": "ID of the Network.",
@@ -14010,7 +14019,7 @@
                 }
               }
             },
-            "description": "The `action` key contains the `delete_route` Action"
+            "description": "Response for deleting a route from a [Network](#networks).\n\nThe `action` key contains an [Action](#actions) with command `delete_route`.\n"
           }
         },
         "summary": "Delete a route from a Network",
@@ -14022,7 +14031,7 @@
     },
     "/networks/{id}/actions/delete_subnet": {
       "post": {
-        "description": "Deletes a single subnet entry from a Network. You cannot delete subnets which still have Servers attached. If you have Servers attached you first need to detach all Servers that use IPs from this subnet before you can delete the subnet.\n\nNote: if the Network object changes during the request, the response will be a “conflict” error.\n",
+        "description": "Deletes a single subnet entry from a [Network](#networks).\n\nSubnets containing attached resources can not be deleted, they must be detached beforehand.\n\nIf a change is currently being performed on this [Network](#networks), a error response with code `conflict` will be returned.\n",
         "parameters": [
           {
             "description": "ID of the Network.",
@@ -14076,7 +14085,7 @@
                 }
               }
             },
-            "description": "The `action` key contains the `delete_subnet` Action"
+            "description": "Response for deleting a subnet from a [Network](#networks).\n\nThe `action` key contains an [Action](#actions) with command `delete_subnet`.\n"
           }
         },
         "summary": "Delete a subnet from a Network",
@@ -14088,7 +14097,7 @@
     },
     "/networks/actions": {
       "get": {
-        "description": "Returns all Action objects. You can `sort` the results by using the sort URI parameter, and filter them with the `status` and `id` parameter.",
+        "description": "Lists multiple [Actions](#actions).\n\nUse the provided URI parameters to modify the result.\n",
         "parameters": [
           {
             "description": "Filter the actions by ID. Can be used multiple times. The response will only contain\nactions matching the specified IDs.\n",
@@ -14178,7 +14187,7 @@
                 }
               }
             },
-            "description": "The `actions` key contains a list of Actions"
+            "description": "Response for listing [Actions](#actions)."
           }
         },
         "summary": "Get all Actions",
@@ -14190,7 +14199,7 @@
     },
     "/networks/actions/{id}": {
       "get": {
-        "description": "Returns a specific Action object.",
+        "description": "Returns a single [Action](#actions).",
         "parameters": [
           {
             "description": "ID of the Action",
@@ -14215,7 +14224,7 @@
                 }
               }
             },
-            "description": "The `action` key in the reply has this structure"
+            "description": "Response for getting a single [Action](#actions)."
           }
         },
         "summary": "Get an Action",
@@ -14569,7 +14578,7 @@
     },
     "/primary_ips": {
       "get": {
-        "description": "Returns all Primary IP objects.",
+        "description": "List multiple [Primary IPs](#primary-ips).\n\nUse the provided URI parameters to modify the result.\n",
         "parameters": [
           {
             "description": "Filter resources by their name. The response will only contain the resources\nmatching the specified name.\n",
@@ -14590,7 +14599,7 @@
             }
           },
           {
-            "description": "Can be used to filter resources by their ip. The response will only contain the resources matching the specified ip.",
+            "description": "Filter results by IP address.",
             "example": "127.0.0.1",
             "in": "query",
             "name": "ip",
@@ -14650,7 +14659,7 @@
                 }
               }
             },
-            "description": "The `primary_ips` key contains an array of Primary IP objects"
+            "description": "Response for listing [Primary IPs](#primary-ips)."
           }
         },
         "summary": "Get all Primary IPs",
@@ -14660,7 +14669,7 @@
         "operationId": "list_primary_ips"
       },
       "post": {
-        "description": "Creates a new Primary IP, optionally assigned to a Server.\n\nIf you want to create a Primary IP that is not assigned to a Server, you need to provide the `datacenter` key instead of `assignee_id`. This can be either the ID or the name of the Datacenter this Primary IP shall be created in.\n\nNote that a Primary IP can only be assigned to a Server in the same Datacenter later on.\n\n#### Call specific error codes\n\n| Code                          | Description                                                   |\n|------------------------------ |-------------------------------------------------------------- |\n| `server_not_stopped`          | The specified server is running, but needs to be powered off  |\n| `server_has_ipv4`             | The server already has an ipv4 address                        |\n| `server_has_ipv6`             | The server already has an ipv6 address                        |\n",
+        "description": "Create a new [Primary IP](#primary-ips).\n\nCan optionally be assigned to a resource by providing an `assignee_id` and `assignee_type`.\n\nIf not assigned to a resource the `datacenter` key needs to be provided. This can be either the ID or the name of the [Datacenter](#datacenters) this [Primary IP](#primary-ips) shall be created in.\n\nA [Primary IP](#primary-ips) can only be assigned to resource in the same [Datacenter](#datacenters) later on.\n\n#### Call specific error codes\n\n| Code                          | Description                                                              |\n|------------------------------ |------------------------------------------------------------------------- |\n| `server_not_stopped`          | The specified [Server](#servers) is running, but needs to be powered off |\n| `server_has_ipv4`             | The [Server](#servers) already has an ipv4 address                       |\n| `server_has_ipv6`             | The [Server](#servers) already has an ipv6 address                       |\n",
         "requestBody": {
           "content": {
             "application/json": {
@@ -14669,7 +14678,7 @@
               }
             }
           },
-          "description": "The `type` argument is required while `datacenter` and `assignee_id` are mutually exclusive."
+          "description": "Request Body for creating a new [Primary IP](#primary-ips).\n\nThe `datacenter` and `assignee_id`/`assignee_type` attributes are mutually exclusive.\n"
         },
         "responses": {
           "201": {
@@ -14755,7 +14764,7 @@
                 }
               }
             },
-            "description": "The `primary_ip` key contains the Primary IP that was just created"
+            "description": "Response for creating a [Primary IP](#primary-ips).\n\nContains the newly created [Primary IP](#primary-ips).\n"
           }
         },
         "summary": "Create a Primary IP",
@@ -14767,7 +14776,7 @@
     },
     "/primary_ips/{id}": {
       "delete": {
-        "description": "Deletes a Primary IP.\n\nThe Primary IP may be assigned to a Server. In this case it is unassigned automatically. The Server must be powered off (status `off`) in order for this operation to succeed.\n",
+        "description": "Deletes a [Primary IP](#primary-ips).\n\nIf assigned to a [Server](#servers) the [Primary IP](#primary-ips) will be unassigned automatically. The [Server](#servers) must be powered off (status `off`) in order for this operation to succeed.\n",
         "parameters": [
           {
             "description": "ID of the Primary IP.",
@@ -14785,7 +14794,7 @@
         ],
         "responses": {
           "204": {
-            "description": "Primary IP deleted"
+            "description": "[Primary IP](#primary-ips) deletion succeeded."
           }
         },
         "summary": "Delete a Primary IP",
@@ -14795,7 +14804,7 @@
         "operationId": "delete_primary_ip"
       },
       "get": {
-        "description": "Returns a specific Primary IP object.",
+        "description": "Returns a [Primary IP](#primary-ips). - Primary IPs",
         "parameters": [
           {
             "description": "ID of the Primary IP.",
@@ -14820,7 +14829,7 @@
                 }
               }
             },
-            "description": "The `primary_ip` key contains a Primary IP object"
+            "description": "The `primary_ip` key contains the [Primary IP](#primary-ips)."
           }
         },
         "summary": "Get a Primary IP",
@@ -14830,7 +14839,7 @@
         "operationId": "get_primary_ip"
       },
       "put": {
-        "description": "Updates the Primary IP.\n\nNote that when updating labels, the Primary IP's current set of labels will be replaced with the labels provided in the request body. So, for example, if you want to add a new label, you have to provide all existing labels plus the new label in the request body.\n\nIf the Primary IP object changes during the request, the response will be a “conflict” error.\n",
+        "description": "Update the [Primary IP](#primary-ips).\n\nNote that when updating [Labels](#labels), the [Primary IPs](#primary-ips) current set of [Labels](#labels) will be replaced with the [Labels](#labels) provided with the request. So, for example, if you want to add a new [Label](#labels), you have to provide all existing [Labels](#labels) plus the new [Label](#labels) in the request body.\n\nIf another change is concurrently performed on this [Primary IP](#primary-ips), a error response with code `conflict` will be returned.\n",
         "parameters": [
           {
             "description": "ID of the Primary IP.",
@@ -14864,7 +14873,7 @@
                 }
               }
             },
-            "description": "The `primary_ip` key contains the Primary IP that was just updated"
+            "description": "The `primary_ip` key contains the updated [Primary IP](#primary-ips)."
           }
         },
         "summary": "Update a Primary IP",
@@ -14876,7 +14885,7 @@
     },
     "/primary_ips/{id}/actions/assign": {
       "post": {
-        "description": "Assigns a Primary IP to a Server.\n\nA Server can only have one Primary IP of type `ipv4` and one of type `ipv6` assigned. If you need more IPs use Floating IPs.\n\nThe Server must be powered off (status `off`) in order for this operation to succeed.\n\n#### Call specific error codes\n\n| Code                          | Description                                                   |\n|------------------------------ |-------------------------------------------------------------- |\n| `server_not_stopped`          | The server is running, but needs to be powered off            |\n| `primary_ip_already_assigned` | Primary ip is already assigned to a different server          |\n| `server_has_ipv4`             | The server already has an ipv4 address                        |\n| `server_has_ipv6`             | The server already has an ipv6 address                        |\n",
+        "description": "Assign a [Primary IP](#primary-ips) to a resource.\n\nA [Server](#servers) can only have one [Primary IP](#primary-ips) of type `ipv4` and one of type `ipv6` assigned. If you need more IPs use [Floating IPs](#floating-ips).\n\nA [Server](#servers) must be powered off (status `off`) in order for this operation to succeed.\n\n#### Error Codes specific to this Call\n\n| Code                          | Description                                                                      |\n|------------------------------ |--------------------------------------------------------------------------------- |\n| `server_not_stopped`          | The [Server](#servers) is running, but needs to be powered off                   |\n| `primary_ip_already_assigned` | [Primary IP](#primary-ips) is already assigned to a different [Server](#servers) |\n| `server_has_ipv4`             | The [Server](#servers) already has an IPv4 address                               |\n| `server_has_ipv6`             | The [Server](#servers) already has an IPv6 address                               |\n",
         "parameters": [
           {
             "description": "ID of the Primary IP.",
@@ -14934,7 +14943,7 @@
                 }
               }
             },
-            "description": "The `action` key in the reply contains an Action object with this structure"
+            "description": "Response for assigning a [Primary IP](#primary-ips).\n\nContains an [Action](#actions) of type `assign_primary_ip`.\n"
           }
         },
         "summary": "Assign a Primary IP to a resource",
@@ -14946,7 +14955,7 @@
     },
     "/primary_ips/{id}/actions/change_dns_ptr": {
       "post": {
-        "description": "Changes the hostname that will appear when getting the hostname belonging to this Primary IP.",
+        "description": "Change the reverse DNS records for this [Primary IP](#primary-ips).\n\nAllows to modify the PTR records set for the IP address.\n",
         "parameters": [
           {
             "description": "ID of the Primary IP.",
@@ -14966,11 +14975,11 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/change_reverse_dns_entry_for_primary_ip_request"
+                "$ref": "#/components/schemas/change_reverse_dns_records_for_primary_ip_request"
               }
             }
           },
-          "description": "Select the IP address for which to change the DNS entry by passing `ip`. For a Primary IP of type `ipv4` this must exactly match the IP address of the Primary IP. For a Primary IP of type `ipv6` this must be a single IP within the IPv6 /64 range that belongs to this Primary IP. You can add up to 100 IPv6 reverse DNS entries.\n\nThe target hostname is set by passing `dns_ptr`.\n"
+          "description": "The `ip` attributes specifies for which IP address the record is set. For IPv4 addresses this must be the exact address of the [Primary IP](#primary-ips). For IPv6 addresses this must be a single address within the `/64` subnet of the [Primary IP](#primary-ips).\n\nThe `dns_ptr` attribute specifies the hostname used for the IP address.\n\nFor IPv6 [Floating IPs](#floating-ips) up to 100 entries can be created.\n"
         },
         "responses": {
           "201": {
@@ -14997,23 +15006,23 @@
                   }
                 },
                 "schema": {
-                  "$ref": "#/components/schemas/change_reverse_dns_entry_for_primary_ip_response"
+                  "$ref": "#/components/schemas/change_reverse_dns_records_for_primary_ip_response"
                 }
               }
             },
-            "description": "The `action` key contains the `change_dns_ptr` Action"
+            "description": "Response for changing a [Primary IPs](#primary-ips) DNS pointer.\n\nContains an [Action](#actions) of type `change_dns_ptr`.\n"
           }
         },
-        "summary": "Change reverse DNS entry for a Primary IP",
+        "summary": "Change reverse DNS records for a Primary IP",
         "tags": [
           "primary_ips"
         ],
-        "operationId": "change_reverse_dns_entry_for_primary_ip"
+        "operationId": "change_reverse_dns_records_for_primary_ip"
       }
     },
     "/primary_ips/{id}/actions/change_protection": {
       "post": {
-        "description": "Changes the protection configuration of a Primary IP.\n\nA Primary IP can only be delete protected if its `auto_delete` property is set to `false`.\n",
+        "description": "Changes the protection configuration of a [Primary IP](#primary-ips).\n\nA [Primary IPs](#primary-ips) deletion protection can only be enabled if its `auto_delete` property is set to `false`.\n",
         "parameters": [
           {
             "description": "ID of the Primary IP.",
@@ -15067,7 +15076,7 @@
                 }
               }
             },
-            "description": "The `action` key contains the `change_protection` Action"
+            "description": "Response for changing a [Primary IPs](#primary-ips) protection settings.\n\nContains an [Action](#actions) of type `change_protection`.\n"
           }
         },
         "summary": "Change Primary IP Protection",
@@ -15079,7 +15088,7 @@
     },
     "/primary_ips/{id}/actions/unassign": {
       "post": {
-        "description": "Unassigns a Primary IP from a Server.\n\nThe Server must be powered off (status `off`) in order for this operation to succeed.\n\nNote that only Servers that have at least one network interface (public or private) attached can be powered on.\n\n#### Call specific error codes\n\n| Code                              | Description                                                   |\n|---------------------------------- |-------------------------------------------------------------- |\n| `server_not_stopped`              | The server is running, but needs to be powered off            |\n| `server_is_load_balancer_target`  | The server ipv4 address is a loadbalancer target              |\n",
+        "description": "Unassign a [Primary IP](#primary-ips) from a resource.\n\nA [Server](#servers) must be powered off (status `off`) in order for this operation to succeed.\n\nA [Server](#server) requires at least one network interface (public or private) to be powered on.\n\n#### Error Codes specific to this Call\n\n| Code                              | Description                                                   |\n|---------------------------------- |-------------------------------------------------------------- |\n| `server_not_stopped`              | The [Server](#server) is running, but needs to be powered off |\n| `server_is_load_balancer_target`  | The [Server](#server) IPv4 address is a loadbalancer target   |\n",
         "parameters": [
           {
             "description": "ID of the Primary IP.",
@@ -15128,7 +15137,7 @@
                 }
               }
             },
-            "description": "The `action` key in the reply contains an Action object with this structure"
+            "description": "Response for unassigning a [Primary IP](#primary-ips).\n\nContains an [Action](#actions) of type `unassign_primary_ip`.\n"
           }
         },
         "summary": "Unassign a Primary IP from a resource",
@@ -15140,7 +15149,7 @@
     },
     "/primary_ips/actions": {
       "get": {
-        "description": "Returns all Action objects. You can `sort` the results by using the sort URI parameter, and filter them with the `status` and `id` parameter.",
+        "description": "Lists multiple [Actions](#actions).\n\nUse the provided URI parameters to modify the result.\n",
         "parameters": [
           {
             "description": "Filter the actions by ID. Can be used multiple times. The response will only contain\nactions matching the specified IDs.\n",
@@ -15230,7 +15239,7 @@
                 }
               }
             },
-            "description": "The `actions` key contains a list of Actions"
+            "description": "Response for listing [Actions](#actions)."
           }
         },
         "summary": "Get all Actions",
@@ -15242,7 +15251,7 @@
     },
     "/primary_ips/actions/{id}": {
       "get": {
-        "description": "Returns a specific Action object.",
+        "description": "Returns a single [Action](#actions).",
         "parameters": [
           {
             "description": "ID of the Action",
@@ -15267,7 +15276,7 @@
                 }
               }
             },
-            "description": "The `action` key in the reply has this structure"
+            "description": "Response for getting a single [Action](#actions)."
           }
         },
         "summary": "Get an Action",
@@ -15665,15 +15674,15 @@
                     "rescue_enabled": false,
                     "server_type": {
                       "architecture": "x86",
-                      "cores": 1,
+                      "cores": 2,
                       "cpu_type": "shared",
                       "deprecated": true,
-                      "description": "CX11",
-                      "disk": 25,
+                      "description": "CPX11",
+                      "disk": 40,
                       "id": 1,
                       "included_traffic": null,
-                      "memory": 1,
-                      "name": "cx11",
+                      "memory": 2,
+                      "name": "cpx11",
                       "prices": [
                         {
                           "included_traffic": 21990232555520,
