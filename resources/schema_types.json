@@ -112,14 +112,6 @@
     ]
   },
   {
-    "name": "health_status",
-    "path": [
-      "create_load_balancer_request",
-      "targets",
-      "health_status"
-    ]
-  },
-  {
     "name": "http",
     "path": [
       "add_service_request",
@@ -214,6 +206,14 @@
     ]
   },
   {
+    "description": "A target to be added to a load balancer.",
+    "name": "load_balancer_add_target",
+    "path": [
+      "create_load_balancer_request",
+      "targets"
+    ]
+  },
+  {
     "name": "load_balancer_algorithm",
     "path": [
       "create_load_balancer_request",
@@ -237,11 +237,49 @@
     ]
   },
   {
+    "description": "Resolved label selector target Servers. Only present for type \"label_selector\".",
+    "name": "load_balancer_selected_target",
+    "path": [
+      "list_load_balancers_response",
+      "load_balancers",
+      "targets",
+      "targets"
+    ]
+  },
+  {
     "description": "A service for a Load Balancer.",
     "name": "load_balancer_service",
     "path": [
       "create_load_balancer_request",
       "services"
+    ]
+  },
+  {
+    "description": "A target of a Load Balancer.",
+    "name": "load_balancer_target",
+    "path": [
+      "list_load_balancers_response",
+      "load_balancers",
+      "targets"
+    ]
+  },
+  {
+    "description": "Health status of the services on this target. Only present for target types \"server\" and \"ip\".",
+    "name": "load_balancer_target_health_status",
+    "path": [
+      "list_load_balancers_response",
+      "load_balancers",
+      "targets",
+      "health_status"
+    ]
+  },
+  {
+    "name": "load_balancer_target_ip",
+    "path": [
+      "list_load_balancers_response",
+      "load_balancers",
+      "targets",
+      "ip"
     ]
   },
   {
@@ -366,14 +404,6 @@
     ]
   },
   {
-    "name": "selected_target",
-    "path": [
-      "create_load_balancer_request",
-      "targets",
-      "targets"
-    ]
-  },
-  {
     "description": "Servers are virtual machines that can be provisioned.",
     "name": "server",
     "path": [
@@ -433,14 +463,6 @@
       "list_networks_response",
       "networks",
       "subnets"
-    ]
-  },
-  {
-    "description": "A target for a load balancer",
-    "name": "target",
-    "path": [
-      "create_load_balancer_request",
-      "targets"
     ]
   },
   {

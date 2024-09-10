@@ -6,7 +6,7 @@
     "contact": {
       "url": "https://docs.hetzner.cloud/"
     },
-    "version": "287e002-dirty"
+    "version": "ddf156c-dirty"
   },
   "servers": [
     {
@@ -717,7 +717,7 @@
         "description": "Response to POST https://api.hetzner.cloud/v1/networks/{id}/actions/add_subnet"
       },
       "add_target_request": {
-        "$ref": "#/components/schemas/target"
+        "$ref": "#/components/schemas/load_balancer_add_target"
       },
       "add_target_response": {
         "properties": {
@@ -1829,7 +1829,7 @@
           "targets": {
             "description": "Array of targets",
             "items": {
-              "$ref": "#/components/schemas/target"
+              "$ref": "#/components/schemas/load_balancer_add_target"
             },
             "type": "array"
           }
@@ -5022,119 +5022,7 @@
           "targets": {
             "description": "List of targets that belong to this Load Balancer",
             "items": {
-              "properties": {
-                "health_status": {
-                  "description": "List of health statuses of the services on this target. Only present for target types \"server\" and \"ip\".",
-                  "items": {
-                    "properties": {
-                      "listen_port": {
-                        "example": 443,
-                        "type": "integer"
-                      },
-                      "status": {
-                        "enum": [
-                          "healthy",
-                          "unhealthy",
-                          "unknown"
-                        ],
-                        "example": "healthy",
-                        "type": "string"
-                      }
-                    },
-                    "type": "object"
-                  },
-                  "title": "LoadBalancerTargetHealthStatus",
-                  "type": "array"
-                },
-                "ip": {
-                  "description": "IP target where the traffic should be routed to. It is only possible to use the (Public or vSwitch) IPs of Hetzner Online Root Servers belonging to the project owner. IPs belonging to other users are blocked. Additionally IPs belonging to services provided by Hetzner Cloud (Servers, Load Balancers, ...) are blocked as well. Only present for target type `ip`.",
-                  "properties": {
-                    "ip": {
-                      "description": "IP of a server that belongs to the same customer (public IPv4/IPv6) or private IP in a subnet type vswitch.",
-                      "example": "203.0.113.1",
-                      "type": "string"
-                    }
-                  },
-                  "required": [
-                    "ip"
-                  ],
-                  "title": "LoadBalancerTargetIP",
-                  "type": "object"
-                },
-                "label_selector": {
-                  "$ref": "#/components/schemas/label_selector"
-                },
-                "server": {
-                  "$ref": "#/components/schemas/resource_id"
-                },
-                "targets": {
-                  "description": "List of resolved label selector target Servers. Only present for type \"label_selector\".",
-                  "items": {
-                    "properties": {
-                      "health_status": {
-                        "description": "List of health statuses of the services on this target. Only present for target types \"server\" and \"ip\".",
-                        "items": {
-                          "properties": {
-                            "listen_port": {
-                              "example": 443,
-                              "type": "integer"
-                            },
-                            "status": {
-                              "enum": [
-                                "healthy",
-                                "unhealthy",
-                                "unknown"
-                              ],
-                              "example": "healthy",
-                              "type": "string"
-                            }
-                          },
-                          "type": "object"
-                        },
-                        "title": "LoadBalancerTargetHealthStatus",
-                        "type": "array"
-                      },
-                      "server": {
-                        "$ref": "#/components/schemas/resource_id"
-                      },
-                      "type": {
-                        "description": "Type of the resource. Here always \"server\".",
-                        "example": "server",
-                        "type": "string"
-                      },
-                      "use_private_ip": {
-                        "default": false,
-                        "description": "Use the private network IP instead of the public IP. Only present for target types \"server\" and \"label_selector\".",
-                        "title": "LoadBalancerTargetUsePrivateIP",
-                        "type": "boolean"
-                      }
-                    },
-                    "title": "LoadBalancerTargetTarget",
-                    "type": "object"
-                  },
-                  "type": "array"
-                },
-                "type": {
-                  "description": "Type of the resource",
-                  "enum": [
-                    "ip",
-                    "label_selector",
-                    "server"
-                  ],
-                  "type": "string"
-                },
-                "use_private_ip": {
-                  "default": false,
-                  "description": "Use the private network IP instead of the public IP. Only present for target types \"server\" and \"label_selector\".",
-                  "title": "LoadBalancerTargetUsePrivateIP",
-                  "type": "boolean"
-                }
-              },
-              "required": [
-                "type"
-              ],
-              "title": "LoadBalancerTarget",
-              "type": "object"
+              "$ref": "#/components/schemas/load_balancer_target"
             },
             "type": "array"
           }
@@ -5157,6 +5045,40 @@
           "included_traffic"
         ],
         "type": "object"
+      },
+      "load_balancer_add_target": {
+        "properties": {
+          "ip": {
+            "$ref": "#/components/schemas/load_balancer_target_ip"
+          },
+          "label_selector": {
+            "$ref": "#/components/schemas/label_selector"
+          },
+          "server": {
+            "$ref": "#/components/schemas/resource_id"
+          },
+          "type": {
+            "description": "Type of the resource",
+            "enum": [
+              "ip",
+              "label_selector",
+              "server"
+            ],
+            "type": "string"
+          },
+          "use_private_ip": {
+            "default": false,
+            "description": "Use the private network IP instead of the public IP of the Server, requires the Server and Load Balancer to be in the same network.",
+            "example": true,
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "type"
+        ],
+        "title": "AddTargetRequest",
+        "type": "object",
+        "description": "A target to be added to a load balancer."
       },
       "load_balancer_algorithm": {
         "default": {
@@ -5246,6 +5168,35 @@
           "ipv6"
         ],
         "type": "object"
+      },
+      "load_balancer_selected_target": {
+        "properties": {
+          "health_status": {
+            "description": "List of health statuses of the services on this target. Only present for target types \"server\" and \"ip\".",
+            "items": {
+              "$ref": "#/components/schemas/load_balancer_target_health_status"
+            },
+            "title": "LoadBalancerTargetHealthStatus",
+            "type": "array"
+          },
+          "server": {
+            "$ref": "#/components/schemas/resource_id"
+          },
+          "type": {
+            "description": "Type of the resource. Here always \"server\".",
+            "example": "server",
+            "type": "string"
+          },
+          "use_private_ip": {
+            "default": false,
+            "description": "Use the private network IP instead of the public IP. Only present for target types \"server\" and \"label_selector\".",
+            "title": "LoadBalancerTargetUsePrivateIP",
+            "type": "boolean"
+          }
+        },
+        "title": "LoadBalancerTargetTarget",
+        "type": "object",
+        "description": "Resolved label selector target Servers. Only present for type \"label_selector\"."
       },
       "load_balancer_service": {
         "properties": {
@@ -5379,6 +5330,89 @@
         "title": "LoadBalancerService",
         "type": "object",
         "description": "A service for a Load Balancer."
+      },
+      "load_balancer_target": {
+        "properties": {
+          "health_status": {
+            "description": "List of health statuses of the services on this target. Only present for target types \"server\" and \"ip\".",
+            "items": {
+              "$ref": "#/components/schemas/load_balancer_target_health_status"
+            },
+            "title": "LoadBalancerTargetHealthStatus",
+            "type": "array"
+          },
+          "ip": {
+            "$ref": "#/components/schemas/load_balancer_target_ip"
+          },
+          "label_selector": {
+            "$ref": "#/components/schemas/label_selector"
+          },
+          "server": {
+            "$ref": "#/components/schemas/resource_id"
+          },
+          "targets": {
+            "description": "List of resolved label selector target Servers. Only present for type \"label_selector\".",
+            "items": {
+              "$ref": "#/components/schemas/load_balancer_selected_target"
+            },
+            "type": "array"
+          },
+          "type": {
+            "description": "Type of the resource",
+            "enum": [
+              "ip",
+              "label_selector",
+              "server"
+            ],
+            "type": "string"
+          },
+          "use_private_ip": {
+            "default": false,
+            "description": "Use the private network IP instead of the public IP. Only present for target types \"server\" and \"label_selector\".",
+            "title": "LoadBalancerTargetUsePrivateIP",
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "type"
+        ],
+        "title": "LoadBalancerTarget",
+        "type": "object",
+        "description": "A target of a Load Balancer."
+      },
+      "load_balancer_target_health_status": {
+        "properties": {
+          "listen_port": {
+            "example": 443,
+            "type": "integer"
+          },
+          "status": {
+            "enum": [
+              "healthy",
+              "unhealthy",
+              "unknown"
+            ],
+            "example": "healthy",
+            "type": "string"
+          }
+        },
+        "type": "object",
+        "description": "Health status of the services on this target. Only present for target types \"server\" and \"ip\"."
+      },
+      "load_balancer_target_ip": {
+        "description": "IP target where the traffic should be routed to. It is only possible to use the (Public or vSwitch) IPs of Hetzner Online Root Servers belonging to the project owner. IPs belonging to other users are blocked. Additionally IPs belonging to services provided by Hetzner Cloud (Servers, Load Balancers, ...) are blocked as well. Only present for target type `ip`. | Configuration for an IP target. It is only possible to use the (Public or vSwitch) IPs of Hetzner Online Root Servers belonging to the project owner. IPs belonging to other users are blocked. Additionally IPs belonging to services provided by Hetzner Cloud (Servers, Load Balancers, ...) are blocked as well. Only valid and required if type is `ip`.",
+        "properties": {
+          "ip": {
+            "description": "IP of a server that belongs to the same customer (public IPv4/IPv6) or private IP in a subnet type vswitch.",
+            "example": "203.0.113.1",
+            "type": "string"
+          }
+        },
+        "required": [
+          "ip"
+        ],
+        "title": "LoadBalancerTargetIP",
+        "type": "object"
       },
       "load_balancer_type": {
         "properties": {
@@ -5946,39 +5980,13 @@
       "remove_target_request": {
         "properties": {
           "ip": {
-            "description": "IP target where the traffic should be routed to. It is only possible to use the (Public or vSwitch) IPs of Hetzner Online Root Servers belonging to the project owner. IPs belonging to other users are blocked. Additionally IPs belonging to services provided by Hetzner Cloud (Servers, Load Balancers, ...) are blocked as well. Only present for target type `ip`.",
-            "properties": {
-              "ip": {
-                "description": "IP of a server that belongs to the same customer (public IPv4/IPv6) or private IP in a subnet type vswitch.",
-                "example": "203.0.113.1",
-                "type": "string"
-              }
-            },
-            "required": [
-              "ip"
-            ],
-            "title": "LoadBalancerTargetIP",
-            "type": "object"
+            "$ref": "#/components/schemas/load_balancer_target_ip"
           },
           "label_selector": {
             "$ref": "#/components/schemas/label_selector"
           },
           "server": {
-            "additionalProperties": false,
-            "description": "Configuration for type Server, required if type is `server`",
-            "properties": {
-              "id": {
-                "description": "ID of the Server",
-                "example": 80,
-                "format": "int64",
-                "type": "integer",
-                "maximum": 9007199254740991
-              }
-            },
-            "required": [
-              "id"
-            ],
-            "type": "object"
+            "$ref": "#/components/schemas/resource_id"
           },
           "type": {
             "description": "Type of the resource",
@@ -7246,65 +7254,6 @@
           "gateway"
         ],
         "type": "object"
-      },
-      "target": {
-        "properties": {
-          "ip": {
-            "description": "Configuration for an IP target. It is only possible to use the (Public or vSwitch) IPs of Hetzner Online Root Servers belonging to the project owner. IPs belonging to other users are blocked. Additionally IPs belonging to services provided by Hetzner Cloud (Servers, Load Balancers, ...) are blocked as well. Only valid and required if type is `ip`.",
-            "properties": {
-              "ip": {
-                "description": "IP of a server that belongs to the same customer (public IPv4/IPv6) or private IP in a subnet type vswitch.",
-                "example": "203.0.113.1",
-                "type": "string"
-              }
-            },
-            "required": [
-              "ip"
-            ],
-            "type": "object"
-          },
-          "label_selector": {
-            "$ref": "#/components/schemas/label_selector"
-          },
-          "server": {
-            "additionalProperties": false,
-            "description": "Configuration for type Server, only valid and required if type is `server`.",
-            "properties": {
-              "id": {
-                "description": "ID of the Server",
-                "example": 80,
-                "format": "int64",
-                "type": "integer",
-                "maximum": 9007199254740991
-              }
-            },
-            "required": [
-              "id"
-            ],
-            "type": "object"
-          },
-          "type": {
-            "description": "Type of the resource",
-            "enum": [
-              "ip",
-              "label_selector",
-              "server"
-            ],
-            "type": "string"
-          },
-          "use_private_ip": {
-            "default": false,
-            "description": "Use the private network IP instead of the public IP of the Server, requires the Server and Load Balancer to be in the same network.",
-            "example": true,
-            "type": "boolean"
-          }
-        },
-        "required": [
-          "type"
-        ],
-        "title": "AddTargetRequest",
-        "type": "object",
-        "description": "A target for a load balancer"
       },
       "unassign_floating_ip_response": {
         "properties": {
