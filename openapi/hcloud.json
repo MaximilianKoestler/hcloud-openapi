@@ -6,7 +6,7 @@
     "contact": {
       "url": "https://docs.hetzner.cloud/"
     },
-    "version": "9d085f2-dirty"
+    "version": "287e002-dirty"
   },
   "servers": [
     {
@@ -2040,13 +2040,7 @@
             "type": "string"
           },
           "type": {
-            "description": "[Primary IP](#primary-ips) type.",
-            "enum": [
-              "ipv4",
-              "ipv6"
-            ],
-            "nullable": true,
-            "type": "string"
+            "$ref": "#/components/schemas/ip_type_optional"
           }
         },
         "required": [
@@ -2130,13 +2124,7 @@
                 "$ref": "#/components/schemas/protection"
               },
               "type": {
-                "description": "[Primary IP](#primary-ips) type.",
-                "enum": [
-                  "ipv4",
-                  "ipv6"
-                ],
-                "nullable": true,
-                "type": "string"
+                "$ref": "#/components/schemas/ip_type_optional"
               }
             },
             "required": [
@@ -3521,13 +3509,7 @@
                 "$ref": "#/components/schemas/protection"
               },
               "type": {
-                "description": "[Primary IP](#primary-ips) type.",
-                "enum": [
-                  "ipv4",
-                  "ipv6"
-                ],
-                "nullable": true,
-                "type": "string"
+                "$ref": "#/components/schemas/ip_type_optional"
               }
             },
             "required": [
@@ -3921,6 +3903,15 @@
           "ipv4",
           "ipv6"
         ],
+        "type": "string"
+      },
+      "ip_type_optional": {
+        "description": "[Primary IP](#primary-ips) type.",
+        "enum": [
+          "ipv4",
+          "ipv6"
+        ],
+        "nullable": true,
         "type": "string"
       },
       "ipv4": {
@@ -4851,13 +4842,7 @@
                   "$ref": "#/components/schemas/protection"
                 },
                 "type": {
-                  "description": "[Primary IP](#primary-ips) type.",
-                  "enum": [
-                    "ipv4",
-                    "ipv6"
-                  ],
-                  "nullable": true,
-                  "type": "string"
+                  "$ref": "#/components/schemas/ip_type_optional"
                 }
               },
               "required": [
@@ -6368,13 +6353,7 @@
                 "$ref": "#/components/schemas/protection"
               },
               "type": {
-                "description": "[Primary IP](#primary-ips) type.",
-                "enum": [
-                  "ipv4",
-                  "ipv6"
-                ],
-                "nullable": true,
-                "type": "string"
+                "$ref": "#/components/schemas/ip_type_optional"
               }
             },
             "required": [

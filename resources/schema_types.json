@@ -150,6 +150,13 @@
     ]
   },
   {
+    "name": "ip_type_optional",
+    "path": [
+      "create_primary_ip_request",
+      "type"
+    ]
+  },
+  {
     "name": "ipv4",
     "path": [
       "list_servers_response",
