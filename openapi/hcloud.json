@@ -6,7 +6,7 @@
     "contact": {
       "url": "https://docs.hetzner.cloud/"
     },
-    "version": "26379d8-dirty"
+    "version": "c91c3ef-dirty"
   },
   "servers": [
     {
@@ -1796,6 +1796,7 @@
           },
           "location": {
             "description": "ID or name of Location to create Load Balancer in",
+            "example": "fsn1",
             "type": "string"
           },
           "name": {
@@ -6873,6 +6874,10 @@
         "properties": {
           "alias_ips": {
             "description": "Additional IP addresses of the server on the network.",
+            "example": [
+              "10.0.0.3",
+              "10.0.0.4"
+            ],
             "items": {
               "type": "string"
             },
@@ -8672,9 +8677,7 @@
         "requestBody": {
           "content": {
             "application/json": {
-              "examples": {
-                "request": {
-                  "value": {
+              "example": {
                     "apply_to": [
                       {
                         "server": {
@@ -8700,8 +8703,6 @@
                         ]
                       }
                     ]
-                  }
-                }
               },
               "schema": {
                 "$ref": "#/components/schemas/create_firewall_request"
@@ -9227,9 +9228,7 @@
         "requestBody": {
           "content": {
             "application/json": {
-              "examples": {
-                "rules": {
-                  "value": {
+              "example": {
                     "rules": [
                       {
                         "description": "Allow port 80",
@@ -9243,8 +9242,6 @@
                         ]
                       }
                     ]
-                  }
-                }
               },
               "schema": {
                 "$ref": "#/components/schemas/set_rules_request"
@@ -14283,14 +14280,9 @@
         "requestBody": {
           "content": {
             "application/json": {
-              "examples": {
-                "spread": {
-                  "summary": "Creating a type `spread` Placement Group",
-                  "value": {
+              "example": {
                     "name": "my Placement Group",
                     "type": "spread"
-                  }
-                }
               },
               "schema": {
                 "$ref": "#/components/schemas/create_placementgroup_request"
@@ -14302,10 +14294,7 @@
           "201": {
             "content": {
               "application/json": {
-                "examples": {
-                  "spread": {
-                    "summary": "Response when creating a type `spread` PlacementGroup",
-                    "value": {
+                "example": {
                       "placement_group": {
                         "created": "2019-01-08T12:10:00+00:00",
                         "id": 897,
@@ -14315,8 +14304,6 @@
                         "name": "my Placement Group",
                         "servers": [],
                         "type": "spread"
-                      }
-                    }
                   }
                 },
                 "schema": {
