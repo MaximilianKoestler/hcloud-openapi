@@ -6,7 +6,7 @@
     "contact": {
       "url": "https://docs.hetzner.cloud/"
     },
-    "version": "b7c1b54-dirty"
+    "version": "26379d8-dirty"
   },
   "servers": [
     {
@@ -2013,7 +2013,7 @@
             "type": "integer"
           },
           "assignee_type": {
-            "description": "Type of resource to assign the [Primary IP](#primary-ips) to.\n\nOmitted if the [Primary IP](#primary-ips) should not get assigned.\n",
+            "description": "Type of resource the [Primary IP](#primary-ips) can get assigned to.\n\nCurrently [Primary IPs](#primary-ips) can only be assigned to [Servers](#servers),\ntherefore this field must be set to `server`.\n",
             "enum": [
               "server"
             ],
@@ -2060,14 +2060,14 @@
           "primary_ip": {
             "properties": {
               "assignee_id": {
-                "description": "ID of resource to assign the [Primary IP](#primary-ips) to.\n\n`null` if the [Primary IP](#primary-ips) is not assigned.\n",
+                "description": "ID of resource the [Primary IP](#primary-ips) is assigned to.\n\n`null` if the [Primary IP](#primary-ips) is not assigned.\n",
                 "example": 17,
                 "format": "int64",
                 "nullable": true,
                 "type": "integer"
               },
               "assignee_type": {
-                "description": "Type of resource to assign the [Primary IP](#primary-ips) to.\n\n`null` if the [Primary IP](#primary-ips) is not assigned.\n",
+                "description": "Type of resource the [Primary IP](#primary-ips) can get assigned to.\n",
                 "enum": [
                   "server"
                 ],
@@ -3445,14 +3445,14 @@
           "primary_ip": {
             "properties": {
               "assignee_id": {
-                "description": "ID of resource to assign the [Primary IP](#primary-ips) to.\n\n`null` if the [Primary IP](#primary-ips) is not assigned.\n",
+                "description": "ID of resource the [Primary IP](#primary-ips) is assigned to.\n\n`null` if the [Primary IP](#primary-ips) is not assigned.\n",
                 "example": 17,
                 "format": "int64",
                 "nullable": true,
                 "type": "integer"
               },
               "assignee_type": {
-                "description": "Type of resource to assign the [Primary IP](#primary-ips) to.\n\n`null` if the [Primary IP](#primary-ips) is not assigned.\n",
+                "description": "Type of resource the [Primary IP](#primary-ips) can get assigned to.\n",
                 "enum": [
                   "server"
                 ],
@@ -4769,14 +4769,14 @@
             "items": {
               "properties": {
                 "assignee_id": {
-                  "description": "ID of resource to assign the [Primary IP](#primary-ips) to.\n\n`null` if the [Primary IP](#primary-ips) is not assigned.\n",
+                  "description": "ID of resource the [Primary IP](#primary-ips) is assigned to.\n\n`null` if the [Primary IP](#primary-ips) is not assigned.\n",
                   "example": 17,
                   "format": "int64",
                   "nullable": true,
                   "type": "integer"
                 },
                 "assignee_type": {
-                  "description": "Type of resource to assign the [Primary IP](#primary-ips) to.\n\n`null` if the [Primary IP](#primary-ips) is not assigned.\n",
+                  "description": "Type of resource the [Primary IP](#primary-ips) can get assigned to.\n",
                   "enum": [
                     "server"
                   ],
@@ -6288,14 +6288,14 @@
           "primary_ip": {
             "properties": {
               "assignee_id": {
-                "description": "ID of resource to assign the [Primary IP](#primary-ips) to.\n\n`null` if the [Primary IP](#primary-ips) is not assigned.\n",
+                "description": "ID of resource the [Primary IP](#primary-ips) is assigned to.\n\n`null` if the [Primary IP](#primary-ips) is not assigned.\n",
                 "example": 17,
                 "format": "int64",
                 "nullable": true,
                 "type": "integer"
               },
               "assignee_type": {
-                "description": "Type of resource to assign the [Primary IP](#primary-ips) to.\n\n`null` if the [Primary IP](#primary-ips) is not assigned.\n",
+                "description": "Type of resource the [Primary IP](#primary-ips) can get assigned to.\n",
                 "enum": [
                   "server"
                 ],
@@ -14723,7 +14723,7 @@
         "operationId": "delete_primary_ip"
       },
       "get": {
-        "description": "Returns a [Primary IP](#primary-ips). - Primary IPs",
+        "description": "Returns a [Primary IP](#primary-ips).",
         "parameters": [
           {
             "description": "ID of the Primary IP.",
