@@ -6,7 +6,7 @@
     "contact": {
       "url": "https://docs.hetzner.cloud/"
     },
-    "version": "577d3f4-dirty"
+    "version": "b7c1b54-dirty"
   },
   "servers": [
     {
@@ -5067,7 +5067,7 @@
         "required": [
           "type"
         ],
-        "title": "AddTargetRequest",
+        "title": "LoadBalancerTarget",
         "type": "object",
         "description": "A target to be added to a load balancer."
       },
