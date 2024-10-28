@@ -6,7 +6,7 @@
     "contact": {
       "url": "https://docs.hetzner.cloud/"
     },
-    "version": "ddf156c-dirty"
+    "version": "577d3f4-dirty"
   },
   "servers": [
     {
@@ -2040,7 +2040,7 @@
             "type": "string"
           },
           "type": {
-            "$ref": "#/components/schemas/ip_type_optional"
+            "$ref": "#/components/schemas/ip_type"
           }
         },
         "required": [
@@ -2124,7 +2124,7 @@
                 "$ref": "#/components/schemas/protection"
               },
               "type": {
-                "$ref": "#/components/schemas/ip_type_optional"
+                "$ref": "#/components/schemas/ip_type"
               }
             },
             "required": [
@@ -3509,7 +3509,7 @@
                 "$ref": "#/components/schemas/protection"
               },
               "type": {
-                "$ref": "#/components/schemas/ip_type_optional"
+                "$ref": "#/components/schemas/ip_type"
               }
             },
             "required": [
@@ -3898,20 +3898,11 @@
         "type": "object"
       },
       "ip_type": {
-        "description": "The type of the IP",
+        "description": "Floating IP type | Type of [Floating IP](#floating-ips) the price is for. | Type of [Primary IP](#primary-ips) the price is for. | [Primary IP](#primary-ips) type.",
         "enum": [
           "ipv4",
           "ipv6"
         ],
-        "type": "string"
-      },
-      "ip_type_optional": {
-        "description": "[Primary IP](#primary-ips) type.",
-        "enum": [
-          "ipv4",
-          "ipv6"
-        ],
-        "nullable": true,
         "type": "string"
       },
       "ipv4": {
@@ -4842,7 +4833,7 @@
                   "$ref": "#/components/schemas/protection"
                 },
                 "type": {
-                  "$ref": "#/components/schemas/ip_type_optional"
+                  "$ref": "#/components/schemas/ip_type"
                 }
               },
               "required": [
@@ -6361,7 +6352,7 @@
                 "$ref": "#/components/schemas/protection"
               },
               "type": {
-                "$ref": "#/components/schemas/ip_type_optional"
+                "$ref": "#/components/schemas/ip_type"
               }
             },
             "required": [

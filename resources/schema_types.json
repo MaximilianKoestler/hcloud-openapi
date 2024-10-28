@@ -134,15 +134,7 @@
     ]
   },
   {
-    "description": "The type of the IP",
     "name": "ip_type",
-    "path": [
-      "create_floating_ip_request",
-      "type"
-    ]
-  },
-  {
-    "name": "ip_type_optional",
     "path": [
       "create_primary_ip_request",
       "type"
