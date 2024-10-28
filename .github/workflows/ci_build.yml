@@ -38,7 +38,7 @@ jobs:
     - run: npm ci
     - run: npm run convert -- --output results/hcloud.json --schema_version ${GITHUB_SHA::7}-ci
     - name: Archive generated specification
-      uses: actions/upload-artifact@v1
+      uses: actions/upload-artifact@v4
       with:
         name: specification
         path: results/hcloud.json
@@ -53,7 +53,7 @@ jobs:
 
     steps:
     - name: Download generated specification
-      uses: actions/download-artifact@v1
+      uses: actions/download-artifact@v4
       with:
         name: specification
     - run: docker run -v $GITHUB_WORKSPACE:/workspace -w /workspace openapitools/openapi-generator-cli:${{ matrix.openapi-version }} validate --input-spec ./specification/hcloud.json
