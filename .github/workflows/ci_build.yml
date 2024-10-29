@@ -58,4 +58,4 @@ jobs:
         name: specification
     - name: Display structure of downloaded files
       run: ls -R
-    - run: docker run -v $GITHUB_WORKSPACE:/workspace -w /workspace openapitools/openapi-generator-cli:${{ matrix.openapi-version }} validate --input-spec ./specification/hcloud.json
+    - run: docker run -v $GITHUB_WORKSPACE:/workspace -w /workspace openapitools/openapi-generator-cli:${{ matrix.openapi-version }} validate --input-spec ./hcloud.json
