@@ -3,10 +3,10 @@ name: CI Build and OpenAPI Spec Generation
 on:
   push:
     branches:
-      - master
+      - main
       - feature/**
   pull_request:
-    branches: [ master ]
+    branches: [ main ]
 
 jobs:
   build:
