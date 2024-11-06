@@ -6,7 +6,7 @@
     "contact": {
       "url": "https://docs.hetzner.cloud/"
     },
-    "version": "1322c8b-dirty"
+    "version": "d44500e-dirty"
   },
   "servers": [
     {
@@ -4713,13 +4713,6 @@
                 },
                 "type": "array"
               },
-              "traffic": {
-                "deprecated": true,
-                "description": "**Deprecated**: This field is deprecated and set to `null` since 5 August 2024.\n\nPlease refer to the `price_per_tb_traffic` fields in `server_types` and `load_balancer_types` instead.\n\nLearn more about this change in [the Changelog](https://docs.hetzner.cloud/changelog#2024-07-25-cloud-api-returns-traffic-information-in-different-format).\n",
-                "example": null,
-                "nullable": true,
-                "type": "object"
-              },
               "vat_rate": {
                 "description": "VAT rate used for calculating prices with VAT.",
                 "example": "19.00",
@@ -4749,8 +4742,7 @@
               "server_backup",
               "server_types",
               "load_balancer_types",
-              "floating_ip",
-              "traffic"
+              "floating_ip"
             ],
             "type": "object"
           }
@@ -7021,14 +7013,6 @@
             "type": "integer",
             "maximum": 9007199254740991
           },
-          "included_traffic": {
-            "deprecated": true,
-            "description": "**Deprecated**: This field is deprecated and set to `null` since 5 August 2024.\nPlease refer to the `included_traffic` field in `prices` instead.\nLearn more about this change in [the Changelog](https://docs.hetzner.cloud/changelog#2024-07-25-cloud-api-returns-traffic-information-in-different-format).\n",
-            "example": null,
-            "format": "int64",
-            "nullable": true,
-            "type": "integer"
-          },
           "memory": {
             "description": "Memory a Server of this type will have in GB",
             "example": 2,
@@ -7066,8 +7050,7 @@
           "prices",
           "storage_type",
           "cpu_type",
-          "architecture",
-          "included_traffic"
+          "architecture"
         ],
         "type": "object"
       },
@@ -17196,7 +17179,6 @@
                       "description": "CPX11",
                       "disk": 40,
                       "id": 1,
-                      "included_traffic": null,
                       "memory": 2,
                       "name": "cpx11",
                       "prices": [
