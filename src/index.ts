@@ -108,7 +108,42 @@ function sortObject(
 }
 
 function sortObjectWithList(obj: OpenApiDocumentFragment, order: string[]) {
-  return sortObject(obj, (a, b) => order.indexOf(a) - order.indexOf(b));
+  return sortObject(obj, (a, b) => {
+    const a_index = order.indexOf(a);
+    const b_index = order.indexOf(b);
+    if (a_index === -1 && b_index === -1) {
+      return 0;
+    }
+    if (a_index === -1) {
+      return 1;
+    }
+    if (b_index === -1) {
+      return -1;
+    }
+    return a_index - b_index;
+  });
+}
+
+function sortObjectRecursive(obj: OpenApiDocumentFragment) {
+  if (obj === null || obj === undefined) {
+    return obj;
+  }
+
+  if (Array.isArray(obj)) {
+    for (let i = 0; i < obj.length; i++) {
+      obj[i] = sortObjectRecursive(obj[i]);
+    }
+    return obj;
+  }
+
+  if (typeof obj === "object") {
+    for (const key of Object.keys(obj)) {
+      obj[key] = sortObjectRecursive(obj[key]);
+    }
+    return sortObject(obj);
+  }
+
+  return obj;
 }
 
 async function createComponents(document: OpenApiDocumentFragment) {
@@ -318,16 +353,18 @@ async function main() {
     overWriteTagList(document);
 
     // keep order of paths stable
-    const oldPaths = JSON.parse(await fs.readFile(
-      "resources/paths.json",
-      "utf-8"
-    ));
+    const oldPaths = JSON.parse(
+      await fs.readFile("resources/paths.json", "utf-8")
+    );
+
+    document = sortObjectRecursive(document);
+
     document.paths = sortObjectWithList(document.paths, oldPaths);
     const newPaths = Object.keys(document.paths);
     await fs.writeFile(
       "resources/paths.json",
       JSON.stringify(newPaths, null, 2),
-      "utf-8",
+      "utf-8"
     );
 
     document = sortObjectWithList(document, [
