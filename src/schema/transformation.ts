@@ -45,8 +45,8 @@ function fixItem(part: OpenApiDocumentFragment, location: string[]) {
   ];
 
   if (
-    part.type == "number" &&
-    !allowedFloats.includes(location[location.length - 1]) ||
+    (part.type == "number" &&
+      !allowedFloats.includes(location[location.length - 1])) ||
     (part.format !== undefined && part.format.startsWith("int"))
   ) {
     part.type = "integer";
@@ -63,14 +63,34 @@ function fixItem(part: OpenApiDocumentFragment, location: string[]) {
   }
 
   // add 52 (53?) bit maximum value for IDs
-  if (location[location.length - 1] == "id" && part.format == "int64" && part.type == "integer" && part.maximum == undefined) {
+  if (
+    location[location.length - 1] == "id" &&
+    part.format == "int64" &&
+    part.type == "integer" &&
+    part.maximum == undefined
+  ) {
     part.maximum = 9007199254740991;
   }
 
   // all firewall rules have nullable ports because some protocols do not have ports at all
-  if (location[location.length - 1] == "port" && location[location.length - 2] == "rules") {
+  if (
+    location[location.length - 1] == "port" &&
+    location[location.length - 2] == "rules"
+  ) {
     part.nullable = true;
   }
+}
+
+function sortObject(
+  obj: OpenApiDocumentFragment,
+  compareFn?: (a: string, b: string) => number
+) {
+  return Object.keys(obj)
+    .sort(compareFn)
+    .reduce(function (result: OpenApiDocumentFragment, key) {
+      result[key] = obj[key];
+      return result;
+    }, {});
 }
 
 export function fixSchema(id: string, schemas: OpenApiDocumentFragment) {
@@ -115,6 +135,21 @@ export function fixSchema(id: string, schemas: OpenApiDocumentFragment) {
     },
     afterProperty: () => {
       location.pop();
+    },
+  });
+
+  // sort everything
+  walkSchema(schemas[id], {
+    afterChildren: (part) => {
+      if (part.type == "object" && part.properties !== undefined) {
+        part.properties = sortObject(part.properties);
+        for (const property in part.properties) {
+          part.properties[property] = sortObject(part.properties[property]);
+        }
+      }
+      if (part.type == "array" && part.items !== undefined) {
+        part.items = sortObject(part.items);
+      }
     },
   });
 }
@@ -236,6 +271,17 @@ function mergeSchemaComponents(
       },
     });
   }
+
+  // sort and make sure descriptions are always at the end
+  schemas[name] = sortObject(schemas[name], (a, b) => {
+    if (a == "description") {
+      return 1;
+    } else if (b == "description") {
+      return -1;
+    } else {
+      return a.localeCompare(b);
+    }
+  });
 }
 
 export async function deduplicateSchemas(

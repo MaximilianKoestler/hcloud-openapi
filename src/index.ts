@@ -90,7 +90,7 @@ function appendSchema(
     return;
   }
 
-  schemas[id] = schema;
+  schemas[id] = sortObject(schema);
   schemas[id].description = description;
   fixSchema(id, schemas);
 }
@@ -148,10 +148,10 @@ async function createComponents(document: OpenApiDocumentFragment) {
 
   await deduplicateSchemas(schemas, true);
 
-  document.components = {
+  document.components = sortObject({
     ...document.components,
     schemas: sortObject(schemas),
-  };
+  });
 }
 
 function tagFromPath(path: string): string {
@@ -191,6 +191,7 @@ async function transformPaths(document: OpenApiDocumentFragment) {
   for (const [path, path_obj] of Object.entries(paths)) {
     for (const [verb, verb_obj] of Object.entries(path_obj)) {
       transformPath(path, verb, verb_obj as OpenApiDocumentFragment);
+      path_obj[verb] = sortObject(verb_obj as OpenApiDocumentFragment);
     }
   }
 }
@@ -318,16 +319,15 @@ async function main() {
     overWriteTagList(document);
 
     // keep order of paths stable
-    const oldPaths = JSON.parse(await fs.readFile(
-      "resources/paths.json",
-      "utf-8"
-    ));
+    const oldPaths = JSON.parse(
+      await fs.readFile("resources/paths.json", "utf-8")
+    );
     document.paths = sortObjectWithList(document.paths, oldPaths);
     const newPaths = Object.keys(document.paths);
     await fs.writeFile(
       "resources/paths.json",
       JSON.stringify(newPaths, null, 2),
-      "utf-8",
+      "utf-8"
     );
 
     document = sortObjectWithList(document, [
