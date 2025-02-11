@@ -6,7 +6,7 @@
     },
     "description": "Copied from the official API documentation for the Public Hetzner Cloud.",
     "title": "Hetzner Cloud API",
-    "version": "ac62986"
+    "version": "5915bab"
   },
   "servers": [
     {
@@ -44,7 +44,7 @@
       "name": "isos"
     },
     {
-      "description": "Load Balancer types define kinds of Load Balancers offered. Each type has an hourly and a monthly cost. You will pay whichever amount is lower for your usage of this specific Load Balancer. Costs may differ between Locations.\n\nCurrency for all amounts is €. All prices exclude VAT.\n",
+      "description": "Load Balancer types define kinds of Load Balancers offered. Each type has an hourly and a monthly cost. You will pay whichever amount is lower for your usage of this specific Load Balancer. Costs may differ between Locations.\n\nAll prices are displayed in the currency of the project owner's account.\n",
       "name": "load_balancer_types"
     },
     {
@@ -71,7 +71,7 @@
       "name": "primary_ips"
     },
     {
-      "description": "Server types define kinds of Servers offered. Each type has an hourly and a monthly cost. You will pay whichever cost is lower for your usage of this specific Server. Costs may differ between Locations.\n\nCurrency for all amounts is €. All prices exclude VAT.\n",
+      "description": "Server types define kinds of Servers offered. Each type has an hourly and a monthly cost. You will pay whichever cost is lower for your usage of this specific Server. Costs may differ between Locations.\n\nAll prices are displayed in the currency of the project owner's account.\n",
       "name": "server_types"
     },
     {
