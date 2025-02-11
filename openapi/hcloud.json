@@ -6,7 +6,7 @@
     },
     "description": "Copied from the official API documentation for the Public Hetzner Cloud.",
     "title": "Hetzner Cloud API",
-    "version": "0f04707"
+    "version": "ac62986"
   },
   "servers": [
     {
@@ -2948,6 +2948,26 @@
         "required": [
           "metrics"
         ],
+        "type": "object"
+      },
+      "get_multiple_actions_response": {
+        "description": "Response to GET https://api.hetzner.cloud/v1/actions",
+        "properties": {
+          "actions": {
+            "items": {
+              "$ref": "#/components/schemas/action"
+            },
+            "type": "array"
+          },
+          "meta": {
+            "$ref": "#/components/schemas/meta"
+          }
+        },
+        "required": [
+          "actions",
+          "meta"
+        ],
+        "title": "ActionListResponseWithMeta",
         "type": "object"
       },
       "get_network_response": {
@@ -7063,14 +7083,14 @@
   "paths": {
     "/actions": {
       "get": {
-        "description": "Returns all Action objects. You can `sort` the results by using the sort URI parameter, and filter them with the `status` parameter.",
-        "operationId": "list_actions",
+        "description": "Returns multiple Action objects specified by the `id` parameter.\n\n**Note**: This endpoint previously allowed listing all actions in the project. This functionality was deprecated in July 2023 and removed on 30 January 2025.\n\n- Announcement: https://docs.hetzner.cloud/changelog#2023-07-20-actions-list-endpoint-is-deprecated\n- Removal: https://docs.hetzner.cloud/changelog#2025-01-30-listing-arbitrary-actions-in-the-actions-list-endpoint-is-removed\n",
+        "operationId": "get_multiple_actions",
         "parameters": [
           {
             "description": "Filter the actions by ID. Can be used multiple times. The response will only contain\nactions matching the specified IDs.\n",
             "in": "query",
             "name": "id",
-            "required": false,
+            "required": true,
             "schema": {
               "description": "ID of the Action.",
               "example": 42,
@@ -7080,48 +7100,7 @@
             }
           },
           {
-            "description": "Sort actions by field and direction. Can be used multiple times. For more\ninformation, see \"[Sorting](#sorting)\".\n",
-            "in": "query",
-            "name": "sort",
-            "required": false,
-            "schema": {
-              "enum": [
-                "id",
-                "id:asc",
-                "id:desc",
-                "command",
-                "command:asc",
-                "command:desc",
-                "status",
-                "status:asc",
-                "status:desc",
-                "started",
-                "started:asc",
-                "started:desc",
-                "finished",
-                "finished:asc",
-                "finished:desc"
-              ],
-              "type": "string"
-            }
-          },
-          {
-            "description": "Filter the actions by status. Can be used multiple times. The response will only\ncontain actions matching the specified statuses.\n",
-            "in": "query",
-            "name": "status",
-            "required": false,
-            "schema": {
-              "description": "Status of the Action.",
-              "enum": [
-                "running",
-                "success",
-                "error"
-              ],
-              "type": "string"
-            }
-          },
-          {
-            "description": "Page number to return. For more information, see \"[Pagination](#pagination)\".",
+            "description": "Page to load.",
             "in": "query",
             "name": "page",
             "required": false,
@@ -7133,7 +7112,7 @@
             }
           },
           {
-            "description": "Maximum number of entries returned per page. For more information, see \"[Pagination](#pagination)\".",
+            "description": "Items to load per page.",
             "in": "query",
             "name": "per_page",
             "required": false,
@@ -7150,14 +7129,14 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/list_actions_response"
+                  "$ref": "#/components/schemas/get_multiple_actions_response"
                 }
               }
             },
-            "description": "The `actions` key contains a list of Actions"
+            "description": "Request succeeded."
           }
         },
-        "summary": "Get all Actions",
+        "summary": "Get multiple Actions",
         "tags": [
           "actions"
         ],
