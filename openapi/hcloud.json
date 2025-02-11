@@ -6,7 +6,7 @@
     },
     "description": "Copied from the official API documentation for the Public Hetzner Cloud.",
     "title": "Hetzner Cloud API",
-    "version": "406e13e"
+    "version": "a6bf845"
   },
   "servers": [
     {
@@ -24,7 +24,7 @@
       "name": "certificates"
     },
     {
-      "description": "Each Datacenter represents a _virtual_ Datacenter which is made up of possible many physical Datacenters where Servers are hosted.\n\nDatacenter names are composed from their Location and virtual Datacenter number, for example `fsn1-dc14` means virtual Datacenter `14` in Location `fsn1`.\n\nRight now there is only one Datacenter for each Location. The Datacenter numbers for `fsn`, `nbg` and `hel` are arbitrarily set to `14`, `3` and `2` for historic reasons and do not represent real physical Hetzner datacenters.\n",
+      "description": "Each Datacenter represents a _virtual_ Datacenter which is made up of possible many physical Datacenters where Servers are hosted.\n\nSee the [Hetzner Locations Docs](https://docs.hetzner.com/cloud/general/locations/#what-datacenters-are-there) for more details about Datacenters.\n",
       "name": "datacenters"
     },
     {
@@ -3480,7 +3480,7 @@
         "type": "object"
       },
       "ip_type": {
-        "description": "Floating IP type | Type of [Floating IP](#floating-ips) the price is for. | Type of [Primary IP](#primary-ips) the price is for. | [Primary IP](#primary-ips) type.",
+        "description": "Floating IP type | Type of [Primary IP](#primary-ips) the price is for. | Type of [Floating IP](#floating-ips) the price is for. | [Primary IP](#primary-ips) type.",
         "enum": [
           "ipv4",
           "ipv6"
@@ -3671,7 +3671,7 @@
           "pattern": "^(()|[a-z0-9A-Z]|([a-z0-9A-Z][a-z0-9A-Z\\._-]{0,61}[a-z0-9A-Z]))$",
           "type": "string"
         },
-        "description": "User-defined labels (`key/value` pairs) for the Resource.\nFor more information, see \"[Labels](#labels)\".\n",
+        "description": "User-defined labels (`key/value` pairs) for the Resource.\nFor more information, see \"[Labels](#labels)\".\n | User-defined labels (`key/value` pairs) for the Resource.\n\nNote that the set of [Labels](#labels) provided in the request will overwrite the\nexisting one.\n\nFor more information, see \"[Labels](#labels)\".\n",
         "example": {
           "environment": "prod",
           "example.com/my": "label",
@@ -5050,7 +5050,7 @@
         "type": "object"
       },
       "location": {
-        "description": "[Location](#locations) the [Datacenter](#datacenters) is located at.\n | [Location](#locations) the for the [Floating IP](#floating-ips) is located at.\n\nRouting is optimized for this [Location](#locations).\n | Location of the Volume. Volume can only be attached to Servers in the same Location.",
+        "description": "[Location](#locations) the [Datacenter](#datacenters) is located at.\n | Location of the Volume. Volume can only be attached to Servers in the same Location.",
         "properties": {
           "city": {
             "description": "Name of the closest city to the [Location](#locations).\n\nCity name or city name and state in short form. E.g. `Falkenstein` or `Ashburn, VA`.\n",
@@ -5362,7 +5362,7 @@
         "type": "object"
       },
       "price": {
-        "description": "Hourly price in this [Location](#locations). | Monthly price in this [Location](#locations). | Additional traffic price per TB in this [Location](#locations). | Price of one [Floating IP](#floating-ips) per month. | Price of [Images](#images) per GB/month. | Price of [Volumes](#volumes) per GB/month.",
+        "description": "Hourly price in this [Location](#locations). | Monthly price in this [Location](#locations). | Additional traffic price per TB in this [Location](#locations). | Price of [Images](#images) per GB/month. | Price of [Volumes](#volumes) per GB/month. | Price of one [Floating IP](#floating-ips) per month.",
         "properties": {
           "gross": {
             "description": "Price with VAT added.",
@@ -6704,7 +6704,7 @@
             "type": "string"
           },
           "fingerprint": {
-            "description": "Fingerprint of public key",
+            "description": "MD5 fingerprint of the SSH public key.",
             "example": "b7:2f:30:a0:2f:6c:58:6c:21:04:58:61:ba:06:3b:2f",
             "type": "string"
           },
@@ -7245,7 +7245,7 @@
             }
           },
           {
-            "description": "Filter resources by their name. The response will only contain the resources\nmatching the specified name.\n",
+            "description": "Filter resources by their name. The response will only contain the resources\nmatching exactly the specified name.\n",
             "in": "query",
             "name": "name",
             "required": false,
@@ -7670,7 +7670,7 @@
         ]
       },
       "put": {
-        "description": "Updates the Certificate properties.\n\nNote that when updating labels, the Certificate’s current set of labels will be replaced with the labels provided in the request body. So, for example, if you want to add a new label, you have to provide all existing labels plus the new label in the request body.\n\nNote: if the Certificate object changes during the request, the response will be a “conflict” error.\n",
+        "description": "Updates the Certificate properties.\n\nNote: if the Certificate object changes during the request, the response will be a “conflict” error.\n",
         "operationId": "replace_certificate",
         "parameters": [
           {
@@ -8206,7 +8206,7 @@
         "operationId": "list_datacenters",
         "parameters": [
           {
-            "description": "Filter resources by their name. The response will only contain the resources\nmatching the specified name.\n",
+            "description": "Filter resources by their name. The response will only contain the resources\nmatching exactly the specified name.\n",
             "in": "query",
             "name": "name",
             "required": false,
@@ -8371,7 +8371,7 @@
             }
           },
           {
-            "description": "Filter resources by their name. The response will only contain the resources\nmatching the specified name.\n",
+            "description": "Filter resources by their name. The response will only contain the resources\nmatching exactly the specified name.\n",
             "in": "query",
             "name": "name",
             "required": false,
@@ -8620,7 +8620,7 @@
         ]
       },
       "put": {
-        "description": "Update a [Firewall](#firewalls).\n\nProvided [Labels](#labels) will overwritte the existing ones.\n\nIn case of a parallel running change on the [Firewall](#firewalls) a `conflict` error will be returned.\n",
+        "description": "Update a [Firewall](#firewalls).\n\nIn case of a parallel running change on the [Firewall](#firewalls) a `conflict` error will be returned.\n",
         "operationId": "replace_firewall",
         "parameters": [
           {
@@ -9375,7 +9375,7 @@
         "operationId": "list_floating_ips",
         "parameters": [
           {
-            "description": "Filter resources by their name. The response will only contain the resources\nmatching the specified name.\n",
+            "description": "Filter resources by their name. The response will only contain the resources\nmatching exactly the specified name.\n",
             "in": "query",
             "name": "name",
             "required": false,
@@ -9667,7 +9667,7 @@
         ]
       },
       "put": {
-        "description": "Update the description or [Labels](#labels) of a [Floating IP](#floating-ips).\nNote that when updating [Labels](#labels), the [Floating IPs](#floating-ips) current set of [Labels](#labels) will be replaced with the [Labels](#labels) provided with the request. So, for example, if you want to add a new [Label](#labels), you have to provide all existing [Labels](#labels) plus the new [Label](#labels) in the request body.",
+        "description": "Update a [Floating IP](#floating-ips).",
         "operationId": "replace_floating_ip",
         "parameters": [
           {
@@ -10541,7 +10541,7 @@
             }
           },
           {
-            "description": "Filter resources by their name. The response will only contain the resources\nmatching the specified name.\n",
+            "description": "Filter resources by their name. The response will only contain the resources\nmatching exactly the specified name.\n",
             "in": "query",
             "name": "name",
             "required": false,
@@ -10726,7 +10726,7 @@
         ]
       },
       "put": {
-        "description": "Updates the Image. You may change the description, convert a Backup Image to a Snapshot Image or change the Image labels. Only Images of type `snapshot` and `backup` can be updated.\n\nNote that when updating labels, the current set of labels will be replaced with the labels provided in the request body. So, for example, if you want to add a new label, you have to provide all existing labels plus the new label in the request body.\n",
+        "description": "Updates the Image. You may change the description, convert a Backup Image to a Snapshot Image or change the Image labels. Only Images of type `snapshot` and `backup` can be updated.\n",
         "operationId": "replace_image",
         "parameters": [
           {
@@ -11272,7 +11272,7 @@
         "operationId": "list_isos",
         "parameters": [
           {
-            "description": "Filter resources by their name. The response will only contain the resources\nmatching the specified name.\n",
+            "description": "Filter resources by their name. The response will only contain the resources\nmatching exactly the specified name.\n",
             "in": "query",
             "name": "name",
             "required": false,
@@ -11418,7 +11418,7 @@
         "operationId": "list_load_balancer_types",
         "parameters": [
           {
-            "description": "Filter resources by their name. The response will only contain the resources\nmatching the specified name.\n",
+            "description": "Filter resources by their name. The response will only contain the resources\nmatching exactly the specified name.\n",
             "in": "query",
             "name": "name",
             "required": false,
@@ -11566,7 +11566,7 @@
             }
           },
           {
-            "description": "Filter resources by their name. The response will only contain the resources\nmatching the specified name.\n",
+            "description": "Filter resources by their name. The response will only contain the resources\nmatching exactly the specified name.\n",
             "in": "query",
             "name": "name",
             "required": false,
@@ -11941,7 +11941,7 @@
         ]
       },
       "put": {
-        "description": "Updates a Load Balancer. You can update a Load Balancer’s name and a Load Balancer’s labels.\n\nNote that when updating labels, the Load Balancer’s current set of labels will be replaced with the labels provided in the request body. So, for example, if you want to add a new label, you have to provide all existing labels plus the new label in the request body.\n\nNote: if the Load Balancer object changes during the request, the response will be a “conflict” error.\n",
+        "description": "Updates a Load Balancer. You can update a Load Balancer’s name and a Load Balancer’s labels.\n\nNote: if the Load Balancer object changes during the request, the response will be a “conflict” error.\n",
         "operationId": "replace_load_balancer",
         "parameters": [
           {
@@ -13686,7 +13686,7 @@
         "operationId": "list_locations",
         "parameters": [
           {
-            "description": "Filter resources by their name. The response will only contain the resources\nmatching the specified name.\n",
+            "description": "Filter resources by their name. The response will only contain the resources\nmatching exactly the specified name.\n",
             "in": "query",
             "name": "name",
             "required": false,
@@ -14053,7 +14053,7 @@
         ]
       },
       "put": {
-        "description": "Update a [Network](#networks).\n\nNote that when updating [Labels](#labels), the [Networks](#networks) current set of [Labels](#labels) will be replaced with the [Labels](#labels) provided with the request. So, for example, if you want to add a new [Label](#labels), you have to provide all existing [Labels](#labels) plus the new [Label](#labels) in the request body.\n\nIf a change is currently being performed on this [Network](#networks), a error response with code `conflict` will be returned.\n",
+        "description": "Update a [Network](#networks).\n\nIf a change is currently being performed on this [Network](#networks), a error response with code `conflict` will be returned.\n",
         "operationId": "replace_network",
         "parameters": [
           {
@@ -15040,7 +15040,7 @@
             }
           },
           {
-            "description": "Filter resources by their name. The response will only contain the resources\nmatching the specified name.\n",
+            "description": "Filter resources by their name. The response will only contain the resources\nmatching exactly the specified name.\n",
             "in": "query",
             "name": "name",
             "required": false,
@@ -15333,7 +15333,7 @@
         ]
       },
       "put": {
-        "description": "Updates the PlacementGroup properties.\n\nNote that when updating labels, the PlacementGroup’s current set of labels will be replaced with the labels provided in the request body. So, for example, if you want to add a new label, you have to provide all existing labels plus the new label in the request body.\n\nNote: if the PlacementGroup object changes during the request, the response will be a “conflict” error.\n",
+        "description": "Updates the PlacementGroup properties.\n\nNote: if the PlacementGroup object changes during the request, the response will be a “conflict” error.\n",
         "operationId": "replace_placementgroup",
         "parameters": [
           {
@@ -15444,7 +15444,7 @@
         "operationId": "list_primary_ips",
         "parameters": [
           {
-            "description": "Filter resources by their name. The response will only contain the resources\nmatching the specified name.\n",
+            "description": "Filter resources by their name. The response will only contain the resources\nmatching exactly the specified name.\n",
             "in": "query",
             "name": "name",
             "required": false,
@@ -15769,7 +15769,7 @@
         ]
       },
       "put": {
-        "description": "Update the [Primary IP](#primary-ips).\n\nNote that when updating [Labels](#labels), the [Primary IPs](#primary-ips) current set of [Labels](#labels) will be replaced with the [Labels](#labels) provided with the request. So, for example, if you want to add a new [Label](#labels), you have to provide all existing [Labels](#labels) plus the new [Label](#labels) in the request body.\n\nIf another change is concurrently performed on this [Primary IP](#primary-ips), a error response with code `conflict` will be returned.\n",
+        "description": "Update a [Primary IP](#primary-ips).\n\nIf another change is concurrently performed on this [Primary IP](#primary-ips), a error response with code `conflict` will be returned.\n",
         "operationId": "replace_primary_ip",
         "parameters": [
           {
@@ -16331,7 +16331,7 @@
         "operationId": "list_server_types",
         "parameters": [
           {
-            "description": "Filter resources by their name. The response will only contain the resources\nmatching the specified name.\n",
+            "description": "Filter resources by their name. The response will only contain the resources\nmatching exactly the specified name.\n",
             "in": "query",
             "name": "name",
             "required": false,
@@ -16459,7 +16459,7 @@
         "operationId": "list_servers",
         "parameters": [
           {
-            "description": "Filter resources by their name. The response will only contain the resources\nmatching the specified name.\n",
+            "description": "Filter resources by their name. The response will only contain the resources\nmatching exactly the specified name.\n",
             "in": "query",
             "name": "name",
             "required": false,
@@ -16934,7 +16934,7 @@
         ]
       },
       "put": {
-        "description": "Updates a Server. You can update a Server’s name and a Server’s labels.\nPlease note that Server names must be unique per Project and valid hostnames as per RFC 1123 (i.e. may only contain letters, digits, periods, and dashes).\nAlso note that when updating labels, the Server’s current set of labels will be replaced with the labels provided in the request body. So, for example, if you want to add a new label, you have to provide all existing labels plus the new label in the request body.",
+        "description": "Updates a Server. You can update a Server’s name and a Server’s labels.\nPlease note that Server names must be unique per Project and valid hostnames as per RFC 1123 (i.e. may only contain letters, digits, periods, and dashes).",
         "operationId": "replace_server",
         "parameters": [
           {
@@ -19328,7 +19328,7 @@
             }
           },
           {
-            "description": "Filter resources by their name. The response will only contain the resources\nmatching the specified name.\n",
+            "description": "Filter resources by their name. The response will only contain the resources\nmatching exactly the specified name.\n",
             "in": "query",
             "name": "name",
             "required": false,
@@ -19559,7 +19559,7 @@
         ]
       },
       "put": {
-        "description": "Updates an SSH key. You can update an SSH key name and an SSH key labels.\n\nPlease note that when updating labels, the SSH key current set of labels will be replaced with the labels provided in the request body. So, for example, if you want to add a new label, you have to provide all existing labels plus the new label in the request body.\n",
+        "description": "Updates an SSH key. You can update an SSH key name and an SSH key labels.\n",
         "operationId": "replace_ssh_key",
         "parameters": [
           {
@@ -19671,7 +19671,7 @@
             }
           },
           {
-            "description": "Filter resources by their name. The response will only contain the resources\nmatching the specified name.\n",
+            "description": "Filter resources by their name. The response will only contain the resources\nmatching exactly the specified name.\n",
             "in": "query",
             "name": "name",
             "required": false,
@@ -19977,7 +19977,7 @@
         ]
       },
       "put": {
-        "description": "Updates the Volume properties.\n\nNote that when updating labels, the volume’s current set of labels will be replaced with the labels provided in the request body. So, for example, if you want to add a new label, you have to provide all existing labels plus the new label in the request body.\n",
+        "description": "Updates the Volume properties.\n",
         "operationId": "replace_volume",
         "parameters": [
           {
