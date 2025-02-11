@@ -6,7 +6,7 @@
     },
     "description": "Copied from the official API documentation for the Public Hetzner Cloud.",
     "title": "Hetzner Cloud API",
-    "version": "a6bf845"
+    "version": "0f04707"
   },
   "servers": [
     {
@@ -13831,7 +13831,27 @@
         "operationId": "list_networks",
         "parameters": [
           {
-            "description": "Filter resources by their name. The response will only contain the resources\nmatching the specified name.\n",
+            "description": "Sort resources by field and direction. Can be used multiple times. For more\ninformation, see \"[Sorting](#sorting)\".\n",
+            "in": "query",
+            "name": "sort",
+            "required": false,
+            "schema": {
+              "enum": [
+                "id",
+                "id:asc",
+                "id:desc",
+                "name",
+                "name:asc",
+                "name:desc",
+                "created",
+                "created:asc",
+                "created:desc"
+              ],
+              "type": "string"
+            }
+          },
+          {
+            "description": "Filter resources by their name. The response will only contain the resources\nmatching exactly the specified name.\n",
             "in": "query",
             "name": "name",
             "required": false,
