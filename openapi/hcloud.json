@@ -6,7 +6,7 @@
     },
     "description": "Copied from the official API documentation for the Public Hetzner Cloud.",
     "title": "Hetzner Cloud API",
-    "version": "faec0a6"
+    "version": "2b34460"
   },
   "servers": [
     {
@@ -10533,11 +10533,17 @@
             }
           },
           {
-            "description": "Return only Images with the given architecture.",
+            "description": "Filter resources by cpu architecture. The response will only contain the resources\nwith the specified cpu architecture.\n",
             "in": "query",
             "name": "architecture",
             "required": false,
             "schema": {
+              "description": "CPU architecture of the Resource.",
+              "enum": [
+                "x86",
+                "arm"
+              ],
+              "example": "x86",
               "type": "string"
             }
           },
@@ -11255,11 +11261,17 @@
             }
           },
           {
-            "description": "Return only ISOs with the given architecture.",
+            "description": "Filter resources by cpu architecture. The response will only contain the resources\nwith the specified cpu architecture.\n",
             "in": "query",
             "name": "architecture",
             "required": false,
             "schema": {
+              "description": "CPU architecture of the Resource.",
+              "enum": [
+                "x86",
+                "arm"
+              ],
+              "example": "x86",
               "type": "string"
             }
           },
