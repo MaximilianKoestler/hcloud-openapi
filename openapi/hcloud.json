@@ -6,7 +6,7 @@
     },
     "description": "Copied from the official API documentation for the Public Hetzner Cloud.",
     "title": "Hetzner Cloud API",
-    "version": "3617a5c"
+    "version": "faec0a6"
   },
   "servers": [
     {
@@ -10486,10 +10486,13 @@
             "name": "status",
             "required": false,
             "schema": {
+              "description": "Status of the Image.",
               "enum": [
                 "available",
-                "creating"
+                "creating",
+                "unavailable"
               ],
+              "example": "available",
               "type": "string"
             }
           },
