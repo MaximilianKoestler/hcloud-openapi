@@ -6,7 +6,7 @@
     },
     "description": "Copied from the official API documentation for the Public Hetzner Cloud.",
     "title": "Hetzner Cloud API",
-    "version": "2b34460"
+    "version": "d1c2978"
   },
   "servers": [
     {
@@ -347,7 +347,7 @@
         "type": "object"
       },
       "architecture": {
-        "description": "Type of cpu architecture this image is compatible with. | Type of cpu architecture",
+        "description": "CPU architecture compatible with the Image.\n | CPU architecture of the Server Type.\n",
         "enum": [
           "arm",
           "x86"
@@ -356,7 +356,7 @@
         "type": "string"
       },
       "architecture_optional": {
-        "description": "Type of cpu architecture this iso is compatible with. Null indicates no restriction on the architecture (wildcard).",
+        "description": "CPU architecture compatible with the ISO.\n\nNull indicates no restriction on the architecture (wildcard).\n",
         "enum": [
           "arm",
           "x86"
@@ -673,7 +673,7 @@
             "type": "object"
           },
           "type": {
-            "description": "Type of the Certificate",
+            "description": "Type of the Certificate.",
             "enum": [
               "managed",
               "uploaded"
@@ -1559,7 +1559,7 @@
                 "type": "array"
               },
               "type": {
-                "description": "Type of the Placement Group",
+                "description": "Type of Placement Group.\n",
                 "enum": [
                   "spread"
                 ],
@@ -3016,7 +3016,7 @@
                 "type": "array"
               },
               "type": {
-                "description": "Type of the Placement Group",
+                "description": "Type of Placement Group.\n",
                 "enum": [
                   "spread"
                 ],
@@ -3329,7 +3329,7 @@
             "type": "string"
           },
           "type": {
-            "description": "Type of the Image",
+            "description": "Type of the Image.",
             "enum": [
               "app",
               "backup",
@@ -3465,7 +3465,7 @@
             "type": "string"
           },
           "type": {
-            "description": "Type of the Image",
+            "description": "Type of the Image.",
             "enum": [
               "app",
               "backup",
@@ -4118,7 +4118,7 @@
                   "type": "array"
                 },
                 "type": {
-                  "description": "Type of the Placement Group",
+                  "description": "Type of Placement Group.\n",
                   "enum": [
                     "spread"
                   ],
@@ -5822,7 +5822,7 @@
                 "type": "array"
               },
               "type": {
-                "description": "Type of the Placement Group",
+                "description": "Type of Placement Group.\n",
                 "enum": [
                   "spread"
                 ],
@@ -6363,7 +6363,7 @@
                 "type": "array"
               },
               "type": {
-                "description": "Type of the Placement Group",
+                "description": "Type of Placement Group.\n",
                 "enum": [
                   "spread"
                 ],
@@ -6409,7 +6409,7 @@
             "$ref": "#/components/schemas/server_type"
           },
           "status": {
-            "description": "Status of the Server",
+            "description": "Status of the Server.",
             "enum": [
               "deleting",
               "initializing",
@@ -7040,7 +7040,7 @@
             "type": "number"
           },
           "status": {
-            "description": "Current status of the Volume",
+            "description": "Status of the Volume.",
             "enum": [
               "available",
               "creating"
@@ -7234,16 +7234,17 @@
             }
           },
           {
-            "description": "Can be used multiple times. The response will only contain Certificates matching the type.",
+            "description": "Filter resources by type. Can be used multiple times. The response will only\ncontain the resources with the specified type.\n",
             "in": "query",
             "name": "type",
             "required": false,
             "schema": {
+              "description": "Type of the Certificate.",
               "enum": [
                 "uploaded",
                 "managed"
               ],
-              "title": "ParameterType",
+              "example": "uploaded",
               "type": "string"
             }
           },
@@ -10466,22 +10467,24 @@
             }
           },
           {
-            "description": "Can be used multiple times.",
+            "description": "Filter resources by type. Can be used multiple times. The response will only\ncontain the resources with the specified type.\n",
             "in": "query",
             "name": "type",
             "required": false,
             "schema": {
+              "description": "Type of the Image.",
               "enum": [
                 "system",
+                "app",
                 "snapshot",
-                "backup",
-                "app"
+                "backup"
               ],
+              "example": "snapshot",
               "type": "string"
             }
           },
           {
-            "description": "Can be used multiple times. The response will only contain Images matching the status.",
+            "description": "Filter resources by status. Can be used multiple times. The response will only\ncontain the resources with the specified status.\n",
             "in": "query",
             "name": "status",
             "required": false,
@@ -15064,15 +15067,16 @@
             }
           },
           {
-            "description": "Can be used multiple times. The response will only contain PlacementGroups matching the type.",
+            "description": "Filter resources by type. Can be used multiple times. The response will only\ncontain the resources with the specified type.\n",
             "in": "query",
             "name": "type",
             "required": false,
             "schema": {
+              "description": "Type of Placement Group.\n",
               "enum": [
                 "spread"
               ],
-              "title": "ParameterType",
+              "example": "spread",
               "type": "string"
             }
           },
@@ -16503,20 +16507,21 @@
             }
           },
           {
-            "description": "Can be used multiple times. The response will only contain Server matching the status",
+            "description": "Filter resources by status. Can be used multiple times. The response will only\ncontain the resources with the specified status.\n",
             "in": "query",
             "name": "status",
             "required": false,
             "schema": {
+              "description": "Status of the Server.",
               "enum": [
+                "running",
                 "initializing",
                 "starting",
-                "running",
                 "stopping",
                 "off",
                 "deleting",
-                "rebuilding",
                 "migrating",
+                "rebuilding",
                 "unknown"
               ],
               "type": "string"
@@ -19644,15 +19649,17 @@
         "operationId": "list_volumes",
         "parameters": [
           {
-            "description": "Can be used multiple times. The response will only contain Volumes matching the status.",
+            "description": "Filter resources by status. Can be used multiple times. The response will only\ncontain the resources with the specified status.\n",
             "in": "query",
             "name": "status",
             "required": false,
             "schema": {
+              "description": "Status of the Volume.",
               "enum": [
                 "available",
                 "creating"
               ],
+              "example": "available",
               "type": "string"
             }
           },
