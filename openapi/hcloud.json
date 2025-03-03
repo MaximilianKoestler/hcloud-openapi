@@ -6,7 +6,7 @@
     },
     "description": "Copied from the official API documentation for the Public Hetzner Cloud.",
     "title": "Hetzner Cloud API",
-    "version": "f476e8e"
+    "version": "3617a5c"
   },
   "servers": [
     {
@@ -3334,8 +3334,7 @@
               "app",
               "backup",
               "snapshot",
-              "system",
-              "temporary"
+              "system"
             ],
             "example": "snapshot",
             "type": "string"
@@ -3471,8 +3470,7 @@
               "app",
               "backup",
               "snapshot",
-              "system",
-              "temporary"
+              "system"
             ],
             "example": "snapshot",
             "type": "string"
