@@ -6,7 +6,7 @@
     },
     "description": "Copied from the official API documentation for the Public Hetzner Cloud.",
     "title": "Hetzner Cloud API",
-    "version": "0dd5d30"
+    "version": "d8d4e83"
   },
   "servers": [
     {
@@ -619,7 +619,7 @@
             "type": "string"
           },
           "not_valid_after": {
-            "description": "Point in time when the Certificate stops being valid (in ISO-8601 format)",
+            "description": "Point in time when the Certificate stops being valid (in ISO-8601 format).\n",
             "example": "2019-07-08T09:59:59+00:00",
             "nullable": true,
             "type": "string"
@@ -5233,7 +5233,7 @@
             "type": "integer"
           },
           "ip_range": {
-            "description": "IP range of the [Network](#networks).\nUses CIDR notation.",
+            "description": "IP range of the [Network](#networks).\n\nUses CIDR notation.\n",
             "example": "10.0.0.0/16",
             "type": "string"
           },
@@ -9639,7 +9639,7 @@
         ]
       },
       "put": {
-        "description": "Update a [Floating IP](#floating-ips).",
+        "description": "Update a [Floating IP](#floating-ips).\n",
         "operationId": "replace_floating_ip",
         "parameters": [
           {
@@ -16841,7 +16841,7 @@
     },
     "/servers/{id}": {
       "delete": {
-        "description": "Deletes a Server. This immediately removes the Server from your account, and it is no longer accessible. Any resources attached to the server (like Volumes, Primary IPs, Floating IPs, Firewalls, Placement Groups) are detached while the server is deleted.\n",
+        "description": "Deletes a Server.\n\nThis immediately removes the Server from your account, and it is no longer\naccessible. Any resources attached to the server (like Volumes, Primary IPs,\nFloating IPs, Firewalls, Placement Groups) are detached while the server is deleted.\n",
         "operationId": "delete_server",
         "parameters": [
           {
@@ -16945,7 +16945,7 @@
         ]
       },
       "put": {
-        "description": "Updates a Server. You can update a Server’s name and a Server’s labels.\nPlease note that Server names must be unique per Project and valid hostnames as per RFC 1123 (i.e. may only contain letters, digits, periods, and dashes).",
+        "description": "Updates a Server. You can update a Server’s name and a Server’s labels.\n\nPlease note that Server names must be unique per Project and valid hostnames as per RFC 1123 (i.e. may only contain letters, digits, periods, and dashes).\n",
         "operationId": "replace_server",
         "parameters": [
           {
