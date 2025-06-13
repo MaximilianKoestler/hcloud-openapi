@@ -6,7 +6,7 @@
     },
     "description": "Copied from the official API documentation for the Public Hetzner Cloud.",
     "title": "Hetzner Cloud API",
-    "version": "d8d4e83"
+    "version": "22a81d8"
   },
   "servers": [
     {
@@ -36,7 +36,7 @@
       "name": "floating_ips"
     },
     {
-      "description": "Images are blueprints for your VM disks. They can be of different types:\n\n### System Images\n\nDistribution Images maintained by us, e.g. “Ubuntu 20.04”\n\n### Snapshot Images\n\nMaintained by you, for example “Ubuntu 20.04 with my own settings”. These are billed per GB per month.\n\n### Backup Images\n\nDaily Backups of your Server. Will automatically be created for Servers which have backups enabled (`POST /servers/{id}/actions/enable_backup`)\n\nBound to exactly one Server. If you delete the Server, you also delete all backups bound to it. You may convert backup Images to snapshot Images to keep them.\n\nThese are billed at 20% of your instance price for 7 backup slots.\n\n### App Images\n\nPrebuild images with specific software configurations, e.g. “Wordpress”. All app images are created by us.\n",
+      "description": "Images are blueprints for your VM disks. They can be of different types:\n\n### System Images\n\nDistribution Images maintained by us, e.g. “Ubuntu 20.04”\n\n### Snapshot Images\n\nMaintained by you, for example “Ubuntu 20.04 with my own settings”. These are billed per GB per month.\n\n### Backup Images\n\nDaily Backups of your Server. Will automatically be created for Servers which have backups enabled (`POST /servers/{id}/actions/enable_backup`)\n\nBound to exactly one Server. If you delete the Server, you also delete all backups bound to it. You may convert backup Images to snapshot Images to keep them.\n\nThese are billed at 20% of your server price for 7 backup slots.\n\n### App Images\n\nPrebuild images with specific software configurations, e.g. “Wordpress”. All app images are created by us.\n",
       "name": "images"
     },
     {
@@ -59,7 +59,7 @@
       "name": "networks"
     },
     {
-      "description": "Placement groups are used to influence the location of interdependent virtual servers in our data centers. The distribution of the different instances within a group is based on a pattern specified in the type. By enforcing certain rules on the placement of instances within our infrastructure, availability can be influenced in a way that fits your needs best.\n\nIn `spread` placement groups, all virtual servers will run on different physical servers. This decreases the probability that some instances might fail together.\n",
+      "description": "Placement groups are used to influence the location of interdependent virtual servers in our data centers. The distribution of the different servers within a group is based on a pattern specified in the type. By enforcing certain rules on the placement of servers within our infrastructure, availability can be influenced in a way that fits your needs best.\n\nIn `spread` placement groups, all virtual servers will run on different physical servers. This decreases the probability that some servers might fail together.\n",
       "name": "placement_groups"
     },
     {
@@ -240,7 +240,7 @@
         "description": "Request for POST https://api.hetzner.cloud/v1/servers/{id}/actions/add_to_placement_group",
         "properties": {
           "placement_group": {
-            "description": "ID of Placement Group the Server should be added to",
+            "description": "ID of Placement Group the Server should be added to.",
             "example": 1,
             "format": "int64",
             "type": "integer"
@@ -399,13 +399,13 @@
         "description": "Request for POST https://api.hetzner.cloud/v1/primary_ips/{id}/actions/assign",
         "properties": {
           "assignee_id": {
-            "description": "ID of a resource of type `assignee_type`",
+            "description": "ID of a resource of type `assignee_type`.",
             "example": 4711,
             "format": "int64",
             "type": "integer"
           },
           "assignee_type": {
-            "description": "Type of resource assigning the Primary IP to",
+            "description": "Type of resource assigning the Primary IP to.",
             "enum": [
               "server"
             ],
@@ -437,7 +437,7 @@
         "description": "Request for POST https://api.hetzner.cloud/v1/servers/{id}/actions/attach_iso",
         "properties": {
           "iso": {
-            "description": "ID or name of ISO to attach to the Server as listed in GET `/isos`",
+            "description": "ID or name of ISO to attach to the Server as listed in GET `/isos`.",
             "example": "FreeBSD-11.0-RELEASE-amd64-dvd1",
             "type": "string"
           }
@@ -464,12 +464,12 @@
         "description": "Request for POST https://api.hetzner.cloud/v1/load_balancers/{id}/actions/attach_to_network",
         "properties": {
           "ip": {
-            "description": "IP to request to be assigned to this Load Balancer; if you do not provide this then you will be auto assigned an IP address",
+            "description": "IP to request to be assigned to this Load Balancer; if you do not provide this then you will be auto assigned an IP address.",
             "example": "10.0.1.1",
             "type": "string"
           },
           "network": {
-            "description": "ID of an existing network to attach the Load Balancer to",
+            "description": "ID of an existing network to attach the Load Balancer to.",
             "example": 4711,
             "format": "int64",
             "type": "integer"
@@ -497,7 +497,7 @@
         "description": "Request for POST https://api.hetzner.cloud/v1/servers/{id}/actions/attach_to_network",
         "properties": {
           "alias_ips": {
-            "description": "Additional IPs to be assigned to this Server",
+            "description": "Additional IPs to be assigned to this Server.",
             "example": [
               "10.0.1.2"
             ],
@@ -507,12 +507,12 @@
             "type": "array"
           },
           "ip": {
-            "description": "IP to request to be assigned to this Server; if you do not provide this then you will be auto assigned an IP address",
+            "description": "IP to request to be assigned to this Server; if you do not provide this then you will be auto assigned an IP address.",
             "example": "10.0.1.1",
             "type": "string"
           },
           "network": {
-            "description": "ID of an existing network to attach the Server to",
+            "description": "ID of an existing network to attach the Server to.",
             "example": 4711,
             "format": "int64",
             "type": "integer"
@@ -541,12 +541,12 @@
         "description": "Request for POST https://api.hetzner.cloud/v1/volumes/{id}/actions/attach",
         "properties": {
           "automount": {
-            "description": "Auto-mount the Volume after attaching it",
+            "description": "Auto-mount the Volume after attaching it.",
             "example": false,
             "type": "boolean"
           },
           "server": {
-            "description": "ID of the Server the Volume will be attached to",
+            "description": "ID of the Server the Volume will be attached to.",
             "example": 43,
             "format": "int64",
             "type": "integer"
@@ -575,7 +575,7 @@
         "description": "TLS/SSL Certificates prove the identity of a Server and are used to encrypt client traffic.",
         "properties": {
           "certificate": {
-            "description": "Certificate and chain in PEM format, in order so that each record directly certifies the one preceding",
+            "description": "Certificate and chain in PEM format, in order so that each record directly certifies the one preceding.",
             "example": "-----BEGIN CERTIFICATE-----\n...",
             "nullable": true,
             "type": "string"
@@ -586,7 +586,7 @@
             "type": "string"
           },
           "domain_names": {
-            "description": "Domains and subdomains covered by the Certificate",
+            "description": "Domains and subdomains covered by the Certificate.",
             "example": [
               "example.com",
               "webmail.example.com",
@@ -598,7 +598,7 @@
             "type": "array"
           },
           "fingerprint": {
-            "description": "SHA256 fingerprint of the Certificate",
+            "description": "SHA256 fingerprint of the Certificate.",
             "example": "03:c7:55:9b:2a:d1:04:17:09:f6:d0:7f:18:34:63:d4:3e:5f",
             "nullable": true,
             "type": "string"
@@ -625,17 +625,17 @@
             "type": "string"
           },
           "not_valid_before": {
-            "description": "Point in time when the Certificate becomes valid (in ISO-8601 format)",
+            "description": "Point in time when the Certificate becomes valid (in ISO-8601 format).",
             "example": "2019-01-08T10:00:00+00:00",
             "nullable": true,
             "type": "string"
           },
           "status": {
-            "description": "Current status of a type `managed` Certificate, always *null* for type `uploaded` Certificates",
+            "description": "Current status of a type `managed` Certificate, always *null* for type `uploaded` Certificates.",
             "nullable": true,
             "properties": {
               "error": {
-                "description": "If issuance or renewal reports `failed`, this property contains information about what happened",
+                "description": "If issuance or renewal reports `failed`, this property contains information about what happened.",
                 "example": null,
                 "nullable": true,
                 "properties": {
@@ -649,7 +649,7 @@
                 "type": "object"
               },
               "issuance": {
-                "description": "Status of the issuance process of the Certificate",
+                "description": "Status of the issuance process of the Certificate.",
                 "enum": [
                   "completed",
                   "failed",
@@ -682,7 +682,7 @@
             "type": "string"
           },
           "used_by": {
-            "description": "Resources currently using the Certificate",
+            "description": "Resources currently using the Certificate.",
             "items": {
               "$ref": "#/components/schemas/resource"
             },
@@ -724,7 +724,7 @@
         "description": "Request for POST https://api.hetzner.cloud/v1/servers/{id}/actions/change_alias_ips",
         "properties": {
           "alias_ips": {
-            "description": "New alias IPs to set for this Server",
+            "description": "New alias IPs to set for this Server.",
             "example": [
               "10.0.1.2"
             ],
@@ -734,7 +734,7 @@
             "type": "array"
           },
           "network": {
-            "description": "ID of an existing Network already attached to the Server",
+            "description": "ID of an existing Network already attached to the Server.",
             "example": 4711,
             "format": "int64",
             "type": "integer"
@@ -779,7 +779,7 @@
         "description": "Request for POST https://api.hetzner.cloud/v1/images/{id}/actions/change_protection",
         "properties": {
           "delete": {
-            "description": "If true, prevents the snapshot from being deleted",
+            "description": "If true, prevents the snapshot from being deleted.",
             "example": true,
             "type": "boolean"
           }
@@ -831,7 +831,7 @@
         "description": "Request for POST https://api.hetzner.cloud/v1/load_balancers/{id}/actions/change_protection",
         "properties": {
           "delete": {
-            "description": "If true, prevents the Load Balancer from being deleted",
+            "description": "If true, prevents the Load Balancer from being deleted.",
             "example": true,
             "type": "boolean"
           }
@@ -896,13 +896,13 @@
         "description": "Request for POST https://api.hetzner.cloud/v1/load_balancers/{id}/actions/change_dns_ptr",
         "properties": {
           "dns_ptr": {
-            "description": "Hostname to set as a reverse DNS PTR entry",
+            "description": "Hostname to set as a reverse DNS PTR entry.",
             "example": "lb1.example.com",
             "nullable": true,
             "type": "string"
           },
           "ip": {
-            "description": "Public IP address for which the reverse DNS entry should be set",
+            "description": "Public IP address for which the reverse DNS entry should be set.",
             "example": "1.2.3.4",
             "type": "string"
           }
@@ -931,13 +931,13 @@
         "description": "Request for POST https://api.hetzner.cloud/v1/servers/{id}/actions/change_dns_ptr",
         "properties": {
           "dns_ptr": {
-            "description": "Hostname to set as a reverse DNS PTR entry, reset to original value if `null`",
+            "description": "Hostname to set as a reverse DNS PTR entry, reset to original value if `null`.",
             "example": "server01.example.com",
             "nullable": true,
             "type": "string"
           },
           "ip": {
-            "description": "Primary IP address for which the reverse DNS entry should be set",
+            "description": "Primary IP address for which the reverse DNS entry should be set.",
             "example": "1.2.3.4",
             "type": "string"
           }
@@ -997,12 +997,12 @@
         "description": "Request for POST https://api.hetzner.cloud/v1/servers/{id}/actions/change_protection",
         "properties": {
           "delete": {
-            "description": "If true, prevents the Server from being deleted (currently delete and rebuild attribute needs to have the same value)",
+            "description": "If true, prevents the Server from being deleted (currently delete and rebuild attribute needs to have the same value).",
             "example": true,
             "type": "boolean"
           },
           "rebuild": {
-            "description": "If true, prevents the Server from being rebuilt (currently delete and rebuild attribute needs to have the same value)",
+            "description": "If true, prevents the Server from being rebuilt (currently delete and rebuild attribute needs to have the same value).",
             "example": true,
             "type": "boolean"
           }
@@ -1026,7 +1026,7 @@
         "description": "Request for POST https://api.hetzner.cloud/v1/load_balancers/{id}/actions/change_type",
         "properties": {
           "load_balancer_type": {
-            "description": "ID or name of Load Balancer type the Load Balancer should migrate to",
+            "description": "ID or name of Load Balancer type the Load Balancer should migrate to.",
             "example": "lb21",
             "type": "string"
           }
@@ -1054,12 +1054,12 @@
         "description": "Request for POST https://api.hetzner.cloud/v1/servers/{id}/actions/change_type",
         "properties": {
           "server_type": {
-            "description": "ID or name of Server type the Server should migrate to",
+            "description": "ID or name of Server type the Server should migrate to.",
             "example": "cpx11",
             "type": "string"
           },
           "upgrade_disk": {
-            "description": "If false, do not upgrade the disk (this allows downgrading the Server type later)",
+            "description": "If false, do not upgrade the disk (this allows downgrading the Server type later).",
             "example": true,
             "type": "boolean"
           }
@@ -1087,7 +1087,7 @@
         "description": "Request for POST https://api.hetzner.cloud/v1/volumes/{id}/actions/change_protection",
         "properties": {
           "delete": {
-            "description": "If true, prevents the Volume from being deleted",
+            "description": "If true, prevents the Volume from being deleted.",
             "example": true,
             "type": "boolean"
           }
@@ -1127,7 +1127,7 @@
             "$ref": "#/components/schemas/labels"
           },
           "name": {
-            "description": "Name of the Certificate",
+            "description": "Name of the Certificate.",
             "example": "my website cert",
             "type": "string"
           },
@@ -1329,7 +1329,7 @@
         "description": "Request for POST https://api.hetzner.cloud/v1/servers/{id}/actions/create_image",
         "properties": {
           "description": {
-            "description": "Description of the Image, will be auto-generated if not set",
+            "description": "Description of the Image, will be auto-generated if not set.",
             "example": "my image",
             "type": "string"
           },
@@ -1372,45 +1372,45 @@
             "$ref": "#/components/schemas/labels"
           },
           "load_balancer_type": {
-            "description": "ID or name of the Load Balancer type this Load Balancer should be created with",
+            "description": "ID or name of the Load Balancer type this Load Balancer should be created with.",
             "example": "lb11",
             "type": "string"
           },
           "location": {
-            "description": "ID or name of Location to create Load Balancer in",
+            "description": "ID or name of Location to create Load Balancer in.",
             "example": "fsn1",
             "type": "string"
           },
           "name": {
-            "description": "Name of the Load Balancer",
+            "description": "Name of the Load Balancer.",
             "example": "Web Frontend",
             "type": "string"
           },
           "network": {
-            "description": "ID of the network the Load Balancer should be attached to on creation",
+            "description": "ID of the network the Load Balancer should be attached to on creation.",
             "example": 123,
             "format": "int64",
             "type": "integer"
           },
           "network_zone": {
-            "description": "Name of network zone",
+            "description": "Name of network zone.",
             "example": "eu-central",
             "type": "string"
           },
           "public_interface": {
-            "description": "Enable or disable the public interface of the Load Balancer",
+            "description": "Enable or disable the public interface of the Load Balancer.",
             "example": true,
             "type": "boolean"
           },
           "services": {
-            "description": "Array of services",
+            "description": "Array of services.",
             "items": {
               "$ref": "#/components/schemas/load_balancer_service"
             },
             "type": "array"
           },
           "targets": {
-            "description": "Array of targets",
+            "description": "Array of targets.",
             "items": {
               "$ref": "#/components/schemas/load_balancer_add_target"
             },
@@ -1499,7 +1499,7 @@
             "$ref": "#/components/schemas/labels"
           },
           "name": {
-            "description": "Name of the PlacementGroup",
+            "description": "Name of the Placement Group.",
             "example": "my Placement Group",
             "type": "string"
           },
@@ -1548,7 +1548,7 @@
                 "type": "string"
               },
               "servers": {
-                "description": "Array of IDs of Servers that are part of this Placement Group",
+                "description": "Array of IDs of Servers that are part of this Placement Group.",
                 "example": [
                   42
                 ],
@@ -1739,17 +1739,17 @@
         "description": "Request for POST https://api.hetzner.cloud/v1/servers",
         "properties": {
           "automount": {
-            "description": "Auto-mount Volumes after attach",
+            "description": "Auto-mount Volumes after attach.",
             "example": false,
             "type": "boolean"
           },
           "datacenter": {
-            "description": "ID or name of Datacenter to create Server in (must not be used together with location)",
+            "description": "ID or name of Datacenter to create Server in (must not be used together with location).",
             "example": "nbg1-dc3",
             "type": "string"
           },
           "firewalls": {
-            "description": "Firewalls which should be applied on the Server's public network interface at creation time",
+            "description": "Firewalls which should be applied on the Server's public network interface at creation time.",
             "example": [
               {
                 "firewall": 38
@@ -1758,7 +1758,7 @@
             "items": {
               "properties": {
                 "firewall": {
-                  "description": "ID of the Firewall",
+                  "description": "ID of the Firewall.",
                   "format": "int64",
                   "type": "integer"
                 }
@@ -1772,7 +1772,7 @@
             "type": "array"
           },
           "image": {
-            "description": "ID or name of the Image the Server is created from",
+            "description": "ID or name of the Image the Server is created from.",
             "example": "ubuntu-20.04",
             "type": "string"
           },
@@ -1780,17 +1780,17 @@
             "$ref": "#/components/schemas/labels"
           },
           "location": {
-            "description": "ID or name of Location to create Server in (must not be used together with datacenter)",
+            "description": "ID or name of Location to create Server in (must not be used together with datacenter).",
             "example": "nbg1",
             "type": "string"
           },
           "name": {
-            "description": "Name of the Server to create (must be unique per Project and a valid hostname as per RFC 1123)",
+            "description": "Name of the Server to create (must be unique per Project and a valid hostname as per RFC 1123).",
             "example": "my-server",
             "type": "string"
           },
           "networks": {
-            "description": "Network IDs which should be attached to the Server private network interface at the creation time",
+            "description": "Network IDs which should be attached to the Server private network interface at the creation time.",
             "example": [
               456
             ],
@@ -1801,13 +1801,13 @@
             "type": "array"
           },
           "placement_group": {
-            "description": "ID of the Placement Group the server should be in",
+            "description": "ID of the Placement Group the Server should be in.",
             "example": 1,
             "format": "int64",
             "type": "integer"
           },
           "public_net": {
-            "description": "Public Network options",
+            "description": "Public Network options.",
             "properties": {
               "enable_ipv4": {
                 "default": true,
@@ -1833,12 +1833,12 @@
             "type": "object"
           },
           "server_type": {
-            "description": "ID or name of the Server type this Server should be created with",
+            "description": "ID or name of the Server type this Server should be created with.",
             "example": "cpx11",
             "type": "string"
           },
           "ssh_keys": {
-            "description": "SSH key IDs (`integer`) or names (`string`) which should be injected into the Server at creation time",
+            "description": "SSH key IDs (`integer`) or names (`string`) which should be injected into the Server at creation time.",
             "example": [
               "my-ssh-key"
             ],
@@ -1891,7 +1891,7 @@
             "type": "array"
           },
           "root_password": {
-            "description": "Root password when no SSH keys have been specified",
+            "description": "Root password when no SSH keys have been specified.",
             "example": "YItygq1v3GYjjMomLaKc",
             "nullable": true,
             "type": "string"
@@ -1916,12 +1916,12 @@
             "$ref": "#/components/schemas/labels"
           },
           "name": {
-            "description": "Name of the SSH key",
+            "description": "Name of the SSH key.",
             "example": "My ssh key",
             "type": "string"
           },
           "public_key": {
-            "description": "Public key",
+            "description": "Public key.",
             "example": "ssh-rsa AAAjjk76kgf...Xt",
             "type": "string"
           }
@@ -1953,7 +1953,7 @@
             "type": "boolean"
           },
           "format": {
-            "description": "Format Volume after creation. One of: `xfs`, `ext4`",
+            "description": "Format Volume after creation. One of: `xfs`, `ext4`.",
             "example": "xfs",
             "type": "string"
           },
@@ -1961,22 +1961,22 @@
             "$ref": "#/components/schemas/labels"
           },
           "location": {
-            "description": "Location to create the Volume in (can be omitted if Server is specified)",
+            "description": "Location to create the Volume in (can be omitted if Server is specified).",
             "example": "nbg1",
             "type": "string"
           },
           "name": {
-            "description": "Name of the volume",
+            "description": "Name of the volume.",
             "example": "databases-storage",
             "type": "string"
           },
           "server": {
-            "description": "Server to which to attach the Volume once it's created (Volume will be created in the same Location as the server)",
+            "description": "Server to which to attach the Volume once it's created (Volume will be created in the same Location as the server).",
             "format": "int64",
             "type": "integer"
           },
           "size": {
-            "description": "Size of the Volume in GB",
+            "description": "Size of the Volume in GB.",
             "example": 42,
             "type": "integer"
           }
@@ -2012,18 +2012,18 @@
         "type": "object"
       },
       "created_from": {
-        "description": "Information about the Server the Image was created from",
+        "description": "Information about the Server the Image was created from.",
         "nullable": true,
         "properties": {
           "id": {
-            "description": "ID of the Server the Image was created from",
+            "description": "ID of the Server the Image was created from.",
             "example": 1,
             "format": "int64",
             "maximum": 9007199254740991,
             "type": "integer"
           },
           "name": {
-            "description": "Server name at the time the Image was created",
+            "description": "Server name at the time the Image was created.",
             "example": "Server",
             "type": "string"
           }
@@ -2035,7 +2035,7 @@
         "type": "object"
       },
       "datacenter": {
-        "description": "[Datacenter](#datacenters) the [Primary IP](#primary-ips) is located at. | Datacenter this Resource is located at",
+        "description": "[Datacenter](#datacenters) the [Primary IP](#primary-ips) is located at. | Datacenter this Resource is located at.",
         "properties": {
           "description": {
             "description": "Descriptive name for the [Datacenter](#datacenters).\n\nDesired to be easy to understand for humans. Might be changed for cosmetic reasons. Do not use this as an identifier.\n",
@@ -2147,7 +2147,7 @@
         "description": "Request for POST https://api.hetzner.cloud/v1/load_balancers/{id}/actions/delete_service",
         "properties": {
           "listen_port": {
-            "description": "The listen port of the service you want to delete",
+            "description": "The listen port of the service you want to delete.",
             "example": 443,
             "type": "integer"
           }
@@ -2239,7 +2239,7 @@
         "description": "Request for POST https://api.hetzner.cloud/v1/load_balancers/{id}/actions/detach_from_network",
         "properties": {
           "network": {
-            "description": "ID of an existing network to detach the Load Balancer from",
+            "description": "ID of an existing network to detach the Load Balancer from.",
             "example": 4711,
             "format": "int64",
             "type": "integer"
@@ -2267,7 +2267,7 @@
         "description": "Request for POST https://api.hetzner.cloud/v1/servers/{id}/actions/detach_from_network",
         "properties": {
           "network": {
-            "description": "ID of an existing network to detach the Server from",
+            "description": "ID of an existing network to detach the Server from.",
             "example": 4711,
             "format": "int64",
             "type": "integer"
@@ -2348,12 +2348,12 @@
         "description": "Request for POST https://api.hetzner.cloud/v1/floating_ips/{id}/actions/change_dns_ptr | Request for POST https://api.hetzner.cloud/v1/primary_ips/{id}/actions/change_dns_ptr",
         "properties": {
           "dns_ptr": {
-            "description": "Domain Name to point to.\n\nPTR record content used for reverse DNS.\n | DNS pointer for the specific IP address",
+            "description": "Domain Name to point to.\n\nPTR record content used for reverse DNS.\n | DNS pointer for the specific IP address.",
             "example": "server.example.com",
             "type": "string"
           },
           "ip": {
-            "description": "Single IPv4 or IPv6 address to create pointer for.\n | Single IPv6 address of this Server for which the reverse DNS entry has been set up",
+            "description": "Single IPv4 or IPv6 address to create pointer for.\n | Single IPv6 address of this Server for which the reverse DNS entry has been set up.",
             "example": "2001:db8::1",
             "type": "string"
           }
@@ -2422,7 +2422,7 @@
             "$ref": "#/components/schemas/action"
           },
           "root_password": {
-            "description": "Password that will be set for this Server once the Action succeeds",
+            "description": "Password that will be set for this Server once the Action succeeds.",
             "example": "zCWbFhnu950dUTko5f40",
             "type": "string"
           }
@@ -3005,7 +3005,7 @@
                 "type": "string"
               },
               "servers": {
-                "description": "Array of IDs of Servers that are part of this Placement Group",
+                "description": "Array of IDs of Servers that are part of this Placement Group.",
                 "example": [
                   42
                 ],
@@ -3186,7 +3186,7 @@
         "type": "object"
       },
       "http": {
-        "description": "Configuration option for protocols http and https",
+        "description": "Configuration option for protocols http and https.",
         "properties": {
           "certificates": {
             "description": "IDs of the Certificates to use for TLS/SSL termination by the Load Balancer; empty for TLS/SSL passthrough or if `protocol` is `http`.",
@@ -3248,24 +3248,24 @@
             "$ref": "#/components/schemas/created_from"
           },
           "deleted": {
-            "description": "Point in time where the Image was deleted (in ISO-8601 format)",
+            "description": "Point in time where the Image was deleted (in ISO-8601 format).",
             "example": null,
             "nullable": true,
             "type": "string"
           },
           "deprecated": {
-            "description": "Point in time when the Image is considered to be deprecated (in ISO-8601 format)",
+            "description": "Point in time when the Image is considered to be deprecated (in ISO-8601 format).",
             "example": "2018-02-28T00:00:00+00:00",
             "nullable": true,
             "type": "string"
           },
           "description": {
-            "description": "Description of the Image",
+            "description": "Description of the Image.",
             "example": "Ubuntu 20.04 Standard 64 bit",
             "type": "string"
           },
           "disk_size": {
-            "description": "Size of the disk contained in the Image in GB",
+            "description": "Size of the disk contained in the Image in GB.",
             "example": 10,
             "type": "number"
           },
@@ -3292,7 +3292,7 @@
             "type": "string"
           },
           "os_flavor": {
-            "description": "Flavor of operating system contained in the Image",
+            "description": "Flavor of operating system contained in the Image.",
             "enum": [
               "alma",
               "centos",
@@ -3306,7 +3306,7 @@
             "type": "string"
           },
           "os_version": {
-            "description": "Operating system version",
+            "description": "Operating system version.",
             "example": "20.04",
             "nullable": true,
             "type": "string"
@@ -3315,12 +3315,12 @@
             "$ref": "#/components/schemas/protection"
           },
           "rapid_deploy": {
-            "description": "Indicates that rapid deploy of the Image is available",
+            "description": "Indicates that rapid deploy of the Image is available.",
             "example": false,
             "type": "boolean"
           },
           "status": {
-            "description": "Whether the Image can be used or if it's still being created or unavailable",
+            "description": "Whether the Image can be used or if it's still being created or unavailable.",
             "enum": [
               "available",
               "creating",
@@ -3384,24 +3384,24 @@
             "$ref": "#/components/schemas/created_from"
           },
           "deleted": {
-            "description": "Point in time where the Image was deleted (in ISO-8601 format)",
+            "description": "Point in time where the Image was deleted (in ISO-8601 format).",
             "example": null,
             "nullable": true,
             "type": "string"
           },
           "deprecated": {
-            "description": "Point in time when the Image is considered to be deprecated (in ISO-8601 format)",
+            "description": "Point in time when the Image is considered to be deprecated (in ISO-8601 format).",
             "example": "2018-02-28T00:00:00+00:00",
             "nullable": true,
             "type": "string"
           },
           "description": {
-            "description": "Description of the Image",
+            "description": "Description of the Image.",
             "example": "Ubuntu 20.04 Standard 64 bit",
             "type": "string"
           },
           "disk_size": {
-            "description": "Size of the disk contained in the Image in GB",
+            "description": "Size of the disk contained in the Image in GB.",
             "example": 10,
             "type": "number"
           },
@@ -3428,7 +3428,7 @@
             "type": "string"
           },
           "os_flavor": {
-            "description": "Flavor of operating system contained in the Image",
+            "description": "Flavor of operating system contained in the Image.",
             "enum": [
               "alma",
               "centos",
@@ -3442,7 +3442,7 @@
             "type": "string"
           },
           "os_version": {
-            "description": "Operating system version",
+            "description": "Operating system version.",
             "example": "20.04",
             "nullable": true,
             "type": "string"
@@ -3451,12 +3451,12 @@
             "$ref": "#/components/schemas/protection"
           },
           "rapid_deploy": {
-            "description": "Indicates that rapid deploy of the Image is available",
+            "description": "Indicates that rapid deploy of the Image is available.",
             "example": false,
             "type": "boolean"
           },
           "status": {
-            "description": "Whether the Image can be used or if it's still being created or unavailable",
+            "description": "Whether the Image can be used or if it's still being created or unavailable.",
             "enum": [
               "available",
               "creating",
@@ -3498,7 +3498,7 @@
         "type": "object"
       },
       "ip_type": {
-        "description": "Floating IP type | Type of [Primary IP](#primary-ips) the price is for. | Type of [Floating IP](#floating-ips) the price is for. | [Primary IP](#primary-ips) type.",
+        "description": "The Floating IP type. | Type of [Primary IP](#primary-ips) the price is for. | Type of [Floating IP](#floating-ips) the price is for. | [Primary IP](#primary-ips) type.",
         "enum": [
           "ipv4",
           "ipv6"
@@ -3506,16 +3506,16 @@
         "type": "string"
       },
       "ipv4": {
-        "description": "IP address (v4) and its reverse DNS entry of this Server",
+        "description": "IP address (v4) and its reverse DNS entry of this Server.",
         "nullable": true,
         "properties": {
           "blocked": {
-            "description": "If the IP is blocked by our anti abuse dept",
+            "description": "If the IP is blocked by our anti abuse dept.",
             "example": false,
             "type": "boolean"
           },
           "dns_ptr": {
-            "description": "Reverse DNS PTR entry for the IPv4 addresses of this Server",
+            "description": "Reverse DNS PTR entry for the IPv4 addresses of this Server.",
             "example": "server01.example.com",
             "type": "string"
           },
@@ -3527,7 +3527,7 @@
             "type": "integer"
           },
           "ip": {
-            "description": "IP address (v4) of this Server",
+            "description": "IP address (v4) of this Server.",
             "example": "1.2.3.4",
             "type": "string"
           }
@@ -3540,16 +3540,16 @@
         "type": "object"
       },
       "ipv6": {
-        "description": "IPv6 network assigned to this Server and its reverse DNS entry",
+        "description": "IPv6 network assigned to this Server and its reverse DNS entry.",
         "nullable": true,
         "properties": {
           "blocked": {
-            "description": "If the IP is blocked by our anti abuse dept",
+            "description": "If the IP is blocked by our anti abuse dept.",
             "example": false,
             "type": "boolean"
           },
           "dns_ptr": {
-            "description": "Reverse DNS PTR entries for the IPv6 addresses of this Server",
+            "description": "Reverse DNS PTR entries for the IPv6 addresses of this Server.",
             "items": {
               "$ref": "#/components/schemas/dns_ptr"
             },
@@ -3564,7 +3564,7 @@
             "type": "integer"
           },
           "ip": {
-            "description": "IP address (v6) of this Server",
+            "description": "IP address (v6) of this Server.",
             "example": "2001:db8::/64",
             "type": "string"
           }
@@ -3585,7 +3585,7 @@
             "$ref": "#/components/schemas/deprecation_info"
           },
           "description": {
-            "description": "Description of the ISO",
+            "description": "Description of the ISO.",
             "example": "FreeBSD 11.0 x64",
             "type": "string"
           },
@@ -3597,13 +3597,13 @@
             "type": "integer"
           },
           "name": {
-            "description": "Unique identifier of the ISO. Only set for public ISOs",
+            "description": "Unique identifier of the ISO. Only set for public ISOs.",
             "example": "FreeBSD-11.0-RELEASE-amd64-dvd1",
             "nullable": true,
             "type": "string"
           },
           "type": {
-            "description": "Type of the ISO",
+            "description": "Type of the ISO.",
             "enum": [
               "private",
               "public"
@@ -3633,7 +3633,7 @@
             "$ref": "#/components/schemas/deprecation_info"
           },
           "description": {
-            "description": "Description of the ISO",
+            "description": "Description of the ISO.",
             "example": "FreeBSD 11.0 x64",
             "type": "string"
           },
@@ -3645,13 +3645,13 @@
             "type": "integer"
           },
           "name": {
-            "description": "Unique identifier of the ISO. Only set for public ISOs",
+            "description": "Unique identifier of the ISO. Only set for public ISOs.",
             "example": "FreeBSD-11.0-RELEASE-amd64-dvd1",
             "nullable": true,
             "type": "string"
           },
           "type": {
-            "description": "Type of the ISO",
+            "description": "Type of the ISO.",
             "enum": [
               "private",
               "public"
@@ -3674,7 +3674,7 @@
         "description": "Configuration for type LabelSelector, required if type is `label_selector`",
         "properties": {
           "selector": {
-            "description": "Label selector | The selector.",
+            "description": "The selector. | Label selector.",
             "example": "env=prod",
             "type": "string"
           }
@@ -4107,7 +4107,7 @@
                   "type": "string"
                 },
                 "servers": {
-                  "description": "Array of IDs of Servers that are part of this Placement Group",
+                  "description": "Array of IDs of Servers that are part of this Placement Group.",
                   "example": [
                     42
                   ],
@@ -4551,13 +4551,13 @@
             "type": "integer"
           },
           "included_traffic": {
-            "description": "Free Traffic for the current billing period in bytes",
+            "description": "Free Traffic for the current billing period in bytes.",
             "example": 10000,
             "format": "int64",
             "type": "integer"
           },
           "ingoing_traffic": {
-            "description": "Inbound Traffic for the current billing period in bytes",
+            "description": "Inbound Traffic for the current billing period in bytes.",
             "format": "int64",
             "nullable": true,
             "type": "integer"
@@ -4577,13 +4577,13 @@
             "type": "string"
           },
           "outgoing_traffic": {
-            "description": "Outbound Traffic for the current billing period in bytes",
+            "description": "Outbound Traffic for the current billing period in bytes.",
             "format": "int64",
             "nullable": true,
             "type": "integer"
           },
           "private_net": {
-            "description": "Private networks information",
+            "description": "Private networks information.",
             "items": {
               "$ref": "#/components/schemas/load_balancer_private_net"
             },
@@ -4596,14 +4596,14 @@
             "$ref": "#/components/schemas/load_balancer_public_net"
           },
           "services": {
-            "description": "List of services that belong to this Load Balancer",
+            "description": "List of services that belong to this Load Balancer.",
             "items": {
               "$ref": "#/components/schemas/load_balancer_service"
             },
             "type": "array"
           },
           "targets": {
-            "description": "List of targets that belong to this Load Balancer",
+            "description": "List of targets that belong to this Load Balancer.",
             "items": {
               "$ref": "#/components/schemas/load_balancer_target"
             },
@@ -4642,7 +4642,7 @@
             "$ref": "#/components/schemas/resource_id"
           },
           "type": {
-            "description": "Type of the resource",
+            "description": "Type of the resource.",
             "enum": [
               "ip",
               "label_selector",
@@ -4667,7 +4667,7 @@
         "default": {
           "type": "round_robin"
         },
-        "description": "Algorithm of the Load Balancer",
+        "description": "Algorithm of the Load Balancer.",
         "properties": {
           "type": {
             "default": "round_robin",
@@ -4688,12 +4688,12 @@
       "load_balancer_private_net": {
         "properties": {
           "ip": {
-            "description": "IP address (v4) of this Load Balancer in this Network",
+            "description": "IP address (v4) of this Load Balancer in this Network.",
             "example": "10.0.0.2",
             "type": "string"
           },
           "network": {
-            "description": "ID of the Network",
+            "description": "ID of the Network.",
             "example": 4711,
             "format": "int64",
             "type": "integer"
@@ -4702,23 +4702,23 @@
         "type": "object"
       },
       "load_balancer_public_net": {
-        "description": "Public network information",
+        "description": "Public network information.",
         "properties": {
           "enabled": {
-            "description": "Public Interface enabled or not",
+            "description": "Public Interface enabled or not.",
             "type": "boolean"
           },
           "ipv4": {
-            "description": "IP address (v4)",
+            "description": "IP address (v4).",
             "properties": {
               "dns_ptr": {
-                "description": "Reverse DNS PTR entry for the IPv4 address of this Load Balancer",
+                "description": "Reverse DNS PTR entry for the IPv4 address of this Load Balancer.",
                 "example": "lb1.example.com",
                 "nullable": true,
                 "type": "string"
               },
               "ip": {
-                "description": "IP address (v4) of this Load Balancer",
+                "description": "IP address (v4) of this Load Balancer.",
                 "example": "1.2.3.4",
                 "nullable": true,
                 "type": "string"
@@ -4727,16 +4727,16 @@
             "type": "object"
           },
           "ipv6": {
-            "description": "IP address (v6)",
+            "description": "IP address (v6).",
             "properties": {
               "dns_ptr": {
-                "description": "Reverse DNS PTR entry for the IPv6 address of this Load Balancer",
+                "description": "Reverse DNS PTR entry for the IPv6 address of this Load Balancer.",
                 "example": "lb1.example.com",
                 "nullable": true,
                 "type": "string"
               },
               "ip": {
-                "description": "IP address (v6) of this Load Balancer",
+                "description": "IP address (v6) of this Load Balancer.",
                 "example": "2001:db8::1",
                 "nullable": true,
                 "type": "string"
@@ -4785,17 +4785,17 @@
         "description": "A service for a Load Balancer.",
         "properties": {
           "destination_port": {
-            "description": "Port the Load Balancer will balance to",
+            "description": "Port the Load Balancer will balance to.",
             "example": 80,
             "type": "integer"
           },
           "health_check": {
             "additionalProperties": false,
-            "description": "Service health check",
+            "description": "Service health check.",
             "properties": {
               "http": {
                 "additionalProperties": false,
-                "description": "Additional configuration for protocol http",
+                "description": "Additional configuration for protocol http.",
                 "properties": {
                   "domain": {
                     "description": "Host header to send in the HTTP request. May not contain spaces, percent or backslash symbols. Can be null, in that case no host header is sent.",
@@ -4809,7 +4809,7 @@
                     "type": "string"
                   },
                   "response": {
-                    "description": "String that must be contained in HTTP response in order to pass the health check",
+                    "description": "String that must be contained in HTTP response in order to pass the health check.",
                     "example": "{\"status\": \"ok\"}",
                     "type": "string"
                   },
@@ -4829,7 +4829,7 @@
                     "type": "array"
                   },
                   "tls": {
-                    "description": "Use HTTPS for health check",
+                    "description": "Use HTTPS for health check.",
                     "example": false,
                     "type": "boolean"
                   }
@@ -4841,17 +4841,17 @@
                 "type": "object"
               },
               "interval": {
-                "description": "Time interval in seconds health checks are performed",
+                "description": "Time interval in seconds health checks are performed.",
                 "example": 15,
                 "type": "integer"
               },
               "port": {
-                "description": "Port the health check will be performed on",
+                "description": "Port the health check will be performed on.",
                 "example": 4711,
                 "type": "integer"
               },
               "protocol": {
-                "description": "Type of the health check",
+                "description": "Type of the health check.",
                 "enum": [
                   "http",
                   "tcp"
@@ -4860,12 +4860,12 @@
                 "type": "string"
               },
               "retries": {
-                "description": "Unsuccessful retries needed until a target is considered unhealthy; an unhealthy target needs the same number of successful retries to become healthy again",
+                "description": "Unsuccessful retries needed until a target is considered unhealthy; an unhealthy target needs the same number of successful retries to become healthy again.",
                 "example": 3,
                 "type": "integer"
               },
               "timeout": {
-                "description": "Time in seconds after an attempt is considered a timeout",
+                "description": "Time in seconds after an attempt is considered a timeout.",
                 "example": 10,
                 "type": "integer"
               }
@@ -4884,12 +4884,12 @@
             "$ref": "#/components/schemas/http"
           },
           "listen_port": {
-            "description": "Port the Load Balancer listens on",
+            "description": "Port the Load Balancer listens on.",
             "example": 443,
             "type": "integer"
           },
           "protocol": {
-            "description": "Protocol of the Load Balancer",
+            "description": "Protocol of the Load Balancer.",
             "enum": [
               "http",
               "https",
@@ -4899,7 +4899,7 @@
             "type": "string"
           },
           "proxyprotocol": {
-            "description": "Is Proxyprotocol enabled or not",
+            "description": "Is Proxyprotocol enabled or not.",
             "example": false,
             "type": "boolean"
           }
@@ -4942,7 +4942,7 @@
             "type": "array"
           },
           "type": {
-            "description": "Type of the resource",
+            "description": "Type of the resource.",
             "enum": [
               "ip",
               "label_selector",
@@ -5000,49 +5000,49 @@
       "load_balancer_type": {
         "properties": {
           "deprecated": {
-            "description": "Point in time when the Load Balancer type is deprecated (in ISO-8601 format)",
+            "description": "Point in time when the Load Balancer type is deprecated (in ISO-8601 format).",
             "example": "2016-01-30T23:50:00+00:00",
             "nullable": true,
             "type": "string"
           },
           "description": {
-            "description": "Description of the Load Balancer type",
+            "description": "Description of the Load Balancer type.",
             "example": "LB11",
             "type": "string"
           },
           "id": {
-            "description": "ID of the Load Balancer type",
+            "description": "ID of the Load Balancer type.",
             "example": 1,
             "format": "int64",
             "maximum": 9007199254740991,
             "type": "integer"
           },
           "max_assigned_certificates": {
-            "description": "Number of SSL Certificates that can be assigned to a single Load Balancer",
+            "description": "Number of SSL Certificates that can be assigned to a single Load Balancer.",
             "example": 10,
             "format": "int64",
             "type": "integer"
           },
           "max_connections": {
-            "description": "Number of maximum simultaneous open connections",
+            "description": "Number of maximum simultaneous open connections.",
             "example": 20000,
             "format": "int64",
             "type": "integer"
           },
           "max_services": {
-            "description": "Number of services a Load Balancer of this type can have",
+            "description": "Number of services a Load Balancer of this type can have.",
             "example": 5,
             "format": "int64",
             "type": "integer"
           },
           "max_targets": {
-            "description": "Number of targets a single Load Balancer can have",
+            "description": "Number of targets a single Load Balancer can have.",
             "example": 25,
             "format": "int64",
             "type": "integer"
           },
           "name": {
-            "description": "Unique identifier of the Load Balancer type",
+            "description": "Unique identifier of the Load Balancer type.",
             "example": "lb11",
             "type": "string"
           },
@@ -5081,7 +5081,7 @@
             "type": "string"
           },
           "description": {
-            "description": "Humand readable description of the [Location](#locations).",
+            "description": "Human readable description of the [Location](#locations).",
             "example": "Falkenstein DC Park 1",
             "type": "string"
           },
@@ -5145,12 +5145,12 @@
         "description": "You must specify the type of metric to get: open_connections, requests_per_second or bandwidth. You can also specify more than one type by comma separation, e.g. requests_per_second,bandwidth. Depending on the type you will get different time series data.",
         "properties": {
           "end": {
-            "description": "End of period of metrics reported (in ISO-8601 format)",
+            "description": "End of period of metrics reported (in ISO-8601 format).",
             "example": "2017-01-01T23:00:00+00:00",
             "type": "string"
           },
           "start": {
-            "description": "Start of period of metrics reported (in ISO-8601 format)",
+            "description": "Start of period of metrics reported (in ISO-8601 format).",
             "example": "2017-01-01T00:00:00+00:00",
             "type": "string"
           },
@@ -5163,7 +5163,7 @@
             "additionalProperties": {
               "properties": {
                 "values": {
-                  "description": "Metrics Timestamps with values",
+                  "description": "Metrics Timestamps with values.",
                   "items": {
                     "items": {
                       "oneOf": [
@@ -5186,7 +5186,7 @@
               ],
               "type": "object"
             },
-            "description": "Hash with timeseries information, containing the name of timeseries as key",
+            "description": "Hash with timeseries information, containing the name of timeseries as key.",
             "example": {
               "name_of_timeseries": {
                 "values": [
@@ -5501,7 +5501,7 @@
             "$ref": "#/components/schemas/action"
           },
           "root_password": {
-            "description": "New root password when not using SSH keys",
+            "description": "New root password when not using SSH keys.",
             "nullable": true,
             "type": "string"
           }
@@ -5567,7 +5567,7 @@
             "$ref": "#/components/schemas/resource_id"
           },
           "type": {
-            "description": "Type of the resource",
+            "description": "Type of the resource.",
             "enum": [
               "ip",
               "label_selector",
@@ -5602,7 +5602,7 @@
             "$ref": "#/components/schemas/labels"
           },
           "name": {
-            "description": "New Certificate name",
+            "description": "New Certificate name.",
             "example": "my website cert",
             "type": "string"
           }
@@ -5688,7 +5688,7 @@
         "description": "Request for PUT https://api.hetzner.cloud/v1/images/{id}",
         "properties": {
           "description": {
-            "description": "New description of Image",
+            "description": "New description of Image.",
             "example": "My new Image description",
             "type": "string"
           },
@@ -5696,7 +5696,7 @@
             "$ref": "#/components/schemas/labels"
           },
           "type": {
-            "description": "Destination Image type to convert to",
+            "description": "Destination Image type to convert to.",
             "enum": [
               "snapshot"
             ],
@@ -5722,7 +5722,7 @@
             "$ref": "#/components/schemas/labels"
           },
           "name": {
-            "description": "New Load Balancer name",
+            "description": "New Load Balancer name.",
             "example": "new-name",
             "type": "string"
           }
@@ -5777,7 +5777,7 @@
             "$ref": "#/components/schemas/labels"
           },
           "name": {
-            "description": "New PlacementGroup name",
+            "description": "New Placement Group name.",
             "example": "my Placement Group",
             "type": "string"
           }
@@ -5811,7 +5811,7 @@
                 "type": "string"
               },
               "servers": {
-                "description": "Array of IDs of Servers that are part of this Placement Group",
+                "description": "Array of IDs of Servers that are part of this Placement Group.",
                 "example": [
                   42
                 ],
@@ -5974,7 +5974,7 @@
             "$ref": "#/components/schemas/labels"
           },
           "name": {
-            "description": "New name to set",
+            "description": "New name to set.",
             "example": "my-server",
             "type": "string"
           }
@@ -5998,7 +5998,7 @@
             "$ref": "#/components/schemas/labels"
           },
           "name": {
-            "description": "New name Name to set",
+            "description": "New name Name to set.",
             "example": "My ssh key",
             "type": "string"
           }
@@ -6024,7 +6024,7 @@
             "$ref": "#/components/schemas/labels"
           },
           "name": {
-            "description": "New Volume name",
+            "description": "New Volume name.",
             "example": "database-storage",
             "type": "string"
           }
@@ -6051,12 +6051,12 @@
             "$ref": "#/components/schemas/action"
           },
           "password": {
-            "description": "VNC password to use for this connection (this password only works in combination with a wss_url with valid token)",
+            "description": "VNC password to use for this connection (this password only works in combination with a wss_url with valid token).",
             "example": "9MQaTg2VAGI0FIpc10k3UpRXcHj2wQ6x",
             "type": "string"
           },
           "wss_url": {
-            "description": "URL of websocket proxy to use; this includes a token which is valid for a limited time only",
+            "description": "URL of websocket proxy to use; this includes a token which is valid for a limited time only.",
             "example": "wss://console.hetzner.cloud/?server_id=1&token=3db32d15-af2f-459c-8bf8-dee1fd05f49c",
             "type": "string"
           }
@@ -6075,7 +6075,7 @@
             "$ref": "#/components/schemas/action"
           },
           "root_password": {
-            "description": "Password that will be set for this Server once the Action succeeds",
+            "description": "Password that will be set for this Server once the Action succeeds.",
             "example": "zCWbFhnu950dUTko5f40",
             "type": "string"
           }
@@ -6099,7 +6099,7 @@
         "description": "Request for POST https://api.hetzner.cloud/v1/volumes/{id}/actions/resize",
         "properties": {
           "size": {
-            "description": "New Volume size in GB (must be greater than current size)",
+            "description": "New Volume size in GB (must be greater than current size).",
             "example": 50,
             "type": "number"
           }
@@ -6125,14 +6125,14 @@
       "resource": {
         "properties": {
           "id": {
-            "description": "ID of the Resource. | ID of resource referenced",
+            "description": "ID of the Resource. | ID of resource referenced.",
             "example": 42,
             "format": "int64",
             "maximum": 9007199254740991,
             "type": "integer"
           },
           "type": {
-            "description": "Type of the Resource. | Type of resource referenced",
+            "description": "Type of the Resource. | Type of resource referenced.",
             "example": "server",
             "type": "string"
           }
@@ -6147,7 +6147,7 @@
         "description": "ID of the Resource",
         "properties": {
           "id": {
-            "description": "ID of the Server. | ID of the [Server](#servers). | ID of the Server",
+            "description": "ID of the Server. | ID of the [Server](#servers).",
             "example": 42,
             "format": "int64",
             "maximum": 9007199254740991,
@@ -6259,7 +6259,7 @@
         "description": "Servers are virtual machines that can be provisioned.",
         "properties": {
           "backup_window": {
-            "description": "Time window (UTC) in which the backup will run, or null if the backups are not enabled",
+            "description": "Time window (UTC) in which the backup will run, or null if the backups are not enabled.",
             "example": "22-02",
             "nullable": true,
             "type": "string"
@@ -6283,14 +6283,14 @@
             "$ref": "#/components/schemas/image_optional"
           },
           "included_traffic": {
-            "description": "Free Traffic for the current billing period in bytes",
+            "description": "Free Traffic for the current billing period in bytes.",
             "example": 654321,
             "format": "int64",
             "nullable": true,
             "type": "integer"
           },
           "ingoing_traffic": {
-            "description": "Inbound Traffic for the current billing period in bytes",
+            "description": "Inbound Traffic for the current billing period in bytes.",
             "example": 123456,
             "format": "int64",
             "nullable": true,
@@ -6311,17 +6311,17 @@
             "type": "array"
           },
           "locked": {
-            "description": "True if Server has been locked and is not available to user",
+            "description": "True if Server has been locked and is not available to user.",
             "example": false,
             "type": "boolean"
           },
           "name": {
-            "description": "Name of the Server (must be unique per Project and a valid hostname as per RFC 1123)",
+            "description": "Name of the Server (must be unique per Project and a valid hostname as per RFC 1123).",
             "example": "my-resource",
             "type": "string"
           },
           "outgoing_traffic": {
-            "description": "Outbound Traffic for the current billing period in bytes",
+            "description": "Outbound Traffic for the current billing period in bytes.",
             "example": 123456,
             "format": "int64",
             "nullable": true,
@@ -6352,7 +6352,7 @@
                 "type": "string"
               },
               "servers": {
-                "description": "Array of IDs of Servers that are part of this Placement Group",
+                "description": "Array of IDs of Servers that are part of this Placement Group.",
                 "example": [
                   42
                 ],
@@ -6383,12 +6383,12 @@
             "type": "object"
           },
           "primary_disk_size": {
-            "description": "Size of the primary Disk",
+            "description": "Size of the primary Disk.",
             "example": 50,
             "type": "integer"
           },
           "private_net": {
-            "description": "Private networks information",
+            "description": "Private networks information.",
             "items": {
               "$ref": "#/components/schemas/server_private_net"
             },
@@ -6401,7 +6401,7 @@
             "$ref": "#/components/schemas/server_public_net"
           },
           "rescue_enabled": {
-            "description": "True if rescue mode is enabled. Server will then boot into rescue system on next reboot",
+            "description": "True if rescue mode is enabled. Server will then boot into rescue system on next reboot.",
             "example": false,
             "type": "boolean"
           },
@@ -6424,7 +6424,7 @@
             "type": "string"
           },
           "volumes": {
-            "description": "IDs of Volumes assigned to this Server",
+            "description": "IDs of Volumes assigned to this Server.",
             "items": {
               "format": "int64",
               "type": "integer"
@@ -6488,15 +6488,15 @@
         "type": "object"
       },
       "server_protection": {
-        "description": "Protection configuration for the Server",
+        "description": "Protection configuration for the Server.",
         "properties": {
           "delete": {
-            "description": "If true, prevents the Server from being deleted",
+            "description": "If true, prevents the Server from being deleted.",
             "example": false,
             "type": "boolean"
           },
           "rebuild": {
-            "description": "If true, prevents the Server from being rebuilt",
+            "description": "If true, prevents the Server from being rebuilt.",
             "example": false,
             "type": "boolean"
           }
@@ -6508,10 +6508,10 @@
         "type": "object"
       },
       "server_public_net": {
-        "description": "Public network information. The Server's IPv4 address can be found in `public_net->ipv4->ip`",
+        "description": "Public network information. The Server's IPv4 address can be found in `public_net->ipv4->ip`.",
         "properties": {
           "firewalls": {
-            "description": "Firewalls applied to the public network interface of this Server",
+            "description": "Firewalls applied to the public network interface of this Server.",
             "items": {
               "properties": {
                 "id": {
@@ -6522,7 +6522,7 @@
                   "type": "integer"
                 },
                 "status": {
-                  "description": "Status of the Firewall on the Server",
+                  "description": "Status of the Firewall on the Server.",
                   "enum": [
                     "applied",
                     "pending"
@@ -6537,7 +6537,7 @@
             "type": "array"
           },
           "floating_ips": {
-            "description": "IDs of Floating IPs assigned to this Server",
+            "description": "IDs of Floating IPs assigned to this Server.",
             "example": [
               478
             ],
@@ -6567,12 +6567,12 @@
             "$ref": "#/components/schemas/architecture"
           },
           "cores": {
-            "description": "Number of cpu cores a Server of this type will have",
+            "description": "Number of cpu cores a Server of this type will have.",
             "example": 2,
             "type": "integer"
           },
           "cpu_type": {
-            "description": "Type of cpu",
+            "description": "Type of cpu.",
             "enum": [
               "dedicated",
               "shared"
@@ -6581,7 +6581,7 @@
             "type": "string"
           },
           "deprecated": {
-            "description": "This field is deprecated. Use the deprecation object instead",
+            "description": "This field is deprecated. Use the deprecation object instead.",
             "example": false,
             "nullable": true,
             "type": "boolean"
@@ -6590,29 +6590,29 @@
             "$ref": "#/components/schemas/deprecation_info"
           },
           "description": {
-            "description": "Description of the Server type",
+            "description": "Description of the Server type.",
             "example": "CPX11",
             "type": "string"
           },
           "disk": {
-            "description": "Disk size a Server of this type will have in GB",
+            "description": "Disk size a Server of this type will have in GB.",
             "example": 40,
             "type": "number"
           },
           "id": {
-            "description": "ID of the Server type",
+            "description": "ID of the Server type.",
             "example": 1,
             "format": "int64",
             "maximum": 9007199254740991,
             "type": "integer"
           },
           "memory": {
-            "description": "Memory a Server of this type will have in GB",
+            "description": "Memory a Server of this type will have in GB.",
             "example": 2,
             "type": "number"
           },
           "name": {
-            "description": "Unique identifier of the Server type",
+            "description": "Unique identifier of the Server type.",
             "example": "cpx11",
             "type": "string"
           },
@@ -6736,7 +6736,7 @@
             "type": "string"
           },
           "public_key": {
-            "description": "Public key",
+            "description": "Public key.",
             "example": "ssh-rsa AAAjjk76kgf...Xt",
             "type": "string"
           }
@@ -6857,17 +6857,17 @@
         "description": "An update to a service for a Load Balancer.",
         "properties": {
           "destination_port": {
-            "description": "Port the Load Balancer will balance to",
+            "description": "Port the Load Balancer will balance to.",
             "example": 80,
             "type": "integer"
           },
           "health_check": {
             "additionalProperties": false,
-            "description": "Service health check",
+            "description": "Service health check.",
             "properties": {
               "http": {
                 "additionalProperties": false,
-                "description": "Additional configuration for protocol http",
+                "description": "Additional configuration for protocol http.",
                 "properties": {
                   "domain": {
                     "description": "Host header to send in the HTTP request. May not contain spaces, percent or backslash symbols. Can be null, in that case no host header is sent.",
@@ -6881,7 +6881,7 @@
                     "type": "string"
                   },
                   "response": {
-                    "description": "String that must be contained in HTTP response in order to pass the health check",
+                    "description": "String that must be contained in HTTP response in order to pass the health check.",
                     "example": "{\"status\": \"ok\"}",
                     "type": "string"
                   },
@@ -6901,7 +6901,7 @@
                     "type": "array"
                   },
                   "tls": {
-                    "description": "Use HTTPS for health check",
+                    "description": "Use HTTPS for health check.",
                     "example": false,
                     "type": "boolean"
                   }
@@ -6909,17 +6909,17 @@
                 "type": "object"
               },
               "interval": {
-                "description": "Time interval in seconds health checks are performed",
+                "description": "Time interval in seconds health checks are performed.",
                 "example": 15,
                 "type": "integer"
               },
               "port": {
-                "description": "Port the health check will be performed on",
+                "description": "Port the health check will be performed on.",
                 "example": 4711,
                 "type": "integer"
               },
               "protocol": {
-                "description": "Type of the health check",
+                "description": "Type of the health check.",
                 "enum": [
                   "http",
                   "tcp"
@@ -6928,12 +6928,12 @@
                 "type": "string"
               },
               "retries": {
-                "description": "Unsuccessful retries needed until a target is considered unhealthy; an unhealthy target needs the same number of successful retries to become healthy again",
+                "description": "Unsuccessful retries needed until a target is considered unhealthy; an unhealthy target needs the same number of successful retries to become healthy again.",
                 "example": 3,
                 "type": "integer"
               },
               "timeout": {
-                "description": "Time in seconds after an attempt is considered a timeout",
+                "description": "Time in seconds after an attempt is considered a timeout.",
                 "example": 10,
                 "type": "integer"
               }
@@ -6945,12 +6945,12 @@
             "$ref": "#/components/schemas/http"
           },
           "listen_port": {
-            "description": "Port the Load Balancer listens on",
+            "description": "Port the Load Balancer listens on.",
             "example": 443,
             "type": "integer"
           },
           "protocol": {
-            "description": "Protocol of the Load Balancer",
+            "description": "Protocol of the Load Balancer.",
             "enum": [
               "http",
               "https",
@@ -6960,7 +6960,7 @@
             "type": "string"
           },
           "proxyprotocol": {
-            "description": "Is Proxyprotocol enabled or not",
+            "description": "Is Proxyprotocol enabled or not.",
             "example": false,
             "type": "boolean"
           }
@@ -6996,7 +6996,7 @@
             "type": "string"
           },
           "format": {
-            "description": "Filesystem of the Volume if formatted on creation, null if not formatted on creation",
+            "description": "Filesystem of the Volume if formatted on creation, null if not formatted on creation.",
             "example": "xfs",
             "nullable": true,
             "type": "string"
@@ -7012,7 +7012,7 @@
             "$ref": "#/components/schemas/labels"
           },
           "linux_device": {
-            "description": "Device path on the file system for the Volume",
+            "description": "Device path on the file system for the Volume.",
             "example": "/dev/disk/by-id/scsi-0HC_Volume_4711",
             "type": "string"
           },
@@ -7028,14 +7028,14 @@
             "$ref": "#/components/schemas/protection"
           },
           "server": {
-            "description": "ID of the Server the Volume is attached to, null if it is not attached at all",
+            "description": "ID of the Server the Volume is attached to, null if it is not attached at all.",
             "example": 12,
             "format": "int64",
             "nullable": true,
             "type": "integer"
           },
           "size": {
-            "description": "Size in GB of the Volume",
+            "description": "Size in GB of the Volume.",
             "example": 42,
             "type": "number"
           },
@@ -7125,7 +7125,7 @@
                 }
               }
             },
-            "description": "Request succeeded."
+            "description": "Response for listing [Actions](#actions)."
           }
         },
         "summary": "Get multiple Actions",
@@ -7169,7 +7169,7 @@
                 }
               }
             },
-            "description": "The `action` key in the reply has this structure"
+            "description": "Response for getting an [Action](#actions)."
           }
         },
         "summary": "Get an Action",
@@ -7321,7 +7321,7 @@
                 }
               }
             },
-            "description": "The `certificates` key contains an array of Certificate objects"
+            "description": "The `certificates` key contains an array of Certificate objects."
           }
         },
         "summary": "Get all Certificates",
@@ -7537,7 +7537,7 @@
         ],
         "responses": {
           "204": {
-            "description": "Certificate deleted"
+            "description": "Certificate deleted."
           }
         },
         "summary": "Delete a Certificate",
@@ -7616,7 +7616,7 @@
                 }
               }
             },
-            "description": "The `certificate` key contains a Certificate object"
+            "description": "The `certificate` key contains a Certificate object."
           }
         },
         "summary": "Get a Certificate",
@@ -7704,7 +7704,7 @@
                 }
               }
             },
-            "description": "The `certificate` key contains the Certificate that was just updated"
+            "description": "The `certificate` key contains the Certificate that was just updated."
           }
         },
         "summary": "Update a Certificate",
@@ -7856,7 +7856,7 @@
                 }
               }
             },
-            "description": "The `actions` key contains a list of Actions"
+            "description": "The `actions` key contains a list of Actions."
           }
         },
         "summary": "Get all Actions for a Certificate",
@@ -7926,7 +7926,7 @@
                 }
               }
             },
-            "description": "The `action` key contains the Certificate Action"
+            "description": "The `action` key contains the Certificate Action."
           }
         },
         "summary": "Get an Action for a Certificate",
@@ -7983,7 +7983,7 @@
                 }
               }
             },
-            "description": "The `action` key contains the resulting Action"
+            "description": "The `action` key contains the resulting Action."
           }
         },
         "summary": "Retry Issuance or Renewal",
@@ -8102,7 +8102,7 @@
                 }
               }
             },
-            "description": "The `actions` key contains a list of Actions"
+            "description": "The `actions` key contains a list of Actions."
           }
         },
         "summary": "Get all Actions",
@@ -8151,7 +8151,7 @@
                 }
               }
             },
-            "description": "The `action` key in the reply has this structure"
+            "description": "The `action` key in the reply has this structure."
           }
         },
         "summary": "Get an Action",
@@ -8514,7 +8514,7 @@
         ],
         "responses": {
           "204": {
-            "description": "Firewall deleted"
+            "description": "Firewall deleted."
           }
         },
         "summary": "Delete a Firewall",
@@ -10500,7 +10500,7 @@
             }
           },
           {
-            "description": "Can be used multiple times. Server ID linked to the Image. Only available for Images of type `backup`",
+            "description": "Can be used multiple times. Server ID linked to the Image. Only available for Images of type `backup`.",
             "in": "query",
             "name": "bound_to",
             "required": false,
@@ -10584,7 +10584,7 @@
                 }
               }
             },
-            "description": "The `images` key in the reply contains an array of Image objects with this structure"
+            "description": "The `images` key in the reply contains an array of Image objects with this structure."
           }
         },
         "summary": "Get all Images",
@@ -10631,7 +10631,7 @@
         ],
         "responses": {
           "204": {
-            "description": "Image deleted"
+            "description": "Image deleted."
           }
         },
         "summary": "Delete an Image",
@@ -10683,7 +10683,7 @@
                 }
               }
             },
-            "description": "The `image` key in the reply contains an Image object with this structure"
+            "description": "The `image` key in the reply contains an Image object with this structure."
           }
         },
         "summary": "Get an Image",
@@ -10773,7 +10773,7 @@
                 }
               }
             },
-            "description": "The image key in the reply contains the modified Image object"
+            "description": "The image key in the reply contains the modified Image object."
           }
         },
         "summary": "Update an Image",
@@ -10924,7 +10924,7 @@
                 }
               }
             },
-            "description": "The `actions` key contains a list of Actions"
+            "description": "The `actions` key contains a list of Actions."
           }
         },
         "summary": "Get all Actions for an Image",
@@ -10994,7 +10994,7 @@
                 }
               }
             },
-            "description": "The `action` key contains the Image Action"
+            "description": "The `action` key contains the Image Action."
           }
         },
         "summary": "Get an Action for an Image",
@@ -11060,7 +11060,7 @@
                 }
               }
             },
-            "description": "The `action` key contains the `change_protection` Action"
+            "description": "The `action` key contains the `change_protection` Action."
           }
         },
         "summary": "Change Image Protection",
@@ -11179,7 +11179,7 @@
                 }
               }
             },
-            "description": "The `actions` key contains a list of Actions"
+            "description": "The `actions` key contains a list of Actions."
           }
         },
         "summary": "Get all Actions",
@@ -11228,7 +11228,7 @@
                 }
               }
             },
-            "description": "The `action` key in the reply has this structure"
+            "description": "The `action` key in the reply has this structure."
           }
         },
         "summary": "Get an Action",
@@ -11321,7 +11321,7 @@
                 }
               }
             },
-            "description": "The `isos` key in the reply contains an array of iso objects with this structure"
+            "description": "The `isos` key in the reply contains an array of iso objects with this structure."
           }
         },
         "summary": "Get all ISOs",
@@ -11375,7 +11375,7 @@
                 }
               }
             },
-            "description": "The `iso` key in the reply contains an array of ISO objects with this structure"
+            "description": "The `iso` key in the reply contains an array of ISO objects with this structure."
           }
         },
         "summary": "Get an ISO",
@@ -11449,7 +11449,7 @@
                 }
               }
             },
-            "description": "The `load_balancer_types` key in the reply contains an array of Load Balancer type objects with this structure"
+            "description": "The `load_balancer_types` key in the reply contains an array of Load Balancer type objects with this structure."
           }
         },
         "summary": "Get all Load Balancer Types",
@@ -11503,7 +11503,7 @@
                 }
               }
             },
-            "description": "The `load_balancer_type` key in the reply contains a Load Balancer type object with this structure"
+            "description": "The `load_balancer_type` key in the reply contains a Load Balancer type object with this structure."
           }
         },
         "summary": "Get a Load Balancer Type",
@@ -11606,7 +11606,7 @@
                 }
               }
             },
-            "description": "The `load_balancers` key contains a list of Load Balancers"
+            "description": "The `load_balancers` key contains a list of Load Balancers."
           }
         },
         "summary": "Get all Load Balancers",
@@ -11805,7 +11805,7 @@
                 }
               }
             },
-            "description": "The `load_balancer` key contains the Load Balancer that was just created"
+            "description": "The `load_balancer` key contains the Load Balancer that was just created."
           }
         },
         "summary": "Create a Load Balancer",
@@ -11852,7 +11852,7 @@
         ],
         "responses": {
           "204": {
-            "description": "Load Balancer deleted"
+            "description": "Load Balancer deleted."
           }
         },
         "summary": "Delete a Load Balancer",
@@ -11904,7 +11904,7 @@
                 }
               }
             },
-            "description": "The `load_balancer` key contains the Load Balancer"
+            "description": "The `load_balancer` key contains the Load Balancer."
           }
         },
         "summary": "Get a Load Balancer",
@@ -12106,7 +12106,7 @@
                 }
               }
             },
-            "description": "The `load_balancer` key contains the updated Load Balancer"
+            "description": "The `load_balancer` key contains the updated Load Balancer."
           }
         },
         "summary": "Update a Load Balancer",
@@ -12257,7 +12257,7 @@
                 }
               }
             },
-            "description": "The `actions` key contains a list of Actions"
+            "description": "The `actions` key contains a list of Actions."
           }
         },
         "summary": "Get all Actions for a Load Balancer",
@@ -12327,7 +12327,7 @@
                 }
               }
             },
-            "description": "The `action` key contains the Load Balancer Action"
+            "description": "The `action` key contains the Load Balancer Action."
           }
         },
         "summary": "Get an Action for a Load Balancer",
@@ -12393,7 +12393,7 @@
                 }
               }
             },
-            "description": "The `action` key contains the `add_service` Action"
+            "description": "The `action` key contains the `add_service` Action."
           }
         },
         "summary": "Add Service",
@@ -12476,7 +12476,7 @@
                 }
               }
             },
-            "description": "The `action` key contains the `add_target` Action"
+            "description": "The `action` key contains the `add_target` Action."
           }
         },
         "summary": "Add Target",
@@ -12559,7 +12559,7 @@
                 }
               }
             },
-            "description": "The `action` key contains the `attach_to_network` Action"
+            "description": "The `action` key contains the `attach_to_network` Action."
           }
         },
         "summary": "Attach a Load Balancer to a Network",
@@ -12642,7 +12642,7 @@
                 }
               }
             },
-            "description": "The `action` key contains the `change_algorithm` Action"
+            "description": "The `action` key contains the `change_algorithm` Action."
           }
         },
         "summary": "Change Algorithm",
@@ -12726,7 +12726,7 @@
                 }
               }
             },
-            "description": "The `action` key in the reply contains an Action object with this structure"
+            "description": "The `action` key in the reply contains an Action object with this structure."
           }
         },
         "summary": "Change reverse DNS entry for this Load Balancer",
@@ -12809,7 +12809,7 @@
                 }
               }
             },
-            "description": "The `action` key contains the `change_protection` Action"
+            "description": "The `action` key contains the `change_protection` Action."
           }
         },
         "summary": "Change Load Balancer Protection",
@@ -12892,7 +12892,7 @@
                 }
               }
             },
-            "description": "The `action` key contains the `change_load_balancer_type` Action"
+            "description": "The `action` key contains the `change_load_balancer_type` Action."
           }
         },
         "summary": "Change the Type of a Load Balancer",
@@ -12975,7 +12975,7 @@
                 }
               }
             },
-            "description": "The `action` key contains the `delete_service` Action"
+            "description": "The `action` key contains the `delete_service` Action."
           }
         },
         "summary": "Delete Service",
@@ -13062,7 +13062,7 @@
                 }
               }
             },
-            "description": "The `action` key contains the `detach_from_network` Action"
+            "description": "The `action` key contains the `detach_from_network` Action."
           }
         },
         "summary": "Detach a Load Balancer from a Network",
@@ -13140,7 +13140,7 @@
                 }
               }
             },
-            "description": "The `action` key contains the `disable_public_interface` Action"
+            "description": "The `action` key contains the `disable_public_interface` Action."
           }
         },
         "summary": "Disable the public interface of a Load Balancer",
@@ -13218,7 +13218,7 @@
                 }
               }
             },
-            "description": "The `action` key contains the `enable_public_interface` Action"
+            "description": "The `action` key contains the `enable_public_interface` Action."
           }
         },
         "summary": "Enable the public interface of a Load Balancer",
@@ -13301,7 +13301,7 @@
                 }
               }
             },
-            "description": "The `action` key contains the `remove_target` Action"
+            "description": "The `action` key contains the `remove_target` Action."
           }
         },
         "summary": "Remove Target",
@@ -13384,7 +13384,7 @@
                 }
               }
             },
-            "description": "The `action` key contains the `update_service` Action"
+            "description": "The `action` key contains the `update_service` Action."
           }
         },
         "summary": "Update Service",
@@ -13429,7 +13429,7 @@
             }
           },
           {
-            "description": "Type of metrics to get",
+            "description": "Type of metrics to get.",
             "in": "query",
             "name": "type",
             "required": true,
@@ -13444,7 +13444,7 @@
             }
           },
           {
-            "description": "Start of period to get Metrics for (in ISO-8601 format)",
+            "description": "Start of period to get Metrics for (in ISO-8601 format).",
             "in": "query",
             "name": "start",
             "required": true,
@@ -13453,7 +13453,7 @@
             }
           },
           {
-            "description": "End of period to get Metrics for (in ISO-8601 format)",
+            "description": "End of period to get Metrics for (in ISO-8601 format).",
             "in": "query",
             "name": "end",
             "required": true,
@@ -13462,7 +13462,7 @@
             }
           },
           {
-            "description": "Resolution of results in seconds",
+            "description": "Resolution of results in seconds.",
             "in": "query",
             "name": "step",
             "required": false,
@@ -13480,7 +13480,7 @@
                 }
               }
             },
-            "description": "The `metrics` key in the reply contains a metrics object with this structure"
+            "description": "The `metrics` key in the reply contains a metrics object with this structure."
           }
         },
         "summary": "Get Metrics for a LoadBalancer",
@@ -13599,7 +13599,7 @@
                 }
               }
             },
-            "description": "The `actions` key contains a list of Actions"
+            "description": "The `actions` key contains a list of Actions."
           }
         },
         "summary": "Get all Actions",
@@ -13648,7 +13648,7 @@
                 }
               }
             },
-            "description": "The `action` key in the reply has this structure"
+            "description": "The `action` key in the reply has this structure."
           }
         },
         "summary": "Get an Action",
@@ -14036,7 +14036,7 @@
                 }
               }
             },
-            "description": "The `network` key contains the network"
+            "description": "The `network` key contains the network."
           }
         },
         "summary": "Get a Network",
@@ -15025,7 +15025,7 @@
     },
     "/placement_groups": {
       "get": {
-        "description": "Returns all PlacementGroup objects.",
+        "description": "Returns all Placement Group objects.",
         "operationId": "list_placementgroups",
         "parameters": [
           {
@@ -15141,7 +15141,7 @@
                 }
               }
             },
-            "description": "The `placement_groups` key contains an array of PlacementGroup objects"
+            "description": "The `placement_groups` key contains an array of Placement Group objects."
           }
         },
         "summary": "Get all PlacementGroups",
@@ -15167,7 +15167,7 @@
         ]
       },
       "post": {
-        "description": "Creates a new PlacementGroup.\n",
+        "description": "Creates a new Placement Group.\n",
         "operationId": "create_placementgroup",
         "requestBody": {
           "content": {
@@ -15203,7 +15203,7 @@
                 }
               }
             },
-            "description": "The `PlacementGroup` key contains the PlacementGroup that was just created."
+            "description": "The `PlacementGroup` key contains the Placement Group that was just created."
           }
         },
         "summary": "Create a PlacementGroup",
@@ -15231,7 +15231,7 @@
     },
     "/placement_groups/{id}": {
       "delete": {
-        "description": "Deletes a PlacementGroup.",
+        "description": "Deletes a Placement Group.",
         "operationId": "delete_placementgroup",
         "parameters": [
           {
@@ -15250,7 +15250,7 @@
         ],
         "responses": {
           "204": {
-            "description": "PlacementGroup deleted"
+            "description": "Placement Group deleted."
           }
         },
         "summary": "Delete a PlacementGroup",
@@ -15276,7 +15276,7 @@
         ]
       },
       "get": {
-        "description": "Gets a specific PlacementGroup object.",
+        "description": "Gets a specific Placement Group object.",
         "operationId": "get_placementgroup",
         "parameters": [
           {
@@ -15317,7 +15317,7 @@
                 }
               }
             },
-            "description": "The `placement_group` key contains a PlacementGroup object"
+            "description": "The `placement_group` key contains a Placement Group object."
           }
         },
         "summary": "Get a PlacementGroup",
@@ -15343,7 +15343,7 @@
         ]
       },
       "put": {
-        "description": "Updates the PlacementGroup properties.\n\nNote: if the PlacementGroup object changes during the request, the response will be a “conflict” error.\n",
+        "description": "Updates the Placement Group properties.\n\nNote: if the Placement Group object changes during the request, the response will be a “conflict” error.\n",
         "operationId": "replace_placementgroup",
         "parameters": [
           {
@@ -15393,7 +15393,7 @@
                 }
               }
             },
-            "description": "The `certificate` key contains the PlacementGroup that was just updated"
+            "description": "The `certificate` key contains the Placement Group that was just updated."
           }
         },
         "summary": "Update a PlacementGroup",
@@ -15432,7 +15432,7 @@
                 }
               }
             },
-            "description": "The `pricing` key in the reply contains an pricing object with this structure"
+            "description": "The `pricing` key in the reply contains an pricing object with this structure."
           }
         },
         "summary": "Get all prices",
@@ -16383,7 +16383,7 @@
                 }
               }
             },
-            "description": "The `server_types` key in the reply contains an array of Server type objects with this structure"
+            "description": "The `server_types` key in the reply contains an array of Server type objects with this structure."
           }
         },
         "summary": "Get all Server Types",
@@ -16437,7 +16437,7 @@
                 }
               }
             },
-            "description": "The `server_type` key in the reply contains a Server type object with this structure"
+            "description": "The `server_type` key in the reply contains a Server type object with this structure."
           }
         },
         "summary": "Get a Server Type",
@@ -16465,7 +16465,7 @@
     },
     "/servers": {
       "get": {
-        "description": "Returns all existing Server objects",
+        "description": "Returns all existing Server objects.",
         "operationId": "list_servers",
         "parameters": [
           {
@@ -16561,10 +16561,10 @@
                 }
               }
             },
-            "description": "A paged array of servers",
+            "description": "A paged array of servers.",
             "headers": {
               "x-next": {
-                "description": "A link to the next page of responses",
+                "description": "A link to the next page of responses.",
                 "schema": {
                   "type": "string"
                 }
@@ -16813,7 +16813,7 @@
                 }
               }
             },
-            "description": "The `server` key in the reply contains a Server object with this structure"
+            "description": "The `server` key in the reply contains a Server object with this structure."
           }
         },
         "summary": "Create a Server",
@@ -16867,7 +16867,7 @@
                 }
               }
             },
-            "description": "The `action` key in the reply contains an Action object with this structure"
+            "description": "The `action` key in the reply contains an Action object with this structure."
           }
         },
         "summary": "Delete a Server",
@@ -16893,7 +16893,7 @@
         ]
       },
       "get": {
-        "description": "Returns a specific Server object. The Server must exist inside the Project",
+        "description": "Returns a specific Server object. The Server must exist inside the Project.",
         "operationId": "get_server",
         "parameters": [
           {
@@ -16919,7 +16919,7 @@
                 }
               }
             },
-            "description": "The `server` key in the reply contains a Server object with this structure"
+            "description": "The `server` key in the reply contains a Server object with this structure."
           }
         },
         "summary": "Get a Server",
@@ -16980,7 +16980,7 @@
                 }
               }
             },
-            "description": "The `server` key in the reply contains the updated Server"
+            "description": "The `server` key in the reply contains the updated Server."
           }
         },
         "summary": "Update a Server",
@@ -17132,7 +17132,7 @@
                 }
               }
             },
-            "description": "The `actions` key contains a list of Actions"
+            "description": "The `actions` key contains a list of Actions."
           }
         },
         "summary": "Get all Actions for a Server",
@@ -17202,7 +17202,7 @@
                 }
               }
             },
-            "description": "The `action` key in the reply has this structure"
+            "description": "The `action` key in the reply has this structure."
           }
         },
         "summary": "Get an Action for a Server",
@@ -17268,7 +17268,7 @@
                 }
               }
             },
-            "description": "The `action` key in the reply contains an Action object with this structure"
+            "description": "The `action` key in the reply contains an Action object with this structure."
           }
         },
         "summary": "Add a Server to a Placement Group",
@@ -17351,7 +17351,7 @@
                 }
               }
             },
-            "description": "The `action` key in the reply contains an Action object with this structure"
+            "description": "The `action` key in the reply contains an Action object with this structure."
           }
         },
         "summary": "Attach an ISO to a Server",
@@ -17438,7 +17438,7 @@
                 }
               }
             },
-            "description": "The `action` key in the reply contains an Action object with this structure"
+            "description": "The `action` key in the reply contains an Action object with this structure."
           }
         },
         "summary": "Attach a Server to a Network",
@@ -17525,7 +17525,7 @@
                 }
               }
             },
-            "description": "The `action` key in the reply contains an Action object with this structure"
+            "description": "The `action` key in the reply contains an Action object with this structure."
           }
         },
         "summary": "Change alias IPs of a Network",
@@ -17609,7 +17609,7 @@
                 }
               }
             },
-            "description": "The `action` key in the reply contains an Action object with this structure"
+            "description": "The `action` key in the reply contains an Action object with this structure."
           }
         },
         "summary": "Change reverse DNS entry for this Server",
@@ -17692,7 +17692,7 @@
                 }
               }
             },
-            "description": "The `action` key in the reply contains an Action object with this structure"
+            "description": "The `action` key in the reply contains an Action object with this structure."
           }
         },
         "summary": "Change Server Protection",
@@ -17775,7 +17775,7 @@
                 }
               }
             },
-            "description": "The `action` key in the reply contains an Action object with this structure"
+            "description": "The `action` key in the reply contains an Action object with this structure."
           }
         },
         "summary": "Change the Type of a Server",
@@ -17885,7 +17885,7 @@
                 }
               }
             },
-            "description": "The `image` key in the reply contains an the created Image, which is an object with this structure\n\nThe `action` key in the reply contains an Action object with this structure\n"
+            "description": "The `image` key in the reply contains an the created Image, which is an object with this structure.\n\nThe `action` key in the reply contains an Action object with this structure.\n"
           }
         },
         "summary": "Create Image from a Server",
@@ -17972,7 +17972,7 @@
                 }
               }
             },
-            "description": "The `action` key in the reply contains an Action object with this structure"
+            "description": "The `action` key in the reply contains an Action object with this structure."
           }
         },
         "summary": "Detach a Server from a Network",
@@ -18000,7 +18000,7 @@
     },
     "/servers/{id}/actions/detach_iso": {
       "post": {
-        "description": "Detaches an ISO from a Server. In case no ISO Image is attached to the Server, the status of the returned Action is immediately set to `success`",
+        "description": "Detaches an ISO from a Server. In case no ISO Image is attached to the Server, the status of the returned Action is immediately set to `success`.",
         "operationId": "detach_iso_from_server",
         "parameters": [
           {
@@ -18046,7 +18046,7 @@
                 }
               }
             },
-            "description": "The `action` key in the reply contains an Action object with this structure"
+            "description": "The `action` key in the reply contains an Action object with this structure."
           }
         },
         "summary": "Detach an ISO from a Server",
@@ -18120,7 +18120,7 @@
                 }
               }
             },
-            "description": "The `action` key in the reply contains an Action object with this structure"
+            "description": "The `action` key in the reply contains an Action object with this structure."
           }
         },
         "summary": "Disable Backups for a Server",
@@ -18194,7 +18194,7 @@
                 }
               }
             },
-            "description": "The `action` key in the reply contains an Action object with this structure"
+            "description": "The `action` key in the reply contains an Action object with this structure."
           }
         },
         "summary": "Disable Rescue Mode for a Server",
@@ -18268,7 +18268,7 @@
                 }
               }
             },
-            "description": "The `action` key in the reply contains an Action object with this structure"
+            "description": "The `action` key in the reply contains an Action object with this structure."
           }
         },
         "summary": "Enable and Configure Backups for a Server",
@@ -18352,7 +18352,7 @@
                 }
               }
             },
-            "description": "The `root_password` key in the reply contains the root password that can be used to access the booted rescue system.\n\nThe `action` key in the reply contains an Action object with this structure\n"
+            "description": "The `root_password` key in the reply contains the root password that can be used to access the booted rescue system.\n\nThe `action` key in the reply contains an Action object with this structure.\n"
           }
         },
         "summary": "Enable Rescue Mode for a Server",
@@ -18426,7 +18426,7 @@
                 }
               }
             },
-            "description": "The `action` key in the reply contains an Action object with this structure"
+            "description": "The `action` key in the reply contains an Action object with this structure."
           }
         },
         "summary": "Power off a Server",
@@ -18500,7 +18500,7 @@
                 }
               }
             },
-            "description": "The `action` key in the reply contains an Action object with this structure"
+            "description": "The `action` key in the reply contains an Action object with this structure."
           }
         },
         "summary": "Power on a Server",
@@ -18574,7 +18574,7 @@
                 }
               }
             },
-            "description": "The `action` key in the reply contains an Action object with this structure"
+            "description": "The `action` key in the reply contains an Action object with this structure."
           }
         },
         "summary": "Soft-reboot a Server",
@@ -18659,7 +18659,7 @@
                 }
               }
             },
-            "description": "The `action` key in the reply contains an Action object with this structure"
+            "description": "The `action` key in the reply contains an Action object with this structure."
           }
         },
         "summary": "Rebuild a Server from an Image",
@@ -18733,7 +18733,7 @@
                 }
               }
             },
-            "description": "The `action` key in the reply contains an Action object with this structure"
+            "description": "The `action` key in the reply contains an Action object with this structure."
           }
         },
         "summary": "Remove from Placement Group",
@@ -18809,7 +18809,7 @@
                 }
               }
             },
-            "description": "The `action` key in the reply contains an Action object with this structure"
+            "description": "The `action` key in the reply contains an Action object with this structure."
           }
         },
         "summary": "Request Console for a Server",
@@ -18883,7 +18883,7 @@
                 }
               }
             },
-            "description": "The `action` key in the reply contains an Action object with this structure"
+            "description": "The `action` key in the reply contains an Action object with this structure."
           }
         },
         "summary": "Reset a Server",
@@ -18958,7 +18958,7 @@
                 }
               }
             },
-            "description": "The `root_password` key in the reply contains the new root password that will be active if the Action succeeds.\n\nThe `action` key in the reply contains an Action object with this structure:\n"
+            "description": "The `root_password` key in the reply contains the new root password that will be active if the Action succeeds.\n\nThe `action` key in the reply contains an Action object with this structure.\n"
           }
         },
         "summary": "Reset root Password of a Server",
@@ -18986,7 +18986,7 @@
     },
     "/servers/{id}/actions/shutdown": {
       "post": {
-        "description": "Shuts down a Server gracefully by sending an ACPI shutdown request. The Server operating system must support ACPI\nand react to the request, otherwise the Server will not shut down. Please note that the `action` status in this case\nonly reflects whether the action was sent to the server. It does not mean that the server actually shut down\nsuccessfully. If you need to ensure that the server is off, use the `poweroff` action\n",
+        "description": "Shuts down a Server gracefully by sending an ACPI shutdown request. The Server operating system must support ACPI\nand react to the request, otherwise the Server will not shut down. Please note that the `action` status in this case\nonly reflects whether the action was sent to the server. It does not mean that the server actually shut down\nsuccessfully. If you need to ensure that the server is off, use the `poweroff` action.\n",
         "operationId": "shutdown_server",
         "parameters": [
           {
@@ -19032,7 +19032,7 @@
                 }
               }
             },
-            "description": "The `action` key in the reply contains an Action object with this structure"
+            "description": "The `action` key in the reply contains an Action object with this structure."
           }
         },
         "summary": "Shutdown a Server",
@@ -19077,7 +19077,7 @@
             }
           },
           {
-            "description": "Type of metrics to get",
+            "description": "Type of metrics to get.",
             "in": "query",
             "name": "type",
             "required": true,
@@ -19091,7 +19091,7 @@
             }
           },
           {
-            "description": "Start of period to get Metrics for (in ISO-8601 format)",
+            "description": "Start of period to get Metrics for (in ISO-8601 format).",
             "in": "query",
             "name": "start",
             "required": true,
@@ -19100,7 +19100,7 @@
             }
           },
           {
-            "description": "End of period to get Metrics for (in ISO-8601 format)",
+            "description": "End of period to get Metrics for (in ISO-8601 format).",
             "in": "query",
             "name": "end",
             "required": true,
@@ -19109,7 +19109,7 @@
             }
           },
           {
-            "description": "Resolution of results in seconds",
+            "description": "Resolution of results in seconds.",
             "in": "query",
             "name": "step",
             "required": false,
@@ -19127,7 +19127,7 @@
                 }
               }
             },
-            "description": "The `metrics` key in the reply contains a metrics object with this structure"
+            "description": "The `metrics` key in the reply contains a metrics object with this structure."
           }
         },
         "summary": "Get Metrics for a Server",
@@ -19246,7 +19246,7 @@
                 }
               }
             },
-            "description": "The `actions` key contains a list of Actions"
+            "description": "The `actions` key contains a list of Actions."
           }
         },
         "summary": "Get all Actions",
@@ -19295,7 +19295,7 @@
                 }
               }
             },
-            "description": "The `action` key in the reply has this structure"
+            "description": "The `action` key in the reply has this structure."
           }
         },
         "summary": "Get an Action",
@@ -19399,7 +19399,7 @@
                 }
               }
             },
-            "description": "The `ssh_keys` key in the reply contains an array of SSH key objects with this structure"
+            "description": "The `ssh_keys` key in the reply contains an array of SSH key objects with this structure."
           }
         },
         "summary": "Get all SSH keys",
@@ -19445,7 +19445,7 @@
                 }
               }
             },
-            "description": "The `ssh_key` key in the reply contains the object that was just created"
+            "description": "The `ssh_key` key in the reply contains the object that was just created."
           }
         },
         "summary": "Create an SSH key",
@@ -19492,7 +19492,7 @@
         ],
         "responses": {
           "204": {
-            "description": "SSH key deleted"
+            "description": "SSH key deleted."
           }
         },
         "summary": "Delete an SSH key",
@@ -19544,7 +19544,7 @@
                 }
               }
             },
-            "description": "The `ssh_key` key in the reply contains an SSH key object with this structure"
+            "description": "The `ssh_key` key in the reply contains an SSH key object with this structure."
           }
         },
         "summary": "Get a SSH key",
@@ -19617,7 +19617,7 @@
                 }
               }
             },
-            "description": "The `ssh_key` key in the reply contains the modified SSH key object with the new description"
+            "description": "The `ssh_key` key in the reply contains the modified SSH key object with the new description."
           }
         },
         "summary": "Update an SSH key",
@@ -19735,7 +19735,7 @@
                 }
               }
             },
-            "description": "The `volumes` key contains a list of volumes"
+            "description": "The `volumes` key contains a list of volumes."
           }
         },
         "summary": "Get all Volumes",
@@ -19865,7 +19865,7 @@
                 }
               }
             },
-            "description": "The `volume` key contains the Volume that was just created\n\nThe `action` key contains the Action tracking Volume creation\n"
+            "description": "The `volume` key contains the Volume that was just created.\n\nThe `action` key contains the Action tracking Volume creation.\n"
           }
         },
         "summary": "Create a Volume",
@@ -19912,7 +19912,7 @@
         ],
         "responses": {
           "204": {
-            "description": "Volume deleted"
+            "description": "Volume deleted."
           }
         },
         "summary": "Delete a Volume",
@@ -19964,7 +19964,7 @@
                 }
               }
             },
-            "description": "The `volume` key contains the volume"
+            "description": "The `volume` key contains the volume."
           }
         },
         "summary": "Get a Volume",
@@ -20053,7 +20053,7 @@
                 }
               }
             },
-            "description": "The `volume` key contains the updated volume"
+            "description": "The `volume` key contains the updated volume."
           }
         },
         "summary": "Update a Volume",
@@ -20208,7 +20208,7 @@
                 }
               }
             },
-            "description": "The `actions` key contains a list of Actions"
+            "description": "The `actions` key contains a list of Actions."
           }
         },
         "summary": "Get all Actions for a Volume",
@@ -20278,7 +20278,7 @@
                 }
               }
             },
-            "description": "The `action` key contains the Volume Action"
+            "description": "The `action` key contains the Volume Action."
           }
         },
         "summary": "Get an Action for a Volume",
@@ -20348,7 +20348,7 @@
                 }
               }
             },
-            "description": "The `action` key contains the `attach_volume` Action"
+            "description": "The `action` key contains the `attach_volume` Action."
           }
         },
         "summary": "Attach Volume to a Server",
@@ -20435,7 +20435,7 @@
                 }
               }
             },
-            "description": "The `action` key contains the `change_protection` Action"
+            "description": "The `action` key contains the `change_protection` Action."
           }
         },
         "summary": "Change Volume Protection",
@@ -20509,7 +20509,7 @@
                 }
               }
             },
-            "description": "The `action` key contains the `detach_volume` Action"
+            "description": "The `action` key contains the `detach_volume` Action."
           }
         },
         "summary": "Detach Volume",
@@ -20592,7 +20592,7 @@
                 }
               }
             },
-            "description": "The `action` key contains the `resize_volume` Action"
+            "description": "The `action` key contains the `resize_volume` Action."
           }
         },
         "summary": "Resize Volume",
@@ -20711,7 +20711,7 @@
                 }
               }
             },
-            "description": "The `actions` key contains a list of Actions"
+            "description": "The `actions` key contains a list of Actions."
           }
         },
         "summary": "Get all Actions",
@@ -20760,7 +20760,7 @@
                 }
               }
             },
-            "description": "The `action` key in the reply has this structure"
+            "description": "The `action` key in the reply has this structure."
           }
         },
         "summary": "Get an Action",
