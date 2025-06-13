@@ -1692,7 +1692,7 @@
               },
               "ip": {
                 "description": "IP address.",
-                "example": "131.232.99.1",
+                "example": "2001:db8::/64",
                 "type": "string"
               },
               "labels": {
@@ -2664,7 +2664,7 @@
           },
           "ip": {
             "description": "IP address.",
-            "example": "131.232.99.1",
+            "example": "2001:db8::/64",
             "type": "string"
           },
           "labels": {
@@ -3097,7 +3097,7 @@
               },
               "ip": {
                 "description": "IP address.",
-                "example": "131.232.99.1",
+                "example": "2001:db8::/64",
                 "type": "string"
               },
               "labels": {
@@ -3503,6 +3503,7 @@
           "ipv4",
           "ipv6"
         ],
+        "example": "ipv6",
         "type": "string"
       },
       "ipv4": {
@@ -4411,7 +4412,7 @@
                 },
                 "ip": {
                   "description": "IP address.",
-                  "example": "131.232.99.1",
+                  "example": "2001:db8::/64",
                   "type": "string"
                 },
                 "labels": {
@@ -5924,7 +5925,7 @@
               },
               "ip": {
                 "description": "IP address.",
-                "example": "131.232.99.1",
+                "example": "2001:db8::/64",
                 "type": "string"
               },
               "labels": {
@@ -9497,7 +9498,7 @@
                       "network_zone": "eu-central"
                     },
                     "id": 4711,
-                    "ip": "131.232.99.1",
+                    "ip": "2001:db8::/64",
                     "labels": {
                       "key": "value"
                     },
@@ -9506,7 +9507,7 @@
                       "delete": false
                     },
                     "server": 42,
-                    "type": "ipv4"
+                    "type": "ipv6"
                   }
                 },
                 "schema": {
@@ -9691,7 +9692,7 @@
                       "network_zone": "eu-central"
                     },
                     "id": 4711,
-                    "ip": "131.232.99.1",
+                    "ip": "2001:db8::/64",
                     "labels": {
                       "key": "value"
                     },
@@ -9700,7 +9701,7 @@
                       "delete": false
                     },
                     "server": 42,
-                    "type": "ipv4"
+                    "type": "ipv6"
                   }
                 },
                 "schema": {
@@ -15638,7 +15639,7 @@
                       }
                     ],
                     "id": 42,
-                    "ip": "131.232.99.1",
+                    "ip": "2001:db8::/64",
                     "labels": {
                       "key": "value"
                     },
@@ -15646,7 +15647,7 @@
                     "protection": {
                       "delete": false
                     },
-                    "type": "ipv4"
+                    "type": "ipv6"
                   }
                 },
                 "schema": {
