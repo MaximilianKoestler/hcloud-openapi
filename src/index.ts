@@ -29,7 +29,7 @@ function parseArgs(): Arguments {
       source: {
         type: "string",
         describe: "URL or local file with OpenAPI spec in JSON",
-        default: "https://docs.hetzner.cloud/spec.json",
+        default: "https://docs.hetzner.cloud/cloud.spec.json",
       },
       output: {
         alias: "o",
