@@ -6,7 +6,7 @@
     },
     "description": "Copied from the official API documentation for the Public Hetzner Cloud.",
     "title": "Hetzner Cloud API",
-    "version": "d8c4672"
+    "version": "f67494b"
   },
   "servers": [
     {
@@ -10198,7 +10198,7 @@
           {
             "label": "CLI",
             "lang": "Shell",
-            "source": "hcloud floating-ip disable-protection $FLOATINGIP delete"
+            "source": "hcloud floating-ip enable-protection $FLOATINGIP delete\nhcloud floating-ip disable-protection $FLOATINGIP delete"
           }
         ]
       }
@@ -11084,7 +11084,7 @@
           {
             "label": "CLI",
             "lang": "Shell",
-            "source": "hcloud image enable-protection $IMAGE delete"
+            "source": "hcloud image enable-protection $IMAGE delete\nhcloud image disable-protection $IMAGE delete"
           }
         ]
       }
@@ -12833,7 +12833,7 @@
           {
             "label": "CLI",
             "lang": "Shell",
-            "source": "hcloud load-balancer enable-protection $LOADBALANCER delete"
+            "source": "hcloud load-balancer enable-protection $LOADBALANCER delete\nhcloud load-balancer disable-protection $LOADBALANCER delete"
           }
         ]
       }
@@ -14692,7 +14692,7 @@
           {
             "label": "CLI",
             "lang": "Shell",
-            "source": "hcloud network enable-protection $NETWORK delete"
+            "source": "hcloud network enable-protection $NETWORK delete\nhcloud network disable-protection $NETWORK delete"
           }
         ]
       }
@@ -16092,7 +16092,7 @@
           {
             "label": "CLI",
             "lang": "Shell",
-            "source": "hcloud primary-ip enable-protection $PRIMARYIP delete"
+            "source": "hcloud primary-ip enable-protection $PRIMARYIP delete\nhcloud primary-ip disable-protection $PRIMARYIP delete"
           }
         ]
       }
@@ -17716,7 +17716,7 @@
           {
             "label": "CLI",
             "lang": "Shell",
-            "source": "hcloud server enable-protection $SERVER delete rebuild"
+            "source": "hcloud server enable-protection $SERVER delete rebuild\nhcloud server disable-protection $SERVER delete rebuild"
           }
         ]
       }
@@ -20459,7 +20459,7 @@
           {
             "label": "CLI",
             "lang": "Shell",
-            "source": "hcloud volume enable-protection $VOLUME delete"
+            "source": "hcloud volume enable-protection $VOLUME delete\nhcloud volume disable-protection $VOLUME delete"
           }
         ]
       }
