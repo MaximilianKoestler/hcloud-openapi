@@ -6,7 +6,7 @@
     },
     "description": "Copied from the official API documentation for the Public Hetzner Cloud.",
     "title": "Hetzner Cloud API",
-    "version": "0fbbe6b"
+    "version": "f2bcd05"
   },
   "servers": [
     {
@@ -7327,7 +7327,7 @@
             "description": "The `certificates` key contains an array of Certificate objects."
           }
         },
-        "summary": "Get all Certificates",
+        "summary": "List Certificates",
         "tags": [
           "certificates"
         ],
@@ -7862,7 +7862,7 @@
             "description": "The `actions` key contains a list of Actions."
           }
         },
-        "summary": "Get all Actions for a Certificate",
+        "summary": "List Actions for a Certificate",
         "tags": [
           "certificates"
         ]
@@ -8108,7 +8108,7 @@
             "description": "The `actions` key contains a list of Actions."
           }
         },
-        "summary": "Get all Actions",
+        "summary": "List Actions",
         "tags": [
           "certificates"
         ],
@@ -8243,7 +8243,7 @@
             "description": "Contains the queried [Datacenters](#datacenters)."
           }
         },
-        "summary": "Get all Datacenters",
+        "summary": "List Datacenters",
         "tags": [
           "datacenters"
         ],
@@ -8400,7 +8400,7 @@
             "description": "The `firewalls` key contains the [Firewalls](#firewalls)."
           }
         },
-        "summary": "Get all Firewalls",
+        "summary": "List Firewalls",
         "tags": [
           "firewalls"
         ],
@@ -8785,7 +8785,7 @@
             "description": "The `actions` key contains a list of [Actions](#actions)."
           }
         },
-        "summary": "Get all Actions for a Firewall",
+        "summary": "List Actions for a Firewall",
         "tags": [
           "firewalls"
         ]
@@ -9277,7 +9277,7 @@
             "description": "The `actions` key contains a list of [Actions](#actions)."
           }
         },
-        "summary": "Get all Actions",
+        "summary": "List Actions",
         "tags": [
           "firewalls"
         ],
@@ -9421,7 +9421,7 @@
             "description": "Response for listing [Floating IPs](#floating-ips)."
           }
         },
-        "summary": "Get all Floating IPs",
+        "summary": "List Floating IPs",
         "tags": [
           "floating_ips"
         ],
@@ -9869,7 +9869,7 @@
             "description": "Response for listing [Actions](#actions)."
           }
         },
-        "summary": "Get all Actions for a Floating IP",
+        "summary": "List Actions for a Floating IP",
         "tags": [
           "floating_ips"
         ]
@@ -10377,7 +10377,7 @@
             "description": "Response for listing [Actions](#actions)."
           }
         },
-        "summary": "Get all Actions",
+        "summary": "List Actions",
         "tags": [
           "floating_ips"
         ],
@@ -10590,7 +10590,7 @@
             "description": "The `images` key in the reply contains an array of Image objects with this structure."
           }
         },
-        "summary": "Get all Images",
+        "summary": "List Images",
         "tags": [
           "images"
         ],
@@ -10930,7 +10930,7 @@
             "description": "The `actions` key contains a list of Actions."
           }
         },
-        "summary": "Get all Actions for an Image",
+        "summary": "List Actions for an Image",
         "tags": [
           "images"
         ]
@@ -11185,7 +11185,7 @@
             "description": "The `actions` key contains a list of Actions."
           }
         },
-        "summary": "Get all Actions",
+        "summary": "List Actions",
         "tags": [
           "images"
         ],
@@ -11327,7 +11327,7 @@
             "description": "The `isos` key in the reply contains an array of iso objects with this structure."
           }
         },
-        "summary": "Get all ISOs",
+        "summary": "List ISOs",
         "tags": [
           "isos"
         ],
@@ -11455,7 +11455,7 @@
             "description": "The `load_balancer_types` key in the reply contains an array of Load Balancer type objects with this structure."
           }
         },
-        "summary": "Get all Load Balancer Types",
+        "summary": "List Load Balancer Types",
         "tags": [
           "load_balancer_types"
         ],
@@ -11612,7 +11612,7 @@
             "description": "The `load_balancers` key contains a list of Load Balancers."
           }
         },
-        "summary": "Get all Load Balancers",
+        "summary": "List Load Balancers",
         "tags": [
           "load_balancers"
         ],
@@ -12263,7 +12263,7 @@
             "description": "The `actions` key contains a list of Actions."
           }
         },
-        "summary": "Get all Actions for a Load Balancer",
+        "summary": "List Actions for a Load Balancer",
         "tags": [
           "load_balancers"
         ]
@@ -13605,7 +13605,7 @@
             "description": "The `actions` key contains a list of Actions."
           }
         },
-        "summary": "Get all Actions",
+        "summary": "List Actions",
         "tags": [
           "load_balancers"
         ],
@@ -13740,7 +13740,7 @@
             "description": "Response with the [Locations](#locations)."
           }
         },
-        "summary": "Get all Locations",
+        "summary": "List Locations",
         "tags": [
           "locations"
         ],
@@ -13897,7 +13897,7 @@
             "description": "Response for listing [Networks](#networks)."
           }
         },
-        "summary": "Get all Networks",
+        "summary": "List Networks",
         "tags": [
           "networks"
         ],
@@ -14289,7 +14289,7 @@
             "description": "Response for listing [Actions](#actions)."
           }
         },
-        "summary": "Get all Actions for a Network",
+        "summary": "List Actions for a Network",
         "tags": [
           "networks"
         ]
@@ -14959,7 +14959,7 @@
             "description": "Response for listing [Actions](#actions)."
           }
         },
-        "summary": "Get all Actions",
+        "summary": "List Actions",
         "tags": [
           "networks"
         ],
@@ -15147,7 +15147,7 @@
             "description": "The `placement_groups` key contains an array of Placement Group objects."
           }
         },
-        "summary": "Get all PlacementGroups",
+        "summary": "List Placement Groups",
         "tags": [
           "placement_groups"
         ],
@@ -15538,7 +15538,7 @@
             "description": "Response for listing [Primary IPs](#primary-ips)."
           }
         },
-        "summary": "Get all Primary IPs",
+        "summary": "List Primary IPs",
         "tags": [
           "primary_ips"
         ],
@@ -16271,7 +16271,7 @@
             "description": "Response for listing [Actions](#actions)."
           }
         },
-        "summary": "Get all Actions",
+        "summary": "List Actions",
         "tags": [
           "primary_ips"
         ],
@@ -16389,7 +16389,7 @@
             "description": "The `server_types` key in the reply contains an array of Server type objects with this structure."
           }
         },
-        "summary": "Get all Server Types",
+        "summary": "List Server Types",
         "tags": [
           "server_types"
         ],
@@ -16575,7 +16575,7 @@
             }
           }
         },
-        "summary": "Get all Servers",
+        "summary": "List Servers",
         "tags": [
           "servers"
         ],
@@ -17138,7 +17138,7 @@
             "description": "The `actions` key contains a list of Actions."
           }
         },
-        "summary": "Get all Actions for a Server",
+        "summary": "List Actions for a Server",
         "tags": [
           "servers"
         ]
@@ -19252,7 +19252,7 @@
             "description": "The `actions` key contains a list of Actions."
           }
         },
-        "summary": "Get all Actions",
+        "summary": "List Actions",
         "tags": [
           "servers"
         ],
@@ -19405,7 +19405,7 @@
             "description": "The `ssh_keys` key in the reply contains an array of SSH key objects with this structure."
           }
         },
-        "summary": "Get all SSH keys",
+        "summary": "List SSH keys",
         "tags": [
           "ssh_keys"
         ],
@@ -19741,7 +19741,7 @@
             "description": "The `volumes` key contains a list of volumes."
           }
         },
-        "summary": "Get all Volumes",
+        "summary": "List Volumes",
         "tags": [
           "volumes"
         ],
@@ -20214,7 +20214,7 @@
             "description": "The `actions` key contains a list of Actions."
           }
         },
-        "summary": "Get all Actions for a Volume",
+        "summary": "List Actions for a Volume",
         "tags": [
           "volumes"
         ]
@@ -20717,7 +20717,7 @@
             "description": "The `actions` key contains a list of Actions."
           }
         },
-        "summary": "Get all Actions",
+        "summary": "List Actions",
         "tags": [
           "volumes"
         ],
