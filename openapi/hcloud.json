@@ -6,7 +6,7 @@
     },
     "description": "Copied from the official API documentation for the Public Hetzner Cloud.",
     "title": "Hetzner Cloud API",
-    "version": "0302008"
+    "version": "d8c4672"
   },
   "servers": [
     {
@@ -12424,7 +12424,7 @@
     },
     "/load_balancers/{id}/actions/add_target": {
       "post": {
-        "description": "Adds a target to a Load Balancer.\n\n#### Call specific error codes\n\n| Code                                    | Description                                                                                           |\n|-----------------------------------------|-------------------------------------------------------------------------------------------------------|\n| `cloud_resource_ip_not_allowed`         | The IP you are trying to add as a target belongs to a Hetzner Cloud resource                          |\n| `ip_not_owned`                          | The IP you are trying to add as a target is not owned by the Project owner                            |\n| `load_balancer_not_attached_to_network` | The Load Balancer is not attached to a network                                                        |\n| `robot_unavailable`                     | Robot was not available. The caller may retry the operation after a short delay.                      |\n| `server_not_attached_to_network`        | The server you are trying to add as a target is not attached to the same network as the Load Balancer |\n| `missing_ipv4`                          | The server that you are trying to add as a public target does not have a public IPv4 address          |\n| `target_already_defined`                | The Load Balancer target you are trying to define is already defined                                  |\n",
+        "description": "Adds a target to a Load Balancer.\n\n#### Call specific error codes\n\n| Code                                      | Description                                                                                           |\n|-------------------------------------------|-------------------------------------------------------------------------------------------------------|\n| `cloud_resource_ip_not_allowed`           | The IP you are trying to add as a target belongs to a Hetzner Cloud resource                          |\n| `ip_not_owned`                            | The IP you are trying to add as a target is not owned by the Project owner                            |\n| `load_balancer_public_interface_disabled` | The Load Balancer's public network interface is disabled                                              |\n| `load_balancer_not_attached_to_network`   | The Load Balancer is not attached to a network                                                        |\n| `robot_unavailable`                       | Robot was not available. The caller may retry the operation after a short delay.                      |\n| `server_not_attached_to_network`          | The server you are trying to add as a target is not attached to the same network as the Load Balancer |\n| `missing_ipv4`                            | The server that you are trying to add as a public target does not have a public IPv4 address          |\n| `target_already_defined`                  | The Load Balancer target you are trying to define is already defined                                  |\n",
         "operationId": "add_target",
         "parameters": [
           {
