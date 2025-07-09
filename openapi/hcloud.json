@@ -6,7 +6,7 @@
     },
     "description": "Copied from the official API documentation for the Public Hetzner Cloud.",
     "title": "Hetzner Cloud API",
-    "version": "f2bcd05"
+    "version": "0302008"
   },
   "servers": [
     {
@@ -4080,7 +4080,7 @@
         ],
         "type": "object"
       },
-      "list_placementgroups_response": {
+      "list_placement_groups_response": {
         "description": "Response to GET https://api.hetzner.cloud/v1/placement_groups",
         "properties": {
           "meta": {
@@ -15029,7 +15029,7 @@
     "/placement_groups": {
       "get": {
         "description": "Returns all Placement Group objects.",
-        "operationId": "list_placementgroups",
+        "operationId": "list_placement_groups",
         "parameters": [
           {
             "description": "Sort resources by field and direction. Can be used multiple times. For more\ninformation, see \"[Sorting](#sorting)\".\n",
@@ -15140,7 +15140,7 @@
                   ]
                 },
                 "schema": {
-                  "$ref": "#/components/schemas/list_placementgroups_response"
+                  "$ref": "#/components/schemas/list_placement_groups_response"
                 }
               }
             },
