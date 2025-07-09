@@ -6,7 +6,7 @@
     },
     "description": "Copied from the official API documentation for the Public Hetzner Cloud.",
     "title": "Hetzner Cloud API",
-    "version": "22a81d8"
+    "version": "0fbbe6b"
   },
   "servers": [
     {
@@ -3298,6 +3298,7 @@
               "centos",
               "debian",
               "fedora",
+              "opensuse",
               "rocky",
               "ubuntu",
               "unknown"
@@ -3434,6 +3435,7 @@
               "centos",
               "debian",
               "fedora",
+              "opensuse",
               "rocky",
               "ubuntu",
               "unknown"
