@@ -6,7 +6,7 @@
     },
     "description": "Copied from the official API documentation for the Public Hetzner Cloud.",
     "title": "Hetzner Cloud API",
-    "version": "f67494b"
+    "version": "18354c8"
   },
   "servers": [
     {
@@ -7728,7 +7728,7 @@
           {
             "label": "CLI",
             "lang": "Shell",
-            "source": "hcloud certificate update $CERTIFICATE --name \"my website cert\"\nhcloud certificate add-label --overwrite $CERTIFICATE \\\n    \"environment=prod\" \"example.com/my=label\" \"just-a-key=\""
+            "source": "hcloud certificate update $CERTIFICATE --name \"my website cert\"\nhcloud certificate add-label --overwrite $CERTIFICATE \\\n    \"environment=prod\" \"example.com/my=label\" \"just-a-key=\"\nhcloud certificate remove-label $CERTIFICATE \\\n    \"environment\" \"example.com\" \"just-a-key\""
           }
         ]
       }
@@ -8651,7 +8651,7 @@
           {
             "label": "CLI",
             "lang": "Shell",
-            "source": "hcloud firewall update $FIREWALL --name \"new-name\"\nhcloud firewall add-label --overwrite $FIREWALL \\\n    \"environment=prod\" \"example.com/my=label\" \"just-a-key=\""
+            "source": "hcloud firewall update $FIREWALL --name \"new-name\"\nhcloud firewall add-label --overwrite $FIREWALL \\\n    \"environment=prod\" \"example.com/my=label\" \"just-a-key=\"\nhcloud firewall remove-label $FIREWALL \\\n    \"environment\" \"example.com\" \"just-a-key\""
           }
         ]
       }
@@ -9732,7 +9732,7 @@
           {
             "label": "CLI",
             "lang": "Shell",
-            "source": "hcloud floating-ip update $FLOATINGIP \\\n    --description \"This describes my resource\" \\\n    --name my-resource\nhcloud floating add-label --overwrite $FLOATINGIP \\\n    \"environment=prod\" \"example.com/my=label\" \"just-a-key=\""
+            "source": "hcloud floating-ip update $FLOATINGIP \\\n    --description \"This describes my resource\" \\\n    --name my-resource\nhcloud floating-ip add-label --overwrite $FLOATINGIP \\\n    \"environment=prod\" \"example.com/my=label\" \"just-a-key=\"\nhcloud floating-ip remove-label $FLOATINGIP \\\n    \"environment\" \"example.com\" \"just-a-key\""
           }
         ]
       }
@@ -10797,7 +10797,7 @@
           {
             "label": "CLI",
             "lang": "Shell",
-            "source": "hcloud image update $IMAGE --description \"My new Image description\"\nhcloud image add-label --overwrite $IMAGE \\\n    \"environment=prod\" \"example.com/my=label\" \"just-a-key=\""
+            "source": "hcloud image update $IMAGE --description \"My new Image description\"\nhcloud image add-label --overwrite $IMAGE \\\n    \"environment=prod\" \"example.com/my=label\" \"just-a-key=\"\nhcloud image remove-label $IMAGE \\\n    \"environment\" \"example.com\" \"just-a-key\""
           }
         ]
       }
@@ -12130,7 +12130,7 @@
           {
             "label": "CLI",
             "lang": "Shell",
-            "source": "hcloud load-balancer update $LOADBALANCER --name new-name\nhcloud load-balancer add-label --overwrite $LOADBALANCER \\\n    \"environment=prod\" \"example.com/my=label\" \"just-a-key=\""
+            "source": "hcloud load-balancer update $LOADBALANCER --name new-name\nhcloud load-balancer add-label --overwrite $LOADBALANCER \\\n    \"environment=prod\" \"example.com/my=label\" \"just-a-key=\"\nhcloud load-balancer remove-label $LOADBALANCER \\\n    \"environment\" \"example.com\" \"just-a-key\""
           }
         ]
       }
@@ -14156,7 +14156,7 @@
           {
             "label": "CLI",
             "lang": "Shell",
-            "source": "hcloud network update $NETWORK --name new-name\nhcloud network expose-routes-to-vswitch --disable $NETWORK\nhcloud network add-label --overwrite $NETWORK \\\n    \"environment=prod\" \"example.com/my=label\" \"just-a-key=\""
+            "source": "hcloud network update $NETWORK --name new-name\nhcloud network expose-routes-to-vswitch --disable $NETWORK\nhcloud network add-label --overwrite $NETWORK \\\n    \"environment=prod\" \"example.com/my=label\" \"just-a-key=\"\nhcloud network remove-label $NETWORK \\\n    \"environment\" \"example.com\" \"just-a-key\""
           }
         ]
       }
@@ -15417,7 +15417,7 @@
           {
             "label": "CLI",
             "lang": "Shell",
-            "source": "hcloud placement-group update $PLACEMENTGROUP --name \"my Placement Group\"\nhcloud placement-group add-label --overwrite $PLACEMENTGROUP \\\n    \"environment=prod\" \"example.com/my=label\" \"just-a-key=\""
+            "source": "hcloud placement-group update $PLACEMENTGROUP --name \"my Placement Group\"\nhcloud placement-group add-label --overwrite $PLACEMENTGROUP \\\n    \"environment=prod\" \"example.com/my=label\" \"just-a-key=\"\nhcloud placement-group remove-label $PLACEMENTGROUP \\\n    \"environment\" \"example.com\" \"just-a-key\""
           }
         ]
       }
@@ -15838,7 +15838,7 @@
           {
             "label": "CLI",
             "lang": "Shell",
-            "source": "hcloud primary-ip update $PRIMARYIP \\\n    --auto-delete=false \\\n    --name \"new-name\"\nhcloud primary-ip add-label --overwrite $PRIMARYIP \\\n    \"environment=prod\" \"example.com/my=label\" \"just-a-key=\""
+            "source": "hcloud primary-ip update $PRIMARYIP \\\n    --auto-delete=false \\\n    --name \"new-name\"\nhcloud primary-ip add-label --overwrite $PRIMARYIP \\\n    \"environment=prod\" \"example.com/my=label\" \"just-a-key=\"\nhcloud primary-ip remove-label $PRIMARYIP \\\n    \"environment\" \"example.com\" \"just-a-key\""
           }
         ]
       }
@@ -17004,7 +17004,7 @@
           {
             "label": "CLI",
             "lang": "Shell",
-            "source": "hcloud server update $SERVER --name \"my-server\"\nhcloud server add-label --overwrite $SERVER \\\n    \"environment=prod\" \"example.com/my=label\" \"just-a-key=\""
+            "source": "hcloud server update $SERVER --name \"my-server\"\nhcloud server add-label --overwrite $SERVER \\\n    \"environment=prod\" \"example.com/my=label\" \"just-a-key=\"\nhcloud server remove-label $SERVER \\\n    \"environment\" \"example.com\" \"just-a-key\""
           }
         ]
       }
@@ -19641,7 +19641,7 @@
           {
             "label": "CLI",
             "lang": "Shell",
-            "source": "hcloud ssh-key update $SSHKEY --name \"My ssh key\"\nhcloud ssh-key add-label --overwrite $SSHKEY \\\n    \"environment=prod\" \"example.com/my=label\" \"just-a-key=\""
+            "source": "hcloud ssh-key update $SSHKEY --name \"My ssh key\"\nhcloud ssh-key add-label --overwrite $SSHKEY \\\n    \"environment=prod\" \"example.com/my=label\" \"just-a-key=\"\nhcloud ssh-key remove-label $SSHKEY \\\n    \"environment\" \"example.com\" \"just-a-key\""
           }
         ]
       }
@@ -20077,7 +20077,7 @@
           {
             "label": "CLI",
             "lang": "Shell",
-            "source": "hcloud volume update $VOLUME --name \"database-storage\"\nhcloud volume add-label --overwrite $VOLUME \\\n    \"environment=prod\" \"example.com/my=label\" \"just-a-key=\""
+            "source": "hcloud volume update $VOLUME --name \"database-storage\"\nhcloud volume add-label --overwrite $VOLUME \\\n    \"environment=prod\" \"example.com/my=label\" \"just-a-key=\"\nhcloud volume remove-label $VOLUME \\\n    \"environment\" \"example.com\" \"just-a-key\""
           }
         ]
       }
