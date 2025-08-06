@@ -6,7 +6,7 @@
     },
     "description": "Copied from the official API documentation for the Public Hetzner Cloud.",
     "title": "Hetzner Cloud API",
-    "version": "18354c8"
+    "version": "3b576b3"
   },
   "servers": [
     {
@@ -7087,11 +7087,14 @@
             "name": "id",
             "required": true,
             "schema": {
-              "description": "ID of the Action.",
-              "example": 42,
-              "format": "int64",
-              "maximum": 9007199254740991,
-              "type": "integer"
+              "items": {
+                "description": "ID of the Action.",
+                "example": 42,
+                "format": "int64",
+                "maximum": 9007199254740991,
+                "type": "integer"
+              },
+              "type": "array"
             }
           },
           {
@@ -7204,18 +7207,21 @@
             "name": "sort",
             "required": false,
             "schema": {
-              "enum": [
-                "id",
-                "id:asc",
-                "id:desc",
-                "name",
-                "name:asc",
-                "name:desc",
-                "created",
-                "created:asc",
-                "created:desc"
-              ],
-              "type": "string"
+              "items": {
+                "enum": [
+                  "id",
+                  "id:asc",
+                  "id:desc",
+                  "name",
+                  "name:asc",
+                  "name:desc",
+                  "created",
+                  "created:asc",
+                  "created:desc"
+                ],
+                "type": "string"
+              },
+              "type": "array"
             }
           },
           {
@@ -7242,13 +7248,16 @@
             "name": "type",
             "required": false,
             "schema": {
-              "description": "Type of the Certificate.",
-              "enum": [
-                "uploaded",
-                "managed"
-              ],
-              "example": "uploaded",
-              "type": "string"
+              "items": {
+                "description": "Type of the Certificate.",
+                "enum": [
+                  "uploaded",
+                  "managed"
+                ],
+                "example": "uploaded",
+                "type": "string"
+              },
+              "type": "array"
             }
           },
           {
@@ -7758,24 +7767,27 @@
             "name": "sort",
             "required": false,
             "schema": {
-              "enum": [
-                "id",
-                "id:asc",
-                "id:desc",
-                "command",
-                "command:asc",
-                "command:desc",
-                "status",
-                "status:asc",
-                "status:desc",
-                "started",
-                "started:asc",
-                "started:desc",
-                "finished",
-                "finished:asc",
-                "finished:desc"
-              ],
-              "type": "string"
+              "items": {
+                "enum": [
+                  "id",
+                  "id:asc",
+                  "id:desc",
+                  "command",
+                  "command:asc",
+                  "command:desc",
+                  "status",
+                  "status:asc",
+                  "status:desc",
+                  "started",
+                  "started:asc",
+                  "started:desc",
+                  "finished",
+                  "finished:asc",
+                  "finished:desc"
+                ],
+                "type": "string"
+              },
+              "type": "array"
             }
           },
           {
@@ -7784,13 +7796,16 @@
             "name": "status",
             "required": false,
             "schema": {
-              "description": "Status of the Action.",
-              "enum": [
-                "running",
-                "success",
-                "error"
-              ],
-              "type": "string"
+              "items": {
+                "description": "Status of the Action.",
+                "enum": [
+                  "running",
+                  "success",
+                  "error"
+                ],
+                "type": "string"
+              },
+              "type": "array"
             }
           },
           {
@@ -8023,11 +8038,14 @@
             "name": "id",
             "required": false,
             "schema": {
-              "description": "ID of the Action.",
-              "example": 42,
-              "format": "int64",
-              "maximum": 9007199254740991,
-              "type": "integer"
+              "items": {
+                "description": "ID of the Action.",
+                "example": 42,
+                "format": "int64",
+                "maximum": 9007199254740991,
+                "type": "integer"
+              },
+              "type": "array"
             }
           },
           {
@@ -8036,24 +8054,27 @@
             "name": "sort",
             "required": false,
             "schema": {
-              "enum": [
-                "id",
-                "id:asc",
-                "id:desc",
-                "command",
-                "command:asc",
-                "command:desc",
-                "status",
-                "status:asc",
-                "status:desc",
-                "started",
-                "started:asc",
-                "started:desc",
-                "finished",
-                "finished:asc",
-                "finished:desc"
-              ],
-              "type": "string"
+              "items": {
+                "enum": [
+                  "id",
+                  "id:asc",
+                  "id:desc",
+                  "command",
+                  "command:asc",
+                  "command:desc",
+                  "status",
+                  "status:asc",
+                  "status:desc",
+                  "started",
+                  "started:asc",
+                  "started:desc",
+                  "finished",
+                  "finished:asc",
+                  "finished:desc"
+                ],
+                "type": "string"
+              },
+              "type": "array"
             }
           },
           {
@@ -8062,13 +8083,16 @@
             "name": "status",
             "required": false,
             "schema": {
-              "description": "Status of the Action.",
-              "enum": [
-                "running",
-                "success",
-                "error"
-              ],
-              "type": "string"
+              "items": {
+                "description": "Status of the Action.",
+                "enum": [
+                  "running",
+                  "success",
+                  "error"
+                ],
+                "type": "string"
+              },
+              "type": "array"
             }
           },
           {
@@ -8195,15 +8219,18 @@
             "name": "sort",
             "required": false,
             "schema": {
-              "enum": [
-                "id",
-                "id:asc",
-                "id:desc",
-                "name",
-                "name:asc",
-                "name:desc"
-              ],
-              "type": "string"
+              "items": {
+                "enum": [
+                  "id",
+                  "id:asc",
+                  "id:desc",
+                  "name",
+                  "name:asc",
+                  "name:desc"
+                ],
+                "type": "string"
+              },
+              "type": "array"
             }
           },
           {
@@ -8331,18 +8358,21 @@
             "name": "sort",
             "required": false,
             "schema": {
-              "enum": [
-                "id",
-                "id:asc",
-                "id:desc",
-                "name",
-                "name:asc",
-                "name:desc",
-                "created",
-                "created:asc",
-                "created:desc"
-              ],
-              "type": "string"
+              "items": {
+                "enum": [
+                  "id",
+                  "id:asc",
+                  "id:desc",
+                  "name",
+                  "name:asc",
+                  "name:desc",
+                  "created",
+                  "created:asc",
+                  "created:desc"
+                ],
+                "type": "string"
+              },
+              "type": "array"
             }
           },
           {
@@ -8681,24 +8711,27 @@
             "name": "sort",
             "required": false,
             "schema": {
-              "enum": [
-                "id",
-                "id:asc",
-                "id:desc",
-                "command",
-                "command:asc",
-                "command:desc",
-                "status",
-                "status:asc",
-                "status:desc",
-                "started",
-                "started:asc",
-                "started:desc",
-                "finished",
-                "finished:asc",
-                "finished:desc"
-              ],
-              "type": "string"
+              "items": {
+                "enum": [
+                  "id",
+                  "id:asc",
+                  "id:desc",
+                  "command",
+                  "command:asc",
+                  "command:desc",
+                  "status",
+                  "status:asc",
+                  "status:desc",
+                  "started",
+                  "started:asc",
+                  "started:desc",
+                  "finished",
+                  "finished:asc",
+                  "finished:desc"
+                ],
+                "type": "string"
+              },
+              "type": "array"
             }
           },
           {
@@ -8707,13 +8740,16 @@
             "name": "status",
             "required": false,
             "schema": {
-              "description": "Status of the Action.",
-              "enum": [
-                "running",
-                "success",
-                "error"
-              ],
-              "type": "string"
+              "items": {
+                "description": "Status of the Action.",
+                "enum": [
+                  "running",
+                  "success",
+                  "error"
+                ],
+                "type": "string"
+              },
+              "type": "array"
             }
           },
           {
@@ -9192,11 +9228,14 @@
             "name": "id",
             "required": false,
             "schema": {
-              "description": "ID of the Action.",
-              "example": 42,
-              "format": "int64",
-              "maximum": 9007199254740991,
-              "type": "integer"
+              "items": {
+                "description": "ID of the Action.",
+                "example": 42,
+                "format": "int64",
+                "maximum": 9007199254740991,
+                "type": "integer"
+              },
+              "type": "array"
             }
           },
           {
@@ -9205,24 +9244,27 @@
             "name": "sort",
             "required": false,
             "schema": {
-              "enum": [
-                "id",
-                "id:asc",
-                "id:desc",
-                "command",
-                "command:asc",
-                "command:desc",
-                "status",
-                "status:asc",
-                "status:desc",
-                "started",
-                "started:asc",
-                "started:desc",
-                "finished",
-                "finished:asc",
-                "finished:desc"
-              ],
-              "type": "string"
+              "items": {
+                "enum": [
+                  "id",
+                  "id:asc",
+                  "id:desc",
+                  "command",
+                  "command:asc",
+                  "command:desc",
+                  "status",
+                  "status:asc",
+                  "status:desc",
+                  "started",
+                  "started:asc",
+                  "started:desc",
+                  "finished",
+                  "finished:asc",
+                  "finished:desc"
+                ],
+                "type": "string"
+              },
+              "type": "array"
             }
           },
           {
@@ -9231,13 +9273,16 @@
             "name": "status",
             "required": false,
             "schema": {
-              "description": "Status of the Action.",
-              "enum": [
-                "running",
-                "success",
-                "error"
-              ],
-              "type": "string"
+              "items": {
+                "description": "Status of the Action.",
+                "enum": [
+                  "running",
+                  "success",
+                  "error"
+                ],
+                "type": "string"
+              },
+              "type": "array"
             }
           },
           {
@@ -9373,15 +9418,18 @@
             "name": "sort",
             "required": false,
             "schema": {
-              "enum": [
-                "id",
-                "id:asc",
-                "id:desc",
-                "created",
-                "created:asc",
-                "created:desc"
-              ],
-              "type": "string"
+              "items": {
+                "enum": [
+                  "id",
+                  "id:asc",
+                  "id:desc",
+                  "created",
+                  "created:asc",
+                  "created:desc"
+                ],
+                "type": "string"
+              },
+              "type": "array"
             }
           },
           {
@@ -9761,24 +9809,27 @@
             "name": "sort",
             "required": false,
             "schema": {
-              "enum": [
-                "id",
-                "id:asc",
-                "id:desc",
-                "command",
-                "command:asc",
-                "command:desc",
-                "status",
-                "status:asc",
-                "status:desc",
-                "started",
-                "started:asc",
-                "started:desc",
-                "finished",
-                "finished:asc",
-                "finished:desc"
-              ],
-              "type": "string"
+              "items": {
+                "enum": [
+                  "id",
+                  "id:asc",
+                  "id:desc",
+                  "command",
+                  "command:asc",
+                  "command:desc",
+                  "status",
+                  "status:asc",
+                  "status:desc",
+                  "started",
+                  "started:asc",
+                  "started:desc",
+                  "finished",
+                  "finished:asc",
+                  "finished:desc"
+                ],
+                "type": "string"
+              },
+              "type": "array"
             }
           },
           {
@@ -9787,13 +9838,16 @@
             "name": "status",
             "required": false,
             "schema": {
-              "description": "Status of the Action.",
-              "enum": [
-                "running",
-                "success",
-                "error"
-              ],
-              "type": "string"
+              "items": {
+                "description": "Status of the Action.",
+                "enum": [
+                  "running",
+                  "success",
+                  "error"
+                ],
+                "type": "string"
+              },
+              "type": "array"
             }
           },
           {
@@ -10292,11 +10346,14 @@
             "name": "id",
             "required": false,
             "schema": {
-              "description": "ID of the Action.",
-              "example": 42,
-              "format": "int64",
-              "maximum": 9007199254740991,
-              "type": "integer"
+              "items": {
+                "description": "ID of the Action.",
+                "example": 42,
+                "format": "int64",
+                "maximum": 9007199254740991,
+                "type": "integer"
+              },
+              "type": "array"
             }
           },
           {
@@ -10305,24 +10362,27 @@
             "name": "sort",
             "required": false,
             "schema": {
-              "enum": [
-                "id",
-                "id:asc",
-                "id:desc",
-                "command",
-                "command:asc",
-                "command:desc",
-                "status",
-                "status:asc",
-                "status:desc",
-                "started",
-                "started:asc",
-                "started:desc",
-                "finished",
-                "finished:asc",
-                "finished:desc"
-              ],
-              "type": "string"
+              "items": {
+                "enum": [
+                  "id",
+                  "id:asc",
+                  "id:desc",
+                  "command",
+                  "command:asc",
+                  "command:desc",
+                  "status",
+                  "status:asc",
+                  "status:desc",
+                  "started",
+                  "started:asc",
+                  "started:desc",
+                  "finished",
+                  "finished:asc",
+                  "finished:desc"
+                ],
+                "type": "string"
+              },
+              "type": "array"
             }
           },
           {
@@ -10331,13 +10391,16 @@
             "name": "status",
             "required": false,
             "schema": {
-              "description": "Status of the Action.",
-              "enum": [
-                "running",
-                "success",
-                "error"
-              ],
-              "type": "string"
+              "items": {
+                "description": "Status of the Action.",
+                "enum": [
+                  "running",
+                  "success",
+                  "error"
+                ],
+                "type": "string"
+              },
+              "type": "array"
             }
           },
           {
@@ -10455,18 +10518,21 @@
             "name": "sort",
             "required": false,
             "schema": {
-              "enum": [
-                "id",
-                "id:asc",
-                "id:desc",
-                "name",
-                "name:asc",
-                "name:desc",
-                "created",
-                "created:asc",
-                "created:desc"
-              ],
-              "type": "string"
+              "items": {
+                "enum": [
+                  "id",
+                  "id:asc",
+                  "id:desc",
+                  "name",
+                  "name:asc",
+                  "name:desc",
+                  "created",
+                  "created:asc",
+                  "created:desc"
+                ],
+                "type": "string"
+              },
+              "type": "array"
             }
           },
           {
@@ -10475,15 +10541,18 @@
             "name": "type",
             "required": false,
             "schema": {
-              "description": "Type of the Image.",
-              "enum": [
-                "system",
-                "app",
-                "snapshot",
-                "backup"
-              ],
-              "example": "snapshot",
-              "type": "string"
+              "items": {
+                "description": "Type of the Image.",
+                "enum": [
+                  "system",
+                  "app",
+                  "snapshot",
+                  "backup"
+                ],
+                "example": "snapshot",
+                "type": "string"
+              },
+              "type": "array"
             }
           },
           {
@@ -10492,14 +10561,17 @@
             "name": "status",
             "required": false,
             "schema": {
-              "description": "Status of the Image.",
-              "enum": [
-                "available",
-                "creating",
-                "unavailable"
-              ],
-              "example": "available",
-              "type": "string"
+              "items": {
+                "description": "Status of the Image.",
+                "enum": [
+                  "available",
+                  "creating",
+                  "unavailable"
+                ],
+                "example": "available",
+                "type": "string"
+              },
+              "type": "array"
             }
           },
           {
@@ -10508,7 +10580,10 @@
             "name": "bound_to",
             "required": false,
             "schema": {
-              "type": "string"
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
             }
           },
           {
@@ -10826,24 +10901,27 @@
             "name": "sort",
             "required": false,
             "schema": {
-              "enum": [
-                "id",
-                "id:asc",
-                "id:desc",
-                "command",
-                "command:asc",
-                "command:desc",
-                "status",
-                "status:asc",
-                "status:desc",
-                "started",
-                "started:asc",
-                "started:desc",
-                "finished",
-                "finished:asc",
-                "finished:desc"
-              ],
-              "type": "string"
+              "items": {
+                "enum": [
+                  "id",
+                  "id:asc",
+                  "id:desc",
+                  "command",
+                  "command:asc",
+                  "command:desc",
+                  "status",
+                  "status:asc",
+                  "status:desc",
+                  "started",
+                  "started:asc",
+                  "started:desc",
+                  "finished",
+                  "finished:asc",
+                  "finished:desc"
+                ],
+                "type": "string"
+              },
+              "type": "array"
             }
           },
           {
@@ -10852,13 +10930,16 @@
             "name": "status",
             "required": false,
             "schema": {
-              "description": "Status of the Action.",
-              "enum": [
-                "running",
-                "success",
-                "error"
-              ],
-              "type": "string"
+              "items": {
+                "description": "Status of the Action.",
+                "enum": [
+                  "running",
+                  "success",
+                  "error"
+                ],
+                "type": "string"
+              },
+              "type": "array"
             }
           },
           {
@@ -11100,11 +11181,14 @@
             "name": "id",
             "required": false,
             "schema": {
-              "description": "ID of the Action.",
-              "example": 42,
-              "format": "int64",
-              "maximum": 9007199254740991,
-              "type": "integer"
+              "items": {
+                "description": "ID of the Action.",
+                "example": 42,
+                "format": "int64",
+                "maximum": 9007199254740991,
+                "type": "integer"
+              },
+              "type": "array"
             }
           },
           {
@@ -11113,24 +11197,27 @@
             "name": "sort",
             "required": false,
             "schema": {
-              "enum": [
-                "id",
-                "id:asc",
-                "id:desc",
-                "command",
-                "command:asc",
-                "command:desc",
-                "status",
-                "status:asc",
-                "status:desc",
-                "started",
-                "started:asc",
-                "started:desc",
-                "finished",
-                "finished:asc",
-                "finished:desc"
-              ],
-              "type": "string"
+              "items": {
+                "enum": [
+                  "id",
+                  "id:asc",
+                  "id:desc",
+                  "command",
+                  "command:asc",
+                  "command:desc",
+                  "status",
+                  "status:asc",
+                  "status:desc",
+                  "started",
+                  "started:asc",
+                  "started:desc",
+                  "finished",
+                  "finished:asc",
+                  "finished:desc"
+                ],
+                "type": "string"
+              },
+              "type": "array"
             }
           },
           {
@@ -11139,13 +11226,16 @@
             "name": "status",
             "required": false,
             "schema": {
-              "description": "Status of the Action.",
-              "enum": [
-                "running",
-                "success",
-                "error"
-              ],
-              "type": "string"
+              "items": {
+                "description": "Status of the Action.",
+                "enum": [
+                  "running",
+                  "success",
+                  "error"
+                ],
+                "type": "string"
+              },
+              "type": "array"
             }
           },
           {
@@ -11543,18 +11633,21 @@
             "name": "sort",
             "required": false,
             "schema": {
-              "enum": [
-                "id",
-                "id:asc",
-                "id:desc",
-                "name",
-                "name:asc",
-                "name:desc",
-                "created",
-                "created:asc",
-                "created:desc"
-              ],
-              "type": "string"
+              "items": {
+                "enum": [
+                  "id",
+                  "id:asc",
+                  "id:desc",
+                  "name",
+                  "name:asc",
+                  "name:desc",
+                  "created",
+                  "created:asc",
+                  "created:desc"
+                ],
+                "type": "string"
+              },
+              "type": "array"
             }
           },
           {
@@ -12159,24 +12252,27 @@
             "name": "sort",
             "required": false,
             "schema": {
-              "enum": [
-                "id",
-                "id:asc",
-                "id:desc",
-                "command",
-                "command:asc",
-                "command:desc",
-                "status",
-                "status:asc",
-                "status:desc",
-                "started",
-                "started:asc",
-                "started:desc",
-                "finished",
-                "finished:asc",
-                "finished:desc"
-              ],
-              "type": "string"
+              "items": {
+                "enum": [
+                  "id",
+                  "id:asc",
+                  "id:desc",
+                  "command",
+                  "command:asc",
+                  "command:desc",
+                  "status",
+                  "status:asc",
+                  "status:desc",
+                  "started",
+                  "started:asc",
+                  "started:desc",
+                  "finished",
+                  "finished:asc",
+                  "finished:desc"
+                ],
+                "type": "string"
+              },
+              "type": "array"
             }
           },
           {
@@ -12185,13 +12281,16 @@
             "name": "status",
             "required": false,
             "schema": {
-              "description": "Status of the Action.",
-              "enum": [
-                "running",
-                "success",
-                "error"
-              ],
-              "type": "string"
+              "items": {
+                "description": "Status of the Action.",
+                "enum": [
+                  "running",
+                  "success",
+                  "error"
+                ],
+                "type": "string"
+              },
+              "type": "array"
             }
           },
           {
@@ -13520,11 +13619,14 @@
             "name": "id",
             "required": false,
             "schema": {
-              "description": "ID of the Action.",
-              "example": 42,
-              "format": "int64",
-              "maximum": 9007199254740991,
-              "type": "integer"
+              "items": {
+                "description": "ID of the Action.",
+                "example": 42,
+                "format": "int64",
+                "maximum": 9007199254740991,
+                "type": "integer"
+              },
+              "type": "array"
             }
           },
           {
@@ -13533,24 +13635,27 @@
             "name": "sort",
             "required": false,
             "schema": {
-              "enum": [
-                "id",
-                "id:asc",
-                "id:desc",
-                "command",
-                "command:asc",
-                "command:desc",
-                "status",
-                "status:asc",
-                "status:desc",
-                "started",
-                "started:asc",
-                "started:desc",
-                "finished",
-                "finished:asc",
-                "finished:desc"
-              ],
-              "type": "string"
+              "items": {
+                "enum": [
+                  "id",
+                  "id:asc",
+                  "id:desc",
+                  "command",
+                  "command:asc",
+                  "command:desc",
+                  "status",
+                  "status:asc",
+                  "status:desc",
+                  "started",
+                  "started:asc",
+                  "started:desc",
+                  "finished",
+                  "finished:asc",
+                  "finished:desc"
+                ],
+                "type": "string"
+              },
+              "type": "array"
             }
           },
           {
@@ -13559,13 +13664,16 @@
             "name": "status",
             "required": false,
             "schema": {
-              "description": "Status of the Action.",
-              "enum": [
-                "running",
-                "success",
-                "error"
-              ],
-              "type": "string"
+              "items": {
+                "description": "Status of the Action.",
+                "enum": [
+                  "running",
+                  "success",
+                  "error"
+                ],
+                "type": "string"
+              },
+              "type": "array"
             }
           },
           {
@@ -13692,15 +13800,18 @@
             "name": "sort",
             "required": false,
             "schema": {
-              "enum": [
-                "id",
-                "id:asc",
-                "id:desc",
-                "name",
-                "name:asc",
-                "name:desc"
-              ],
-              "type": "string"
+              "items": {
+                "enum": [
+                  "id",
+                  "id:asc",
+                  "id:desc",
+                  "name",
+                  "name:asc",
+                  "name:desc"
+                ],
+                "type": "string"
+              },
+              "type": "array"
             }
           },
           {
@@ -13828,18 +13939,21 @@
             "name": "sort",
             "required": false,
             "schema": {
-              "enum": [
-                "id",
-                "id:asc",
-                "id:desc",
-                "name",
-                "name:asc",
-                "name:desc",
-                "created",
-                "created:asc",
-                "created:desc"
-              ],
-              "type": "string"
+              "items": {
+                "enum": [
+                  "id",
+                  "id:asc",
+                  "id:desc",
+                  "name",
+                  "name:asc",
+                  "name:desc",
+                  "created",
+                  "created:asc",
+                  "created:desc"
+                ],
+                "type": "string"
+              },
+              "type": "array"
             }
           },
           {
@@ -14185,24 +14299,27 @@
             "name": "sort",
             "required": false,
             "schema": {
-              "enum": [
-                "id",
-                "id:asc",
-                "id:desc",
-                "command",
-                "command:asc",
-                "command:desc",
-                "status",
-                "status:asc",
-                "status:desc",
-                "started",
-                "started:asc",
-                "started:desc",
-                "finished",
-                "finished:asc",
-                "finished:desc"
-              ],
-              "type": "string"
+              "items": {
+                "enum": [
+                  "id",
+                  "id:asc",
+                  "id:desc",
+                  "command",
+                  "command:asc",
+                  "command:desc",
+                  "status",
+                  "status:asc",
+                  "status:desc",
+                  "started",
+                  "started:asc",
+                  "started:desc",
+                  "finished",
+                  "finished:asc",
+                  "finished:desc"
+                ],
+                "type": "string"
+              },
+              "type": "array"
             }
           },
           {
@@ -14211,13 +14328,16 @@
             "name": "status",
             "required": false,
             "schema": {
-              "description": "Status of the Action.",
-              "enum": [
-                "running",
-                "success",
-                "error"
-              ],
-              "type": "string"
+              "items": {
+                "description": "Status of the Action.",
+                "enum": [
+                  "running",
+                  "success",
+                  "error"
+                ],
+                "type": "string"
+              },
+              "type": "array"
             }
           },
           {
@@ -14874,11 +14994,14 @@
             "name": "id",
             "required": false,
             "schema": {
-              "description": "ID of the Action.",
-              "example": 42,
-              "format": "int64",
-              "maximum": 9007199254740991,
-              "type": "integer"
+              "items": {
+                "description": "ID of the Action.",
+                "example": 42,
+                "format": "int64",
+                "maximum": 9007199254740991,
+                "type": "integer"
+              },
+              "type": "array"
             }
           },
           {
@@ -14887,24 +15010,27 @@
             "name": "sort",
             "required": false,
             "schema": {
-              "enum": [
-                "id",
-                "id:asc",
-                "id:desc",
-                "command",
-                "command:asc",
-                "command:desc",
-                "status",
-                "status:asc",
-                "status:desc",
-                "started",
-                "started:asc",
-                "started:desc",
-                "finished",
-                "finished:asc",
-                "finished:desc"
-              ],
-              "type": "string"
+              "items": {
+                "enum": [
+                  "id",
+                  "id:asc",
+                  "id:desc",
+                  "command",
+                  "command:asc",
+                  "command:desc",
+                  "status",
+                  "status:asc",
+                  "status:desc",
+                  "started",
+                  "started:asc",
+                  "started:desc",
+                  "finished",
+                  "finished:asc",
+                  "finished:desc"
+                ],
+                "type": "string"
+              },
+              "type": "array"
             }
           },
           {
@@ -14913,13 +15039,16 @@
             "name": "status",
             "required": false,
             "schema": {
-              "description": "Status of the Action.",
-              "enum": [
-                "running",
-                "success",
-                "error"
-              ],
-              "type": "string"
+              "items": {
+                "description": "Status of the Action.",
+                "enum": [
+                  "running",
+                  "success",
+                  "error"
+                ],
+                "type": "string"
+              },
+              "type": "array"
             }
           },
           {
@@ -15037,18 +15166,21 @@
             "name": "sort",
             "required": false,
             "schema": {
-              "enum": [
-                "id",
-                "id:asc",
-                "id:desc",
-                "name",
-                "name:asc",
-                "name:desc",
-                "created",
-                "created:asc",
-                "created:desc"
-              ],
-              "type": "string"
+              "items": {
+                "enum": [
+                  "id",
+                  "id:asc",
+                  "id:desc",
+                  "name",
+                  "name:asc",
+                  "name:desc",
+                  "created",
+                  "created:asc",
+                  "created:desc"
+                ],
+                "type": "string"
+              },
+              "type": "array"
             }
           },
           {
@@ -15075,12 +15207,15 @@
             "name": "type",
             "required": false,
             "schema": {
-              "description": "Type of Placement Group.\n",
-              "enum": [
-                "spread"
-              ],
-              "example": "spread",
-              "type": "string"
+              "items": {
+                "description": "Type of Placement Group.\n",
+                "enum": [
+                  "spread"
+                ],
+                "example": "spread",
+                "type": "string"
+              },
+              "type": "array"
             }
           },
           {
@@ -15514,15 +15649,18 @@
             "name": "sort",
             "required": false,
             "schema": {
-              "enum": [
-                "id",
-                "id:asc",
-                "id:desc",
-                "created",
-                "created:asc",
-                "created:desc"
-              ],
-              "type": "string"
+              "items": {
+                "enum": [
+                  "id",
+                  "id:asc",
+                  "id:desc",
+                  "created",
+                  "created:asc",
+                  "created:desc"
+                ],
+                "type": "string"
+              },
+              "type": "array"
             }
           }
         ],
@@ -16186,11 +16324,14 @@
             "name": "id",
             "required": false,
             "schema": {
-              "description": "ID of the Action.",
-              "example": 42,
-              "format": "int64",
-              "maximum": 9007199254740991,
-              "type": "integer"
+              "items": {
+                "description": "ID of the Action.",
+                "example": 42,
+                "format": "int64",
+                "maximum": 9007199254740991,
+                "type": "integer"
+              },
+              "type": "array"
             }
           },
           {
@@ -16199,24 +16340,27 @@
             "name": "sort",
             "required": false,
             "schema": {
-              "enum": [
-                "id",
-                "id:asc",
-                "id:desc",
-                "command",
-                "command:asc",
-                "command:desc",
-                "status",
-                "status:asc",
-                "status:desc",
-                "started",
-                "started:asc",
-                "started:desc",
-                "finished",
-                "finished:asc",
-                "finished:desc"
-              ],
-              "type": "string"
+              "items": {
+                "enum": [
+                  "id",
+                  "id:asc",
+                  "id:desc",
+                  "command",
+                  "command:asc",
+                  "command:desc",
+                  "status",
+                  "status:asc",
+                  "status:desc",
+                  "started",
+                  "started:asc",
+                  "started:desc",
+                  "finished",
+                  "finished:asc",
+                  "finished:desc"
+                ],
+                "type": "string"
+              },
+              "type": "array"
             }
           },
           {
@@ -16225,13 +16369,16 @@
             "name": "status",
             "required": false,
             "schema": {
-              "description": "Status of the Action.",
-              "enum": [
-                "running",
-                "success",
-                "error"
-              ],
-              "type": "string"
+              "items": {
+                "description": "Status of the Action.",
+                "enum": [
+                  "running",
+                  "success",
+                  "error"
+                ],
+                "type": "string"
+              },
+              "type": "array"
             }
           },
           {
@@ -16495,18 +16642,21 @@
             "name": "sort",
             "required": false,
             "schema": {
-              "enum": [
-                "id",
-                "id:asc",
-                "id:desc",
-                "name",
-                "name:asc",
-                "name:desc",
-                "created",
-                "created:asc",
-                "created:desc"
-              ],
-              "type": "string"
+              "items": {
+                "enum": [
+                  "id",
+                  "id:asc",
+                  "id:desc",
+                  "name",
+                  "name:asc",
+                  "name:desc",
+                  "created",
+                  "created:asc",
+                  "created:desc"
+                ],
+                "type": "string"
+              },
+              "type": "array"
             }
           },
           {
@@ -16515,19 +16665,22 @@
             "name": "status",
             "required": false,
             "schema": {
-              "description": "Status of the Server.",
-              "enum": [
-                "running",
-                "initializing",
-                "starting",
-                "stopping",
-                "off",
-                "deleting",
-                "migrating",
-                "rebuilding",
-                "unknown"
-              ],
-              "type": "string"
+              "items": {
+                "description": "Status of the Server.",
+                "enum": [
+                  "running",
+                  "initializing",
+                  "starting",
+                  "stopping",
+                  "off",
+                  "deleting",
+                  "migrating",
+                  "rebuilding",
+                  "unknown"
+                ],
+                "type": "string"
+              },
+              "type": "array"
             }
           },
           {
@@ -17034,24 +17187,27 @@
             "name": "sort",
             "required": false,
             "schema": {
-              "enum": [
-                "id",
-                "id:asc",
-                "id:desc",
-                "command",
-                "command:asc",
-                "command:desc",
-                "status",
-                "status:asc",
-                "status:desc",
-                "started",
-                "started:asc",
-                "started:desc",
-                "finished",
-                "finished:asc",
-                "finished:desc"
-              ],
-              "type": "string"
+              "items": {
+                "enum": [
+                  "id",
+                  "id:asc",
+                  "id:desc",
+                  "command",
+                  "command:asc",
+                  "command:desc",
+                  "status",
+                  "status:asc",
+                  "status:desc",
+                  "started",
+                  "started:asc",
+                  "started:desc",
+                  "finished",
+                  "finished:asc",
+                  "finished:desc"
+                ],
+                "type": "string"
+              },
+              "type": "array"
             }
           },
           {
@@ -17060,13 +17216,16 @@
             "name": "status",
             "required": false,
             "schema": {
-              "description": "Status of the Action.",
-              "enum": [
-                "running",
-                "success",
-                "error"
-              ],
-              "type": "string"
+              "items": {
+                "description": "Status of the Action.",
+                "enum": [
+                  "running",
+                  "success",
+                  "error"
+                ],
+                "type": "string"
+              },
+              "type": "array"
             }
           },
           {
@@ -19167,11 +19326,14 @@
             "name": "id",
             "required": false,
             "schema": {
-              "description": "ID of the Action.",
-              "example": 42,
-              "format": "int64",
-              "maximum": 9007199254740991,
-              "type": "integer"
+              "items": {
+                "description": "ID of the Action.",
+                "example": 42,
+                "format": "int64",
+                "maximum": 9007199254740991,
+                "type": "integer"
+              },
+              "type": "array"
             }
           },
           {
@@ -19180,24 +19342,27 @@
             "name": "sort",
             "required": false,
             "schema": {
-              "enum": [
-                "id",
-                "id:asc",
-                "id:desc",
-                "command",
-                "command:asc",
-                "command:desc",
-                "status",
-                "status:asc",
-                "status:desc",
-                "started",
-                "started:asc",
-                "started:desc",
-                "finished",
-                "finished:asc",
-                "finished:desc"
-              ],
-              "type": "string"
+              "items": {
+                "enum": [
+                  "id",
+                  "id:asc",
+                  "id:desc",
+                  "command",
+                  "command:asc",
+                  "command:desc",
+                  "status",
+                  "status:asc",
+                  "status:desc",
+                  "started",
+                  "started:asc",
+                  "started:desc",
+                  "finished",
+                  "finished:asc",
+                  "finished:desc"
+                ],
+                "type": "string"
+              },
+              "type": "array"
             }
           },
           {
@@ -19206,13 +19371,16 @@
             "name": "status",
             "required": false,
             "schema": {
-              "description": "Status of the Action.",
-              "enum": [
-                "running",
-                "success",
-                "error"
-              ],
-              "type": "string"
+              "items": {
+                "description": "Status of the Action.",
+                "enum": [
+                  "running",
+                  "success",
+                  "error"
+                ],
+                "type": "string"
+              },
+              "type": "array"
             }
           },
           {
@@ -19330,15 +19498,18 @@
             "name": "sort",
             "required": false,
             "schema": {
-              "enum": [
-                "id",
-                "id:asc",
-                "id:desc",
-                "name",
-                "name:asc",
-                "name:desc"
-              ],
-              "type": "string"
+              "items": {
+                "enum": [
+                  "id",
+                  "id:asc",
+                  "id:desc",
+                  "name",
+                  "name:asc",
+                  "name:desc"
+                ],
+                "type": "string"
+              },
+              "type": "array"
             }
           },
           {
@@ -19657,13 +19828,16 @@
             "name": "status",
             "required": false,
             "schema": {
-              "description": "Status of the Volume.",
-              "enum": [
-                "available",
-                "creating"
-              ],
-              "example": "available",
-              "type": "string"
+              "items": {
+                "description": "Status of the Volume.",
+                "enum": [
+                  "available",
+                  "creating"
+                ],
+                "example": "available",
+                "type": "string"
+              },
+              "type": "array"
             }
           },
           {
@@ -19672,18 +19846,21 @@
             "name": "sort",
             "required": false,
             "schema": {
-              "enum": [
-                "id",
-                "id:asc",
-                "id:desc",
-                "name",
-                "name:asc",
-                "name:desc",
-                "created",
-                "created:asc",
-                "created:desc"
-              ],
-              "type": "string"
+              "items": {
+                "enum": [
+                  "id",
+                  "id:asc",
+                  "id:desc",
+                  "name",
+                  "name:asc",
+                  "name:desc",
+                  "created",
+                  "created:asc",
+                  "created:desc"
+                ],
+                "type": "string"
+              },
+              "type": "array"
             }
           },
           {
@@ -20106,24 +20283,27 @@
             "name": "sort",
             "required": false,
             "schema": {
-              "enum": [
-                "id",
-                "id:asc",
-                "id:desc",
-                "command",
-                "command:asc",
-                "command:desc",
-                "status",
-                "status:asc",
-                "status:desc",
-                "started",
-                "started:asc",
-                "started:desc",
-                "finished",
-                "finished:asc",
-                "finished:desc"
-              ],
-              "type": "string"
+              "items": {
+                "enum": [
+                  "id",
+                  "id:asc",
+                  "id:desc",
+                  "command",
+                  "command:asc",
+                  "command:desc",
+                  "status",
+                  "status:asc",
+                  "status:desc",
+                  "started",
+                  "started:asc",
+                  "started:desc",
+                  "finished",
+                  "finished:asc",
+                  "finished:desc"
+                ],
+                "type": "string"
+              },
+              "type": "array"
             }
           },
           {
@@ -20132,13 +20312,16 @@
             "name": "status",
             "required": false,
             "schema": {
-              "description": "Status of the Action.",
-              "enum": [
-                "running",
-                "success",
-                "error"
-              ],
-              "type": "string"
+              "items": {
+                "description": "Status of the Action.",
+                "enum": [
+                  "running",
+                  "success",
+                  "error"
+                ],
+                "type": "string"
+              },
+              "type": "array"
             }
           },
           {
@@ -20632,11 +20815,14 @@
             "name": "id",
             "required": false,
             "schema": {
-              "description": "ID of the Action.",
-              "example": 42,
-              "format": "int64",
-              "maximum": 9007199254740991,
-              "type": "integer"
+              "items": {
+                "description": "ID of the Action.",
+                "example": 42,
+                "format": "int64",
+                "maximum": 9007199254740991,
+                "type": "integer"
+              },
+              "type": "array"
             }
           },
           {
@@ -20645,24 +20831,27 @@
             "name": "sort",
             "required": false,
             "schema": {
-              "enum": [
-                "id",
-                "id:asc",
-                "id:desc",
-                "command",
-                "command:asc",
-                "command:desc",
-                "status",
-                "status:asc",
-                "status:desc",
-                "started",
-                "started:asc",
-                "started:desc",
-                "finished",
-                "finished:asc",
-                "finished:desc"
-              ],
-              "type": "string"
+              "items": {
+                "enum": [
+                  "id",
+                  "id:asc",
+                  "id:desc",
+                  "command",
+                  "command:asc",
+                  "command:desc",
+                  "status",
+                  "status:asc",
+                  "status:desc",
+                  "started",
+                  "started:asc",
+                  "started:desc",
+                  "finished",
+                  "finished:asc",
+                  "finished:desc"
+                ],
+                "type": "string"
+              },
+              "type": "array"
             }
           },
           {
@@ -20671,13 +20860,16 @@
             "name": "status",
             "required": false,
             "schema": {
-              "description": "Status of the Action.",
-              "enum": [
-                "running",
-                "success",
-                "error"
-              ],
-              "type": "string"
+              "items": {
+                "description": "Status of the Action.",
+                "enum": [
+                  "running",
+                  "success",
+                  "error"
+                ],
+                "type": "string"
+              },
+              "type": "array"
             }
           },
           {
