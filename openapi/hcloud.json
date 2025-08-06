@@ -6,7 +6,7 @@
     },
     "description": "Copied from the official API documentation for the Public Hetzner Cloud.",
     "title": "Hetzner Cloud API",
-    "version": "3b576b3"
+    "version": "71acf29"
   },
   "servers": [
     {
@@ -2948,26 +2948,6 @@
         "required": [
           "metrics"
         ],
-        "type": "object"
-      },
-      "get_multiple_actions_response": {
-        "description": "Response to GET https://api.hetzner.cloud/v1/actions",
-        "properties": {
-          "actions": {
-            "items": {
-              "$ref": "#/components/schemas/action"
-            },
-            "type": "array"
-          },
-          "meta": {
-            "$ref": "#/components/schemas/meta"
-          }
-        },
-        "required": [
-          "actions",
-          "meta"
-        ],
-        "title": "ActionListResponse",
         "type": "object"
       },
       "get_network_response": {
@@ -7127,7 +7107,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/get_multiple_actions_response"
+                  "$ref": "#/components/schemas/list_actions_response"
                 }
               }
             },

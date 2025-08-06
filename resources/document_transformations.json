@@ -342,5 +342,17 @@
     "set": {
       "server": {"$ref": "#/components/schemas/resource_id"}
     }
+  },
+  {
+    "path": ["paths", "/actions", "get", "responses", "200", "content", "application/json", "schema"],
+    "set": {
+      "$ref": "#/components/schemas/list_actions_response"
+    }
+  },
+  {
+    "path": ["components", "schemas"],
+    "remove": [
+      "get_multiple_actions_response"
+    ]
   }
 ]
