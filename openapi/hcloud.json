@@ -6,7 +6,7 @@
     },
     "description": "Copied from the official API documentation for the Public Hetzner Cloud.",
     "title": "Hetzner Cloud API",
-    "version": "71acf29"
+    "version": "f5b40d8-dirty"
   },
   "servers": [
     {
@@ -2705,110 +2705,6 @@
         ],
         "type": "object"
       },
-      "get_action_for_certificate_response": {
-        "description": "Response to GET https://api.hetzner.cloud/v1/certificates/{id}/actions/{action_id}",
-        "properties": {
-          "action": {
-            "$ref": "#/components/schemas/action"
-          }
-        },
-        "required": [
-          "action"
-        ],
-        "title": "ActionResponse",
-        "type": "object"
-      },
-      "get_action_for_firewall_response": {
-        "description": "Response to GET https://api.hetzner.cloud/v1/firewalls/{id}/actions/{action_id}",
-        "properties": {
-          "action": {
-            "$ref": "#/components/schemas/action"
-          }
-        },
-        "required": [
-          "action"
-        ],
-        "title": "ActionResponse",
-        "type": "object"
-      },
-      "get_action_for_floating_ip_response": {
-        "description": "Response to GET https://api.hetzner.cloud/v1/floating_ips/{id}/actions/{action_id}",
-        "properties": {
-          "action": {
-            "$ref": "#/components/schemas/action"
-          }
-        },
-        "required": [
-          "action"
-        ],
-        "title": "ActionResponse",
-        "type": "object"
-      },
-      "get_action_for_image_response": {
-        "description": "Response to GET https://api.hetzner.cloud/v1/images/{id}/actions/{action_id}",
-        "properties": {
-          "action": {
-            "$ref": "#/components/schemas/action"
-          }
-        },
-        "required": [
-          "action"
-        ],
-        "title": "ActionResponse",
-        "type": "object"
-      },
-      "get_action_for_load_balancer_response": {
-        "description": "Response to GET https://api.hetzner.cloud/v1/load_balancers/{id}/actions/{action_id}",
-        "properties": {
-          "action": {
-            "$ref": "#/components/schemas/action"
-          }
-        },
-        "required": [
-          "action"
-        ],
-        "title": "ActionResponse",
-        "type": "object"
-      },
-      "get_action_for_network_response": {
-        "description": "Response to GET https://api.hetzner.cloud/v1/networks/{id}/actions/{action_id}",
-        "properties": {
-          "action": {
-            "$ref": "#/components/schemas/action"
-          }
-        },
-        "required": [
-          "action"
-        ],
-        "title": "ActionResponse",
-        "type": "object"
-      },
-      "get_action_for_server_response": {
-        "description": "Response to GET https://api.hetzner.cloud/v1/servers/{id}/actions/{action_id}",
-        "properties": {
-          "action": {
-            "$ref": "#/components/schemas/action"
-          }
-        },
-        "required": [
-          "action"
-        ],
-        "title": "ActionResponse",
-        "type": "object"
-      },
-      "get_action_for_volume_response": {
-        "description": "Response to GET https://api.hetzner.cloud/v1/volumes/{id}/actions/{action_id}",
-        "properties": {
-          "action": {
-            "$ref": "#/components/schemas/action"
-          }
-        },
-        "required": [
-          "action"
-        ],
-        "title": "ActionResponse",
-        "type": "object"
-      },
       "get_action_response": {
         "description": "Response to GET https://api.hetzner.cloud/v1/{resource}/actions",
         "properties": {
@@ -3678,165 +3574,6 @@
           "example.com/my": "label",
           "just-a-key": ""
         },
-        "type": "object"
-      },
-      "list_actions_for_certificate_response": {
-        "description": "Response to GET https://api.hetzner.cloud/v1/certificates/{id}/actions",
-        "properties": {
-          "actions": {
-            "items": {
-              "$ref": "#/components/schemas/action"
-            },
-            "type": "array"
-          },
-          "meta": {
-            "$ref": "#/components/schemas/meta"
-          }
-        },
-        "required": [
-          "actions",
-          "meta"
-        ],
-        "title": "ActionListResponseWithMeta",
-        "type": "object"
-      },
-      "list_actions_for_firewall_response": {
-        "description": "Response to GET https://api.hetzner.cloud/v1/firewalls/{id}/actions",
-        "properties": {
-          "actions": {
-            "items": {
-              "$ref": "#/components/schemas/action"
-            },
-            "type": "array"
-          },
-          "meta": {
-            "$ref": "#/components/schemas/meta"
-          }
-        },
-        "required": [
-          "actions",
-          "meta"
-        ],
-        "title": "ActionListResponseWithMeta",
-        "type": "object"
-      },
-      "list_actions_for_floating_ip_response": {
-        "description": "Response to GET https://api.hetzner.cloud/v1/floating_ips/{id}/actions",
-        "properties": {
-          "actions": {
-            "items": {
-              "$ref": "#/components/schemas/action"
-            },
-            "type": "array"
-          },
-          "meta": {
-            "$ref": "#/components/schemas/meta"
-          }
-        },
-        "required": [
-          "actions",
-          "meta"
-        ],
-        "type": "object"
-      },
-      "list_actions_for_image_response": {
-        "description": "Response to GET https://api.hetzner.cloud/v1/images/{id}/actions",
-        "properties": {
-          "actions": {
-            "items": {
-              "$ref": "#/components/schemas/action"
-            },
-            "type": "array"
-          },
-          "meta": {
-            "$ref": "#/components/schemas/meta"
-          }
-        },
-        "required": [
-          "actions",
-          "meta"
-        ],
-        "title": "ActionListResponseWithMeta",
-        "type": "object"
-      },
-      "list_actions_for_load_balancer_response": {
-        "description": "Response to GET https://api.hetzner.cloud/v1/load_balancers/{id}/actions",
-        "properties": {
-          "actions": {
-            "items": {
-              "$ref": "#/components/schemas/action"
-            },
-            "type": "array"
-          },
-          "meta": {
-            "$ref": "#/components/schemas/meta"
-          }
-        },
-        "required": [
-          "actions",
-          "meta"
-        ],
-        "title": "ActionListResponseWithMeta",
-        "type": "object"
-      },
-      "list_actions_for_network_response": {
-        "description": "Response to GET https://api.hetzner.cloud/v1/networks/{id}/actions",
-        "properties": {
-          "actions": {
-            "items": {
-              "$ref": "#/components/schemas/action"
-            },
-            "type": "array"
-          },
-          "meta": {
-            "$ref": "#/components/schemas/meta"
-          }
-        },
-        "required": [
-          "actions",
-          "meta"
-        ],
-        "title": "ActionListResponseWithMeta",
-        "type": "object"
-      },
-      "list_actions_for_server_response": {
-        "description": "Response to GET https://api.hetzner.cloud/v1/servers/{id}/actions",
-        "properties": {
-          "actions": {
-            "items": {
-              "$ref": "#/components/schemas/action"
-            },
-            "type": "array"
-          },
-          "meta": {
-            "$ref": "#/components/schemas/meta"
-          }
-        },
-        "required": [
-          "actions",
-          "meta"
-        ],
-        "title": "ActionListResponseWithMeta",
-        "type": "object"
-      },
-      "list_actions_for_volume_response": {
-        "description": "Response to GET https://api.hetzner.cloud/v1/volumes/{id}/actions",
-        "properties": {
-          "actions": {
-            "items": {
-              "$ref": "#/components/schemas/action"
-            },
-            "type": "array"
-          },
-          "meta": {
-            "$ref": "#/components/schemas/meta"
-          }
-        },
-        "required": [
-          "actions",
-          "meta"
-        ],
-        "title": "ActionListResponseWithMeta",
         "type": "object"
       },
       "list_actions_response": {
@@ -5113,7 +4850,6 @@
         "type": "object"
       },
       "meta": {
-        "description": "Metadata contained in the response",
         "properties": {
           "pagination": {
             "$ref": "#/components/schemas/pagination"
@@ -5122,6 +4858,7 @@
         "required": [
           "pagination"
         ],
+        "title": "ListMeta",
         "type": "object"
       },
       "metrics": {
@@ -5283,38 +5020,44 @@
         "type": "object"
       },
       "pagination": {
-        "description": "Information about the current pagination. The keys previous_page, next_page, last_page, and total_entries may be null when on the first page, last page, or when the total number of entries is unknown | See \"[Pagination](#pagination)\" for more information.",
+        "description": "See \"[Pagination](#pagination)\" for more information.",
         "properties": {
           "last_page": {
-            "description": "ID of the last page available. Can be null if the current page is the last one. | Page number of the last page available. Can be null if the current page is the last one.",
+            "description": "Page number of the last page available. Can be null if the current page is the last one.",
+            "example": 4,
             "format": "int64",
             "nullable": true,
             "type": "integer"
           },
           "next_page": {
-            "description": "ID of the next page. Can be null if the current page is the last one. | Page number of the next page. Can be null if the current page is the last one.",
+            "description": "Page number of the next page. Can be null if the current page is the last one.",
+            "example": 4,
             "format": "int64",
             "nullable": true,
             "type": "integer"
           },
           "page": {
-            "description": "Current page number | Current page number.",
+            "description": "Current page number.",
+            "example": 3,
             "format": "int64",
             "type": "integer"
           },
           "per_page": {
-            "description": "Maximum number of items shown per page in the response | Maximum number of entries returned per page.",
+            "description": "Maximum number of entries returned per page.",
+            "example": 25,
             "format": "int64",
             "type": "integer"
           },
           "previous_page": {
-            "description": "ID of the previous page. Can be null if the current page is the first one. | Page number of the previous page. Can be null if the current page is the first one.",
+            "description": "Page number of the previous page. Can be null if the current page is the first one.",
+            "example": 2,
             "format": "int64",
             "nullable": true,
             "type": "integer"
           },
           "total_entries": {
-            "description": "The total number of entries that exist in the database for this query. Nullable if unknown. | Total number of entries that exist for this query. Can be null if unknown.",
+            "description": "Total number of entries that exist for this query. Can be null if unknown.",
+            "example": 100,
             "format": "int64",
             "nullable": true,
             "type": "integer"
@@ -7850,7 +7593,7 @@
                   }
                 },
                 "schema": {
-                  "$ref": "#/components/schemas/list_actions_for_certificate_response"
+                  "$ref": "#/components/schemas/list_actions_response"
                 }
               }
             },
@@ -7920,7 +7663,7 @@
                   }
                 },
                 "schema": {
-                  "$ref": "#/components/schemas/get_action_for_certificate_response"
+                  "$ref": "#/components/schemas/get_action_response"
                 }
               }
             },
@@ -8794,7 +8537,7 @@
                   }
                 },
                 "schema": {
-                  "$ref": "#/components/schemas/list_actions_for_firewall_response"
+                  "$ref": "#/components/schemas/list_actions_response"
                 }
               }
             },
@@ -8864,7 +8607,7 @@
                   }
                 },
                 "schema": {
-                  "$ref": "#/components/schemas/get_action_for_firewall_response"
+                  "$ref": "#/components/schemas/get_action_response"
                 }
               }
             },
@@ -9896,7 +9639,7 @@
                   }
                 },
                 "schema": {
-                  "$ref": "#/components/schemas/list_actions_for_floating_ip_response"
+                  "$ref": "#/components/schemas/list_actions_response"
                 }
               }
             },
@@ -9970,7 +9713,7 @@
                   }
                 },
                 "schema": {
-                  "$ref": "#/components/schemas/get_action_for_floating_ip_response"
+                  "$ref": "#/components/schemas/get_action_response"
                 }
               }
             },
@@ -10984,7 +10727,7 @@
                   }
                 },
                 "schema": {
-                  "$ref": "#/components/schemas/list_actions_for_image_response"
+                  "$ref": "#/components/schemas/list_actions_response"
                 }
               }
             },
@@ -11054,7 +10797,7 @@
                   }
                 },
                 "schema": {
-                  "$ref": "#/components/schemas/get_action_for_image_response"
+                  "$ref": "#/components/schemas/get_action_response"
                 }
               }
             },
@@ -12335,7 +12078,7 @@
                   }
                 },
                 "schema": {
-                  "$ref": "#/components/schemas/list_actions_for_load_balancer_response"
+                  "$ref": "#/components/schemas/list_actions_response"
                 }
               }
             },
@@ -12405,7 +12148,7 @@
                   }
                 },
                 "schema": {
-                  "$ref": "#/components/schemas/get_action_for_load_balancer_response"
+                  "$ref": "#/components/schemas/get_action_response"
                 }
               }
             },
@@ -14382,7 +14125,7 @@
                   }
                 },
                 "schema": {
-                  "$ref": "#/components/schemas/list_actions_for_network_response"
+                  "$ref": "#/components/schemas/list_actions_response"
                 }
               }
             },
@@ -14452,7 +14195,7 @@
                   }
                 },
                 "schema": {
-                  "$ref": "#/components/schemas/get_action_for_network_response"
+                  "$ref": "#/components/schemas/get_action_response"
                 }
               }
             },
@@ -17270,7 +17013,7 @@
                   }
                 },
                 "schema": {
-                  "$ref": "#/components/schemas/list_actions_for_server_response"
+                  "$ref": "#/components/schemas/list_actions_response"
                 }
               }
             },
@@ -17340,7 +17083,7 @@
                   }
                 },
                 "schema": {
-                  "$ref": "#/components/schemas/get_action_for_server_response"
+                  "$ref": "#/components/schemas/get_action_response"
                 }
               }
             },
@@ -20370,7 +20113,7 @@
                   }
                 },
                 "schema": {
-                  "$ref": "#/components/schemas/list_actions_for_volume_response"
+                  "$ref": "#/components/schemas/list_actions_response"
                 }
               }
             },
@@ -20440,7 +20183,7 @@
                   }
                 },
                 "schema": {
-                  "$ref": "#/components/schemas/get_action_for_volume_response"
+                  "$ref": "#/components/schemas/get_action_response"
                 }
               }
             },

@@ -60,7 +60,7 @@ async function getContents(source: string): Promise<any> {
   }
 }
 
-function toOperationId(verb: string, text: string) {
+function toOperationId(verb: string, text: string, hack: boolean = false) {
   const filtered = ["a", "an", "the"];
   let id = text
     .split(/ |-/)
@@ -73,11 +73,24 @@ function toOperationId(verb: string, text: string) {
   if (verb === "put") {
     id = id.replace(/^(update_)/, "replace_");
   }
+
+  if (hack) {
+    id = id.replace(/^(get_multiple_)/, "list_");
+
+    // hack for action responses
+    if (verb === "get" && id.startsWith("list_actions_for_")) {
+      id = "list_actions";
+    }
+
+    if (verb === "get" && id.startsWith("get_action_for_")) {
+      id = "get_action";
+    }
+  }
   return id;
 }
 
 function toSchemaName(postfix: string, verb: string, summary: string): string {
-  return `${toOperationId(verb.toLowerCase(), summary)}_${postfix}`;
+  return `${toOperationId(verb.toLowerCase(), summary, true)}_${postfix}`;
 }
 
 function appendSchema(

@@ -291,7 +291,7 @@
   {
     "name": "meta",
     "path": [
-      "list_actions_for_floating_ip_response",
+      "list_actions_response",
       "meta"
     ]
   },
@@ -313,7 +313,7 @@
   {
     "name": "pagination",
     "path": [
-      "list_actions_for_floating_ip_response",
+      "list_actions_response",
       "meta",
       "pagination"
     ]
