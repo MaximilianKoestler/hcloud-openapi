@@ -6,7 +6,7 @@
     },
     "description": "Copied from the official API documentation for the Public Hetzner Cloud.",
     "title": "Hetzner Cloud API",
-    "version": "f5b40d8-dirty"
+    "version": "3372012-dirty"
   },
   "servers": [
     {
@@ -2844,6 +2844,22 @@
         "required": [
           "metrics"
         ],
+        "type": "object"
+      },
+      "get_multiple_actions_response": {
+        "description": "Response to GET https://api.hetzner.cloud/v1/actions",
+        "properties": {
+          "actions": {
+            "items": {
+              "$ref": "#/components/schemas/action"
+            },
+            "type": "array"
+          }
+        },
+        "required": [
+          "actions"
+        ],
+        "title": "ActionListResponse",
         "type": "object"
       },
       "get_network_response": {
@@ -6819,30 +6835,6 @@
               },
               "type": "array"
             }
-          },
-          {
-            "description": "Page to load.",
-            "in": "query",
-            "name": "page",
-            "required": false,
-            "schema": {
-              "default": 1,
-              "example": 2,
-              "format": "int64",
-              "type": "integer"
-            }
-          },
-          {
-            "description": "Items to load per page.",
-            "in": "query",
-            "name": "per_page",
-            "required": false,
-            "schema": {
-              "default": 25,
-              "example": 25,
-              "format": "int64",
-              "type": "integer"
-            }
           }
         ],
         "responses": {
@@ -6850,7 +6842,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/list_actions_response"
+                  "$ref": "#/components/schemas/get_multiple_actions_response"
                 }
               }
             },
