@@ -50,6 +50,17 @@ function applyTransformation(
   }
 }
 
+export async function preTransformDocument(document: OpenApiDocumentFragment) {
+  const json = await fs.readFile(
+    "resources/document_pre_transformations.json",
+    "utf-8"
+  );
+  let transformations: Transformation[] = JSON.parse(json);
+  transformations.forEach((transformation) =>
+    applyTransformation(document, transformation)
+  );
+}
+
 export async function transformDocument(document: OpenApiDocumentFragment) {
   const json = await fs.readFile(
     "resources/document_transformations.json",

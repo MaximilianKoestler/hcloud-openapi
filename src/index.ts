@@ -6,7 +6,10 @@ import validator = require("ibm-openapi-validator");
 import validUrl = require("valid-url");
 import yargs = require("yargs");
 
-import { transformDocument } from "./document/transformation";
+import {
+  transformDocument,
+  preTransformDocument,
+} from "./document/transformation";
 import { deduplicateSchemas, fixSchema } from "./schema/transformation";
 import { OpenApiDocumentFragment } from "./types";
 
@@ -347,6 +350,8 @@ async function main() {
   try {
     // load document from source
     let document = (await getContents(args.source)) as OpenApiDocumentFragment;
+
+    await preTransformDocument(document);
 
     // create components (and deduplicate them) and add references to components to the paths
     await createComponents(document);

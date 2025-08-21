@@ -16,6 +16,14 @@
     ]
   },
   {
+    "description": "Actions show the results and progress of asynchronous requests to the API.",
+    "name": "action_with_optional_error",
+    "path": [
+      "get_multiple_actions_response",
+      "actions"
+    ]
+  },
+  {
     "name": "architecture",
     "path": [
       "list_server_types_response",
