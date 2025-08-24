@@ -470,7 +470,7 @@ async function main() {
 
     if (args.list_paths) {
       Object.keys(document.paths).forEach((path) => {
-        const verbs = Object.keys(document.paths[path]);
+        const verbs = Object.keys(document.paths[path]).filter(isVerb);
         console.log(
           `${path} (${verbs.map((verb) => verb.toUpperCase()).join(", ")})`
         );
