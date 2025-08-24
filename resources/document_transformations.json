@@ -6,43 +6,104 @@
     }
   },
   {
-    "path": ["components", "schemas", "metrics", "properties", "time_series", "additionalProperties", "properties", "values", "items", "items"],
+    "path": [
+      "components",
+      "schemas",
+      "metrics",
+      "properties",
+      "time_series",
+      "additionalProperties",
+      "properties",
+      "values",
+      "items",
+      "items"
+    ],
     "set": {
       "title": "MetricsTimeSeriesValue"
     }
   },
   {
-    "path": ["components", "schemas", "create_server_request", "properties", "firewalls", "items"],
+    "path": [
+      "components",
+      "schemas",
+      "create_server_request",
+      "properties",
+      "firewalls",
+      "items"
+    ],
     "set": {
       "title": "CreateServerRequestFirewalls"
     }
   },
   {
-    "path": ["components", "schemas", "firewall_resource_id", "properties", "applied_to_resources", "items"],
+    "path": [
+      "components",
+      "schemas",
+      "firewall_resource_id",
+      "properties",
+      "applied_to_resources",
+      "items"
+    ],
     "set": {
       "title": "FirewallResourceIdAppliedToResources"
     }
   },
   {
-    "path": ["components", "schemas", "list_prices_response", "properties", "pricing", "properties", "floating_ips", "items"],
+    "path": [
+      "components",
+      "schemas",
+      "list_prices_response",
+      "properties",
+      "pricing",
+      "properties",
+      "floating_ips",
+      "items"
+    ],
     "set": {
       "title": "ListPricesResponsePricingFloatingIps"
     }
   },
   {
-    "path": ["components", "schemas", "list_prices_response", "properties", "pricing", "properties", "load_balancer_types", "items"],
+    "path": [
+      "components",
+      "schemas",
+      "list_prices_response",
+      "properties",
+      "pricing",
+      "properties",
+      "load_balancer_types",
+      "items"
+    ],
     "set": {
       "title": "ListPricesResponsePricingLoadBalancerTypes"
     }
   },
   {
-    "path": ["components", "schemas", "list_prices_response", "properties", "pricing", "properties", "primary_ips", "items"],
+    "path": [
+      "components",
+      "schemas",
+      "list_prices_response",
+      "properties",
+      "pricing",
+      "properties",
+      "primary_ips",
+      "items"
+    ],
     "set": {
       "title": "ListPricesResponsePricingPrimaryIps"
     }
   },
   {
-    "path": ["components", "schemas", "list_prices_response", "properties", "pricing", "properties", "server_types", "items"],
+    "path": [
+      "components",
+      "schemas",
+      "list_prices_response",
+      "properties",
+      "pricing",
+      "properties",
+      "server_types",
+      "items"
+    ],
     "set": {
       "title": "ListPricesResponsePricingServerTypes"
     }
@@ -220,6 +281,55 @@
   },
 
   {
+    "path": ["paths", "/storage_boxes/actions", "get"],
+    "set": {
+      "operationId": "list_storage_box_actions"
+    }
+  },
+  {
+    "path": ["paths", "/storage_boxes/actions/{id}", "get"],
+    "set": {
+      "operationId": "get_storage_box_action"
+    }
+  },
+  {
+    "path": [
+      "paths",
+      "/storage_boxes/{id}/subaccounts/{subaccount_id}/actions/reset_subaccount_password",
+      "post"
+    ],
+    "set": {
+      "operationId": "reset_storage_box_subaccount_password"
+    }
+  },
+  {
+    "path": ["paths", "/storage_boxes/{id}/actions/reset_password", "post"],
+    "set": {
+      "operationId": "reset_storage_box_password"
+    }
+  },
+  {
+    "path": [
+      "paths",
+      "/storage_boxes/{id}/subaccounts/{subaccount_id}/actions/update_access_settings",
+      "post"
+    ],
+    "set": {
+      "operationId": "update_storage_box_subaccount_access_settings"
+    }
+  },
+  {
+    "path": [
+      "paths",
+      "/storage_boxes/{id}/actions/update_access_settings",
+      "post"
+    ],
+    "set": {
+      "operationId": "update_storage_box_access_settings"
+    }
+  },
+
+  {
     "path": ["components", "schemas", "list_actions_response"],
     "set": {
       "description": "Response to GET https://api.hetzner.cloud/v1/{resource}/actions/{id}"
@@ -258,13 +368,27 @@
     }
   },
   {
-    "path": ["paths", "/firewalls/{id}/actions", "get", "parameters", 0, "schema"],
+    "path": [
+      "paths",
+      "/firewalls/{id}/actions",
+      "get",
+      "parameters",
+      0,
+      "schema"
+    ],
     "set": {
       "description": "ID of the Firewall. Limited to 52 bits to ensure compatability with JSON double precision floats."
     }
   },
   {
-    "path": ["paths", "/firewalls/{id}/actions", "get", "parameters", 0, "schema"],
+    "path": [
+      "paths",
+      "/firewalls/{id}/actions",
+      "get",
+      "parameters",
+      0,
+      "schema"
+    ],
     "set": {
       "title": "Firewall ID"
     }
@@ -277,13 +401,27 @@
     }
   },
   {
-    "path": ["paths", "/certificates/{id}/actions", "get", "parameters", 0, "schema"],
+    "path": [
+      "paths",
+      "/certificates/{id}/actions",
+      "get",
+      "parameters",
+      0,
+      "schema"
+    ],
     "set": {
       "description": "ID of the Certificate. Limited to 52 bits to ensure compatability with JSON double precision floats."
     }
   },
   {
-    "path": ["paths", "/certificates/{id}/actions", "get", "parameters", 0, "schema"],
+    "path": [
+      "paths",
+      "/certificates/{id}/actions",
+      "get",
+      "parameters",
+      0,
+      "schema"
+    ],
     "set": {
       "title": "Certificate ID"
     }
@@ -296,51 +434,78 @@
     }
   },
   {
-    "path": ["paths", "/servers/{id}/actions", "get", "parameters", 0, "schema"],
+    "path": [
+      "paths",
+      "/servers/{id}/actions",
+      "get",
+      "parameters",
+      0,
+      "schema"
+    ],
     "set": {
       "description": "ID of the Server. Limited to 52 bits to ensure compatability with JSON double precision floats."
     }
   },
   {
-    "path": ["paths", "/servers/{id}/actions", "get", "parameters", 0, "schema"],
+    "path": [
+      "paths",
+      "/servers/{id}/actions",
+      "get",
+      "parameters",
+      0,
+      "schema"
+    ],
     "set": {
       "title": "Server ID"
     }
   },
 
   {
-    "path": ["components", "schemas", "delete_service_request", "properties", "listen_port"],
+    "path": [
+      "components",
+      "schemas",
+      "delete_service_request",
+      "properties",
+      "listen_port"
+    ],
     "remove": ["format"]
   },
 
   {
     "path": ["components", "schemas", "load_balancer", "properties"],
     "set": {
-      "algorithm": {"$ref": "#/components/schemas/load_balancer_algorithm"}
+      "algorithm": { "$ref": "#/components/schemas/load_balancer_algorithm" }
     }
   },
   {
     "path": ["components", "schemas"],
     "set": {
-      "change_algorithm_request": {"$ref": "#/components/schemas/load_balancer_algorithm"}
+      "change_algorithm_request": {
+        "$ref": "#/components/schemas/load_balancer_algorithm"
+      }
     }
   },
   {
-    "path": ["components", "schemas", "update_load_balancer_service", "properties"],
+    "path": [
+      "components",
+      "schemas",
+      "update_load_balancer_service",
+      "properties"
+    ],
     "set": {
-      "http": {"$ref": "#/components/schemas/http"}
+      "http": { "$ref": "#/components/schemas/http" }
     }
   },
   {
     "path": ["components", "schemas", "load_balancer_add_target", "properties"],
     "set": {
-      "server": {"$ref": "#/components/schemas/resource_id"}
+      "server": { "$ref": "#/components/schemas/resource_id" }
     }
   },
   {
     "path": ["components", "schemas", "remove_target_request", "properties"],
     "set": {
-      "server": {"$ref": "#/components/schemas/resource_id"}
+      "server": { "$ref": "#/components/schemas/resource_id" }
     }
   }
 ]

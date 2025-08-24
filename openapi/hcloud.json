@@ -6,7 +6,7 @@
     },
     "description": "Copied from the official API documentation for the Public Hetzner Cloud.",
     "title": "Hetzner Cloud API",
-    "version": "e92def1-dirty"
+    "version": "06d1373-dirty"
   },
   "servers": [
     {
@@ -22727,7 +22727,7 @@
     "/storage_boxes/actions": {
       "get": {
         "description": "Returns all Action objects.",
-        "operationId": "list_actions",
+        "operationId": "list_storage_box_actions",
         "parameters": [
           {
             "description": "Filter the actions by ID. Can be used multiple times. The response will only contain\nactions matching the specified IDs.\n",
@@ -22843,7 +22843,7 @@
     "/storage_boxes/actions/{id}": {
       "get": {
         "description": "Returns a specific Action object.",
-        "operationId": "get_action",
+        "operationId": "get_storage_box_action",
         "parameters": [
           {
             "description": "ID of the Action.",
@@ -23434,7 +23434,7 @@
     "/storage_boxes/{id}/actions/reset_password": {
       "post": {
         "description": "Reset the password of the given Storage Box.\n",
-        "operationId": "reset_password",
+        "operationId": "reset_storage_box_password",
         "parameters": [
           {
             "description": "ID of the Storage Box.",
@@ -23590,7 +23590,7 @@
     "/storage_boxes/{id}/actions/update_access_settings": {
       "post": {
         "description": "Update access settings of the primary Storage Box account.\n\nThis endpoints supports partial updates. Omitted optional parameters do not result in any changes to the respective properties.\n",
-        "operationId": "update_access_settings",
+        "operationId": "update_storage_box_access_settings",
         "parameters": [
           {
             "description": "ID of the Storage Box.",
@@ -24492,7 +24492,7 @@
     "/storage_boxes/{id}/subaccounts/{subaccount_id}/actions/reset_subaccount_password": {
       "post": {
         "description": "Reset the password of the given Subaccount.\n",
-        "operationId": "reset_password",
+        "operationId": "reset_storage_box_subaccount_password",
         "parameters": [
           {
             "description": "ID of the Storage Box.",
@@ -24585,7 +24585,7 @@
     "/storage_boxes/{id}/subaccounts/{subaccount_id}/actions/update_access_settings": {
       "post": {
         "description": "Updates the access settings of a Subaccount.\n\nThis endpoints supports partial updates. Omitted optional parameters do not result in any changes to the respective properties.\n",
-        "operationId": "update_access_settings",
+        "operationId": "update_storage_box_subaccount_access_settings",
         "parameters": [
           {
             "description": "ID of the Storage Box.",
