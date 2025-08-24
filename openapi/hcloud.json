@@ -6,7 +6,7 @@
     },
     "description": "Copied from the official API documentation for the Public Hetzner Cloud.",
     "title": "Hetzner Cloud API",
-    "version": "4f5630d-dirty"
+    "version": "4575182-dirty"
   },
   "servers": [
     {
@@ -6865,7 +6865,12 @@
             "source": "package examples\n\nimport (\n\t\"context\"\n\t\"os\"\n\n\t\"github.com/hetznercloud/hcloud-go/v2/hcloud\"\n)\n\nfunc main() {\n\ttoken := os.Getenv(\"HCLOUD_TOKEN\")\n\n\tclient := hcloud.NewClient(hcloud.WithToken(token))\n\tctx := context.TODO()\n\n\tactions, err := client.Action.AllWithOpts(ctx, hcloud.ActionListOpts{ID: []int64{123, 456}})\n}"
           }
         ]
-      }
+      },
+      "servers": [
+        {
+          "url": "https://api.hetzner.cloud/v1"
+        }
+      ]
     },
     "/actions/{id}": {
       "get": {
@@ -6914,7 +6919,12 @@
             "source": "from __future__ import annotations\n\nfrom os import environ\n\nfrom hcloud import Client\n\ntoken = environ[\"HCLOUD_TOKEN\"]\nclient = Client(token=token)\n\naction = client.actions.get_by_id(123)"
           }
         ]
-      }
+      },
+      "servers": [
+        {
+          "url": "https://api.hetzner.cloud/v1"
+        }
+      ]
     },
     "/certificates": {
       "get": {
@@ -7246,7 +7256,12 @@
             "source": "hcloud certificate create \\\n    --name \"my website cert\" \\\n    --type uploaded \\\n    --cert-file my-cert.pem \\\n    --key-file my-key.pem"
           }
         ]
-      }
+      },
+      "servers": [
+        {
+          "url": "https://api.hetzner.cloud/v1"
+        }
+      ]
     },
     "/certificates/{id}": {
       "delete": {
@@ -7460,7 +7475,12 @@
             "source": "hcloud certificate update $CERTIFICATE --name \"my website cert\"\nhcloud certificate add-label --overwrite $CERTIFICATE \\\n    \"environment=prod\" \"example.com/my=label\" \"just-a-key=\"\nhcloud certificate remove-label $CERTIFICATE \\\n    \"environment\" \"example.com\" \"just-a-key\""
           }
         ]
-      }
+      },
+      "servers": [
+        {
+          "url": "https://api.hetzner.cloud/v1"
+        }
+      ]
     },
     "/certificates/{id}/actions": {
       "get": {
@@ -7601,7 +7621,12 @@
         "tags": [
           "certificates"
         ]
-      }
+      },
+      "servers": [
+        {
+          "url": "https://api.hetzner.cloud/v1"
+        }
+      ]
     },
     "/certificates/{id}/actions/{action_id}": {
       "get": {
@@ -7671,7 +7696,12 @@
         "tags": [
           "certificates"
         ]
-      }
+      },
+      "servers": [
+        {
+          "url": "https://api.hetzner.cloud/v1"
+        }
+      ]
     },
     "/certificates/{id}/actions/retry": {
       "post": {
@@ -7745,7 +7775,12 @@
             "source": "hcloud certificate retry $CERTIFICATE"
           }
         ]
-      }
+      },
+      "servers": [
+        {
+          "url": "https://api.hetzner.cloud/v1"
+        }
+      ]
     },
     "/certificates/actions": {
       "get": {
@@ -7868,7 +7903,12 @@
             "source": "from __future__ import annotations\n\nfrom os import environ\n\nfrom hcloud import Client\n\ntoken = environ[\"HCLOUD_TOKEN\"]\nclient = Client(token=token)\n\nactions = client.certificates.actions.get_all()"
           }
         ]
-      }
+      },
+      "servers": [
+        {
+          "url": "https://api.hetzner.cloud/v1"
+        }
+      ]
     },
     "/certificates/actions/{id}": {
       "get": {
@@ -7917,7 +7957,12 @@
             "source": "from __future__ import annotations\n\nfrom os import environ\n\nfrom hcloud import Client\n\ntoken = environ[\"HCLOUD_TOKEN\"]\nclient = Client(token=token)\n\naction = client.certificates.actions.get_by_id(123)"
           }
         ]
-      }
+      },
+      "servers": [
+        {
+          "url": "https://api.hetzner.cloud/v1"
+        }
+      ]
     },
     "/datacenters": {
       "get": {
@@ -8011,7 +8056,12 @@
             "source": "hcloud datacenter list"
           }
         ]
-      }
+      },
+      "servers": [
+        {
+          "url": "https://api.hetzner.cloud/v1"
+        }
+      ]
     },
     "/datacenters/{id}": {
       "get": {
@@ -8065,7 +8115,12 @@
             "source": "hcloud datacenter describe $DATACENTER"
           }
         ]
-      }
+      },
+      "servers": [
+        {
+          "url": "https://api.hetzner.cloud/v1"
+        }
+      ]
     },
     "/firewalls": {
       "get": {
@@ -8244,7 +8299,12 @@
             "source": "hcloud firewall create \\\n    --name \"Corporate Intranet Protection\" \\\n    --label \"env=dev\" \\\n    --rules-file <(echo '[\n  {\n    \"description\": \"Allow port 80\",\n    \"direction\": \"in\",\n    \"port\": \"80\",\n    \"protocol\": \"tcp\",\n    \"source_ips\": [\n      \"28.239.13.1/32\",\n      \"28.239.14.0/24\",\n      \"ff21:1eac:9a3b:ee58:5ca:990c:8bc9:c03b/128\"\n    ]\n  }\n]')"
           }
         ]
-      }
+      },
+      "servers": [
+        {
+          "url": "https://api.hetzner.cloud/v1"
+        }
+      ]
     },
     "/firewalls/{id}": {
       "delete": {
@@ -8404,7 +8464,12 @@
             "source": "hcloud firewall update $FIREWALL --name \"new-name\"\nhcloud firewall add-label --overwrite $FIREWALL \\\n    \"environment=prod\" \"example.com/my=label\" \"just-a-key=\"\nhcloud firewall remove-label $FIREWALL \\\n    \"environment\" \"example.com\" \"just-a-key\""
           }
         ]
-      }
+      },
+      "servers": [
+        {
+          "url": "https://api.hetzner.cloud/v1"
+        }
+      ]
     },
     "/firewalls/{id}/actions": {
       "get": {
@@ -8545,7 +8610,12 @@
         "tags": [
           "firewalls"
         ]
-      }
+      },
+      "servers": [
+        {
+          "url": "https://api.hetzner.cloud/v1"
+        }
+      ]
     },
     "/firewalls/{id}/actions/{action_id}": {
       "get": {
@@ -8615,7 +8685,12 @@
         "tags": [
           "firewalls"
         ]
-      }
+      },
+      "servers": [
+        {
+          "url": "https://api.hetzner.cloud/v1"
+        }
+      ]
     },
     "/firewalls/{id}/actions/apply_to_resources": {
       "post": {
@@ -8714,7 +8789,12 @@
             "source": "hcloud firewall apply-to-resource $FIREWALL \\\n    --type server \\\n    --server $SERVER"
           }
         ]
-      }
+      },
+      "servers": [
+        {
+          "url": "https://api.hetzner.cloud/v1"
+        }
+      ]
     },
     "/firewalls/{id}/actions/remove_from_resources": {
       "post": {
@@ -8813,7 +8893,12 @@
             "source": "hcloud firewall remove-from-resource $FIREWALL \\\n    --type server \\\n    --server $SERVER"
           }
         ]
-      }
+      },
+      "servers": [
+        {
+          "url": "https://api.hetzner.cloud/v1"
+        }
+      ]
     },
     "/firewalls/{id}/actions/set_rules": {
       "post": {
@@ -8935,7 +9020,12 @@
             "source": "hcloud firewall replace-rules $FIREWALL --rules-file <(echo '[\n  {\n    \"description\": \"Allow port 80\",\n    \"direction\": \"in\",\n    \"port\": \"80\",\n    \"protocol\": \"tcp\",\n    \"source_ips\": [\n      \"28.239.13.1/32\",\n      \"28.239.14.0/24\",\n      \"ff21:1eac:9a3b:ee58:5ca:990c:8bc9:c03b/128\"\n    ]\n  }\n]')"
           }
         ]
-      }
+      },
+      "servers": [
+        {
+          "url": "https://api.hetzner.cloud/v1"
+        }
+      ]
     },
     "/firewalls/actions": {
       "get": {
@@ -9058,7 +9148,12 @@
             "source": "from __future__ import annotations\n\nfrom os import environ\n\nfrom hcloud import Client\n\ntoken = environ[\"HCLOUD_TOKEN\"]\nclient = Client(token=token)\n\nactions = client.firewalls.actions.get_all()"
           }
         ]
-      }
+      },
+      "servers": [
+        {
+          "url": "https://api.hetzner.cloud/v1"
+        }
+      ]
     },
     "/firewalls/actions/{id}": {
       "get": {
@@ -9107,7 +9202,12 @@
             "source": "from __future__ import annotations\n\nfrom os import environ\n\nfrom hcloud import Client\n\ntoken = environ[\"HCLOUD_TOKEN\"]\nclient = Client(token=token)\n\naction = client.firewalls.actions.get_by_id(123)"
           }
         ]
-      }
+      },
+      "servers": [
+        {
+          "url": "https://api.hetzner.cloud/v1"
+        }
+      ]
     },
     "/floating_ips": {
       "get": {
@@ -9309,7 +9409,12 @@
             "source": "hcloud floating-ip create \\\n    --description \"This describes my resource\" \\\n    --home-location fsn1 \\\n    --label \"environment=prod\" \\\n    --label \"example.com/my=label\" \\\n    --label \"just-a-key=\" \\\n    --name my-resource \\\n    --server 42 \\\n    --type ipv4"
           }
         ]
-      }
+      },
+      "servers": [
+        {
+          "url": "https://api.hetzner.cloud/v1"
+        }
+      ]
     },
     "/floating_ips/{id}": {
       "delete": {
@@ -9503,7 +9608,12 @@
             "source": "hcloud floating-ip update $FLOATINGIP \\\n    --description \"This describes my resource\" \\\n    --name my-resource\nhcloud floating-ip add-label --overwrite $FLOATINGIP \\\n    \"environment=prod\" \"example.com/my=label\" \"just-a-key=\"\nhcloud floating-ip remove-label $FLOATINGIP \\\n    \"environment\" \"example.com\" \"just-a-key\""
           }
         ]
-      }
+      },
+      "servers": [
+        {
+          "url": "https://api.hetzner.cloud/v1"
+        }
+      ]
     },
     "/floating_ips/{id}/actions": {
       "get": {
@@ -9647,7 +9757,12 @@
         "tags": [
           "floating_ips"
         ]
-      }
+      },
+      "servers": [
+        {
+          "url": "https://api.hetzner.cloud/v1"
+        }
+      ]
     },
     "/floating_ips/{id}/actions/{action_id}": {
       "get": {
@@ -9721,7 +9836,12 @@
         "tags": [
           "floating_ips"
         ]
-      }
+      },
+      "servers": [
+        {
+          "url": "https://api.hetzner.cloud/v1"
+        }
+      ]
     },
     "/floating_ips/{id}/actions/assign": {
       "post": {
@@ -9808,7 +9928,12 @@
             "source": "hcloud floating-ip assign $FLOATINGIP $SERVER"
           }
         ]
-      }
+      },
+      "servers": [
+        {
+          "url": "https://api.hetzner.cloud/v1"
+        }
+      ]
     },
     "/floating_ips/{id}/actions/change_dns_ptr": {
       "post": {
@@ -9892,7 +10017,12 @@
             "source": "hcloud floating-ip set-rdns $FLOATINGIP \\\n    --ip 2001:db8::1 \\\n    --hostname server.example.com"
           }
         ]
-      }
+      },
+      "servers": [
+        {
+          "url": "https://api.hetzner.cloud/v1"
+        }
+      ]
     },
     "/floating_ips/{id}/actions/change_protection": {
       "post": {
@@ -9975,7 +10105,12 @@
             "source": "hcloud floating-ip enable-protection $FLOATINGIP delete\nhcloud floating-ip disable-protection $FLOATINGIP delete"
           }
         ]
-      }
+      },
+      "servers": [
+        {
+          "url": "https://api.hetzner.cloud/v1"
+        }
+      ]
     },
     "/floating_ips/{id}/actions/unassign": {
       "post": {
@@ -10053,7 +10188,12 @@
             "source": "hcloud floating-ip unassign $FLOATINGIP"
           }
         ]
-      }
+      },
+      "servers": [
+        {
+          "url": "https://api.hetzner.cloud/v1"
+        }
+      ]
     },
     "/floating_ips/actions": {
       "get": {
@@ -10176,7 +10316,12 @@
             "source": "from __future__ import annotations\n\nfrom os import environ\n\nfrom hcloud import Client\n\ntoken = environ[\"HCLOUD_TOKEN\"]\nclient = Client(token=token)\n\nactions = client.floating_ips.actions.get_all()"
           }
         ]
-      }
+      },
+      "servers": [
+        {
+          "url": "https://api.hetzner.cloud/v1"
+        }
+      ]
     },
     "/floating_ips/actions/{id}": {
       "get": {
@@ -10225,7 +10370,12 @@
             "source": "from __future__ import annotations\n\nfrom os import environ\n\nfrom hcloud import Client\n\ntoken = environ[\"HCLOUD_TOKEN\"]\nclient = Client(token=token)\n\naction = client.floating_ips.actions.get_by_id(123)"
           }
         ]
-      }
+      },
+      "servers": [
+        {
+          "url": "https://api.hetzner.cloud/v1"
+        }
+      ]
     },
     "/images": {
       "get": {
@@ -10406,7 +10556,12 @@
             "source": "hcloud image list"
           }
         ]
-      }
+      },
+      "servers": [
+        {
+          "url": "https://api.hetzner.cloud/v1"
+        }
+      ]
     },
     "/images/{id}": {
       "delete": {
@@ -10595,7 +10750,12 @@
             "source": "hcloud image update $IMAGE --description \"My new Image description\"\nhcloud image add-label --overwrite $IMAGE \\\n    \"environment=prod\" \"example.com/my=label\" \"just-a-key=\"\nhcloud image remove-label $IMAGE \\\n    \"environment\" \"example.com\" \"just-a-key\""
           }
         ]
-      }
+      },
+      "servers": [
+        {
+          "url": "https://api.hetzner.cloud/v1"
+        }
+      ]
     },
     "/images/{id}/actions": {
       "get": {
@@ -10735,7 +10895,12 @@
         "tags": [
           "images"
         ]
-      }
+      },
+      "servers": [
+        {
+          "url": "https://api.hetzner.cloud/v1"
+        }
+      ]
     },
     "/images/{id}/actions/{action_id}": {
       "get": {
@@ -10805,7 +10970,12 @@
         "tags": [
           "images"
         ]
-      }
+      },
+      "servers": [
+        {
+          "url": "https://api.hetzner.cloud/v1"
+        }
+      ]
     },
     "/images/{id}/actions/change_protection": {
       "post": {
@@ -10888,7 +11058,12 @@
             "source": "hcloud image enable-protection $IMAGE delete\nhcloud image disable-protection $IMAGE delete"
           }
         ]
-      }
+      },
+      "servers": [
+        {
+          "url": "https://api.hetzner.cloud/v1"
+        }
+      ]
     },
     "/images/actions": {
       "get": {
@@ -11011,7 +11186,12 @@
             "source": "from __future__ import annotations\n\nfrom os import environ\n\nfrom hcloud import Client\n\ntoken = environ[\"HCLOUD_TOKEN\"]\nclient = Client(token=token)\n\nactions = client.images.actions.get_all()"
           }
         ]
-      }
+      },
+      "servers": [
+        {
+          "url": "https://api.hetzner.cloud/v1"
+        }
+      ]
     },
     "/images/actions/{id}": {
       "get": {
@@ -11060,7 +11240,12 @@
             "source": "from __future__ import annotations\n\nfrom os import environ\n\nfrom hcloud import Client\n\ntoken = environ[\"HCLOUD_TOKEN\"]\nclient = Client(token=token)\n\naction = client.images.actions.get_by_id(123)"
           }
         ]
-      }
+      },
+      "servers": [
+        {
+          "url": "https://api.hetzner.cloud/v1"
+        }
+      ]
     },
     "/isos": {
       "get": {
@@ -11158,7 +11343,12 @@
             "source": "hcloud iso list"
           }
         ]
-      }
+      },
+      "servers": [
+        {
+          "url": "https://api.hetzner.cloud/v1"
+        }
+      ]
     },
     "/isos/{id}": {
       "get": {
@@ -11212,7 +11402,12 @@
             "source": "hcloud iso describe $ISO"
           }
         ]
-      }
+      },
+      "servers": [
+        {
+          "url": "https://api.hetzner.cloud/v1"
+        }
+      ]
     },
     "/load_balancer_types": {
       "get": {
@@ -11286,7 +11481,12 @@
             "source": "hcloud load-balancer-type list"
           }
         ]
-      }
+      },
+      "servers": [
+        {
+          "url": "https://api.hetzner.cloud/v1"
+        }
+      ]
     },
     "/load_balancer_types/{id}": {
       "get": {
@@ -11340,7 +11540,12 @@
             "source": "hcloud load-balancer-type describe $LOADBALANCERTYPE"
           }
         ]
-      }
+      },
+      "servers": [
+        {
+          "url": "https://api.hetzner.cloud/v1"
+        }
+      ]
     },
     "/load_balancers": {
       "get": {
@@ -11645,7 +11850,12 @@
             "source": "hcloud load-balancer create \\\n    --algorithm-type round_robin \\\n    --label \"environment=prod\" \\\n    --label \"example.com/my=label\" \\\n    --label \"just-a-key=\" \\\n    --type lb11 \\\n    --location fsn1 \\\n    --name \"Web Frontend\"\n\nhcloud load-balancer enable-public-interface \"Web Frontend\"\n\nhcloud load-balancer add-service \"Web Frontend\" \\\n    --destination-port 80 \\\n    --health-check-http-domain example.com \\\n    --health-check-http-path \"/\" \\\n    --health-check-http-response '{\"status\": \"ok\"}' \\\n    --health-check-http-status-codes \"2??,3??\" \\\n    --health-check-http-tls=false \\\n    --health-check-interval 15s \\\n    --health-check-port 4711 \\\n    --health-check-protocol http \\\n    --health-check-retries 3 \\\n    --health-check-timeout 10s \\\n    --http-certificates 897 \\\n    --http-cookie-lifetime 300s \\\n    --http-cookie-name HCLBSTICKY \\\n    --http-redirect-http=true \\\n    --http-sticky-sessions=true \\\n    --listen-port 443 \\\n    --protocol https \\\n    --proxy-protocol=false\n\nhcloud load-balancer add-target \"Web Frontend\" --ip 203.0.113.1\nhcloud load-balancer add-target \"Web Frontend\" --label-selector \"env=prod\"\nhcloud load-balancer add-target \"Web Frontend\" --server 80 --use-private-ip"
           }
         ]
-      }
+      },
+      "servers": [
+        {
+          "url": "https://api.hetzner.cloud/v1"
+        }
+      ]
     },
     "/load_balancers/{id}": {
       "delete": {
@@ -11946,7 +12156,12 @@
             "source": "hcloud load-balancer update $LOADBALANCER --name new-name\nhcloud load-balancer add-label --overwrite $LOADBALANCER \\\n    \"environment=prod\" \"example.com/my=label\" \"just-a-key=\"\nhcloud load-balancer remove-label $LOADBALANCER \\\n    \"environment\" \"example.com\" \"just-a-key\""
           }
         ]
-      }
+      },
+      "servers": [
+        {
+          "url": "https://api.hetzner.cloud/v1"
+        }
+      ]
     },
     "/load_balancers/{id}/actions": {
       "get": {
@@ -12086,7 +12301,12 @@
         "tags": [
           "load_balancers"
         ]
-      }
+      },
+      "servers": [
+        {
+          "url": "https://api.hetzner.cloud/v1"
+        }
+      ]
     },
     "/load_balancers/{id}/actions/{action_id}": {
       "get": {
@@ -12156,7 +12376,12 @@
         "tags": [
           "load_balancers"
         ]
-      }
+      },
+      "servers": [
+        {
+          "url": "https://api.hetzner.cloud/v1"
+        }
+      ]
     },
     "/load_balancers/{id}/actions/add_service": {
       "post": {
@@ -12239,7 +12464,12 @@
             "source": "hcloud load-balancer add-service $LOADBALANCER \\\n    --destination-port 80 \\\n    --health-check-http-domain example.com \\\n    --health-check-http-path \"/\" \\\n    --health-check-http-response '{\"status\": \"ok\"}' \\\n    --health-check-http-status-codes \"2??,3??\" \\\n    --health-check-http-tls=false \\\n    --health-check-interval 15s \\\n    --health-check-port 4711 \\\n    --health-check-protocol http \\\n    --health-check-retries 3 \\\n    --health-check-timeout 10s \\\n    --http-certificates 897 \\\n    --http-cookie-lifetime 300s \\\n    --http-cookie-name HCLBSTICKY \\\n    --http-redirect-http=true \\\n    --http-sticky-sessions=true \\\n    --listen-port 443 \\\n    --protocol https \\\n    --proxy-protocol=false"
           }
         ]
-      }
+      },
+      "servers": [
+        {
+          "url": "https://api.hetzner.cloud/v1"
+        }
+      ]
     },
     "/load_balancers/{id}/actions/add_target": {
       "post": {
@@ -12322,7 +12552,12 @@
             "source": "hcloud load-balancer add-target $LOADBALANCER --ip 203.0.113.1\nhcloud load-balancer add-target $LOADBALANCER --label-selector \"env=prod\"\nhcloud load-balancer add-target $LOADBALANCER --server 80 --use-private-ip"
           }
         ]
-      }
+      },
+      "servers": [
+        {
+          "url": "https://api.hetzner.cloud/v1"
+        }
+      ]
     },
     "/load_balancers/{id}/actions/attach_to_network": {
       "post": {
@@ -12405,7 +12640,12 @@
             "source": "hcloud load-balancer attach-to-network $LOADBALANCER \\\n    --ip 10.0.1.1 \\\n    --network 4711"
           }
         ]
-      }
+      },
+      "servers": [
+        {
+          "url": "https://api.hetzner.cloud/v1"
+        }
+      ]
     },
     "/load_balancers/{id}/actions/change_algorithm": {
       "post": {
@@ -12488,7 +12728,12 @@
             "source": "hcloud load-balancer change-algorithm $LOADBALANCER \\\n    --algorithm-type round_robin"
           }
         ]
-      }
+      },
+      "servers": [
+        {
+          "url": "https://api.hetzner.cloud/v1"
+        }
+      ]
     },
     "/load_balancers/{id}/actions/change_dns_ptr": {
       "post": {
@@ -12572,7 +12817,12 @@
             "source": "hcloud load-balancer set-rdns $LOADBALANCER \\\n    --ip 1.2.3.4 \\\n    --hostname lb1.example.com"
           }
         ]
-      }
+      },
+      "servers": [
+        {
+          "url": "https://api.hetzner.cloud/v1"
+        }
+      ]
     },
     "/load_balancers/{id}/actions/change_protection": {
       "post": {
@@ -12655,7 +12905,12 @@
             "source": "hcloud load-balancer enable-protection $LOADBALANCER delete\nhcloud load-balancer disable-protection $LOADBALANCER delete"
           }
         ]
-      }
+      },
+      "servers": [
+        {
+          "url": "https://api.hetzner.cloud/v1"
+        }
+      ]
     },
     "/load_balancers/{id}/actions/change_type": {
       "post": {
@@ -12738,7 +12993,12 @@
             "source": "hcloud load-balancer change-type $LOADBALANCER lb21"
           }
         ]
-      }
+      },
+      "servers": [
+        {
+          "url": "https://api.hetzner.cloud/v1"
+        }
+      ]
     },
     "/load_balancers/{id}/actions/delete_service": {
       "post": {
@@ -12821,7 +13081,12 @@
             "source": "hcloud load-balancer delete-service $LOADBALANCER \\\n    --listen-port 443"
           }
         ]
-      }
+      },
+      "servers": [
+        {
+          "url": "https://api.hetzner.cloud/v1"
+        }
+      ]
     },
     "/load_balancers/{id}/actions/detach_from_network": {
       "post": {
@@ -12908,7 +13173,12 @@
             "source": "hcloud load-balancer detach-from-network $LOADBALANCER \\\n    --network $NETWORK"
           }
         ]
-      }
+      },
+      "servers": [
+        {
+          "url": "https://api.hetzner.cloud/v1"
+        }
+      ]
     },
     "/load_balancers/{id}/actions/disable_public_interface": {
       "post": {
@@ -12986,7 +13256,12 @@
             "source": "hcloud load-balancer disable-public-interface $LOADBALANCER"
           }
         ]
-      }
+      },
+      "servers": [
+        {
+          "url": "https://api.hetzner.cloud/v1"
+        }
+      ]
     },
     "/load_balancers/{id}/actions/enable_public_interface": {
       "post": {
@@ -13064,7 +13339,12 @@
             "source": "hcloud load-balancer enable-public-interface $LOADBALANCER"
           }
         ]
-      }
+      },
+      "servers": [
+        {
+          "url": "https://api.hetzner.cloud/v1"
+        }
+      ]
     },
     "/load_balancers/{id}/actions/remove_target": {
       "post": {
@@ -13147,7 +13427,12 @@
             "source": "hcloud load-balancer remove-target $LOADBALANCER --ip 203.0.113.1\nhcloud load-balancer remove-target $LOADBALANCER --label-selector \"env=prod\"\nhcloud load-balancer remove-target $LOADBALANCER --server 80 --use-private-ip"
           }
         ]
-      }
+      },
+      "servers": [
+        {
+          "url": "https://api.hetzner.cloud/v1"
+        }
+      ]
     },
     "/load_balancers/{id}/actions/update_service": {
       "post": {
@@ -13230,7 +13515,12 @@
             "source": "hcloud load-balancer update-service $LOADBALANCER \\\n    --listen-port 443 \\\n    --destination-port 80 \\\n    --health-check-http-domain example.com \\\n    --health-check-http-path \"/\" \\\n    --health-check-http-response '{\"status\": \"ok\"}' \\\n    --health-check-http-status-codes \"2??,3??\" \\\n    --health-check-http-tls=false \\\n    --health-check-interval 15s \\\n    --health-check-port 4711 \\\n    --health-check-protocol http \\\n    --health-check-retries 3 \\\n    --health-check-timeout 10s \\\n    --http-certificates 897 \\\n    --http-cookie-lifetime 300s \\\n    --http-cookie-name HCLBSTICKY \\\n    --http-redirect-http=true \\\n    --http-sticky-sessions=true \\\n    --protocol https \\\n    --proxy-protocol=false"
           }
         ]
-      }
+      },
+      "servers": [
+        {
+          "url": "https://api.hetzner.cloud/v1"
+        }
+      ]
     },
     "/load_balancers/{id}/metrics": {
       "get": {
@@ -13326,7 +13616,12 @@
             "source": "hcloud load-balancer metrics $LOADBALANCER \\\n    --type open_connections,connections_per_second,requests_per_second,bandwidth \\\n    --start 2017-01-01T00:00:00Z \\\n    --end   2017-01-01T23:00:00Z"
           }
         ]
-      }
+      },
+      "servers": [
+        {
+          "url": "https://api.hetzner.cloud/v1"
+        }
+      ]
     },
     "/load_balancers/actions": {
       "get": {
@@ -13449,7 +13744,12 @@
             "source": "from __future__ import annotations\n\nfrom os import environ\n\nfrom hcloud import Client\n\ntoken = environ[\"HCLOUD_TOKEN\"]\nclient = Client(token=token)\n\nactions = client.load_balancers.actions.get_all()"
           }
         ]
-      }
+      },
+      "servers": [
+        {
+          "url": "https://api.hetzner.cloud/v1"
+        }
+      ]
     },
     "/load_balancers/actions/{id}": {
       "get": {
@@ -13498,7 +13798,12 @@
             "source": "from __future__ import annotations\n\nfrom os import environ\n\nfrom hcloud import Client\n\ntoken = environ[\"HCLOUD_TOKEN\"]\nclient = Client(token=token)\n\naction = client.load_balancers.actions.get_by_id(123)"
           }
         ]
-      }
+      },
+      "servers": [
+        {
+          "url": "https://api.hetzner.cloud/v1"
+        }
+      ]
     },
     "/locations": {
       "get": {
@@ -13592,7 +13897,12 @@
             "source": "hcloud location list"
           }
         ]
-      }
+      },
+      "servers": [
+        {
+          "url": "https://api.hetzner.cloud/v1"
+        }
+      ]
     },
     "/locations/{id}": {
       "get": {
@@ -13646,7 +13956,12 @@
             "source": "hcloud location describe $LOCATION"
           }
         ]
-      }
+      },
+      "servers": [
+        {
+          "url": "https://api.hetzner.cloud/v1"
+        }
+      ]
     },
     "/networks": {
       "get": {
@@ -13798,7 +14113,12 @@
             "source": "hcloud network create \\\n    --expose-routes-to-vswitch=false \\\n    --ip-range 10.0.0.0/16 \\\n    --label \"environment=prod\" \\\n    --label \"example.com/my=label\" \\\n    --label \"just-a-key=\" \\\n    --name mynet\n\nhcloud network add-route mynet \\\n    --destination 10.100.1.0/24 \\\n    --gateway 10.0.1.1\n\nhcloud network add-subnet mynet \\\n    --ip-range 10.0.1.0/24 \\\n    --network-zone eu-central \\\n    --type cloud \\\n    --vswitch-id 1000"
           }
         ]
-      }
+      },
+      "servers": [
+        {
+          "url": "https://api.hetzner.cloud/v1"
+        }
+      ]
     },
     "/networks/{id}": {
       "delete": {
@@ -13993,7 +14313,12 @@
             "source": "hcloud network update $NETWORK --name new-name\nhcloud network expose-routes-to-vswitch --disable $NETWORK\nhcloud network add-label --overwrite $NETWORK \\\n    \"environment=prod\" \"example.com/my=label\" \"just-a-key=\"\nhcloud network remove-label $NETWORK \\\n    \"environment\" \"example.com\" \"just-a-key\""
           }
         ]
-      }
+      },
+      "servers": [
+        {
+          "url": "https://api.hetzner.cloud/v1"
+        }
+      ]
     },
     "/networks/{id}/actions": {
       "get": {
@@ -14133,7 +14458,12 @@
         "tags": [
           "networks"
         ]
-      }
+      },
+      "servers": [
+        {
+          "url": "https://api.hetzner.cloud/v1"
+        }
+      ]
     },
     "/networks/{id}/actions/{action_id}": {
       "get": {
@@ -14203,7 +14533,12 @@
         "tags": [
           "networks"
         ]
-      }
+      },
+      "servers": [
+        {
+          "url": "https://api.hetzner.cloud/v1"
+        }
+      ]
     },
     "/networks/{id}/actions/add_route": {
       "post": {
@@ -14286,7 +14621,12 @@
             "source": "hcloud network add-route $NETWORK \\\n    --destination 10.100.1.0/24 \\\n    --gateway 10.0.1.1"
           }
         ]
-      }
+      },
+      "servers": [
+        {
+          "url": "https://api.hetzner.cloud/v1"
+        }
+      ]
     },
     "/networks/{id}/actions/add_subnet": {
       "post": {
@@ -14369,7 +14709,12 @@
             "source": "hcloud network add-subnet $NETWORK \\\n    --ip-range 10.0.1.0/24 \\\n    --network-zone eu-central \\\n    --type cloud \\\n    --vswitch-id 1000"
           }
         ]
-      }
+      },
+      "servers": [
+        {
+          "url": "https://api.hetzner.cloud/v1"
+        }
+      ]
     },
     "/networks/{id}/actions/change_ip_range": {
       "post": {
@@ -14452,7 +14797,12 @@
             "source": "hcloud network change-ip-range $NETWORK \\\n    --ip-range 10.0.0.0/16"
           }
         ]
-      }
+      },
+      "servers": [
+        {
+          "url": "https://api.hetzner.cloud/v1"
+        }
+      ]
     },
     "/networks/{id}/actions/change_protection": {
       "post": {
@@ -14535,7 +14885,12 @@
             "source": "hcloud network enable-protection $NETWORK delete\nhcloud network disable-protection $NETWORK delete"
           }
         ]
-      }
+      },
+      "servers": [
+        {
+          "url": "https://api.hetzner.cloud/v1"
+        }
+      ]
     },
     "/networks/{id}/actions/delete_route": {
       "post": {
@@ -14618,7 +14973,12 @@
             "source": "hcloud network remove-route $NETWORK \\\n    --destination 10.100.1.0/24 \\\n    --gateway 10.0.1.1"
           }
         ]
-      }
+      },
+      "servers": [
+        {
+          "url": "https://api.hetzner.cloud/v1"
+        }
+      ]
     },
     "/networks/{id}/actions/delete_subnet": {
       "post": {
@@ -14701,7 +15061,12 @@
             "source": "hcloud network remove-subnet $NETWORK \\\n    --ip-range 10.0.1.0/24"
           }
         ]
-      }
+      },
+      "servers": [
+        {
+          "url": "https://api.hetzner.cloud/v1"
+        }
+      ]
     },
     "/networks/actions": {
       "get": {
@@ -14824,7 +15189,12 @@
             "source": "from __future__ import annotations\n\nfrom os import environ\n\nfrom hcloud import Client\n\ntoken = environ[\"HCLOUD_TOKEN\"]\nclient = Client(token=token)\n\nactions = client.networks.actions.get_all()"
           }
         ]
-      }
+      },
+      "servers": [
+        {
+          "url": "https://api.hetzner.cloud/v1"
+        }
+      ]
     },
     "/networks/actions/{id}": {
       "get": {
@@ -14873,7 +15243,12 @@
             "source": "from __future__ import annotations\n\nfrom os import environ\n\nfrom hcloud import Client\n\ntoken = environ[\"HCLOUD_TOKEN\"]\nclient = Client(token=token)\n\naction = client.networks.actions.get_by_id(123)"
           }
         ]
-      }
+      },
+      "servers": [
+        {
+          "url": "https://api.hetzner.cloud/v1"
+        }
+      ]
     },
     "/placement_groups": {
       "get": {
@@ -15085,7 +15460,12 @@
             "source": "hcloud placement-group create \\\n    --name \"my Placement Group\" \\\n    --type spread"
           }
         ]
-      }
+      },
+      "servers": [
+        {
+          "url": "https://api.hetzner.cloud/v1"
+        }
+      ]
     },
     "/placement_groups/{id}": {
       "delete": {
@@ -15275,7 +15655,12 @@
             "source": "hcloud placement-group update $PLACEMENTGROUP --name \"my Placement Group\"\nhcloud placement-group add-label --overwrite $PLACEMENTGROUP \\\n    \"environment=prod\" \"example.com/my=label\" \"just-a-key=\"\nhcloud placement-group remove-label $PLACEMENTGROUP \\\n    \"environment\" \"example.com\" \"just-a-key\""
           }
         ]
-      }
+      },
+      "servers": [
+        {
+          "url": "https://api.hetzner.cloud/v1"
+        }
+      ]
     },
     "/pricing": {
       "get": {
@@ -15304,7 +15689,12 @@
             "source": "package examples\n\nimport (\n\t\"context\"\n\t\"os\"\n\n\t\"github.com/hetznercloud/hcloud-go/v2/hcloud\"\n)\n\nfunc main() {\n\ttoken := os.Getenv(\"HCLOUD_TOKEN\")\n\n\tclient := hcloud.NewClient(hcloud.WithToken(token))\n\tctx := context.TODO()\n\n\tpricing, _, err := client.Pricing.Get(ctx)\n}"
           }
         ]
-      }
+      },
+      "servers": [
+        {
+          "url": "https://api.hetzner.cloud/v1"
+        }
+      ]
     },
     "/primary_ips": {
       "get": {
@@ -15539,7 +15929,12 @@
             "source": "hcloud primary-ip create \\\n    --assignee-id 17 \\\n    --auto-delete=false \\\n    --datacenter fsn1-dc8 \\\n    --label \"environment=prod\" \\\n    --label \"example.com/my=label\" \\\n    --label \"just-a-key=\" \\\n    --name my-ip \\\n    --type ipv4"
           }
         ]
-      }
+      },
+      "servers": [
+        {
+          "url": "https://api.hetzner.cloud/v1"
+        }
+      ]
     },
     "/primary_ips/{id}": {
       "delete": {
@@ -15699,7 +16094,12 @@
             "source": "hcloud primary-ip update $PRIMARYIP \\\n    --auto-delete=false \\\n    --name \"new-name\"\nhcloud primary-ip add-label --overwrite $PRIMARYIP \\\n    \"environment=prod\" \"example.com/my=label\" \"just-a-key=\"\nhcloud primary-ip remove-label $PRIMARYIP \\\n    \"environment\" \"example.com\" \"just-a-key\""
           }
         ]
-      }
+      },
+      "servers": [
+        {
+          "url": "https://api.hetzner.cloud/v1"
+        }
+      ]
     },
     "/primary_ips/{id}/actions/assign": {
       "post": {
@@ -15786,7 +16186,12 @@
             "source": "hcloud primary-ip assign --server 4711 $PRIMARYIP"
           }
         ]
-      }
+      },
+      "servers": [
+        {
+          "url": "https://api.hetzner.cloud/v1"
+        }
+      ]
     },
     "/primary_ips/{id}/actions/change_dns_ptr": {
       "post": {
@@ -15870,7 +16275,12 @@
             "source": "hcloud primary-ip set-rdns $PRIMARYIP \\\n    --ip 1.2.3.4 \\\n    --hostname server02.example.com"
           }
         ]
-      }
+      },
+      "servers": [
+        {
+          "url": "https://api.hetzner.cloud/v1"
+        }
+      ]
     },
     "/primary_ips/{id}/actions/change_protection": {
       "post": {
@@ -15953,7 +16363,12 @@
             "source": "hcloud primary-ip enable-protection $PRIMARYIP delete\nhcloud primary-ip disable-protection $PRIMARYIP delete"
           }
         ]
-      }
+      },
+      "servers": [
+        {
+          "url": "https://api.hetzner.cloud/v1"
+        }
+      ]
     },
     "/primary_ips/{id}/actions/unassign": {
       "post": {
@@ -16031,7 +16446,12 @@
             "source": "hcloud primary-ip unassign $PRIMARYIP"
           }
         ]
-      }
+      },
+      "servers": [
+        {
+          "url": "https://api.hetzner.cloud/v1"
+        }
+      ]
     },
     "/primary_ips/actions": {
       "get": {
@@ -16154,7 +16574,12 @@
             "source": "from __future__ import annotations\n\nfrom os import environ\n\nfrom hcloud import Client\n\ntoken = environ[\"HCLOUD_TOKEN\"]\nclient = Client(token=token)\n\nactions = client.primary_ips.actions.get_all()"
           }
         ]
-      }
+      },
+      "servers": [
+        {
+          "url": "https://api.hetzner.cloud/v1"
+        }
+      ]
     },
     "/primary_ips/actions/{id}": {
       "get": {
@@ -16203,7 +16628,12 @@
             "source": "from __future__ import annotations\n\nfrom os import environ\n\nfrom hcloud import Client\n\ntoken = environ[\"HCLOUD_TOKEN\"]\nclient = Client(token=token)\n\naction = client.primary_ips.actions.get_by_id(123)"
           }
         ]
-      }
+      },
+      "servers": [
+        {
+          "url": "https://api.hetzner.cloud/v1"
+        }
+      ]
     },
     "/server_types": {
       "get": {
@@ -16277,7 +16707,12 @@
             "source": "hcloud server-type list"
           }
         ]
-      }
+      },
+      "servers": [
+        {
+          "url": "https://api.hetzner.cloud/v1"
+        }
+      ]
     },
     "/server_types/{id}": {
       "get": {
@@ -16331,7 +16766,12 @@
             "source": "hcloud server-type describe $SERVERTYPE"
           }
         ]
-      }
+      },
+      "servers": [
+        {
+          "url": "https://api.hetzner.cloud/v1"
+        }
+      ]
     },
     "/servers": {
       "get": {
@@ -16713,7 +17153,12 @@
             "source": "hcloud server create \\\n    --automount=false \\\n    --datacenter nbg1-dc3 \\\n    --firewall 38 \\\n    --image ubuntu-20.04 \\\n    --label \"environment=prod\" \\\n    --label \"example.com/my=label\" \\\n    --label \"just-a-key=\" \\\n    --location nbg1 \\\n    --name my-server \\\n    --network 456 \\\n    --placement-group 1 \\\n    --without-ipv4 \\\n    --without-ipv6 \\\n    --type cx22 \\\n    --ssh-key my-ssh-key \\\n    --start-after-create \\\n    --volume 123 \\\n    --user-data-from-file <(printf '#cloud-config\\nruncmd:\\n- [touch, /root/cloud-init-worked]\\n')"
           }
         ]
-      }
+      },
+      "servers": [
+        {
+          "url": "https://api.hetzner.cloud/v1"
+        }
+      ]
     },
     "/servers/{id}": {
       "delete": {
@@ -16880,7 +17325,12 @@
             "source": "hcloud server update $SERVER --name \"my-server\"\nhcloud server add-label --overwrite $SERVER \\\n    \"environment=prod\" \"example.com/my=label\" \"just-a-key=\"\nhcloud server remove-label $SERVER \\\n    \"environment\" \"example.com\" \"just-a-key\""
           }
         ]
-      }
+      },
+      "servers": [
+        {
+          "url": "https://api.hetzner.cloud/v1"
+        }
+      ]
     },
     "/servers/{id}/actions": {
       "get": {
@@ -17021,7 +17471,12 @@
         "tags": [
           "servers"
         ]
-      }
+      },
+      "servers": [
+        {
+          "url": "https://api.hetzner.cloud/v1"
+        }
+      ]
     },
     "/servers/{id}/actions/{action_id}": {
       "get": {
@@ -17091,7 +17546,12 @@
         "tags": [
           "servers"
         ]
-      }
+      },
+      "servers": [
+        {
+          "url": "https://api.hetzner.cloud/v1"
+        }
+      ]
     },
     "/servers/{id}/actions/add_to_placement_group": {
       "post": {
@@ -17174,7 +17634,12 @@
             "source": "hcloud server add-to-placement-group --placement-group 1 $SERVER"
           }
         ]
-      }
+      },
+      "servers": [
+        {
+          "url": "https://api.hetzner.cloud/v1"
+        }
+      ]
     },
     "/servers/{id}/actions/attach_iso": {
       "post": {
@@ -17257,7 +17722,12 @@
             "source": "hcloud server attach-iso $SERVER \"FreeBSD-11.0-RELEASE-amd64-dvd1\""
           }
         ]
-      }
+      },
+      "servers": [
+        {
+          "url": "https://api.hetzner.cloud/v1"
+        }
+      ]
     },
     "/servers/{id}/actions/attach_to_network": {
       "post": {
@@ -17344,7 +17814,12 @@
             "source": "hcloud server attach-to-network $SERVER \\\n    --alias-ips 10.0.1.2 \\\n    --ip 10.0.1.1 \\\n    --network 4711"
           }
         ]
-      }
+      },
+      "servers": [
+        {
+          "url": "https://api.hetzner.cloud/v1"
+        }
+      ]
     },
     "/servers/{id}/actions/change_alias_ips": {
       "post": {
@@ -17431,7 +17906,12 @@
             "source": "hcloud server change-alias-ips $SERVER \\\n    --alias-ips 10.0.1.2 \\\n    --network 4711"
           }
         ]
-      }
+      },
+      "servers": [
+        {
+          "url": "https://api.hetzner.cloud/v1"
+        }
+      ]
     },
     "/servers/{id}/actions/change_dns_ptr": {
       "post": {
@@ -17515,7 +17995,12 @@
             "source": "hcloud server set-rdns $SERVER \\\n    --ip 1.2.3.4 \\\n    --hostname server01.example.com"
           }
         ]
-      }
+      },
+      "servers": [
+        {
+          "url": "https://api.hetzner.cloud/v1"
+        }
+      ]
     },
     "/servers/{id}/actions/change_protection": {
       "post": {
@@ -17598,7 +18083,12 @@
             "source": "hcloud server enable-protection $SERVER delete rebuild\nhcloud server disable-protection $SERVER delete rebuild"
           }
         ]
-      }
+      },
+      "servers": [
+        {
+          "url": "https://api.hetzner.cloud/v1"
+        }
+      ]
     },
     "/servers/{id}/actions/change_type": {
       "post": {
@@ -17681,7 +18171,12 @@
             "source": "hcloud server change-type --keep-disk $SERVER cx22"
           }
         ]
-      }
+      },
+      "servers": [
+        {
+          "url": "https://api.hetzner.cloud/v1"
+        }
+      ]
     },
     "/servers/{id}/actions/create_image": {
       "post": {
@@ -17791,7 +18286,12 @@
             "source": "hcloud server create-image $SERVER \\\n    --description \"my image\" \\\n    --label \"environment=prod\" \\\n    --label \"example.com/my=label\" \\\n    --label \"just-a-key=\" \\\n    --type snapshot"
           }
         ]
-      }
+      },
+      "servers": [
+        {
+          "url": "https://api.hetzner.cloud/v1"
+        }
+      ]
     },
     "/servers/{id}/actions/detach_from_network": {
       "post": {
@@ -17878,7 +18378,12 @@
             "source": "hcloud server detach-from-network --network 4711 $SERVER"
           }
         ]
-      }
+      },
+      "servers": [
+        {
+          "url": "https://api.hetzner.cloud/v1"
+        }
+      ]
     },
     "/servers/{id}/actions/detach_iso": {
       "post": {
@@ -17952,7 +18457,12 @@
             "source": "hcloud server detach-iso $SERVER"
           }
         ]
-      }
+      },
+      "servers": [
+        {
+          "url": "https://api.hetzner.cloud/v1"
+        }
+      ]
     },
     "/servers/{id}/actions/disable_backup": {
       "post": {
@@ -18026,7 +18536,12 @@
             "source": "hcloud server disable-backup $SERVER"
           }
         ]
-      }
+      },
+      "servers": [
+        {
+          "url": "https://api.hetzner.cloud/v1"
+        }
+      ]
     },
     "/servers/{id}/actions/disable_rescue": {
       "post": {
@@ -18100,7 +18615,12 @@
             "source": "hcloud server disable-rescue $SERVER"
           }
         ]
-      }
+      },
+      "servers": [
+        {
+          "url": "https://api.hetzner.cloud/v1"
+        }
+      ]
     },
     "/servers/{id}/actions/enable_backup": {
       "post": {
@@ -18174,7 +18694,12 @@
             "source": "hcloud server enable-backup $SERVER"
           }
         ]
-      }
+      },
+      "servers": [
+        {
+          "url": "https://api.hetzner.cloud/v1"
+        }
+      ]
     },
     "/servers/{id}/actions/enable_rescue": {
       "post": {
@@ -18258,7 +18783,12 @@
             "source": "hcloud server enable-rescue $SERVER"
           }
         ]
-      }
+      },
+      "servers": [
+        {
+          "url": "https://api.hetzner.cloud/v1"
+        }
+      ]
     },
     "/servers/{id}/actions/poweroff": {
       "post": {
@@ -18332,7 +18862,12 @@
             "source": "hcloud server poweroff $SERVER"
           }
         ]
-      }
+      },
+      "servers": [
+        {
+          "url": "https://api.hetzner.cloud/v1"
+        }
+      ]
     },
     "/servers/{id}/actions/poweron": {
       "post": {
@@ -18406,7 +18941,12 @@
             "source": "hcloud server poweron $SERVER"
           }
         ]
-      }
+      },
+      "servers": [
+        {
+          "url": "https://api.hetzner.cloud/v1"
+        }
+      ]
     },
     "/servers/{id}/actions/reboot": {
       "post": {
@@ -18480,7 +19020,12 @@
             "source": "hcloud server reboot $SERVER"
           }
         ]
-      }
+      },
+      "servers": [
+        {
+          "url": "https://api.hetzner.cloud/v1"
+        }
+      ]
     },
     "/servers/{id}/actions/rebuild": {
       "post": {
@@ -18565,7 +19110,12 @@
             "source": "hcloud server rebuild --image ubuntu-20.04 $SERVER"
           }
         ]
-      }
+      },
+      "servers": [
+        {
+          "url": "https://api.hetzner.cloud/v1"
+        }
+      ]
     },
     "/servers/{id}/actions/remove_from_placement_group": {
       "post": {
@@ -18639,7 +19189,12 @@
             "source": "hcloud server remove-from-placement-group $SERVER"
           }
         ]
-      }
+      },
+      "servers": [
+        {
+          "url": "https://api.hetzner.cloud/v1"
+        }
+      ]
     },
     "/servers/{id}/actions/request_console": {
       "post": {
@@ -18715,7 +19270,12 @@
             "source": "hcloud server request-console $SERVER"
           }
         ]
-      }
+      },
+      "servers": [
+        {
+          "url": "https://api.hetzner.cloud/v1"
+        }
+      ]
     },
     "/servers/{id}/actions/reset": {
       "post": {
@@ -18789,7 +19349,12 @@
             "source": "hcloud server reset $SERVER"
           }
         ]
-      }
+      },
+      "servers": [
+        {
+          "url": "https://api.hetzner.cloud/v1"
+        }
+      ]
     },
     "/servers/{id}/actions/reset_password": {
       "post": {
@@ -18864,7 +19429,12 @@
             "source": "hcloud server reset-password $SERVER"
           }
         ]
-      }
+      },
+      "servers": [
+        {
+          "url": "https://api.hetzner.cloud/v1"
+        }
+      ]
     },
     "/servers/{id}/actions/shutdown": {
       "post": {
@@ -18938,7 +19508,12 @@
             "source": "hcloud server shutdown $SERVER"
           }
         ]
-      }
+      },
+      "servers": [
+        {
+          "url": "https://api.hetzner.cloud/v1"
+        }
+      ]
     },
     "/servers/{id}/metrics": {
       "get": {
@@ -19033,7 +19608,12 @@
             "source": "hcloud server metrics $SERVER \\\n    --type cpu,network,disk \\\n    --start 2017-01-01T00:00:00Z \\\n    --end 2017-01-01T23:00:00Z"
           }
         ]
-      }
+      },
+      "servers": [
+        {
+          "url": "https://api.hetzner.cloud/v1"
+        }
+      ]
     },
     "/servers/actions": {
       "get": {
@@ -19156,7 +19736,12 @@
             "source": "from __future__ import annotations\n\nfrom os import environ\n\nfrom hcloud import Client\n\ntoken = environ[\"HCLOUD_TOKEN\"]\nclient = Client(token=token)\n\nactions = client.servers.actions.get_all()"
           }
         ]
-      }
+      },
+      "servers": [
+        {
+          "url": "https://api.hetzner.cloud/v1"
+        }
+      ]
     },
     "/servers/actions/{id}": {
       "get": {
@@ -19205,7 +19790,12 @@
             "source": "from __future__ import annotations\n\nfrom os import environ\n\nfrom hcloud import Client\n\ntoken = environ[\"HCLOUD_TOKEN\"]\nclient = Client(token=token)\n\naction = client.servers.actions.get_by_id(123)"
           }
         ]
-      }
+      },
+      "servers": [
+        {
+          "url": "https://api.hetzner.cloud/v1"
+        }
+      ]
     },
     "/ssh_keys": {
       "get": {
@@ -19363,7 +19953,12 @@
             "source": "hcloud ssh-key create \\\n    --label \"environment=prod\" \\\n    --label \"example.com/my=label\" \\\n    --label \"just-a-key=\" \\\n    --name \"My ssh key\" \\\n    --public-key \"ssh-rsa AAAjjk76kgf...Xt\"\n#   --public-key-from-file ~/.ssh/id_rsa.pub"
           }
         ]
-      }
+      },
+      "servers": [
+        {
+          "url": "https://api.hetzner.cloud/v1"
+        }
+      ]
     },
     "/ssh_keys/{id}": {
       "delete": {
@@ -19535,7 +20130,12 @@
             "source": "hcloud ssh-key update $SSHKEY --name \"My ssh key\"\nhcloud ssh-key add-label --overwrite $SSHKEY \\\n    \"environment=prod\" \"example.com/my=label\" \"just-a-key=\"\nhcloud ssh-key remove-label $SSHKEY \\\n    \"environment\" \"example.com\" \"just-a-key\""
           }
         ]
-      }
+      },
+      "servers": [
+        {
+          "url": "https://api.hetzner.cloud/v1"
+        }
+      ]
     },
     "/volumes": {
       "get": {
@@ -19789,7 +20389,12 @@
             "source": "hcloud volume create \\\n    --automount=false \\\n    --format xfs \\\n    --label \"key=value\" \\\n    --location nbg1 \\\n    --name test-database \\\n    --size 42"
           }
         ]
-      }
+      },
+      "servers": [
+        {
+          "url": "https://api.hetzner.cloud/v1"
+        }
+      ]
     },
     "/volumes/{id}": {
       "delete": {
@@ -19977,7 +20582,12 @@
             "source": "hcloud volume update $VOLUME --name \"database-storage\"\nhcloud volume add-label --overwrite $VOLUME \\\n    \"environment=prod\" \"example.com/my=label\" \"just-a-key=\"\nhcloud volume remove-label $VOLUME \\\n    \"environment\" \"example.com\" \"just-a-key\""
           }
         ]
-      }
+      },
+      "servers": [
+        {
+          "url": "https://api.hetzner.cloud/v1"
+        }
+      ]
     },
     "/volumes/{id}/actions": {
       "get": {
@@ -20121,7 +20731,12 @@
         "tags": [
           "volumes"
         ]
-      }
+      },
+      "servers": [
+        {
+          "url": "https://api.hetzner.cloud/v1"
+        }
+      ]
     },
     "/volumes/{id}/actions/{action_id}": {
       "get": {
@@ -20191,7 +20806,12 @@
         "tags": [
           "volumes"
         ]
-      }
+      },
+      "servers": [
+        {
+          "url": "https://api.hetzner.cloud/v1"
+        }
+      ]
     },
     "/volumes/{id}/actions/attach": {
       "post": {
@@ -20278,7 +20898,12 @@
             "source": "hcloud volume attach $VOLUME \\\n    --automount=false \\\n    --server 43"
           }
         ]
-      }
+      },
+      "servers": [
+        {
+          "url": "https://api.hetzner.cloud/v1"
+        }
+      ]
     },
     "/volumes/{id}/actions/change_protection": {
       "post": {
@@ -20365,7 +20990,12 @@
             "source": "hcloud volume enable-protection $VOLUME delete\nhcloud volume disable-protection $VOLUME delete"
           }
         ]
-      }
+      },
+      "servers": [
+        {
+          "url": "https://api.hetzner.cloud/v1"
+        }
+      ]
     },
     "/volumes/{id}/actions/detach": {
       "post": {
@@ -20439,7 +21069,12 @@
             "source": "hcloud volume detach $VOLUME"
           }
         ]
-      }
+      },
+      "servers": [
+        {
+          "url": "https://api.hetzner.cloud/v1"
+        }
+      ]
     },
     "/volumes/{id}/actions/resize": {
       "post": {
@@ -20522,7 +21157,12 @@
             "source": "hcloud volume resize --size 50 $VOLUME"
           }
         ]
-      }
+      },
+      "servers": [
+        {
+          "url": "https://api.hetzner.cloud/v1"
+        }
+      ]
     },
     "/volumes/actions": {
       "get": {
@@ -20645,7 +21285,12 @@
             "source": "from __future__ import annotations\n\nfrom os import environ\n\nfrom hcloud import Client\n\ntoken = environ[\"HCLOUD_TOKEN\"]\nclient = Client(token=token)\n\nactions = client.volumes.actions.get_all()"
           }
         ]
-      }
+      },
+      "servers": [
+        {
+          "url": "https://api.hetzner.cloud/v1"
+        }
+      ]
     },
     "/volumes/actions/{id}": {
       "get": {
@@ -20694,7 +21339,12 @@
             "source": "from __future__ import annotations\n\nfrom os import environ\n\nfrom hcloud import Client\n\ntoken = environ[\"HCLOUD_TOKEN\"]\nclient = Client(token=token)\n\naction = client.volumes.actions.get_by_id(123)"
           }
         ]
-      }
+      },
+      "servers": [
+        {
+          "url": "https://api.hetzner.cloud/v1"
+        }
+      ]
     }
   },
   "security": [

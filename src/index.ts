@@ -159,15 +159,32 @@ function sortObjectRecursive(obj: OpenApiDocumentFragment) {
   return obj;
 }
 
+function isVerb(verb: string) {
+  return [
+    "delete",
+    "get",
+    "head",
+    "options",
+    "patch",
+    "post",
+    "put",
+    "trace",
+  ].includes(verb);
+}
+
 async function createComponents(document: OpenApiDocumentFragment) {
   const paths = document.paths as OpenApiDocumentFragment;
-  const base_url = "https://api.hetzner.cloud/v1";
+  const base_url = "https://api.hetzner.cloud/v1"; // TODO
 
   // const schemas = document.components.schemas ?? {};
   const schemas = {}; // all components in the original spec are currently not referenced
 
   for (const [path, path_obj] of Object.entries(paths)) {
     for (const [verb, verb_obj] of Object.entries(path_obj)) {
+      if (!isVerb(verb)) {
+        continue;
+      }
+
       const verb_data = verb_obj as OpenApiDocumentFragment;
 
       const id = toSchemaName("request", verb, verb_data.summary);
@@ -233,11 +250,26 @@ function transformPath(
   }
 }
 
+async function addServersToPaths(document: OpenApiDocumentFragment) {
+  const servers = document.servers as OpenApiDocumentFragment;
+  if (Array.isArray(servers) && servers.length != 1) {
+    throw new Error("Expected exactly one server");
+  }
+
+  const paths = document.paths as OpenApiDocumentFragment;
+  for (const [path, path_obj] of Object.entries(paths)) {
+    path_obj.servers = servers;
+  }
+}
+
 async function transformPaths(document: OpenApiDocumentFragment) {
   const paths = document.paths as OpenApiDocumentFragment;
 
   for (const [path, path_obj] of Object.entries(paths)) {
     for (const [verb, verb_obj] of Object.entries(path_obj)) {
+      if (!isVerb(verb)) {
+        continue;
+      }
       transformPath(path, verb, verb_obj as OpenApiDocumentFragment);
     }
   }
@@ -350,6 +382,7 @@ async function main() {
   try {
     // load document from source
     let document = (await getContents(args.source)) as OpenApiDocumentFragment;
+    await addServersToPaths(document);
 
     await preTransformDocument(document);
 
