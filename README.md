@@ -5,23 +5,24 @@
 This is an attempt to improve Hetzner's own OpenAPI specification to make it usable in code generation.
 
 When this project was started, Hetzner had not published their own OpenAPI specification for their cloud API, so I decided to build my own based on the HTML documentation on their website.
-Luckily, Hetzner has actually published an [OpenAPI spec for their API](https://docs.hetzner.cloud/cloud.spec.json) in the meantime but I think this project still adds some value.
+By now, Hetzner has actually published an [OpenAPI spec for their API](https://docs.hetzner.cloud/cloud.spec.json) and recently also [a new API for Storage Boxes](https://docs.hetzner.cloud/hetzner.spec.json) However, I think this project still adds some value.
 
 While Hetzner now appears to generate their documentation website from the OpenAPI spec, the spec is not very useful for automatic code generation.
-This project aims to convert the official spec to an improved version with the following main features:
+This project aims to convert the official specs to an improved version with the following main features:
 
+- A single file describing all API endpoints from multiple source documents
 - Definition of common components that are reused throughout the schema
-- Added pagination support
 - API-friendly tag names
 - Unique `operationId`s
 
-As an added benefit, mainly from use of common components, the improved spec is much smaller (548 KiB vs 1.4 MiB) than the original.
+As an added benefit, mainly from use of common components, the improved spec is much smaller (945 KB vs 2.291 MB) than the original.
 
 ## Further Reading
 
 - [Link to the generated openAPI document](openapi/hcloud.json)
 - [Official API documentation](https://docs.hetzner.cloud/)
-- [OpenAPI spec document provided by Hetzner](https://docs.hetzner.cloud/cloud.spec.json)
+- [OpenAPI spec document provided by Hetzner for cloud services](https://docs.hetzner.cloud/cloud.spec.json)
+- [OpenAPI spec document provided by Hetzner for storage boxes](https://docs.hetzner.cloud/hetzner.spec.json)
 - [OpenAPI standard](https://swagger.io/specification/)
 
 ## Use Cases
@@ -34,38 +35,26 @@ This API description is currently being used by the following projects:
 
 ## Supported Endpoints
 
-<table style="text-align: center">
-  <tr height="80">
-    <td>actions</td>
-    <td>certificates</td>
-    <td>datacenters</td>
-  </tr>
-  <tr height="80">
-    <td>floating_ips</td>
-    <td>images</td>
-    <td>isos</td>
-  </tr>
-  <tr height="80">
-    <td>load_balancer_types</td>
-    <td>load_balancers</td>
-    <td>locations</td>
-  </tr>
-  <tr height="80">
-    <td>networks</td>
-    <td>pricing</td>
-    <td>server_types</td>
-  </tr>
-  <tr height="80">
-    <td>servers</td>
-    <td>ssh_keys</td>
-    <td>volumes</td>
-  </tr>
-  <tr height="80">
-    <td>firewalls</td>
-    <td>placement_groups</td>
-    <td>primary_ips</td>
-  </tr>
-</table>
+- actions
+- certificates
+- datacenters
+- firewalls
+- floating_ips
+- images
+- isos
+- load_balancer_types
+- load_balancers
+- locations
+- networks
+- placement_groups
+- pricing
+- primary_ips
+- server_types
+- servers
+- ssh_keys
+- storage_box_types
+- storage_boxes
+- volumes
 
 ```
 # Main hcloud API
