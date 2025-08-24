@@ -6,7 +6,7 @@
     },
     "description": "Copied from the official API documentation for the Public Hetzner Cloud.",
     "title": "Hetzner Cloud API",
-    "version": "34612b6-dirty"
+    "version": "e92def1-dirty"
   },
   "servers": [
     {
@@ -1102,7 +1102,7 @@
         "$ref": "#/components/schemas/protection"
       },
       "change_storage_box_protection_response": {
-        "description": "Response to POST https://api.hetzner.cloud/v1/storage_boxes/{id}/actions/change_protection",
+        "description": "Response to POST https://api.hetzner.com/v1/storage_boxes/{id}/actions/change_protection",
         "properties": {
           "action": {
             "$ref": "#/components/schemas/action"
@@ -1176,7 +1176,7 @@
         "type": "object"
       },
       "change_type_of_storage_box_request": {
-        "description": "Request for POST https://api.hetzner.cloud/v1/storage_boxes/{id}/actions/change_type",
+        "description": "Request for POST https://api.hetzner.com/v1/storage_boxes/{id}/actions/change_type",
         "properties": {
           "storage_box_type": {
             "description": "The ID or the name of the Storage Box Type.",
@@ -1190,7 +1190,7 @@
         "type": "object"
       },
       "change_type_of_storage_box_response": {
-        "description": "Response to POST https://api.hetzner.cloud/v1/storage_boxes/{id}/actions/change_type",
+        "description": "Response to POST https://api.hetzner.com/v1/storage_boxes/{id}/actions/change_type",
         "properties": {
           "action": {
             "$ref": "#/components/schemas/action"
@@ -2029,7 +2029,7 @@
         "type": "object"
       },
       "create_snapshot_request": {
-        "description": "Request for POST https://api.hetzner.cloud/v1/storage_boxes/{id}/snapshots",
+        "description": "Request for POST https://api.hetzner.com/v1/storage_boxes/{id}/snapshots",
         "properties": {
           "description": {
             "description": "Description of the Snapshot.",
@@ -2043,7 +2043,7 @@
         "type": "object"
       },
       "create_snapshot_response": {
-        "description": "Response to POST https://api.hetzner.cloud/v1/storage_boxes/{id}/snapshots",
+        "description": "Response to POST https://api.hetzner.com/v1/storage_boxes/{id}/snapshots",
         "properties": {
           "action": {
             "$ref": "#/components/schemas/action"
@@ -2091,7 +2091,7 @@
         "type": "object"
       },
       "create_storage_box_request": {
-        "description": "Request for POST https://api.hetzner.cloud/v1/storage_boxes",
+        "description": "Request for POST https://api.hetzner.com/v1/storage_boxes",
         "properties": {
           "access_settings": {
             "properties": {
@@ -2165,7 +2165,7 @@
         "type": "object"
       },
       "create_storage_box_response": {
-        "description": "Response to POST https://api.hetzner.cloud/v1/storage_boxes",
+        "description": "Response to POST https://api.hetzner.com/v1/storage_boxes",
         "properties": {
           "action": {
             "$ref": "#/components/schemas/action"
@@ -2178,7 +2178,7 @@
         "type": "object"
       },
       "create_subaccount_request": {
-        "description": "Request for POST https://api.hetzner.cloud/v1/storage_boxes/{id}/subaccounts",
+        "description": "Request for POST https://api.hetzner.com/v1/storage_boxes/{id}/subaccounts",
         "properties": {
           "access_settings": {
             "properties": {
@@ -2239,7 +2239,7 @@
         "type": "object"
       },
       "create_subaccount_response": {
-        "description": "Response to POST https://api.hetzner.cloud/v1/storage_boxes/{id}/subaccounts",
+        "description": "Response to POST https://api.hetzner.com/v1/storage_boxes/{id}/subaccounts",
         "properties": {
           "action": {
             "$ref": "#/components/schemas/action"
@@ -2478,7 +2478,7 @@
         "type": "object"
       },
       "delete_snapshot_response": {
-        "description": "Response to DELETE https://api.hetzner.cloud/v1/storage_boxes/{id}/snapshots/{snapshot_id}",
+        "description": "Response to DELETE https://api.hetzner.com/v1/storage_boxes/{id}/snapshots/{snapshot_id}",
         "properties": {
           "action": {
             "$ref": "#/components/schemas/action"
@@ -2491,7 +2491,7 @@
         "type": "object"
       },
       "delete_storage_box_response": {
-        "description": "Response to DELETE https://api.hetzner.cloud/v1/storage_boxes/{id}",
+        "description": "Response to DELETE https://api.hetzner.com/v1/storage_boxes/{id}",
         "properties": {
           "action": {
             "$ref": "#/components/schemas/action"
@@ -2504,7 +2504,7 @@
         "type": "object"
       },
       "delete_subaccount_response": {
-        "description": "Response to DELETE https://api.hetzner.cloud/v1/storage_boxes/{id}/subaccounts/{subaccount_id}",
+        "description": "Response to DELETE https://api.hetzner.com/v1/storage_boxes/{id}/subaccounts/{subaccount_id}",
         "properties": {
           "action": {
             "$ref": "#/components/schemas/action"
@@ -2691,7 +2691,7 @@
         "type": "object"
       },
       "disable_snapshot_plan_response": {
-        "description": "Response to POST https://api.hetzner.cloud/v1/storage_boxes/{id}/actions/disable_snapshot_plan",
+        "description": "Response to POST https://api.hetzner.com/v1/storage_boxes/{id}/actions/disable_snapshot_plan",
         "properties": {
           "action": {
             "$ref": "#/components/schemas/action"
@@ -2789,7 +2789,7 @@
         "type": "object"
       },
       "enable_snapshot_plan_request": {
-        "description": "Request for POST https://api.hetzner.cloud/v1/storage_boxes/{id}/actions/enable_snapshot_plan",
+        "description": "Request for POST https://api.hetzner.com/v1/storage_boxes/{id}/actions/enable_snapshot_plan",
         "properties": {
           "day_of_month": {
             "description": "Day of the month the Snapshot Plan should be executed on. Null means every day.",
@@ -2835,7 +2835,7 @@
         "type": "object"
       },
       "enable_snapshot_plan_response": {
-        "description": "Response to POST https://api.hetzner.cloud/v1/storage_boxes/{id}/actions/enable_snapshot_plan",
+        "description": "Response to POST https://api.hetzner.com/v1/storage_boxes/{id}/actions/enable_snapshot_plan",
         "properties": {
           "action": {
             "$ref": "#/components/schemas/action"
@@ -3472,7 +3472,7 @@
         "type": "object"
       },
       "get_snapshot_response": {
-        "description": "Response to GET https://api.hetzner.cloud/v1/storage_boxes/{id}/snapshots/{snapshot_id}",
+        "description": "Response to GET https://api.hetzner.com/v1/storage_boxes/{id}/snapshots/{snapshot_id}",
         "properties": {
           "snapshot": {
             "$ref": "#/components/schemas/snapshot"
@@ -3493,7 +3493,7 @@
         "type": "object"
       },
       "get_storage_box_response": {
-        "description": "Response to GET https://api.hetzner.cloud/v1/storage_boxes/{id}",
+        "description": "Response to GET https://api.hetzner.com/v1/storage_boxes/{id}",
         "properties": {
           "storage_box": {
             "$ref": "#/components/schemas/storage_box"
@@ -3502,7 +3502,7 @@
         "type": "object"
       },
       "get_storage_box_type_response": {
-        "description": "Response to GET https://api.hetzner.cloud/v1/storage_box_types/{id}",
+        "description": "Response to GET https://api.hetzner.com/v1/storage_box_types/{id}",
         "properties": {
           "storage_box_type": {
             "$ref": "#/components/schemas/storage_box_type"
@@ -3514,7 +3514,7 @@
         "type": "object"
       },
       "get_subaccount_response": {
-        "description": "Response to GET https://api.hetzner.cloud/v1/storage_boxes/{id}/subaccounts/{subaccount_id}",
+        "description": "Response to GET https://api.hetzner.com/v1/storage_boxes/{id}/subaccounts/{subaccount_id}",
         "properties": {
           "subaccount": {
             "$ref": "#/components/schemas/subaccount"
@@ -4090,7 +4090,7 @@
         "type": "object"
       },
       "list_content_of_storage_box_response": {
-        "description": "Response to GET https://api.hetzner.cloud/v1/storage_boxes/{id}/folders",
+        "description": "Response to GET https://api.hetzner.com/v1/storage_boxes/{id}/folders",
         "properties": {
           "folders": {
             "items": {
@@ -4704,7 +4704,7 @@
         "type": "object"
       },
       "list_snapshots_for_storage_box_response": {
-        "description": "Response to GET https://api.hetzner.cloud/v1/storage_boxes/{id}/snapshots",
+        "description": "Response to GET https://api.hetzner.com/v1/storage_boxes/{id}/snapshots",
         "properties": {
           "snapshots": {
             "items": {
@@ -4738,7 +4738,7 @@
         "type": "object"
       },
       "list_storage_box_types_response": {
-        "description": "Response to GET https://api.hetzner.cloud/v1/storage_box_types",
+        "description": "Response to GET https://api.hetzner.com/v1/storage_box_types",
         "properties": {
           "meta": {
             "$ref": "#/components/schemas/meta"
@@ -4757,7 +4757,7 @@
         "type": "object"
       },
       "list_storage_boxes_response": {
-        "description": "Response to GET https://api.hetzner.cloud/v1/storage_boxes",
+        "description": "Response to GET https://api.hetzner.com/v1/storage_boxes",
         "properties": {
           "meta": {
             "$ref": "#/components/schemas/meta"
@@ -4776,7 +4776,7 @@
         "type": "object"
       },
       "list_subaccounts_for_storage_box_response": {
-        "description": "Response to GET https://api.hetzner.cloud/v1/storage_boxes/{id}/subaccounts",
+        "description": "Response to GET https://api.hetzner.com/v1/storage_boxes/{id}/subaccounts",
         "properties": {
           "subaccounts": {
             "items": {
@@ -6274,7 +6274,7 @@
         "type": "object"
       },
       "replace_snapshot_request": {
-        "description": "Request for PUT https://api.hetzner.cloud/v1/storage_boxes/{id}/snapshots/{snapshot_id}",
+        "description": "Request for PUT https://api.hetzner.com/v1/storage_boxes/{id}/snapshots/{snapshot_id}",
         "properties": {
           "description": {
             "description": "Description of the Snapshot.",
@@ -6294,7 +6294,7 @@
         "type": "object"
       },
       "replace_snapshot_response": {
-        "description": "Response to PUT https://api.hetzner.cloud/v1/storage_boxes/{id}/snapshots/{snapshot_id}",
+        "description": "Response to PUT https://api.hetzner.com/v1/storage_boxes/{id}/snapshots/{snapshot_id}",
         "properties": {
           "snapshot": {
             "$ref": "#/components/schemas/snapshot"
@@ -6329,7 +6329,7 @@
         "type": "object"
       },
       "replace_storage_box_request": {
-        "description": "Request for PUT https://api.hetzner.cloud/v1/storage_boxes/{id}",
+        "description": "Request for PUT https://api.hetzner.com/v1/storage_boxes/{id}",
         "properties": {
           "labels": {
             "$ref": "#/components/schemas/labels"
@@ -6342,7 +6342,7 @@
         "type": "object"
       },
       "replace_storage_box_response": {
-        "description": "Response to PUT https://api.hetzner.cloud/v1/storage_boxes/{id}",
+        "description": "Response to PUT https://api.hetzner.com/v1/storage_boxes/{id}",
         "properties": {
           "storage_box": {
             "$ref": "#/components/schemas/storage_box"
@@ -6351,7 +6351,7 @@
         "type": "object"
       },
       "replace_subaccount_request": {
-        "description": "Request for PUT https://api.hetzner.cloud/v1/storage_boxes/{id}/subaccounts/{subaccount_id}",
+        "description": "Request for PUT https://api.hetzner.com/v1/storage_boxes/{id}/subaccounts/{subaccount_id}",
         "properties": {
           "description": {
             "description": "A description to remind you of the purpose of this Subaccount.",
@@ -6371,7 +6371,7 @@
         "type": "object"
       },
       "replace_subaccount_response": {
-        "description": "Response to PUT https://api.hetzner.cloud/v1/storage_boxes/{id}/subaccounts/{subaccount_id}",
+        "description": "Response to PUT https://api.hetzner.com/v1/storage_boxes/{id}/subaccounts/{subaccount_id}",
         "properties": {
           "subaccount": {
             "$ref": "#/components/schemas/subaccount"
@@ -6431,7 +6431,7 @@
         "type": "object"
       },
       "reset_password_request": {
-        "description": "Request for POST https://api.hetzner.cloud/v1/storage_boxes/{id}/subaccounts/{subaccount_id}/actions/reset_subaccount_password",
+        "description": "Request for POST https://api.hetzner.com/v1/storage_boxes/{id}/subaccounts/{subaccount_id}/actions/reset_subaccount_password",
         "properties": {
           "password": {
             "description": "New password.",
@@ -6445,7 +6445,7 @@
         "type": "object"
       },
       "reset_password_response": {
-        "description": "Response to POST https://api.hetzner.cloud/v1/storage_boxes/{id}/subaccounts/{subaccount_id}/actions/reset_subaccount_password",
+        "description": "Response to POST https://api.hetzner.com/v1/storage_boxes/{id}/subaccounts/{subaccount_id}/actions/reset_subaccount_password",
         "properties": {
           "action": {
             "$ref": "#/components/schemas/action"
@@ -6562,7 +6562,7 @@
         "type": "object"
       },
       "rollback_snapshot_request": {
-        "description": "Request for POST https://api.hetzner.cloud/v1/storage_boxes/{id}/actions/rollback_snapshot",
+        "description": "Request for POST https://api.hetzner.com/v1/storage_boxes/{id}/actions/rollback_snapshot",
         "properties": {
           "snapshot_id": {
             "description": "ID of the Storage Box Snapshot.",
@@ -6578,7 +6578,7 @@
         "type": "object"
       },
       "rollback_snapshot_response": {
-        "description": "Response to POST https://api.hetzner.cloud/v1/storage_boxes/{id}/actions/rollback_snapshot",
+        "description": "Response to POST https://api.hetzner.com/v1/storage_boxes/{id}/actions/rollback_snapshot",
         "properties": {
           "action": {
             "$ref": "#/components/schemas/action"
@@ -7697,7 +7697,7 @@
         "type": "object"
       },
       "update_access_settings_request": {
-        "description": "Request for POST https://api.hetzner.cloud/v1/storage_boxes/{id}/subaccounts/{subaccount_id}/actions/update_access_settings",
+        "description": "Request for POST https://api.hetzner.com/v1/storage_boxes/{id}/subaccounts/{subaccount_id}/actions/update_access_settings",
         "properties": {
           "home_directory": {
             "description": "Home directory of the Subaccount. Will be created if it doesn't exist yet.",
@@ -7736,7 +7736,7 @@
         "type": "object"
       },
       "update_access_settings_response": {
-        "description": "Response to POST https://api.hetzner.cloud/v1/storage_boxes/{id}/subaccounts/{subaccount_id}/actions/update_access_settings",
+        "description": "Response to POST https://api.hetzner.com/v1/storage_boxes/{id}/subaccounts/{subaccount_id}/actions/update_access_settings",
         "properties": {
           "action": {
             "$ref": "#/components/schemas/action"

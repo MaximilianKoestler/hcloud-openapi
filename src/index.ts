@@ -177,12 +177,12 @@ function isVerb(verb: string) {
 
 async function createComponents(document: OpenApiDocumentFragment) {
   const paths = document.paths as OpenApiDocumentFragment;
-  const base_url = "https://api.hetzner.cloud/v1"; // TODO
 
   // const schemas = document.components.schemas ?? {};
   const schemas = {}; // all components in the original spec are currently not referenced
 
   for (const [path, path_obj] of Object.entries(paths)) {
+    const base_url = path_obj.servers[0].url;
     for (const [verb, verb_obj] of Object.entries(path_obj)) {
       if (!isVerb(verb)) {
         continue;
@@ -326,26 +326,6 @@ async function validateOpenApiDocument(document: OpenApiDocumentFragment) {
     console.error(`ERROR: ${item.message} (${item.path})`);
   }
   console.log(`Found ${warnings.length} warnings and ${errors.length} errors`);
-}
-
-function overWriteMetadata(
-  document: OpenApiDocumentFragment,
-  version?: string
-) {
-  document.openapi = "3.0.3";
-  document.info = {
-    title: "Hetzner Cloud API",
-    description:
-      "Copied from the official API documentation for the Public Hetzner Cloud.",
-    contact: { url: "https://docs.hetzner.cloud/" },
-    version: version === undefined ? getVersion() : version,
-  };
-  document.servers = [
-    {
-      url: "https://api.hetzner.cloud/v1",
-      description: "Official production server",
-    },
-  ];
 }
 
 function overWriteTagList(document: OpenApiDocumentFragment) {
