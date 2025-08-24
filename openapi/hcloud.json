@@ -6,7 +6,7 @@
     },
     "description": "Copied from the official API documentation for the Public Hetzner Cloud.",
     "title": "Hetzner Cloud API",
-    "version": "e80474a-dirty"
+    "version": "63a312e-dirty"
   },
   "servers": [
     {
@@ -119,7 +119,7 @@
             "type": "string"
           },
           "id": {
-            "description": "ID of the Action",
+            "description": "ID of the Action.",
             "example": 42,
             "format": "int64",
             "maximum": 9007199254740991,
@@ -185,7 +185,7 @@
             "type": "string"
           },
           "id": {
-            "description": "ID of the Action",
+            "description": "ID of the Action.",
             "example": 42,
             "format": "int64",
             "maximum": 9007199254740991,
@@ -8022,7 +8022,7 @@
         "operationId": "get_action",
         "parameters": [
           {
-            "description": "ID of the Action",
+            "description": "ID of the Action.",
             "in": "path",
             "name": "id",
             "required": true,
@@ -8632,12 +8632,12 @@
         "operationId": "list_actions_for_certificate",
         "parameters": [
           {
-            "description": "ID of the Certificate",
+            "description": "ID of the Certificate.",
             "in": "path",
             "name": "id",
             "required": true,
             "schema": {
-              "description": "ID of the Certificate. Limited to 52 bits to ensure compatability with JSON double precision floats.",
+              "description": "ID of the Certificate.",
               "example": 42,
               "format": "int64",
               "maximum": 9007199254740991,
@@ -9060,7 +9060,7 @@
         "operationId": "get_certificate_action",
         "parameters": [
           {
-            "description": "ID of the Action",
+            "description": "ID of the Action.",
             "in": "path",
             "name": "id",
             "required": true,
@@ -9621,12 +9621,12 @@
         "operationId": "list_actions_for_firewall",
         "parameters": [
           {
-            "description": "ID of the Firewall",
+            "description": "ID of the Firewall.",
             "in": "path",
             "name": "id",
             "required": true,
             "schema": {
-              "description": "ID of the Firewall. Limited to 52 bits to ensure compatability with JSON double precision floats.",
+              "description": "ID of the Firewall.",
               "example": 42,
               "format": "int64",
               "maximum": 9007199254740991,
@@ -10305,7 +10305,7 @@
         "operationId": "get_firewall_action",
         "parameters": [
           {
-            "description": "ID of the Action",
+            "description": "ID of the Action.",
             "in": "path",
             "name": "id",
             "required": true,
@@ -11473,7 +11473,7 @@
         "operationId": "get_floating_ip_action",
         "parameters": [
           {
-            "description": "ID of the Action",
+            "description": "ID of the Action.",
             "in": "path",
             "name": "id",
             "required": true,
@@ -12343,7 +12343,7 @@
         "operationId": "get_image_action",
         "parameters": [
           {
-            "description": "ID of the Action",
+            "description": "ID of the Action.",
             "in": "path",
             "name": "id",
             "required": true,
@@ -14901,7 +14901,7 @@
         "operationId": "get_load_balancer_action",
         "parameters": [
           {
-            "description": "ID of the Action",
+            "description": "ID of the Action.",
             "in": "path",
             "name": "id",
             "required": true,
@@ -16346,7 +16346,7 @@
         "operationId": "get_network_action",
         "parameters": [
           {
-            "description": "ID of the Action",
+            "description": "ID of the Action.",
             "in": "path",
             "name": "id",
             "required": true,
@@ -17731,7 +17731,7 @@
         "operationId": "get_primary_ip_action",
         "parameters": [
           {
-            "description": "ID of the Action",
+            "description": "ID of the Action.",
             "in": "path",
             "name": "id",
             "required": true,
@@ -18482,12 +18482,12 @@
         "operationId": "list_actions_for_server",
         "parameters": [
           {
-            "description": "ID of the Server",
+            "description": "ID of the Server.",
             "in": "path",
             "name": "id",
             "required": true,
             "schema": {
-              "description": "ID of the Server. Limited to 52 bits to ensure compatability with JSON double precision floats.",
+              "description": "ID of the Server.",
               "example": 42,
               "format": "int64",
               "maximum": 9007199254740991,
@@ -20893,7 +20893,7 @@
         "operationId": "get_server_action",
         "parameters": [
           {
-            "description": "ID of the Action",
+            "description": "ID of the Action.",
             "in": "path",
             "name": "id",
             "required": true,
@@ -22442,7 +22442,7 @@
         "operationId": "get_volume_action",
         "parameters": [
           {
-            "description": "ID of the Action",
+            "description": "ID of the Action.",
             "in": "path",
             "name": "id",
             "required": true,
