@@ -25,12 +25,15 @@ As an added benefit, mainly from use of common components, the improved spec is 
 - [OpenAPI standard](https://swagger.io/specification/)
 
 ## Use Cases
+
 This API description is currently being used by the following projects:
+
 - [hcloud-rust](https://github.com/HenningHolmDE/hcloud-rust)
   [![Crates.io](https://img.shields.io/crates/v/hcloud.svg)](https://crates.io/crates/hcloud)
   [![Documentation](https://docs.rs/hcloud/badge.svg)](https://docs.rs/hcloud/)
 
 ## Supported Endpoints
+
 <table style="text-align: center">
   <tr height="80">
     <td>actions</td>
@@ -65,6 +68,8 @@ This API description is currently being used by the following projects:
 </table>
 
 ```
+# Main hcloud API
+
 /actions (GET)
 /actions/{id} (GET)
 /certificates (GET, POST)
@@ -195,6 +200,31 @@ This API description is currently being used by the following projects:
 /volumes/{id}/actions/resize (POST)
 /volumes/actions (GET)
 /volumes/actions/{id} (GET)
+
+# Storage Boxes
+
+/storage_box_types (GET)
+/storage_box_types/{id} (GET)
+/storage_boxes (GET, POST)
+/storage_boxes/actions (GET)
+/storage_boxes/actions/{id} (GET)
+/storage_boxes/{id} (DELETE, GET, PUT)
+/storage_boxes/{id}/actions (GET)
+/storage_boxes/{id}/actions/change_protection (POST)
+/storage_boxes/{id}/actions/change_type (POST)
+/storage_boxes/{id}/actions/disable_snapshot_plan (POST)
+/storage_boxes/{id}/actions/enable_snapshot_plan (POST)
+/storage_boxes/{id}/actions/reset_password (POST)
+/storage_boxes/{id}/actions/rollback_snapshot (POST)
+/storage_boxes/{id}/actions/update_access_settings (POST)
+/storage_boxes/{id}/actions/{action_id} (GET)
+/storage_boxes/{id}/folders (GET)
+/storage_boxes/{id}/snapshots (GET, POST)
+/storage_boxes/{id}/snapshots/{snapshot_id} (DELETE, GET, PUT)
+/storage_boxes/{id}/subaccounts (GET, POST)
+/storage_boxes/{id}/subaccounts/{subaccount_id} (DELETE, GET, PUT)
+/storage_boxes/{id}/subaccounts/{subaccount_id}/actions/reset_subaccount_password (POST)
+/storage_boxes/{id}/subaccounts/{subaccount_id}/actions/update_access_settings (POST)
 ```
 
 ## Quick Start

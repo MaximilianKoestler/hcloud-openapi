@@ -31,7 +31,10 @@ function parseArgs(): Arguments {
       sources: {
         type: "array",
         describe: "URL or local file with OpenAPI spec in JSON",
-        default: ["https://docs.hetzner.cloud/cloud.spec.json"],
+        default: [
+          "https://docs.hetzner.cloud/cloud.spec.json",
+          "https://docs.hetzner.cloud/hetzner.spec.json",
+        ],
       },
       output: {
         alias: "o",
@@ -409,6 +412,10 @@ function defaultDocument(version?: string) {
       {
         url: "https://api.hetzner.cloud/v1",
         description: "API for cloud services",
+      },
+      {
+        url: "https://api.hetzner.com/v1",
+        description: "API for storage boxes",
       },
     ],
     security: [
