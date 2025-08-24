@@ -6,7 +6,7 @@
     },
     "description": "Copied from the official API documentation for the Public Hetzner Cloud.",
     "title": "Hetzner Cloud API",
-    "version": "178d7d1-dirty"
+    "version": "34612b6-dirty"
   },
   "servers": [
     {
@@ -3475,74 +3475,7 @@
         "description": "Response to GET https://api.hetzner.cloud/v1/storage_boxes/{id}/snapshots/{snapshot_id}",
         "properties": {
           "snapshot": {
-            "properties": {
-              "created": {
-                "description": "Point in time (in ISO-8601 format).",
-                "example": "2016-01-30T23:55:00+00:00",
-                "type": "string"
-              },
-              "description": {
-                "description": "Description of the Resource.",
-                "example": "This describes my resource",
-                "nullable": true,
-                "type": "string"
-              },
-              "id": {
-                "description": "ID of the Storage Box Snapshot.",
-                "example": 42,
-                "format": "int64",
-                "maximum": 9007199254740991,
-                "type": "integer"
-              },
-              "is_automatic": {
-                "description": "Whether the Snapshot was created automatically.",
-                "type": "boolean"
-              },
-              "labels": {
-                "$ref": "#/components/schemas/labels"
-              },
-              "name": {
-                "description": "Name of the Resource. Must be unique per Project.",
-                "example": "my-resource",
-                "type": "string"
-              },
-              "stats": {
-                "description": "Information about disk usage.",
-                "properties": {
-                  "size": {
-                    "description": "Total size of the Snapshot in bytes.",
-                    "type": "integer"
-                  },
-                  "size_filesystem": {
-                    "description": "Actual size on the filesystem in bytes (after deduplication).",
-                    "type": "integer"
-                  }
-                },
-                "required": [
-                  "size",
-                  "size_filesystem"
-                ],
-                "type": "object"
-              },
-              "storage_box": {
-                "description": "ID of the Storage Box.",
-                "example": 42,
-                "format": "int64",
-                "maximum": 9007199254740991,
-                "type": "integer"
-              }
-            },
-            "required": [
-              "id",
-              "name",
-              "description",
-              "stats",
-              "is_automatic",
-              "labels",
-              "created",
-              "storage_box"
-            ],
-            "type": "object"
+            "$ref": "#/components/schemas/snapshot"
           }
         },
         "type": "object"
@@ -3563,251 +3496,7 @@
         "description": "Response to GET https://api.hetzner.cloud/v1/storage_boxes/{id}",
         "properties": {
           "storage_box": {
-            "properties": {
-              "access_settings": {
-                "properties": {
-                  "reachable_externally": {
-                    "description": "Whether the Storage Box is accessible from outside the Hetzner network.",
-                    "type": "boolean"
-                  },
-                  "samba_enabled": {
-                    "description": "Whether the Samba subsystem is enabled.",
-                    "type": "boolean"
-                  },
-                  "ssh_enabled": {
-                    "description": "Whether the SSH subsystem is enabled.",
-                    "type": "boolean"
-                  },
-                  "webdav_enabled": {
-                    "description": "Whether the WebDAV subsystem is enabled.",
-                    "type": "boolean"
-                  },
-                  "zfs_enabled": {
-                    "description": "Whether the ZFS snapshot folder is visible.",
-                    "type": "boolean"
-                  }
-                },
-                "required": [
-                  "reachable_externally",
-                  "samba_enabled",
-                  "ssh_enabled",
-                  "webdav_enabled",
-                  "zfs_enabled"
-                ],
-                "type": "object"
-              },
-              "created": {
-                "description": "Point in time (in ISO-8601 format).",
-                "example": "2016-01-30T23:55:00+00:00",
-                "type": "string"
-              },
-              "id": {
-                "description": "ID of the Storage Box.",
-                "example": 42,
-                "format": "int64",
-                "maximum": 9007199254740991,
-                "type": "integer"
-              },
-              "labels": {
-                "$ref": "#/components/schemas/labels"
-              },
-              "location": {
-                "$ref": "#/components/schemas/location"
-              },
-              "name": {
-                "type": "string"
-              },
-              "protection": {
-                "$ref": "#/components/schemas/protection"
-              },
-              "server": {
-                "description": "FQDN of the Storage Box. Not available if the status is \"initializing\".",
-                "example": "u1337.your-storagebox.de",
-                "nullable": true,
-                "type": "string"
-              },
-              "snapshot_plan": {
-                "description": "Details of the active snapshot plan. Not available if the status is \"initializing\".",
-                "nullable": true,
-                "properties": {
-                  "day_of_month": {
-                    "description": "Day of the month the Snapshot Plan is executed on.",
-                    "nullable": true,
-                    "type": "integer"
-                  },
-                  "day_of_week": {
-                    "description": "Day of the week the Snapshot Plan is executed on.",
-                    "nullable": true,
-                    "type": "integer"
-                  },
-                  "hour": {
-                    "description": "Hour the Snapshot Plan is executed at (UTC).",
-                    "nullable": true,
-                    "type": "integer"
-                  },
-                  "max_snapshots": {
-                    "description": "Maximum amount of Snapshots that will be created by this Snapshot Plan. Older Snapshots will be deleted.",
-                    "type": "integer"
-                  },
-                  "minute": {
-                    "description": "Minute the Snapshot Plan is executed at (UTC).",
-                    "nullable": true,
-                    "type": "integer"
-                  }
-                },
-                "required": [
-                  "max_snapshots"
-                ],
-                "type": "object"
-              },
-              "stats": {
-                "description": "Information about disk usage. Not available if the status is \"initializing\".",
-                "nullable": true,
-                "properties": {
-                  "size": {
-                    "description": "Current disk usage in bytes.",
-                    "type": "integer"
-                  },
-                  "size_data": {
-                    "description": "Current disk usage for data in bytes.",
-                    "type": "integer"
-                  },
-                  "size_snapshots": {
-                    "description": "Current disk usage for snapshots in bytes.",
-                    "type": "integer"
-                  }
-                },
-                "required": [
-                  "size",
-                  "size_data",
-                  "size_snapshots"
-                ],
-                "type": "object"
-              },
-              "status": {
-                "enum": [
-                  "active",
-                  "initializing",
-                  "locked"
-                ],
-                "type": "string"
-              },
-              "storage_box_type": {
-                "properties": {
-                  "automatic_snapshot_limit": {
-                    "description": "Maximum number of snapshots created automatically by a snapshot plan.",
-                    "example": 10,
-                    "nullable": true,
-                    "type": "integer"
-                  },
-                  "deprecation": {
-                    "$ref": "#/components/schemas/deprecation_info"
-                  },
-                  "description": {
-                    "description": "Description of the Storage Box type.",
-                    "example": "BX11",
-                    "type": "string"
-                  },
-                  "id": {
-                    "description": "ID of the Storage Box Type.",
-                    "example": 42,
-                    "format": "int64",
-                    "maximum": 9007199254740991,
-                    "type": "integer"
-                  },
-                  "name": {
-                    "description": "Unique identifier of the Storage Box type.",
-                    "example": "bx11",
-                    "type": "string"
-                  },
-                  "prices": {
-                    "description": "Price per [Location](#locations).",
-                    "items": {
-                      "properties": {
-                        "location": {
-                          "description": "Name of the [Location](#locations) the price is for.",
-                          "example": "fsn1",
-                          "type": "string"
-                        },
-                        "price_hourly": {
-                          "$ref": "#/components/schemas/price"
-                        },
-                        "price_monthly": {
-                          "$ref": "#/components/schemas/price"
-                        },
-                        "setup_fee": {
-                          "$ref": "#/components/schemas/price"
-                        }
-                      },
-                      "required": [
-                        "location",
-                        "price_hourly",
-                        "price_monthly",
-                        "setup_fee"
-                      ],
-                      "type": "object"
-                    },
-                    "type": "array"
-                  },
-                  "size": {
-                    "description": "Available storage in bytes.",
-                    "example": 1073741824,
-                    "type": "integer"
-                  },
-                  "snapshot_limit": {
-                    "description": "Maximum number of allowed manual snapshots.",
-                    "example": 10,
-                    "nullable": true,
-                    "type": "integer"
-                  },
-                  "subaccounts_limit": {
-                    "description": "Maximum number of subaccounts.",
-                    "example": 200,
-                    "type": "integer"
-                  }
-                },
-                "required": [
-                  "id",
-                  "name",
-                  "description",
-                  "snapshot_limit",
-                  "automatic_snapshot_limit",
-                  "subaccounts_limit",
-                  "size",
-                  "prices",
-                  "deprecation"
-                ],
-                "type": "object"
-              },
-              "system": {
-                "description": "Storage Box host system. Not available if the status is \"initializing\".",
-                "example": "FSN1-BX355",
-                "nullable": true,
-                "type": "string"
-              },
-              "username": {
-                "description": "Primary username of the Storage Box.\n\nNot available if the status is \"initializing\".\n",
-                "example": "u12345",
-                "nullable": true,
-                "type": "string"
-              }
-            },
-            "required": [
-              "id",
-              "status",
-              "name",
-              "storage_box_type",
-              "location",
-              "access_settings",
-              "server",
-              "system",
-              "stats",
-              "labels",
-              "protection",
-              "snapshot_plan",
-              "created"
-            ],
-            "type": "object"
+            "$ref": "#/components/schemas/storage_box"
           }
         },
         "type": "object"
@@ -3816,91 +3505,7 @@
         "description": "Response to GET https://api.hetzner.cloud/v1/storage_box_types/{id}",
         "properties": {
           "storage_box_type": {
-            "properties": {
-              "automatic_snapshot_limit": {
-                "description": "Maximum number of snapshots created automatically by a snapshot plan.",
-                "example": 10,
-                "nullable": true,
-                "type": "integer"
-              },
-              "deprecation": {
-                "$ref": "#/components/schemas/deprecation_info"
-              },
-              "description": {
-                "description": "Description of the Storage Box type.",
-                "example": "BX11",
-                "type": "string"
-              },
-              "id": {
-                "description": "ID of the Storage Box Type.",
-                "example": 42,
-                "format": "int64",
-                "maximum": 9007199254740991,
-                "type": "integer"
-              },
-              "name": {
-                "description": "Unique identifier of the Storage Box type.",
-                "example": "bx11",
-                "type": "string"
-              },
-              "prices": {
-                "description": "Price per [Location](#locations).",
-                "items": {
-                  "properties": {
-                    "location": {
-                      "description": "Name of the [Location](#locations) the price is for.",
-                      "example": "fsn1",
-                      "type": "string"
-                    },
-                    "price_hourly": {
-                      "$ref": "#/components/schemas/price"
-                    },
-                    "price_monthly": {
-                      "$ref": "#/components/schemas/price"
-                    },
-                    "setup_fee": {
-                      "$ref": "#/components/schemas/price"
-                    }
-                  },
-                  "required": [
-                    "location",
-                    "price_hourly",
-                    "price_monthly",
-                    "setup_fee"
-                  ],
-                  "type": "object"
-                },
-                "type": "array"
-              },
-              "size": {
-                "description": "Available storage in bytes.",
-                "example": 1073741824,
-                "type": "integer"
-              },
-              "snapshot_limit": {
-                "description": "Maximum number of allowed manual snapshots.",
-                "example": 10,
-                "nullable": true,
-                "type": "integer"
-              },
-              "subaccounts_limit": {
-                "description": "Maximum number of subaccounts.",
-                "example": 200,
-                "type": "integer"
-              }
-            },
-            "required": [
-              "id",
-              "name",
-              "description",
-              "snapshot_limit",
-              "automatic_snapshot_limit",
-              "subaccounts_limit",
-              "size",
-              "prices",
-              "deprecation"
-            ],
-            "type": "object"
+            "$ref": "#/components/schemas/storage_box_type"
           }
         },
         "required": [
@@ -3912,94 +3517,7 @@
         "description": "Response to GET https://api.hetzner.cloud/v1/storage_boxes/{id}/subaccounts/{subaccount_id}",
         "properties": {
           "subaccount": {
-            "properties": {
-              "access_settings": {
-                "properties": {
-                  "reachable_externally": {
-                    "description": "Whether the Subaccount is accessible from outside the Hetzner network.",
-                    "type": "boolean"
-                  },
-                  "readonly": {
-                    "description": "Whether the Subaccount is read-only.",
-                    "type": "boolean"
-                  },
-                  "samba_enabled": {
-                    "description": "Whether the Samba subsystem is enabled.",
-                    "type": "boolean"
-                  },
-                  "ssh_enabled": {
-                    "description": "Whether the SSH subsystem is enabled.",
-                    "type": "boolean"
-                  },
-                  "webdav_enabled": {
-                    "description": "Whether the WebDAV subsystem is enabled.",
-                    "type": "boolean"
-                  }
-                },
-                "required": [
-                  "reachable_externally",
-                  "readonly",
-                  "samba_enabled",
-                  "ssh_enabled",
-                  "webdav_enabled"
-                ],
-                "type": "object"
-              },
-              "created": {
-                "description": "Point in time (in ISO-8601 format).",
-                "example": "2016-01-30T23:55:00+00:00",
-                "type": "string"
-              },
-              "description": {
-                "description": "A description to remind you of the purpose of this Subaccount.",
-                "example": "host01 backup",
-                "maxLength": 1000,
-                "type": "string"
-              },
-              "home_directory": {
-                "description": "Home directory of the Subaccount.",
-                "example": "my_backups/host01.my.company",
-                "type": "string"
-              },
-              "id": {
-                "description": "ID of the Storage Box Subaccount.",
-                "example": 42,
-                "format": "int64",
-                "maximum": 9007199254740991,
-                "type": "integer"
-              },
-              "labels": {
-                "$ref": "#/components/schemas/labels"
-              },
-              "server": {
-                "description": "FQDN of the Subaccount.",
-                "example": "u1337-sub1.your-storagebox.de",
-                "type": "string"
-              },
-              "storage_box": {
-                "description": "ID of the Storage Box.",
-                "example": 42,
-                "format": "int64",
-                "maximum": 9007199254740991,
-                "type": "integer"
-              },
-              "username": {
-                "description": "Username of the Subaccount.",
-                "example": "u1337-sub1",
-                "type": "string"
-              }
-            },
-            "required": [
-              "id",
-              "username",
-              "home_directory",
-              "server",
-              "description",
-              "labels",
-              "created",
-              "storage_box"
-            ],
-            "type": "object"
+            "$ref": "#/components/schemas/subaccount"
           }
         },
         "type": "object"
@@ -5190,74 +4708,7 @@
         "properties": {
           "snapshots": {
             "items": {
-              "properties": {
-                "created": {
-                  "description": "Point in time (in ISO-8601 format).",
-                  "example": "2016-01-30T23:55:00+00:00",
-                  "type": "string"
-                },
-                "description": {
-                  "description": "Description of the Resource.",
-                  "example": "This describes my resource",
-                  "nullable": true,
-                  "type": "string"
-                },
-                "id": {
-                  "description": "ID of the Storage Box Snapshot.",
-                  "example": 42,
-                  "format": "int64",
-                  "maximum": 9007199254740991,
-                  "type": "integer"
-                },
-                "is_automatic": {
-                  "description": "Whether the Snapshot was created automatically.",
-                  "type": "boolean"
-                },
-                "labels": {
-                  "$ref": "#/components/schemas/labels"
-                },
-                "name": {
-                  "description": "Name of the Resource. Must be unique per Project.",
-                  "example": "my-resource",
-                  "type": "string"
-                },
-                "stats": {
-                  "description": "Information about disk usage.",
-                  "properties": {
-                    "size": {
-                      "description": "Total size of the Snapshot in bytes.",
-                      "type": "integer"
-                    },
-                    "size_filesystem": {
-                      "description": "Actual size on the filesystem in bytes (after deduplication).",
-                      "type": "integer"
-                    }
-                  },
-                  "required": [
-                    "size",
-                    "size_filesystem"
-                  ],
-                  "type": "object"
-                },
-                "storage_box": {
-                  "description": "ID of the Storage Box.",
-                  "example": 42,
-                  "format": "int64",
-                  "maximum": 9007199254740991,
-                  "type": "integer"
-                }
-              },
-              "required": [
-                "id",
-                "name",
-                "description",
-                "stats",
-                "is_automatic",
-                "labels",
-                "created",
-                "storage_box"
-              ],
-              "type": "object"
+              "$ref": "#/components/schemas/snapshot"
             },
             "type": "array"
           }
@@ -5294,91 +4745,7 @@
           },
           "storage_box_types": {
             "items": {
-              "properties": {
-                "automatic_snapshot_limit": {
-                  "description": "Maximum number of snapshots created automatically by a snapshot plan.",
-                  "example": 10,
-                  "nullable": true,
-                  "type": "integer"
-                },
-                "deprecation": {
-                  "$ref": "#/components/schemas/deprecation_info"
-                },
-                "description": {
-                  "description": "Description of the Storage Box type.",
-                  "example": "BX11",
-                  "type": "string"
-                },
-                "id": {
-                  "description": "ID of the Storage Box Type.",
-                  "example": 42,
-                  "format": "int64",
-                  "maximum": 9007199254740991,
-                  "type": "integer"
-                },
-                "name": {
-                  "description": "Unique identifier of the Storage Box type.",
-                  "example": "bx11",
-                  "type": "string"
-                },
-                "prices": {
-                  "description": "Price per [Location](#locations).",
-                  "items": {
-                    "properties": {
-                      "location": {
-                        "description": "Name of the [Location](#locations) the price is for.",
-                        "example": "fsn1",
-                        "type": "string"
-                      },
-                      "price_hourly": {
-                        "$ref": "#/components/schemas/price"
-                      },
-                      "price_monthly": {
-                        "$ref": "#/components/schemas/price"
-                      },
-                      "setup_fee": {
-                        "$ref": "#/components/schemas/price"
-                      }
-                    },
-                    "required": [
-                      "location",
-                      "price_hourly",
-                      "price_monthly",
-                      "setup_fee"
-                    ],
-                    "type": "object"
-                  },
-                  "type": "array"
-                },
-                "size": {
-                  "description": "Available storage in bytes.",
-                  "example": 1073741824,
-                  "type": "integer"
-                },
-                "snapshot_limit": {
-                  "description": "Maximum number of allowed manual snapshots.",
-                  "example": 10,
-                  "nullable": true,
-                  "type": "integer"
-                },
-                "subaccounts_limit": {
-                  "description": "Maximum number of subaccounts.",
-                  "example": 200,
-                  "type": "integer"
-                }
-              },
-              "required": [
-                "id",
-                "name",
-                "description",
-                "snapshot_limit",
-                "automatic_snapshot_limit",
-                "subaccounts_limit",
-                "size",
-                "prices",
-                "deprecation"
-              ],
-              "type": "object"
+              "$ref": "#/components/schemas/storage_box_type"
             },
             "type": "array"
           }
@@ -5397,251 +4764,7 @@
           },
           "storage_boxes": {
             "items": {
-              "properties": {
-                "access_settings": {
-                  "properties": {
-                    "reachable_externally": {
-                      "description": "Whether the Storage Box is accessible from outside the Hetzner network.",
-                      "type": "boolean"
-                    },
-                    "samba_enabled": {
-                      "description": "Whether the Samba subsystem is enabled.",
-                      "type": "boolean"
-                    },
-                    "ssh_enabled": {
-                      "description": "Whether the SSH subsystem is enabled.",
-                      "type": "boolean"
-                    },
-                    "webdav_enabled": {
-                      "description": "Whether the WebDAV subsystem is enabled.",
-                      "type": "boolean"
-                    },
-                    "zfs_enabled": {
-                      "description": "Whether the ZFS snapshot folder is visible.",
-                      "type": "boolean"
-                    }
-                  },
-                  "required": [
-                    "reachable_externally",
-                    "samba_enabled",
-                    "ssh_enabled",
-                    "webdav_enabled",
-                    "zfs_enabled"
-                  ],
-                  "type": "object"
-                },
-                "created": {
-                  "description": "Point in time (in ISO-8601 format).",
-                  "example": "2016-01-30T23:55:00+00:00",
-                  "type": "string"
-                },
-                "id": {
-                  "description": "ID of the Storage Box.",
-                  "example": 42,
-                  "format": "int64",
-                  "maximum": 9007199254740991,
-                  "type": "integer"
-                },
-                "labels": {
-                  "$ref": "#/components/schemas/labels"
-                },
-                "location": {
-                  "$ref": "#/components/schemas/location"
-                },
-                "name": {
-                  "type": "string"
-                },
-                "protection": {
-                  "$ref": "#/components/schemas/protection"
-                },
-                "server": {
-                  "description": "FQDN of the Storage Box. Not available if the status is \"initializing\".",
-                  "example": "u1337.your-storagebox.de",
-                  "nullable": true,
-                  "type": "string"
-                },
-                "snapshot_plan": {
-                  "description": "Details of the active snapshot plan. Not available if the status is \"initializing\".",
-                  "nullable": true,
-                  "properties": {
-                    "day_of_month": {
-                      "description": "Day of the month the Snapshot Plan is executed on.",
-                      "nullable": true,
-                      "type": "integer"
-                    },
-                    "day_of_week": {
-                      "description": "Day of the week the Snapshot Plan is executed on.",
-                      "nullable": true,
-                      "type": "integer"
-                    },
-                    "hour": {
-                      "description": "Hour the Snapshot Plan is executed at (UTC).",
-                      "nullable": true,
-                      "type": "integer"
-                    },
-                    "max_snapshots": {
-                      "description": "Maximum amount of Snapshots that will be created by this Snapshot Plan. Older Snapshots will be deleted.",
-                      "type": "integer"
-                    },
-                    "minute": {
-                      "description": "Minute the Snapshot Plan is executed at (UTC).",
-                      "nullable": true,
-                      "type": "integer"
-                    }
-                  },
-                  "required": [
-                    "max_snapshots"
-                  ],
-                  "type": "object"
-                },
-                "stats": {
-                  "description": "Information about disk usage. Not available if the status is \"initializing\".",
-                  "nullable": true,
-                  "properties": {
-                    "size": {
-                      "description": "Current disk usage in bytes.",
-                      "type": "integer"
-                    },
-                    "size_data": {
-                      "description": "Current disk usage for data in bytes.",
-                      "type": "integer"
-                    },
-                    "size_snapshots": {
-                      "description": "Current disk usage for snapshots in bytes.",
-                      "type": "integer"
-                    }
-                  },
-                  "required": [
-                    "size",
-                    "size_data",
-                    "size_snapshots"
-                  ],
-                  "type": "object"
-                },
-                "status": {
-                  "enum": [
-                    "active",
-                    "initializing",
-                    "locked"
-                  ],
-                  "type": "string"
-                },
-                "storage_box_type": {
-                  "properties": {
-                    "automatic_snapshot_limit": {
-                      "description": "Maximum number of snapshots created automatically by a snapshot plan.",
-                      "example": 10,
-                      "nullable": true,
-                      "type": "integer"
-                    },
-                    "deprecation": {
-                      "$ref": "#/components/schemas/deprecation_info"
-                    },
-                    "description": {
-                      "description": "Description of the Storage Box type.",
-                      "example": "BX11",
-                      "type": "string"
-                    },
-                    "id": {
-                      "description": "ID of the Storage Box Type.",
-                      "example": 42,
-                      "format": "int64",
-                      "maximum": 9007199254740991,
-                      "type": "integer"
-                    },
-                    "name": {
-                      "description": "Unique identifier of the Storage Box type.",
-                      "example": "bx11",
-                      "type": "string"
-                    },
-                    "prices": {
-                      "description": "Price per [Location](#locations).",
-                      "items": {
-                        "properties": {
-                          "location": {
-                            "description": "Name of the [Location](#locations) the price is for.",
-                            "example": "fsn1",
-                            "type": "string"
-                          },
-                          "price_hourly": {
-                            "$ref": "#/components/schemas/price"
-                          },
-                          "price_monthly": {
-                            "$ref": "#/components/schemas/price"
-                          },
-                          "setup_fee": {
-                            "$ref": "#/components/schemas/price"
-                          }
-                        },
-                        "required": [
-                          "location",
-                          "price_hourly",
-                          "price_monthly",
-                          "setup_fee"
-                        ],
-                        "type": "object"
-                      },
-                      "type": "array"
-                    },
-                    "size": {
-                      "description": "Available storage in bytes.",
-                      "example": 1073741824,
-                      "type": "integer"
-                    },
-                    "snapshot_limit": {
-                      "description": "Maximum number of allowed manual snapshots.",
-                      "example": 10,
-                      "nullable": true,
-                      "type": "integer"
-                    },
-                    "subaccounts_limit": {
-                      "description": "Maximum number of subaccounts.",
-                      "example": 200,
-                      "type": "integer"
-                    }
-                  },
-                  "required": [
-                    "id",
-                    "name",
-                    "description",
-                    "snapshot_limit",
-                    "automatic_snapshot_limit",
-                    "subaccounts_limit",
-                    "size",
-                    "prices",
-                    "deprecation"
-                  ],
-                  "type": "object"
-                },
-                "system": {
-                  "description": "Storage Box host system. Not available if the status is \"initializing\".",
-                  "example": "FSN1-BX355",
-                  "nullable": true,
-                  "type": "string"
-                },
-                "username": {
-                  "description": "Primary username of the Storage Box.\n\nNot available if the status is \"initializing\".\n",
-                  "example": "u12345",
-                  "nullable": true,
-                  "type": "string"
-                }
-              },
-              "required": [
-                "id",
-                "status",
-                "name",
-                "storage_box_type",
-                "location",
-                "access_settings",
-                "server",
-                "system",
-                "stats",
-                "labels",
-                "protection",
-                "snapshot_plan",
-                "created"
-              ],
-              "type": "object"
+              "$ref": "#/components/schemas/storage_box"
             },
             "type": "array"
           }
@@ -5657,94 +4780,7 @@
         "properties": {
           "subaccounts": {
             "items": {
-              "properties": {
-                "access_settings": {
-                  "properties": {
-                    "reachable_externally": {
-                      "description": "Whether the Subaccount is accessible from outside the Hetzner network.",
-                      "type": "boolean"
-                    },
-                    "readonly": {
-                      "description": "Whether the Subaccount is read-only.",
-                      "type": "boolean"
-                    },
-                    "samba_enabled": {
-                      "description": "Whether the Samba subsystem is enabled.",
-                      "type": "boolean"
-                    },
-                    "ssh_enabled": {
-                      "description": "Whether the SSH subsystem is enabled.",
-                      "type": "boolean"
-                    },
-                    "webdav_enabled": {
-                      "description": "Whether the WebDAV subsystem is enabled.",
-                      "type": "boolean"
-                    }
-                  },
-                  "required": [
-                    "reachable_externally",
-                    "readonly",
-                    "samba_enabled",
-                    "ssh_enabled",
-                    "webdav_enabled"
-                  ],
-                  "type": "object"
-                },
-                "created": {
-                  "description": "Point in time (in ISO-8601 format).",
-                  "example": "2016-01-30T23:55:00+00:00",
-                  "type": "string"
-                },
-                "description": {
-                  "description": "A description to remind you of the purpose of this Subaccount.",
-                  "example": "host01 backup",
-                  "maxLength": 1000,
-                  "type": "string"
-                },
-                "home_directory": {
-                  "description": "Home directory of the Subaccount.",
-                  "example": "my_backups/host01.my.company",
-                  "type": "string"
-                },
-                "id": {
-                  "description": "ID of the Storage Box Subaccount.",
-                  "example": 42,
-                  "format": "int64",
-                  "maximum": 9007199254740991,
-                  "type": "integer"
-                },
-                "labels": {
-                  "$ref": "#/components/schemas/labels"
-                },
-                "server": {
-                  "description": "FQDN of the Subaccount.",
-                  "example": "u1337-sub1.your-storagebox.de",
-                  "type": "string"
-                },
-                "storage_box": {
-                  "description": "ID of the Storage Box.",
-                  "example": 42,
-                  "format": "int64",
-                  "maximum": 9007199254740991,
-                  "type": "integer"
-                },
-                "username": {
-                  "description": "Username of the Subaccount.",
-                  "example": "u1337-sub1",
-                  "type": "string"
-                }
-              },
-              "required": [
-                "id",
-                "username",
-                "home_directory",
-                "server",
-                "description",
-                "labels",
-                "created",
-                "storage_box"
-              ],
-              "type": "object"
+              "$ref": "#/components/schemas/subaccount"
             },
             "type": "array"
           }
@@ -7261,74 +6297,7 @@
         "description": "Response to PUT https://api.hetzner.cloud/v1/storage_boxes/{id}/snapshots/{snapshot_id}",
         "properties": {
           "snapshot": {
-            "properties": {
-              "created": {
-                "description": "Point in time (in ISO-8601 format).",
-                "example": "2016-01-30T23:55:00+00:00",
-                "type": "string"
-              },
-              "description": {
-                "description": "Description of the Resource.",
-                "example": "This describes my resource",
-                "nullable": true,
-                "type": "string"
-              },
-              "id": {
-                "description": "ID of the Storage Box Snapshot.",
-                "example": 42,
-                "format": "int64",
-                "maximum": 9007199254740991,
-                "type": "integer"
-              },
-              "is_automatic": {
-                "description": "Whether the Snapshot was created automatically.",
-                "type": "boolean"
-              },
-              "labels": {
-                "$ref": "#/components/schemas/labels"
-              },
-              "name": {
-                "description": "Name of the Resource. Must be unique per Project.",
-                "example": "my-resource",
-                "type": "string"
-              },
-              "stats": {
-                "description": "Information about disk usage.",
-                "properties": {
-                  "size": {
-                    "description": "Total size of the Snapshot in bytes.",
-                    "type": "integer"
-                  },
-                  "size_filesystem": {
-                    "description": "Actual size on the filesystem in bytes (after deduplication).",
-                    "type": "integer"
-                  }
-                },
-                "required": [
-                  "size",
-                  "size_filesystem"
-                ],
-                "type": "object"
-              },
-              "storage_box": {
-                "description": "ID of the Storage Box.",
-                "example": 42,
-                "format": "int64",
-                "maximum": 9007199254740991,
-                "type": "integer"
-              }
-            },
-            "required": [
-              "id",
-              "name",
-              "description",
-              "stats",
-              "is_automatic",
-              "labels",
-              "created",
-              "storage_box"
-            ],
-            "type": "object"
+            "$ref": "#/components/schemas/snapshot"
           }
         },
         "type": "object"
@@ -7376,251 +6345,7 @@
         "description": "Response to PUT https://api.hetzner.cloud/v1/storage_boxes/{id}",
         "properties": {
           "storage_box": {
-            "properties": {
-              "access_settings": {
-                "properties": {
-                  "reachable_externally": {
-                    "description": "Whether the Storage Box is accessible from outside the Hetzner network.",
-                    "type": "boolean"
-                  },
-                  "samba_enabled": {
-                    "description": "Whether the Samba subsystem is enabled.",
-                    "type": "boolean"
-                  },
-                  "ssh_enabled": {
-                    "description": "Whether the SSH subsystem is enabled.",
-                    "type": "boolean"
-                  },
-                  "webdav_enabled": {
-                    "description": "Whether the WebDAV subsystem is enabled.",
-                    "type": "boolean"
-                  },
-                  "zfs_enabled": {
-                    "description": "Whether the ZFS snapshot folder is visible.",
-                    "type": "boolean"
-                  }
-                },
-                "required": [
-                  "reachable_externally",
-                  "samba_enabled",
-                  "ssh_enabled",
-                  "webdav_enabled",
-                  "zfs_enabled"
-                ],
-                "type": "object"
-              },
-              "created": {
-                "description": "Point in time (in ISO-8601 format).",
-                "example": "2016-01-30T23:55:00+00:00",
-                "type": "string"
-              },
-              "id": {
-                "description": "ID of the Storage Box.",
-                "example": 42,
-                "format": "int64",
-                "maximum": 9007199254740991,
-                "type": "integer"
-              },
-              "labels": {
-                "$ref": "#/components/schemas/labels"
-              },
-              "location": {
-                "$ref": "#/components/schemas/location"
-              },
-              "name": {
-                "type": "string"
-              },
-              "protection": {
-                "$ref": "#/components/schemas/protection"
-              },
-              "server": {
-                "description": "FQDN of the Storage Box. Not available if the status is \"initializing\".",
-                "example": "u1337.your-storagebox.de",
-                "nullable": true,
-                "type": "string"
-              },
-              "snapshot_plan": {
-                "description": "Details of the active snapshot plan. Not available if the status is \"initializing\".",
-                "nullable": true,
-                "properties": {
-                  "day_of_month": {
-                    "description": "Day of the month the Snapshot Plan is executed on.",
-                    "nullable": true,
-                    "type": "integer"
-                  },
-                  "day_of_week": {
-                    "description": "Day of the week the Snapshot Plan is executed on.",
-                    "nullable": true,
-                    "type": "integer"
-                  },
-                  "hour": {
-                    "description": "Hour the Snapshot Plan is executed at (UTC).",
-                    "nullable": true,
-                    "type": "integer"
-                  },
-                  "max_snapshots": {
-                    "description": "Maximum amount of Snapshots that will be created by this Snapshot Plan. Older Snapshots will be deleted.",
-                    "type": "integer"
-                  },
-                  "minute": {
-                    "description": "Minute the Snapshot Plan is executed at (UTC).",
-                    "nullable": true,
-                    "type": "integer"
-                  }
-                },
-                "required": [
-                  "max_snapshots"
-                ],
-                "type": "object"
-              },
-              "stats": {
-                "description": "Information about disk usage. Not available if the status is \"initializing\".",
-                "nullable": true,
-                "properties": {
-                  "size": {
-                    "description": "Current disk usage in bytes.",
-                    "type": "integer"
-                  },
-                  "size_data": {
-                    "description": "Current disk usage for data in bytes.",
-                    "type": "integer"
-                  },
-                  "size_snapshots": {
-                    "description": "Current disk usage for snapshots in bytes.",
-                    "type": "integer"
-                  }
-                },
-                "required": [
-                  "size",
-                  "size_data",
-                  "size_snapshots"
-                ],
-                "type": "object"
-              },
-              "status": {
-                "enum": [
-                  "active",
-                  "initializing",
-                  "locked"
-                ],
-                "type": "string"
-              },
-              "storage_box_type": {
-                "properties": {
-                  "automatic_snapshot_limit": {
-                    "description": "Maximum number of snapshots created automatically by a snapshot plan.",
-                    "example": 10,
-                    "nullable": true,
-                    "type": "integer"
-                  },
-                  "deprecation": {
-                    "$ref": "#/components/schemas/deprecation_info"
-                  },
-                  "description": {
-                    "description": "Description of the Storage Box type.",
-                    "example": "BX11",
-                    "type": "string"
-                  },
-                  "id": {
-                    "description": "ID of the Storage Box Type.",
-                    "example": 42,
-                    "format": "int64",
-                    "maximum": 9007199254740991,
-                    "type": "integer"
-                  },
-                  "name": {
-                    "description": "Unique identifier of the Storage Box type.",
-                    "example": "bx11",
-                    "type": "string"
-                  },
-                  "prices": {
-                    "description": "Price per [Location](#locations).",
-                    "items": {
-                      "properties": {
-                        "location": {
-                          "description": "Name of the [Location](#locations) the price is for.",
-                          "example": "fsn1",
-                          "type": "string"
-                        },
-                        "price_hourly": {
-                          "$ref": "#/components/schemas/price"
-                        },
-                        "price_monthly": {
-                          "$ref": "#/components/schemas/price"
-                        },
-                        "setup_fee": {
-                          "$ref": "#/components/schemas/price"
-                        }
-                      },
-                      "required": [
-                        "location",
-                        "price_hourly",
-                        "price_monthly",
-                        "setup_fee"
-                      ],
-                      "type": "object"
-                    },
-                    "type": "array"
-                  },
-                  "size": {
-                    "description": "Available storage in bytes.",
-                    "example": 1073741824,
-                    "type": "integer"
-                  },
-                  "snapshot_limit": {
-                    "description": "Maximum number of allowed manual snapshots.",
-                    "example": 10,
-                    "nullable": true,
-                    "type": "integer"
-                  },
-                  "subaccounts_limit": {
-                    "description": "Maximum number of subaccounts.",
-                    "example": 200,
-                    "type": "integer"
-                  }
-                },
-                "required": [
-                  "id",
-                  "name",
-                  "description",
-                  "snapshot_limit",
-                  "automatic_snapshot_limit",
-                  "subaccounts_limit",
-                  "size",
-                  "prices",
-                  "deprecation"
-                ],
-                "type": "object"
-              },
-              "system": {
-                "description": "Storage Box host system. Not available if the status is \"initializing\".",
-                "example": "FSN1-BX355",
-                "nullable": true,
-                "type": "string"
-              },
-              "username": {
-                "description": "Primary username of the Storage Box.\n\nNot available if the status is \"initializing\".\n",
-                "example": "u12345",
-                "nullable": true,
-                "type": "string"
-              }
-            },
-            "required": [
-              "id",
-              "status",
-              "name",
-              "storage_box_type",
-              "location",
-              "access_settings",
-              "server",
-              "system",
-              "stats",
-              "labels",
-              "protection",
-              "snapshot_plan",
-              "created"
-            ],
-            "type": "object"
+            "$ref": "#/components/schemas/storage_box"
           }
         },
         "type": "object"
@@ -7649,94 +6374,7 @@
         "description": "Response to PUT https://api.hetzner.cloud/v1/storage_boxes/{id}/subaccounts/{subaccount_id}",
         "properties": {
           "subaccount": {
-            "properties": {
-              "access_settings": {
-                "properties": {
-                  "reachable_externally": {
-                    "description": "Whether the Subaccount is accessible from outside the Hetzner network.",
-                    "type": "boolean"
-                  },
-                  "readonly": {
-                    "description": "Whether the Subaccount is read-only.",
-                    "type": "boolean"
-                  },
-                  "samba_enabled": {
-                    "description": "Whether the Samba subsystem is enabled.",
-                    "type": "boolean"
-                  },
-                  "ssh_enabled": {
-                    "description": "Whether the SSH subsystem is enabled.",
-                    "type": "boolean"
-                  },
-                  "webdav_enabled": {
-                    "description": "Whether the WebDAV subsystem is enabled.",
-                    "type": "boolean"
-                  }
-                },
-                "required": [
-                  "reachable_externally",
-                  "readonly",
-                  "samba_enabled",
-                  "ssh_enabled",
-                  "webdav_enabled"
-                ],
-                "type": "object"
-              },
-              "created": {
-                "description": "Point in time (in ISO-8601 format).",
-                "example": "2016-01-30T23:55:00+00:00",
-                "type": "string"
-              },
-              "description": {
-                "description": "A description to remind you of the purpose of this Subaccount.",
-                "example": "host01 backup",
-                "maxLength": 1000,
-                "type": "string"
-              },
-              "home_directory": {
-                "description": "Home directory of the Subaccount.",
-                "example": "my_backups/host01.my.company",
-                "type": "string"
-              },
-              "id": {
-                "description": "ID of the Storage Box Subaccount.",
-                "example": 42,
-                "format": "int64",
-                "maximum": 9007199254740991,
-                "type": "integer"
-              },
-              "labels": {
-                "$ref": "#/components/schemas/labels"
-              },
-              "server": {
-                "description": "FQDN of the Subaccount.",
-                "example": "u1337-sub1.your-storagebox.de",
-                "type": "string"
-              },
-              "storage_box": {
-                "description": "ID of the Storage Box.",
-                "example": 42,
-                "format": "int64",
-                "maximum": 9007199254740991,
-                "type": "integer"
-              },
-              "username": {
-                "description": "Username of the Subaccount.",
-                "example": "u1337-sub1",
-                "type": "string"
-              }
-            },
-            "required": [
-              "id",
-              "username",
-              "home_directory",
-              "server",
-              "description",
-              "labels",
-              "created",
-              "storage_box"
-            ],
-            "type": "object"
+            "$ref": "#/components/schemas/subaccount"
           }
         },
         "type": "object"
@@ -8474,6 +7112,113 @@
         "title": "ActionResponse",
         "type": "object"
       },
+      "snapshot": {
+        "properties": {
+          "created": {
+            "description": "Point in time (in ISO-8601 format).",
+            "example": "2016-01-30T23:55:00+00:00",
+            "type": "string"
+          },
+          "description": {
+            "description": "Description of the Resource.",
+            "example": "This describes my resource",
+            "nullable": true,
+            "type": "string"
+          },
+          "id": {
+            "description": "ID of the Storage Box Snapshot.",
+            "example": 42,
+            "format": "int64",
+            "maximum": 9007199254740991,
+            "type": "integer"
+          },
+          "is_automatic": {
+            "description": "Whether the Snapshot was created automatically.",
+            "type": "boolean"
+          },
+          "labels": {
+            "$ref": "#/components/schemas/labels"
+          },
+          "name": {
+            "description": "Name of the Resource. Must be unique per Project.",
+            "example": "my-resource",
+            "type": "string"
+          },
+          "stats": {
+            "$ref": "#/components/schemas/snapshot_stats"
+          },
+          "storage_box": {
+            "description": "ID of the Storage Box.",
+            "example": 42,
+            "format": "int64",
+            "maximum": 9007199254740991,
+            "type": "integer"
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "description",
+          "stats",
+          "is_automatic",
+          "labels",
+          "created",
+          "storage_box"
+        ],
+        "type": "object"
+      },
+      "snapshot_plan": {
+        "description": "Details of the active snapshot plan. Not available if the status is \"initializing\".",
+        "nullable": true,
+        "properties": {
+          "day_of_month": {
+            "description": "Day of the month the Snapshot Plan is executed on.",
+            "nullable": true,
+            "type": "integer"
+          },
+          "day_of_week": {
+            "description": "Day of the week the Snapshot Plan is executed on.",
+            "nullable": true,
+            "type": "integer"
+          },
+          "hour": {
+            "description": "Hour the Snapshot Plan is executed at (UTC).",
+            "nullable": true,
+            "type": "integer"
+          },
+          "max_snapshots": {
+            "description": "Maximum amount of Snapshots that will be created by this Snapshot Plan. Older Snapshots will be deleted.",
+            "type": "integer"
+          },
+          "minute": {
+            "description": "Minute the Snapshot Plan is executed at (UTC).",
+            "nullable": true,
+            "type": "integer"
+          }
+        },
+        "required": [
+          "max_snapshots"
+        ],
+        "type": "object"
+      },
+      "snapshot_stats": {
+        "description": "Information about disk usage.",
+        "properties": {
+          "size": {
+            "description": "Total size of the Snapshot in bytes.",
+            "type": "integer"
+          },
+          "size_filesystem": {
+            "description": "Actual size on the filesystem in bytes (after deduplication).",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "size",
+          "size_filesystem"
+        ],
+        "type": "object"
+      },
       "soft_reboot_server_response": {
         "description": "Response to POST https://api.hetzner.cloud/v1/servers/{id}/actions/reboot",
         "properties": {
@@ -8528,6 +7273,324 @@
           "public_key",
           "labels",
           "created"
+        ],
+        "type": "object"
+      },
+      "storage_box": {
+        "properties": {
+          "access_settings": {
+            "$ref": "#/components/schemas/storage_box_access_setting"
+          },
+          "created": {
+            "description": "Point in time (in ISO-8601 format).",
+            "example": "2016-01-30T23:55:00+00:00",
+            "type": "string"
+          },
+          "id": {
+            "description": "ID of the Storage Box.",
+            "example": 42,
+            "format": "int64",
+            "maximum": 9007199254740991,
+            "type": "integer"
+          },
+          "labels": {
+            "$ref": "#/components/schemas/labels"
+          },
+          "location": {
+            "$ref": "#/components/schemas/location"
+          },
+          "name": {
+            "type": "string"
+          },
+          "protection": {
+            "$ref": "#/components/schemas/protection"
+          },
+          "server": {
+            "description": "FQDN of the Storage Box. Not available if the status is \"initializing\".",
+            "example": "u1337.your-storagebox.de",
+            "nullable": true,
+            "type": "string"
+          },
+          "snapshot_plan": {
+            "$ref": "#/components/schemas/snapshot_plan"
+          },
+          "stats": {
+            "$ref": "#/components/schemas/storage_box_stats"
+          },
+          "status": {
+            "enum": [
+              "active",
+              "initializing",
+              "locked"
+            ],
+            "type": "string"
+          },
+          "storage_box_type": {
+            "$ref": "#/components/schemas/storage_box_type"
+          },
+          "system": {
+            "description": "Storage Box host system. Not available if the status is \"initializing\".",
+            "example": "FSN1-BX355",
+            "nullable": true,
+            "type": "string"
+          },
+          "username": {
+            "description": "Primary username of the Storage Box.\n\nNot available if the status is \"initializing\".\n",
+            "example": "u12345",
+            "nullable": true,
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "status",
+          "name",
+          "storage_box_type",
+          "location",
+          "access_settings",
+          "server",
+          "system",
+          "stats",
+          "labels",
+          "protection",
+          "snapshot_plan",
+          "created"
+        ],
+        "type": "object"
+      },
+      "storage_box_access_setting": {
+        "properties": {
+          "reachable_externally": {
+            "description": "Whether the Storage Box is accessible from outside the Hetzner network.",
+            "type": "boolean"
+          },
+          "samba_enabled": {
+            "description": "Whether the Samba subsystem is enabled.",
+            "type": "boolean"
+          },
+          "ssh_enabled": {
+            "description": "Whether the SSH subsystem is enabled.",
+            "type": "boolean"
+          },
+          "webdav_enabled": {
+            "description": "Whether the WebDAV subsystem is enabled.",
+            "type": "boolean"
+          },
+          "zfs_enabled": {
+            "description": "Whether the ZFS snapshot folder is visible.",
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "reachable_externally",
+          "samba_enabled",
+          "ssh_enabled",
+          "webdav_enabled",
+          "zfs_enabled"
+        ],
+        "type": "object"
+      },
+      "storage_box_stats": {
+        "description": "Information about disk usage. Not available if the status is \"initializing\".",
+        "nullable": true,
+        "properties": {
+          "size": {
+            "description": "Current disk usage in bytes.",
+            "type": "integer"
+          },
+          "size_data": {
+            "description": "Current disk usage for data in bytes.",
+            "type": "integer"
+          },
+          "size_snapshots": {
+            "description": "Current disk usage for snapshots in bytes.",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "size",
+          "size_data",
+          "size_snapshots"
+        ],
+        "type": "object"
+      },
+      "storage_box_type": {
+        "properties": {
+          "automatic_snapshot_limit": {
+            "description": "Maximum number of snapshots created automatically by a snapshot plan.",
+            "example": 10,
+            "nullable": true,
+            "type": "integer"
+          },
+          "deprecation": {
+            "$ref": "#/components/schemas/deprecation_info"
+          },
+          "description": {
+            "description": "Description of the Storage Box type.",
+            "example": "BX11",
+            "type": "string"
+          },
+          "id": {
+            "description": "ID of the Storage Box Type.",
+            "example": 42,
+            "format": "int64",
+            "maximum": 9007199254740991,
+            "type": "integer"
+          },
+          "name": {
+            "description": "Unique identifier of the Storage Box type.",
+            "example": "bx11",
+            "type": "string"
+          },
+          "prices": {
+            "description": "Price per [Location](#locations).",
+            "items": {
+              "properties": {
+                "location": {
+                  "description": "Name of the [Location](#locations) the price is for.",
+                  "example": "fsn1",
+                  "type": "string"
+                },
+                "price_hourly": {
+                  "$ref": "#/components/schemas/price"
+                },
+                "price_monthly": {
+                  "$ref": "#/components/schemas/price"
+                },
+                "setup_fee": {
+                  "$ref": "#/components/schemas/price"
+                }
+              },
+              "required": [
+                "location",
+                "price_hourly",
+                "price_monthly",
+                "setup_fee"
+              ],
+              "type": "object"
+            },
+            "type": "array"
+          },
+          "size": {
+            "description": "Available storage in bytes.",
+            "example": 1073741824,
+            "type": "integer"
+          },
+          "snapshot_limit": {
+            "description": "Maximum number of allowed manual snapshots.",
+            "example": 10,
+            "nullable": true,
+            "type": "integer"
+          },
+          "subaccounts_limit": {
+            "description": "Maximum number of subaccounts.",
+            "example": 200,
+            "type": "integer"
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "description",
+          "snapshot_limit",
+          "automatic_snapshot_limit",
+          "subaccounts_limit",
+          "size",
+          "prices",
+          "deprecation"
+        ],
+        "type": "object"
+      },
+      "subaccount": {
+        "properties": {
+          "access_settings": {
+            "$ref": "#/components/schemas/subaccount_access_setting"
+          },
+          "created": {
+            "description": "Point in time (in ISO-8601 format).",
+            "example": "2016-01-30T23:55:00+00:00",
+            "type": "string"
+          },
+          "description": {
+            "description": "A description to remind you of the purpose of this Subaccount.",
+            "example": "host01 backup",
+            "maxLength": 1000,
+            "type": "string"
+          },
+          "home_directory": {
+            "description": "Home directory of the Subaccount.",
+            "example": "my_backups/host01.my.company",
+            "type": "string"
+          },
+          "id": {
+            "description": "ID of the Storage Box Subaccount.",
+            "example": 42,
+            "format": "int64",
+            "maximum": 9007199254740991,
+            "type": "integer"
+          },
+          "labels": {
+            "$ref": "#/components/schemas/labels"
+          },
+          "server": {
+            "description": "FQDN of the Subaccount.",
+            "example": "u1337-sub1.your-storagebox.de",
+            "type": "string"
+          },
+          "storage_box": {
+            "description": "ID of the Storage Box.",
+            "example": 42,
+            "format": "int64",
+            "maximum": 9007199254740991,
+            "type": "integer"
+          },
+          "username": {
+            "description": "Username of the Subaccount.",
+            "example": "u1337-sub1",
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "username",
+          "home_directory",
+          "server",
+          "description",
+          "labels",
+          "created",
+          "storage_box"
+        ],
+        "type": "object"
+      },
+      "subaccount_access_setting": {
+        "properties": {
+          "reachable_externally": {
+            "description": "Whether the Subaccount is accessible from outside the Hetzner network.",
+            "type": "boolean"
+          },
+          "readonly": {
+            "description": "Whether the Subaccount is read-only.",
+            "type": "boolean"
+          },
+          "samba_enabled": {
+            "description": "Whether the Samba subsystem is enabled.",
+            "type": "boolean"
+          },
+          "ssh_enabled": {
+            "description": "Whether the SSH subsystem is enabled.",
+            "type": "boolean"
+          },
+          "webdav_enabled": {
+            "description": "Whether the WebDAV subsystem is enabled.",
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "reachable_externally",
+          "readonly",
+          "samba_enabled",
+          "ssh_enabled",
+          "webdav_enabled"
         ],
         "type": "object"
       },
