@@ -435,11 +435,79 @@
     ]
   },
   {
+    "name": "snapshot",
+    "path": [
+      "list_snapshots_for_storage_box_response",
+      "snapshots"
+    ]
+  },
+  {
+    "name": "snapshot_plan",
+    "path": [
+      "list_storage_boxes_response",
+      "storage_boxes",
+      "snapshot_plan"
+    ]
+  },
+  {
+    "name": "snapshot_stats",
+    "path": [
+      "list_snapshots_for_storage_box_response",
+      "snapshots",
+      "stats"
+    ]
+  },
+  {
     "description": "SSH keys are public keys you provide to the cloud system. They can be injected into Servers at creation time. We highly recommend that you use keys instead of passwords to manage your Servers.",
     "name": "ssh_key",
     "path": [
       "list_ssh_keys_response",
       "ssh_keys"
+    ]
+  },
+  {
+    "name": "storage_box",
+    "path": [
+      "list_storage_boxes_response",
+      "storage_boxes"
+    ]
+  },
+  {
+    "name": "storage_box_access_setting",
+    "path": [
+      "list_storage_boxes_response",
+      "storage_boxes",
+      "access_settings"
+    ]
+  },
+  {
+    "name": "storage_box_stats",
+    "path": [
+      "list_storage_boxes_response",
+      "storage_boxes",
+      "stats"
+    ]
+  },
+  {
+    "name": "storage_box_type",
+    "path": [
+      "list_storage_box_types_response",
+      "storage_box_types"
+    ]
+  },
+  {
+    "name": "subaccount",
+    "path": [
+      "list_subaccounts_for_storage_box_response",
+      "subaccounts"
+    ]
+  },
+  {
+    "name": "subaccount_access_setting",
+    "path": [
+      "list_subaccounts_for_storage_box_response",
+      "subaccounts",
+      "access_settings"
     ]
   },
   {
