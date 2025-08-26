@@ -6,7 +6,7 @@
     },
     "description": "Copied from the official API documentation for the Public Hetzner Cloud.",
     "title": "Hetzner Cloud API",
-    "version": "d9f5490-dirty"
+    "version": "e6a5a46-dirty"
   },
   "servers": [
     {
@@ -6371,6 +6371,11 @@
         "properties": {
           "architecture": {
             "$ref": "#/components/schemas/architecture"
+          },
+          "category": {
+            "description": "Category of Server Type.",
+            "example": "Shared vCPU",
+            "type": "string"
           },
           "cores": {
             "description": "Number of cpu cores a Server of this type will have.",
