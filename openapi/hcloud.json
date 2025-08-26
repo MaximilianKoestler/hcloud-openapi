@@ -6,7 +6,7 @@
     },
     "description": "Copied from the official API documentation for the Public Hetzner Cloud.",
     "title": "Hetzner Cloud API",
-    "version": "e6a5a46-dirty"
+    "version": "4f5630d-dirty"
   },
   "servers": [
     {
@@ -218,70 +218,6 @@
           "error"
         ],
         "title": "ActionNullable",
-        "type": "object"
-      },
-      "action_with_optional_error": {
-        "description": "Actions show the results and progress of asynchronous requests to the API.",
-        "properties": {
-          "command": {
-            "description": "Command executed in the Action.",
-            "example": "start_resource",
-            "type": "string"
-          },
-          "error": {
-            "$ref": "#/components/schemas/error"
-          },
-          "finished": {
-            "description": "Point in time when the Action was finished (in ISO-8601 format). Only set if the Action is finished otherwise null.",
-            "example": "2016-01-30T23:55:00+00:00",
-            "nullable": true,
-            "type": "string"
-          },
-          "id": {
-            "description": "ID of the Action.",
-            "example": 42,
-            "format": "int64",
-            "maximum": 9007199254740991,
-            "type": "integer"
-          },
-          "progress": {
-            "description": "Progress of the Action in percent.",
-            "example": 100,
-            "format": "int32",
-            "type": "integer"
-          },
-          "resources": {
-            "description": "Resources the Action relates to.",
-            "items": {
-              "$ref": "#/components/schemas/resource"
-            },
-            "type": "array"
-          },
-          "started": {
-            "description": "Point in time when the Action was started (in ISO-8601 format).",
-            "example": "2016-01-30T23:55:00+00:00",
-            "type": "string"
-          },
-          "status": {
-            "description": "Status of the Action.",
-            "enum": [
-              "error",
-              "running",
-              "success"
-            ],
-            "type": "string"
-          }
-        },
-        "required": [
-          "id",
-          "command",
-          "status",
-          "progress",
-          "started",
-          "finished",
-          "resources"
-        ],
-        "title": "Action",
         "type": "object"
       },
       "add_route_to_network_request": {
@@ -2915,7 +2851,7 @@
         "properties": {
           "actions": {
             "items": {
-              "$ref": "#/components/schemas/action_with_optional_error"
+              "$ref": "#/components/schemas/action"
             },
             "type": "array"
           }
