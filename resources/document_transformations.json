@@ -376,5 +376,12 @@
     "set": {
       "server": { "$ref": "#/components/schemas/resource_id" }
     }
+  },
+
+  {
+    "path": ["components", "schemas", "storage_box_type", "properties", "size"],
+    "set": {
+      "format": "int64"
+    }
   }
 ]

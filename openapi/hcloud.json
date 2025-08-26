@@ -6,7 +6,7 @@
     },
     "description": "Copied from the official API documentation for the Public Hetzner Cloud.",
     "title": "Hetzner Cloud API",
-    "version": "8f2227b-dirty"
+    "version": "820e00f-dirty"
   },
   "servers": [
     {
@@ -7470,6 +7470,7 @@
           "size": {
             "description": "Available storage in bytes.",
             "example": 1073741824,
+            "format": "int64",
             "type": "integer"
           },
           "snapshot_limit": {
