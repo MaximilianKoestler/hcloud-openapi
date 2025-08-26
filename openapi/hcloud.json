@@ -6,15 +6,15 @@
     },
     "description": "Copied from the official API documentation for the Public Hetzner Cloud.",
     "title": "Hetzner Cloud API",
-    "version": "63a312e-dirty"
+    "version": "8f2227b-dirty"
   },
   "servers": [
     {
-      "description": "API for cloud services",
+      "description": "Hetzner Cloud API",
       "url": "https://api.hetzner.cloud/v1"
     },
     {
-      "description": "API for storage boxes",
+      "description": "Hetzner API",
       "url": "https://api.hetzner.com/v1"
     }
   ],

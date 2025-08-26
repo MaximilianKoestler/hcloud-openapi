@@ -5,7 +5,7 @@
 This is an attempt to improve Hetzner's own OpenAPI specification to make it usable in code generation.
 
 When this project was started, Hetzner had not published their own OpenAPI specification for their cloud API, so I decided to build my own based on the HTML documentation on their website.
-By now, Hetzner has actually published an [OpenAPI spec for their API](https://docs.hetzner.cloud/cloud.spec.json) and recently also [a new API for Storage Boxes](https://docs.hetzner.cloud/hetzner.spec.json) However, I think this project still adds some value.
+By now, Hetzner has actually published an [OpenAPI spec for their Cloud API](https://docs.hetzner.cloud/cloud.spec.json) and recently also [the Hetzner API](https://docs.hetzner.cloud/hetzner.spec.json) However, I think this project still adds some value.
 
 While Hetzner now appears to generate their documentation website from the OpenAPI spec, the spec is not very useful for automatic code generation.
 This project aims to convert the official specs to an improved version with the following main features:
@@ -21,8 +21,8 @@ As an added benefit, mainly from use of common components, the improved spec is 
 
 - [Link to the generated openAPI document](openapi/hcloud.json)
 - [Official API documentation](https://docs.hetzner.cloud/)
-- [OpenAPI spec document provided by Hetzner for cloud services](https://docs.hetzner.cloud/cloud.spec.json)
-- [OpenAPI spec document provided by Hetzner for storage boxes](https://docs.hetzner.cloud/hetzner.spec.json)
+- [OpenAPI spec document provided by Hetzner for the Hetzner Cloud API](https://docs.hetzner.cloud/cloud.spec.json)
+- [OpenAPI spec document provided by Hetzner for the Hetzner API](https://docs.hetzner.cloud/hetzner.spec.json)
 - [OpenAPI standard](https://swagger.io/specification/)
 
 ## Use Cases

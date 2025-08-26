@@ -391,11 +391,11 @@ function defaultDocument(version?: string) {
     servers: [
       {
         url: "https://api.hetzner.cloud/v1",
-        description: "API for cloud services",
+        description: "Hetzner Cloud API",
       },
       {
         url: "https://api.hetzner.com/v1",
-        description: "API for storage boxes",
+        description: "Hetzner API",
       },
     ],
     security: [
