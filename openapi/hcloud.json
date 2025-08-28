@@ -6,7 +6,7 @@
     },
     "description": "Copied from the official API documentation for the Public Hetzner Cloud.",
     "title": "Hetzner Cloud API",
-    "version": "ed82782"
+    "version": "7cfb4a9"
   },
   "servers": [
     {
@@ -4916,7 +4916,7 @@
           },
           "use_private_ip": {
             "default": false,
-            "description": "Use the private network IP instead of the public IP of the Server, requires the Server and Load Balancer to be in the same network.",
+            "description": "Use the private network IP instead of the public IP of the Server, requires the Server and Load Balancer to be in the same network. Only valid for target types `server` and `label_selector`.",
             "example": true,
             "type": "boolean"
           }
