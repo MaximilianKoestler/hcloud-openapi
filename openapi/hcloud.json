@@ -6,7 +6,7 @@
     },
     "description": "Copied from the official API documentation for the Public Hetzner Cloud.",
     "title": "Hetzner Cloud API",
-    "version": "820e00f-dirty"
+    "version": "ca06c22"
   },
   "servers": [
     {
@@ -7193,7 +7193,11 @@
           }
         },
         "required": [
-          "max_snapshots"
+          "max_snapshots",
+          "minute",
+          "hour",
+          "day_of_week",
+          "day_of_month"
         ],
         "type": "object"
       },
