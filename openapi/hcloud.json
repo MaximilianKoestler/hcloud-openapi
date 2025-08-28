@@ -6,12 +6,16 @@
     },
     "description": "Copied from the official API documentation for the Public Hetzner Cloud.",
     "title": "Hetzner Cloud API",
-    "version": "4f5630d-dirty"
+    "version": "7cfb4a9"
   },
   "servers": [
     {
-      "description": "Official production server",
+      "description": "Hetzner Cloud API",
       "url": "https://api.hetzner.cloud/v1"
+    },
+    {
+      "description": "Hetzner API",
+      "url": "https://api.hetzner.com/v1"
     }
   ],
   "tags": [
@@ -83,6 +87,14 @@
       "name": "ssh_keys"
     },
     {
+      "description": "Storage Box types define storage products of different sizes. Each type has an hourly and a monthly cost. You will pay whichever cost is lower for your usage of this specific Storage Box. Costs may differ between Locations.\n\nAll prices are displayed in the currency of the project owner's account.\n",
+      "name": "storage_box_types"
+    },
+    {
+      "description": "Storage Boxes offer storage capacity for both small and large amounts of data. Any data you save in your Storage Box is saved on several disks configured in a RAID array, increasing redundancy and fault tolerance.\n\nPlease see [Hetzner Docs](https://docs.hetzner.com/storage/storage-box) for more details about Storage Boxes.\n\n### Password policy\n\nThis policy applies to both Storage Boxes and Storage Box Subaccounts.\n\n- The password must be between 8 and 128 characters long\n- The password can only contain these characters: `a-z A-Z 0-9 ! ? . = + %% # _ * ~ & $ ( ) / [ ] { } -`\n- The password must contain at least one upper case letter, one lower case letter and one number or a special character\n- The password must not have appeared in any known data breach\n",
+      "name": "storage_boxes"
+    },
+    {
       "description": "A Volume is a highly-available, scalable, and SSD-based block storage for Servers.\n\nPricing for Volumes depends on the Volume size and Location, not the actual used storage.\n\nPlease see [Hetzner Docs](https://docs.hetzner.com/cloud/#Volumes) for more details about Volumes.\n",
       "name": "volumes"
     }
@@ -107,7 +119,7 @@
             "type": "string"
           },
           "id": {
-            "description": "ID of the Action",
+            "description": "ID of the Action.",
             "example": 42,
             "format": "int64",
             "maximum": 9007199254740991,
@@ -173,7 +185,7 @@
             "type": "string"
           },
           "id": {
-            "description": "ID of the Action",
+            "description": "ID of the Action.",
             "example": 42,
             "format": "int64",
             "maximum": 9007199254740991,
@@ -1022,6 +1034,22 @@
         "title": "ActionResponse",
         "type": "object"
       },
+      "change_storage_box_protection_request": {
+        "$ref": "#/components/schemas/protection"
+      },
+      "change_storage_box_protection_response": {
+        "description": "Response to POST https://api.hetzner.com/v1/storage_boxes/{id}/actions/change_protection",
+        "properties": {
+          "action": {
+            "$ref": "#/components/schemas/action"
+          }
+        },
+        "required": [
+          "action"
+        ],
+        "title": "ActionResponse",
+        "type": "object"
+      },
       "change_type_of_load_balancer_request": {
         "description": "Request for POST https://api.hetzner.cloud/v1/load_balancers/{id}/actions/change_type",
         "properties": {
@@ -1072,6 +1100,33 @@
       },
       "change_type_of_server_response": {
         "description": "Response to POST https://api.hetzner.cloud/v1/servers/{id}/actions/change_type",
+        "properties": {
+          "action": {
+            "$ref": "#/components/schemas/action"
+          }
+        },
+        "required": [
+          "action"
+        ],
+        "title": "ActionResponse",
+        "type": "object"
+      },
+      "change_type_of_storage_box_request": {
+        "description": "Request for POST https://api.hetzner.com/v1/storage_boxes/{id}/actions/change_type",
+        "properties": {
+          "storage_box_type": {
+            "description": "The ID or the name of the Storage Box Type.",
+            "example": "BX21",
+            "type": "string"
+          }
+        },
+        "required": [
+          "storage_box_type"
+        ],
+        "type": "object"
+      },
+      "change_type_of_storage_box_response": {
+        "description": "Response to POST https://api.hetzner.com/v1/storage_boxes/{id}/actions/change_type",
         "properties": {
           "action": {
             "$ref": "#/components/schemas/action"
@@ -1909,6 +1964,56 @@
         "title": "CreateServerResponse",
         "type": "object"
       },
+      "create_snapshot_request": {
+        "description": "Request for POST https://api.hetzner.com/v1/storage_boxes/{id}/snapshots",
+        "properties": {
+          "description": {
+            "description": "Description of the Snapshot.",
+            "example": "snapshot-0001",
+            "maxLength": 1000,
+            "pattern": "[a-zA-Z0-9-_,:<>+#!\\(\\)\\[\\]\\{\\} ]*",
+            "type": "string"
+          }
+        },
+        "title": "CreateSnapshot",
+        "type": "object"
+      },
+      "create_snapshot_response": {
+        "description": "Response to POST https://api.hetzner.com/v1/storage_boxes/{id}/snapshots",
+        "properties": {
+          "action": {
+            "$ref": "#/components/schemas/action"
+          },
+          "snapshot": {
+            "properties": {
+              "id": {
+                "description": "ID of the Storage Box Snapshot.",
+                "example": 42,
+                "format": "int64",
+                "maximum": 9007199254740991,
+                "type": "integer"
+              },
+              "storage_box": {
+                "description": "ID of the Storage Box.",
+                "example": 42,
+                "format": "int64",
+                "maximum": 9007199254740991,
+                "type": "integer"
+              }
+            },
+            "required": [
+              "id",
+              "storage_box"
+            ],
+            "type": "object"
+          }
+        },
+        "required": [
+          "snapshot",
+          "action"
+        ],
+        "type": "object"
+      },
       "create_ssh_key_request": {
         "description": "Request for POST https://api.hetzner.cloud/v1/ssh_keys",
         "properties": {
@@ -1941,6 +2046,193 @@
         },
         "required": [
           "ssh_key"
+        ],
+        "type": "object"
+      },
+      "create_storage_box_request": {
+        "description": "Request for POST https://api.hetzner.com/v1/storage_boxes",
+        "properties": {
+          "access_settings": {
+            "properties": {
+              "reachable_externally": {
+                "description": "Whether the Storage Box should be accessible from outside the Hetzner network.",
+                "nullable": true,
+                "type": "boolean"
+              },
+              "samba_enabled": {
+                "description": "Whether the Samba subsystem should be enabled.",
+                "nullable": true,
+                "type": "boolean"
+              },
+              "ssh_enabled": {
+                "description": "Whether the SSH subsystem should be enabled.",
+                "example": true,
+                "nullable": true,
+                "type": "boolean"
+              },
+              "webdav_enabled": {
+                "description": "Whether the WebDAV subsystem should be enabled.",
+                "nullable": true,
+                "type": "boolean"
+              },
+              "zfs_enabled": {
+                "description": "Whether the ZFS Snapshot folder should be visible.",
+                "nullable": true,
+                "type": "boolean"
+              }
+            },
+            "title": "UpdateAccessSettings",
+            "type": "object"
+          },
+          "labels": {
+            "$ref": "#/components/schemas/labels"
+          },
+          "location": {
+            "description": "Unique identifier of the [Location](#locations).",
+            "example": "fsn1",
+            "type": "string"
+          },
+          "name": {
+            "description": "Name of the Resource. Must be unique per Project.",
+            "example": "my-resource",
+            "type": "string"
+          },
+          "password": {
+            "description": "The password that will be set for this Storage Box.",
+            "type": "string"
+          },
+          "ssh_keys": {
+            "description": "Array of SSH public keys in OpenSSH format which should be injected into the Storage Box.",
+            "items": {
+              "example": "ssh-rsa AAAjjk76kgf...Xt",
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "storage_box_type": {
+            "description": "The name or the ID of the Storage Box Type.",
+            "example": "bx20",
+            "type": "string"
+          }
+        },
+        "required": [
+          "storage_box_type",
+          "location",
+          "name",
+          "password"
+        ],
+        "type": "object"
+      },
+      "create_storage_box_response": {
+        "description": "Response to POST https://api.hetzner.com/v1/storage_boxes",
+        "properties": {
+          "action": {
+            "$ref": "#/components/schemas/action"
+          },
+          "storage_box": {
+            "$ref": "#/components/schemas/storage_box"
+          }
+        },
+        "required": [
+          "storage_box",
+          "action"
+        ],
+        "type": "object"
+      },
+      "create_subaccount_request": {
+        "description": "Request for POST https://api.hetzner.com/v1/storage_boxes/{id}/subaccounts",
+        "properties": {
+          "access_settings": {
+            "properties": {
+              "reachable_externally": {
+                "description": "Whether the Subaccount should be accessible from outside the Hetzner network.",
+                "nullable": true,
+                "type": "boolean"
+              },
+              "readonly": {
+                "description": "Whether the Subaccount should be read-only.",
+                "nullable": true,
+                "type": "boolean"
+              },
+              "samba_enabled": {
+                "description": "Whether the Samba subsystem should be enabled.",
+                "nullable": true,
+                "type": "boolean"
+              },
+              "ssh_enabled": {
+                "description": "Whether the SSH subsystem should be enabled.",
+                "example": true,
+                "nullable": true,
+                "type": "boolean"
+              },
+              "webdav_enabled": {
+                "description": "Whether the WebDAV subsystem should be enabled.",
+                "nullable": true,
+                "type": "boolean"
+              }
+            },
+            "type": "object"
+          },
+          "description": {
+            "description": "A description to remind you of the purpose of this Subaccount.",
+            "example": "my-backup-server01",
+            "maxLength": 1000,
+            "nullable": true,
+            "type": "string"
+          },
+          "home_directory": {
+            "description": "Home directory of the Subaccount. Will be created if it doesn't exist yet.",
+            "example": "my-backup/server01",
+            "nullable": true,
+            "type": "string"
+          },
+          "labels": {
+            "$ref": "#/components/schemas/labels"
+          },
+          "password": {
+            "description": "New password.",
+            "type": "string"
+          }
+        },
+        "required": [
+          "password",
+          "home_directory"
+        ],
+        "type": "object"
+      },
+      "create_subaccount_response": {
+        "description": "Response to POST https://api.hetzner.com/v1/storage_boxes/{id}/subaccounts",
+        "properties": {
+          "action": {
+            "$ref": "#/components/schemas/action"
+          },
+          "subaccount": {
+            "properties": {
+              "id": {
+                "description": "ID of the Storage Box Subaccount.",
+                "example": 42,
+                "format": "int64",
+                "maximum": 9007199254740991,
+                "type": "integer"
+              },
+              "storage_box": {
+                "description": "ID of the Storage Box.",
+                "example": 42,
+                "format": "int64",
+                "maximum": 9007199254740991,
+                "type": "integer"
+              }
+            },
+            "required": [
+              "id",
+              "storage_box"
+            ],
+            "type": "object"
+          }
+        },
+        "required": [
+          "subaccount",
+          "action"
         ],
         "type": "object"
       },
@@ -2170,6 +2462,45 @@
         "title": "ActionResponse",
         "type": "object"
       },
+      "delete_snapshot_response": {
+        "description": "Response to DELETE https://api.hetzner.com/v1/storage_boxes/{id}/snapshots/{snapshot_id}",
+        "properties": {
+          "action": {
+            "$ref": "#/components/schemas/action"
+          }
+        },
+        "required": [
+          "action"
+        ],
+        "title": "ActionResponse",
+        "type": "object"
+      },
+      "delete_storage_box_response": {
+        "description": "Response to DELETE https://api.hetzner.com/v1/storage_boxes/{id}",
+        "properties": {
+          "action": {
+            "$ref": "#/components/schemas/action"
+          }
+        },
+        "required": [
+          "action"
+        ],
+        "title": "ActionResponse",
+        "type": "object"
+      },
+      "delete_subaccount_response": {
+        "description": "Response to DELETE https://api.hetzner.com/v1/storage_boxes/{id}/subaccounts/{subaccount_id}",
+        "properties": {
+          "action": {
+            "$ref": "#/components/schemas/action"
+          }
+        },
+        "required": [
+          "action"
+        ],
+        "title": "ActionResponse",
+        "type": "object"
+      },
       "delete_subnet_from_network_request": {
         "description": "Request for POST https://api.hetzner.cloud/v1/networks/{id}/actions/delete_subnet",
         "properties": {
@@ -2344,6 +2675,19 @@
         "title": "ActionResponse",
         "type": "object"
       },
+      "disable_snapshot_plan_response": {
+        "description": "Response to POST https://api.hetzner.com/v1/storage_boxes/{id}/actions/disable_snapshot_plan",
+        "properties": {
+          "action": {
+            "$ref": "#/components/schemas/action"
+          }
+        },
+        "required": [
+          "action"
+        ],
+        "title": "ActionResponse",
+        "type": "object"
+      },
       "dns_ptr": {
         "description": "Request for POST https://api.hetzner.cloud/v1/floating_ips/{id}/actions/change_dns_ptr | Request for POST https://api.hetzner.cloud/v1/primary_ips/{id}/actions/change_dns_ptr",
         "properties": {
@@ -2427,6 +2771,65 @@
             "type": "string"
           }
         },
+        "type": "object"
+      },
+      "enable_snapshot_plan_request": {
+        "description": "Request for POST https://api.hetzner.com/v1/storage_boxes/{id}/actions/enable_snapshot_plan",
+        "properties": {
+          "day_of_month": {
+            "description": "Day of the month the Snapshot Plan should be executed on. Null means every day.",
+            "maximum": 31,
+            "minimum": 1,
+            "nullable": true,
+            "type": "integer"
+          },
+          "day_of_week": {
+            "description": "Day of the week the Snapshot Plan should be executed on. Starts at 1 for Monday til 7 for Sunday. Null means every day.",
+            "maximum": 7,
+            "minimum": 1,
+            "nullable": true,
+            "type": "integer"
+          },
+          "hour": {
+            "description": "Hour the Snapshot Plan should be executed on (UTC). Null means every hour.",
+            "example": 3,
+            "maximum": 23,
+            "minimum": 0,
+            "nullable": true,
+            "type": "integer"
+          },
+          "max_snapshots": {
+            "description": "Maximum amount of Snapshots that should be created by this Snapshot Plan. Older Snapshots will be deleted.",
+            "example": 10,
+            "exclusiveMinimum": true,
+            "minimum": 0,
+            "type": "integer"
+          },
+          "minute": {
+            "description": "Minute the Snapshot Plan should be executed on (UTC). Null means every minute.",
+            "example": 30,
+            "maximum": 59,
+            "minimum": 0,
+            "nullable": true,
+            "type": "integer"
+          }
+        },
+        "required": [
+          "max_snapshots"
+        ],
+        "type": "object"
+      },
+      "enable_snapshot_plan_response": {
+        "description": "Response to POST https://api.hetzner.com/v1/storage_boxes/{id}/actions/enable_snapshot_plan",
+        "properties": {
+          "action": {
+            "$ref": "#/components/schemas/action"
+          }
+        },
+        "required": [
+          "action"
+        ],
+        "title": "ActionResponse",
         "type": "object"
       },
       "error": {
@@ -3053,6 +3456,15 @@
         ],
         "type": "object"
       },
+      "get_snapshot_response": {
+        "description": "Response to GET https://api.hetzner.com/v1/storage_boxes/{id}/snapshots/{snapshot_id}",
+        "properties": {
+          "snapshot": {
+            "$ref": "#/components/schemas/snapshot"
+          }
+        },
+        "type": "object"
+      },
       "get_ssh_key_response": {
         "description": "Response to GET https://api.hetzner.cloud/v1/ssh_keys/{id}",
         "properties": {
@@ -3063,6 +3475,39 @@
         "required": [
           "ssh_key"
         ],
+        "type": "object"
+      },
+      "get_storage_box_response": {
+        "description": "Response to GET https://api.hetzner.com/v1/storage_boxes/{id}",
+        "properties": {
+          "storage_box": {
+            "$ref": "#/components/schemas/storage_box"
+          }
+        },
+        "required": [
+          "storage_box"
+        ],
+        "type": "object"
+      },
+      "get_storage_box_type_response": {
+        "description": "Response to GET https://api.hetzner.com/v1/storage_box_types/{id}",
+        "properties": {
+          "storage_box_type": {
+            "$ref": "#/components/schemas/storage_box_type"
+          }
+        },
+        "required": [
+          "storage_box_type"
+        ],
+        "type": "object"
+      },
+      "get_subaccount_response": {
+        "description": "Response to GET https://api.hetzner.com/v1/storage_boxes/{id}/subaccounts/{subaccount_id}",
+        "properties": {
+          "subaccount": {
+            "$ref": "#/components/schemas/subaccount"
+          }
+        },
         "type": "object"
       },
       "get_volume_response": {
@@ -3584,7 +4029,7 @@
           "pattern": "^(()|[a-z0-9A-Z]|([a-z0-9A-Z][a-z0-9A-Z\\._-]{0,61}[a-z0-9A-Z]))$",
           "type": "string"
         },
-        "description": "User-defined labels (`key/value` pairs) for the Resource.\nFor more information, see \"[Labels](#labels)\".\n | User-defined labels (`key/value` pairs) for the Resource.\n\nNote that the set of [Labels](#labels) provided in the request will overwrite the\nexisting one.\n\nFor more information, see \"[Labels](#labels)\".\n",
+        "description": "User-defined labels (`key/value` pairs) for the Resource.\nFor more information, see \"[Labels](#labels)\".\n | User-defined labels (`key/value` pairs) for the Resource.\n\nNote that the set of [Labels](#labels) provided in the request will overwrite the\nexisting one.\n\nFor more information, see \"[Labels](#labels)\".\n | The Storage Boxes' labels. | The Subaccounts' labels. | The Snapshots' labels.",
         "example": {
           "environment": "prod",
           "example.com/my": "label",
@@ -3630,6 +4075,21 @@
           "meta"
         ],
         "title": "CertificatesResponse",
+        "type": "object"
+      },
+      "list_content_of_storage_box_response": {
+        "description": "Response to GET https://api.hetzner.com/v1/storage_boxes/{id}/folders",
+        "properties": {
+          "folders": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          }
+        },
+        "required": [
+          "folders"
+        ],
         "type": "object"
       },
       "list_datacenters_response": {
@@ -4231,6 +4691,21 @@
         ],
         "type": "object"
       },
+      "list_snapshots_for_storage_box_response": {
+        "description": "Response to GET https://api.hetzner.com/v1/storage_boxes/{id}/snapshots",
+        "properties": {
+          "snapshots": {
+            "items": {
+              "$ref": "#/components/schemas/snapshot"
+            },
+            "type": "array"
+          }
+        },
+        "required": [
+          "snapshots"
+        ],
+        "type": "object"
+      },
       "list_ssh_keys_response": {
         "description": "Response to GET https://api.hetzner.cloud/v1/ssh_keys",
         "properties": {
@@ -4247,6 +4722,59 @@
         "required": [
           "ssh_keys",
           "meta"
+        ],
+        "type": "object"
+      },
+      "list_storage_box_types_response": {
+        "description": "Response to GET https://api.hetzner.com/v1/storage_box_types",
+        "properties": {
+          "meta": {
+            "$ref": "#/components/schemas/meta"
+          },
+          "storage_box_types": {
+            "items": {
+              "$ref": "#/components/schemas/storage_box_type"
+            },
+            "type": "array"
+          }
+        },
+        "required": [
+          "storage_box_types",
+          "meta"
+        ],
+        "type": "object"
+      },
+      "list_storage_boxes_response": {
+        "description": "Response to GET https://api.hetzner.com/v1/storage_boxes",
+        "properties": {
+          "meta": {
+            "$ref": "#/components/schemas/meta"
+          },
+          "storage_boxes": {
+            "items": {
+              "$ref": "#/components/schemas/storage_box"
+            },
+            "type": "array"
+          }
+        },
+        "required": [
+          "storage_boxes",
+          "meta"
+        ],
+        "type": "object"
+      },
+      "list_subaccounts_for_storage_box_response": {
+        "description": "Response to GET https://api.hetzner.com/v1/storage_boxes/{id}/subaccounts",
+        "properties": {
+          "subaccounts": {
+            "items": {
+              "$ref": "#/components/schemas/subaccount"
+            },
+            "type": "array"
+          }
+        },
+        "required": [
+          "subaccounts"
         ],
         "type": "object"
       },
@@ -4388,7 +4916,7 @@
           },
           "use_private_ip": {
             "default": false,
-            "description": "Use the private network IP instead of the public IP of the Server, requires the Server and Load Balancer to be in the same network.",
+            "description": "Use the private network IP instead of the public IP of the Server, requires the Server and Load Balancer to be in the same network. Only valid for target types `server` and `label_selector`.",
             "example": true,
             "type": "boolean"
           }
@@ -5116,7 +5644,7 @@
         "type": "object"
       },
       "price": {
-        "description": "Hourly price in this [Location](#locations). | Monthly price in this [Location](#locations). | Additional traffic price per TB in this [Location](#locations). | Price of [Images](#images) per GB/month. | Price of [Volumes](#volumes) per GB/month. | Price of one [Floating IP](#floating-ips) per month.",
+        "description": "Hourly price in this [Location](#locations). | Monthly price in this [Location](#locations). | Additional traffic price per TB in this [Location](#locations). | Price of [Images](#images) per GB/month. | Price of [Volumes](#volumes) per GB/month. | Price of one [Floating IP](#floating-ips) per month. | Setup fee in this [Location](#locations).",
         "properties": {
           "gross": {
             "description": "Price with VAT added.",
@@ -5733,6 +6261,35 @@
         },
         "type": "object"
       },
+      "replace_snapshot_request": {
+        "description": "Request for PUT https://api.hetzner.com/v1/storage_boxes/{id}/snapshots/{snapshot_id}",
+        "properties": {
+          "description": {
+            "description": "Description of the Snapshot.",
+            "example": "snapshot-0001",
+            "maxLength": 1000,
+            "pattern": "[a-zA-Z0-9-_,:<>+#!\\(\\)\\[\\]\\{\\} ]*",
+            "type": "string"
+          },
+          "labels": {
+            "$ref": "#/components/schemas/labels"
+          }
+        },
+        "required": [
+          "description",
+          "labels"
+        ],
+        "type": "object"
+      },
+      "replace_snapshot_response": {
+        "description": "Response to PUT https://api.hetzner.com/v1/storage_boxes/{id}/snapshots/{snapshot_id}",
+        "properties": {
+          "snapshot": {
+            "$ref": "#/components/schemas/snapshot"
+          }
+        },
+        "type": "object"
+      },
       "replace_ssh_key_request": {
         "description": "Request for PUT https://api.hetzner.cloud/v1/ssh_keys/{id}",
         "properties": {
@@ -5757,6 +6314,60 @@
         "required": [
           "ssh_key"
         ],
+        "type": "object"
+      },
+      "replace_storage_box_request": {
+        "description": "Request for PUT https://api.hetzner.com/v1/storage_boxes/{id}",
+        "properties": {
+          "labels": {
+            "$ref": "#/components/schemas/labels"
+          },
+          "name": {
+            "description": "The Storage Boxes' name.",
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
+      "replace_storage_box_response": {
+        "description": "Response to PUT https://api.hetzner.com/v1/storage_boxes/{id}",
+        "properties": {
+          "storage_box": {
+            "$ref": "#/components/schemas/storage_box"
+          }
+        },
+        "required": [
+          "storage_box"
+        ],
+        "type": "object"
+      },
+      "replace_subaccount_request": {
+        "description": "Request for PUT https://api.hetzner.com/v1/storage_boxes/{id}/subaccounts/{subaccount_id}",
+        "properties": {
+          "description": {
+            "description": "A description to remind you of the purpose of this Subaccount.",
+            "example": "my-backup-server01",
+            "maxLength": 1000,
+            "nullable": true,
+            "type": "string"
+          },
+          "labels": {
+            "$ref": "#/components/schemas/labels"
+          }
+        },
+        "required": [
+          "labels",
+          "description"
+        ],
+        "type": "object"
+      },
+      "replace_subaccount_response": {
+        "description": "Response to PUT https://api.hetzner.com/v1/storage_boxes/{id}/subaccounts/{subaccount_id}",
+        "properties": {
+          "subaccount": {
+            "$ref": "#/components/schemas/subaccount"
+          }
+        },
         "type": "object"
       },
       "replace_volume_request": {
@@ -5808,6 +6419,33 @@
           "password",
           "action"
         ],
+        "type": "object"
+      },
+      "reset_password_request": {
+        "description": "Request for POST https://api.hetzner.com/v1/storage_boxes/{id}/subaccounts/{subaccount_id}/actions/reset_subaccount_password",
+        "properties": {
+          "password": {
+            "description": "New password.",
+            "type": "string"
+          }
+        },
+        "required": [
+          "password"
+        ],
+        "title": "ResetPassword",
+        "type": "object"
+      },
+      "reset_password_response": {
+        "description": "Response to POST https://api.hetzner.com/v1/storage_boxes/{id}/subaccounts/{subaccount_id}/actions/reset_subaccount_password",
+        "properties": {
+          "action": {
+            "$ref": "#/components/schemas/action"
+          }
+        },
+        "required": [
+          "action"
+        ],
+        "title": "ActionResponse",
         "type": "object"
       },
       "reset_root_password_of_server_response": {
@@ -5903,6 +6541,35 @@
       },
       "retry_issuance_or_renewal_response": {
         "description": "Response to POST https://api.hetzner.cloud/v1/certificates/{id}/actions/retry",
+        "properties": {
+          "action": {
+            "$ref": "#/components/schemas/action"
+          }
+        },
+        "required": [
+          "action"
+        ],
+        "title": "ActionResponse",
+        "type": "object"
+      },
+      "rollback_snapshot_request": {
+        "description": "Request for POST https://api.hetzner.com/v1/storage_boxes/{id}/actions/rollback_snapshot",
+        "properties": {
+          "snapshot_id": {
+            "description": "ID of the Storage Box Snapshot.",
+            "example": 42,
+            "format": "int64",
+            "maximum": 9007199254740991,
+            "type": "integer"
+          }
+        },
+        "required": [
+          "snapshot_id"
+        ],
+        "type": "object"
+      },
+      "rollback_snapshot_response": {
+        "description": "Response to POST https://api.hetzner.com/v1/storage_boxes/{id}/actions/rollback_snapshot",
         "properties": {
           "action": {
             "$ref": "#/components/schemas/action"
@@ -6441,6 +7108,117 @@
         "title": "ActionResponse",
         "type": "object"
       },
+      "snapshot": {
+        "properties": {
+          "created": {
+            "description": "Point in time (in ISO-8601 format).",
+            "example": "2016-01-30T23:55:00+00:00",
+            "type": "string"
+          },
+          "description": {
+            "description": "Description of the Resource.",
+            "example": "This describes my resource",
+            "nullable": true,
+            "type": "string"
+          },
+          "id": {
+            "description": "ID of the Storage Box Snapshot.",
+            "example": 42,
+            "format": "int64",
+            "maximum": 9007199254740991,
+            "type": "integer"
+          },
+          "is_automatic": {
+            "description": "Whether the Snapshot was created automatically.",
+            "type": "boolean"
+          },
+          "labels": {
+            "$ref": "#/components/schemas/labels"
+          },
+          "name": {
+            "description": "Name of the Resource. Must be unique per Project.",
+            "example": "my-resource",
+            "type": "string"
+          },
+          "stats": {
+            "$ref": "#/components/schemas/snapshot_stats"
+          },
+          "storage_box": {
+            "description": "ID of the Storage Box.",
+            "example": 42,
+            "format": "int64",
+            "maximum": 9007199254740991,
+            "type": "integer"
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "description",
+          "stats",
+          "is_automatic",
+          "labels",
+          "created",
+          "storage_box"
+        ],
+        "type": "object"
+      },
+      "snapshot_plan": {
+        "description": "Details of the active snapshot plan. Not available if the status is \"initializing\".",
+        "nullable": true,
+        "properties": {
+          "day_of_month": {
+            "description": "Day of the month the Snapshot Plan is executed on.",
+            "nullable": true,
+            "type": "integer"
+          },
+          "day_of_week": {
+            "description": "Day of the week the Snapshot Plan is executed on.",
+            "nullable": true,
+            "type": "integer"
+          },
+          "hour": {
+            "description": "Hour the Snapshot Plan is executed at (UTC).",
+            "nullable": true,
+            "type": "integer"
+          },
+          "max_snapshots": {
+            "description": "Maximum amount of Snapshots that will be created by this Snapshot Plan. Older Snapshots will be deleted.",
+            "type": "integer"
+          },
+          "minute": {
+            "description": "Minute the Snapshot Plan is executed at (UTC).",
+            "nullable": true,
+            "type": "integer"
+          }
+        },
+        "required": [
+          "max_snapshots",
+          "minute",
+          "hour",
+          "day_of_week",
+          "day_of_month"
+        ],
+        "type": "object"
+      },
+      "snapshot_stats": {
+        "description": "Information about disk usage.",
+        "properties": {
+          "size": {
+            "description": "Current storage requirements of the Snapshot in bytes.",
+            "type": "integer"
+          },
+          "size_filesystem": {
+            "description": "Size of the compressed file system contained in the Snapshot in bytes.",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "size",
+          "size_filesystem"
+        ],
+        "type": "object"
+      },
       "soft_reboot_server_response": {
         "description": "Response to POST https://api.hetzner.cloud/v1/servers/{id}/actions/reboot",
         "properties": {
@@ -6495,6 +7273,326 @@
           "public_key",
           "labels",
           "created"
+        ],
+        "type": "object"
+      },
+      "storage_box": {
+        "properties": {
+          "access_settings": {
+            "$ref": "#/components/schemas/storage_box_access_setting"
+          },
+          "created": {
+            "description": "Point in time (in ISO-8601 format).",
+            "example": "2016-01-30T23:55:00+00:00",
+            "type": "string"
+          },
+          "id": {
+            "description": "ID of the Storage Box.",
+            "example": 42,
+            "format": "int64",
+            "maximum": 9007199254740991,
+            "type": "integer"
+          },
+          "labels": {
+            "$ref": "#/components/schemas/labels"
+          },
+          "location": {
+            "$ref": "#/components/schemas/location"
+          },
+          "name": {
+            "type": "string"
+          },
+          "protection": {
+            "$ref": "#/components/schemas/protection"
+          },
+          "server": {
+            "description": "FQDN of the Storage Box. Not available if the status is \"initializing\".",
+            "example": "u1337.your-storagebox.de",
+            "nullable": true,
+            "type": "string"
+          },
+          "snapshot_plan": {
+            "$ref": "#/components/schemas/snapshot_plan"
+          },
+          "stats": {
+            "$ref": "#/components/schemas/storage_box_stats"
+          },
+          "status": {
+            "enum": [
+              "active",
+              "initializing",
+              "locked"
+            ],
+            "type": "string"
+          },
+          "storage_box_type": {
+            "$ref": "#/components/schemas/storage_box_type"
+          },
+          "system": {
+            "description": "Storage Box host system. Not available if the status is \"initializing\".",
+            "example": "FSN1-BX355",
+            "nullable": true,
+            "type": "string"
+          },
+          "username": {
+            "description": "Primary username of the Storage Box.\n\nNot available if the status is \"initializing\".\n",
+            "example": "u12345",
+            "nullable": true,
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "status",
+          "name",
+          "storage_box_type",
+          "location",
+          "access_settings",
+          "server",
+          "system",
+          "stats",
+          "labels",
+          "protection",
+          "snapshot_plan",
+          "created"
+        ],
+        "type": "object"
+      },
+      "storage_box_access_setting": {
+        "properties": {
+          "reachable_externally": {
+            "description": "Whether the Storage Box is accessible from outside the Hetzner network.",
+            "type": "boolean"
+          },
+          "samba_enabled": {
+            "description": "Whether the Samba subsystem is enabled.",
+            "type": "boolean"
+          },
+          "ssh_enabled": {
+            "description": "Whether the SSH subsystem is enabled.",
+            "type": "boolean"
+          },
+          "webdav_enabled": {
+            "description": "Whether the WebDAV subsystem is enabled.",
+            "type": "boolean"
+          },
+          "zfs_enabled": {
+            "description": "Whether the ZFS snapshot folder is visible.",
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "reachable_externally",
+          "samba_enabled",
+          "ssh_enabled",
+          "webdav_enabled",
+          "zfs_enabled"
+        ],
+        "type": "object"
+      },
+      "storage_box_stats": {
+        "description": "Information about disk usage. Not available if the status is \"initializing\".",
+        "nullable": true,
+        "properties": {
+          "size": {
+            "description": "Current disk usage in bytes.",
+            "type": "integer"
+          },
+          "size_data": {
+            "description": "Current disk usage for data in bytes.",
+            "type": "integer"
+          },
+          "size_snapshots": {
+            "description": "Current disk usage for snapshots in bytes.",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "size",
+          "size_data",
+          "size_snapshots"
+        ],
+        "type": "object"
+      },
+      "storage_box_type": {
+        "properties": {
+          "automatic_snapshot_limit": {
+            "description": "Maximum number of snapshots created automatically by a snapshot plan.",
+            "example": 10,
+            "nullable": true,
+            "type": "integer"
+          },
+          "deprecation": {
+            "$ref": "#/components/schemas/deprecation_info"
+          },
+          "description": {
+            "description": "Description of the Storage Box type.",
+            "example": "BX11",
+            "type": "string"
+          },
+          "id": {
+            "description": "ID of the Storage Box Type.",
+            "example": 42,
+            "format": "int64",
+            "maximum": 9007199254740991,
+            "type": "integer"
+          },
+          "name": {
+            "description": "Unique identifier of the Storage Box type.",
+            "example": "bx11",
+            "type": "string"
+          },
+          "prices": {
+            "description": "Price per [Location](#locations).",
+            "items": {
+              "properties": {
+                "location": {
+                  "description": "Name of the [Location](#locations) the price is for.",
+                  "example": "fsn1",
+                  "type": "string"
+                },
+                "price_hourly": {
+                  "$ref": "#/components/schemas/price"
+                },
+                "price_monthly": {
+                  "$ref": "#/components/schemas/price"
+                },
+                "setup_fee": {
+                  "$ref": "#/components/schemas/price"
+                }
+              },
+              "required": [
+                "location",
+                "price_hourly",
+                "price_monthly",
+                "setup_fee"
+              ],
+              "type": "object"
+            },
+            "type": "array"
+          },
+          "size": {
+            "description": "Available storage in bytes.",
+            "example": 1073741824,
+            "format": "int64",
+            "type": "integer"
+          },
+          "snapshot_limit": {
+            "description": "Maximum number of allowed manual snapshots.",
+            "example": 10,
+            "nullable": true,
+            "type": "integer"
+          },
+          "subaccounts_limit": {
+            "description": "Maximum number of subaccounts.",
+            "example": 200,
+            "type": "integer"
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "description",
+          "snapshot_limit",
+          "automatic_snapshot_limit",
+          "subaccounts_limit",
+          "size",
+          "prices",
+          "deprecation"
+        ],
+        "type": "object"
+      },
+      "subaccount": {
+        "properties": {
+          "access_settings": {
+            "$ref": "#/components/schemas/subaccount_access_setting"
+          },
+          "created": {
+            "description": "Point in time (in ISO-8601 format).",
+            "example": "2016-01-30T23:55:00+00:00",
+            "type": "string"
+          },
+          "description": {
+            "description": "A description to remind you of the purpose of this Subaccount.",
+            "example": "host01 backup",
+            "maxLength": 1000,
+            "type": "string"
+          },
+          "home_directory": {
+            "description": "Home directory of the Subaccount.",
+            "example": "my_backups/host01.my.company",
+            "type": "string"
+          },
+          "id": {
+            "description": "ID of the Storage Box Subaccount.",
+            "example": 42,
+            "format": "int64",
+            "maximum": 9007199254740991,
+            "type": "integer"
+          },
+          "labels": {
+            "$ref": "#/components/schemas/labels"
+          },
+          "server": {
+            "description": "FQDN of the Subaccount.",
+            "example": "u1337-sub1.your-storagebox.de",
+            "type": "string"
+          },
+          "storage_box": {
+            "description": "ID of the Storage Box.",
+            "example": 42,
+            "format": "int64",
+            "maximum": 9007199254740991,
+            "type": "integer"
+          },
+          "username": {
+            "description": "Username of the Subaccount.",
+            "example": "u1337-sub1",
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "username",
+          "home_directory",
+          "server",
+          "access_settings",
+          "description",
+          "labels",
+          "created",
+          "storage_box"
+        ],
+        "type": "object"
+      },
+      "subaccount_access_setting": {
+        "properties": {
+          "reachable_externally": {
+            "description": "Whether the Subaccount is accessible from outside the Hetzner network.",
+            "type": "boolean"
+          },
+          "readonly": {
+            "description": "Whether the Subaccount is read-only.",
+            "type": "boolean"
+          },
+          "samba_enabled": {
+            "description": "Whether the Samba subsystem is enabled.",
+            "type": "boolean"
+          },
+          "ssh_enabled": {
+            "description": "Whether the SSH subsystem is enabled.",
+            "type": "boolean"
+          },
+          "webdav_enabled": {
+            "description": "Whether the WebDAV subsystem is enabled.",
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "reachable_externally",
+          "readonly",
+          "samba_enabled",
+          "ssh_enabled",
+          "webdav_enabled"
         ],
         "type": "object"
       },
@@ -6589,6 +7687,58 @@
       },
       "unassign_primary_ip_from_resource_response": {
         "description": "Response to POST https://api.hetzner.cloud/v1/primary_ips/{id}/actions/unassign",
+        "properties": {
+          "action": {
+            "$ref": "#/components/schemas/action"
+          }
+        },
+        "required": [
+          "action"
+        ],
+        "title": "ActionResponse",
+        "type": "object"
+      },
+      "update_access_settings_request": {
+        "description": "Request for POST https://api.hetzner.com/v1/storage_boxes/{id}/subaccounts/{subaccount_id}/actions/update_access_settings",
+        "properties": {
+          "home_directory": {
+            "description": "Home directory of the Subaccount. Will be created if it doesn't exist yet.",
+            "example": "my-backup/server01",
+            "nullable": true,
+            "type": "string"
+          },
+          "reachable_externally": {
+            "description": "Whether the Subaccount should be accessible from outside the Hetzner network.",
+            "nullable": true,
+            "type": "boolean"
+          },
+          "readonly": {
+            "description": "Whether the Subaccount should be read-only.",
+            "nullable": true,
+            "type": "boolean"
+          },
+          "samba_enabled": {
+            "description": "Whether the Samba subsystem should be enabled.",
+            "nullable": true,
+            "type": "boolean"
+          },
+          "ssh_enabled": {
+            "description": "Whether the SSH subsystem should be enabled.",
+            "example": true,
+            "nullable": true,
+            "type": "boolean"
+          },
+          "webdav_enabled": {
+            "description": "Whether the WebDAV subsystem should be enabled.",
+            "nullable": true,
+            "type": "boolean"
+          }
+        },
+        "title": "UpdateAccessSettings",
+        "type": "object"
+      },
+      "update_access_settings_response": {
+        "description": "Response to POST https://api.hetzner.com/v1/storage_boxes/{id}/subaccounts/{subaccount_id}/actions/update_access_settings",
         "properties": {
           "action": {
             "$ref": "#/components/schemas/action"
@@ -6865,7 +8015,12 @@
             "source": "package examples\n\nimport (\n\t\"context\"\n\t\"os\"\n\n\t\"github.com/hetznercloud/hcloud-go/v2/hcloud\"\n)\n\nfunc main() {\n\ttoken := os.Getenv(\"HCLOUD_TOKEN\")\n\n\tclient := hcloud.NewClient(hcloud.WithToken(token))\n\tctx := context.TODO()\n\n\tactions, err := client.Action.AllWithOpts(ctx, hcloud.ActionListOpts{ID: []int64{123, 456}})\n}"
           }
         ]
-      }
+      },
+      "servers": [
+        {
+          "url": "https://api.hetzner.cloud/v1"
+        }
+      ]
     },
     "/actions/{id}": {
       "get": {
@@ -6873,7 +8028,7 @@
         "operationId": "get_action",
         "parameters": [
           {
-            "description": "ID of the Action",
+            "description": "ID of the Action.",
             "in": "path",
             "name": "id",
             "required": true,
@@ -6914,7 +8069,12 @@
             "source": "from __future__ import annotations\n\nfrom os import environ\n\nfrom hcloud import Client\n\ntoken = environ[\"HCLOUD_TOKEN\"]\nclient = Client(token=token)\n\naction = client.actions.get_by_id(123)"
           }
         ]
-      }
+      },
+      "servers": [
+        {
+          "url": "https://api.hetzner.cloud/v1"
+        }
+      ]
     },
     "/certificates": {
       "get": {
@@ -7246,7 +8406,12 @@
             "source": "hcloud certificate create \\\n    --name \"my website cert\" \\\n    --type uploaded \\\n    --cert-file my-cert.pem \\\n    --key-file my-key.pem"
           }
         ]
-      }
+      },
+      "servers": [
+        {
+          "url": "https://api.hetzner.cloud/v1"
+        }
+      ]
     },
     "/certificates/{id}": {
       "delete": {
@@ -7460,7 +8625,12 @@
             "source": "hcloud certificate update $CERTIFICATE --name \"my website cert\"\nhcloud certificate add-label --overwrite $CERTIFICATE \\\n    \"environment=prod\" \"example.com/my=label\" \"just-a-key=\"\nhcloud certificate remove-label $CERTIFICATE \\\n    \"environment\" \"example.com\" \"just-a-key\""
           }
         ]
-      }
+      },
+      "servers": [
+        {
+          "url": "https://api.hetzner.cloud/v1"
+        }
+      ]
     },
     "/certificates/{id}/actions": {
       "get": {
@@ -7468,12 +8638,12 @@
         "operationId": "list_actions_for_certificate",
         "parameters": [
           {
-            "description": "ID of the Certificate",
+            "description": "ID of the Certificate.",
             "in": "path",
             "name": "id",
             "required": true,
             "schema": {
-              "description": "ID of the Certificate. Limited to 52 bits to ensure compatability with JSON double precision floats.",
+              "description": "ID of the Certificate.",
               "example": 42,
               "format": "int64",
               "maximum": 9007199254740991,
@@ -7601,7 +8771,12 @@
         "tags": [
           "certificates"
         ]
-      }
+      },
+      "servers": [
+        {
+          "url": "https://api.hetzner.cloud/v1"
+        }
+      ]
     },
     "/certificates/{id}/actions/{action_id}": {
       "get": {
@@ -7671,7 +8846,12 @@
         "tags": [
           "certificates"
         ]
-      }
+      },
+      "servers": [
+        {
+          "url": "https://api.hetzner.cloud/v1"
+        }
+      ]
     },
     "/certificates/{id}/actions/retry": {
       "post": {
@@ -7745,7 +8925,12 @@
             "source": "hcloud certificate retry $CERTIFICATE"
           }
         ]
-      }
+      },
+      "servers": [
+        {
+          "url": "https://api.hetzner.cloud/v1"
+        }
+      ]
     },
     "/certificates/actions": {
       "get": {
@@ -7868,7 +9053,12 @@
             "source": "from __future__ import annotations\n\nfrom os import environ\n\nfrom hcloud import Client\n\ntoken = environ[\"HCLOUD_TOKEN\"]\nclient = Client(token=token)\n\nactions = client.certificates.actions.get_all()"
           }
         ]
-      }
+      },
+      "servers": [
+        {
+          "url": "https://api.hetzner.cloud/v1"
+        }
+      ]
     },
     "/certificates/actions/{id}": {
       "get": {
@@ -7876,7 +9066,7 @@
         "operationId": "get_certificate_action",
         "parameters": [
           {
-            "description": "ID of the Action",
+            "description": "ID of the Action.",
             "in": "path",
             "name": "id",
             "required": true,
@@ -7917,7 +9107,12 @@
             "source": "from __future__ import annotations\n\nfrom os import environ\n\nfrom hcloud import Client\n\ntoken = environ[\"HCLOUD_TOKEN\"]\nclient = Client(token=token)\n\naction = client.certificates.actions.get_by_id(123)"
           }
         ]
-      }
+      },
+      "servers": [
+        {
+          "url": "https://api.hetzner.cloud/v1"
+        }
+      ]
     },
     "/datacenters": {
       "get": {
@@ -8011,7 +9206,12 @@
             "source": "hcloud datacenter list"
           }
         ]
-      }
+      },
+      "servers": [
+        {
+          "url": "https://api.hetzner.cloud/v1"
+        }
+      ]
     },
     "/datacenters/{id}": {
       "get": {
@@ -8065,7 +9265,12 @@
             "source": "hcloud datacenter describe $DATACENTER"
           }
         ]
-      }
+      },
+      "servers": [
+        {
+          "url": "https://api.hetzner.cloud/v1"
+        }
+      ]
     },
     "/firewalls": {
       "get": {
@@ -8244,7 +9449,12 @@
             "source": "hcloud firewall create \\\n    --name \"Corporate Intranet Protection\" \\\n    --label \"env=dev\" \\\n    --rules-file <(echo '[\n  {\n    \"description\": \"Allow port 80\",\n    \"direction\": \"in\",\n    \"port\": \"80\",\n    \"protocol\": \"tcp\",\n    \"source_ips\": [\n      \"28.239.13.1/32\",\n      \"28.239.14.0/24\",\n      \"ff21:1eac:9a3b:ee58:5ca:990c:8bc9:c03b/128\"\n    ]\n  }\n]')"
           }
         ]
-      }
+      },
+      "servers": [
+        {
+          "url": "https://api.hetzner.cloud/v1"
+        }
+      ]
     },
     "/firewalls/{id}": {
       "delete": {
@@ -8404,7 +9614,12 @@
             "source": "hcloud firewall update $FIREWALL --name \"new-name\"\nhcloud firewall add-label --overwrite $FIREWALL \\\n    \"environment=prod\" \"example.com/my=label\" \"just-a-key=\"\nhcloud firewall remove-label $FIREWALL \\\n    \"environment\" \"example.com\" \"just-a-key\""
           }
         ]
-      }
+      },
+      "servers": [
+        {
+          "url": "https://api.hetzner.cloud/v1"
+        }
+      ]
     },
     "/firewalls/{id}/actions": {
       "get": {
@@ -8412,12 +9627,12 @@
         "operationId": "list_actions_for_firewall",
         "parameters": [
           {
-            "description": "ID of the Firewall",
+            "description": "ID of the Firewall.",
             "in": "path",
             "name": "id",
             "required": true,
             "schema": {
-              "description": "ID of the Firewall. Limited to 52 bits to ensure compatability with JSON double precision floats.",
+              "description": "ID of the Firewall.",
               "example": 42,
               "format": "int64",
               "maximum": 9007199254740991,
@@ -8545,7 +9760,12 @@
         "tags": [
           "firewalls"
         ]
-      }
+      },
+      "servers": [
+        {
+          "url": "https://api.hetzner.cloud/v1"
+        }
+      ]
     },
     "/firewalls/{id}/actions/{action_id}": {
       "get": {
@@ -8615,7 +9835,12 @@
         "tags": [
           "firewalls"
         ]
-      }
+      },
+      "servers": [
+        {
+          "url": "https://api.hetzner.cloud/v1"
+        }
+      ]
     },
     "/firewalls/{id}/actions/apply_to_resources": {
       "post": {
@@ -8714,7 +9939,12 @@
             "source": "hcloud firewall apply-to-resource $FIREWALL \\\n    --type server \\\n    --server $SERVER"
           }
         ]
-      }
+      },
+      "servers": [
+        {
+          "url": "https://api.hetzner.cloud/v1"
+        }
+      ]
     },
     "/firewalls/{id}/actions/remove_from_resources": {
       "post": {
@@ -8813,7 +10043,12 @@
             "source": "hcloud firewall remove-from-resource $FIREWALL \\\n    --type server \\\n    --server $SERVER"
           }
         ]
-      }
+      },
+      "servers": [
+        {
+          "url": "https://api.hetzner.cloud/v1"
+        }
+      ]
     },
     "/firewalls/{id}/actions/set_rules": {
       "post": {
@@ -8935,7 +10170,12 @@
             "source": "hcloud firewall replace-rules $FIREWALL --rules-file <(echo '[\n  {\n    \"description\": \"Allow port 80\",\n    \"direction\": \"in\",\n    \"port\": \"80\",\n    \"protocol\": \"tcp\",\n    \"source_ips\": [\n      \"28.239.13.1/32\",\n      \"28.239.14.0/24\",\n      \"ff21:1eac:9a3b:ee58:5ca:990c:8bc9:c03b/128\"\n    ]\n  }\n]')"
           }
         ]
-      }
+      },
+      "servers": [
+        {
+          "url": "https://api.hetzner.cloud/v1"
+        }
+      ]
     },
     "/firewalls/actions": {
       "get": {
@@ -9058,7 +10298,12 @@
             "source": "from __future__ import annotations\n\nfrom os import environ\n\nfrom hcloud import Client\n\ntoken = environ[\"HCLOUD_TOKEN\"]\nclient = Client(token=token)\n\nactions = client.firewalls.actions.get_all()"
           }
         ]
-      }
+      },
+      "servers": [
+        {
+          "url": "https://api.hetzner.cloud/v1"
+        }
+      ]
     },
     "/firewalls/actions/{id}": {
       "get": {
@@ -9066,7 +10311,7 @@
         "operationId": "get_firewall_action",
         "parameters": [
           {
-            "description": "ID of the Action",
+            "description": "ID of the Action.",
             "in": "path",
             "name": "id",
             "required": true,
@@ -9107,7 +10352,12 @@
             "source": "from __future__ import annotations\n\nfrom os import environ\n\nfrom hcloud import Client\n\ntoken = environ[\"HCLOUD_TOKEN\"]\nclient = Client(token=token)\n\naction = client.firewalls.actions.get_by_id(123)"
           }
         ]
-      }
+      },
+      "servers": [
+        {
+          "url": "https://api.hetzner.cloud/v1"
+        }
+      ]
     },
     "/floating_ips": {
       "get": {
@@ -9309,7 +10559,12 @@
             "source": "hcloud floating-ip create \\\n    --description \"This describes my resource\" \\\n    --home-location fsn1 \\\n    --label \"environment=prod\" \\\n    --label \"example.com/my=label\" \\\n    --label \"just-a-key=\" \\\n    --name my-resource \\\n    --server 42 \\\n    --type ipv4"
           }
         ]
-      }
+      },
+      "servers": [
+        {
+          "url": "https://api.hetzner.cloud/v1"
+        }
+      ]
     },
     "/floating_ips/{id}": {
       "delete": {
@@ -9503,7 +10758,12 @@
             "source": "hcloud floating-ip update $FLOATINGIP \\\n    --description \"This describes my resource\" \\\n    --name my-resource\nhcloud floating-ip add-label --overwrite $FLOATINGIP \\\n    \"environment=prod\" \"example.com/my=label\" \"just-a-key=\"\nhcloud floating-ip remove-label $FLOATINGIP \\\n    \"environment\" \"example.com\" \"just-a-key\""
           }
         ]
-      }
+      },
+      "servers": [
+        {
+          "url": "https://api.hetzner.cloud/v1"
+        }
+      ]
     },
     "/floating_ips/{id}/actions": {
       "get": {
@@ -9647,7 +10907,12 @@
         "tags": [
           "floating_ips"
         ]
-      }
+      },
+      "servers": [
+        {
+          "url": "https://api.hetzner.cloud/v1"
+        }
+      ]
     },
     "/floating_ips/{id}/actions/{action_id}": {
       "get": {
@@ -9721,7 +10986,12 @@
         "tags": [
           "floating_ips"
         ]
-      }
+      },
+      "servers": [
+        {
+          "url": "https://api.hetzner.cloud/v1"
+        }
+      ]
     },
     "/floating_ips/{id}/actions/assign": {
       "post": {
@@ -9808,7 +11078,12 @@
             "source": "hcloud floating-ip assign $FLOATINGIP $SERVER"
           }
         ]
-      }
+      },
+      "servers": [
+        {
+          "url": "https://api.hetzner.cloud/v1"
+        }
+      ]
     },
     "/floating_ips/{id}/actions/change_dns_ptr": {
       "post": {
@@ -9892,7 +11167,12 @@
             "source": "hcloud floating-ip set-rdns $FLOATINGIP \\\n    --ip 2001:db8::1 \\\n    --hostname server.example.com"
           }
         ]
-      }
+      },
+      "servers": [
+        {
+          "url": "https://api.hetzner.cloud/v1"
+        }
+      ]
     },
     "/floating_ips/{id}/actions/change_protection": {
       "post": {
@@ -9975,7 +11255,12 @@
             "source": "hcloud floating-ip enable-protection $FLOATINGIP delete\nhcloud floating-ip disable-protection $FLOATINGIP delete"
           }
         ]
-      }
+      },
+      "servers": [
+        {
+          "url": "https://api.hetzner.cloud/v1"
+        }
+      ]
     },
     "/floating_ips/{id}/actions/unassign": {
       "post": {
@@ -10053,7 +11338,12 @@
             "source": "hcloud floating-ip unassign $FLOATINGIP"
           }
         ]
-      }
+      },
+      "servers": [
+        {
+          "url": "https://api.hetzner.cloud/v1"
+        }
+      ]
     },
     "/floating_ips/actions": {
       "get": {
@@ -10176,7 +11466,12 @@
             "source": "from __future__ import annotations\n\nfrom os import environ\n\nfrom hcloud import Client\n\ntoken = environ[\"HCLOUD_TOKEN\"]\nclient = Client(token=token)\n\nactions = client.floating_ips.actions.get_all()"
           }
         ]
-      }
+      },
+      "servers": [
+        {
+          "url": "https://api.hetzner.cloud/v1"
+        }
+      ]
     },
     "/floating_ips/actions/{id}": {
       "get": {
@@ -10184,7 +11479,7 @@
         "operationId": "get_floating_ip_action",
         "parameters": [
           {
-            "description": "ID of the Action",
+            "description": "ID of the Action.",
             "in": "path",
             "name": "id",
             "required": true,
@@ -10225,7 +11520,12 @@
             "source": "from __future__ import annotations\n\nfrom os import environ\n\nfrom hcloud import Client\n\ntoken = environ[\"HCLOUD_TOKEN\"]\nclient = Client(token=token)\n\naction = client.floating_ips.actions.get_by_id(123)"
           }
         ]
-      }
+      },
+      "servers": [
+        {
+          "url": "https://api.hetzner.cloud/v1"
+        }
+      ]
     },
     "/images": {
       "get": {
@@ -10406,7 +11706,12 @@
             "source": "hcloud image list"
           }
         ]
-      }
+      },
+      "servers": [
+        {
+          "url": "https://api.hetzner.cloud/v1"
+        }
+      ]
     },
     "/images/{id}": {
       "delete": {
@@ -10595,7 +11900,12 @@
             "source": "hcloud image update $IMAGE --description \"My new Image description\"\nhcloud image add-label --overwrite $IMAGE \\\n    \"environment=prod\" \"example.com/my=label\" \"just-a-key=\"\nhcloud image remove-label $IMAGE \\\n    \"environment\" \"example.com\" \"just-a-key\""
           }
         ]
-      }
+      },
+      "servers": [
+        {
+          "url": "https://api.hetzner.cloud/v1"
+        }
+      ]
     },
     "/images/{id}/actions": {
       "get": {
@@ -10735,7 +12045,12 @@
         "tags": [
           "images"
         ]
-      }
+      },
+      "servers": [
+        {
+          "url": "https://api.hetzner.cloud/v1"
+        }
+      ]
     },
     "/images/{id}/actions/{action_id}": {
       "get": {
@@ -10805,7 +12120,12 @@
         "tags": [
           "images"
         ]
-      }
+      },
+      "servers": [
+        {
+          "url": "https://api.hetzner.cloud/v1"
+        }
+      ]
     },
     "/images/{id}/actions/change_protection": {
       "post": {
@@ -10888,7 +12208,12 @@
             "source": "hcloud image enable-protection $IMAGE delete\nhcloud image disable-protection $IMAGE delete"
           }
         ]
-      }
+      },
+      "servers": [
+        {
+          "url": "https://api.hetzner.cloud/v1"
+        }
+      ]
     },
     "/images/actions": {
       "get": {
@@ -11011,7 +12336,12 @@
             "source": "from __future__ import annotations\n\nfrom os import environ\n\nfrom hcloud import Client\n\ntoken = environ[\"HCLOUD_TOKEN\"]\nclient = Client(token=token)\n\nactions = client.images.actions.get_all()"
           }
         ]
-      }
+      },
+      "servers": [
+        {
+          "url": "https://api.hetzner.cloud/v1"
+        }
+      ]
     },
     "/images/actions/{id}": {
       "get": {
@@ -11019,7 +12349,7 @@
         "operationId": "get_image_action",
         "parameters": [
           {
-            "description": "ID of the Action",
+            "description": "ID of the Action.",
             "in": "path",
             "name": "id",
             "required": true,
@@ -11060,7 +12390,12 @@
             "source": "from __future__ import annotations\n\nfrom os import environ\n\nfrom hcloud import Client\n\ntoken = environ[\"HCLOUD_TOKEN\"]\nclient = Client(token=token)\n\naction = client.images.actions.get_by_id(123)"
           }
         ]
-      }
+      },
+      "servers": [
+        {
+          "url": "https://api.hetzner.cloud/v1"
+        }
+      ]
     },
     "/isos": {
       "get": {
@@ -11158,7 +12493,12 @@
             "source": "hcloud iso list"
           }
         ]
-      }
+      },
+      "servers": [
+        {
+          "url": "https://api.hetzner.cloud/v1"
+        }
+      ]
     },
     "/isos/{id}": {
       "get": {
@@ -11212,7 +12552,12 @@
             "source": "hcloud iso describe $ISO"
           }
         ]
-      }
+      },
+      "servers": [
+        {
+          "url": "https://api.hetzner.cloud/v1"
+        }
+      ]
     },
     "/load_balancer_types": {
       "get": {
@@ -11286,7 +12631,12 @@
             "source": "hcloud load-balancer-type list"
           }
         ]
-      }
+      },
+      "servers": [
+        {
+          "url": "https://api.hetzner.cloud/v1"
+        }
+      ]
     },
     "/load_balancer_types/{id}": {
       "get": {
@@ -11340,7 +12690,12 @@
             "source": "hcloud load-balancer-type describe $LOADBALANCERTYPE"
           }
         ]
-      }
+      },
+      "servers": [
+        {
+          "url": "https://api.hetzner.cloud/v1"
+        }
+      ]
     },
     "/load_balancers": {
       "get": {
@@ -11645,7 +13000,12 @@
             "source": "hcloud load-balancer create \\\n    --algorithm-type round_robin \\\n    --label \"environment=prod\" \\\n    --label \"example.com/my=label\" \\\n    --label \"just-a-key=\" \\\n    --type lb11 \\\n    --location fsn1 \\\n    --name \"Web Frontend\"\n\nhcloud load-balancer enable-public-interface \"Web Frontend\"\n\nhcloud load-balancer add-service \"Web Frontend\" \\\n    --destination-port 80 \\\n    --health-check-http-domain example.com \\\n    --health-check-http-path \"/\" \\\n    --health-check-http-response '{\"status\": \"ok\"}' \\\n    --health-check-http-status-codes \"2??,3??\" \\\n    --health-check-http-tls=false \\\n    --health-check-interval 15s \\\n    --health-check-port 4711 \\\n    --health-check-protocol http \\\n    --health-check-retries 3 \\\n    --health-check-timeout 10s \\\n    --http-certificates 897 \\\n    --http-cookie-lifetime 300s \\\n    --http-cookie-name HCLBSTICKY \\\n    --http-redirect-http=true \\\n    --http-sticky-sessions=true \\\n    --listen-port 443 \\\n    --protocol https \\\n    --proxy-protocol=false\n\nhcloud load-balancer add-target \"Web Frontend\" --ip 203.0.113.1\nhcloud load-balancer add-target \"Web Frontend\" --label-selector \"env=prod\"\nhcloud load-balancer add-target \"Web Frontend\" --server 80 --use-private-ip"
           }
         ]
-      }
+      },
+      "servers": [
+        {
+          "url": "https://api.hetzner.cloud/v1"
+        }
+      ]
     },
     "/load_balancers/{id}": {
       "delete": {
@@ -11946,7 +13306,12 @@
             "source": "hcloud load-balancer update $LOADBALANCER --name new-name\nhcloud load-balancer add-label --overwrite $LOADBALANCER \\\n    \"environment=prod\" \"example.com/my=label\" \"just-a-key=\"\nhcloud load-balancer remove-label $LOADBALANCER \\\n    \"environment\" \"example.com\" \"just-a-key\""
           }
         ]
-      }
+      },
+      "servers": [
+        {
+          "url": "https://api.hetzner.cloud/v1"
+        }
+      ]
     },
     "/load_balancers/{id}/actions": {
       "get": {
@@ -12086,7 +13451,12 @@
         "tags": [
           "load_balancers"
         ]
-      }
+      },
+      "servers": [
+        {
+          "url": "https://api.hetzner.cloud/v1"
+        }
+      ]
     },
     "/load_balancers/{id}/actions/{action_id}": {
       "get": {
@@ -12156,7 +13526,12 @@
         "tags": [
           "load_balancers"
         ]
-      }
+      },
+      "servers": [
+        {
+          "url": "https://api.hetzner.cloud/v1"
+        }
+      ]
     },
     "/load_balancers/{id}/actions/add_service": {
       "post": {
@@ -12239,7 +13614,12 @@
             "source": "hcloud load-balancer add-service $LOADBALANCER \\\n    --destination-port 80 \\\n    --health-check-http-domain example.com \\\n    --health-check-http-path \"/\" \\\n    --health-check-http-response '{\"status\": \"ok\"}' \\\n    --health-check-http-status-codes \"2??,3??\" \\\n    --health-check-http-tls=false \\\n    --health-check-interval 15s \\\n    --health-check-port 4711 \\\n    --health-check-protocol http \\\n    --health-check-retries 3 \\\n    --health-check-timeout 10s \\\n    --http-certificates 897 \\\n    --http-cookie-lifetime 300s \\\n    --http-cookie-name HCLBSTICKY \\\n    --http-redirect-http=true \\\n    --http-sticky-sessions=true \\\n    --listen-port 443 \\\n    --protocol https \\\n    --proxy-protocol=false"
           }
         ]
-      }
+      },
+      "servers": [
+        {
+          "url": "https://api.hetzner.cloud/v1"
+        }
+      ]
     },
     "/load_balancers/{id}/actions/add_target": {
       "post": {
@@ -12322,7 +13702,12 @@
             "source": "hcloud load-balancer add-target $LOADBALANCER --ip 203.0.113.1\nhcloud load-balancer add-target $LOADBALANCER --label-selector \"env=prod\"\nhcloud load-balancer add-target $LOADBALANCER --server 80 --use-private-ip"
           }
         ]
-      }
+      },
+      "servers": [
+        {
+          "url": "https://api.hetzner.cloud/v1"
+        }
+      ]
     },
     "/load_balancers/{id}/actions/attach_to_network": {
       "post": {
@@ -12405,7 +13790,12 @@
             "source": "hcloud load-balancer attach-to-network $LOADBALANCER \\\n    --ip 10.0.1.1 \\\n    --network 4711"
           }
         ]
-      }
+      },
+      "servers": [
+        {
+          "url": "https://api.hetzner.cloud/v1"
+        }
+      ]
     },
     "/load_balancers/{id}/actions/change_algorithm": {
       "post": {
@@ -12488,7 +13878,12 @@
             "source": "hcloud load-balancer change-algorithm $LOADBALANCER \\\n    --algorithm-type round_robin"
           }
         ]
-      }
+      },
+      "servers": [
+        {
+          "url": "https://api.hetzner.cloud/v1"
+        }
+      ]
     },
     "/load_balancers/{id}/actions/change_dns_ptr": {
       "post": {
@@ -12572,7 +13967,12 @@
             "source": "hcloud load-balancer set-rdns $LOADBALANCER \\\n    --ip 1.2.3.4 \\\n    --hostname lb1.example.com"
           }
         ]
-      }
+      },
+      "servers": [
+        {
+          "url": "https://api.hetzner.cloud/v1"
+        }
+      ]
     },
     "/load_balancers/{id}/actions/change_protection": {
       "post": {
@@ -12655,7 +14055,12 @@
             "source": "hcloud load-balancer enable-protection $LOADBALANCER delete\nhcloud load-balancer disable-protection $LOADBALANCER delete"
           }
         ]
-      }
+      },
+      "servers": [
+        {
+          "url": "https://api.hetzner.cloud/v1"
+        }
+      ]
     },
     "/load_balancers/{id}/actions/change_type": {
       "post": {
@@ -12738,7 +14143,12 @@
             "source": "hcloud load-balancer change-type $LOADBALANCER lb21"
           }
         ]
-      }
+      },
+      "servers": [
+        {
+          "url": "https://api.hetzner.cloud/v1"
+        }
+      ]
     },
     "/load_balancers/{id}/actions/delete_service": {
       "post": {
@@ -12821,7 +14231,12 @@
             "source": "hcloud load-balancer delete-service $LOADBALANCER \\\n    --listen-port 443"
           }
         ]
-      }
+      },
+      "servers": [
+        {
+          "url": "https://api.hetzner.cloud/v1"
+        }
+      ]
     },
     "/load_balancers/{id}/actions/detach_from_network": {
       "post": {
@@ -12908,7 +14323,12 @@
             "source": "hcloud load-balancer detach-from-network $LOADBALANCER \\\n    --network $NETWORK"
           }
         ]
-      }
+      },
+      "servers": [
+        {
+          "url": "https://api.hetzner.cloud/v1"
+        }
+      ]
     },
     "/load_balancers/{id}/actions/disable_public_interface": {
       "post": {
@@ -12986,7 +14406,12 @@
             "source": "hcloud load-balancer disable-public-interface $LOADBALANCER"
           }
         ]
-      }
+      },
+      "servers": [
+        {
+          "url": "https://api.hetzner.cloud/v1"
+        }
+      ]
     },
     "/load_balancers/{id}/actions/enable_public_interface": {
       "post": {
@@ -13064,7 +14489,12 @@
             "source": "hcloud load-balancer enable-public-interface $LOADBALANCER"
           }
         ]
-      }
+      },
+      "servers": [
+        {
+          "url": "https://api.hetzner.cloud/v1"
+        }
+      ]
     },
     "/load_balancers/{id}/actions/remove_target": {
       "post": {
@@ -13147,7 +14577,12 @@
             "source": "hcloud load-balancer remove-target $LOADBALANCER --ip 203.0.113.1\nhcloud load-balancer remove-target $LOADBALANCER --label-selector \"env=prod\"\nhcloud load-balancer remove-target $LOADBALANCER --server 80 --use-private-ip"
           }
         ]
-      }
+      },
+      "servers": [
+        {
+          "url": "https://api.hetzner.cloud/v1"
+        }
+      ]
     },
     "/load_balancers/{id}/actions/update_service": {
       "post": {
@@ -13230,7 +14665,12 @@
             "source": "hcloud load-balancer update-service $LOADBALANCER \\\n    --listen-port 443 \\\n    --destination-port 80 \\\n    --health-check-http-domain example.com \\\n    --health-check-http-path \"/\" \\\n    --health-check-http-response '{\"status\": \"ok\"}' \\\n    --health-check-http-status-codes \"2??,3??\" \\\n    --health-check-http-tls=false \\\n    --health-check-interval 15s \\\n    --health-check-port 4711 \\\n    --health-check-protocol http \\\n    --health-check-retries 3 \\\n    --health-check-timeout 10s \\\n    --http-certificates 897 \\\n    --http-cookie-lifetime 300s \\\n    --http-cookie-name HCLBSTICKY \\\n    --http-redirect-http=true \\\n    --http-sticky-sessions=true \\\n    --protocol https \\\n    --proxy-protocol=false"
           }
         ]
-      }
+      },
+      "servers": [
+        {
+          "url": "https://api.hetzner.cloud/v1"
+        }
+      ]
     },
     "/load_balancers/{id}/metrics": {
       "get": {
@@ -13326,7 +14766,12 @@
             "source": "hcloud load-balancer metrics $LOADBALANCER \\\n    --type open_connections,connections_per_second,requests_per_second,bandwidth \\\n    --start 2017-01-01T00:00:00Z \\\n    --end   2017-01-01T23:00:00Z"
           }
         ]
-      }
+      },
+      "servers": [
+        {
+          "url": "https://api.hetzner.cloud/v1"
+        }
+      ]
     },
     "/load_balancers/actions": {
       "get": {
@@ -13449,7 +14894,12 @@
             "source": "from __future__ import annotations\n\nfrom os import environ\n\nfrom hcloud import Client\n\ntoken = environ[\"HCLOUD_TOKEN\"]\nclient = Client(token=token)\n\nactions = client.load_balancers.actions.get_all()"
           }
         ]
-      }
+      },
+      "servers": [
+        {
+          "url": "https://api.hetzner.cloud/v1"
+        }
+      ]
     },
     "/load_balancers/actions/{id}": {
       "get": {
@@ -13457,7 +14907,7 @@
         "operationId": "get_load_balancer_action",
         "parameters": [
           {
-            "description": "ID of the Action",
+            "description": "ID of the Action.",
             "in": "path",
             "name": "id",
             "required": true,
@@ -13498,7 +14948,12 @@
             "source": "from __future__ import annotations\n\nfrom os import environ\n\nfrom hcloud import Client\n\ntoken = environ[\"HCLOUD_TOKEN\"]\nclient = Client(token=token)\n\naction = client.load_balancers.actions.get_by_id(123)"
           }
         ]
-      }
+      },
+      "servers": [
+        {
+          "url": "https://api.hetzner.cloud/v1"
+        }
+      ]
     },
     "/locations": {
       "get": {
@@ -13592,7 +15047,12 @@
             "source": "hcloud location list"
           }
         ]
-      }
+      },
+      "servers": [
+        {
+          "url": "https://api.hetzner.cloud/v1"
+        }
+      ]
     },
     "/locations/{id}": {
       "get": {
@@ -13646,7 +15106,12 @@
             "source": "hcloud location describe $LOCATION"
           }
         ]
-      }
+      },
+      "servers": [
+        {
+          "url": "https://api.hetzner.cloud/v1"
+        }
+      ]
     },
     "/networks": {
       "get": {
@@ -13798,7 +15263,12 @@
             "source": "hcloud network create \\\n    --expose-routes-to-vswitch=false \\\n    --ip-range 10.0.0.0/16 \\\n    --label \"environment=prod\" \\\n    --label \"example.com/my=label\" \\\n    --label \"just-a-key=\" \\\n    --name mynet\n\nhcloud network add-route mynet \\\n    --destination 10.100.1.0/24 \\\n    --gateway 10.0.1.1\n\nhcloud network add-subnet mynet \\\n    --ip-range 10.0.1.0/24 \\\n    --network-zone eu-central \\\n    --type cloud \\\n    --vswitch-id 1000"
           }
         ]
-      }
+      },
+      "servers": [
+        {
+          "url": "https://api.hetzner.cloud/v1"
+        }
+      ]
     },
     "/networks/{id}": {
       "delete": {
@@ -13993,7 +15463,12 @@
             "source": "hcloud network update $NETWORK --name new-name\nhcloud network expose-routes-to-vswitch --disable $NETWORK\nhcloud network add-label --overwrite $NETWORK \\\n    \"environment=prod\" \"example.com/my=label\" \"just-a-key=\"\nhcloud network remove-label $NETWORK \\\n    \"environment\" \"example.com\" \"just-a-key\""
           }
         ]
-      }
+      },
+      "servers": [
+        {
+          "url": "https://api.hetzner.cloud/v1"
+        }
+      ]
     },
     "/networks/{id}/actions": {
       "get": {
@@ -14133,7 +15608,12 @@
         "tags": [
           "networks"
         ]
-      }
+      },
+      "servers": [
+        {
+          "url": "https://api.hetzner.cloud/v1"
+        }
+      ]
     },
     "/networks/{id}/actions/{action_id}": {
       "get": {
@@ -14203,7 +15683,12 @@
         "tags": [
           "networks"
         ]
-      }
+      },
+      "servers": [
+        {
+          "url": "https://api.hetzner.cloud/v1"
+        }
+      ]
     },
     "/networks/{id}/actions/add_route": {
       "post": {
@@ -14286,7 +15771,12 @@
             "source": "hcloud network add-route $NETWORK \\\n    --destination 10.100.1.0/24 \\\n    --gateway 10.0.1.1"
           }
         ]
-      }
+      },
+      "servers": [
+        {
+          "url": "https://api.hetzner.cloud/v1"
+        }
+      ]
     },
     "/networks/{id}/actions/add_subnet": {
       "post": {
@@ -14369,7 +15859,12 @@
             "source": "hcloud network add-subnet $NETWORK \\\n    --ip-range 10.0.1.0/24 \\\n    --network-zone eu-central \\\n    --type cloud \\\n    --vswitch-id 1000"
           }
         ]
-      }
+      },
+      "servers": [
+        {
+          "url": "https://api.hetzner.cloud/v1"
+        }
+      ]
     },
     "/networks/{id}/actions/change_ip_range": {
       "post": {
@@ -14452,7 +15947,12 @@
             "source": "hcloud network change-ip-range $NETWORK \\\n    --ip-range 10.0.0.0/16"
           }
         ]
-      }
+      },
+      "servers": [
+        {
+          "url": "https://api.hetzner.cloud/v1"
+        }
+      ]
     },
     "/networks/{id}/actions/change_protection": {
       "post": {
@@ -14535,7 +16035,12 @@
             "source": "hcloud network enable-protection $NETWORK delete\nhcloud network disable-protection $NETWORK delete"
           }
         ]
-      }
+      },
+      "servers": [
+        {
+          "url": "https://api.hetzner.cloud/v1"
+        }
+      ]
     },
     "/networks/{id}/actions/delete_route": {
       "post": {
@@ -14618,7 +16123,12 @@
             "source": "hcloud network remove-route $NETWORK \\\n    --destination 10.100.1.0/24 \\\n    --gateway 10.0.1.1"
           }
         ]
-      }
+      },
+      "servers": [
+        {
+          "url": "https://api.hetzner.cloud/v1"
+        }
+      ]
     },
     "/networks/{id}/actions/delete_subnet": {
       "post": {
@@ -14701,7 +16211,12 @@
             "source": "hcloud network remove-subnet $NETWORK \\\n    --ip-range 10.0.1.0/24"
           }
         ]
-      }
+      },
+      "servers": [
+        {
+          "url": "https://api.hetzner.cloud/v1"
+        }
+      ]
     },
     "/networks/actions": {
       "get": {
@@ -14824,7 +16339,12 @@
             "source": "from __future__ import annotations\n\nfrom os import environ\n\nfrom hcloud import Client\n\ntoken = environ[\"HCLOUD_TOKEN\"]\nclient = Client(token=token)\n\nactions = client.networks.actions.get_all()"
           }
         ]
-      }
+      },
+      "servers": [
+        {
+          "url": "https://api.hetzner.cloud/v1"
+        }
+      ]
     },
     "/networks/actions/{id}": {
       "get": {
@@ -14832,7 +16352,7 @@
         "operationId": "get_network_action",
         "parameters": [
           {
-            "description": "ID of the Action",
+            "description": "ID of the Action.",
             "in": "path",
             "name": "id",
             "required": true,
@@ -14873,7 +16393,12 @@
             "source": "from __future__ import annotations\n\nfrom os import environ\n\nfrom hcloud import Client\n\ntoken = environ[\"HCLOUD_TOKEN\"]\nclient = Client(token=token)\n\naction = client.networks.actions.get_by_id(123)"
           }
         ]
-      }
+      },
+      "servers": [
+        {
+          "url": "https://api.hetzner.cloud/v1"
+        }
+      ]
     },
     "/placement_groups": {
       "get": {
@@ -15085,7 +16610,12 @@
             "source": "hcloud placement-group create \\\n    --name \"my Placement Group\" \\\n    --type spread"
           }
         ]
-      }
+      },
+      "servers": [
+        {
+          "url": "https://api.hetzner.cloud/v1"
+        }
+      ]
     },
     "/placement_groups/{id}": {
       "delete": {
@@ -15275,7 +16805,12 @@
             "source": "hcloud placement-group update $PLACEMENTGROUP --name \"my Placement Group\"\nhcloud placement-group add-label --overwrite $PLACEMENTGROUP \\\n    \"environment=prod\" \"example.com/my=label\" \"just-a-key=\"\nhcloud placement-group remove-label $PLACEMENTGROUP \\\n    \"environment\" \"example.com\" \"just-a-key\""
           }
         ]
-      }
+      },
+      "servers": [
+        {
+          "url": "https://api.hetzner.cloud/v1"
+        }
+      ]
     },
     "/pricing": {
       "get": {
@@ -15304,7 +16839,12 @@
             "source": "package examples\n\nimport (\n\t\"context\"\n\t\"os\"\n\n\t\"github.com/hetznercloud/hcloud-go/v2/hcloud\"\n)\n\nfunc main() {\n\ttoken := os.Getenv(\"HCLOUD_TOKEN\")\n\n\tclient := hcloud.NewClient(hcloud.WithToken(token))\n\tctx := context.TODO()\n\n\tpricing, _, err := client.Pricing.Get(ctx)\n}"
           }
         ]
-      }
+      },
+      "servers": [
+        {
+          "url": "https://api.hetzner.cloud/v1"
+        }
+      ]
     },
     "/primary_ips": {
       "get": {
@@ -15539,7 +17079,12 @@
             "source": "hcloud primary-ip create \\\n    --assignee-id 17 \\\n    --auto-delete=false \\\n    --datacenter fsn1-dc8 \\\n    --label \"environment=prod\" \\\n    --label \"example.com/my=label\" \\\n    --label \"just-a-key=\" \\\n    --name my-ip \\\n    --type ipv4"
           }
         ]
-      }
+      },
+      "servers": [
+        {
+          "url": "https://api.hetzner.cloud/v1"
+        }
+      ]
     },
     "/primary_ips/{id}": {
       "delete": {
@@ -15699,7 +17244,12 @@
             "source": "hcloud primary-ip update $PRIMARYIP \\\n    --auto-delete=false \\\n    --name \"new-name\"\nhcloud primary-ip add-label --overwrite $PRIMARYIP \\\n    \"environment=prod\" \"example.com/my=label\" \"just-a-key=\"\nhcloud primary-ip remove-label $PRIMARYIP \\\n    \"environment\" \"example.com\" \"just-a-key\""
           }
         ]
-      }
+      },
+      "servers": [
+        {
+          "url": "https://api.hetzner.cloud/v1"
+        }
+      ]
     },
     "/primary_ips/{id}/actions/assign": {
       "post": {
@@ -15786,7 +17336,12 @@
             "source": "hcloud primary-ip assign --server 4711 $PRIMARYIP"
           }
         ]
-      }
+      },
+      "servers": [
+        {
+          "url": "https://api.hetzner.cloud/v1"
+        }
+      ]
     },
     "/primary_ips/{id}/actions/change_dns_ptr": {
       "post": {
@@ -15870,7 +17425,12 @@
             "source": "hcloud primary-ip set-rdns $PRIMARYIP \\\n    --ip 1.2.3.4 \\\n    --hostname server02.example.com"
           }
         ]
-      }
+      },
+      "servers": [
+        {
+          "url": "https://api.hetzner.cloud/v1"
+        }
+      ]
     },
     "/primary_ips/{id}/actions/change_protection": {
       "post": {
@@ -15953,7 +17513,12 @@
             "source": "hcloud primary-ip enable-protection $PRIMARYIP delete\nhcloud primary-ip disable-protection $PRIMARYIP delete"
           }
         ]
-      }
+      },
+      "servers": [
+        {
+          "url": "https://api.hetzner.cloud/v1"
+        }
+      ]
     },
     "/primary_ips/{id}/actions/unassign": {
       "post": {
@@ -16031,7 +17596,12 @@
             "source": "hcloud primary-ip unassign $PRIMARYIP"
           }
         ]
-      }
+      },
+      "servers": [
+        {
+          "url": "https://api.hetzner.cloud/v1"
+        }
+      ]
     },
     "/primary_ips/actions": {
       "get": {
@@ -16154,7 +17724,12 @@
             "source": "from __future__ import annotations\n\nfrom os import environ\n\nfrom hcloud import Client\n\ntoken = environ[\"HCLOUD_TOKEN\"]\nclient = Client(token=token)\n\nactions = client.primary_ips.actions.get_all()"
           }
         ]
-      }
+      },
+      "servers": [
+        {
+          "url": "https://api.hetzner.cloud/v1"
+        }
+      ]
     },
     "/primary_ips/actions/{id}": {
       "get": {
@@ -16162,7 +17737,7 @@
         "operationId": "get_primary_ip_action",
         "parameters": [
           {
-            "description": "ID of the Action",
+            "description": "ID of the Action.",
             "in": "path",
             "name": "id",
             "required": true,
@@ -16203,7 +17778,12 @@
             "source": "from __future__ import annotations\n\nfrom os import environ\n\nfrom hcloud import Client\n\ntoken = environ[\"HCLOUD_TOKEN\"]\nclient = Client(token=token)\n\naction = client.primary_ips.actions.get_by_id(123)"
           }
         ]
-      }
+      },
+      "servers": [
+        {
+          "url": "https://api.hetzner.cloud/v1"
+        }
+      ]
     },
     "/server_types": {
       "get": {
@@ -16277,7 +17857,12 @@
             "source": "hcloud server-type list"
           }
         ]
-      }
+      },
+      "servers": [
+        {
+          "url": "https://api.hetzner.cloud/v1"
+        }
+      ]
     },
     "/server_types/{id}": {
       "get": {
@@ -16331,7 +17916,12 @@
             "source": "hcloud server-type describe $SERVERTYPE"
           }
         ]
-      }
+      },
+      "servers": [
+        {
+          "url": "https://api.hetzner.cloud/v1"
+        }
+      ]
     },
     "/servers": {
       "get": {
@@ -16713,7 +18303,12 @@
             "source": "hcloud server create \\\n    --automount=false \\\n    --datacenter nbg1-dc3 \\\n    --firewall 38 \\\n    --image ubuntu-20.04 \\\n    --label \"environment=prod\" \\\n    --label \"example.com/my=label\" \\\n    --label \"just-a-key=\" \\\n    --location nbg1 \\\n    --name my-server \\\n    --network 456 \\\n    --placement-group 1 \\\n    --without-ipv4 \\\n    --without-ipv6 \\\n    --type cx22 \\\n    --ssh-key my-ssh-key \\\n    --start-after-create \\\n    --volume 123 \\\n    --user-data-from-file <(printf '#cloud-config\\nruncmd:\\n- [touch, /root/cloud-init-worked]\\n')"
           }
         ]
-      }
+      },
+      "servers": [
+        {
+          "url": "https://api.hetzner.cloud/v1"
+        }
+      ]
     },
     "/servers/{id}": {
       "delete": {
@@ -16880,7 +18475,12 @@
             "source": "hcloud server update $SERVER --name \"my-server\"\nhcloud server add-label --overwrite $SERVER \\\n    \"environment=prod\" \"example.com/my=label\" \"just-a-key=\"\nhcloud server remove-label $SERVER \\\n    \"environment\" \"example.com\" \"just-a-key\""
           }
         ]
-      }
+      },
+      "servers": [
+        {
+          "url": "https://api.hetzner.cloud/v1"
+        }
+      ]
     },
     "/servers/{id}/actions": {
       "get": {
@@ -16888,12 +18488,12 @@
         "operationId": "list_actions_for_server",
         "parameters": [
           {
-            "description": "ID of the Server",
+            "description": "ID of the Server.",
             "in": "path",
             "name": "id",
             "required": true,
             "schema": {
-              "description": "ID of the Server. Limited to 52 bits to ensure compatability with JSON double precision floats.",
+              "description": "ID of the Server.",
               "example": 42,
               "format": "int64",
               "maximum": 9007199254740991,
@@ -17021,7 +18621,12 @@
         "tags": [
           "servers"
         ]
-      }
+      },
+      "servers": [
+        {
+          "url": "https://api.hetzner.cloud/v1"
+        }
+      ]
     },
     "/servers/{id}/actions/{action_id}": {
       "get": {
@@ -17091,7 +18696,12 @@
         "tags": [
           "servers"
         ]
-      }
+      },
+      "servers": [
+        {
+          "url": "https://api.hetzner.cloud/v1"
+        }
+      ]
     },
     "/servers/{id}/actions/add_to_placement_group": {
       "post": {
@@ -17174,7 +18784,12 @@
             "source": "hcloud server add-to-placement-group --placement-group 1 $SERVER"
           }
         ]
-      }
+      },
+      "servers": [
+        {
+          "url": "https://api.hetzner.cloud/v1"
+        }
+      ]
     },
     "/servers/{id}/actions/attach_iso": {
       "post": {
@@ -17257,7 +18872,12 @@
             "source": "hcloud server attach-iso $SERVER \"FreeBSD-11.0-RELEASE-amd64-dvd1\""
           }
         ]
-      }
+      },
+      "servers": [
+        {
+          "url": "https://api.hetzner.cloud/v1"
+        }
+      ]
     },
     "/servers/{id}/actions/attach_to_network": {
       "post": {
@@ -17344,7 +18964,12 @@
             "source": "hcloud server attach-to-network $SERVER \\\n    --alias-ips 10.0.1.2 \\\n    --ip 10.0.1.1 \\\n    --network 4711"
           }
         ]
-      }
+      },
+      "servers": [
+        {
+          "url": "https://api.hetzner.cloud/v1"
+        }
+      ]
     },
     "/servers/{id}/actions/change_alias_ips": {
       "post": {
@@ -17431,7 +19056,12 @@
             "source": "hcloud server change-alias-ips $SERVER \\\n    --alias-ips 10.0.1.2 \\\n    --network 4711"
           }
         ]
-      }
+      },
+      "servers": [
+        {
+          "url": "https://api.hetzner.cloud/v1"
+        }
+      ]
     },
     "/servers/{id}/actions/change_dns_ptr": {
       "post": {
@@ -17515,7 +19145,12 @@
             "source": "hcloud server set-rdns $SERVER \\\n    --ip 1.2.3.4 \\\n    --hostname server01.example.com"
           }
         ]
-      }
+      },
+      "servers": [
+        {
+          "url": "https://api.hetzner.cloud/v1"
+        }
+      ]
     },
     "/servers/{id}/actions/change_protection": {
       "post": {
@@ -17598,7 +19233,12 @@
             "source": "hcloud server enable-protection $SERVER delete rebuild\nhcloud server disable-protection $SERVER delete rebuild"
           }
         ]
-      }
+      },
+      "servers": [
+        {
+          "url": "https://api.hetzner.cloud/v1"
+        }
+      ]
     },
     "/servers/{id}/actions/change_type": {
       "post": {
@@ -17681,7 +19321,12 @@
             "source": "hcloud server change-type --keep-disk $SERVER cx22"
           }
         ]
-      }
+      },
+      "servers": [
+        {
+          "url": "https://api.hetzner.cloud/v1"
+        }
+      ]
     },
     "/servers/{id}/actions/create_image": {
       "post": {
@@ -17791,7 +19436,12 @@
             "source": "hcloud server create-image $SERVER \\\n    --description \"my image\" \\\n    --label \"environment=prod\" \\\n    --label \"example.com/my=label\" \\\n    --label \"just-a-key=\" \\\n    --type snapshot"
           }
         ]
-      }
+      },
+      "servers": [
+        {
+          "url": "https://api.hetzner.cloud/v1"
+        }
+      ]
     },
     "/servers/{id}/actions/detach_from_network": {
       "post": {
@@ -17878,7 +19528,12 @@
             "source": "hcloud server detach-from-network --network 4711 $SERVER"
           }
         ]
-      }
+      },
+      "servers": [
+        {
+          "url": "https://api.hetzner.cloud/v1"
+        }
+      ]
     },
     "/servers/{id}/actions/detach_iso": {
       "post": {
@@ -17952,7 +19607,12 @@
             "source": "hcloud server detach-iso $SERVER"
           }
         ]
-      }
+      },
+      "servers": [
+        {
+          "url": "https://api.hetzner.cloud/v1"
+        }
+      ]
     },
     "/servers/{id}/actions/disable_backup": {
       "post": {
@@ -18026,7 +19686,12 @@
             "source": "hcloud server disable-backup $SERVER"
           }
         ]
-      }
+      },
+      "servers": [
+        {
+          "url": "https://api.hetzner.cloud/v1"
+        }
+      ]
     },
     "/servers/{id}/actions/disable_rescue": {
       "post": {
@@ -18100,7 +19765,12 @@
             "source": "hcloud server disable-rescue $SERVER"
           }
         ]
-      }
+      },
+      "servers": [
+        {
+          "url": "https://api.hetzner.cloud/v1"
+        }
+      ]
     },
     "/servers/{id}/actions/enable_backup": {
       "post": {
@@ -18174,7 +19844,12 @@
             "source": "hcloud server enable-backup $SERVER"
           }
         ]
-      }
+      },
+      "servers": [
+        {
+          "url": "https://api.hetzner.cloud/v1"
+        }
+      ]
     },
     "/servers/{id}/actions/enable_rescue": {
       "post": {
@@ -18258,7 +19933,12 @@
             "source": "hcloud server enable-rescue $SERVER"
           }
         ]
-      }
+      },
+      "servers": [
+        {
+          "url": "https://api.hetzner.cloud/v1"
+        }
+      ]
     },
     "/servers/{id}/actions/poweroff": {
       "post": {
@@ -18332,7 +20012,12 @@
             "source": "hcloud server poweroff $SERVER"
           }
         ]
-      }
+      },
+      "servers": [
+        {
+          "url": "https://api.hetzner.cloud/v1"
+        }
+      ]
     },
     "/servers/{id}/actions/poweron": {
       "post": {
@@ -18406,7 +20091,12 @@
             "source": "hcloud server poweron $SERVER"
           }
         ]
-      }
+      },
+      "servers": [
+        {
+          "url": "https://api.hetzner.cloud/v1"
+        }
+      ]
     },
     "/servers/{id}/actions/reboot": {
       "post": {
@@ -18480,7 +20170,12 @@
             "source": "hcloud server reboot $SERVER"
           }
         ]
-      }
+      },
+      "servers": [
+        {
+          "url": "https://api.hetzner.cloud/v1"
+        }
+      ]
     },
     "/servers/{id}/actions/rebuild": {
       "post": {
@@ -18565,7 +20260,12 @@
             "source": "hcloud server rebuild --image ubuntu-20.04 $SERVER"
           }
         ]
-      }
+      },
+      "servers": [
+        {
+          "url": "https://api.hetzner.cloud/v1"
+        }
+      ]
     },
     "/servers/{id}/actions/remove_from_placement_group": {
       "post": {
@@ -18639,7 +20339,12 @@
             "source": "hcloud server remove-from-placement-group $SERVER"
           }
         ]
-      }
+      },
+      "servers": [
+        {
+          "url": "https://api.hetzner.cloud/v1"
+        }
+      ]
     },
     "/servers/{id}/actions/request_console": {
       "post": {
@@ -18715,7 +20420,12 @@
             "source": "hcloud server request-console $SERVER"
           }
         ]
-      }
+      },
+      "servers": [
+        {
+          "url": "https://api.hetzner.cloud/v1"
+        }
+      ]
     },
     "/servers/{id}/actions/reset": {
       "post": {
@@ -18789,7 +20499,12 @@
             "source": "hcloud server reset $SERVER"
           }
         ]
-      }
+      },
+      "servers": [
+        {
+          "url": "https://api.hetzner.cloud/v1"
+        }
+      ]
     },
     "/servers/{id}/actions/reset_password": {
       "post": {
@@ -18864,7 +20579,12 @@
             "source": "hcloud server reset-password $SERVER"
           }
         ]
-      }
+      },
+      "servers": [
+        {
+          "url": "https://api.hetzner.cloud/v1"
+        }
+      ]
     },
     "/servers/{id}/actions/shutdown": {
       "post": {
@@ -18938,7 +20658,12 @@
             "source": "hcloud server shutdown $SERVER"
           }
         ]
-      }
+      },
+      "servers": [
+        {
+          "url": "https://api.hetzner.cloud/v1"
+        }
+      ]
     },
     "/servers/{id}/metrics": {
       "get": {
@@ -19033,7 +20758,12 @@
             "source": "hcloud server metrics $SERVER \\\n    --type cpu,network,disk \\\n    --start 2017-01-01T00:00:00Z \\\n    --end 2017-01-01T23:00:00Z"
           }
         ]
-      }
+      },
+      "servers": [
+        {
+          "url": "https://api.hetzner.cloud/v1"
+        }
+      ]
     },
     "/servers/actions": {
       "get": {
@@ -19156,7 +20886,12 @@
             "source": "from __future__ import annotations\n\nfrom os import environ\n\nfrom hcloud import Client\n\ntoken = environ[\"HCLOUD_TOKEN\"]\nclient = Client(token=token)\n\nactions = client.servers.actions.get_all()"
           }
         ]
-      }
+      },
+      "servers": [
+        {
+          "url": "https://api.hetzner.cloud/v1"
+        }
+      ]
     },
     "/servers/actions/{id}": {
       "get": {
@@ -19164,7 +20899,7 @@
         "operationId": "get_server_action",
         "parameters": [
           {
-            "description": "ID of the Action",
+            "description": "ID of the Action.",
             "in": "path",
             "name": "id",
             "required": true,
@@ -19205,7 +20940,12 @@
             "source": "from __future__ import annotations\n\nfrom os import environ\n\nfrom hcloud import Client\n\ntoken = environ[\"HCLOUD_TOKEN\"]\nclient = Client(token=token)\n\naction = client.servers.actions.get_by_id(123)"
           }
         ]
-      }
+      },
+      "servers": [
+        {
+          "url": "https://api.hetzner.cloud/v1"
+        }
+      ]
     },
     "/ssh_keys": {
       "get": {
@@ -19363,7 +21103,12 @@
             "source": "hcloud ssh-key create \\\n    --label \"environment=prod\" \\\n    --label \"example.com/my=label\" \\\n    --label \"just-a-key=\" \\\n    --name \"My ssh key\" \\\n    --public-key \"ssh-rsa AAAjjk76kgf...Xt\"\n#   --public-key-from-file ~/.ssh/id_rsa.pub"
           }
         ]
-      }
+      },
+      "servers": [
+        {
+          "url": "https://api.hetzner.cloud/v1"
+        }
+      ]
     },
     "/ssh_keys/{id}": {
       "delete": {
@@ -19535,7 +21280,12 @@
             "source": "hcloud ssh-key update $SSHKEY --name \"My ssh key\"\nhcloud ssh-key add-label --overwrite $SSHKEY \\\n    \"environment=prod\" \"example.com/my=label\" \"just-a-key=\"\nhcloud ssh-key remove-label $SSHKEY \\\n    \"environment\" \"example.com\" \"just-a-key\""
           }
         ]
-      }
+      },
+      "servers": [
+        {
+          "url": "https://api.hetzner.cloud/v1"
+        }
+      ]
     },
     "/volumes": {
       "get": {
@@ -19789,7 +21539,12 @@
             "source": "hcloud volume create \\\n    --automount=false \\\n    --format xfs \\\n    --label \"key=value\" \\\n    --location nbg1 \\\n    --name test-database \\\n    --size 42"
           }
         ]
-      }
+      },
+      "servers": [
+        {
+          "url": "https://api.hetzner.cloud/v1"
+        }
+      ]
     },
     "/volumes/{id}": {
       "delete": {
@@ -19977,7 +21732,12 @@
             "source": "hcloud volume update $VOLUME --name \"database-storage\"\nhcloud volume add-label --overwrite $VOLUME \\\n    \"environment=prod\" \"example.com/my=label\" \"just-a-key=\"\nhcloud volume remove-label $VOLUME \\\n    \"environment\" \"example.com\" \"just-a-key\""
           }
         ]
-      }
+      },
+      "servers": [
+        {
+          "url": "https://api.hetzner.cloud/v1"
+        }
+      ]
     },
     "/volumes/{id}/actions": {
       "get": {
@@ -20121,7 +21881,12 @@
         "tags": [
           "volumes"
         ]
-      }
+      },
+      "servers": [
+        {
+          "url": "https://api.hetzner.cloud/v1"
+        }
+      ]
     },
     "/volumes/{id}/actions/{action_id}": {
       "get": {
@@ -20191,7 +21956,12 @@
         "tags": [
           "volumes"
         ]
-      }
+      },
+      "servers": [
+        {
+          "url": "https://api.hetzner.cloud/v1"
+        }
+      ]
     },
     "/volumes/{id}/actions/attach": {
       "post": {
@@ -20278,7 +22048,12 @@
             "source": "hcloud volume attach $VOLUME \\\n    --automount=false \\\n    --server 43"
           }
         ]
-      }
+      },
+      "servers": [
+        {
+          "url": "https://api.hetzner.cloud/v1"
+        }
+      ]
     },
     "/volumes/{id}/actions/change_protection": {
       "post": {
@@ -20365,7 +22140,12 @@
             "source": "hcloud volume enable-protection $VOLUME delete\nhcloud volume disable-protection $VOLUME delete"
           }
         ]
-      }
+      },
+      "servers": [
+        {
+          "url": "https://api.hetzner.cloud/v1"
+        }
+      ]
     },
     "/volumes/{id}/actions/detach": {
       "post": {
@@ -20439,7 +22219,12 @@
             "source": "hcloud volume detach $VOLUME"
           }
         ]
-      }
+      },
+      "servers": [
+        {
+          "url": "https://api.hetzner.cloud/v1"
+        }
+      ]
     },
     "/volumes/{id}/actions/resize": {
       "post": {
@@ -20522,7 +22307,12 @@
             "source": "hcloud volume resize --size 50 $VOLUME"
           }
         ]
-      }
+      },
+      "servers": [
+        {
+          "url": "https://api.hetzner.cloud/v1"
+        }
+      ]
     },
     "/volumes/actions": {
       "get": {
@@ -20645,7 +22435,12 @@
             "source": "from __future__ import annotations\n\nfrom os import environ\n\nfrom hcloud import Client\n\ntoken = environ[\"HCLOUD_TOKEN\"]\nclient = Client(token=token)\n\nactions = client.volumes.actions.get_all()"
           }
         ]
-      }
+      },
+      "servers": [
+        {
+          "url": "https://api.hetzner.cloud/v1"
+        }
+      ]
     },
     "/volumes/actions/{id}": {
       "get": {
@@ -20653,7 +22448,7 @@
         "operationId": "get_volume_action",
         "parameters": [
           {
-            "description": "ID of the Action",
+            "description": "ID of the Action.",
             "in": "path",
             "name": "id",
             "required": true,
@@ -20694,7 +22489,2258 @@
             "source": "from __future__ import annotations\n\nfrom os import environ\n\nfrom hcloud import Client\n\ntoken = environ[\"HCLOUD_TOKEN\"]\nclient = Client(token=token)\n\naction = client.volumes.actions.get_by_id(123)"
           }
         ]
-      }
+      },
+      "servers": [
+        {
+          "url": "https://api.hetzner.cloud/v1"
+        }
+      ]
+    },
+    "/storage_box_types": {
+      "get": {
+        "description": "Gets all Storage Box type objects.",
+        "operationId": "list_storage_box_types",
+        "parameters": [
+          {
+            "description": "Filter resources by their name. The response will only contain the resources\nmatching exactly the specified name.\n",
+            "in": "query",
+            "name": "name",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Page number to return. For more information, see \"[Pagination](#pagination)\".",
+            "in": "query",
+            "name": "page",
+            "required": false,
+            "schema": {
+              "default": 1,
+              "example": 2,
+              "format": "int64",
+              "type": "integer"
+            }
+          },
+          {
+            "description": "Maximum number of entries returned per page. For more information, see \"[Pagination](#pagination)\".",
+            "in": "query",
+            "name": "per_page",
+            "required": false,
+            "schema": {
+              "default": 25,
+              "example": 25,
+              "format": "int64",
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/list_storage_box_types_response"
+                }
+              }
+            },
+            "description": "The `storage_box_types` key in the reply contains an array of Storage Box type objects with this structure."
+          }
+        },
+        "summary": "List Storage Box Types",
+        "tags": [
+          "storage_box_types"
+        ]
+      },
+      "servers": [
+        {
+          "url": "https://api.hetzner.com/v1"
+        }
+      ]
+    },
+    "/storage_box_types/{id}": {
+      "get": {
+        "description": "Gets a specific Storage Box type object.",
+        "operationId": "get_storage_box_type",
+        "parameters": [
+          {
+            "description": "ID of the Storage Box Type.",
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "description": "ID of the Storage Box Type.",
+              "example": 42,
+              "format": "int64",
+              "maximum": 9007199254740991,
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/get_storage_box_type_response"
+                }
+              }
+            },
+            "description": "The `storage_box_type` key in the reply contains a Storage Box type object with this structure."
+          }
+        },
+        "summary": "Get a Storage Box Type",
+        "tags": [
+          "storage_box_types"
+        ]
+      },
+      "servers": [
+        {
+          "url": "https://api.hetzner.com/v1"
+        }
+      ]
+    },
+    "/storage_boxes": {
+      "get": {
+        "description": "Returns all existing Storage Box objects.\n",
+        "operationId": "list_storage_boxes",
+        "parameters": [
+          {
+            "description": "Filter resources by labels. The response will only contain resources matching the\nlabel selector. For more information, see \"[Label Selector](#label-selector)\".\n",
+            "in": "query",
+            "name": "label_selector",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Filter resources by their name. The response will only contain the resources\nmatching exactly the specified name.\n",
+            "in": "query",
+            "name": "name",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Page number to return. For more information, see \"[Pagination](#pagination)\".",
+            "in": "query",
+            "name": "page",
+            "required": false,
+            "schema": {
+              "default": 1,
+              "example": 2,
+              "format": "int64",
+              "type": "integer"
+            }
+          },
+          {
+            "description": "Maximum number of entries returned per page. For more information, see \"[Pagination](#pagination)\".",
+            "in": "query",
+            "name": "per_page",
+            "required": false,
+            "schema": {
+              "default": 25,
+              "example": 25,
+              "format": "int64",
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/list_storage_boxes_response"
+                }
+              }
+            },
+            "description": "The `storage_box` key in the reply contains a Storage Box object with this structure."
+          }
+        },
+        "summary": "List Storage Boxes",
+        "tags": [
+          "storage_boxes"
+        ]
+      },
+      "post": {
+        "description": "Creates a new Storage Box. Returns an Action that covers progress of creation.",
+        "operationId": "create_storage_box",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/create_storage_box_request"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {
+                "examples": {
+                  "201": {
+                    "description": "Action successfully created.",
+                    "value": {
+                      "action": {
+                        "command": "create",
+                        "finished": null,
+                        "id": 13,
+                        "progress": 0,
+                        "resources": [
+                          {
+                            "id": 42,
+                            "type": "storage_box"
+                          }
+                        ],
+                        "started": "2016-01-30T23:50:00Z",
+                        "status": "running"
+                      },
+                      "storage_box": {
+                        "access_settings": {
+                          "reachable_externally": false,
+                          "samba_enabled": false,
+                          "ssh_enabled": false,
+                          "webdav_enabled": false,
+                          "zfs_enabled": false
+                        },
+                        "created": "2016-01-30T23:50:00Z",
+                        "id": 42,
+                        "labels": {
+                          "environment": "prod",
+                          "example.com/my": "label",
+                          "just-a-key": ""
+                        },
+                        "location": {
+                          "city": "Falkenstein",
+                          "country": "DE",
+                          "description": "Falkenstein DC Park 1",
+                          "id": 1,
+                          "latitude": 50.476119,
+                          "longitude": 12.370071,
+                          "name": "fsn1",
+                          "network_zone": "eu-central"
+                        },
+                        "name": "my-resource",
+                        "protection": {
+                          "delete": false
+                        },
+                        "server": null,
+                        "snapshot_plan": null,
+                        "stats": null,
+                        "status": "initializing",
+                        "storage_box_type": {
+                          "automatic_snapshot_limit": 10,
+                          "description": "BX20",
+                          "id": 1,
+                          "name": "bx20",
+                          "prices": [
+                            {
+                              "location": "fsn1",
+                              "price_hourly": {
+                                "gross": "0.0061",
+                                "net": "0.0051"
+                              },
+                              "price_monthly": {
+                                "gross": "3.8080",
+                                "net": "3.2000"
+                              },
+                              "setup_fee": {
+                                "gross": "0.0000",
+                                "net": "0.0000"
+                              }
+                            }
+                          ],
+                          "size": 1073741824,
+                          "snapshot_limit": 10,
+                          "subaccounts_limit": 100
+                        },
+                        "system": null
+                      }
+                    }
+                  }
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/create_storage_box_response"
+                }
+              }
+            },
+            "description": "The `action` key in the reply contains an Action object with this structure."
+          }
+        },
+        "summary": "Create a Storage Box",
+        "tags": [
+          "storage_boxes"
+        ]
+      },
+      "servers": [
+        {
+          "url": "https://api.hetzner.com/v1"
+        }
+      ]
+    },
+    "/storage_boxes/actions": {
+      "get": {
+        "description": "Returns all Action objects.",
+        "operationId": "list_storage_box_actions",
+        "parameters": [
+          {
+            "description": "Filter the actions by ID. Can be used multiple times. The response will only contain\nactions matching the specified IDs.\n",
+            "in": "query",
+            "name": "id",
+            "required": false,
+            "schema": {
+              "items": {
+                "description": "ID of the Action.",
+                "example": 42,
+                "format": "int64",
+                "maximum": 9007199254740991,
+                "type": "integer"
+              },
+              "type": "array"
+            }
+          },
+          {
+            "description": "Sort actions by field and direction. Can be used multiple times. For more\ninformation, see \"[Sorting](#sorting)\".\n",
+            "in": "query",
+            "name": "sort",
+            "required": false,
+            "schema": {
+              "items": {
+                "enum": [
+                  "id",
+                  "id:asc",
+                  "id:desc",
+                  "command",
+                  "command:asc",
+                  "command:desc",
+                  "status",
+                  "status:asc",
+                  "status:desc",
+                  "started",
+                  "started:asc",
+                  "started:desc",
+                  "finished",
+                  "finished:asc",
+                  "finished:desc"
+                ],
+                "type": "string"
+              },
+              "type": "array"
+            }
+          },
+          {
+            "description": "Filter the actions by status. Can be used multiple times. The response will only\ncontain actions matching the specified statuses.\n",
+            "in": "query",
+            "name": "status",
+            "required": false,
+            "schema": {
+              "items": {
+                "description": "Status of the Action.",
+                "enum": [
+                  "running",
+                  "success",
+                  "error"
+                ],
+                "type": "string"
+              },
+              "type": "array"
+            }
+          },
+          {
+            "description": "Page number to return. For more information, see \"[Pagination](#pagination)\".",
+            "in": "query",
+            "name": "page",
+            "required": false,
+            "schema": {
+              "default": 1,
+              "example": 2,
+              "format": "int64",
+              "type": "integer"
+            }
+          },
+          {
+            "description": "Maximum number of entries returned per page. For more information, see \"[Pagination](#pagination)\".",
+            "in": "query",
+            "name": "per_page",
+            "required": false,
+            "schema": {
+              "default": 25,
+              "example": 25,
+              "format": "int64",
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/list_actions_response"
+                }
+              }
+            },
+            "description": "The `actions` key contains a list of Actions."
+          }
+        },
+        "summary": "List Actions",
+        "tags": [
+          "storage_boxes"
+        ]
+      },
+      "servers": [
+        {
+          "url": "https://api.hetzner.com/v1"
+        }
+      ]
+    },
+    "/storage_boxes/actions/{id}": {
+      "get": {
+        "description": "Returns a specific Action object.",
+        "operationId": "get_storage_box_action",
+        "parameters": [
+          {
+            "description": "ID of the Action.",
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "description": "ID of the Action.",
+              "example": 42,
+              "format": "int64",
+              "maximum": 9007199254740991,
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/get_action_response"
+                }
+              }
+            },
+            "description": "The `action` key in the reply has this structure."
+          }
+        },
+        "summary": "Get an Action",
+        "tags": [
+          "storage_boxes"
+        ]
+      },
+      "servers": [
+        {
+          "url": "https://api.hetzner.com/v1"
+        }
+      ]
+    },
+    "/storage_boxes/{id}": {
+      "delete": {
+        "description": "Deletes an existing Storage Box.",
+        "operationId": "delete_storage_box",
+        "parameters": [
+          {
+            "description": "ID of the Storage Box.",
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "description": "ID of the Storage Box.",
+              "example": 42,
+              "format": "int64",
+              "maximum": 9007199254740991,
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {
+                "examples": {
+                  "201": {
+                    "description": "Action successfully created.",
+                    "value": {
+                      "action": {
+                        "command": "delete",
+                        "error": null,
+                        "finished": null,
+                        "id": 13,
+                        "progress": 0,
+                        "resources": [
+                          {
+                            "id": 42,
+                            "type": "storage_box"
+                          }
+                        ],
+                        "started": "2016-01-30T23:50:00+00:00",
+                        "status": "success"
+                      }
+                    }
+                  }
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/delete_storage_box_response"
+                }
+              }
+            },
+            "description": "The `action` key in the reply contains an Action object with this structure."
+          }
+        },
+        "summary": "Delete Storage Box",
+        "tags": [
+          "storage_boxes"
+        ]
+      },
+      "get": {
+        "description": "Returns a specific Storage Box object. The Storage Box must exist inside the Project.\n",
+        "operationId": "get_storage_box",
+        "parameters": [
+          {
+            "description": "ID of the Storage Box.",
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "description": "ID of the Storage Box.",
+              "example": 42,
+              "format": "int64",
+              "maximum": 9007199254740991,
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/get_storage_box_response"
+                }
+              }
+            },
+            "description": "The `storage_box` key in the reply contains a Storage Box object with this structure."
+          }
+        },
+        "summary": "Get a Storage Box",
+        "tags": [
+          "storage_boxes"
+        ]
+      },
+      "put": {
+        "description": "Updates a Storage Box. You can update a Storage Boxes' name and labels.\n",
+        "operationId": "replace_storage_box",
+        "parameters": [
+          {
+            "description": "ID of the Storage Box.",
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "description": "ID of the Storage Box.",
+              "example": 42,
+              "format": "int64",
+              "maximum": 9007199254740991,
+              "type": "integer"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/replace_storage_box_request"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/replace_storage_box_response"
+                }
+              }
+            },
+            "description": "The `storage_box` key in the reply contains the updated Storage Box object with this structure."
+          }
+        },
+        "summary": "Update a Storage Box",
+        "tags": [
+          "storage_boxes"
+        ]
+      },
+      "servers": [
+        {
+          "url": "https://api.hetzner.com/v1"
+        }
+      ]
+    },
+    "/storage_boxes/{id}/actions": {
+      "get": {
+        "description": "List all Actions related to a specific Storage Box.",
+        "operationId": "list_actions_for_storage_box",
+        "parameters": [
+          {
+            "description": "Sort actions by field and direction. Can be used multiple times. For more\ninformation, see \"[Sorting](#sorting)\".\n",
+            "in": "query",
+            "name": "sort",
+            "required": false,
+            "schema": {
+              "items": {
+                "enum": [
+                  "id",
+                  "id:asc",
+                  "id:desc",
+                  "command",
+                  "command:asc",
+                  "command:desc",
+                  "status",
+                  "status:asc",
+                  "status:desc",
+                  "started",
+                  "started:asc",
+                  "started:desc",
+                  "finished",
+                  "finished:asc",
+                  "finished:desc"
+                ],
+                "type": "string"
+              },
+              "type": "array"
+            }
+          },
+          {
+            "description": "Filter the actions by status. Can be used multiple times. The response will only\ncontain actions matching the specified statuses.\n",
+            "in": "query",
+            "name": "status",
+            "required": false,
+            "schema": {
+              "items": {
+                "description": "Status of the Action.",
+                "enum": [
+                  "running",
+                  "success",
+                  "error"
+                ],
+                "type": "string"
+              },
+              "type": "array"
+            }
+          },
+          {
+            "description": "ID of the Storage Box.",
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "description": "ID of the Storage Box.",
+              "example": 42,
+              "format": "int64",
+              "maximum": 9007199254740991,
+              "type": "integer"
+            }
+          },
+          {
+            "description": "Page number to return. For more information, see \"[Pagination](#pagination)\".",
+            "in": "query",
+            "name": "page",
+            "required": false,
+            "schema": {
+              "default": 1,
+              "example": 2,
+              "format": "int64",
+              "type": "integer"
+            }
+          },
+          {
+            "description": "Maximum number of entries returned per page. For more information, see \"[Pagination](#pagination)\".",
+            "in": "query",
+            "name": "per_page",
+            "required": false,
+            "schema": {
+              "default": 25,
+              "example": 25,
+              "format": "int64",
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/list_actions_response"
+                }
+              }
+            },
+            "description": "The `actions` key contains a list of Actions."
+          }
+        },
+        "summary": "List Actions for a Storage Box",
+        "tags": [
+          "storage_boxes"
+        ]
+      },
+      "servers": [
+        {
+          "url": "https://api.hetzner.com/v1"
+        }
+      ]
+    },
+    "/storage_boxes/{id}/actions/change_protection": {
+      "post": {
+        "description": "Changes the protection configuration of the Storage Box.",
+        "operationId": "change_storage_box_protection",
+        "parameters": [
+          {
+            "description": "ID of the Storage Box.",
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "description": "ID of the Storage Box.",
+              "example": 42,
+              "format": "int64",
+              "maximum": 9007199254740991,
+              "type": "integer"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/change_storage_box_protection_request"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {
+                "examples": {
+                  "201": {
+                    "description": "Action successfully created.",
+                    "value": {
+                      "action": {
+                        "command": "change_protection",
+                        "error": null,
+                        "finished": null,
+                        "id": 13,
+                        "progress": 0,
+                        "resources": [
+                          {
+                            "id": 42,
+                            "type": "storage_box"
+                          }
+                        ],
+                        "started": "2016-01-30T23:50:00+00:00",
+                        "status": "success"
+                      }
+                    }
+                  }
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/change_storage_box_protection_response"
+                }
+              }
+            },
+            "description": "The `action` key in the reply contains an Action object with this structure."
+          }
+        },
+        "summary": "Change Storage Box Protection",
+        "tags": [
+          "storage_boxes"
+        ]
+      },
+      "servers": [
+        {
+          "url": "https://api.hetzner.com/v1"
+        }
+      ]
+    },
+    "/storage_boxes/{id}/actions/change_type": {
+      "post": {
+        "description": "Requests a Storage Box to be upgraded or downgraded to another Storage Box Type.\n\nPlease note that it is not possible to downgrade to a Storage Box Type that offers less disk space than you are currently using.\n",
+        "operationId": "change_type_of_storage_box",
+        "parameters": [
+          {
+            "description": "ID of the Storage Box.",
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "description": "ID of the Storage Box.",
+              "example": 42,
+              "format": "int64",
+              "maximum": 9007199254740991,
+              "type": "integer"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/change_type_of_storage_box_request"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {
+                "examples": {
+                  "201": {
+                    "description": "Action successfully created.",
+                    "value": {
+                      "action": {
+                        "command": "change_type",
+                        "error": {
+                          "code": "action_failed",
+                          "message": "Action failed"
+                        },
+                        "finished": null,
+                        "id": 13,
+                        "progress": 0,
+                        "resources": [
+                          {
+                            "id": 42,
+                            "type": "storage_box"
+                          }
+                        ],
+                        "started": "2016-01-30T23:50:00+00:00",
+                        "status": "running"
+                      }
+                    }
+                  }
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/change_type_of_storage_box_response"
+                }
+              }
+            },
+            "description": "The `action` key in the reply contains an Action object with this structure."
+          }
+        },
+        "summary": "Change the Type of a Storage Box",
+        "tags": [
+          "storage_boxes"
+        ]
+      },
+      "servers": [
+        {
+          "url": "https://api.hetzner.com/v1"
+        }
+      ]
+    },
+    "/storage_boxes/{id}/actions/disable_snapshot_plan": {
+      "post": {
+        "description": "Disables the active Snapshot Plan.\n\nThis action doesn't result in the deletion of the Snapshots created by the Snapshot Plan. They must be removed manually.\n",
+        "operationId": "disable_snapshot_plan",
+        "parameters": [
+          {
+            "description": "ID of the Storage Box.",
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "description": "ID of the Storage Box.",
+              "example": 42,
+              "format": "int64",
+              "maximum": 9007199254740991,
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {
+                "examples": {
+                  "201": {
+                    "description": "Action successfully created.",
+                    "value": {
+                      "action": {
+                        "command": "disable_snapshot_plan",
+                        "error": {
+                          "code": "action_failed",
+                          "message": "Action failed"
+                        },
+                        "finished": null,
+                        "id": 13,
+                        "progress": 0,
+                        "resources": [
+                          {
+                            "id": 42,
+                            "type": "storage_box"
+                          }
+                        ],
+                        "started": "2016-01-30T23:50:00+00:00",
+                        "status": "running"
+                      }
+                    }
+                  }
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/disable_snapshot_plan_response"
+                }
+              }
+            },
+            "description": "The `action` key in the reply contains an Action object with this structure."
+          }
+        },
+        "summary": "Disable Snapshot Plan",
+        "tags": [
+          "storage_boxes"
+        ]
+      },
+      "servers": [
+        {
+          "url": "https://api.hetzner.com/v1"
+        }
+      ]
+    },
+    "/storage_boxes/{id}/actions/enable_snapshot_plan": {
+      "post": {
+        "description": "Enables a Snapshot Plan for a given StorageBox. Once enabled, a Snapshot Plan will create Snapshots at predefined intervals.\nThere can only ever be one Snapshot Plan. The existing Snapshot Plan will be deleted before a new one is set up.\n\nAutomatic Snapshots are retained until explicitly deleted by the user or the maximum snapshot count for the plan (\"max_snapshots\") is exceeded.\n\nYou can choose the specific time (UTC timezone), day of the week, and day of the month. The time-related options are cron like. Some typical use cases include:\n\n| Interval                                   | Request body                                                  |\n| ------------------------------------------ | ------------------------------------------------------------- |\n| Every day at 3 o'clock                     | `{\"max_snapshots\":10,\"minute\":0,\"hour\":3}`                    |\n| Every Friday at 3 o'clock                  | `{\"max_snapshots\":10,\"minute\":0,\"hour\":3,\"day_of_week\": 5}`   |\n| On the first of every month at half past 6 | `{\"max_snapshots\":10,\"minute\":30,\"hour\":6,\"day_of_month\": 1}` |\n",
+        "operationId": "enable_snapshot_plan",
+        "parameters": [
+          {
+            "description": "ID of the Storage Box.",
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "description": "ID of the Storage Box.",
+              "example": 42,
+              "format": "int64",
+              "maximum": 9007199254740991,
+              "type": "integer"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/enable_snapshot_plan_request"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {
+                "examples": {
+                  "201": {
+                    "description": "Action successfully created.",
+                    "value": {
+                      "action": {
+                        "command": "enable_snapshot_plan",
+                        "error": {
+                          "code": "action_failed",
+                          "message": "Action failed"
+                        },
+                        "finished": null,
+                        "id": 13,
+                        "progress": 0,
+                        "resources": [
+                          {
+                            "id": 42,
+                            "type": "storage_box"
+                          }
+                        ],
+                        "started": "2016-01-30T23:50:00+00:00",
+                        "status": "running"
+                      }
+                    }
+                  }
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/enable_snapshot_plan_response"
+                }
+              }
+            },
+            "description": "The `action` key in the reply contains an Action object with this structure."
+          }
+        },
+        "summary": "Enable Snapshot Plan",
+        "tags": [
+          "storage_boxes"
+        ]
+      },
+      "servers": [
+        {
+          "url": "https://api.hetzner.com/v1"
+        }
+      ]
+    },
+    "/storage_boxes/{id}/actions/reset_password": {
+      "post": {
+        "description": "Reset the password of the given Storage Box.\n",
+        "operationId": "reset_storage_box_password",
+        "parameters": [
+          {
+            "description": "ID of the Storage Box.",
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "description": "ID of the Storage Box.",
+              "example": 42,
+              "format": "int64",
+              "maximum": 9007199254740991,
+              "type": "integer"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/reset_password_request"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {
+                "examples": {
+                  "201": {
+                    "description": "Action successfully created.",
+                    "value": {
+                      "action": {
+                        "command": "reset_password",
+                        "error": {
+                          "code": "action_failed",
+                          "message": "Action failed"
+                        },
+                        "finished": null,
+                        "id": 13,
+                        "progress": 0,
+                        "resources": [
+                          {
+                            "id": 42,
+                            "type": "storage_box"
+                          }
+                        ],
+                        "started": "2016-01-30T23:50:00+00:00",
+                        "status": "running"
+                      }
+                    }
+                  }
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/reset_password_response"
+                }
+              }
+            },
+            "description": "The `action` key in the reply contains an Action object with this structure."
+          }
+        },
+        "summary": "Reset Password",
+        "tags": [
+          "storage_boxes"
+        ]
+      },
+      "servers": [
+        {
+          "url": "https://api.hetzner.com/v1"
+        }
+      ]
+    },
+    "/storage_boxes/{id}/actions/rollback_snapshot": {
+      "post": {
+        "description": "Rolls back the Storage Box to the given Snapshot.\n\nThis action will remove all newer Snapshots and irrevocably delete all data that was since written to the Storage Box.\n",
+        "operationId": "rollback_snapshot",
+        "parameters": [
+          {
+            "description": "ID of the Storage Box.",
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "description": "ID of the Storage Box.",
+              "example": 42,
+              "format": "int64",
+              "maximum": 9007199254740991,
+              "type": "integer"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/rollback_snapshot_request"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {
+                "examples": {
+                  "201": {
+                    "description": "Action successfully created.",
+                    "value": {
+                      "action": {
+                        "command": "rollback_snapshot",
+                        "error": {
+                          "code": "action_failed",
+                          "message": "Action failed"
+                        },
+                        "finished": null,
+                        "id": 13,
+                        "progress": 0,
+                        "resources": [
+                          {
+                            "id": 42,
+                            "type": "storage_box"
+                          },
+                          {
+                            "id": 42,
+                            "type": "snapshot"
+                          }
+                        ],
+                        "started": "2016-01-30T23:50:00+00:00",
+                        "status": "running"
+                      }
+                    }
+                  }
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/rollback_snapshot_response"
+                }
+              }
+            },
+            "description": "The `action` key in the reply contains an Action object with this structure."
+          }
+        },
+        "summary": "Rollback Snapshot",
+        "tags": [
+          "storage_boxes"
+        ]
+      },
+      "servers": [
+        {
+          "url": "https://api.hetzner.com/v1"
+        }
+      ]
+    },
+    "/storage_boxes/{id}/actions/update_access_settings": {
+      "post": {
+        "description": "Update access settings of the primary Storage Box account.\n\nThis endpoints supports partial updates. Omitted optional parameters do not result in any changes to the respective properties.\n",
+        "operationId": "update_storage_box_access_settings",
+        "parameters": [
+          {
+            "description": "ID of the Storage Box.",
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "description": "ID of the Storage Box.",
+              "example": 42,
+              "format": "int64",
+              "maximum": 9007199254740991,
+              "type": "integer"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/update_access_settings_request"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {
+                "examples": {
+                  "201": {
+                    "description": "Action successfully created.",
+                    "value": {
+                      "action": {
+                        "command": "update_access_settings",
+                        "error": {
+                          "code": "action_failed",
+                          "message": "Action failed"
+                        },
+                        "finished": null,
+                        "id": 13,
+                        "progress": 0,
+                        "resources": [
+                          {
+                            "id": 42,
+                            "type": "storage_box"
+                          }
+                        ],
+                        "started": "2016-01-30T23:50:00+00:00",
+                        "status": "running"
+                      }
+                    }
+                  }
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/update_access_settings_response"
+                }
+              }
+            },
+            "description": "The `action` key in the reply contains an Action object with this structure."
+          }
+        },
+        "summary": "Update access settings",
+        "tags": [
+          "storage_boxes"
+        ]
+      },
+      "servers": [
+        {
+          "url": "https://api.hetzner.com/v1"
+        }
+      ]
+    },
+    "/storage_boxes/{id}/actions/{action_id}": {
+      "get": {
+        "description": "Returns a specific Action object for a Storage Box.",
+        "operationId": "get_action_for_storage_box",
+        "parameters": [
+          {
+            "description": "ID of the Storage Box.",
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "description": "ID of the Storage Box.",
+              "example": 42,
+              "format": "int64",
+              "maximum": 9007199254740991,
+              "type": "integer"
+            }
+          },
+          {
+            "description": "ID of the Action.",
+            "in": "path",
+            "name": "action_id",
+            "required": true,
+            "schema": {
+              "description": "ID of the Action.",
+              "example": 42,
+              "format": "int64",
+              "maximum": 9007199254740991,
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/get_action_response"
+                }
+              }
+            },
+            "description": "The `action` key in the reply has this structure."
+          }
+        },
+        "summary": "Get an Action for a Storage Box",
+        "tags": [
+          "storage_boxes"
+        ]
+      },
+      "servers": [
+        {
+          "url": "https://api.hetzner.com/v1"
+        }
+      ]
+    },
+    "/storage_boxes/{id}/folders": {
+      "get": {
+        "description": "Lists the (sub)folders contained in a Storage Box at the location specified by the path. Files are not part of the response.",
+        "operationId": "list_content_of_storage_box",
+        "parameters": [
+          {
+            "description": "ID of the Storage Box.",
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "description": "ID of the Storage Box.",
+              "example": 42,
+              "format": "int64",
+              "maximum": 9007199254740991,
+              "type": "integer"
+            }
+          },
+          {
+            "description": "Relative path for which the listing is to be made.",
+            "in": "query",
+            "name": "path",
+            "required": false,
+            "schema": {
+              "default": "",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "examples": {
+                  "200": {
+                    "description": "A list of directories the Storage Box contains.",
+                    "value": {
+                      "folders": [
+                        "offsite-backup",
+                        "photos"
+                      ]
+                    }
+                  }
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/list_content_of_storage_box_response"
+                }
+              }
+            },
+            "description": "The `folders` key lists the directories the Storage Box contains at the specified path."
+          }
+        },
+        "summary": "List content of Storage Box",
+        "tags": [
+          "storage_boxes"
+        ]
+      },
+      "servers": [
+        {
+          "url": "https://api.hetzner.com/v1"
+        }
+      ]
+    },
+    "/storage_boxes/{id}/snapshots": {
+      "get": {
+        "description": "Get all Snapshots created both manually and through the Snapshot Plan.",
+        "operationId": "list_snapshots_for_storage_box",
+        "parameters": [
+          {
+            "description": "ID of the Storage Box.",
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "description": "ID of the Storage Box.",
+              "example": 42,
+              "format": "int64",
+              "maximum": 9007199254740991,
+              "type": "integer"
+            }
+          },
+          {
+            "description": "Filter resources by their name. The response will only contain the resources\nmatching exactly the specified name.\n",
+            "in": "query",
+            "name": "name",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Filter resources by labels. The response will only contain resources matching the\nlabel selector. For more information, see \"[Label Selector](#label-selector)\".\n",
+            "in": "query",
+            "name": "label_selector",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "examples": {
+                  "200": {
+                    "value": {
+                      "snapshots": [
+                        {
+                          "created": "2025-02-12T11:35:19.000Z",
+                          "description": "my-description",
+                          "id": 1,
+                          "is_automatic": false,
+                          "labels": {
+                            "environment": "prod",
+                            "example.com/my": "label",
+                            "just-a-key": null
+                          },
+                          "name": "2025-02-12T11-35-19",
+                          "stats": {
+                            "size": 2097152,
+                            "size_filesystem": 1048576
+                          },
+                          "storage_box": 42
+                        },
+                        {
+                          "created": "2025-02-22:00:02.000Z",
+                          "description": "",
+                          "id": 2,
+                          "is_automatic": true,
+                          "labels": {
+                            "environment": "prod",
+                            "example.com/my": "label",
+                            "just-a-key": null
+                          },
+                          "name": "snapshot-daily--2025-02-12T22-00-02",
+                          "stats": {
+                            "size": 2097152,
+                            "size_filesystem": 1048576
+                          },
+                          "storage_box": 42
+                        }
+                      ]
+                    }
+                  }
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/list_snapshots_for_storage_box_response"
+                }
+              }
+            },
+            "description": "The `snapshots` key contains a list of Snapshots."
+          }
+        },
+        "summary": "List Snapshots for a Storage Box",
+        "tags": [
+          "storage_boxes"
+        ]
+      },
+      "post": {
+        "description": "Creates a new Snapshot.\n",
+        "operationId": "create_snapshot",
+        "parameters": [
+          {
+            "description": "ID of the Storage Box.",
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "description": "ID of the Storage Box.",
+              "example": 42,
+              "format": "int64",
+              "maximum": 9007199254740991,
+              "type": "integer"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/create_snapshot_request"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {
+                "examples": {
+                  "201": {
+                    "description": "Action successfully created.",
+                    "value": {
+                      "action": {
+                        "command": "create_snapshot",
+                        "error": {
+                          "code": "action_failed",
+                          "message": "Action failed"
+                        },
+                        "finished": null,
+                        "id": 13,
+                        "progress": 0,
+                        "resources": [
+                          {
+                            "id": 42,
+                            "type": "storage_box"
+                          },
+                          {
+                            "id": 43,
+                            "type": "storage_box_snapshot"
+                          }
+                        ],
+                        "started": "2016-01-30T23:50:00+00:00",
+                        "status": "running"
+                      },
+                      "snapshot": {
+                        "id": 42,
+                        "storage_box": 43
+                      }
+                    }
+                  }
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/create_snapshot_response"
+                }
+              }
+            },
+            "description": "The `action` key in the reply contains an Action object with this structure."
+          }
+        },
+        "summary": "Create a Snapshot",
+        "tags": [
+          "storage_boxes"
+        ]
+      },
+      "servers": [
+        {
+          "url": "https://api.hetzner.com/v1"
+        }
+      ]
+    },
+    "/storage_boxes/{id}/snapshots/{snapshot_id}": {
+      "delete": {
+        "description": "Delete the given Snapshot.",
+        "operationId": "delete_snapshot",
+        "parameters": [
+          {
+            "description": "ID of the Storage Box.",
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "description": "ID of the Storage Box.",
+              "example": 42,
+              "format": "int64",
+              "maximum": 9007199254740991,
+              "type": "integer"
+            }
+          },
+          {
+            "description": "ID of the Storage Box Snapshot.",
+            "in": "path",
+            "name": "snapshot_id",
+            "required": true,
+            "schema": {
+              "description": "ID of the Storage Box Snapshot.",
+              "example": 42,
+              "format": "int64",
+              "maximum": 9007199254740991,
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {
+                "examples": {
+                  "201": {
+                    "description": "Action successfully created.",
+                    "value": {
+                      "action": {
+                        "command": "delete_snapshot",
+                        "error": {
+                          "code": "action_failed",
+                          "message": "Action failed"
+                        },
+                        "finished": null,
+                        "id": 13,
+                        "progress": 0,
+                        "resources": [
+                          {
+                            "id": 42,
+                            "type": "storage_box"
+                          },
+                          {
+                            "id": 42,
+                            "type": "storage_box_snapshot"
+                          }
+                        ],
+                        "started": "2016-01-30T23:50:00+00:00",
+                        "status": "running"
+                      }
+                    }
+                  }
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/delete_snapshot_response"
+                }
+              }
+            },
+            "description": "The `action` key in the reply contains an Action object with this structure."
+          }
+        },
+        "summary": "Delete a Snapshot",
+        "tags": [
+          "storage_boxes"
+        ]
+      },
+      "get": {
+        "description": "Returns a specific Snapshot object.",
+        "operationId": "get_snapshot",
+        "parameters": [
+          {
+            "description": "ID of the Storage Box.",
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "description": "ID of the Storage Box.",
+              "example": 42,
+              "format": "int64",
+              "maximum": 9007199254740991,
+              "type": "integer"
+            }
+          },
+          {
+            "description": "ID of the Storage Box Snapshot.",
+            "in": "path",
+            "name": "snapshot_id",
+            "required": true,
+            "schema": {
+              "description": "ID of the Storage Box Snapshot.",
+              "example": 42,
+              "format": "int64",
+              "maximum": 9007199254740991,
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/get_snapshot_response"
+                }
+              }
+            },
+            "description": "The `snapshot` key in the reply contains a Snapshot object with this structure."
+          }
+        },
+        "summary": "Get a Snapshot",
+        "tags": [
+          "storage_boxes"
+        ]
+      },
+      "put": {
+        "description": "Updates the name and labels of a Snapshot.",
+        "operationId": "replace_snapshot",
+        "parameters": [
+          {
+            "description": "ID of the Storage Box.",
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "description": "ID of the Storage Box.",
+              "example": 42,
+              "format": "int64",
+              "maximum": 9007199254740991,
+              "type": "integer"
+            }
+          },
+          {
+            "description": "ID of the Storage Box Snapshot.",
+            "in": "path",
+            "name": "snapshot_id",
+            "required": true,
+            "schema": {
+              "description": "ID of the Storage Box Snapshot.",
+              "example": 42,
+              "format": "int64",
+              "maximum": 9007199254740991,
+              "type": "integer"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/replace_snapshot_request"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/replace_snapshot_response"
+                }
+              }
+            },
+            "description": "The `snapshot` key contains the updated Snapshot."
+          }
+        },
+        "summary": "Update a Snapshot",
+        "tags": [
+          "storage_boxes"
+        ]
+      },
+      "servers": [
+        {
+          "url": "https://api.hetzner.com/v1"
+        }
+      ]
+    },
+    "/storage_boxes/{id}/subaccounts": {
+      "get": {
+        "description": "Get a list of all available Subaccounts.",
+        "operationId": "list_subaccounts_for_storage_box",
+        "parameters": [
+          {
+            "description": "ID of the Storage Box.",
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "description": "ID of the Storage Box.",
+              "example": 42,
+              "format": "int64",
+              "maximum": 9007199254740991,
+              "type": "integer"
+            }
+          },
+          {
+            "description": "Filter resources by labels. The response will only contain resources matching the\nlabel selector. For more information, see \"[Label Selector](#label-selector)\".\n",
+            "in": "query",
+            "name": "label_selector",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "examples": {
+                  "200": {
+                    "value": {
+                      "subaccounts": [
+                        {
+                          "access_settings": {
+                            "reachable_externally": true,
+                            "readonly": false,
+                            "samba_enabled": false,
+                            "ssh_enabled": true,
+                            "webdav_enabled": false
+                          },
+                          "created": "2025-02-22:00:02.000Z",
+                          "description": "host01 backup",
+                          "home_directory": "my_backups/host01.my.company",
+                          "id": 42,
+                          "labels": {
+                            "environment": "prod",
+                            "example.com/my": "label",
+                            "just-a-key": null
+                          },
+                          "server": "u1337-sub1.your-storagebox.de",
+                          "storage_box": 42,
+                          "username": "u1337-sub1"
+                        }
+                      ]
+                    }
+                  }
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/list_subaccounts_for_storage_box_response"
+                }
+              }
+            },
+            "description": "The `subaccounts` key contains a list of Subaccounts."
+          }
+        },
+        "summary": "List Subaccounts for a Storage Box",
+        "tags": [
+          "storage_boxes"
+        ]
+      },
+      "post": {
+        "description": "Creates a new Subaccount with a separate home directory.",
+        "operationId": "create_subaccount",
+        "parameters": [
+          {
+            "description": "ID of the Storage Box.",
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "description": "ID of the Storage Box.",
+              "example": 42,
+              "format": "int64",
+              "maximum": 9007199254740991,
+              "type": "integer"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/create_subaccount_request"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {
+                "examples": {
+                  "201": {
+                    "description": "Action successfully created.",
+                    "value": {
+                      "action": {
+                        "command": "create_subaccount",
+                        "error": {
+                          "code": "action_failed",
+                          "message": "Action failed"
+                        },
+                        "finished": null,
+                        "id": 13,
+                        "progress": 0,
+                        "resources": [
+                          {
+                            "id": 42,
+                            "type": "storage_box"
+                          },
+                          {
+                            "id": 43,
+                            "type": "storage_box_subaccount"
+                          }
+                        ],
+                        "started": "2016-01-30T23:50:00+00:00",
+                        "status": "running"
+                      },
+                      "subaccount": {
+                        "id": 42,
+                        "storage_box": 43
+                      }
+                    }
+                  }
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/create_subaccount_response"
+                }
+              }
+            },
+            "description": "The `action` key in the reply contains an Action object with this structure."
+          }
+        },
+        "summary": "Create Subaccount",
+        "tags": [
+          "storage_boxes"
+        ]
+      },
+      "servers": [
+        {
+          "url": "https://api.hetzner.com/v1"
+        }
+      ]
+    },
+    "/storage_boxes/{id}/subaccounts/{subaccount_id}": {
+      "delete": {
+        "description": "Deletes an existing subaccount.",
+        "operationId": "delete_subaccount",
+        "parameters": [
+          {
+            "description": "ID of the Storage Box.",
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "description": "ID of the Storage Box.",
+              "example": 42,
+              "format": "int64",
+              "maximum": 9007199254740991,
+              "type": "integer"
+            }
+          },
+          {
+            "description": "ID of the Storage Box Subaccount.",
+            "in": "path",
+            "name": "subaccount_id",
+            "required": true,
+            "schema": {
+              "description": "ID of the Storage Box Subaccount.",
+              "example": 42,
+              "format": "int64",
+              "maximum": 9007199254740991,
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {
+                "examples": {
+                  "201": {
+                    "description": "Action successfully created.",
+                    "value": {
+                      "action": {
+                        "command": "delete_subaccount",
+                        "error": {
+                          "code": "action_failed",
+                          "message": "Action failed"
+                        },
+                        "finished": null,
+                        "id": 13,
+                        "progress": 0,
+                        "resources": [
+                          {
+                            "id": 42,
+                            "type": "storage_box"
+                          },
+                          {
+                            "id": 42,
+                            "type": "storage_box_subaccount"
+                          }
+                        ],
+                        "started": "2016-01-30T23:50:00+00:00",
+                        "status": "running"
+                      }
+                    }
+                  }
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/delete_subaccount_response"
+                }
+              }
+            },
+            "description": "The `action` key in the reply contains an Action object with this structure."
+          }
+        },
+        "summary": "Delete Subaccount",
+        "tags": [
+          "storage_boxes"
+        ]
+      },
+      "get": {
+        "description": "Returns a specific Subaccount object.",
+        "operationId": "get_subaccount",
+        "parameters": [
+          {
+            "description": "ID of the Storage Box.",
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "description": "ID of the Storage Box.",
+              "example": 42,
+              "format": "int64",
+              "maximum": 9007199254740991,
+              "type": "integer"
+            }
+          },
+          {
+            "description": "ID of the Storage Box Subaccount.",
+            "in": "path",
+            "name": "subaccount_id",
+            "required": true,
+            "schema": {
+              "description": "ID of the Storage Box Subaccount.",
+              "example": 42,
+              "format": "int64",
+              "maximum": 9007199254740991,
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/get_subaccount_response"
+                }
+              }
+            },
+            "description": "The `subaccount` key in the reply contains a Subaccount object with this structure."
+          }
+        },
+        "summary": "Get a Subaccount",
+        "tags": [
+          "storage_boxes"
+        ]
+      },
+      "put": {
+        "description": "Updates the description and the labels of a Subaccount.",
+        "operationId": "replace_subaccount",
+        "parameters": [
+          {
+            "description": "ID of the Storage Box.",
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "description": "ID of the Storage Box.",
+              "example": 42,
+              "format": "int64",
+              "maximum": 9007199254740991,
+              "type": "integer"
+            }
+          },
+          {
+            "description": "ID of the Storage Box Subaccount.",
+            "in": "path",
+            "name": "subaccount_id",
+            "required": true,
+            "schema": {
+              "description": "ID of the Storage Box Subaccount.",
+              "example": 42,
+              "format": "int64",
+              "maximum": 9007199254740991,
+              "type": "integer"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/replace_subaccount_request"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/replace_subaccount_response"
+                }
+              }
+            },
+            "description": "The `subaccount` key contains the updated Subaccount."
+          }
+        },
+        "summary": "Update Subaccount",
+        "tags": [
+          "storage_boxes"
+        ]
+      },
+      "servers": [
+        {
+          "url": "https://api.hetzner.com/v1"
+        }
+      ]
+    },
+    "/storage_boxes/{id}/subaccounts/{subaccount_id}/actions/reset_subaccount_password": {
+      "post": {
+        "description": "Reset the password of the given Subaccount.\n",
+        "operationId": "reset_storage_box_subaccount_password",
+        "parameters": [
+          {
+            "description": "ID of the Storage Box.",
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "description": "ID of the Storage Box.",
+              "example": 42,
+              "format": "int64",
+              "maximum": 9007199254740991,
+              "type": "integer"
+            }
+          },
+          {
+            "description": "ID of the Storage Box Subaccount.",
+            "in": "path",
+            "name": "subaccount_id",
+            "required": true,
+            "schema": {
+              "description": "ID of the Storage Box Subaccount.",
+              "example": 42,
+              "format": "int64",
+              "maximum": 9007199254740991,
+              "type": "integer"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/reset_password_request"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {
+                "examples": {
+                  "201": {
+                    "description": "Action successfully created.",
+                    "value": {
+                      "action": {
+                        "command": "reset_subaccount_password",
+                        "error": {
+                          "code": "action_failed",
+                          "message": "Action failed"
+                        },
+                        "finished": null,
+                        "id": 13,
+                        "progress": 0,
+                        "resources": [
+                          {
+                            "id": 42,
+                            "type": "storage_box"
+                          },
+                          {
+                            "id": 42,
+                            "type": "storage_box_subaccount"
+                          }
+                        ],
+                        "started": "2016-01-30T23:50:00+00:00",
+                        "status": "running"
+                      }
+                    }
+                  }
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/reset_password_response"
+                }
+              }
+            },
+            "description": "The `action` key in the reply contains an Action object with this structure."
+          }
+        },
+        "summary": "Reset Password",
+        "tags": [
+          "storage_boxes"
+        ]
+      },
+      "servers": [
+        {
+          "url": "https://api.hetzner.com/v1"
+        }
+      ]
+    },
+    "/storage_boxes/{id}/subaccounts/{subaccount_id}/actions/update_access_settings": {
+      "post": {
+        "description": "Updates the access settings of a Subaccount.\n\nThis endpoints supports partial updates. Omitted optional parameters do not result in any changes to the respective properties.\n",
+        "operationId": "update_storage_box_subaccount_access_settings",
+        "parameters": [
+          {
+            "description": "ID of the Storage Box.",
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "description": "ID of the Storage Box.",
+              "example": 42,
+              "format": "int64",
+              "maximum": 9007199254740991,
+              "type": "integer"
+            }
+          },
+          {
+            "description": "ID of the Storage Box Subaccount.",
+            "in": "path",
+            "name": "subaccount_id",
+            "required": true,
+            "schema": {
+              "description": "ID of the Storage Box Subaccount.",
+              "example": 42,
+              "format": "int64",
+              "maximum": 9007199254740991,
+              "type": "integer"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/update_access_settings_request"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {
+                "examples": {
+                  "201": {
+                    "description": "Action successfully created.",
+                    "value": {
+                      "action": {
+                        "command": "update_access_settings",
+                        "error": {
+                          "code": "action_failed",
+                          "message": "Action failed"
+                        },
+                        "finished": null,
+                        "id": 13,
+                        "progress": 0,
+                        "resources": [
+                          {
+                            "id": 42,
+                            "type": "storage_box"
+                          },
+                          {
+                            "id": 42,
+                            "type": "storage_box_subaccount"
+                          }
+                        ],
+                        "started": "2016-01-30T23:50:00+00:00",
+                        "status": "running"
+                      }
+                    }
+                  }
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/update_access_settings_response"
+                }
+              }
+            },
+            "description": "The `action` key in the reply contains an Action object with this structure."
+          }
+        },
+        "summary": "Update access settings",
+        "tags": [
+          "storage_boxes"
+        ]
+      },
+      "servers": [
+        {
+          "url": "https://api.hetzner.com/v1"
+        }
+      ]
     }
   },
   "security": [

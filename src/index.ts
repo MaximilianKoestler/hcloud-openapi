@@ -14,7 +14,7 @@ import { deduplicateSchemas, fixSchema } from "./schema/transformation";
 import { OpenApiDocumentFragment } from "./types";
 
 interface Arguments {
-  source: string;
+  sources: string[];
   output?: string;
   schema_version?: string;
   list_paths?: boolean;
@@ -28,10 +28,13 @@ function parseArgs(): Arguments {
       "Convert Hetzner OpenAPI spec to better OpenAPI document"
     )
     .options({
-      source: {
-        type: "string",
+      sources: {
+        type: "array",
         describe: "URL or local file with OpenAPI spec in JSON",
-        default: "https://docs.hetzner.cloud/cloud.spec.json",
+        default: [
+          "https://docs.hetzner.cloud/cloud.spec.json",
+          "https://docs.hetzner.cloud/hetzner.spec.json",
+        ],
       },
       output: {
         alias: "o",
@@ -51,7 +54,7 @@ function parseArgs(): Arguments {
     .strict().argv;
 }
 
-async function getContents(source: string): Promise<any> {
+async function getContents(source: string): Promise<OpenApiDocumentFragment> {
   console.log(`Loading JSON from ${source}`);
   if (validUrl.isWebUri(source)) {
     return (await needle("get", source)).body;
@@ -159,15 +162,32 @@ function sortObjectRecursive(obj: OpenApiDocumentFragment) {
   return obj;
 }
 
+function isVerb(verb: string) {
+  return [
+    "delete",
+    "get",
+    "head",
+    "options",
+    "patch",
+    "post",
+    "put",
+    "trace",
+  ].includes(verb);
+}
+
 async function createComponents(document: OpenApiDocumentFragment) {
   const paths = document.paths as OpenApiDocumentFragment;
-  const base_url = "https://api.hetzner.cloud/v1";
 
   // const schemas = document.components.schemas ?? {};
   const schemas = {}; // all components in the original spec are currently not referenced
 
   for (const [path, path_obj] of Object.entries(paths)) {
+    const base_url = path_obj.servers[0].url;
     for (const [verb, verb_obj] of Object.entries(path_obj)) {
+      if (!isVerb(verb)) {
+        continue;
+      }
+
       const verb_data = verb_obj as OpenApiDocumentFragment;
 
       const id = toSchemaName("request", verb, verb_data.summary);
@@ -233,11 +253,26 @@ function transformPath(
   }
 }
 
+async function addServersToPaths(document: OpenApiDocumentFragment) {
+  const servers = document.servers as OpenApiDocumentFragment;
+  if (Array.isArray(servers) && servers.length != 1) {
+    throw new Error("Expected exactly one server");
+  }
+
+  const paths = document.paths as OpenApiDocumentFragment;
+  for (const [path, path_obj] of Object.entries(paths)) {
+    path_obj.servers = servers;
+  }
+}
+
 async function transformPaths(document: OpenApiDocumentFragment) {
   const paths = document.paths as OpenApiDocumentFragment;
 
   for (const [path, path_obj] of Object.entries(paths)) {
     for (const [verb, verb_obj] of Object.entries(path_obj)) {
+      if (!isVerb(verb)) {
+        continue;
+      }
       transformPath(path, verb, verb_obj as OpenApiDocumentFragment);
     }
   }
@@ -293,26 +328,6 @@ async function validateOpenApiDocument(document: OpenApiDocumentFragment) {
   console.log(`Found ${warnings.length} warnings and ${errors.length} errors`);
 }
 
-function overWriteMetadata(
-  document: OpenApiDocumentFragment,
-  version?: string
-) {
-  document.openapi = "3.0.3";
-  document.info = {
-    title: "Hetzner Cloud API",
-    description:
-      "Copied from the official API documentation for the Public Hetzner Cloud.",
-    contact: { url: "https://docs.hetzner.cloud/" },
-    version: version === undefined ? getVersion() : version,
-  };
-  document.servers = [
-    {
-      url: "https://api.hetzner.cloud/v1",
-      description: "Official production server",
-    },
-  ];
-}
-
 function overWriteTagList(document: OpenApiDocumentFragment) {
   const paths = document.paths as OpenApiDocumentFragment;
   const usedTags = new Set(Object.keys(paths).map(tagFromPath));
@@ -344,12 +359,62 @@ async function outputDocument(
   }
 }
 
+function mergeDocuments(
+  target: OpenApiDocumentFragment,
+  source: OpenApiDocumentFragment
+): OpenApiDocumentFragment {
+  // Merge the paths
+  target.paths = { ...(target.paths ?? {}), ...source.paths };
+
+  // Merge the components
+  target.components = {
+    ...(target.components ?? {}),
+    ...source.components,
+  };
+
+  // Merge the tags
+  target.tags = [...(target.tags ?? []), ...source.tags];
+
+  return target;
+}
+
+function defaultDocument(version?: string) {
+  return {
+    openapi: "3.0.3",
+    info: {
+      title: "Hetzner Cloud API",
+      description:
+        "Copied from the official API documentation for the Public Hetzner Cloud.",
+      contact: { url: "https://docs.hetzner.cloud/" },
+      version: version === undefined ? getVersion() : version,
+    },
+    servers: [
+      {
+        url: "https://api.hetzner.cloud/v1",
+        description: "Hetzner Cloud API",
+      },
+      {
+        url: "https://api.hetzner.com/v1",
+        description: "Hetzner API",
+      },
+    ],
+    security: [
+      {
+        APIToken: [],
+      },
+    ],
+  } as OpenApiDocumentFragment;
+}
+
 async function main() {
   const args = parseArgs();
-
   try {
-    // load document from source
-    let document = (await getContents(args.source)) as OpenApiDocumentFragment;
+    let document = defaultDocument(args.schema_version);
+    for (const source of args.sources) {
+      let documentPart = await getContents(source);
+      await addServersToPaths(documentPart);
+      document = mergeDocuments(document, documentPart);
+    }
 
     await preTransformDocument(document);
 
@@ -360,8 +425,6 @@ async function main() {
     // apply transformations from `resources/document_transformations.json`
     await transformDocument(document);
 
-    // overwrite various spec parts
-    overWriteMetadata(document, args.schema_version);
     overWriteTagList(document);
 
     // keep order of paths stable
@@ -394,7 +457,7 @@ async function main() {
 
     if (args.list_paths) {
       Object.keys(document.paths).forEach((path) => {
-        const verbs = Object.keys(document.paths[path]);
+        const verbs = Object.keys(document.paths[path]).filter(isVerb);
         console.log(
           `${path} (${verbs.map((verb) => verb.toUpperCase()).join(", ")})`
         );
