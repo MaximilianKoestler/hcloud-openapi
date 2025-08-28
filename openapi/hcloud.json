@@ -6,7 +6,7 @@
     },
     "description": "Copied from the official API documentation for the Public Hetzner Cloud.",
     "title": "Hetzner Cloud API",
-    "version": "ca06c22"
+    "version": "ed82782"
   },
   "servers": [
     {
@@ -7556,6 +7556,7 @@
           "username",
           "home_directory",
           "server",
+          "access_settings",
           "description",
           "labels",
           "created",
