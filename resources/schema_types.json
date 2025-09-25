@@ -64,6 +64,14 @@
     ]
   },
   {
+    "name": "deprecation_info_server_types_deprecated",
+    "path": [
+      "list_server_types_response",
+      "server_types",
+      "deprecation"
+    ]
+  },
+  {
     "name": "dns_ptr",
     "path": [
       "list_floating_ips_response",
@@ -432,6 +440,14 @@
     "path": [
       "list_server_types_response",
       "server_types"
+    ]
+  },
+  {
+    "name": "server_type_location",
+    "path": [
+      "list_server_types_response",
+      "server_types",
+      "locations"
     ]
   },
   {

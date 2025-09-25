@@ -6,7 +6,7 @@
     },
     "description": "Copied from the official API documentation for the Public Hetzner Cloud.",
     "title": "Hetzner Cloud API",
-    "version": "97c8cb4"
+    "version": "9501eb7-dirty"
   },
   "servers": [
     {
@@ -2541,6 +2541,31 @@
       },
       "deprecation_info": {
         "description": "Describes if, when and how the resource is deprecated. If this field is\nset to `null` the resource is not deprecated. If a value is set, it is\nconsidered deprecated.\n",
+        "nullable": true,
+        "properties": {
+          "announced": {
+            "description": "Date of the deprecation announcement.\n",
+            "example": "2023-06-01T00:00:00+00:00",
+            "format": "iso-8601",
+            "type": "string"
+          },
+          "unavailable_after": {
+            "description": "Date of the deprecated resource removal.\n\nOnce this date is reached, the resource will not be returned\nby resource type \"list\" endpoint, and the resource can not be\nused to create new resources. For example, if this is an\nimage, you can not create new servers with this image after\nthe mentioned date.\n",
+            "example": "2023-09-01T00:00:00+00:00",
+            "format": "iso-8601",
+            "type": "string"
+          }
+        },
+        "required": [
+          "unavailable_after",
+          "announced"
+        ],
+        "title": "DeprecationInfo",
+        "type": "object"
+      },
+      "deprecation_info_server_types_deprecated": {
+        "deprecated": true,
+        "description": "This field is deprecated.\n\nUse the `deprecation` object in the `locations` field instead (`.locations[].deprecation`).\n",
         "nullable": true,
         "properties": {
           "announced": {
@@ -7011,7 +7036,7 @@
             "type": "boolean"
           },
           "deprecation": {
-            "$ref": "#/components/schemas/deprecation_info"
+            "$ref": "#/components/schemas/deprecation_info_server_types_deprecated"
           },
           "description": {
             "description": "Description of the Server type.",
@@ -7029,6 +7054,13 @@
             "format": "int64",
             "maximum": 9007199254740991,
             "type": "integer"
+          },
+          "locations": {
+            "description": "Supported [Location](#locations) and per [Location](#locations) details for the [Server Type](#server-types).\n\nA [Server Type](#server-types) is:\n - only supported in the [Location](#locations) that are listed.\n - deprecated in the [Location](#locations) when the `deprecation` property is set.\n - unavailable in the [Location](#locations) when the `deprecation.unavailable_after` date is in the past.\n",
+            "items": {
+              "$ref": "#/components/schemas/server_type_location"
+            },
+            "type": "array"
           },
           "memory": {
             "description": "Memory a Server of this type will have in GB.",
@@ -7067,7 +7099,34 @@
           "prices",
           "storage_type",
           "cpu_type",
-          "architecture"
+          "architecture",
+          "locations"
+        ],
+        "type": "object"
+      },
+      "server_type_location": {
+        "description": "A [Location](#locations) (containing only id and name) and Server Type specific metadata.\n",
+        "properties": {
+          "deprecation": {
+            "$ref": "#/components/schemas/deprecation_info"
+          },
+          "id": {
+            "description": "ID of the [Location](#locations).",
+            "example": 42,
+            "format": "int64",
+            "maximum": 9007199254740991,
+            "type": "integer"
+          },
+          "name": {
+            "description": "Name of the [Location](#locations).",
+            "example": "fsn1",
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "deprecation"
         ],
         "type": "object"
       },
@@ -18301,6 +18360,21 @@
                       "description": "CPX11",
                       "disk": 40,
                       "id": 1,
+                      "locations": [
+                        {
+                          "deprecation": null,
+                          "id": 1,
+                          "name": "fsn1"
+                        },
+                        {
+                          "deprecation": {
+                            "announced": "2018-02-28T00:00:00Z",
+                            "unavailable_after": "2018-05-31T00:00:00Z"
+                          },
+                          "id": 2,
+                          "name": "nbg1"
+                        }
+                      ],
                       "memory": 2,
                       "name": "cpx11",
                       "prices": [
