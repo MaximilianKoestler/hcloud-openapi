@@ -6,7 +6,7 @@
     },
     "description": "Copied from the official API documentation for the Public Hetzner Cloud.",
     "title": "Hetzner Cloud API",
-    "version": "0ae53ba-dirty"
+    "version": "eff8098"
   },
   "servers": [
     {
@@ -91,7 +91,7 @@
       "name": "storage_box_types"
     },
     {
-      "description": "Storage Boxes offer storage capacity for both small and large amounts of data. Any data you save in your Storage Box is saved on several disks configured in a RAID array, increasing redundancy and fault tolerance.\n\nPlease see [Hetzner Docs](https://docs.hetzner.com/storage/storage-box) for more details about Storage Boxes.\n\n### Password policy\n\nThis policy applies to both Storage Boxes and Storage Box Subaccounts.\n\n- The password must be between 8 and 128 characters long\n- The password can only contain these characters: `a-z A-Z 0-9 ! ? . = + %% # _ * ~ & $ ( ) / [ ] { } -`\n- The password must contain at least one upper case letter, one lower case letter and one number or a special character\n- The password must not have appeared in any known data breach\n",
+      "description": "Storage Boxes offer storage capacity for both small and large amounts of data. Any data you save in your Storage Box is saved on several disks configured in a RAID array, increasing redundancy and fault tolerance.\n\nPlease see [Hetzner Docs](https://docs.hetzner.com/storage/storage-box) for more details about Storage Boxes.\n\n<h3 id=\"storage-boxes-password-policy\">Password policy</h3>\n\nThis policy applies to both Storage Boxes and Storage Box Subaccounts.\n\n- The password must be between 12 and 128 characters long\n- The password can only contain these characters: `a-z A-Z Ä Ö Ü ä ö ü ß 0-9 ^ ° ! § $ % / ( ) = ? + # - . , ; : ~ * @ { } _ &`\n- The password must contain at least one upper case letter, one lower case letter, one number, and a special character\n- The password must not have appeared in any known data breach\n",
       "name": "storage_boxes"
     },
     {
@@ -2098,7 +2098,7 @@
             "type": "string"
           },
           "password": {
-            "description": "The password that will be set for this Storage Box.",
+            "description": "The [password](#storage-boxes-password-policy) that will be set for this Storage Box.",
             "type": "string"
           },
           "ssh_keys": {
@@ -2190,7 +2190,7 @@
             "$ref": "#/components/schemas/labels"
           },
           "password": {
-            "description": "New password.",
+            "description": "New [password](#storage-boxes-password-policy).",
             "type": "string"
           }
         },
@@ -6425,7 +6425,7 @@
         "description": "Request for POST https://api.hetzner.com/v1/storage_boxes/{id}/subaccounts/{subaccount_id}/actions/reset_subaccount_password",
         "properties": {
           "password": {
-            "description": "New password.",
+            "description": "New [password](#storage-boxes-password-policy).",
             "type": "string"
           }
         },
