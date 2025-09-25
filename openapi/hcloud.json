@@ -6,7 +6,7 @@
     },
     "description": "Copied from the official API documentation for the Public Hetzner Cloud.",
     "title": "Hetzner Cloud API",
-    "version": "eff8098"
+    "version": "97c8cb4"
   },
   "servers": [
     {
@@ -480,6 +480,11 @@
             "example": "10.0.1.1",
             "type": "string"
           },
+          "ip_range": {
+            "description": "IP range in CIDR block notation of the subnet to attach to.\n\nThis allows for auto assigning an IP address for a specific subnet.\nProviding `ip` that is not part of `ip_range` will result in an error.\n",
+            "example": "10.0.1.0/24",
+            "type": "string"
+          },
           "network": {
             "description": "ID of an existing network to attach the Load Balancer to.",
             "example": 4711,
@@ -521,6 +526,11 @@
           "ip": {
             "description": "IP to request to be assigned to this Server; if you do not provide this then you will be auto assigned an IP address.",
             "example": "10.0.1.1",
+            "type": "string"
+          },
+          "ip_range": {
+            "description": "IP range in CIDR block notation of the subnet to attach to.\n\nThis allows for auto assigning an IP address for a specific subnet.\nProviding `ip` that is not part of `ip_range` will result in an error.\n",
+            "example": "10.0.1.0/24",
             "type": "string"
           },
           "network": {
