@@ -6,7 +6,7 @@
     },
     "description": "Copied from the official API documentation for the Public Hetzner Cloud.",
     "title": "Hetzner Cloud API",
-    "version": "7cfb4a9"
+    "version": "2152ee0"
   },
   "servers": [
     {
@@ -87,7 +87,7 @@
       "name": "ssh_keys"
     },
     {
-      "description": "Storage Box types define storage products of different sizes. Each type has an hourly and a monthly cost. You will pay whichever cost is lower for your usage of this specific Storage Box. Costs may differ between Locations.\n\nAll prices are displayed in the currency of the project owner's account.\n",
+      "description": "Storage Box Types define storage products of different sizes. Each type has an hourly and a monthly cost. You will pay whichever cost is lower for your usage of this specific Storage Box. Costs may differ between Locations.\n\nAll prices are displayed in the currency of the project owner's account.\n",
       "name": "storage_box_types"
     },
     {
@@ -119,7 +119,7 @@
             "type": "string"
           },
           "id": {
-            "description": "ID of the Action.",
+            "description": "ID of the [Action](#actions).",
             "example": 42,
             "format": "int64",
             "maximum": 9007199254740991,
@@ -185,7 +185,7 @@
             "type": "string"
           },
           "id": {
-            "description": "ID of the Action.",
+            "description": "ID of the [Action](#actions).",
             "example": 42,
             "format": "int64",
             "maximum": 9007199254740991,
@@ -616,7 +616,7 @@
             "type": "string"
           },
           "id": {
-            "description": "ID of the Certificate.",
+            "description": "ID of the [Certificate](#certificates).",
             "example": 42,
             "format": "int64",
             "maximum": 9007199254740991,
@@ -1588,7 +1588,7 @@
                 "type": "string"
               },
               "id": {
-                "description": "ID of the Placement Group.",
+                "description": "ID of the [Placement Group](#placement-groups).",
                 "example": 42,
                 "format": "int64",
                 "maximum": 9007199254740991,
@@ -1739,7 +1739,7 @@
                 "type": "array"
               },
               "id": {
-                "description": "ID of the Primary IP.",
+                "description": "ID of the [Primary IP](#primary-ips).",
                 "example": 42,
                 "format": "int64",
                 "maximum": 9007199254740991,
@@ -1987,14 +1987,14 @@
           "snapshot": {
             "properties": {
               "id": {
-                "description": "ID of the Storage Box Snapshot.",
+                "description": "ID of the [Storage Box Snapshot](#storage-box-snapshots).",
                 "example": 42,
                 "format": "int64",
                 "maximum": 9007199254740991,
                 "type": "integer"
               },
               "storage_box": {
-                "description": "ID of the Storage Box.",
+                "description": "ID of the [Storage Box](#storage-boxes).",
                 "example": 42,
                 "format": "int64",
                 "maximum": 9007199254740991,
@@ -2209,14 +2209,14 @@
           "subaccount": {
             "properties": {
               "id": {
-                "description": "ID of the Storage Box Subaccount.",
+                "description": "ID of the [Storage Box Subaccount](#storage-box-subaccounts).",
                 "example": 42,
                 "format": "int64",
                 "maximum": 9007199254740991,
                 "type": "integer"
               },
               "storage_box": {
-                "description": "ID of the Storage Box.",
+                "description": "ID of the [Storage Box](#storage-boxes).",
                 "example": 42,
                 "format": "int64",
                 "maximum": 9007199254740991,
@@ -2335,7 +2335,7 @@
             "type": "string"
           },
           "id": {
-            "description": "ID of the Datacenter.",
+            "description": "ID of the [Datacenter](#datacenters).",
             "example": 42,
             "format": "int64",
             "maximum": 9007199254740991,
@@ -2868,7 +2868,7 @@
             "type": "string"
           },
           "id": {
-            "description": "ID of the Firewall.",
+            "description": "ID of the [Firewall](#firewalls).",
             "example": 42,
             "format": "int64",
             "maximum": 9007199254740991,
@@ -3059,7 +3059,7 @@
             "$ref": "#/components/schemas/location"
           },
           "id": {
-            "description": "ID of the Floating IP.",
+            "description": "ID of the [Floating IP](#floating-ips).",
             "example": 42,
             "format": "int64",
             "maximum": 9007199254740991,
@@ -3285,7 +3285,7 @@
                 "type": "string"
               },
               "id": {
-                "description": "ID of the Placement Group.",
+                "description": "ID of the [Placement Group](#placement-groups).",
                 "example": 42,
                 "format": "int64",
                 "maximum": 9007199254740991,
@@ -3384,7 +3384,7 @@
                 "type": "array"
               },
               "id": {
-                "description": "ID of the Primary IP.",
+                "description": "ID of the [Primary IP](#primary-ips).",
                 "example": 42,
                 "format": "int64",
                 "maximum": 9007199254740991,
@@ -3607,7 +3607,7 @@
             "type": "number"
           },
           "id": {
-            "description": "ID of the Image.",
+            "description": "ID of the [Image](#images).",
             "example": 42,
             "format": "int64",
             "maximum": 9007199254740991,
@@ -3744,7 +3744,7 @@
             "type": "number"
           },
           "id": {
-            "description": "ID of the Image.",
+            "description": "ID of the [Image](#images).",
             "example": 42,
             "format": "int64",
             "maximum": 9007199254740991,
@@ -3860,7 +3860,7 @@
             "type": "string"
           },
           "id": {
-            "description": "ID of the Primary IP.",
+            "description": "ID of the [Primary IP](#primary-ips).",
             "example": 42,
             "format": "int64",
             "maximum": 9007199254740991,
@@ -3897,7 +3897,7 @@
             "type": "array"
           },
           "id": {
-            "description": "ID of the Primary IP.",
+            "description": "ID of the [Primary IP](#primary-ips).",
             "example": 42,
             "format": "int64",
             "maximum": 9007199254740991,
@@ -3930,7 +3930,7 @@
             "type": "string"
           },
           "id": {
-            "description": "ID of the ISO.",
+            "description": "ID of the [ISO](#isos).",
             "example": 42,
             "format": "int64",
             "maximum": 9007199254740991,
@@ -3978,7 +3978,7 @@
             "type": "string"
           },
           "id": {
-            "description": "ID of the ISO.",
+            "description": "ID of the [ISO](#isos).",
             "example": 42,
             "format": "int64",
             "maximum": 9007199254740991,
@@ -4288,7 +4288,7 @@
                   "type": "string"
                 },
                 "id": {
-                  "description": "ID of the Placement Group.",
+                  "description": "ID of the [Placement Group](#placement-groups).",
                   "example": 42,
                   "format": "int64",
                   "maximum": 9007199254740991,
@@ -4599,7 +4599,7 @@
                   "type": "array"
                 },
                 "id": {
-                  "description": "ID of the Primary IP.",
+                  "description": "ID of the [Primary IP](#primary-ips).",
                   "example": 42,
                   "format": "int64",
                   "maximum": 9007199254740991,
@@ -4808,7 +4808,7 @@
             "type": "string"
           },
           "id": {
-            "description": "ID of the Load Balancer.",
+            "description": "ID of the [Load Balancer](#load-balancers).",
             "example": 42,
             "format": "int64",
             "maximum": 9007199254740991,
@@ -5350,7 +5350,7 @@
             "type": "string"
           },
           "id": {
-            "description": "ID of the Location.",
+            "description": "ID of the [Location](#locations).",
             "example": 42,
             "format": "int64",
             "maximum": 9007199254740991,
@@ -6066,7 +6066,7 @@
                 "type": "string"
               },
               "id": {
-                "description": "ID of the Placement Group.",
+                "description": "ID of the [Placement Group](#placement-groups).",
                 "example": 42,
                 "format": "int64",
                 "maximum": 9007199254740991,
@@ -6186,7 +6186,7 @@
                 "type": "array"
               },
               "id": {
-                "description": "ID of the Primary IP.",
+                "description": "ID of the [Primary IP](#primary-ips).",
                 "example": 42,
                 "format": "int64",
                 "maximum": 9007199254740991,
@@ -6527,7 +6527,7 @@
         "description": "ID of the Resource",
         "properties": {
           "id": {
-            "description": "ID of the Server. | ID of the [Server](#servers).",
+            "description": "ID of the [Server](#servers). | ID of the Server.",
             "example": 42,
             "format": "int64",
             "maximum": 9007199254740991,
@@ -6556,7 +6556,7 @@
         "description": "Request for POST https://api.hetzner.com/v1/storage_boxes/{id}/actions/rollback_snapshot",
         "properties": {
           "snapshot_id": {
-            "description": "ID of the Storage Box Snapshot.",
+            "description": "ID of the [Storage Box Snapshot](#storage-box-snapshots).",
             "example": 42,
             "format": "int64",
             "maximum": 9007199254740991,
@@ -6682,7 +6682,7 @@
             "$ref": "#/components/schemas/datacenter"
           },
           "id": {
-            "description": "ID of the Server.",
+            "description": "ID of the [Server](#servers).",
             "example": 42,
             "format": "int64",
             "maximum": 9007199254740991,
@@ -6746,7 +6746,7 @@
                 "type": "string"
               },
               "id": {
-                "description": "ID of the Placement Group.",
+                "description": "ID of the [Placement Group](#placement-groups).",
                 "example": 42,
                 "format": "int64",
                 "maximum": 9007199254740991,
@@ -6924,7 +6924,7 @@
             "items": {
               "properties": {
                 "id": {
-                  "description": "ID of the Firewall.",
+                  "description": "ID of the [Firewall](#firewalls).",
                   "example": 42,
                   "format": "int64",
                   "maximum": 9007199254740991,
@@ -7122,7 +7122,7 @@
             "type": "string"
           },
           "id": {
-            "description": "ID of the Storage Box Snapshot.",
+            "description": "ID of the [Storage Box Snapshot](#storage-box-snapshots).",
             "example": 42,
             "format": "int64",
             "maximum": 9007199254740991,
@@ -7144,7 +7144,7 @@
             "$ref": "#/components/schemas/snapshot_stats"
           },
           "storage_box": {
-            "description": "ID of the Storage Box.",
+            "description": "ID of the [Storage Box](#storage-boxes).",
             "example": 42,
             "format": "int64",
             "maximum": 9007199254740991,
@@ -7246,7 +7246,7 @@
             "type": "string"
           },
           "id": {
-            "description": "ID of the SSH Key.",
+            "description": "ID of the [SSH Key](#ssh-keys).",
             "example": 42,
             "format": "int64",
             "maximum": 9007199254740991,
@@ -7287,7 +7287,7 @@
             "type": "string"
           },
           "id": {
-            "description": "ID of the Storage Box.",
+            "description": "ID of the [Storage Box](#storage-boxes).",
             "example": 42,
             "format": "int64",
             "maximum": 9007199254740991,
@@ -7426,19 +7426,19 @@
             "$ref": "#/components/schemas/deprecation_info"
           },
           "description": {
-            "description": "Description of the Storage Box type.",
+            "description": "Description of the [Storage Box Type](#storage-box-types).",
             "example": "BX11",
             "type": "string"
           },
           "id": {
-            "description": "ID of the Storage Box Type.",
+            "description": "ID of the [Storage Box Type](#storage-box-types).",
             "example": 42,
             "format": "int64",
             "maximum": 9007199254740991,
             "type": "integer"
           },
           "name": {
-            "description": "Unique identifier of the Storage Box type.",
+            "description": "Name of the [Storage Box Type](#storage-box-types).",
             "example": "bx11",
             "type": "string"
           },
@@ -7524,7 +7524,7 @@
             "type": "string"
           },
           "id": {
-            "description": "ID of the Storage Box Subaccount.",
+            "description": "ID of the [Storage Box Subaccount](#storage-box-subaccounts).",
             "example": 42,
             "format": "int64",
             "maximum": 9007199254740991,
@@ -7539,7 +7539,7 @@
             "type": "string"
           },
           "storage_box": {
-            "description": "ID of the Storage Box.",
+            "description": "ID of the [Storage Box](#storage-boxes).",
             "example": 42,
             "format": "int64",
             "maximum": 9007199254740991,
@@ -7899,7 +7899,7 @@
             "type": "string"
           },
           "id": {
-            "description": "ID of the Volume.",
+            "description": "ID of the [Volume](#volumes).",
             "example": 42,
             "format": "int64",
             "maximum": 9007199254740991,
@@ -7982,7 +7982,7 @@
             "required": true,
             "schema": {
               "items": {
-                "description": "ID of the Action.",
+                "description": "ID of the [Action](#actions).",
                 "example": 42,
                 "format": "int64",
                 "maximum": 9007199254740991,
@@ -8033,7 +8033,7 @@
             "name": "id",
             "required": true,
             "schema": {
-              "description": "ID of the Action.",
+              "description": "ID of the [Action](#actions).",
               "example": 42,
               "format": "int64",
               "maximum": 9007199254740991,
@@ -8424,7 +8424,7 @@
             "name": "id",
             "required": true,
             "schema": {
-              "description": "ID of the Certificate.",
+              "description": "ID of the [Certificate](#certificates).",
               "example": 42,
               "format": "int64",
               "maximum": 9007199254740991,
@@ -8469,7 +8469,7 @@
             "name": "id",
             "required": true,
             "schema": {
-              "description": "ID of the Certificate.",
+              "description": "ID of the [Certificate](#certificates).",
               "example": 42,
               "format": "int64",
               "maximum": 9007199254740991,
@@ -8548,7 +8548,7 @@
             "name": "id",
             "required": true,
             "schema": {
-              "description": "ID of the Certificate.",
+              "description": "ID of the [Certificate](#certificates).",
               "example": 42,
               "format": "int64",
               "maximum": 9007199254740991,
@@ -8643,7 +8643,7 @@
             "name": "id",
             "required": true,
             "schema": {
-              "description": "ID of the Certificate.",
+              "description": "ID of the [Certificate](#certificates).",
               "example": 42,
               "format": "int64",
               "maximum": 9007199254740991,
@@ -8789,7 +8789,7 @@
             "name": "id",
             "required": true,
             "schema": {
-              "description": "ID of the Certificate.",
+              "description": "ID of the [Certificate](#certificates).",
               "example": 42,
               "format": "int64",
               "maximum": 9007199254740991,
@@ -8802,7 +8802,7 @@
             "name": "action_id",
             "required": true,
             "schema": {
-              "description": "ID of the Action.",
+              "description": "ID of the [Action](#actions).",
               "example": 42,
               "format": "int64",
               "maximum": 9007199254740991,
@@ -8864,7 +8864,7 @@
             "name": "id",
             "required": true,
             "schema": {
-              "description": "ID of the Certificate.",
+              "description": "ID of the [Certificate](#certificates).",
               "example": 42,
               "format": "int64",
               "maximum": 9007199254740991,
@@ -8944,7 +8944,7 @@
             "required": false,
             "schema": {
               "items": {
-                "description": "ID of the Action.",
+                "description": "ID of the [Action](#actions).",
                 "example": 42,
                 "format": "int64",
                 "maximum": 9007199254740991,
@@ -9071,7 +9071,7 @@
             "name": "id",
             "required": true,
             "schema": {
-              "description": "ID of the Action.",
+              "description": "ID of the [Action](#actions).",
               "example": 42,
               "format": "int64",
               "maximum": 9007199254740991,
@@ -9224,7 +9224,7 @@
             "name": "id",
             "required": true,
             "schema": {
-              "description": "ID of the Datacenter.",
+              "description": "ID of the [Datacenter](#datacenters).",
               "example": 42,
               "format": "int64",
               "maximum": 9007199254740991,
@@ -9467,7 +9467,7 @@
             "name": "id",
             "required": true,
             "schema": {
-              "description": "ID of the Firewall.",
+              "description": "ID of the [Firewall](#firewalls).",
               "example": 42,
               "format": "int64",
               "maximum": 9007199254740991,
@@ -9512,7 +9512,7 @@
             "name": "id",
             "required": true,
             "schema": {
-              "description": "ID of the Firewall.",
+              "description": "ID of the [Firewall](#firewalls).",
               "example": 42,
               "format": "int64",
               "maximum": 9007199254740991,
@@ -9564,7 +9564,7 @@
             "name": "id",
             "required": true,
             "schema": {
-              "description": "ID of the Firewall.",
+              "description": "ID of the [Firewall](#firewalls).",
               "example": 42,
               "format": "int64",
               "maximum": 9007199254740991,
@@ -9632,7 +9632,7 @@
             "name": "id",
             "required": true,
             "schema": {
-              "description": "ID of the Firewall.",
+              "description": "ID of the [Firewall](#firewalls).",
               "example": 42,
               "format": "int64",
               "maximum": 9007199254740991,
@@ -9778,7 +9778,7 @@
             "name": "id",
             "required": true,
             "schema": {
-              "description": "ID of the Firewall.",
+              "description": "ID of the [Firewall](#firewalls).",
               "example": 42,
               "format": "int64",
               "maximum": 9007199254740991,
@@ -9791,7 +9791,7 @@
             "name": "action_id",
             "required": true,
             "schema": {
-              "description": "ID of the Action.",
+              "description": "ID of the [Action](#actions).",
               "example": 42,
               "format": "int64",
               "maximum": 9007199254740991,
@@ -9853,7 +9853,7 @@
             "name": "id",
             "required": true,
             "schema": {
-              "description": "ID of the Firewall.",
+              "description": "ID of the [Firewall](#firewalls).",
               "example": 42,
               "format": "int64",
               "maximum": 9007199254740991,
@@ -9957,7 +9957,7 @@
             "name": "id",
             "required": true,
             "schema": {
-              "description": "ID of the Firewall.",
+              "description": "ID of the [Firewall](#firewalls).",
               "example": 42,
               "format": "int64",
               "maximum": 9007199254740991,
@@ -10061,7 +10061,7 @@
             "name": "id",
             "required": true,
             "schema": {
-              "description": "ID of the Firewall.",
+              "description": "ID of the [Firewall](#firewalls).",
               "example": 42,
               "format": "int64",
               "maximum": 9007199254740991,
@@ -10189,7 +10189,7 @@
             "required": false,
             "schema": {
               "items": {
-                "description": "ID of the Action.",
+                "description": "ID of the [Action](#actions).",
                 "example": 42,
                 "format": "int64",
                 "maximum": 9007199254740991,
@@ -10316,7 +10316,7 @@
             "name": "id",
             "required": true,
             "schema": {
-              "description": "ID of the Action.",
+              "description": "ID of the [Action](#actions).",
               "example": 42,
               "format": "int64",
               "maximum": 9007199254740991,
@@ -10577,7 +10577,7 @@
             "name": "id",
             "required": true,
             "schema": {
-              "description": "ID of the Floating IP.",
+              "description": "ID of the [Floating IP](#floating-ips).",
               "example": 42,
               "format": "int64",
               "maximum": 9007199254740991,
@@ -10622,7 +10622,7 @@
             "name": "id",
             "required": true,
             "schema": {
-              "description": "ID of the Floating IP.",
+              "description": "ID of the [Floating IP](#floating-ips).",
               "example": 42,
               "format": "int64",
               "maximum": 9007199254740991,
@@ -10674,7 +10674,7 @@
             "name": "id",
             "required": true,
             "schema": {
-              "description": "ID of the Floating IP.",
+              "description": "ID of the [Floating IP](#floating-ips).",
               "example": 42,
               "format": "int64",
               "maximum": 9007199254740991,
@@ -10776,7 +10776,7 @@
             "name": "id",
             "required": true,
             "schema": {
-              "description": "ID of the Floating IP.",
+              "description": "ID of the [Floating IP](#floating-ips).",
               "example": 42,
               "format": "int64",
               "maximum": 9007199254740991,
@@ -10925,7 +10925,7 @@
             "name": "id",
             "required": true,
             "schema": {
-              "description": "ID of the Floating IP.",
+              "description": "ID of the [Floating IP](#floating-ips).",
               "example": 42,
               "format": "int64",
               "maximum": 9007199254740991,
@@ -10938,7 +10938,7 @@
             "name": "action_id",
             "required": true,
             "schema": {
-              "description": "ID of the Action.",
+              "description": "ID of the [Action](#actions).",
               "example": 42,
               "format": "int64",
               "maximum": 9007199254740991,
@@ -11004,7 +11004,7 @@
             "name": "id",
             "required": true,
             "schema": {
-              "description": "ID of the Floating IP.",
+              "description": "ID of the [Floating IP](#floating-ips).",
               "example": 42,
               "format": "int64",
               "maximum": 9007199254740991,
@@ -11096,7 +11096,7 @@
             "name": "id",
             "required": true,
             "schema": {
-              "description": "ID of the Floating IP.",
+              "description": "ID of the [Floating IP](#floating-ips).",
               "example": 42,
               "format": "int64",
               "maximum": 9007199254740991,
@@ -11185,7 +11185,7 @@
             "name": "id",
             "required": true,
             "schema": {
-              "description": "ID of the Floating IP.",
+              "description": "ID of the [Floating IP](#floating-ips).",
               "example": 42,
               "format": "int64",
               "maximum": 9007199254740991,
@@ -11273,7 +11273,7 @@
             "name": "id",
             "required": true,
             "schema": {
-              "description": "ID of the Floating IP.",
+              "description": "ID of the [Floating IP](#floating-ips).",
               "example": 42,
               "format": "int64",
               "maximum": 9007199254740991,
@@ -11357,7 +11357,7 @@
             "required": false,
             "schema": {
               "items": {
-                "description": "ID of the Action.",
+                "description": "ID of the [Action](#actions).",
                 "example": 42,
                 "format": "int64",
                 "maximum": 9007199254740991,
@@ -11484,7 +11484,7 @@
             "name": "id",
             "required": true,
             "schema": {
-              "description": "ID of the Action.",
+              "description": "ID of the [Action](#actions).",
               "example": 42,
               "format": "int64",
               "maximum": 9007199254740991,
@@ -11724,7 +11724,7 @@
             "name": "id",
             "required": true,
             "schema": {
-              "description": "ID of the Image.",
+              "description": "ID of the [Image](#images).",
               "example": 42,
               "format": "int64",
               "maximum": 9007199254740991,
@@ -11769,7 +11769,7 @@
             "name": "id",
             "required": true,
             "schema": {
-              "description": "ID of the Image.",
+              "description": "ID of the [Image](#images).",
               "example": 42,
               "format": "int64",
               "maximum": 9007199254740991,
@@ -11821,7 +11821,7 @@
             "name": "id",
             "required": true,
             "schema": {
-              "description": "ID of the Image.",
+              "description": "ID of the [Image](#images).",
               "example": 42,
               "format": "int64",
               "maximum": 9007199254740991,
@@ -11918,7 +11918,7 @@
             "name": "id",
             "required": true,
             "schema": {
-              "description": "ID of the Image.",
+              "description": "ID of the [Image](#images).",
               "example": 42,
               "format": "int64",
               "maximum": 9007199254740991,
@@ -12063,7 +12063,7 @@
             "name": "id",
             "required": true,
             "schema": {
-              "description": "ID of the Image.",
+              "description": "ID of the [Image](#images).",
               "example": 42,
               "format": "int64",
               "maximum": 9007199254740991,
@@ -12076,7 +12076,7 @@
             "name": "action_id",
             "required": true,
             "schema": {
-              "description": "ID of the Action.",
+              "description": "ID of the [Action](#actions).",
               "example": 42,
               "format": "int64",
               "maximum": 9007199254740991,
@@ -12138,7 +12138,7 @@
             "name": "id",
             "required": true,
             "schema": {
-              "description": "ID of the Image.",
+              "description": "ID of the [Image](#images).",
               "example": 42,
               "format": "int64",
               "maximum": 9007199254740991,
@@ -12227,7 +12227,7 @@
             "required": false,
             "schema": {
               "items": {
-                "description": "ID of the Action.",
+                "description": "ID of the [Action](#actions).",
                 "example": 42,
                 "format": "int64",
                 "maximum": 9007199254740991,
@@ -12354,7 +12354,7 @@
             "name": "id",
             "required": true,
             "schema": {
-              "description": "ID of the Action.",
+              "description": "ID of the [Action](#actions).",
               "example": 42,
               "format": "int64",
               "maximum": 9007199254740991,
@@ -12511,7 +12511,7 @@
             "name": "id",
             "required": true,
             "schema": {
-              "description": "ID of the ISO.",
+              "description": "ID of the [ISO](#isos).",
               "example": 42,
               "format": "int64",
               "maximum": 9007199254740991,
@@ -12649,7 +12649,7 @@
             "name": "id",
             "required": true,
             "schema": {
-              "description": "ID of the Load Balancer Type.",
+              "description": "ID of the [Load Balancer Type](#load-balancer-types).",
               "example": 42,
               "format": "int64",
               "maximum": 9007199254740991,
@@ -13018,7 +13018,7 @@
             "name": "id",
             "required": true,
             "schema": {
-              "description": "ID of the Load Balancer.",
+              "description": "ID of the [Load Balancer](#load-balancers).",
               "example": 42,
               "format": "int64",
               "maximum": 9007199254740991,
@@ -13063,7 +13063,7 @@
             "name": "id",
             "required": true,
             "schema": {
-              "description": "ID of the Load Balancer.",
+              "description": "ID of the [Load Balancer](#load-balancers).",
               "example": 42,
               "format": "int64",
               "maximum": 9007199254740991,
@@ -13115,7 +13115,7 @@
             "name": "id",
             "required": true,
             "schema": {
-              "description": "ID of the Load Balancer.",
+              "description": "ID of the [Load Balancer](#load-balancers).",
               "example": 42,
               "format": "int64",
               "maximum": 9007199254740991,
@@ -13324,7 +13324,7 @@
             "name": "id",
             "required": true,
             "schema": {
-              "description": "ID of the Load Balancer.",
+              "description": "ID of the [Load Balancer](#load-balancers).",
               "example": 42,
               "format": "int64",
               "maximum": 9007199254740991,
@@ -13469,7 +13469,7 @@
             "name": "id",
             "required": true,
             "schema": {
-              "description": "ID of the Load Balancer.",
+              "description": "ID of the [Load Balancer](#load-balancers).",
               "example": 42,
               "format": "int64",
               "maximum": 9007199254740991,
@@ -13482,7 +13482,7 @@
             "name": "action_id",
             "required": true,
             "schema": {
-              "description": "ID of the Action.",
+              "description": "ID of the [Action](#actions).",
               "example": 42,
               "format": "int64",
               "maximum": 9007199254740991,
@@ -13544,7 +13544,7 @@
             "name": "id",
             "required": true,
             "schema": {
-              "description": "ID of the Load Balancer.",
+              "description": "ID of the [Load Balancer](#load-balancers).",
               "example": 42,
               "format": "int64",
               "maximum": 9007199254740991,
@@ -13632,7 +13632,7 @@
             "name": "id",
             "required": true,
             "schema": {
-              "description": "ID of the Load Balancer.",
+              "description": "ID of the [Load Balancer](#load-balancers).",
               "example": 42,
               "format": "int64",
               "maximum": 9007199254740991,
@@ -13720,7 +13720,7 @@
             "name": "id",
             "required": true,
             "schema": {
-              "description": "ID of the Load Balancer.",
+              "description": "ID of the [Load Balancer](#load-balancers).",
               "example": 42,
               "format": "int64",
               "maximum": 9007199254740991,
@@ -13808,7 +13808,7 @@
             "name": "id",
             "required": true,
             "schema": {
-              "description": "ID of the Load Balancer.",
+              "description": "ID of the [Load Balancer](#load-balancers).",
               "example": 42,
               "format": "int64",
               "maximum": 9007199254740991,
@@ -13896,7 +13896,7 @@
             "name": "id",
             "required": true,
             "schema": {
-              "description": "ID of the Load Balancer.",
+              "description": "ID of the [Load Balancer](#load-balancers).",
               "example": 42,
               "format": "int64",
               "maximum": 9007199254740991,
@@ -13985,7 +13985,7 @@
             "name": "id",
             "required": true,
             "schema": {
-              "description": "ID of the Load Balancer.",
+              "description": "ID of the [Load Balancer](#load-balancers).",
               "example": 42,
               "format": "int64",
               "maximum": 9007199254740991,
@@ -14073,7 +14073,7 @@
             "name": "id",
             "required": true,
             "schema": {
-              "description": "ID of the Load Balancer.",
+              "description": "ID of the [Load Balancer](#load-balancers).",
               "example": 42,
               "format": "int64",
               "maximum": 9007199254740991,
@@ -14161,7 +14161,7 @@
             "name": "id",
             "required": true,
             "schema": {
-              "description": "ID of the Load Balancer.",
+              "description": "ID of the [Load Balancer](#load-balancers).",
               "example": 42,
               "format": "int64",
               "maximum": 9007199254740991,
@@ -14249,7 +14249,7 @@
             "name": "id",
             "required": true,
             "schema": {
-              "description": "ID of the Load Balancer.",
+              "description": "ID of the [Load Balancer](#load-balancers).",
               "example": 42,
               "format": "int64",
               "maximum": 9007199254740991,
@@ -14341,7 +14341,7 @@
             "name": "id",
             "required": true,
             "schema": {
-              "description": "ID of the Load Balancer.",
+              "description": "ID of the [Load Balancer](#load-balancers).",
               "example": 42,
               "format": "int64",
               "maximum": 9007199254740991,
@@ -14424,7 +14424,7 @@
             "name": "id",
             "required": true,
             "schema": {
-              "description": "ID of the Load Balancer.",
+              "description": "ID of the [Load Balancer](#load-balancers).",
               "example": 42,
               "format": "int64",
               "maximum": 9007199254740991,
@@ -14507,7 +14507,7 @@
             "name": "id",
             "required": true,
             "schema": {
-              "description": "ID of the Load Balancer.",
+              "description": "ID of the [Load Balancer](#load-balancers).",
               "example": 42,
               "format": "int64",
               "maximum": 9007199254740991,
@@ -14595,7 +14595,7 @@
             "name": "id",
             "required": true,
             "schema": {
-              "description": "ID of the Load Balancer.",
+              "description": "ID of the [Load Balancer](#load-balancers).",
               "example": 42,
               "format": "int64",
               "maximum": 9007199254740991,
@@ -14683,7 +14683,7 @@
             "name": "id",
             "required": true,
             "schema": {
-              "description": "ID of the Load Balancer.",
+              "description": "ID of the [Load Balancer](#load-balancers).",
               "example": 42,
               "format": "int64",
               "maximum": 9007199254740991,
@@ -14785,7 +14785,7 @@
             "required": false,
             "schema": {
               "items": {
-                "description": "ID of the Action.",
+                "description": "ID of the [Action](#actions).",
                 "example": 42,
                 "format": "int64",
                 "maximum": 9007199254740991,
@@ -14912,7 +14912,7 @@
             "name": "id",
             "required": true,
             "schema": {
-              "description": "ID of the Action.",
+              "description": "ID of the [Action](#actions).",
               "example": 42,
               "format": "int64",
               "maximum": 9007199254740991,
@@ -15065,7 +15065,7 @@
             "name": "id",
             "required": true,
             "schema": {
-              "description": "ID of the Location.",
+              "description": "ID of the [Location](#locations).",
               "example": 42,
               "format": "int64",
               "maximum": 9007199254740991,
@@ -15281,7 +15281,7 @@
             "name": "id",
             "required": true,
             "schema": {
-              "description": "ID of the Network.",
+              "description": "ID of the [Network](#networks).",
               "example": 42,
               "format": "int64",
               "maximum": 9007199254740991,
@@ -15326,7 +15326,7 @@
             "name": "id",
             "required": true,
             "schema": {
-              "description": "ID of the Network.",
+              "description": "ID of the [Network](#networks).",
               "example": 42,
               "format": "int64",
               "maximum": 9007199254740991,
@@ -15378,7 +15378,7 @@
             "name": "id",
             "required": true,
             "schema": {
-              "description": "ID of the Network.",
+              "description": "ID of the [Network](#networks).",
               "example": 42,
               "format": "int64",
               "maximum": 9007199254740991,
@@ -15481,7 +15481,7 @@
             "name": "id",
             "required": true,
             "schema": {
-              "description": "ID of the Network.",
+              "description": "ID of the [Network](#networks).",
               "example": 42,
               "format": "int64",
               "maximum": 9007199254740991,
@@ -15626,7 +15626,7 @@
             "name": "id",
             "required": true,
             "schema": {
-              "description": "ID of the Network.",
+              "description": "ID of the [Network](#networks).",
               "example": 42,
               "format": "int64",
               "maximum": 9007199254740991,
@@ -15639,7 +15639,7 @@
             "name": "action_id",
             "required": true,
             "schema": {
-              "description": "ID of the Action.",
+              "description": "ID of the [Action](#actions).",
               "example": 42,
               "format": "int64",
               "maximum": 9007199254740991,
@@ -15701,7 +15701,7 @@
             "name": "id",
             "required": true,
             "schema": {
-              "description": "ID of the Network.",
+              "description": "ID of the [Network](#networks).",
               "example": 42,
               "format": "int64",
               "maximum": 9007199254740991,
@@ -15789,7 +15789,7 @@
             "name": "id",
             "required": true,
             "schema": {
-              "description": "ID of the Network.",
+              "description": "ID of the [Network](#networks).",
               "example": 42,
               "format": "int64",
               "maximum": 9007199254740991,
@@ -15877,7 +15877,7 @@
             "name": "id",
             "required": true,
             "schema": {
-              "description": "ID of the Network.",
+              "description": "ID of the [Network](#networks).",
               "example": 42,
               "format": "int64",
               "maximum": 9007199254740991,
@@ -15965,7 +15965,7 @@
             "name": "id",
             "required": true,
             "schema": {
-              "description": "ID of the Network.",
+              "description": "ID of the [Network](#networks).",
               "example": 42,
               "format": "int64",
               "maximum": 9007199254740991,
@@ -16053,7 +16053,7 @@
             "name": "id",
             "required": true,
             "schema": {
-              "description": "ID of the Network.",
+              "description": "ID of the [Network](#networks).",
               "example": 42,
               "format": "int64",
               "maximum": 9007199254740991,
@@ -16141,7 +16141,7 @@
             "name": "id",
             "required": true,
             "schema": {
-              "description": "ID of the Network.",
+              "description": "ID of the [Network](#networks).",
               "example": 42,
               "format": "int64",
               "maximum": 9007199254740991,
@@ -16230,7 +16230,7 @@
             "required": false,
             "schema": {
               "items": {
-                "description": "ID of the Action.",
+                "description": "ID of the [Action](#actions).",
                 "example": 42,
                 "format": "int64",
                 "maximum": 9007199254740991,
@@ -16357,7 +16357,7 @@
             "name": "id",
             "required": true,
             "schema": {
-              "description": "ID of the Action.",
+              "description": "ID of the [Action](#actions).",
               "example": 42,
               "format": "int64",
               "maximum": 9007199254740991,
@@ -16628,7 +16628,7 @@
             "name": "id",
             "required": true,
             "schema": {
-              "description": "ID of the Placement Group.",
+              "description": "ID of the [Placement Group](#placement-groups).",
               "example": 42,
               "format": "int64",
               "maximum": 9007199254740991,
@@ -16673,7 +16673,7 @@
             "name": "id",
             "required": true,
             "schema": {
-              "description": "ID of the Placement Group.",
+              "description": "ID of the [Placement Group](#placement-groups).",
               "example": 42,
               "format": "int64",
               "maximum": 9007199254740991,
@@ -16740,7 +16740,7 @@
             "name": "id",
             "required": true,
             "schema": {
-              "description": "ID of the Placement Group.",
+              "description": "ID of the [Placement Group](#placement-groups).",
               "example": 42,
               "format": "int64",
               "maximum": 9007199254740991,
@@ -17097,7 +17097,7 @@
             "name": "id",
             "required": true,
             "schema": {
-              "description": "ID of the Primary IP.",
+              "description": "ID of the [Primary IP](#primary-ips).",
               "example": 42,
               "format": "int64",
               "maximum": 9007199254740991,
@@ -17142,7 +17142,7 @@
             "name": "id",
             "required": true,
             "schema": {
-              "description": "ID of the Primary IP.",
+              "description": "ID of the [Primary IP](#primary-ips).",
               "example": 42,
               "format": "int64",
               "maximum": 9007199254740991,
@@ -17194,7 +17194,7 @@
             "name": "id",
             "required": true,
             "schema": {
-              "description": "ID of the Primary IP.",
+              "description": "ID of the [Primary IP](#primary-ips).",
               "example": 42,
               "format": "int64",
               "maximum": 9007199254740991,
@@ -17262,7 +17262,7 @@
             "name": "id",
             "required": true,
             "schema": {
-              "description": "ID of the Primary IP.",
+              "description": "ID of the [Primary IP](#primary-ips).",
               "example": 42,
               "format": "int64",
               "maximum": 9007199254740991,
@@ -17354,7 +17354,7 @@
             "name": "id",
             "required": true,
             "schema": {
-              "description": "ID of the Primary IP.",
+              "description": "ID of the [Primary IP](#primary-ips).",
               "example": 42,
               "format": "int64",
               "maximum": 9007199254740991,
@@ -17443,7 +17443,7 @@
             "name": "id",
             "required": true,
             "schema": {
-              "description": "ID of the Primary IP.",
+              "description": "ID of the [Primary IP](#primary-ips).",
               "example": 42,
               "format": "int64",
               "maximum": 9007199254740991,
@@ -17531,7 +17531,7 @@
             "name": "id",
             "required": true,
             "schema": {
-              "description": "ID of the Primary IP.",
+              "description": "ID of the [Primary IP](#primary-ips).",
               "example": 42,
               "format": "int64",
               "maximum": 9007199254740991,
@@ -17615,7 +17615,7 @@
             "required": false,
             "schema": {
               "items": {
-                "description": "ID of the Action.",
+                "description": "ID of the [Action](#actions).",
                 "example": 42,
                 "format": "int64",
                 "maximum": 9007199254740991,
@@ -17742,7 +17742,7 @@
             "name": "id",
             "required": true,
             "schema": {
-              "description": "ID of the Action.",
+              "description": "ID of the [Action](#actions).",
               "example": 42,
               "format": "int64",
               "maximum": 9007199254740991,
@@ -17875,7 +17875,7 @@
             "name": "id",
             "required": true,
             "schema": {
-              "description": "ID of the Server Type.",
+              "description": "ID of the [Server Type](#server-types).",
               "example": 42,
               "format": "int64",
               "maximum": 9007199254740991,
@@ -18321,7 +18321,7 @@
             "name": "id",
             "required": true,
             "schema": {
-              "description": "ID of the Server.",
+              "description": "ID of the [Server](#servers).",
               "example": 42,
               "format": "int64",
               "maximum": 9007199254740991,
@@ -18373,7 +18373,7 @@
             "name": "id",
             "required": true,
             "schema": {
-              "description": "ID of the Server.",
+              "description": "ID of the [Server](#servers).",
               "example": 42,
               "format": "int64",
               "maximum": 9007199254740991,
@@ -18425,7 +18425,7 @@
             "name": "id",
             "required": true,
             "schema": {
-              "description": "ID of the Server.",
+              "description": "ID of the [Server](#servers).",
               "example": 42,
               "format": "int64",
               "maximum": 9007199254740991,
@@ -18493,7 +18493,7 @@
             "name": "id",
             "required": true,
             "schema": {
-              "description": "ID of the Server.",
+              "description": "ID of the [Server](#servers).",
               "example": 42,
               "format": "int64",
               "maximum": 9007199254740991,
@@ -18639,7 +18639,7 @@
             "name": "id",
             "required": true,
             "schema": {
-              "description": "ID of the Server.",
+              "description": "ID of the [Server](#servers).",
               "example": 42,
               "format": "int64",
               "maximum": 9007199254740991,
@@ -18652,7 +18652,7 @@
             "name": "action_id",
             "required": true,
             "schema": {
-              "description": "ID of the Action.",
+              "description": "ID of the [Action](#actions).",
               "example": 42,
               "format": "int64",
               "maximum": 9007199254740991,
@@ -18714,7 +18714,7 @@
             "name": "id",
             "required": true,
             "schema": {
-              "description": "ID of the Server.",
+              "description": "ID of the [Server](#servers).",
               "example": 42,
               "format": "int64",
               "maximum": 9007199254740991,
@@ -18802,7 +18802,7 @@
             "name": "id",
             "required": true,
             "schema": {
-              "description": "ID of the Server.",
+              "description": "ID of the [Server](#servers).",
               "example": 42,
               "format": "int64",
               "maximum": 9007199254740991,
@@ -18890,7 +18890,7 @@
             "name": "id",
             "required": true,
             "schema": {
-              "description": "ID of the Server.",
+              "description": "ID of the [Server](#servers).",
               "example": 42,
               "format": "int64",
               "maximum": 9007199254740991,
@@ -18982,7 +18982,7 @@
             "name": "id",
             "required": true,
             "schema": {
-              "description": "ID of the Server.",
+              "description": "ID of the [Server](#servers).",
               "example": 42,
               "format": "int64",
               "maximum": 9007199254740991,
@@ -19074,7 +19074,7 @@
             "name": "id",
             "required": true,
             "schema": {
-              "description": "ID of the Server.",
+              "description": "ID of the [Server](#servers).",
               "example": 42,
               "format": "int64",
               "maximum": 9007199254740991,
@@ -19163,7 +19163,7 @@
             "name": "id",
             "required": true,
             "schema": {
-              "description": "ID of the Server.",
+              "description": "ID of the [Server](#servers).",
               "example": 42,
               "format": "int64",
               "maximum": 9007199254740991,
@@ -19251,7 +19251,7 @@
             "name": "id",
             "required": true,
             "schema": {
-              "description": "ID of the Server.",
+              "description": "ID of the [Server](#servers).",
               "example": 42,
               "format": "int64",
               "maximum": 9007199254740991,
@@ -19339,7 +19339,7 @@
             "name": "id",
             "required": true,
             "schema": {
-              "description": "ID of the Server.",
+              "description": "ID of the [Server](#servers).",
               "example": 42,
               "format": "int64",
               "maximum": 9007199254740991,
@@ -19454,7 +19454,7 @@
             "name": "id",
             "required": true,
             "schema": {
-              "description": "ID of the Server.",
+              "description": "ID of the [Server](#servers).",
               "example": 42,
               "format": "int64",
               "maximum": 9007199254740991,
@@ -19546,7 +19546,7 @@
             "name": "id",
             "required": true,
             "schema": {
-              "description": "ID of the Server.",
+              "description": "ID of the [Server](#servers).",
               "example": 42,
               "format": "int64",
               "maximum": 9007199254740991,
@@ -19625,7 +19625,7 @@
             "name": "id",
             "required": true,
             "schema": {
-              "description": "ID of the Server.",
+              "description": "ID of the [Server](#servers).",
               "example": 42,
               "format": "int64",
               "maximum": 9007199254740991,
@@ -19704,7 +19704,7 @@
             "name": "id",
             "required": true,
             "schema": {
-              "description": "ID of the Server.",
+              "description": "ID of the [Server](#servers).",
               "example": 42,
               "format": "int64",
               "maximum": 9007199254740991,
@@ -19783,7 +19783,7 @@
             "name": "id",
             "required": true,
             "schema": {
-              "description": "ID of the Server.",
+              "description": "ID of the [Server](#servers).",
               "example": 42,
               "format": "int64",
               "maximum": 9007199254740991,
@@ -19862,7 +19862,7 @@
             "name": "id",
             "required": true,
             "schema": {
-              "description": "ID of the Server.",
+              "description": "ID of the [Server](#servers).",
               "example": 42,
               "format": "int64",
               "maximum": 9007199254740991,
@@ -19951,7 +19951,7 @@
             "name": "id",
             "required": true,
             "schema": {
-              "description": "ID of the Server.",
+              "description": "ID of the [Server](#servers).",
               "example": 42,
               "format": "int64",
               "maximum": 9007199254740991,
@@ -20030,7 +20030,7 @@
             "name": "id",
             "required": true,
             "schema": {
-              "description": "ID of the Server.",
+              "description": "ID of the [Server](#servers).",
               "example": 42,
               "format": "int64",
               "maximum": 9007199254740991,
@@ -20109,7 +20109,7 @@
             "name": "id",
             "required": true,
             "schema": {
-              "description": "ID of the Server.",
+              "description": "ID of the [Server](#servers).",
               "example": 42,
               "format": "int64",
               "maximum": 9007199254740991,
@@ -20188,7 +20188,7 @@
             "name": "id",
             "required": true,
             "schema": {
-              "description": "ID of the Server.",
+              "description": "ID of the [Server](#servers).",
               "example": 42,
               "format": "int64",
               "maximum": 9007199254740991,
@@ -20278,7 +20278,7 @@
             "name": "id",
             "required": true,
             "schema": {
-              "description": "ID of the Server.",
+              "description": "ID of the [Server](#servers).",
               "example": 42,
               "format": "int64",
               "maximum": 9007199254740991,
@@ -20357,7 +20357,7 @@
             "name": "id",
             "required": true,
             "schema": {
-              "description": "ID of the Server.",
+              "description": "ID of the [Server](#servers).",
               "example": 42,
               "format": "int64",
               "maximum": 9007199254740991,
@@ -20438,7 +20438,7 @@
             "name": "id",
             "required": true,
             "schema": {
-              "description": "ID of the Server.",
+              "description": "ID of the [Server](#servers).",
               "example": 42,
               "format": "int64",
               "maximum": 9007199254740991,
@@ -20517,7 +20517,7 @@
             "name": "id",
             "required": true,
             "schema": {
-              "description": "ID of the Server.",
+              "description": "ID of the [Server](#servers).",
               "example": 42,
               "format": "int64",
               "maximum": 9007199254740991,
@@ -20597,7 +20597,7 @@
             "name": "id",
             "required": true,
             "schema": {
-              "description": "ID of the Server.",
+              "description": "ID of the [Server](#servers).",
               "example": 42,
               "format": "int64",
               "maximum": 9007199254740991,
@@ -20676,7 +20676,7 @@
             "name": "id",
             "required": true,
             "schema": {
-              "description": "ID of the Server.",
+              "description": "ID of the [Server](#servers).",
               "example": 42,
               "format": "int64",
               "maximum": 9007199254740991,
@@ -20777,7 +20777,7 @@
             "required": false,
             "schema": {
               "items": {
-                "description": "ID of the Action.",
+                "description": "ID of the [Action](#actions).",
                 "example": 42,
                 "format": "int64",
                 "maximum": 9007199254740991,
@@ -20904,7 +20904,7 @@
             "name": "id",
             "required": true,
             "schema": {
-              "description": "ID of the Action.",
+              "description": "ID of the [Action](#actions).",
               "example": 42,
               "format": "int64",
               "maximum": 9007199254740991,
@@ -21121,7 +21121,7 @@
             "name": "id",
             "required": true,
             "schema": {
-              "description": "ID of the SSH Key.",
+              "description": "ID of the [SSH Key](#ssh-keys).",
               "example": 42,
               "format": "int64",
               "maximum": 9007199254740991,
@@ -21166,7 +21166,7 @@
             "name": "id",
             "required": true,
             "schema": {
-              "description": "ID of the SSH Key.",
+              "description": "ID of the [SSH Key](#ssh-keys).",
               "example": 42,
               "format": "int64",
               "maximum": 9007199254740991,
@@ -21218,7 +21218,7 @@
             "name": "id",
             "required": true,
             "schema": {
-              "description": "ID of the SSH Key.",
+              "description": "ID of the [SSH Key](#ssh-keys).",
               "example": 42,
               "format": "int64",
               "maximum": 9007199254740991,
@@ -21557,7 +21557,7 @@
             "name": "id",
             "required": true,
             "schema": {
-              "description": "ID of the Volume.",
+              "description": "ID of the [Volume](#volumes).",
               "example": 42,
               "format": "int64",
               "maximum": 9007199254740991,
@@ -21602,7 +21602,7 @@
             "name": "id",
             "required": true,
             "schema": {
-              "description": "ID of the Volume.",
+              "description": "ID of the [Volume](#volumes).",
               "example": 42,
               "format": "int64",
               "maximum": 9007199254740991,
@@ -21654,7 +21654,7 @@
             "name": "id",
             "required": true,
             "schema": {
-              "description": "ID of the Volume.",
+              "description": "ID of the [Volume](#volumes).",
               "example": 42,
               "format": "int64",
               "maximum": 9007199254740991,
@@ -21750,7 +21750,7 @@
             "name": "id",
             "required": true,
             "schema": {
-              "description": "ID of the Volume.",
+              "description": "ID of the [Volume](#volumes).",
               "example": 42,
               "format": "int64",
               "maximum": 9007199254740991,
@@ -21899,7 +21899,7 @@
             "name": "id",
             "required": true,
             "schema": {
-              "description": "ID of the Volume.",
+              "description": "ID of the [Volume](#volumes).",
               "example": 42,
               "format": "int64",
               "maximum": 9007199254740991,
@@ -21912,7 +21912,7 @@
             "name": "action_id",
             "required": true,
             "schema": {
-              "description": "ID of the Action.",
+              "description": "ID of the [Action](#actions).",
               "example": 42,
               "format": "int64",
               "maximum": 9007199254740991,
@@ -21974,7 +21974,7 @@
             "name": "id",
             "required": true,
             "schema": {
-              "description": "ID of the Volume.",
+              "description": "ID of the [Volume](#volumes).",
               "example": 42,
               "format": "int64",
               "maximum": 9007199254740991,
@@ -22066,7 +22066,7 @@
             "name": "id",
             "required": true,
             "schema": {
-              "description": "ID of the Volume.",
+              "description": "ID of the [Volume](#volumes).",
               "example": 42,
               "format": "int64",
               "maximum": 9007199254740991,
@@ -22158,7 +22158,7 @@
             "name": "id",
             "required": true,
             "schema": {
-              "description": "ID of the Volume.",
+              "description": "ID of the [Volume](#volumes).",
               "example": 42,
               "format": "int64",
               "maximum": 9007199254740991,
@@ -22237,7 +22237,7 @@
             "name": "id",
             "required": true,
             "schema": {
-              "description": "ID of the Volume.",
+              "description": "ID of the [Volume](#volumes).",
               "example": 42,
               "format": "int64",
               "maximum": 9007199254740991,
@@ -22326,7 +22326,7 @@
             "required": false,
             "schema": {
               "items": {
-                "description": "ID of the Action.",
+                "description": "ID of the [Action](#actions).",
                 "example": 42,
                 "format": "int64",
                 "maximum": 9007199254740991,
@@ -22453,7 +22453,7 @@
             "name": "id",
             "required": true,
             "schema": {
-              "description": "ID of the Action.",
+              "description": "ID of the [Action](#actions).",
               "example": 42,
               "format": "int64",
               "maximum": 9007199254740991,
@@ -22498,7 +22498,7 @@
     },
     "/storage_box_types": {
       "get": {
-        "description": "Gets all Storage Box type objects.",
+        "description": "Returns a paginated list of [Storage Box Types](#storage-box-types).",
         "operationId": "list_storage_box_types",
         "parameters": [
           {
@@ -22544,7 +22544,7 @@
                 }
               }
             },
-            "description": "The `storage_box_types` key in the reply contains an array of Storage Box type objects with this structure."
+            "description": "Request succeeded."
           }
         },
         "summary": "List Storage Box Types",
@@ -22560,7 +22560,7 @@
     },
     "/storage_box_types/{id}": {
       "get": {
-        "description": "Gets a specific Storage Box type object.",
+        "description": "Returns a specific [Storage Box Type](#storage-box-types).",
         "operationId": "get_storage_box_type",
         "parameters": [
           {
@@ -22569,7 +22569,7 @@
             "name": "id",
             "required": true,
             "schema": {
-              "description": "ID of the Storage Box Type.",
+              "description": "ID of the [Storage Box Type](#storage-box-types).",
               "example": 42,
               "format": "int64",
               "maximum": 9007199254740991,
@@ -22586,7 +22586,7 @@
                 }
               }
             },
-            "description": "The `storage_box_type` key in the reply contains a Storage Box type object with this structure."
+            "description": "Request succeeded."
           }
         },
         "summary": "Get a Storage Box Type",
@@ -22795,7 +22795,7 @@
             "required": false,
             "schema": {
               "items": {
-                "description": "ID of the Action.",
+                "description": "ID of the [Action](#actions).",
                 "example": 42,
                 "format": "int64",
                 "maximum": 9007199254740991,
@@ -22910,7 +22910,7 @@
             "name": "id",
             "required": true,
             "schema": {
-              "description": "ID of the Action.",
+              "description": "ID of the [Action](#actions).",
               "example": 42,
               "format": "int64",
               "maximum": 9007199254740991,
@@ -22952,7 +22952,7 @@
             "name": "id",
             "required": true,
             "schema": {
-              "description": "ID of the Storage Box.",
+              "description": "ID of the [Storage Box](#storage-boxes).",
               "example": 42,
               "format": "int64",
               "maximum": 9007199254740991,
@@ -23009,7 +23009,7 @@
             "name": "id",
             "required": true,
             "schema": {
-              "description": "ID of the Storage Box.",
+              "description": "ID of the [Storage Box](#storage-boxes).",
               "example": 42,
               "format": "int64",
               "maximum": 9007199254740991,
@@ -23044,7 +23044,7 @@
             "name": "id",
             "required": true,
             "schema": {
-              "description": "ID of the Storage Box.",
+              "description": "ID of the [Storage Box](#storage-boxes).",
               "example": 42,
               "format": "int64",
               "maximum": 9007199254740991,
@@ -23143,7 +23143,7 @@
             "name": "id",
             "required": true,
             "schema": {
-              "description": "ID of the Storage Box.",
+              "description": "ID of the [Storage Box](#storage-boxes).",
               "example": 42,
               "format": "int64",
               "maximum": 9007199254740991,
@@ -23209,7 +23209,7 @@
             "name": "id",
             "required": true,
             "schema": {
-              "description": "ID of the Storage Box.",
+              "description": "ID of the [Storage Box](#storage-boxes).",
               "example": 42,
               "format": "int64",
               "maximum": 9007199254740991,
@@ -23282,7 +23282,7 @@
             "name": "id",
             "required": true,
             "schema": {
-              "description": "ID of the Storage Box.",
+              "description": "ID of the [Storage Box](#storage-boxes).",
               "example": 42,
               "format": "int64",
               "maximum": 9007199254740991,
@@ -23358,7 +23358,7 @@
             "name": "id",
             "required": true,
             "schema": {
-              "description": "ID of the Storage Box.",
+              "description": "ID of the [Storage Box](#storage-boxes).",
               "example": 42,
               "format": "int64",
               "maximum": 9007199254740991,
@@ -23425,7 +23425,7 @@
             "name": "id",
             "required": true,
             "schema": {
-              "description": "ID of the Storage Box.",
+              "description": "ID of the [Storage Box](#storage-boxes).",
               "example": 42,
               "format": "int64",
               "maximum": 9007199254740991,
@@ -23501,7 +23501,7 @@
             "name": "id",
             "required": true,
             "schema": {
-              "description": "ID of the Storage Box.",
+              "description": "ID of the [Storage Box](#storage-boxes).",
               "example": 42,
               "format": "int64",
               "maximum": 9007199254740991,
@@ -23577,7 +23577,7 @@
             "name": "id",
             "required": true,
             "schema": {
-              "description": "ID of the Storage Box.",
+              "description": "ID of the [Storage Box](#storage-boxes).",
               "example": 42,
               "format": "int64",
               "maximum": 9007199254740991,
@@ -23657,7 +23657,7 @@
             "name": "id",
             "required": true,
             "schema": {
-              "description": "ID of the Storage Box.",
+              "description": "ID of the [Storage Box](#storage-boxes).",
               "example": 42,
               "format": "int64",
               "maximum": 9007199254740991,
@@ -23733,7 +23733,7 @@
             "name": "id",
             "required": true,
             "schema": {
-              "description": "ID of the Storage Box.",
+              "description": "ID of the [Storage Box](#storage-boxes).",
               "example": 42,
               "format": "int64",
               "maximum": 9007199254740991,
@@ -23746,7 +23746,7 @@
             "name": "action_id",
             "required": true,
             "schema": {
-              "description": "ID of the Action.",
+              "description": "ID of the [Action](#actions).",
               "example": 42,
               "format": "int64",
               "maximum": 9007199254740991,
@@ -23788,7 +23788,7 @@
             "name": "id",
             "required": true,
             "schema": {
-              "description": "ID of the Storage Box.",
+              "description": "ID of the [Storage Box](#storage-boxes).",
               "example": 42,
               "format": "int64",
               "maximum": 9007199254740991,
@@ -23851,7 +23851,7 @@
             "name": "id",
             "required": true,
             "schema": {
-              "description": "ID of the Storage Box.",
+              "description": "ID of the [Storage Box](#storage-boxes).",
               "example": 42,
               "format": "int64",
               "maximum": 9007199254740991,
@@ -23946,7 +23946,7 @@
             "name": "id",
             "required": true,
             "schema": {
-              "description": "ID of the Storage Box.",
+              "description": "ID of the [Storage Box](#storage-boxes).",
               "example": 42,
               "format": "int64",
               "maximum": 9007199254740991,
@@ -24030,7 +24030,7 @@
             "name": "id",
             "required": true,
             "schema": {
-              "description": "ID of the Storage Box.",
+              "description": "ID of the [Storage Box](#storage-boxes).",
               "example": 42,
               "format": "int64",
               "maximum": 9007199254740991,
@@ -24043,7 +24043,7 @@
             "name": "snapshot_id",
             "required": true,
             "schema": {
-              "description": "ID of the Storage Box Snapshot.",
+              "description": "ID of the [Storage Box Snapshot](#storage-box-snapshots).",
               "example": 42,
               "format": "int64",
               "maximum": 9007199254740991,
@@ -24107,7 +24107,7 @@
             "name": "id",
             "required": true,
             "schema": {
-              "description": "ID of the Storage Box.",
+              "description": "ID of the [Storage Box](#storage-boxes).",
               "example": 42,
               "format": "int64",
               "maximum": 9007199254740991,
@@ -24120,7 +24120,7 @@
             "name": "snapshot_id",
             "required": true,
             "schema": {
-              "description": "ID of the Storage Box Snapshot.",
+              "description": "ID of the [Storage Box Snapshot](#storage-box-snapshots).",
               "example": 42,
               "format": "int64",
               "maximum": 9007199254740991,
@@ -24155,7 +24155,7 @@
             "name": "id",
             "required": true,
             "schema": {
-              "description": "ID of the Storage Box.",
+              "description": "ID of the [Storage Box](#storage-boxes).",
               "example": 42,
               "format": "int64",
               "maximum": 9007199254740991,
@@ -24168,7 +24168,7 @@
             "name": "snapshot_id",
             "required": true,
             "schema": {
-              "description": "ID of the Storage Box Snapshot.",
+              "description": "ID of the [Storage Box Snapshot](#storage-box-snapshots).",
               "example": 42,
               "format": "int64",
               "maximum": 9007199254740991,
@@ -24220,7 +24220,7 @@
             "name": "id",
             "required": true,
             "schema": {
-              "description": "ID of the Storage Box.",
+              "description": "ID of the [Storage Box](#storage-boxes).",
               "example": 42,
               "format": "int64",
               "maximum": 9007199254740991,
@@ -24293,7 +24293,7 @@
             "name": "id",
             "required": true,
             "schema": {
-              "description": "ID of the Storage Box.",
+              "description": "ID of the [Storage Box](#storage-boxes).",
               "example": 42,
               "format": "int64",
               "maximum": 9007199254740991,
@@ -24377,7 +24377,7 @@
             "name": "id",
             "required": true,
             "schema": {
-              "description": "ID of the Storage Box.",
+              "description": "ID of the [Storage Box](#storage-boxes).",
               "example": 42,
               "format": "int64",
               "maximum": 9007199254740991,
@@ -24390,7 +24390,7 @@
             "name": "subaccount_id",
             "required": true,
             "schema": {
-              "description": "ID of the Storage Box Subaccount.",
+              "description": "ID of the [Storage Box Subaccount](#storage-box-subaccounts).",
               "example": 42,
               "format": "int64",
               "maximum": 9007199254740991,
@@ -24454,7 +24454,7 @@
             "name": "id",
             "required": true,
             "schema": {
-              "description": "ID of the Storage Box.",
+              "description": "ID of the [Storage Box](#storage-boxes).",
               "example": 42,
               "format": "int64",
               "maximum": 9007199254740991,
@@ -24467,7 +24467,7 @@
             "name": "subaccount_id",
             "required": true,
             "schema": {
-              "description": "ID of the Storage Box Subaccount.",
+              "description": "ID of the [Storage Box Subaccount](#storage-box-subaccounts).",
               "example": 42,
               "format": "int64",
               "maximum": 9007199254740991,
@@ -24502,7 +24502,7 @@
             "name": "id",
             "required": true,
             "schema": {
-              "description": "ID of the Storage Box.",
+              "description": "ID of the [Storage Box](#storage-boxes).",
               "example": 42,
               "format": "int64",
               "maximum": 9007199254740991,
@@ -24515,7 +24515,7 @@
             "name": "subaccount_id",
             "required": true,
             "schema": {
-              "description": "ID of the Storage Box Subaccount.",
+              "description": "ID of the [Storage Box Subaccount](#storage-box-subaccounts).",
               "example": 42,
               "format": "int64",
               "maximum": 9007199254740991,
@@ -24567,7 +24567,7 @@
             "name": "id",
             "required": true,
             "schema": {
-              "description": "ID of the Storage Box.",
+              "description": "ID of the [Storage Box](#storage-boxes).",
               "example": 42,
               "format": "int64",
               "maximum": 9007199254740991,
@@ -24580,7 +24580,7 @@
             "name": "subaccount_id",
             "required": true,
             "schema": {
-              "description": "ID of the Storage Box Subaccount.",
+              "description": "ID of the [Storage Box Subaccount](#storage-box-subaccounts).",
               "example": 42,
               "format": "int64",
               "maximum": 9007199254740991,
@@ -24660,7 +24660,7 @@
             "name": "id",
             "required": true,
             "schema": {
-              "description": "ID of the Storage Box.",
+              "description": "ID of the [Storage Box](#storage-boxes).",
               "example": 42,
               "format": "int64",
               "maximum": 9007199254740991,
@@ -24673,7 +24673,7 @@
             "name": "subaccount_id",
             "required": true,
             "schema": {
-              "description": "ID of the Storage Box Subaccount.",
+              "description": "ID of the [Storage Box Subaccount](#storage-box-subaccounts).",
               "example": 42,
               "format": "int64",
               "maximum": 9007199254740991,
