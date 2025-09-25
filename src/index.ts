@@ -265,6 +265,15 @@ async function addServersToPaths(document: OpenApiDocumentFragment) {
   }
 }
 
+async function removeSecurityFromPaths(document: OpenApiDocumentFragment) {
+  const paths = document.paths as OpenApiDocumentFragment;
+  for (const [path, path_obj] of Object.entries(paths)) {
+    for (const [verb, verb_obj] of Object.entries(path_obj)) {
+      delete (verb_obj as OpenApiDocumentFragment).security;
+    }
+  }
+}
+
 async function transformPaths(document: OpenApiDocumentFragment) {
   const paths = document.paths as OpenApiDocumentFragment;
 
@@ -413,6 +422,7 @@ async function main() {
     for (const source of args.sources) {
       let documentPart = await getContents(source);
       await addServersToPaths(documentPart);
+      await removeSecurityFromPaths(documentPart);
       document = mergeDocuments(document, documentPart);
     }
 

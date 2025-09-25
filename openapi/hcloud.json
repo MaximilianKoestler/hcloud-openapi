@@ -6,7 +6,7 @@
     },
     "description": "Copied from the official API documentation for the Public Hetzner Cloud.",
     "title": "Hetzner Cloud API",
-    "version": "231adbf"
+    "version": "0ae53ba-dirty"
   },
   "servers": [
     {
@@ -8271,7 +8271,8 @@
                 "$ref": "#/components/schemas/create_certificate_request"
               }
             }
-          }
+          },
+          "required": true
         },
         "responses": {
           "201": {
@@ -8563,7 +8564,8 @@
                 "$ref": "#/components/schemas/replace_certificate_request"
               }
             }
-          }
+          },
+          "required": true
         },
         "responses": {
           "200": {
@@ -9414,7 +9416,8 @@
                 "$ref": "#/components/schemas/create_firewall_request"
               }
             }
-          }
+          },
+          "required": true
         },
         "responses": {
           "201": {
@@ -9579,7 +9582,8 @@
                 "$ref": "#/components/schemas/replace_firewall_request"
               }
             }
-          }
+          },
+          "required": true
         },
         "responses": {
           "200": {
@@ -9878,7 +9882,8 @@
                 "$ref": "#/components/schemas/apply_to_resources_request"
               }
             }
-          }
+          },
+          "required": true
         },
         "responses": {
           "201": {
@@ -9982,7 +9987,8 @@
                 "$ref": "#/components/schemas/remove_from_resources_request"
               }
             }
-          }
+          },
+          "required": true
         },
         "responses": {
           "201": {
@@ -10091,7 +10097,8 @@
                 "$ref": "#/components/schemas/set_rules_request"
               }
             }
-          }
+          },
+          "required": true
         },
         "responses": {
           "201": {
@@ -10472,7 +10479,8 @@
               }
             }
           },
-          "description": "The `type` argument is required while `home_location` and `server` are mutually exclusive."
+          "description": "The `type` argument is required while `home_location` and `server` are mutually exclusive.",
+          "required": true
         },
         "responses": {
           "201": {
@@ -10689,7 +10697,8 @@
                 "$ref": "#/components/schemas/replace_floating_ip_request"
               }
             }
-          }
+          },
+          "required": true
         },
         "responses": {
           "200": {
@@ -11019,7 +11028,8 @@
                 "$ref": "#/components/schemas/assign_floating_ip_to_server_request"
               }
             }
-          }
+          },
+          "required": true
         },
         "responses": {
           "201": {
@@ -11112,7 +11122,8 @@
               }
             }
           },
-          "description": "The `ip` attributes specifies for which IP address the record is set. For IPv4 addresses this must be the exact address of the [Floating IP](#floating-ips). For IPv6 addresses this must be a single address within the `/64` subnet of the [Floating IP](#floating-ips).\n\nThe `dns_ptr` attribute specifies the hostname used for the IP address.\n\nFor IPv6 [Floating IPs](#floating-ips) up to 100 entries can be created.\n"
+          "description": "The `ip` attributes specifies for which IP address the record is set. For IPv4 addresses this must be the exact address of the [Floating IP](#floating-ips). For IPv6 addresses this must be a single address within the `/64` subnet of the [Floating IP](#floating-ips).\n\nThe `dns_ptr` attribute specifies the hostname used for the IP address.\n\nFor IPv6 [Floating IPs](#floating-ips) up to 100 entries can be created.\n",
+          "required": true
         },
         "responses": {
           "201": {
@@ -11200,7 +11211,8 @@
                 "$ref": "#/components/schemas/change_floating_ip_protection_request"
               }
             }
-          }
+          },
+          "required": true
         },
         "responses": {
           "201": {
@@ -11836,7 +11848,8 @@
                 "$ref": "#/components/schemas/replace_image_request"
               }
             }
-          }
+          },
+          "required": true
         },
         "responses": {
           "200": {
@@ -12153,7 +12166,8 @@
                 "$ref": "#/components/schemas/change_image_protection_request"
               }
             }
-          }
+          },
+          "required": true
         },
         "responses": {
           "201": {
@@ -12812,7 +12826,8 @@
                 "$ref": "#/components/schemas/create_load_balancer_request"
               }
             }
-          }
+          },
+          "required": true
         },
         "responses": {
           "201": {
@@ -13130,7 +13145,8 @@
                 "$ref": "#/components/schemas/replace_load_balancer_request"
               }
             }
-          }
+          },
+          "required": true
         },
         "responses": {
           "200": {
@@ -13559,7 +13575,8 @@
                 "$ref": "#/components/schemas/add_service_request"
               }
             }
-          }
+          },
+          "required": true
         },
         "responses": {
           "201": {
@@ -13647,7 +13664,8 @@
                 "$ref": "#/components/schemas/add_target_request"
               }
             }
-          }
+          },
+          "required": true
         },
         "responses": {
           "201": {
@@ -13735,7 +13753,8 @@
                 "$ref": "#/components/schemas/attach_load_balancer_to_network_request"
               }
             }
-          }
+          },
+          "required": true
         },
         "responses": {
           "201": {
@@ -13823,7 +13842,8 @@
                 "$ref": "#/components/schemas/change_algorithm_request"
               }
             }
-          }
+          },
+          "required": true
         },
         "responses": {
           "201": {
@@ -13912,7 +13932,8 @@
               }
             }
           },
-          "description": "Select the IP address for which to change the DNS entry by passing `ip`. It can be either IPv4 or IPv6. The target hostname is set by passing `dns_ptr`."
+          "description": "Select the IP address for which to change the DNS entry by passing `ip`. It can be either IPv4 or IPv6. The target hostname is set by passing `dns_ptr`.",
+          "required": true
         },
         "responses": {
           "201": {
@@ -14000,7 +14021,8 @@
                 "$ref": "#/components/schemas/change_load_balancer_protection_request"
               }
             }
-          }
+          },
+          "required": true
         },
         "responses": {
           "201": {
@@ -14088,7 +14110,8 @@
                 "$ref": "#/components/schemas/change_type_of_load_balancer_request"
               }
             }
-          }
+          },
+          "required": true
         },
         "responses": {
           "201": {
@@ -14176,7 +14199,8 @@
                 "$ref": "#/components/schemas/delete_service_request"
               }
             }
-          }
+          },
+          "required": true
         },
         "responses": {
           "201": {
@@ -14264,7 +14288,8 @@
                 "$ref": "#/components/schemas/detach_load_balancer_from_network_request"
               }
             }
-          }
+          },
+          "required": true
         },
         "responses": {
           "201": {
@@ -14522,7 +14547,8 @@
                 "$ref": "#/components/schemas/remove_target_request"
               }
             }
-          }
+          },
+          "required": true
         },
         "responses": {
           "201": {
@@ -14610,7 +14636,8 @@
                 "$ref": "#/components/schemas/update_service_request"
               }
             }
-          }
+          },
+          "required": true
         },
         "responses": {
           "201": {
@@ -15228,7 +15255,8 @@
                 "$ref": "#/components/schemas/create_network_request"
               }
             }
-          }
+          },
+          "required": true
         },
         "responses": {
           "201": {
@@ -15393,7 +15421,8 @@
                 "$ref": "#/components/schemas/replace_network_request"
               }
             }
-          }
+          },
+          "required": true
         },
         "responses": {
           "200": {
@@ -15716,7 +15745,8 @@
                 "$ref": "#/components/schemas/add_route_to_network_request"
               }
             }
-          }
+          },
+          "required": true
         },
         "responses": {
           "201": {
@@ -15804,7 +15834,8 @@
                 "$ref": "#/components/schemas/add_subnet_to_network_request"
               }
             }
-          }
+          },
+          "required": true
         },
         "responses": {
           "201": {
@@ -15892,7 +15923,8 @@
                 "$ref": "#/components/schemas/change_ip_range_of_network_request"
               }
             }
-          }
+          },
+          "required": true
         },
         "responses": {
           "201": {
@@ -15980,7 +16012,8 @@
                 "$ref": "#/components/schemas/change_network_protection_request"
               }
             }
-          }
+          },
+          "required": true
         },
         "responses": {
           "201": {
@@ -16068,7 +16101,8 @@
                 "$ref": "#/components/schemas/delete_route_from_network_request"
               }
             }
-          }
+          },
+          "required": true
         },
         "responses": {
           "201": {
@@ -16156,7 +16190,8 @@
                 "$ref": "#/components/schemas/delete_subnet_from_network_request"
               }
             }
-          }
+          },
+          "required": true
         },
         "responses": {
           "201": {
@@ -16563,7 +16598,8 @@
                 "$ref": "#/components/schemas/create_placementgroup_request"
               }
             }
-          }
+          },
+          "required": true
         },
         "responses": {
           "201": {
@@ -16755,7 +16791,8 @@
                 "$ref": "#/components/schemas/replace_placementgroup_request"
               }
             }
-          }
+          },
+          "required": true
         },
         "responses": {
           "200": {
@@ -16969,7 +17006,8 @@
               }
             }
           },
-          "description": "Request Body for creating a new [Primary IP](#primary-ips).\n\nThe `datacenter` and `assignee_id`/`assignee_type` attributes are mutually exclusive.\n"
+          "description": "Request Body for creating a new [Primary IP](#primary-ips).\n\nThe `datacenter` and `assignee_id`/`assignee_type` attributes are mutually exclusive.\n",
+          "required": true
         },
         "responses": {
           "201": {
@@ -17209,7 +17247,8 @@
                 "$ref": "#/components/schemas/replace_primary_ip_request"
               }
             }
-          }
+          },
+          "required": true
         },
         "responses": {
           "200": {
@@ -17277,7 +17316,8 @@
                 "$ref": "#/components/schemas/assign_primary_ip_to_resource_request"
               }
             }
-          }
+          },
+          "required": true
         },
         "responses": {
           "201": {
@@ -17370,7 +17410,8 @@
               }
             }
           },
-          "description": "The `ip` attributes specifies for which IP address the record is set. For IPv4 addresses this must be the exact address of the [Primary IP](#primary-ips). For IPv6 addresses this must be a single address within the `/64` subnet of the [Primary IP](#primary-ips).\n\nThe `dns_ptr` attribute specifies the hostname used for the IP address.\n\nFor IPv6 [Floating IPs](#floating-ips) up to 100 entries can be created.\n"
+          "description": "The `ip` attributes specifies for which IP address the record is set. For IPv4 addresses this must be the exact address of the [Primary IP](#primary-ips). For IPv6 addresses this must be a single address within the `/64` subnet of the [Primary IP](#primary-ips).\n\nThe `dns_ptr` attribute specifies the hostname used for the IP address.\n\nFor IPv6 [Floating IPs](#floating-ips) up to 100 entries can be created.\n",
+          "required": true
         },
         "responses": {
           "201": {
@@ -17458,7 +17499,8 @@
                 "$ref": "#/components/schemas/change_primary_ip_protection_request"
               }
             }
-          }
+          },
+          "required": true
         },
         "responses": {
           "201": {
@@ -18071,7 +18113,8 @@
               }
             }
           },
-          "description": "Please note that Server names must be unique per Project and valid hostnames as per RFC 1123 (i.e. may only contain letters, digits, periods, and dashes).\n\nFor `server_type` you can either use the ID as listed in `/server_types` or its name.\n\nFor `image` you can either use the ID as listed in `/images` or its name.\n\nIf you want to create the Server in a Location, you must set `location` to the ID or name as listed in `/locations`. This is the recommended way. You can be even more specific by setting `datacenter` to the ID or name as listed in `/datacenters`. However we only recommend this if you want to assign a specific Primary IP to the Server which is located in the specified Datacenter.\n\nSome properties like `start_after_create` or `automount` will trigger Actions after the Server is created. Those Actions are listed in the `next_actions` field in the response.\n\nFor accessing your Server we strongly recommend to use SSH keys by passing the respective key IDs in `ssh_keys`. If you do not specify any `ssh_keys` we will generate a root password for you and return it in the response.\n\nPlease note that provided user-data is stored in our systems. While we take measures to protect it we highly recommend that you don’t use it to store passwords or other sensitive information.\n\n#### Call specific error codes\n\n| Code                             | Description                                                |\n|----------------------------------|------------------------------------------------------------|\n| `placement_error`                | An error during the placement occurred                     |\n| `primary_ip_assigned`            | The specified Primary IP is already assigned to a server   |\n| `primary_ip_datacenter_mismatch` | The specified Primary IP is in a different datacenter      |\n| `primary_ip_version_mismatch`    | The specified Primary IP has the wrong IP Version          |\n"
+          "description": "Please note that Server names must be unique per Project and valid hostnames as per RFC 1123 (i.e. may only contain letters, digits, periods, and dashes).\n\nFor `server_type` you can either use the ID as listed in `/server_types` or its name.\n\nFor `image` you can either use the ID as listed in `/images` or its name.\n\nIf you want to create the Server in a Location, you must set `location` to the ID or name as listed in `/locations`. This is the recommended way. You can be even more specific by setting `datacenter` to the ID or name as listed in `/datacenters`. However we only recommend this if you want to assign a specific Primary IP to the Server which is located in the specified Datacenter.\n\nSome properties like `start_after_create` or `automount` will trigger Actions after the Server is created. Those Actions are listed in the `next_actions` field in the response.\n\nFor accessing your Server we strongly recommend to use SSH keys by passing the respective key IDs in `ssh_keys`. If you do not specify any `ssh_keys` we will generate a root password for you and return it in the response.\n\nPlease note that provided user-data is stored in our systems. While we take measures to protect it we highly recommend that you don’t use it to store passwords or other sensitive information.\n\n#### Call specific error codes\n\n| Code                             | Description                                                |\n|----------------------------------|------------------------------------------------------------|\n| `placement_error`                | An error during the placement occurred                     |\n| `primary_ip_assigned`            | The specified Primary IP is already assigned to a server   |\n| `primary_ip_datacenter_mismatch` | The specified Primary IP is in a different datacenter      |\n| `primary_ip_version_mismatch`    | The specified Primary IP has the wrong IP Version          |\n",
+          "required": true
         },
         "responses": {
           "201": {
@@ -18440,7 +18483,8 @@
                 "$ref": "#/components/schemas/replace_server_request"
               }
             }
-          }
+          },
+          "required": true
         },
         "responses": {
           "200": {
@@ -18729,7 +18773,8 @@
                 "$ref": "#/components/schemas/add_server_to_placement_group_request"
               }
             }
-          }
+          },
+          "required": true
         },
         "responses": {
           "201": {
@@ -18817,7 +18862,8 @@
                 "$ref": "#/components/schemas/attach_iso_to_server_request"
               }
             }
-          }
+          },
+          "required": true
         },
         "responses": {
           "201": {
@@ -18905,7 +18951,8 @@
                 "$ref": "#/components/schemas/attach_server_to_network_request"
               }
             }
-          }
+          },
+          "required": true
         },
         "responses": {
           "201": {
@@ -18997,7 +19044,8 @@
                 "$ref": "#/components/schemas/change_alias_ips_of_network_request"
               }
             }
-          }
+          },
+          "required": true
         },
         "responses": {
           "201": {
@@ -19090,7 +19138,8 @@
               }
             }
           },
-          "description": "Select the IP address for which to change the DNS entry by passing `ip`. It can be either IPv4 or IPv6. The target hostname is set by passing `dns_ptr`."
+          "description": "Select the IP address for which to change the DNS entry by passing `ip`. It can be either IPv4 or IPv6. The target hostname is set by passing `dns_ptr`.",
+          "required": true
         },
         "responses": {
           "201": {
@@ -19178,7 +19227,8 @@
                 "$ref": "#/components/schemas/change_server_protection_request"
               }
             }
-          }
+          },
+          "required": true
         },
         "responses": {
           "201": {
@@ -19266,7 +19316,8 @@
                 "$ref": "#/components/schemas/change_type_of_server_request"
               }
             }
-          }
+          },
+          "required": true
         },
         "responses": {
           "201": {
@@ -19354,7 +19405,8 @@
                 "$ref": "#/components/schemas/create_image_from_server_request"
               }
             }
-          }
+          },
+          "required": true
         },
         "responses": {
           "201": {
@@ -19469,7 +19521,8 @@
                 "$ref": "#/components/schemas/detach_server_from_network_request"
               }
             }
-          }
+          },
+          "required": true
         },
         "responses": {
           "201": {
@@ -19877,7 +19930,8 @@
                 "$ref": "#/components/schemas/enable_rescue_mode_for_server_request"
               }
             }
-          }
+          },
+          "required": true
         },
         "responses": {
           "201": {
@@ -20204,7 +20258,8 @@
               }
             }
           },
-          "description": "To select which Image to rebuild from you can either pass an ID or a name as the `image` argument. Passing a name only works for `system` Images since the other Image types do not have a name set."
+          "description": "To select which Image to rebuild from you can either pass an ID or a name as the `image` argument. Passing a name only works for `system` Images since the other Image types do not have a name set.",
+          "required": true
         },
         "responses": {
           "201": {
@@ -21068,7 +21123,8 @@
                 "$ref": "#/components/schemas/create_ssh_key_request"
               }
             }
-          }
+          },
+          "required": true
         },
         "responses": {
           "201": {
@@ -21233,7 +21289,8 @@
                 "$ref": "#/components/schemas/replace_ssh_key_request"
               }
             }
-          }
+          },
+          "required": true
         },
         "responses": {
           "200": {
@@ -21430,7 +21487,8 @@
                 "$ref": "#/components/schemas/create_volume_request"
               }
             }
-          }
+          },
+          "required": true
         },
         "responses": {
           "201": {
@@ -21669,7 +21727,8 @@
                 "$ref": "#/components/schemas/replace_volume_request"
               }
             }
-          }
+          },
+          "required": true
         },
         "responses": {
           "200": {
@@ -21989,7 +22048,8 @@
                 "$ref": "#/components/schemas/attach_volume_to_server_request"
               }
             }
-          }
+          },
+          "required": true
         },
         "responses": {
           "201": {
@@ -22081,7 +22141,8 @@
                 "$ref": "#/components/schemas/change_volume_protection_request"
               }
             }
-          }
+          },
+          "required": true
         },
         "responses": {
           "201": {
@@ -22252,7 +22313,8 @@
                 "$ref": "#/components/schemas/resize_volume_request"
               }
             }
-          }
+          },
+          "required": true
         },
         "responses": {
           "201": {
@@ -23224,7 +23286,8 @@
                 "$ref": "#/components/schemas/change_storage_box_protection_request"
               }
             }
-          }
+          },
+          "required": true
         },
         "responses": {
           "201": {
@@ -23297,7 +23360,8 @@
                 "$ref": "#/components/schemas/change_type_of_storage_box_request"
               }
             }
-          }
+          },
+          "required": true
         },
         "responses": {
           "201": {
@@ -23440,7 +23504,8 @@
                 "$ref": "#/components/schemas/enable_snapshot_plan_request"
               }
             }
-          }
+          },
+          "required": true
         },
         "responses": {
           "201": {
@@ -23516,7 +23581,8 @@
                 "$ref": "#/components/schemas/reset_password_request"
               }
             }
-          }
+          },
+          "required": true
         },
         "responses": {
           "201": {
@@ -23592,7 +23658,8 @@
                 "$ref": "#/components/schemas/rollback_snapshot_request"
               }
             }
-          }
+          },
+          "required": true
         },
         "responses": {
           "201": {
@@ -23672,7 +23739,8 @@
                 "$ref": "#/components/schemas/update_access_settings_request"
               }
             }
-          }
+          },
+          "required": true
         },
         "responses": {
           "201": {
@@ -23961,7 +24029,8 @@
                 "$ref": "#/components/schemas/create_snapshot_request"
               }
             }
-          }
+          },
+          "required": true
         },
         "responses": {
           "201": {
@@ -24308,7 +24377,8 @@
                 "$ref": "#/components/schemas/create_subaccount_request"
               }
             }
-          }
+          },
+          "required": true
         },
         "responses": {
           "201": {
@@ -24595,7 +24665,8 @@
                 "$ref": "#/components/schemas/reset_password_request"
               }
             }
-          }
+          },
+          "required": true
         },
         "responses": {
           "201": {
@@ -24688,7 +24759,8 @@
                 "$ref": "#/components/schemas/update_access_settings_request"
               }
             }
-          }
+          },
+          "required": true
         },
         "responses": {
           "201": {
