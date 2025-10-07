@@ -55,6 +55,7 @@ This API description is currently being used by the following projects:
 - storage_box_types
 - storage_boxes
 - volumes
+- zones
 
 ```
 # Main hcloud API
@@ -189,6 +190,23 @@ This API description is currently being used by the following projects:
 /volumes/{id}/actions/resize (POST)
 /volumes/actions (GET)
 /volumes/actions/{id} (GET)
+/zones (GET, POST)
+/zones/actions (GET)
+/zones/actions/{id} (GET)
+/zones/{id_or_name} (DELETE, GET, PUT)
+/zones/{id_or_name}/actions (GET)
+/zones/{id_or_name}/actions/change_primary_nameservers (POST)
+/zones/{id_or_name}/actions/change_protection (POST)
+/zones/{id_or_name}/actions/change_ttl (POST)
+/zones/{id_or_name}/actions/import_zonefile (POST)
+/zones/{id_or_name}/actions/{action_id} (GET)
+/zones/{id_or_name}/rrsets (GET, POST)
+/zones/{id_or_name}/rrsets/{rr_name}/{rr_type} (DELETE, GET, PUT)
+/zones/{id_or_name}/rrsets/{rr_name}/{rr_type}/actions/add_records (POST)
+/zones/{id_or_name}/rrsets/{rr_name}/{rr_type}/actions/change_protection (POST)
+/zones/{id_or_name}/rrsets/{rr_name}/{rr_type}/actions/change_ttl (POST)
+/zones/{id_or_name}/rrsets/{rr_name}/{rr_type}/actions/remove_records (POST)
+/zones/{id_or_name}/rrsets/{rr_name}/{rr_type}/actions/set_records (POST)
 
 # Storage Boxes
 

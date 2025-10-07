@@ -73,6 +73,9 @@ function toOperationId(verb: string, text: string, hack: boolean = false) {
     .filter((part) => !filtered.includes(part))
     .join("_");
 
+  // remove all apostrophes
+  id = id.replace(/'/g, "");
+
   // rename to fit IBM's naming convention
   id = id.replace(/^(get_all_)/, "list_");
   if (verb === "put") {

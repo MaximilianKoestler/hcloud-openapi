@@ -271,6 +271,13 @@
     ]
   },
   {
+    "name": "nameserver",
+    "path": [
+      "change_zones_primary_nameservers_request",
+      "primary_nameservers"
+    ]
+  },
+  {
     "name": "network",
     "path": [
       "list_networks_response",
@@ -345,6 +352,27 @@
       "firewall",
       "applied_to",
       "server"
+    ]
+  },
+  {
+    "name": "resource_record",
+    "path": [
+      "add_records_to_rrset_request",
+      "records"
+    ]
+  },
+  {
+    "name": "resource_record_set",
+    "path": [
+      "create_rrset_response",
+      "rrset"
+    ]
+  },
+  {
+    "name": "resource_record_set_type",
+    "path": [
+      "create_rrset_request",
+      "type"
     ]
   },
   {
@@ -513,6 +541,13 @@
     "path": [
       "list_volumes_response",
       "volumes"
+    ]
+  },
+  {
+    "name": "zone",
+    "path": [
+      "create_zone_response",
+      "zone"
     ]
   }
 ]
