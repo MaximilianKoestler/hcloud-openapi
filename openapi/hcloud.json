@@ -6,7 +6,7 @@
     },
     "description": "Copied from the official API documentation for the Public Hetzner Cloud.",
     "title": "Hetzner Cloud API",
-    "version": "9501eb7-dirty"
+    "version": "60db104-dirty"
   },
   "servers": [
     {
@@ -110,7 +110,8 @@
             "type": "string"
           },
           "error": {
-            "$ref": "#/components/schemas/error"
+            "$ref": "#/components/schemas/error",
+            "nullable": true
           },
           "finished": {
             "description": "Point in time when the Action was finished (in ISO-8601 format). Only set if the Action is finished otherwise null.",
@@ -164,72 +165,6 @@
           "error"
         ],
         "title": "Action",
-        "type": "object"
-      },
-      "action_optional": {
-        "description": "Actions show the results and progress of asynchronous requests to the API.",
-        "nullable": true,
-        "properties": {
-          "command": {
-            "description": "Command executed in the Action.",
-            "example": "start_resource",
-            "type": "string"
-          },
-          "error": {
-            "$ref": "#/components/schemas/error"
-          },
-          "finished": {
-            "description": "Point in time when the Action was finished (in ISO-8601 format). Only set if the Action is finished otherwise null.",
-            "example": "2016-01-30T23:55:00+00:00",
-            "nullable": true,
-            "type": "string"
-          },
-          "id": {
-            "description": "ID of the [Action](#actions).",
-            "example": 42,
-            "format": "int64",
-            "maximum": 9007199254740991,
-            "type": "integer"
-          },
-          "progress": {
-            "description": "Progress of the Action in percent.",
-            "example": 100,
-            "format": "int32",
-            "type": "integer"
-          },
-          "resources": {
-            "description": "Resources the Action relates to.",
-            "items": {
-              "$ref": "#/components/schemas/resource"
-            },
-            "type": "array"
-          },
-          "started": {
-            "description": "Point in time when the Action was started (in ISO-8601 format).",
-            "example": "2016-01-30T23:55:00+00:00",
-            "type": "string"
-          },
-          "status": {
-            "description": "Status of the Action.",
-            "enum": [
-              "error",
-              "running",
-              "success"
-            ],
-            "type": "string"
-          }
-        },
-        "required": [
-          "id",
-          "command",
-          "status",
-          "progress",
-          "started",
-          "finished",
-          "resources",
-          "error"
-        ],
-        "title": "ActionNullable",
         "type": "object"
       },
       "add_route_to_network_request": {
@@ -359,22 +294,12 @@
         "type": "object"
       },
       "architecture": {
-        "description": "CPU architecture compatible with the Image.\n | CPU architecture of the Server Type.\n",
+        "description": "CPU architecture compatible with the Image.\n | CPU architecture compatible with the ISO.\n\nNull indicates no restriction on the architecture (wildcard).\n | CPU architecture of the Server Type.\n",
         "enum": [
           "arm",
           "x86"
         ],
         "example": "x86",
-        "type": "string"
-      },
-      "architecture_optional": {
-        "description": "CPU architecture compatible with the ISO.\n\nNull indicates no restriction on the architecture (wildcard).\n",
-        "enum": [
-          "arm",
-          "x86"
-        ],
-        "example": "x86",
-        "nullable": true,
         "type": "string"
       },
       "assign_floating_ip_to_server_request": {
@@ -1222,7 +1147,8 @@
         "description": "Response to POST https://api.hetzner.cloud/v1/certificates",
         "properties": {
           "action": {
-            "$ref": "#/components/schemas/action_optional"
+            "$ref": "#/components/schemas/action",
+            "nullable": true
           },
           "certificate": {
             "$ref": "#/components/schemas/certificate"
@@ -1588,7 +1514,8 @@
         "description": "Response to POST https://api.hetzner.cloud/v1/placement_groups",
         "properties": {
           "action": {
-            "$ref": "#/components/schemas/action_optional"
+            "$ref": "#/components/schemas/action",
+            "nullable": true
           },
           "placement_group": {
             "properties": {
@@ -2315,7 +2242,6 @@
       },
       "created_from": {
         "description": "Information about the Server the Image was created from.",
-        "nullable": true,
         "properties": {
           "id": {
             "description": "ID of the Server the Image was created from.",
@@ -2540,33 +2466,7 @@
         "type": "object"
       },
       "deprecation_info": {
-        "description": "Describes if, when and how the resource is deprecated. If this field is\nset to `null` the resource is not deprecated. If a value is set, it is\nconsidered deprecated.\n",
-        "nullable": true,
-        "properties": {
-          "announced": {
-            "description": "Date of the deprecation announcement.\n",
-            "example": "2023-06-01T00:00:00+00:00",
-            "format": "iso-8601",
-            "type": "string"
-          },
-          "unavailable_after": {
-            "description": "Date of the deprecated resource removal.\n\nOnce this date is reached, the resource will not be returned\nby resource type \"list\" endpoint, and the resource can not be\nused to create new resources. For example, if this is an\nimage, you can not create new servers with this image after\nthe mentioned date.\n",
-            "example": "2023-09-01T00:00:00+00:00",
-            "format": "iso-8601",
-            "type": "string"
-          }
-        },
-        "required": [
-          "unavailable_after",
-          "announced"
-        ],
-        "title": "DeprecationInfo",
-        "type": "object"
-      },
-      "deprecation_info_server_types_deprecated": {
-        "deprecated": true,
-        "description": "This field is deprecated.\n\nUse the `deprecation` object in the `locations` field instead (`.locations[].deprecation`).\n",
-        "nullable": true,
+        "description": "Describes if, when and how the resource is deprecated. If this field is\nset to `null` the resource is not deprecated. If a value is set, it is\nconsidered deprecated.\n | This field is deprecated.\n\nUse the `deprecation` object in the `locations` field instead (`.locations[].deprecation`).\n",
         "properties": {
           "announced": {
             "description": "Date of the deprecation announcement.\n",
@@ -2869,7 +2769,6 @@
       },
       "error": {
         "description": "Error message for the Action if an error occurred, otherwise null.",
-        "nullable": true,
         "properties": {
           "code": {
             "description": "Fixed error code for machines.",
@@ -3600,143 +3499,7 @@
         "type": "object"
       },
       "image": {
-        "properties": {
-          "architecture": {
-            "$ref": "#/components/schemas/architecture"
-          },
-          "bound_to": {
-            "description": "ID of Server the Image is bound to. Only set for Images of type `backup`.",
-            "example": null,
-            "format": "int64",
-            "nullable": true,
-            "type": "integer"
-          },
-          "created": {
-            "description": "Point in time when the Resource was created (in ISO-8601 format).",
-            "example": "2016-01-30T23:55:00+00:00",
-            "type": "string"
-          },
-          "created_from": {
-            "$ref": "#/components/schemas/created_from"
-          },
-          "deleted": {
-            "description": "Point in time where the Image was deleted (in ISO-8601 format).",
-            "example": null,
-            "nullable": true,
-            "type": "string"
-          },
-          "deprecated": {
-            "description": "Point in time when the Image is considered to be deprecated (in ISO-8601 format).",
-            "example": "2018-02-28T00:00:00+00:00",
-            "nullable": true,
-            "type": "string"
-          },
-          "description": {
-            "description": "Description of the Image.",
-            "example": "Ubuntu 20.04 Standard 64 bit",
-            "type": "string"
-          },
-          "disk_size": {
-            "description": "Size of the disk contained in the Image in GB.",
-            "example": 10,
-            "type": "number"
-          },
-          "id": {
-            "description": "ID of the [Image](#images).",
-            "example": 42,
-            "format": "int64",
-            "maximum": 9007199254740991,
-            "type": "integer"
-          },
-          "image_size": {
-            "description": "Size of the Image file in our storage in GB. For snapshot Images this is the value relevant for calculating costs for the Image.",
-            "example": 2.3,
-            "nullable": true,
-            "type": "number"
-          },
-          "labels": {
-            "$ref": "#/components/schemas/labels"
-          },
-          "name": {
-            "description": "Unique identifier of the Image. This value is only set for system Images.",
-            "example": "ubuntu-20.04",
-            "nullable": true,
-            "type": "string"
-          },
-          "os_flavor": {
-            "description": "Flavor of operating system contained in the Image.",
-            "enum": [
-              "alma",
-              "centos",
-              "debian",
-              "fedora",
-              "opensuse",
-              "rocky",
-              "ubuntu",
-              "unknown"
-            ],
-            "example": "ubuntu",
-            "type": "string"
-          },
-          "os_version": {
-            "description": "Operating system version.",
-            "example": "20.04",
-            "nullable": true,
-            "type": "string"
-          },
-          "protection": {
-            "$ref": "#/components/schemas/protection"
-          },
-          "rapid_deploy": {
-            "description": "Indicates that rapid deploy of the Image is available.",
-            "example": false,
-            "type": "boolean"
-          },
-          "status": {
-            "description": "Whether the Image can be used or if it's still being created or unavailable.",
-            "enum": [
-              "available",
-              "creating",
-              "unavailable"
-            ],
-            "type": "string"
-          },
-          "type": {
-            "description": "Type of the Image.",
-            "enum": [
-              "app",
-              "backup",
-              "snapshot",
-              "system"
-            ],
-            "example": "snapshot",
-            "type": "string"
-          }
-        },
-        "required": [
-          "id",
-          "type",
-          "status",
-          "name",
-          "description",
-          "image_size",
-          "disk_size",
-          "created",
-          "created_from",
-          "bound_to",
-          "os_flavor",
-          "os_version",
-          "protection",
-          "deprecated",
-          "deleted",
-          "labels",
-          "architecture"
-        ],
-        "type": "object"
-      },
-      "image_optional": {
         "description": "Image the server is based on.",
-        "nullable": true,
         "properties": {
           "architecture": {
             "$ref": "#/components/schemas/architecture"
@@ -3754,7 +3517,8 @@
             "type": "string"
           },
           "created_from": {
-            "$ref": "#/components/schemas/created_from"
+            "$ref": "#/components/schemas/created_from",
+            "nullable": true
           },
           "deleted": {
             "description": "Point in time where the Image was deleted (in ISO-8601 format).",
@@ -3882,7 +3646,6 @@
       },
       "ipv4": {
         "description": "IP address (v4) and its reverse DNS entry of this Server.",
-        "nullable": true,
         "properties": {
           "blocked": {
             "description": "If the IP is blocked by our anti abuse dept.",
@@ -3916,7 +3679,6 @@
       },
       "ipv6": {
         "description": "IPv6 network assigned to this Server and its reverse DNS entry.",
-        "nullable": true,
         "properties": {
           "blocked": {
             "description": "If the IP is blocked by our anti abuse dept.",
@@ -3952,60 +3714,15 @@
         "type": "object"
       },
       "iso": {
-        "properties": {
-          "architecture": {
-            "$ref": "#/components/schemas/architecture_optional"
-          },
-          "deprecation": {
-            "$ref": "#/components/schemas/deprecation_info"
-          },
-          "description": {
-            "description": "Description of the ISO.",
-            "example": "FreeBSD 11.0 x64",
-            "type": "string"
-          },
-          "id": {
-            "description": "ID of the [ISO](#isos).",
-            "example": 42,
-            "format": "int64",
-            "maximum": 9007199254740991,
-            "type": "integer"
-          },
-          "name": {
-            "description": "Unique identifier of the ISO. Only set for public ISOs.",
-            "example": "FreeBSD-11.0-RELEASE-amd64-dvd1",
-            "nullable": true,
-            "type": "string"
-          },
-          "type": {
-            "description": "Type of the ISO.",
-            "enum": [
-              "private",
-              "public"
-            ],
-            "nullable": true,
-            "type": "string"
-          }
-        },
-        "required": [
-          "id",
-          "name",
-          "description",
-          "type",
-          "deprecation",
-          "architecture"
-        ],
-        "type": "object"
-      },
-      "iso_optional": {
         "description": "ISO Image that is attached to this Server. Null if no ISO is attached.",
-        "nullable": true,
         "properties": {
           "architecture": {
-            "$ref": "#/components/schemas/architecture_optional"
+            "$ref": "#/components/schemas/architecture",
+            "nullable": true
           },
           "deprecation": {
-            "$ref": "#/components/schemas/deprecation_info"
+            "$ref": "#/components/schemas/deprecation_info",
+            "nullable": true
           },
           "description": {
             "description": "Description of the ISO.",
@@ -6724,7 +6441,8 @@
             "type": "integer"
           },
           "image": {
-            "$ref": "#/components/schemas/image_optional"
+            "$ref": "#/components/schemas/image",
+            "nullable": true
           },
           "included_traffic": {
             "description": "Free Traffic for the current billing period in bytes.",
@@ -6741,7 +6459,8 @@
             "type": "integer"
           },
           "iso": {
-            "$ref": "#/components/schemas/iso_optional"
+            "$ref": "#/components/schemas/iso",
+            "nullable": true
           },
           "labels": {
             "$ref": "#/components/schemas/labels"
@@ -6992,10 +6711,12 @@
             "type": "array"
           },
           "ipv4": {
-            "$ref": "#/components/schemas/ipv4"
+            "$ref": "#/components/schemas/ipv4",
+            "nullable": true
           },
           "ipv6": {
-            "$ref": "#/components/schemas/ipv6"
+            "$ref": "#/components/schemas/ipv6",
+            "nullable": true
           }
         },
         "required": [
@@ -7036,7 +6757,9 @@
             "type": "boolean"
           },
           "deprecation": {
-            "$ref": "#/components/schemas/deprecation_info_server_types_deprecated"
+            "$ref": "#/components/schemas/deprecation_info",
+            "deprecated": true,
+            "nullable": true
           },
           "description": {
             "description": "Description of the Server type.",
@@ -7108,7 +6831,8 @@
         "description": "A [Location](#locations) (containing only id and name) and Server Type specific metadata.\n",
         "properties": {
           "deprecation": {
-            "$ref": "#/components/schemas/deprecation_info"
+            "$ref": "#/components/schemas/deprecation_info",
+            "nullable": true
           },
           "id": {
             "description": "ID of the [Location](#locations).",
@@ -7234,7 +6958,6 @@
       },
       "snapshot_plan": {
         "description": "Details of the active snapshot plan. Not available if the status is \"initializing\".",
-        "nullable": true,
         "properties": {
           "day_of_month": {
             "description": "Day of the month the Snapshot Plan is executed on.",
@@ -7381,10 +7104,12 @@
             "type": "string"
           },
           "snapshot_plan": {
-            "$ref": "#/components/schemas/snapshot_plan"
+            "$ref": "#/components/schemas/snapshot_plan",
+            "nullable": true
           },
           "stats": {
-            "$ref": "#/components/schemas/storage_box_stats"
+            "$ref": "#/components/schemas/storage_box_stats",
+            "nullable": true
           },
           "status": {
             "enum": [
@@ -7461,7 +7186,6 @@
       },
       "storage_box_stats": {
         "description": "Information about disk usage. Not available if the status is \"initializing\".",
-        "nullable": true,
         "properties": {
           "size": {
             "description": "Current disk usage in bytes.",
@@ -7492,7 +7216,8 @@
             "type": "integer"
           },
           "deprecation": {
-            "$ref": "#/components/schemas/deprecation_info"
+            "$ref": "#/components/schemas/deprecation_info",
+            "nullable": true
           },
           "description": {
             "description": "Description of the [Storage Box Type](#storage-box-types).",
