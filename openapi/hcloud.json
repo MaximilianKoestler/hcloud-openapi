@@ -6,7 +6,7 @@
     },
     "description": "Copied from the official API documentation for the Public Hetzner Cloud.",
     "title": "Hetzner Cloud API",
-    "version": "aecd43f-dirty"
+    "version": "0c28cd3-dirty"
   },
   "servers": [
     {
@@ -97,6 +97,10 @@
     {
       "description": "A Volume is a highly-available, scalable, and SSD-based block storage for Servers.\n\nPricing for Volumes depends on the Volume size and Location, not the actual used storage.\n\nPlease see [Hetzner Docs](https://docs.hetzner.com/cloud/#Volumes) for more details about Volumes.\n",
       "name": "volumes"
+    },
+    {
+      "description": "A Zone represents a [Domain Name System (DNS) zone](https://wikipedia.org/wiki/DNS_zone) managed by Hetzner authoritative nameservers.\nPlease see [Hetzner Docs](https://docs.hetzner.com/dns-console/dns/general/dns-overview#the-difference-between-domain-and-zone) for the difference between zones and domains.\n\nThis API supports all zone names with [well-known public suffixes](https://publicsuffix.org/) (e.g. `.de`, `.com`, `.co.uk`).\nSubdomains are not supported.\n\n### Zone Modes\n\nThis API supports two types of zone modes.\n\n- In _primary_ mode, resource record sets ([RRSets](#zone-rrsets)) and resource records (RRs) are managed via the Cloud API or Cloud Console.\n- In _secondary_ mode, Hetzner's nameservers query [RRSets](#zone-rrsets) and RRs from given primary nameservers via [AXFR](https://en.wikipedia.org/wiki/DNS_zone_transfer).\n\nThe zone mode cannot be changed, the zone must be deleted and re-created with a new mode.\n\n### SOA Serial\n\nFor zones in primary mode, Hetzner automatically increases the `SOA` record serial number.\nAs convention, a `YYYYMMDDnn` format with incrementing `nn` is used.\n\n### Zone file import\n\nThis API supports importing a zone file in BIND (RFC [1034](https://datatracker.ietf.org/doc/html/rfc1034)/[1035](https://datatracker.ietf.org/doc/html/rfc1035)) format.\n\nImporting a zone file is only applicable for [Zones](#zones) in [primary mode](#zone-modes).\n\nDuring an import:\n\n- An `$ORIGIN` directive may be present, it must match the [Zone](#zones)'s name with an ending dot\n- A `$TTL` directive may be present, it is used as new default [Zone](#zones) Time To Live (TTL)\n- Only `IN` (internet) class records are allowed\n- The assigned authoritative Hetzner nameservers must be present as `NS` records\n- A `SOA` record must be present\n- Comments for individual records are imported, comments on their own lines are discarded\n\nZone file example:\n\n```dns\n$ORIGIN\texample.com.\n$TTL\t3600\n\n@\tIN\tSOA\thydrogen.ns.hetzner.com. dns.hetzner.com. 2024010100 86400 10800 3600000 3600\n\n@\tIN\t10800\tNS\thydrogen.ns.hetzner.com. ; Some comment.\n@\tIN\t10800\tNS\toxygen.ns.hetzner.com.\n@\tIN\t10800\tNS\thelium.ns.hetzner.de.\n```\n",
+      "name": "zones"
     }
   ],
   "components": {
@@ -170,6 +174,45 @@
           "error"
         ],
         "title": "Action",
+        "type": "object"
+      },
+      "add_records_to_rrset_request": {
+        "description": "Request for POST https://api.hetzner.cloud/v1/zones/{id_or_name}/rrsets/{rr_name}/{rr_type}/actions/add_records",
+        "properties": {
+          "records": {
+            "description": "Records to add to the [RRSet](#zone-rrsets).\n\nMust not be empty and must only contain distinct record values.\n",
+            "items": {
+              "$ref": "#/components/schemas/resource_record"
+            },
+            "maxItems": 50,
+            "minItems": 1,
+            "type": "array"
+          },
+          "ttl": {
+            "description": "Time To Live (TTL) of the [RRSet](#zone-rrsets).\n\nIf not set, the [Zone's](#zones) Default TTL is used.\nIf set, and the RRSet being updated already has a TTL, the values must be the same.\n",
+            "example": 3600,
+            "maximum": 2147483647,
+            "minimum": 60,
+            "nullable": true,
+            "type": "integer"
+          }
+        },
+        "required": [
+          "records"
+        ],
+        "type": "object"
+      },
+      "add_records_to_rrset_response": {
+        "description": "Response to POST https://api.hetzner.cloud/v1/zones/{id_or_name}/rrsets/{rr_name}/{rr_type}/actions/add_records",
+        "properties": {
+          "action": {
+            "$ref": "#/components/schemas/action"
+          }
+        },
+        "required": [
+          "action"
+        ],
+        "title": "ActionResponse",
         "type": "object"
       },
       "add_route_to_network_request": {
@@ -945,6 +988,63 @@
         "title": "ActionResponse",
         "type": "object"
       },
+      "change_rrsets_protection_request": {
+        "description": "Request for POST https://api.hetzner.cloud/v1/zones/{id_or_name}/rrsets/{rr_name}/{rr_type}/actions/change_protection",
+        "properties": {
+          "change": {
+            "description": "Prevent the Resource from being changed.",
+            "example": false,
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "change"
+        ],
+        "type": "object"
+      },
+      "change_rrsets_protection_response": {
+        "description": "Response to POST https://api.hetzner.cloud/v1/zones/{id_or_name}/rrsets/{rr_name}/{rr_type}/actions/change_protection",
+        "properties": {
+          "action": {
+            "$ref": "#/components/schemas/action"
+          }
+        },
+        "required": [
+          "action"
+        ],
+        "title": "ActionResponse",
+        "type": "object"
+      },
+      "change_rrsets_ttl_request": {
+        "description": "Request for POST https://api.hetzner.cloud/v1/zones/{id_or_name}/rrsets/{rr_name}/{rr_type}/actions/change_ttl",
+        "properties": {
+          "ttl": {
+            "description": "Time To Live (TTL) of the [RRSet](#zone-rrsets).\n\nMust be in between 60s and 2147483647s.\n\nIf not set, the [Zone's](#zones) Default TTL is used.\n",
+            "example": 3600,
+            "maximum": 2147483647,
+            "minimum": 60,
+            "nullable": true,
+            "type": "integer"
+          }
+        },
+        "required": [
+          "ttl"
+        ],
+        "type": "object"
+      },
+      "change_rrsets_ttl_response": {
+        "description": "Response to POST https://api.hetzner.cloud/v1/zones/{id_or_name}/rrsets/{rr_name}/{rr_type}/actions/change_ttl",
+        "properties": {
+          "action": {
+            "$ref": "#/components/schemas/action"
+          }
+        },
+        "required": [
+          "action"
+        ],
+        "title": "ActionResponse",
+        "type": "object"
+      },
       "change_server_protection_request": {
         "description": "Request for POST https://api.hetzner.cloud/v1/servers/{id}/actions/change_protection",
         "properties": {
@@ -1091,6 +1191,99 @@
       },
       "change_volume_protection_response": {
         "description": "Response to POST https://api.hetzner.cloud/v1/volumes/{id}/actions/change_protection",
+        "properties": {
+          "action": {
+            "$ref": "#/components/schemas/action"
+          }
+        },
+        "required": [
+          "action"
+        ],
+        "title": "ActionResponse",
+        "type": "object"
+      },
+      "change_zones_default_ttl_request": {
+        "description": "Request for POST https://api.hetzner.cloud/v1/zones/{id_or_name}/actions/change_ttl",
+        "properties": {
+          "ttl": {
+            "default": 3600,
+            "description": "Default Time To Live (TTL) of the [Zone](#zones).\n\nMust be in between 60s and 2147483647s.\n\nThis TTL is used for [RRSets](#zone-rrsets) that do not explicitly define a TTL.\n",
+            "example": 10800,
+            "maximum": 2147483647,
+            "minimum": 60,
+            "type": "integer"
+          }
+        },
+        "required": [
+          "ttl"
+        ],
+        "type": "object"
+      },
+      "change_zones_default_ttl_response": {
+        "description": "Response to POST https://api.hetzner.cloud/v1/zones/{id_or_name}/actions/change_ttl",
+        "properties": {
+          "action": {
+            "$ref": "#/components/schemas/action"
+          }
+        },
+        "required": [
+          "action"
+        ],
+        "title": "ActionResponse",
+        "type": "object"
+      },
+      "change_zones_primary_nameservers_request": {
+        "description": "Request for POST https://api.hetzner.cloud/v1/zones/{id_or_name}/actions/change_primary_nameservers",
+        "properties": {
+          "primary_nameservers": {
+            "description": "Primary nameservers of the [Zone](#zones).",
+            "example": [
+              {
+                "address": "198.51.100.1",
+                "port": 53
+              },
+              {
+                "address": "203.0.113.1",
+                "port": 53
+              }
+            ],
+            "items": {
+              "$ref": "#/components/schemas/nameserver"
+            },
+            "type": "array"
+          }
+        },
+        "required": [
+          "primary_nameservers"
+        ],
+        "type": "object"
+      },
+      "change_zones_primary_nameservers_response": {
+        "description": "Response to POST https://api.hetzner.cloud/v1/zones/{id_or_name}/actions/change_primary_nameservers",
+        "properties": {
+          "action": {
+            "$ref": "#/components/schemas/action"
+          }
+        },
+        "required": [
+          "action"
+        ],
+        "title": "ActionResponse",
+        "type": "object"
+      },
+      "change_zones_protection_request": {
+        "description": "Request for POST https://api.hetzner.cloud/v1/zones/{id_or_name}/actions/change_protection",
+        "properties": {
+          "delete": {
+            "description": "Prevents the [Zone](#zones) from being deleted.",
+            "example": false,
+            "type": "boolean"
+          }
+        },
+        "type": "object"
+      },
+      "change_zones_protection_response": {
+        "description": "Response to POST https://api.hetzner.cloud/v1/zones/{id_or_name}/actions/change_protection",
         "properties": {
           "action": {
             "$ref": "#/components/schemas/action"
@@ -1740,6 +1933,25 @@
         "title": "CreatePrimaryIPResponse",
         "type": "object"
       },
+      "create_rrset_request": {
+        "$ref": "#/components/schemas/resource_record_set_to_create"
+      },
+      "create_rrset_response": {
+        "description": "Response to POST https://api.hetzner.cloud/v1/zones/{id_or_name}/rrsets",
+        "properties": {
+          "action": {
+            "$ref": "#/components/schemas/action"
+          },
+          "rrset": {
+            "$ref": "#/components/schemas/resource_record_set"
+          }
+        },
+        "required": [
+          "rrset",
+          "action"
+        ],
+        "type": "object"
+      },
       "create_server_request": {
         "description": "Request for POST https://api.hetzner.cloud/v1/servers",
         "properties": {
@@ -2253,6 +2465,87 @@
         ],
         "type": "object"
       },
+      "create_zone_request": {
+        "description": "Request for POST https://api.hetzner.cloud/v1/zones",
+        "properties": {
+          "labels": {
+            "$ref": "#/components/schemas/labels"
+          },
+          "mode": {
+            "description": "Mode of the [Zone](#zones).\n\nFor more information, see [Zone Modes](#zone-modes).\n",
+            "enum": [
+              "primary",
+              "secondary"
+            ],
+            "example": "primary",
+            "type": "string"
+          },
+          "name": {
+            "description": "Name of the [Zone](#zones).\n\nAll names with [well-known public suffixes](https://publicsuffix.org/) (e.g. `.de`,\n`.com`, `.co.uk`) are supported. Subdomains are not supported.\n\nThe name must be in lower case and must not end with a dot.\n[Internationalized domain\nnames](https://en.wikipedia.org/wiki/Internationalized_domain_name) must be\ntranscribed to [Punycode](https://wikipedia.org/wiki/Punycode) representation with\nACE prefix, e.g. `xn--mnchen-3ya.de` (`münchen.de`).\n",
+            "example": "example.com",
+            "maxLength": 255,
+            "type": "string"
+          },
+          "primary_nameservers": {
+            "description": "Primary nameservers of the [Zone](#zones).\n\nOnly applicable for [Zones](#zones) in [secondary mode](#zone-modes).\nIgnored for [Zones](#zones) in [primary mode](#zone-modes).\n",
+            "example": [
+              {
+                "address": "198.51.100.1",
+                "port": 53
+              },
+              {
+                "address": "203.0.113.1",
+                "port": 53
+              }
+            ],
+            "items": {
+              "$ref": "#/components/schemas/nameserver"
+            },
+            "type": "array"
+          },
+          "rrsets": {
+            "description": "[RRSets](#zone-rrsets) to be added to the [Zone](#zones).\n\nOnly applicable for [Zones](#zones) in [primary mode](#zone-modes).\nIgnored for [Zones](#zones) in [secondary mode](#zone-modes).\n",
+            "items": {
+              "$ref": "#/components/schemas/resource_record_set_to_create"
+            },
+            "type": "array"
+          },
+          "ttl": {
+            "default": 3600,
+            "description": "Default Time To Live (TTL) of the [Zone](#zones).\n\nMust be in between 60s and 2147483647s.\n\nThis TTL is used for [RRSets](#zone-rrsets) that do not explicitly define a TTL.\n",
+            "example": 10800,
+            "maximum": 2147483647,
+            "minimum": 60,
+            "type": "integer"
+          },
+          "zonefile": {
+            "description": "Zone file to import.\n\nOnly applicable for [Zones](#zones) in [primary mode](#zone-modes).\nIgnored for [Zones](#zones) in [secondary mode](#zone-modes).\n\nIf provided, `rrsets` must be empty.\n\nSee [Zone file import](#zone-file-import) for more details.\n",
+            "example": "$ORIGIN\texample.com.\n$TTL\t3600\n\n@\tIN\tSOA\thydrogen.ns.hetzner.com. dns.hetzner.com. 2024010100 86400 10800 3600000 3600\n\n@\tIN\t10800\tNS\thydrogen.ns.hetzner.com. ; Some comment.\n@\tIN\t10800\tNS\toxygen.ns.hetzner.com.\n@\tIN\t10800\tNS\thelium.ns.hetzner.de.\n",
+            "type": "string"
+          }
+        },
+        "required": [
+          "name",
+          "mode"
+        ],
+        "type": "object"
+      },
+      "create_zone_response": {
+        "description": "Response to POST https://api.hetzner.cloud/v1/zones",
+        "properties": {
+          "action": {
+            "$ref": "#/components/schemas/action"
+          },
+          "zone": {
+            "$ref": "#/components/schemas/zone"
+          }
+        },
+        "required": [
+          "zone",
+          "action"
+        ],
+        "type": "object"
+      },
       "created_from": {
         "description": "Information about the Server the Image was created from.",
         "properties": {
@@ -2375,6 +2668,19 @@
         "title": "ActionResponse",
         "type": "object"
       },
+      "delete_rrset_response": {
+        "description": "Response to DELETE https://api.hetzner.cloud/v1/zones/{id_or_name}/rrsets/{rr_name}/{rr_type}",
+        "properties": {
+          "action": {
+            "$ref": "#/components/schemas/action"
+          }
+        },
+        "required": [
+          "action"
+        ],
+        "title": "ActionResponse",
+        "type": "object"
+      },
       "delete_server_response": {
         "description": "Response to DELETE https://api.hetzner.cloud/v1/servers/{id}",
         "properties": {
@@ -2467,6 +2773,19 @@
       },
       "delete_subnet_from_network_response": {
         "description": "Response to POST https://api.hetzner.cloud/v1/networks/{id}/actions/delete_subnet",
+        "properties": {
+          "action": {
+            "$ref": "#/components/schemas/action"
+          }
+        },
+        "required": [
+          "action"
+        ],
+        "title": "ActionResponse",
+        "type": "object"
+      },
+      "delete_zone_response": {
+        "description": "Response to DELETE https://api.hetzner.cloud/v1/zones/{id_or_name}",
         "properties": {
           "action": {
             "$ref": "#/components/schemas/action"
@@ -2797,6 +3116,20 @@
         "required": [
           "code",
           "message"
+        ],
+        "type": "object"
+      },
+      "export_zone_file_response": {
+        "description": "Response to GET https://api.hetzner.cloud/v1/zones/{id_or_name}/zonefile",
+        "properties": {
+          "zonefile": {
+            "description": "Generated zone file.\n\nExample:\n\n```dns\n$ORIGIN\texample.com.\n$TTL\t3600\n\n@\tIN\tSOA\thydrogen.ns.hetzner.com. dns.hetzner.com. 2024010100 86400 10800 3600000 3600\n\n@\tIN\t10800\tNS\thydrogen.ns.hetzner.com. ; Some comment.\n@\tIN\t10800\tNS\toxygen.ns.hetzner.com.\n@\tIN\t10800\tNS\thelium.ns.hetzner.de.\n```\n",
+            "example": "$ORIGIN\texample.com.\n$TTL\t3600\n\n@\tIN\tSOA\thydrogen.ns.hetzner.com. dns.hetzner.com. 2024010100 86400 10800 3600000 3600\n\n@\tIN\t10800\tNS\thydrogen.ns.hetzner.com. ; Some comment.\n@\tIN\t10800\tNS\toxygen.ns.hetzner.com.\n@\tIN\t10800\tNS\thelium.ns.hetzner.de.\n",
+            "type": "string"
+          }
+        },
+        "required": [
+          "zonefile"
         ],
         "type": "object"
       },
@@ -3382,6 +3715,18 @@
         "title": "PrimaryIPResponse",
         "type": "object"
       },
+      "get_rrset_response": {
+        "description": "Response to GET https://api.hetzner.cloud/v1/zones/{id_or_name}/rrsets/{rr_name}/{rr_type}",
+        "properties": {
+          "rrset": {
+            "$ref": "#/components/schemas/resource_record_set"
+          }
+        },
+        "required": [
+          "rrset"
+        ],
+        "type": "object"
+      },
       "get_server_response": {
         "description": "Response to GET https://api.hetzner.cloud/v1/servers/{id}",
         "properties": {
@@ -3466,6 +3811,18 @@
         },
         "required": [
           "volume"
+        ],
+        "type": "object"
+      },
+      "get_zone_response": {
+        "description": "Response to GET https://api.hetzner.cloud/v1/zones/{id_or_name}",
+        "properties": {
+          "zone": {
+            "$ref": "#/components/schemas/zone"
+          }
+        },
+        "required": [
+          "zone"
         ],
         "type": "object"
       },
@@ -3651,6 +4008,33 @@
           "labels",
           "architecture"
         ],
+        "type": "object"
+      },
+      "import_zone_file_request": {
+        "description": "Request for POST https://api.hetzner.cloud/v1/zones/{id_or_name}/actions/import_zonefile",
+        "properties": {
+          "zonefile": {
+            "description": "Zone file to import.\n\nSee [Zone file import](#zone-file-import) for more details.\n",
+            "example": "$ORIGIN\texample.com.\n$TTL\t3600\n\n@\tIN\tSOA\thydrogen.ns.hetzner.com. dns.hetzner.com. 2024010100 86400 10800 3600000 3600\n\n@\tIN\t10800\tNS\thydrogen.ns.hetzner.com. ; Some comment.\n@\tIN\t10800\tNS\toxygen.ns.hetzner.com.\n@\tIN\t10800\tNS\thelium.ns.hetzner.de.\n",
+            "type": "string"
+          }
+        },
+        "required": [
+          "zonefile"
+        ],
+        "type": "object"
+      },
+      "import_zone_file_response": {
+        "description": "Response to POST https://api.hetzner.cloud/v1/zones/{id_or_name}/actions/import_zonefile",
+        "properties": {
+          "action": {
+            "$ref": "#/components/schemas/action"
+          }
+        },
+        "required": [
+          "action"
+        ],
+        "title": "ActionResponse",
         "type": "object"
       },
       "ip_type": {
@@ -4433,6 +4817,25 @@
         "title": "PrimaryIPsResponse",
         "type": "object"
       },
+      "list_rrsets_response": {
+        "description": "Response to GET https://api.hetzner.cloud/v1/zones/{id_or_name}/rrsets",
+        "properties": {
+          "meta": {
+            "$ref": "#/components/schemas/meta"
+          },
+          "rrsets": {
+            "items": {
+              "$ref": "#/components/schemas/resource_record_set"
+            },
+            "type": "array"
+          }
+        },
+        "required": [
+          "rrsets",
+          "meta"
+        ],
+        "type": "object"
+      },
       "list_server_types_response": {
         "description": "Response to GET https://api.hetzner.cloud/v1/server_types",
         "properties": {
@@ -4573,6 +4976,25 @@
         },
         "required": [
           "volumes",
+          "meta"
+        ],
+        "type": "object"
+      },
+      "list_zones_response": {
+        "description": "Response to GET https://api.hetzner.cloud/v1/zones",
+        "properties": {
+          "meta": {
+            "$ref": "#/components/schemas/meta"
+          },
+          "zones": {
+            "items": {
+              "$ref": "#/components/schemas/zone"
+            },
+            "type": "array"
+          }
+        },
+        "required": [
+          "zones",
           "meta"
         ],
         "type": "object"
@@ -5257,6 +5679,39 @@
         ],
         "type": "object"
       },
+      "nameserver": {
+        "description": "Primary nameserver that returns [Zones](#zones) via `AXFR`.\n\nMust allow queries from and may send `NOTIFY` queries to [Hetzner's secondary\nnameservers](https://docs.hetzner.com/dns-console/dns/general/authoritative-name-servers#secondary-dns-servers-old-name-servers-for-robot-customers).\n",
+        "properties": {
+          "address": {
+            "description": "Public IPv4 or IPv6 address of the primary nameserver.",
+            "example": "198.51.100.1",
+            "type": "string"
+          },
+          "port": {
+            "default": 53,
+            "description": "Port of the primary nameserver.",
+            "example": 5353,
+            "type": "integer"
+          },
+          "tsig_algorithm": {
+            "description": "[Transaction signature (TSIG)](https://en.wikipedia.org/wiki/TSIG) algorithm\nused to generate the TSIG key.\n",
+            "enum": [
+              "hmac-md5",
+              "hmac-sha1",
+              "hmac-sha256"
+            ],
+            "type": "string"
+          },
+          "tsig_key": {
+            "description": "[Transaction signature (TSIG)](https://en.wikipedia.org/wiki/TSIG) key to use\nfor the zone transfer.\n",
+            "type": "string"
+          }
+        },
+        "required": [
+          "address"
+        ],
+        "type": "object"
+      },
       "network": {
         "properties": {
           "created": {
@@ -5602,6 +6057,37 @@
           "actions"
         ],
         "title": "ActionListResponse",
+        "type": "object"
+      },
+      "remove_records_from_rrset_request": {
+        "description": "Request for POST https://api.hetzner.cloud/v1/zones/{id_or_name}/rrsets/{rr_name}/{rr_type}/actions/remove_records",
+        "properties": {
+          "records": {
+            "description": "Records to remove from the [RRSet](#zone-rrsets).\n\nMust not be empty and must only contain distinct record values.\n",
+            "items": {
+              "$ref": "#/components/schemas/resource_record"
+            },
+            "maxItems": 50,
+            "minItems": 1,
+            "type": "array"
+          }
+        },
+        "required": [
+          "records"
+        ],
+        "type": "object"
+      },
+      "remove_records_from_rrset_response": {
+        "description": "Response to POST https://api.hetzner.cloud/v1/zones/{id_or_name}/rrsets/{rr_name}/{rr_type}/actions/remove_records",
+        "properties": {
+          "action": {
+            "$ref": "#/components/schemas/action"
+          }
+        },
+        "required": [
+          "action"
+        ],
+        "title": "ActionResponse",
         "type": "object"
       },
       "remove_target_request": {
@@ -6017,6 +6503,27 @@
         "title": "PrimaryIPResponse",
         "type": "object"
       },
+      "replace_rrset_request": {
+        "description": "Request for PUT https://api.hetzner.cloud/v1/zones/{id_or_name}/rrsets/{rr_name}/{rr_type}",
+        "properties": {
+          "labels": {
+            "$ref": "#/components/schemas/labels"
+          }
+        },
+        "type": "object"
+      },
+      "replace_rrset_response": {
+        "description": "Response to PUT https://api.hetzner.cloud/v1/zones/{id_or_name}/rrsets/{rr_name}/{rr_type}",
+        "properties": {
+          "rrset": {
+            "$ref": "#/components/schemas/resource_record_set"
+          }
+        },
+        "required": [
+          "rrset"
+        ],
+        "type": "object"
+      },
       "replace_server_request": {
         "description": "Request for PUT https://api.hetzner.cloud/v1/servers/{id}",
         "properties": {
@@ -6177,6 +6684,28 @@
         ],
         "type": "object"
       },
+      "replace_zone_request": {
+        "description": "Request for PUT https://api.hetzner.cloud/v1/zones/{id_or_name}",
+        "properties": {
+          "labels": {
+            "$ref": "#/components/schemas/labels"
+          }
+        },
+        "title": "ZoneUpdateRequest",
+        "type": "object"
+      },
+      "replace_zone_response": {
+        "description": "Response to PUT https://api.hetzner.cloud/v1/zones/{id_or_name}",
+        "properties": {
+          "zone": {
+            "$ref": "#/components/schemas/zone"
+          }
+        },
+        "required": [
+          "zone"
+        ],
+        "type": "object"
+      },
       "request_console_for_server_response": {
         "description": "Response to POST https://api.hetzner.cloud/v1/servers/{id}/actions/request_console",
         "properties": {
@@ -6318,6 +6847,153 @@
           "id"
         ],
         "type": "object"
+      },
+      "resource_record": {
+        "description": "Record of a [RRSet](#zone-rrsets).\n\nThe `value` is used to identify the record in an [RRSet](#zone-rrsets).\n",
+        "properties": {
+          "comment": {
+            "description": "Comment of the record.",
+            "example": "My web server at Hetzner Cloud.",
+            "type": "string"
+          },
+          "value": {
+            "description": "Value of the record.",
+            "example": "198.51.100.1",
+            "type": "string"
+          }
+        },
+        "required": [
+          "value"
+        ],
+        "title": "Record",
+        "type": "object"
+      },
+      "resource_record_set": {
+        "properties": {
+          "id": {
+            "description": "ID of the RRSet.\n\nThe ID is composed of the name and type, joined with a slash (e.g. `www/AAAA`).\n",
+            "type": "string"
+          },
+          "labels": {
+            "$ref": "#/components/schemas/labels"
+          },
+          "name": {
+            "description": "Name of the [RRSet](#zone-rrsets).\n\nThe name must be in lower case, and must not end with a dot or the [Zone](#zones)\nname. Names containing non-ASCII characters must be transcribed to\n[Punycode](https://wikipedia.org/wiki/Punycode) representation with ACE prefix, e.g.\n`xn--4bi` (✉️).\n\nFor the [Zone](#zones) apex, use `@`.\n",
+            "example": "www",
+            "type": "string"
+          },
+          "protection": {
+            "description": "Protection of the [RRSet](#zone-rrsets).\n",
+            "properties": {
+              "change": {
+                "description": "Prevent the Resource from being changed.",
+                "example": false,
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "change"
+            ],
+            "type": "object"
+          },
+          "records": {
+            "description": "Records of the [RRSet](#zone-rrsets).\n\nMust not be empty and must only contain distinct record values.\n",
+            "items": {
+              "$ref": "#/components/schemas/resource_record"
+            },
+            "type": "array"
+          },
+          "ttl": {
+            "description": "Time To Live (TTL) of the [RRSet](#zone-rrsets).\n\nMust be in between 60s and 2147483647s.\n\nIf not set, the [Zone's](#zones) Default TTL is used.\n",
+            "example": 3600,
+            "maximum": 2147483647,
+            "minimum": 60,
+            "nullable": true,
+            "type": "integer"
+          },
+          "type": {
+            "$ref": "#/components/schemas/resource_record_set_type"
+          },
+          "zone": {
+            "description": "ID of the [Zone](#zones).",
+            "example": 42,
+            "format": "int64",
+            "maximum": 9007199254740991,
+            "type": "integer"
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "type",
+          "ttl",
+          "labels",
+          "protection",
+          "records",
+          "zone"
+        ],
+        "title": "RRSet",
+        "type": "object"
+      },
+      "resource_record_set_to_create": {
+        "description": "Request for POST https://api.hetzner.cloud/v1/zones/{id_or_name}/rrsets",
+        "properties": {
+          "labels": {
+            "$ref": "#/components/schemas/labels"
+          },
+          "name": {
+            "description": "Name of the [RRSet](#zone-rrsets).\n\nThe name must be in lower case, and must not end with a dot or the [Zone](#zones)\nname. Names containing non-ASCII characters must be transcribed to\n[Punycode](https://wikipedia.org/wiki/Punycode) representation with ACE prefix, e.g.\n`xn--4bi` (✉️).\n\nFor the [Zone](#zones) apex, use `@`.\n",
+            "example": "www",
+            "type": "string"
+          },
+          "records": {
+            "description": "Records of the [RRSet](#zone-rrsets).\n\nMust not be empty and must only contain distinct record values.\n",
+            "items": {
+              "$ref": "#/components/schemas/resource_record"
+            },
+            "type": "array"
+          },
+          "ttl": {
+            "description": "Time To Live (TTL) of the [RRSet](#zone-rrsets).\n\nMust be in between 60s and 2147483647s.\n\nIf not set, the [Zone's](#zones) Default TTL is used.\n",
+            "example": 3600,
+            "maximum": 2147483647,
+            "minimum": 60,
+            "nullable": true,
+            "type": "integer"
+          },
+          "type": {
+            "$ref": "#/components/schemas/resource_record_set_type"
+          }
+        },
+        "required": [
+          "name",
+          "type",
+          "records"
+        ],
+        "type": "object"
+      },
+      "resource_record_set_type": {
+        "description": "Type of the [RRSet](#zone-rrsets).\n",
+        "enum": [
+          "A",
+          "AAAA",
+          "CAA",
+          "CNAME",
+          "DS",
+          "HINFO",
+          "HTTPS",
+          "MX",
+          "NS",
+          "PTR",
+          "RP",
+          "SOA",
+          "SRV",
+          "SVCB",
+          "TLSA",
+          "TXT"
+        ],
+        "example": "A",
+        "type": "string"
       },
       "retry_issuance_or_renewal_response": {
         "description": "Response to POST https://api.hetzner.cloud/v1/certificates/{id}/actions/retry",
@@ -6910,6 +7586,37 @@
           "name",
           "deprecation"
         ],
+        "type": "object"
+      },
+      "set_records_of_rrset_request": {
+        "description": "Request for POST https://api.hetzner.cloud/v1/zones/{id_or_name}/rrsets/{rr_name}/{rr_type}/actions/set_records",
+        "properties": {
+          "records": {
+            "description": "Records to set in the [RRSet](#zone-rrsets).\n\nMust not be empty and must only contain distinct record values.\n",
+            "items": {
+              "$ref": "#/components/schemas/resource_record"
+            },
+            "maxItems": 50,
+            "minItems": 1,
+            "type": "array"
+          }
+        },
+        "required": [
+          "records"
+        ],
+        "type": "object"
+      },
+      "set_records_of_rrset_response": {
+        "description": "Response to POST https://api.hetzner.cloud/v1/zones/{id_or_name}/rrsets/{rr_name}/{rr_type}/actions/set_records",
+        "properties": {
+          "action": {
+            "$ref": "#/components/schemas/action"
+          }
+        },
+        "required": [
+          "action"
+        ],
+        "title": "ActionResponse",
         "type": "object"
       },
       "set_rules_request": {
@@ -7827,6 +8534,157 @@
           "format"
         ],
         "type": "object"
+      },
+      "zone": {
+        "properties": {
+          "authoritative_nameservers": {
+            "properties": {
+              "assigned": {
+                "description": "Authoritative Hetzner nameservers assigned to this [Zone](#zones).\n",
+                "example": [
+                  "hydrogen.ns.hetzner.com.",
+                  "oxygen.ns.hetzner.com.",
+                  "helium.ns.hetzner.de."
+                ],
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              "delegated": {
+                "description": "Authoritative nameservers currently delegated to by the parent DNS zone.\n\nIf these don't match the assigned authoritative nameservers, the DNS zone is currently not being served by Hetzner.\n",
+                "example": [
+                  "hydrogen.ns.hetzner.com.",
+                  "oxygen.ns.hetzner.com.",
+                  "helium.ns.hetzner.de."
+                ],
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              "delegation_last_check": {
+                "description": "Point in time (in ISO-8601 format) when the DNS zone delegation was last checked.\n",
+                "example": "2016-01-30T23:55:00+00:00",
+                "nullable": true,
+                "type": "string"
+              },
+              "delegation_status": {
+                "description": "Status of the delegation.\n\n- `valid` - Parent zone correctly delegates to assigned nameservers.\n- `partially-valid` - Parent zone delegates to additional Hetzner nameservers not assigned to this zone.\n- `invalid` - Parent zone does not delegate to the assigned nameservers.\n- `lame` - Parent zone delegates to nameservers that don't know the zone.\n- `unregistered` - Domain is not registered.\n- `unknown` - Not yet known.\n",
+                "enum": [
+                  "invalid",
+                  "lame",
+                  "partially-valid",
+                  "unknown",
+                  "unregistered",
+                  "valid"
+                ],
+                "type": "string"
+              }
+            },
+            "required": [
+              "assigned",
+              "delegated",
+              "delegation_last_check"
+            ],
+            "type": "object"
+          },
+          "created": {
+            "description": "Point in time when the Resource was created (in ISO-8601 format).",
+            "example": "2016-01-30T23:55:00+00:00",
+            "type": "string"
+          },
+          "id": {
+            "description": "ID of the [Zone](#zones).",
+            "example": 42,
+            "format": "int64",
+            "maximum": 9007199254740991,
+            "type": "integer"
+          },
+          "labels": {
+            "$ref": "#/components/schemas/labels"
+          },
+          "mode": {
+            "description": "Mode of the [Zone](#zones).\n\nFor more information, see [Zone Modes](#zone-modes).\n",
+            "enum": [
+              "primary",
+              "secondary"
+            ],
+            "example": "primary",
+            "type": "string"
+          },
+          "name": {
+            "description": "Name of the [Zone](#zones).\n\nAll names with [well-known public suffixes](https://publicsuffix.org/) (e.g. `.de`,\n`.com`, `.co.uk`) are supported. Subdomains are not supported.\n\nThe name must be in lower case and must not end with a dot.\n[Internationalized domain\nnames](https://en.wikipedia.org/wiki/Internationalized_domain_name) must be\ntranscribed to [Punycode](https://wikipedia.org/wiki/Punycode) representation with\nACE prefix, e.g. `xn--mnchen-3ya.de` (`münchen.de`).\n",
+            "example": "example.com",
+            "maxLength": 255,
+            "type": "string"
+          },
+          "primary_nameservers": {
+            "description": "Primary nameservers of the [Zone](#zones).\n\nOnly set if [Zone](#zones) is in [secondary mode](#zone-mode), otherwise empty.\n",
+            "example": [
+              {
+                "address": "198.51.100.1",
+                "port": 53
+              },
+              {
+                "address": "203.0.113.1",
+                "port": 53
+              }
+            ],
+            "items": {
+              "$ref": "#/components/schemas/nameserver"
+            },
+            "type": "array"
+          },
+          "protection": {
+            "$ref": "#/components/schemas/protection"
+          },
+          "record_count": {
+            "description": "Number of resource records (RR) within the [Zone](#zones).",
+            "type": "integer"
+          },
+          "registrar": {
+            "description": "Registrar of the domain.",
+            "enum": [
+              "hetzner",
+              "other",
+              "unknown"
+            ],
+            "type": "string"
+          },
+          "status": {
+            "description": "Status of the [Zone](#zones).\n\n- `ok`: the Zone is pushed to the authoritative nameservers.\n- `updating`: the Zone is currently being published to the authoritative nameservers.\n- `error`: the Zone could not be published to the authoritative nameservers.\n",
+            "enum": [
+              "error",
+              "ok",
+              "updating"
+            ],
+            "type": "string"
+          },
+          "ttl": {
+            "default": 3600,
+            "description": "Default Time To Live (TTL) of the [Zone](#zones).\n\nMust be in between 60s and 2147483647s.\n\nThis TTL is used for [RRSets](#zone-rrsets) that do not explicitly define a TTL.\n",
+            "example": 10800,
+            "maximum": 2147483647,
+            "minimum": 60,
+            "type": "integer"
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "labels",
+          "created",
+          "status",
+          "ttl",
+          "record_count",
+          "mode",
+          "protection",
+          "authoritative_nameservers",
+          "registrar"
+        ],
+        "title": "Zone",
+        "type": "object"
       }
     },
     "securitySchemes": {
@@ -7891,7 +8749,7 @@
     },
     "/actions/{id}": {
       "get": {
-        "description": "Returns a specific Action object.",
+        "description": "Returns a specific Action object.\n",
         "operationId": "get_action",
         "parameters": [
           {
@@ -7945,7 +8803,7 @@
     },
     "/certificates": {
       "get": {
-        "description": "Returns all Certificate objects.",
+        "description": "Returns all Certificate objects.\n",
         "operationId": "list_certificates",
         "parameters": [
           {
@@ -8283,7 +9141,7 @@
     },
     "/certificates/{id}": {
       "delete": {
-        "description": "Deletes a Certificate.",
+        "description": "Deletes a Certificate.\n",
         "operationId": "delete_certificate",
         "parameters": [
           {
@@ -8328,7 +9186,7 @@
         ]
       },
       "get": {
-        "description": "Gets a specific Certificate object.",
+        "description": "Gets a specific Certificate object.\n",
         "operationId": "get_certificate",
         "parameters": [
           {
@@ -8649,7 +9507,7 @@
     },
     "/certificates/{id}/actions/{action_id}": {
       "get": {
-        "description": "Returns a specific Action for a Certificate. Only type `managed` Certificates have Actions.",
+        "description": "Returns a specific Action for a Certificate. Only type `managed` Certificates have Actions.\n",
         "operationId": "get_action_for_certificate",
         "parameters": [
           {
@@ -8803,7 +9661,7 @@
     },
     "/certificates/actions": {
       "get": {
-        "description": "Returns all Action objects. You can `sort` the results by using the sort URI parameter, and filter them with the `status` and `id` parameter.",
+        "description": "Returns all Action objects. You can `sort` the results by using the sort URI parameter, and filter them with the `status` and `id` parameter.\n",
         "operationId": "list_certificate_actions",
         "parameters": [
           {
@@ -8931,7 +9789,7 @@
     },
     "/certificates/actions/{id}": {
       "get": {
-        "description": "Returns a specific Action object.",
+        "description": "Returns a specific Action object.\n",
         "operationId": "get_certificate_action",
         "parameters": [
           {
@@ -8985,7 +9843,7 @@
     },
     "/datacenters": {
       "get": {
-        "description": "Returns all [Datacenters](#datacenters).",
+        "description": "Returns all [Datacenters](#datacenters).\n",
         "operationId": "list_datacenters",
         "parameters": [
           {
@@ -9084,7 +9942,7 @@
     },
     "/datacenters/{id}": {
       "get": {
-        "description": "Returns a single [Datacenter](#datacenters).",
+        "description": "Returns a single [Datacenter](#datacenters).\n",
         "operationId": "get_datacenter",
         "parameters": [
           {
@@ -9373,7 +10231,7 @@
         ]
       },
       "get": {
-        "description": "Returns a single [Firewall](#firewalls).",
+        "description": "Returns a single [Firewall](#firewalls).\n",
         "operationId": "get_firewall",
         "parameters": [
           {
@@ -9640,7 +10498,7 @@
     },
     "/firewalls/{id}/actions/{action_id}": {
       "get": {
-        "description": "Returns a specific [Action](#actions) for a [Firewall](#firewalls).",
+        "description": "Returns a specific [Action](#actions) for a [Firewall](#firewalls).\n",
         "operationId": "get_action_for_firewall",
         "parameters": [
           {
@@ -9715,7 +10573,7 @@
     },
     "/firewalls/{id}/actions/apply_to_resources": {
       "post": {
-        "description": "Applies a [Firewall](#firewalls) to multiple resources.\n\nSupported resources:\n- [Servers](#servers) (with a public network interface)\n- [Label Selectors](#label-selector)\n\nA server can be applied to [a maximum of 5 Firewalls](https://docs.hetzner.com/cloud/firewalls/overview#limits).\n\n#### Error Codes specific to this Call\n\n| Code                          | Description                                                                                     |\n|-------------------------------|-------------------------------------------------------------------------------------------------|\n| `firewall_already_applied`    | [Firewall](#firewalls) is already applied to resource                                           |\n| `incompatible_network_type`   | The network type of the resource is not supported by [Firewalls](#firewalls)                    |\n| `firewall_resource_not_found` | The resource the [Firewall](#firewalls) should be applied to was not found                      |\n| `private_net_only_server`     | The [Server](#servers) the [Firewall](#firewalls) should be applied to has no public interface  |\n",
+        "description": "Applies a [Firewall](#firewalls) to multiple resources.\n\nSupported resources:\n- [Servers](#servers) (with a public network interface)\n- [Label Selectors](#label-selector)\n\nA [Server](#servers) can be applied to [a maximum of 5 Firewalls](https://docs.hetzner.com/cloud/firewalls/overview#limits). This limit\napplies to [Servers](#servers) applied via a matching [Label Selector](#label-selector) as well.\n\nUpdates to resources matching or no longer matching a [Label Selector](#label-selector) can take up to a few seconds\nto be processed.\n\nA [Firewall](#firewalls) is applied to a resource once the related [Action](#actions) with command `apply_firewall` successfully finished.\n\n#### Error Codes specific to this Call\n\n| Code                          | Description                                                                                     |\n|-------------------------------|-------------------------------------------------------------------------------------------------|\n| `firewall_already_applied`    | [Firewall](#firewalls) is already applied to resource                                           |\n| `incompatible_network_type`   | The network type of the resource is not supported by [Firewalls](#firewalls)                    |\n| `firewall_resource_not_found` | The resource the [Firewall](#firewalls) should be applied to was not found                      |\n| `private_net_only_server`     | The [Server](#servers) the [Firewall](#firewalls) should be applied to has no public interface  |\n",
         "operationId": "apply_to_resources",
         "parameters": [
           {
@@ -9820,7 +10678,7 @@
     },
     "/firewalls/{id}/actions/remove_from_resources": {
       "post": {
-        "description": "Removes a [Firewall](#firewalls) from multiple resources.\n\nSupported resources:\n- [Servers](#servers) (with a public network interface)\n\n#### Error Codes specific to this Call\n\n| Code                                  | Description                                                                                             |\n|---------------------------------------|---------------------------------------------------------------------------------------------------------|\n| `firewall_already_removed`            | [Firewall](#firewalls) is already removed from the resource                                             |\n| `firewall_resource_not_found`         | The resource the [Firewall](#firewalls) should be removed from was not found                            |\n| `firewall_managed_by_label_selector`  | [Firewall](#firewall) is applied via a [Label Selector](#label-selector) and cannot be removed manually |\n",
+        "description": "Removes a [Firewall](#firewalls) from multiple resources.\n\nSupported resources:\n- [Servers](#servers) (with a public network interface)\n\nA [Firewall](#firewalls) is removed from a resource once the related [Action](#actions) with command `remove_firewall` successfully finished.\n\n#### Error Codes specific to this Call\n\n| Code                                  | Description                                                                                             |\n|---------------------------------------|---------------------------------------------------------------------------------------------------------|\n| `firewall_resource_not_found`         | The resource the [Firewall](#firewalls) should be removed from was not found                            |\n| `firewall_managed_by_label_selector`  | [Firewall](#firewall) is applied via a [Label Selector](#label-selector) and cannot be removed manually |\n",
         "operationId": "remove_from_resources",
         "parameters": [
           {
@@ -10181,7 +11039,7 @@
     },
     "/firewalls/actions/{id}": {
       "get": {
-        "description": "Returns the specific [Action](#actions).",
+        "description": "Returns the specific [Action](#actions).\n",
         "operationId": "get_firewall_action",
         "parameters": [
           {
@@ -10488,7 +11346,7 @@
         ]
       },
       "get": {
-        "description": "Returns a single [Floating IP](#floating-ips).",
+        "description": "Returns a single [Floating IP](#floating-ips).\n",
         "operationId": "get_floating_ip",
         "parameters": [
           {
@@ -10792,7 +11650,7 @@
     },
     "/floating_ips/{id}/actions/{action_id}": {
       "get": {
-        "description": "Returns a specific [Action](#actions) for a [Floating IP](#floating-ips).",
+        "description": "Returns a specific [Action](#actions) for a [Floating IP](#floating-ips).\n",
         "operationId": "get_action_for_floating_ip",
         "parameters": [
           {
@@ -10871,7 +11729,7 @@
     },
     "/floating_ips/{id}/actions/assign": {
       "post": {
-        "description": "Assigns a [Floating IP](#floating-ips) to a [Server](#servers).",
+        "description": "Assigns a [Floating IP](#floating-ips) to a [Server](#servers).\n",
         "operationId": "assign_floating_ip_to_server",
         "parameters": [
           {
@@ -10989,7 +11847,7 @@
               }
             }
           },
-          "description": "The `ip` attributes specifies for which IP address the record is set. For IPv4 addresses this must be the exact address of the [Floating IP](#floating-ips). For IPv6 addresses this must be a single address within the `/64` subnet of the [Floating IP](#floating-ips).\n\nThe `dns_ptr` attribute specifies the hostname used for the IP address.\n\nFor IPv6 [Floating IPs](#floating-ips) up to 100 entries can be created.\n",
+          "description": "The `ip` attributes specifies for which IP address the record is set. For IPv4 addresses this must be the exact address of the [Floating IP](#floating-ips). For IPv6 addresses this must be a single address within the `/64` subnet of the [Floating IP](#floating-ips).\n\nThe `dns_ptr` attribute specifies the hostname used for the IP address. Must be a fully qualified domain name (FQDN) without trailing dot.\n\nFor IPv6 [Floating IPs](#floating-ips) up to 100 entries can be created.\n",
           "required": true
         },
         "responses": {
@@ -11054,7 +11912,7 @@
     },
     "/floating_ips/{id}/actions/change_protection": {
       "post": {
-        "description": "Changes the protection settings configured for the [Floating IP](#floating-ips).",
+        "description": "Changes the protection settings configured for the [Floating IP](#floating-ips).\n",
         "operationId": "change_floating_ip_protection",
         "parameters": [
           {
@@ -11354,7 +12212,7 @@
     },
     "/floating_ips/actions/{id}": {
       "get": {
-        "description": "Returns a single [Action](#actions).",
+        "description": "Returns a single [Action](#actions).\n",
         "operationId": "get_floating_ip_action",
         "parameters": [
           {
@@ -11408,7 +12266,7 @@
     },
     "/images": {
       "get": {
-        "description": "Returns all Image objects. You can select specific Image types only and sort the results by using URI parameters.",
+        "description": "Returns all Image objects. You can select specific Image types only and sort the results by using URI parameters.\n",
         "operationId": "list_images",
         "parameters": [
           {
@@ -11594,7 +12452,7 @@
     },
     "/images/{id}": {
       "delete": {
-        "description": "Deletes an Image. Only Images of type `snapshot` and `backup` can be deleted.",
+        "description": "Deletes an Image. Only Images of type `snapshot` and `backup` can be deleted.\n",
         "operationId": "delete_image",
         "parameters": [
           {
@@ -11639,7 +12497,7 @@
         ]
       },
       "get": {
-        "description": "Returns a specific Image object.",
+        "description": "Returns a specific Image object.\n",
         "operationId": "get_image",
         "parameters": [
           {
@@ -11789,7 +12647,7 @@
     },
     "/images/{id}/actions": {
       "get": {
-        "description": "Returns all Action objects for an Image. You can sort the results by using the `sort` URI parameter, and filter them with the `status` parameter.",
+        "description": "Returns all Action objects for an Image. You can sort the results by using the `sort` URI parameter, and filter them with the `status` parameter.\n",
         "operationId": "list_actions_for_image",
         "parameters": [
           {
@@ -11934,7 +12792,7 @@
     },
     "/images/{id}/actions/{action_id}": {
       "get": {
-        "description": "Returns a specific Action for an Image.",
+        "description": "Returns a specific Action for an Image.\n",
         "operationId": "get_action_for_image",
         "parameters": [
           {
@@ -12009,7 +12867,7 @@
     },
     "/images/{id}/actions/change_protection": {
       "post": {
-        "description": "Changes the protection configuration of the Image. Can only be used on snapshots.",
+        "description": "Changes the protection configuration of the Image. Can only be used on snapshots.\n",
         "operationId": "change_image_protection",
         "parameters": [
           {
@@ -12098,7 +12956,7 @@
     },
     "/images/actions": {
       "get": {
-        "description": "Returns all Action objects. You can `sort` the results by using the sort URI parameter, and filter them with the `status` and `id` parameter.",
+        "description": "Returns all Action objects. You can `sort` the results by using the sort URI parameter, and filter them with the `status` and `id` parameter.\n",
         "operationId": "list_image_actions",
         "parameters": [
           {
@@ -12226,7 +13084,7 @@
     },
     "/images/actions/{id}": {
       "get": {
-        "description": "Returns a specific Action object.",
+        "description": "Returns a specific Action object.\n",
         "operationId": "get_image_action",
         "parameters": [
           {
@@ -12280,7 +13138,7 @@
     },
     "/isos": {
       "get": {
-        "description": "Returns all available ISO objects.",
+        "description": "Returns all available ISO objects.\n",
         "operationId": "list_isos",
         "parameters": [
           {
@@ -12383,7 +13241,7 @@
     },
     "/isos/{id}": {
       "get": {
-        "description": "Returns a specific ISO object.",
+        "description": "Returns a specific ISO object.\n",
         "operationId": "get_iso",
         "parameters": [
           {
@@ -12442,7 +13300,7 @@
     },
     "/load_balancer_types": {
       "get": {
-        "description": "Gets all Load Balancer type objects.",
+        "description": "Gets all Load Balancer type objects.\n",
         "operationId": "list_load_balancer_types",
         "parameters": [
           {
@@ -12521,7 +13379,7 @@
     },
     "/load_balancer_types/{id}": {
       "get": {
-        "description": "Gets a specific Load Balancer type object.",
+        "description": "Gets a specific Load Balancer type object.\n",
         "operationId": "get_load_balancer_type",
         "parameters": [
           {
@@ -12580,7 +13438,7 @@
     },
     "/load_balancers": {
       "get": {
-        "description": "Gets all existing Load Balancers that you have available.",
+        "description": "Gets all existing Load Balancers that you have available.\n",
         "operationId": "list_load_balancers",
         "parameters": [
           {
@@ -12891,7 +13749,7 @@
     },
     "/load_balancers/{id}": {
       "delete": {
-        "description": "Deletes a Load Balancer.",
+        "description": "Deletes a Load Balancer.\n",
         "operationId": "delete_load_balancer",
         "parameters": [
           {
@@ -12936,7 +13794,7 @@
         ]
       },
       "get": {
-        "description": "Gets a specific Load Balancer object.",
+        "description": "Gets a specific Load Balancer object.\n",
         "operationId": "get_load_balancer",
         "parameters": [
           {
@@ -13198,7 +14056,7 @@
     },
     "/load_balancers/{id}/actions": {
       "get": {
-        "description": "Returns all Action objects for a Load Balancer. You can sort the results by using the `sort` URI parameter, and filter them with the `status` parameter.",
+        "description": "Returns all Action objects for a Load Balancer. You can sort the results by using the `sort` URI parameter, and filter them with the `status` parameter.\n",
         "operationId": "list_actions_for_load_balancer",
         "parameters": [
           {
@@ -13343,7 +14201,7 @@
     },
     "/load_balancers/{id}/actions/{action_id}": {
       "get": {
-        "description": "Returns a specific Action for a Load Balancer.",
+        "description": "Returns a specific Action for a Load Balancer.\n",
         "operationId": "get_action_for_load_balancer",
         "parameters": [
           {
@@ -13685,7 +14543,7 @@
     },
     "/load_balancers/{id}/actions/change_algorithm": {
       "post": {
-        "description": "Change the algorithm that determines to which target new requests are sent.",
+        "description": "Change the algorithm that determines to which target new requests are sent.\n",
         "operationId": "change_algorithm",
         "parameters": [
           {
@@ -13799,7 +14657,7 @@
               }
             }
           },
-          "description": "Select the IP address for which to change the DNS entry by passing `ip`. It can be either IPv4 or IPv6. The target hostname is set by passing `dns_ptr`.",
+          "description": "Select the IP address for which to change the DNS entry by passing `ip`. It can be either IPv4 or IPv6. The target hostname is set by passing `dns_ptr`, which must be a fully qualified domain name (FQDN) without trailing dot.",
           "required": true
         },
         "responses": {
@@ -13864,7 +14722,7 @@
     },
     "/load_balancers/{id}/actions/change_protection": {
       "post": {
-        "description": "Changes the protection configuration of a Load Balancer.",
+        "description": "Changes the protection configuration of a Load Balancer.\n",
         "operationId": "change_load_balancer_protection",
         "parameters": [
           {
@@ -14042,7 +14900,7 @@
     },
     "/load_balancers/{id}/actions/delete_service": {
       "post": {
-        "description": "Delete a service of a Load Balancer.",
+        "description": "Delete a service of a Load Balancer.\n",
         "operationId": "delete_service",
         "parameters": [
           {
@@ -14131,7 +14989,7 @@
     },
     "/load_balancers/{id}/actions/detach_from_network": {
       "post": {
-        "description": "Detaches a Load Balancer from a network.",
+        "description": "Detaches a Load Balancer from a network.\n",
         "operationId": "detach_load_balancer_from_network",
         "parameters": [
           {
@@ -14307,7 +15165,7 @@
     },
     "/load_balancers/{id}/actions/enable_public_interface": {
       "post": {
-        "description": "Enable the public interface of a Load Balancer. The Load Balancer will be accessible from the internet via its public IPs.",
+        "description": "Enable the public interface of a Load Balancer. The Load Balancer will be accessible from the internet via its public IPs.\n",
         "operationId": "enable_public_interface_of_load_balancer",
         "parameters": [
           {
@@ -14390,7 +15248,7 @@
     },
     "/load_balancers/{id}/actions/remove_target": {
       "post": {
-        "description": "Removes a target from a Load Balancer.",
+        "description": "Removes a target from a Load Balancer.\n",
         "operationId": "remove_target",
         "parameters": [
           {
@@ -14669,7 +15527,7 @@
     },
     "/load_balancers/actions": {
       "get": {
-        "description": "Returns all Action objects. You can `sort` the results by using the sort URI parameter, and filter them with the `status` and `id` parameter.",
+        "description": "Returns all Action objects. You can `sort` the results by using the sort URI parameter, and filter them with the `status` and `id` parameter.\n",
         "operationId": "list_load_balancer_actions",
         "parameters": [
           {
@@ -14797,7 +15655,7 @@
     },
     "/load_balancers/actions/{id}": {
       "get": {
-        "description": "Returns a specific Action object.",
+        "description": "Returns a specific Action object.\n",
         "operationId": "get_load_balancer_action",
         "parameters": [
           {
@@ -14950,7 +15808,7 @@
     },
     "/locations/{id}": {
       "get": {
-        "description": "Returns a [Location](#locations).",
+        "description": "Returns a [Location](#locations).\n",
         "operationId": "get_location",
         "parameters": [
           {
@@ -15212,7 +16070,7 @@
         ]
       },
       "get": {
-        "description": "Get a specific [Network](#networks).",
+        "description": "Get a specific [Network](#networks).\n",
         "operationId": "get_network",
         "parameters": [
           {
@@ -15513,7 +16371,7 @@
     },
     "/networks/{id}/actions/{action_id}": {
       "get": {
-        "description": "Returns a specific [Action](#actions) for a [Network](#networks).",
+        "description": "Returns a specific [Action](#actions) for a [Network](#networks).\n",
         "operationId": "get_action_for_network",
         "parameters": [
           {
@@ -16250,7 +17108,7 @@
     },
     "/networks/actions/{id}": {
       "get": {
-        "description": "Returns a single [Action](#actions).",
+        "description": "Returns a single [Action](#actions).\n",
         "operationId": "get_network_action",
         "parameters": [
           {
@@ -16304,7 +17162,7 @@
     },
     "/placement_groups": {
       "get": {
-        "description": "Returns all Placement Group objects.",
+        "description": "Returns all Placement Group objects.\n",
         "operationId": "list_placement_groups",
         "parameters": [
           {
@@ -16522,7 +17380,7 @@
     },
     "/placement_groups/{id}": {
       "delete": {
-        "description": "Deletes a Placement Group.",
+        "description": "Deletes a Placement Group.\n",
         "operationId": "delete_placementgroup",
         "parameters": [
           {
@@ -16567,7 +17425,7 @@
         ]
       },
       "get": {
-        "description": "Gets a specific Placement Group object.",
+        "description": "Gets a specific Placement Group object.\n",
         "operationId": "get_placementgroup",
         "parameters": [
           {
@@ -17038,7 +17896,7 @@
         ]
       },
       "get": {
-        "description": "Returns a [Primary IP](#primary-ips).",
+        "description": "Returns a [Primary IP](#primary-ips).\n",
         "operationId": "get_primary_ip",
         "parameters": [
           {
@@ -17277,7 +18135,7 @@
               }
             }
           },
-          "description": "The `ip` attributes specifies for which IP address the record is set. For IPv4 addresses this must be the exact address of the [Primary IP](#primary-ips). For IPv6 addresses this must be a single address within the `/64` subnet of the [Primary IP](#primary-ips).\n\nThe `dns_ptr` attribute specifies the hostname used for the IP address.\n\nFor IPv6 [Floating IPs](#floating-ips) up to 100 entries can be created.\n",
+          "description": "The `ip` attributes specifies for which IP address the record is set. For IPv4 addresses this must be the exact address of the [Primary IP](#primary-ips). For IPv6 addresses this must be a single address within the `/64` subnet of the [Primary IP](#primary-ips).\n\nThe `dns_ptr` attribute specifies the hostname used for the IP address. Must be a fully qualified domain name (FQDN) without trailing dot.\n\nFor IPv6 [Primary IPs](#primary-ips) up to 100 entries can be created.\n",
           "required": true
         },
         "responses": {
@@ -17642,7 +18500,7 @@
     },
     "/primary_ips/actions/{id}": {
       "get": {
-        "description": "Returns a single [Action](#actions).",
+        "description": "Returns a single [Action](#actions).\n",
         "operationId": "get_primary_ip_action",
         "parameters": [
           {
@@ -17696,7 +18554,7 @@
     },
     "/server_types": {
       "get": {
-        "description": "Gets all Server type objects.",
+        "description": "Gets all Server type objects.\n",
         "operationId": "list_server_types",
         "parameters": [
           {
@@ -17775,7 +18633,7 @@
     },
     "/server_types/{id}": {
       "get": {
-        "description": "Gets a specific Server type object.",
+        "description": "Gets a specific Server type object.\n",
         "operationId": "get_server_type",
         "parameters": [
           {
@@ -17834,7 +18692,7 @@
     },
     "/servers": {
       "get": {
-        "description": "Returns all existing Server objects.",
+        "description": "Returns all existing Server objects.\n",
         "operationId": "list_servers",
         "parameters": [
           {
@@ -17970,7 +18828,7 @@
         ]
       },
       "post": {
-        "description": "Creates a new Server. Returns preliminary information about the Server as well as an Action that covers progress of creation.",
+        "description": "Creates a new Server. Returns preliminary information about the Server as well as an Action that covers progress of creation.\n",
         "operationId": "create_server",
         "requestBody": {
           "content": {
@@ -18289,7 +19147,7 @@
         ]
       },
       "get": {
-        "description": "Returns a specific Server object. The Server must exist inside the Project.",
+        "description": "Returns a specific Server object. The Server must exist inside the Project.\n",
         "operationId": "get_server",
         "parameters": [
           {
@@ -18410,7 +19268,7 @@
     },
     "/servers/{id}/actions": {
       "get": {
-        "description": "Returns all Action objects for a Server. You can `sort` the results by using the sort URI parameter, and filter them with the `status` parameter.",
+        "description": "Returns all Action objects for a Server. You can `sort` the results by using the sort URI parameter, and filter them with the `status` parameter.\n",
         "operationId": "list_actions_for_server",
         "parameters": [
           {
@@ -18556,7 +19414,7 @@
     },
     "/servers/{id}/actions/{action_id}": {
       "get": {
-        "description": "Returns a specific Action object for a Server.",
+        "description": "Returns a specific Action object for a Server.\n",
         "operationId": "get_action_for_server",
         "parameters": [
           {
@@ -18902,7 +19760,7 @@
     },
     "/servers/{id}/actions/change_alias_ips": {
       "post": {
-        "description": "Changes the alias IPs of an already attached Network. Note that the existing aliases for the specified Network will be replaced with these provided in the request body. So if you want to add an alias IP, you have to provide the existing ones from the Network plus the new alias IP in the request body.",
+        "description": "Changes the alias IPs of an already attached Network. Note that the existing aliases for the specified Network will be replaced with these provided in the request body. So if you want to add an alias IP, you have to provide the existing ones from the Network plus the new alias IP in the request body.\n",
         "operationId": "change_alias_ips_of_network",
         "parameters": [
           {
@@ -19020,7 +19878,7 @@
               }
             }
           },
-          "description": "Select the IP address for which to change the DNS entry by passing `ip`. It can be either IPv4 or IPv6. The target hostname is set by passing `dns_ptr`.",
+          "description": "Select the IP address for which to change the DNS entry by passing `ip`. It can be either IPv4 or IPv6. The target hostname is set by passing `dns_ptr`, which must be a fully qualified domain name (FQDN) without trailing dot.",
           "required": true
         },
         "responses": {
@@ -19085,7 +19943,7 @@
     },
     "/servers/{id}/actions/change_protection": {
       "post": {
-        "description": "Changes the protection configuration of the Server.",
+        "description": "Changes the protection configuration of the Server.\n",
         "operationId": "change_server_protection",
         "parameters": [
           {
@@ -19379,7 +20237,7 @@
     },
     "/servers/{id}/actions/detach_from_network": {
       "post": {
-        "description": "Detaches a Server from a network. The interface for this network will vanish.",
+        "description": "Detaches a Server from a network. The interface for this network will vanish.\n",
         "operationId": "detach_server_from_network",
         "parameters": [
           {
@@ -19472,7 +20330,7 @@
     },
     "/servers/{id}/actions/detach_iso": {
       "post": {
-        "description": "Detaches an ISO from a Server. In case no ISO Image is attached to the Server, the status of the returned Action is immediately set to `success`.",
+        "description": "Detaches an ISO from a Server. In case no ISO Image is attached to the Server, the status of the returned Action is immediately set to `success`.\n",
         "operationId": "detach_iso_from_server",
         "parameters": [
           {
@@ -19878,7 +20736,7 @@
     },
     "/servers/{id}/actions/poweroff": {
       "post": {
-        "description": "Cuts power to the Server. This forcefully stops it without giving the Server operating system time to gracefully stop. May lead to data loss, equivalent to pulling the power cord. Power off should only be used when shutdown does not work.",
+        "description": "Cuts power to the Server. This forcefully stops it without giving the Server operating system time to gracefully stop. May lead to data loss, equivalent to pulling the power cord. Power off should only be used when shutdown does not work.\n",
         "operationId": "power_off_server",
         "parameters": [
           {
@@ -19957,7 +20815,7 @@
     },
     "/servers/{id}/actions/poweron": {
       "post": {
-        "description": "Starts a Server by turning its power on.",
+        "description": "Starts a Server by turning its power on.\n",
         "operationId": "power_on_server",
         "parameters": [
           {
@@ -20036,7 +20894,7 @@
     },
     "/servers/{id}/actions/reboot": {
       "post": {
-        "description": "Reboots a Server gracefully by sending an ACPI request. The Server operating system must support ACPI and react to the request, otherwise the Server will not reboot.",
+        "description": "Reboots a Server gracefully by sending an ACPI request. The Server operating system must support ACPI and react to the request, otherwise the Server will not reboot.\n",
         "operationId": "soft_reboot_server",
         "parameters": [
           {
@@ -20285,7 +21143,7 @@
     },
     "/servers/{id}/actions/request_console": {
       "post": {
-        "description": "Requests credentials for remote access via VNC over websocket to keyboard, monitor, and mouse for a Server. The provided URL is valid for 1 minute, after this period a new url needs to be created to connect to the Server. How long the connection is open after the initial connect is not subject to this timeout.",
+        "description": "Requests credentials for remote access via VNC over websocket to keyboard, monitor, and mouse for a Server. The provided URL is valid for 1 minute, after this period a new url needs to be created to connect to the Server. How long the connection is open after the initial connect is not subject to this timeout.\n",
         "operationId": "request_console_for_server",
         "parameters": [
           {
@@ -20366,7 +21224,7 @@
     },
     "/servers/{id}/actions/reset": {
       "post": {
-        "description": "Cuts power to a Server and starts it again. This forcefully stops it without giving the Server operating system time to gracefully stop. This may lead to data loss, it’s equivalent to pulling the power cord and plugging it in again. Reset should only be used when reboot does not work.",
+        "description": "Cuts power to a Server and starts it again. This forcefully stops it without giving the Server operating system time to gracefully stop. This may lead to data loss, it’s equivalent to pulling the power cord and plugging it in again. Reset should only be used when reboot does not work.\n",
         "operationId": "reset_server",
         "parameters": [
           {
@@ -20704,7 +21562,7 @@
     },
     "/servers/actions": {
       "get": {
-        "description": "Returns all Action objects. You can `sort` the results by using the sort URI parameter, and filter them with the `status` and `id` parameter.",
+        "description": "Returns all Action objects. You can `sort` the results by using the sort URI parameter, and filter them with the `status` and `id` parameter.\n",
         "operationId": "list_server_actions",
         "parameters": [
           {
@@ -20832,7 +21690,7 @@
     },
     "/servers/actions/{id}": {
       "get": {
-        "description": "Returns a specific Action object.",
+        "description": "Returns a specific Action object.\n",
         "operationId": "get_server_action",
         "parameters": [
           {
@@ -20886,7 +21744,7 @@
     },
     "/ssh_keys": {
       "get": {
-        "description": "Returns all SSH key objects.",
+        "description": "Returns all SSH key objects.\n",
         "operationId": "list_ssh_keys",
         "parameters": [
           {
@@ -20996,7 +21854,7 @@
         ]
       },
       "post": {
-        "description": "Creates a new SSH key with the given `name` and `public_key`. Once an SSH key is created, it can be used in other calls such as creating Servers.",
+        "description": "Creates a new SSH key with the given `name` and `public_key`. Once an SSH key is created, it can be used in other calls such as creating Servers.\n",
         "operationId": "create_ssh_key",
         "requestBody": {
           "content": {
@@ -21050,7 +21908,7 @@
     },
     "/ssh_keys/{id}": {
       "delete": {
-        "description": "Deletes an SSH key. It cannot be used anymore.",
+        "description": "Deletes an SSH key. It cannot be used anymore.\n",
         "operationId": "delete_ssh_key",
         "parameters": [
           {
@@ -21095,7 +21953,7 @@
         ]
       },
       "get": {
-        "description": "Returns a specific SSH key object.",
+        "description": "Returns a specific SSH key object.\n",
         "operationId": "get_ssh_key",
         "parameters": [
           {
@@ -21228,7 +22086,7 @@
     },
     "/volumes": {
       "get": {
-        "description": "Gets all existing Volumes that you have available.",
+        "description": "Gets all existing Volumes that you have available.\n",
         "operationId": "list_volumes",
         "parameters": [
           {
@@ -21488,7 +22346,7 @@
     },
     "/volumes/{id}": {
       "delete": {
-        "description": "Deletes a volume. All Volume data is irreversibly destroyed. The Volume must not be attached to a Server and it must not have delete protection enabled.",
+        "description": "Deletes a volume. All Volume data is irreversibly destroyed. The Volume must not be attached to a Server and it must not have delete protection enabled.\n",
         "operationId": "delete_volume",
         "parameters": [
           {
@@ -21533,7 +22391,7 @@
         ]
       },
       "get": {
-        "description": "Gets a specific Volume object.",
+        "description": "Gets a specific Volume object.\n",
         "operationId": "get_volume",
         "parameters": [
           {
@@ -21682,7 +22540,7 @@
     },
     "/volumes/{id}/actions": {
       "get": {
-        "description": "Returns all Action objects for a Volume. You can `sort` the results by using the sort URI parameter, and filter them with the `status` parameter.",
+        "description": "Returns all Action objects for a Volume. You can `sort` the results by using the sort URI parameter, and filter them with the `status` parameter.\n",
         "operationId": "list_actions_for_volume",
         "parameters": [
           {
@@ -21831,7 +22689,7 @@
     },
     "/volumes/{id}/actions/{action_id}": {
       "get": {
-        "description": "Returns a specific Action for a Volume.",
+        "description": "Returns a specific Action for a Volume.\n",
         "operationId": "get_action_for_volume",
         "parameters": [
           {
@@ -21906,7 +22764,7 @@
     },
     "/volumes/{id}/actions/attach": {
       "post": {
-        "description": "Attaches a Volume to a Server. Works only if the Server is in the same Location as the Volume.",
+        "description": "Attaches a Volume to a Server. Works only if the Server is in the same Location as the Volume.\n",
         "operationId": "attach_volume_to_server",
         "parameters": [
           {
@@ -21999,7 +22857,7 @@
     },
     "/volumes/{id}/actions/change_protection": {
       "post": {
-        "description": "Changes the protection configuration of a Volume.",
+        "description": "Changes the protection configuration of a Volume.\n",
         "operationId": "change_volume_protection",
         "parameters": [
           {
@@ -22092,7 +22950,7 @@
     },
     "/volumes/{id}/actions/detach": {
       "post": {
-        "description": "Detaches a Volume from the Server it’s attached to. You may attach it to a Server again at a later time.",
+        "description": "Detaches a Volume from the Server it’s attached to. You may attach it to a Server again at a later time.\n",
         "operationId": "detach_volume",
         "parameters": [
           {
@@ -22171,7 +23029,7 @@
     },
     "/volumes/{id}/actions/resize": {
       "post": {
-        "description": "Changes the size of a Volume. Note that downsizing a Volume is not possible.",
+        "description": "Changes the size of a Volume. Note that downsizing a Volume is not possible.\n",
         "operationId": "resize_volume",
         "parameters": [
           {
@@ -22260,7 +23118,7 @@
     },
     "/volumes/actions": {
       "get": {
-        "description": "Returns all Action objects. You can `sort` the results by using the sort URI parameter, and filter them with the `status` and `id` parameter.",
+        "description": "Returns all Action objects. You can `sort` the results by using the sort URI parameter, and filter them with the `status` and `id` parameter.\n",
         "operationId": "list_volume_actions",
         "parameters": [
           {
@@ -22388,7 +23246,7 @@
     },
     "/volumes/actions/{id}": {
       "get": {
-        "description": "Returns a specific Action object.",
+        "description": "Returns a specific Action object.\n",
         "operationId": "get_volume_action",
         "parameters": [
           {
@@ -22442,7 +23300,7 @@
     },
     "/storage_box_types": {
       "get": {
-        "description": "Returns a paginated list of [Storage Box Types](#storage-box-types).",
+        "description": "Returns a paginated list of [Storage Box Types](#storage-box-types).\n",
         "operationId": "list_storage_box_types",
         "parameters": [
           {
@@ -22504,7 +23362,7 @@
     },
     "/storage_box_types/{id}": {
       "get": {
-        "description": "Returns a specific [Storage Box Type](#storage-box-types).",
+        "description": "Returns a specific [Storage Box Type](#storage-box-types).\n",
         "operationId": "get_storage_box_type",
         "parameters": [
           {
@@ -22610,7 +23468,7 @@
         ]
       },
       "post": {
-        "description": "Creates a new Storage Box. Returns an Action that covers progress of creation.",
+        "description": "Creates a new Storage Box. Returns an Action that covers progress of creation.\n",
         "operationId": "create_storage_box",
         "requestBody": {
           "content": {
@@ -22729,7 +23587,7 @@
     },
     "/storage_boxes/actions": {
       "get": {
-        "description": "Returns all Action objects.",
+        "description": "Returns all Action objects.\n",
         "operationId": "list_storage_box_actions",
         "parameters": [
           {
@@ -22845,7 +23703,7 @@
     },
     "/storage_boxes/actions/{id}": {
       "get": {
-        "description": "Returns a specific Action object.",
+        "description": "Returns a specific Action object.\n",
         "operationId": "get_storage_box_action",
         "parameters": [
           {
@@ -22887,7 +23745,7 @@
     },
     "/storage_boxes/{id}": {
       "delete": {
-        "description": "Deletes an existing Storage Box.",
+        "description": "Deletes an existing Storage Box.\n",
         "operationId": "delete_storage_box",
         "parameters": [
           {
@@ -23031,7 +23889,7 @@
     },
     "/storage_boxes/{id}/actions": {
       "get": {
-        "description": "List all Actions related to a specific Storage Box.",
+        "description": "List all Actions related to a specific Storage Box.\n",
         "operationId": "list_actions_for_storage_box",
         "parameters": [
           {
@@ -23144,7 +24002,7 @@
     },
     "/storage_boxes/{id}/actions/change_protection": {
       "post": {
-        "description": "Changes the protection configuration of the Storage Box.",
+        "description": "Changes the protection configuration of the Storage Box.\n",
         "operationId": "change_storage_box_protection",
         "parameters": [
           {
@@ -23674,7 +24532,7 @@
     },
     "/storage_boxes/{id}/actions/{action_id}": {
       "get": {
-        "description": "Returns a specific Action object for a Storage Box.",
+        "description": "Returns a specific Action object for a Storage Box.\n",
         "operationId": "get_action_for_storage_box",
         "parameters": [
           {
@@ -23729,7 +24587,7 @@
     },
     "/storage_boxes/{id}/folders": {
       "get": {
-        "description": "Lists the (sub)folders contained in a Storage Box at the location specified by the path. Files are not part of the response.",
+        "description": "Lists the (sub)folders contained in a Storage Box at the location specified by the path. Files are not part of the response.\n",
         "operationId": "list_content_of_storage_box",
         "parameters": [
           {
@@ -23792,7 +24650,7 @@
     },
     "/storage_boxes/{id}/snapshots": {
       "get": {
-        "description": "Get all Snapshots created both manually and through the Snapshot Plan.",
+        "description": "Get all Snapshots created both manually and through the Snapshot Plan.\n",
         "operationId": "list_snapshots_for_storage_box",
         "parameters": [
           {
@@ -23972,7 +24830,7 @@
     },
     "/storage_boxes/{id}/snapshots/{snapshot_id}": {
       "delete": {
-        "description": "Delete the given Snapshot.",
+        "description": "Delete the given Snapshot.\n",
         "operationId": "delete_snapshot",
         "parameters": [
           {
@@ -24049,7 +24907,7 @@
         ]
       },
       "get": {
-        "description": "Returns a specific Snapshot object.",
+        "description": "Returns a specific Snapshot object.\n",
         "operationId": "get_snapshot",
         "parameters": [
           {
@@ -24097,7 +24955,7 @@
         ]
       },
       "put": {
-        "description": "Updates the name and labels of a Snapshot.",
+        "description": "Updates the name and labels of a Snapshot.\n",
         "operationId": "replace_snapshot",
         "parameters": [
           {
@@ -24162,7 +25020,7 @@
     },
     "/storage_boxes/{id}/subaccounts": {
       "get": {
-        "description": "Get a list of all available Subaccounts.",
+        "description": "Get a list of all available Subaccounts.\n",
         "operationId": "list_subaccounts_for_storage_box",
         "parameters": [
           {
@@ -24235,7 +25093,7 @@
         ]
       },
       "post": {
-        "description": "Creates a new Subaccount with a separate home directory.",
+        "description": "Creates a new Subaccount with a separate home directory.\n",
         "operationId": "create_subaccount",
         "parameters": [
           {
@@ -24320,7 +25178,7 @@
     },
     "/storage_boxes/{id}/subaccounts/{subaccount_id}": {
       "delete": {
-        "description": "Deletes an existing subaccount.",
+        "description": "Deletes an existing subaccount.\n",
         "operationId": "delete_subaccount",
         "parameters": [
           {
@@ -24397,7 +25255,7 @@
         ]
       },
       "get": {
-        "description": "Returns a specific Subaccount object.",
+        "description": "Returns a specific Subaccount object.\n",
         "operationId": "get_subaccount",
         "parameters": [
           {
@@ -24445,7 +25303,7 @@
         ]
       },
       "put": {
-        "description": "Updates the description and the labels of a Subaccount.",
+        "description": "Updates the description and the labels of a Subaccount.\n",
         "operationId": "replace_subaccount",
         "parameters": [
           {
@@ -24693,6 +25551,2444 @@
       "servers": [
         {
           "url": "https://api.hetzner.com/v1"
+        }
+      ]
+    },
+    "/zones": {
+      "get": {
+        "description": "Returns all [Zones](#zones).\n\nUse the provided URI parameters to modify the result.\n",
+        "operationId": "list_zones",
+        "parameters": [
+          {
+            "description": "Filter resources by their name. The response will only contain the resources\nmatching exactly the specified name.\n",
+            "in": "query",
+            "name": "name",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Filter resources by their mode. The response will only contain the resources\nmatching exactly the specified mode.\n",
+            "in": "query",
+            "name": "mode",
+            "required": false,
+            "schema": {
+              "description": "Mode of the [Zone](#zones).\n\nFor more information, see [Zone Modes](#zone-modes).\n",
+              "enum": [
+                "primary",
+                "secondary"
+              ],
+              "example": "primary",
+              "type": "string"
+            }
+          },
+          {
+            "description": "Filter resources by labels. The response will only contain resources matching the\nlabel selector. For more information, see \"[Label Selector](#label-selector)\".\n",
+            "in": "query",
+            "name": "label_selector",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Sort resources by field and direction. Can be used multiple times. For more\ninformation, see \"[Sorting](#sorting)\".\n",
+            "in": "query",
+            "name": "sort",
+            "required": false,
+            "schema": {
+              "items": {
+                "enum": [
+                  "id",
+                  "id:asc",
+                  "id:desc",
+                  "name",
+                  "name:asc",
+                  "name:desc",
+                  "created",
+                  "created:asc",
+                  "created:desc"
+                ],
+                "type": "string"
+              },
+              "type": "array"
+            }
+          },
+          {
+            "description": "Page number to return. For more information, see \"[Pagination](#pagination)\".",
+            "in": "query",
+            "name": "page",
+            "required": false,
+            "schema": {
+              "default": 1,
+              "example": 2,
+              "format": "int64",
+              "type": "integer"
+            }
+          },
+          {
+            "description": "Maximum number of entries returned per page. For more information, see \"[Pagination](#pagination)\".",
+            "in": "query",
+            "name": "per_page",
+            "required": false,
+            "schema": {
+              "default": 25,
+              "example": 25,
+              "format": "int64",
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/list_zones_response"
+                }
+              }
+            },
+            "description": "Request succeeded."
+          }
+        },
+        "summary": "List Zones",
+        "tags": [
+          "zones"
+        ],
+        "x-codeSamples": [
+          {
+            "label": "Go",
+            "lang": "Go",
+            "source": "package examples\n\nimport (\n\t\"context\"\n\t\"os\"\n\n\t\"github.com/hetznercloud/hcloud-go/v2/hcloud\"\n)\n\nfunc main() {\n\ttoken := os.Getenv(\"HCLOUD_TOKEN\")\n\n\tclient := hcloud.NewClient(hcloud.WithToken(token))\n\tctx := context.TODO()\n\n\tzones, err := client.Zone.All(ctx)\n}"
+          },
+          {
+            "label": "Python",
+            "lang": "Python",
+            "source": "from __future__ import annotations\n\nfrom os import environ\n\nfrom hcloud import Client\n\ntoken = environ[\"HCLOUD_TOKEN\"]\nclient = Client(token=token)\n\nzones = client.zones.get_all()"
+          },
+          {
+            "label": "CLI",
+            "lang": "Shell",
+            "source": "hcloud zone list"
+          }
+        ]
+      },
+      "post": {
+        "description": "Creates a [Zone](#zones).\n\nA default `SOA` and three `NS` resource records with the assigned Hetzner\nnameservers are created automatically.\n",
+        "operationId": "create_zone",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "examples": {
+                "primary": {
+                  "value": {
+                    "labels": {
+                      "key": "value"
+                    },
+                    "mode": "primary",
+                    "name": "example.com",
+                    "rrsets": [
+                      {
+                        "name": "www",
+                        "records": [
+                          {
+                            "comment": "My web server at Hetzner Cloud.",
+                            "value": "198.51.100.1"
+                          }
+                        ],
+                        "type": "A"
+                      }
+                    ],
+                    "ttl": 10800
+                  }
+                },
+                "primary from zone file": {
+                  "value": {
+                    "labels": {
+                      "key": "value"
+                    },
+                    "mode": "primary",
+                    "name": "example.com",
+                    "ttl": 10800,
+                    "zonefile": "$ORIGIN\texample.com.\n$TTL\t10800\n\n@\tIN\tA\t198.51.100.1 ; My web server at Hetzner Cloud.\n"
+                  }
+                },
+                "secondary": {
+                  "value": {
+                    "labels": {
+                      "key": "value"
+                    },
+                    "mode": "secondary",
+                    "name": "example.com",
+                    "primary_nameservers": [
+                      {
+                        "address": "198.51.100.1",
+                        "port": 53
+                      },
+                      {
+                        "address": "203.0.113.1",
+                        "port": 53
+                      }
+                    ],
+                    "ttl": 10800
+                  }
+                }
+              },
+              "schema": {
+                "$ref": "#/components/schemas/create_zone_request"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {
+                "example": {
+                  "action": {
+                    "command": "create_zone",
+                    "error": null,
+                    "finished": null,
+                    "id": 1,
+                    "progress": 50,
+                    "resources": [
+                      {
+                        "id": 42,
+                        "type": "zone"
+                      }
+                    ],
+                    "started": "2016-01-30T23:50:00+00:00",
+                    "status": "running"
+                  },
+                  "zone": {
+                    "authoritative_nameservers": {
+                      "assigned": [
+                        "hydrogen.ns.hetzner.com.",
+                        "oxygen.ns.hetzner.com.",
+                        "helium.ns.hetzner.de."
+                      ],
+                      "delegated": [
+                        "hydrogen.ns.hetzner.com.",
+                        "oxygen.ns.hetzner.com.",
+                        "helium.ns.hetzner.de."
+                      ],
+                      "delegation_last_check": "2016-01-30T23:50:00+00:00",
+                      "delegation_status": "valid"
+                    },
+                    "created": "2016-01-30T23:50:00+00:00",
+                    "id": 42,
+                    "labels": {
+                      "key": "value"
+                    },
+                    "mode": "primary",
+                    "name": "example.com",
+                    "protection": {
+                      "delete": false
+                    },
+                    "record_count": 4,
+                    "registrar": "hetzner",
+                    "status": "ok",
+                    "ttl": 3600
+                  }
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/create_zone_response"
+                }
+              }
+            },
+            "description": "Request succeeded."
+          }
+        },
+        "summary": "Create a Zone",
+        "tags": [
+          "zones"
+        ],
+        "x-codeSamples": [
+          {
+            "label": "Go (primary from zone file)",
+            "lang": "Go",
+            "source": "package examples\n\nimport (\n\t\"context\"\n\t\"os\"\n\n\t\"github.com/hetznercloud/hcloud-go/v2/hcloud\"\n)\n\nfunc main() {\n\ttoken := os.Getenv(\"HCLOUD_TOKEN\")\n\n\tclient := hcloud.NewClient(hcloud.WithToken(token))\n\tctx := context.TODO()\n\n\tresult, _, err := client.Zone.Create(ctx, hcloud.ZoneCreateOpts{\n\t\tName: \"example.com\",\n\t\tMode: hcloud.ZoneModePrimary,\n\t\tTTL:  hcloud.Ptr(10800),\n\t\tLabels: map[string]string{\n\t\t\t\"key\": \"value\",\n\t\t},\n\t\tZonefile: `$ORIGIN\texample.com.\n$TTL\t10800\n\n@\tIN\tA\t198.51.100.1 ; My web server at Hetzner Cloud.\n`,\n\t})\n\n\terr = client.Action.WaitFor(ctx, result.Action)\n\n\tzone := result.Zone\n}"
+          },
+          {
+            "label": "Go (primary)",
+            "lang": "Go",
+            "source": "package examples\n\nimport (\n\t\"context\"\n\t\"os\"\n\n\t\"github.com/hetznercloud/hcloud-go/v2/hcloud\"\n)\n\nfunc main() {\n\ttoken := os.Getenv(\"HCLOUD_TOKEN\")\n\n\tclient := hcloud.NewClient(hcloud.WithToken(token))\n\tctx := context.TODO()\n\n\tresult, _, err := client.Zone.Create(ctx, hcloud.ZoneCreateOpts{\n\t\tName: \"example.com\",\n\t\tMode: hcloud.ZoneModePrimary,\n\t\tTTL:  hcloud.Ptr(10800),\n\t\tLabels: map[string]string{\n\t\t\t\"key\": \"value\",\n\t\t},\n\t\tRRSets: []hcloud.ZoneCreateOptsRRSet{\n\t\t\t{\n\t\t\t\tName: \"www\",\n\t\t\t\tType: hcloud.ZoneRRSetTypeA,\n\t\t\t\tRecords: []hcloud.ZoneRRSetRecord{\n\t\t\t\t\t{\n\t\t\t\t\t\tValue:   \"198.51.100.1\",\n\t\t\t\t\t\tComment: \"My web server at Hetzner Cloud.\",\n\t\t\t\t\t},\n\t\t\t\t},\n\t\t\t},\n\t\t},\n\t})\n\n\terr = client.Action.WaitFor(ctx, result.Action)\n\n\tzone := result.Zone\n}"
+          },
+          {
+            "label": "Go (secondary)",
+            "lang": "Go",
+            "source": "package examples\n\nimport (\n\t\"context\"\n\t\"os\"\n\n\t\"github.com/hetznercloud/hcloud-go/v2/hcloud\"\n)\n\nfunc main() {\n\ttoken := os.Getenv(\"HCLOUD_TOKEN\")\n\n\tclient := hcloud.NewClient(hcloud.WithToken(token))\n\tctx := context.TODO()\n\n\tresult, _, err := client.Zone.Create(ctx, hcloud.ZoneCreateOpts{\n\t\tName: \"example.com\",\n\t\tMode: hcloud.ZoneModeSecondary,\n\t\tTTL:  hcloud.Ptr(10800),\n\t\tLabels: map[string]string{\n\t\t\t\"key\": \"value\",\n\t\t},\n\t\tPrimaryNameservers: []hcloud.ZoneCreateOptsPrimaryNameserver{\n\t\t\t{Address: \"198.51.100.1\", Port: 53},\n\t\t\t{Address: \"203.0.113.1\", Port: 53},\n\t\t},\n\t})\n\n\terr = client.Action.WaitFor(ctx, result.Action)\n\n\tzone := result.Zone\n}"
+          },
+          {
+            "label": "Python (primary from zone file)",
+            "lang": "Python",
+            "source": "from __future__ import annotations\n\nfrom os import environ\n\nfrom hcloud import Client\n\ntoken = environ[\"HCLOUD_TOKEN\"]\nclient = Client(token=token)\n\nresponse = client.zones.create(\n    name=\"example.com\",\n    mode=\"primary\",\n    ttl=10800,\n    labels={\n        \"key\": \"value\",\n    },\n    zonefile=\"\"\"$ORIGIN example.com.\n$TTL    10800\n\n@   IN  A   198.51.100.1 ; My web server at Hetzner Cloud.\n\"\"\",\n)\n\nresponse.action.wait_until_finished()\n\nzone = response.zone"
+          },
+          {
+            "label": "Python (primary)",
+            "lang": "Python",
+            "source": "from __future__ import annotations\n\nfrom os import environ\n\nfrom hcloud import Client\nfrom hcloud.zones import ZoneRecord, ZoneRRSet\n\ntoken = environ[\"HCLOUD_TOKEN\"]\nclient = Client(token=token)\n\nresponse = client.zones.create(\n    name=\"example.com\",\n    mode=\"primary\",\n    ttl=10800,\n    labels={\n        \"key\": \"value\",\n    },\n    rrsets=[\n        ZoneRRSet(\n            name=\"www\",\n            type=\"A\",\n            records=[\n                ZoneRecord(\n                    value=\"198.51.100.1\",\n                    comment=\"My web server at Hetzner Cloud.\",\n                )\n            ],\n        )\n    ],\n)\n\nresponse.action.wait_until_finished()\n\nzone = response.zone"
+          },
+          {
+            "label": "Python (secondary)",
+            "lang": "Python",
+            "source": "from __future__ import annotations\n\nfrom os import environ\n\nfrom hcloud import Client\nfrom hcloud.zones import ZonePrimaryNameserver\n\ntoken = environ[\"HCLOUD_TOKEN\"]\nclient = Client(token=token)\n\nresponse = client.zones.create(\n    name=\"example.com\",\n    mode=\"secondary\",\n    ttl=10800,\n    labels={\n        \"key\": \"value\",\n    },\n    primary_nameservers=[\n        ZonePrimaryNameserver(address=\"198.51.100.1\", port=53),\n        ZonePrimaryNameserver(address=\"203.0.113.1\", port=53),\n    ],\n)\n\nresponse.action.wait_until_finished()\n\nzone = response.zone"
+          },
+          {
+            "label": "CLI (primary from zone file)",
+            "lang": "Shell",
+            "source": "hcloud zone create \\\n    --name example.com \\\n    --mode primary \\\n    --ttl 10800 \\\n    --label \"key=value\" \\\n    --zonefile <(echo '$ORIGIN\texample.com.\n$TTL\t10800\n\n@\tIN\tA\t198.51.100.1 ; My web server at Hetzner Cloud.\n')"
+          },
+          {
+            "label": "CLI (primary)",
+            "lang": "Shell",
+            "source": "hcloud zone create \\\n    --name example.com \\\n    --mode primary \\\n    --ttl 10800 \\\n    --label \"key=value\"\nhcloud zone rrset create example.com \\\n    --name www \\\n    --type A \\\n    --record \"198.51.100.1\""
+          },
+          {
+            "label": "CLI (secondary)",
+            "lang": "Shell",
+            "source": "hcloud zone create \\\n    --name example.com \\\n    --mode secondary \\\n    --ttl 10800 \\\n    --label \"key=value\" \\\n    --primary-nameservers-file <(echo '[\n        {\"address\": \"198.51.100.1\", \"port\": 53},\n        {\"address\": \"203.0.113.1\", \"port\": 53}\n    ]')"
+          }
+        ]
+      },
+      "servers": [
+        {
+          "url": "https://api.hetzner.cloud/v1"
+        }
+      ]
+    },
+    "/zones/actions": {
+      "get": {
+        "description": "Returns all [Zone](#zones) [Actions](#actions).\n\nUse the provided URI parameters to modify the result.\n",
+        "operationId": "list_zone_actions",
+        "parameters": [
+          {
+            "description": "Filter the actions by ID. Can be used multiple times. The response will only contain\nactions matching the specified IDs.\n",
+            "in": "query",
+            "name": "id",
+            "required": false,
+            "schema": {
+              "items": {
+                "description": "ID of the [Action](#actions).",
+                "example": 42,
+                "format": "int64",
+                "maximum": 9007199254740991,
+                "type": "integer"
+              },
+              "type": "array"
+            }
+          },
+          {
+            "description": "Sort actions by field and direction. Can be used multiple times. For more\ninformation, see \"[Sorting](#sorting)\".\n",
+            "in": "query",
+            "name": "sort",
+            "required": false,
+            "schema": {
+              "items": {
+                "enum": [
+                  "id",
+                  "id:asc",
+                  "id:desc",
+                  "command",
+                  "command:asc",
+                  "command:desc",
+                  "status",
+                  "status:asc",
+                  "status:desc",
+                  "started",
+                  "started:asc",
+                  "started:desc",
+                  "finished",
+                  "finished:asc",
+                  "finished:desc"
+                ],
+                "type": "string"
+              },
+              "type": "array"
+            }
+          },
+          {
+            "description": "Filter the actions by status. Can be used multiple times. The response will only\ncontain actions matching the specified statuses.\n",
+            "in": "query",
+            "name": "status",
+            "required": false,
+            "schema": {
+              "items": {
+                "description": "Status of the Action.",
+                "enum": [
+                  "running",
+                  "success",
+                  "error"
+                ],
+                "type": "string"
+              },
+              "type": "array"
+            }
+          },
+          {
+            "description": "Page number to return. For more information, see \"[Pagination](#pagination)\".",
+            "in": "query",
+            "name": "page",
+            "required": false,
+            "schema": {
+              "default": 1,
+              "example": 2,
+              "format": "int64",
+              "type": "integer"
+            }
+          },
+          {
+            "description": "Maximum number of entries returned per page. For more information, see \"[Pagination](#pagination)\".",
+            "in": "query",
+            "name": "per_page",
+            "required": false,
+            "schema": {
+              "default": 25,
+              "example": 25,
+              "format": "int64",
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/list_actions_response"
+                }
+              }
+            },
+            "description": "Request succeeded."
+          }
+        },
+        "summary": "List Actions",
+        "tags": [
+          "zones"
+        ],
+        "x-codeSamples": [
+          {
+            "label": "Go",
+            "lang": "Go",
+            "source": "package examples\n\nimport (\n\t\"context\"\n\t\"os\"\n\n\t\"github.com/hetznercloud/hcloud-go/v2/hcloud\"\n)\n\nfunc main() {\n\ttoken := os.Getenv(\"HCLOUD_TOKEN\")\n\n\tclient := hcloud.NewClient(hcloud.WithToken(token))\n\tctx := context.TODO()\n\n\tactions, err := client.Zone.Action.All(ctx, hcloud.ActionListOpts{})\n}"
+          },
+          {
+            "label": "Python",
+            "lang": "Python",
+            "source": "from __future__ import annotations\n\nfrom os import environ\n\nfrom hcloud import Client\n\ntoken = environ[\"HCLOUD_TOKEN\"]\nclient = Client(token=token)\n\nactions = client.zones.actions.get_all()"
+          }
+        ]
+      },
+      "servers": [
+        {
+          "url": "https://api.hetzner.cloud/v1"
+        }
+      ]
+    },
+    "/zones/actions/{id}": {
+      "get": {
+        "description": "Returns a specific [Action](#actions).\n",
+        "operationId": "get_zone_action",
+        "parameters": [
+          {
+            "description": "ID of the Action.",
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "description": "ID of the [Action](#actions).",
+              "example": 42,
+              "format": "int64",
+              "maximum": 9007199254740991,
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/get_action_response"
+                }
+              }
+            },
+            "description": "Request succeeded."
+          }
+        },
+        "summary": "Get an Action",
+        "tags": [
+          "zones"
+        ],
+        "x-codeSamples": [
+          {
+            "label": "Go",
+            "lang": "Go",
+            "source": "package examples\n\nimport (\n\t\"context\"\n\t\"os\"\n\n\t\"github.com/hetznercloud/hcloud-go/v2/hcloud\"\n)\n\nfunc main() {\n\ttoken := os.Getenv(\"HCLOUD_TOKEN\")\n\n\tclient := hcloud.NewClient(hcloud.WithToken(token))\n\tctx := context.TODO()\n\n\taction, _, err := client.Zone.Action.GetByID(ctx, 123)\n}"
+          },
+          {
+            "label": "Python",
+            "lang": "Python",
+            "source": "from __future__ import annotations\n\nfrom os import environ\n\nfrom hcloud import Client\n\ntoken = environ[\"HCLOUD_TOKEN\"]\nclient = Client(token=token)\n\naction = client.zones.actions.get_by_id(123)"
+          }
+        ]
+      },
+      "servers": [
+        {
+          "url": "https://api.hetzner.cloud/v1"
+        }
+      ]
+    },
+    "/zones/{id_or_name}": {
+      "delete": {
+        "description": "Deletes a [Zone](#zone).\n",
+        "operationId": "delete_zone",
+        "parameters": [
+          {
+            "description": "ID or Name of the Zone.",
+            "in": "path",
+            "name": "id_or_name",
+            "required": true,
+            "schema": {
+              "description": "ID or Name of the [Zone](#zones).",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "example": {
+                  "action": {
+                    "command": "delete_zone",
+                    "error": null,
+                    "finished": null,
+                    "id": 1,
+                    "progress": 50,
+                    "resources": [
+                      {
+                        "id": 42,
+                        "type": "zone"
+                      }
+                    ],
+                    "started": "2016-01-30T23:50:00+00:00",
+                    "status": "running"
+                  }
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/delete_zone_response"
+                }
+              }
+            },
+            "description": "Request succeeded."
+          }
+        },
+        "summary": "Delete a Zone",
+        "tags": [
+          "zones"
+        ],
+        "x-codeSamples": [
+          {
+            "label": "Go",
+            "lang": "Go",
+            "source": "package examples\n\nimport (\n\t\"context\"\n\t\"os\"\n\n\t\"github.com/hetznercloud/hcloud-go/v2/hcloud\"\n)\n\nfunc main() {\n\ttoken := os.Getenv(\"HCLOUD_TOKEN\")\n\n\tclient := hcloud.NewClient(hcloud.WithToken(token))\n\tctx := context.TODO()\n\n\tresult, _, err := client.Zone.Delete(ctx, &hcloud.Zone{Name: \"example.com\"})\n\n\terr = client.Action.WaitFor(ctx, result.Action)\n}"
+          },
+          {
+            "label": "Python",
+            "lang": "Python",
+            "source": "from __future__ import annotations\n\nfrom os import environ\n\nfrom hcloud import Client\nfrom hcloud.zones import Zone\n\ntoken = environ[\"HCLOUD_TOKEN\"]\nclient = Client(token=token)\n\nresponse = client.zones.delete(\n    zone=Zone(name=\"example.com\"),\n)\n\nresponse.action.wait_until_finished()"
+          },
+          {
+            "label": "CLI",
+            "lang": "Shell",
+            "source": "hcloud zone delete $ZONE"
+          }
+        ]
+      },
+      "get": {
+        "description": "Returns a single [Zone](#zone).\n",
+        "operationId": "get_zone",
+        "parameters": [
+          {
+            "description": "ID or Name of the Zone.",
+            "in": "path",
+            "name": "id_or_name",
+            "required": true,
+            "schema": {
+              "description": "ID or Name of the [Zone](#zones).",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/get_zone_response"
+                }
+              }
+            },
+            "description": "Request succeeded."
+          }
+        },
+        "summary": "Get a Zone",
+        "tags": [
+          "zones"
+        ],
+        "x-codeSamples": [
+          {
+            "label": "Go",
+            "lang": "Go",
+            "source": "package examples\n\nimport (\n\t\"context\"\n\t\"os\"\n\n\t\"github.com/hetznercloud/hcloud-go/v2/hcloud\"\n)\n\nfunc main() {\n\ttoken := os.Getenv(\"HCLOUD_TOKEN\")\n\n\tclient := hcloud.NewClient(hcloud.WithToken(token))\n\tctx := context.TODO()\n\n\tzone, _, err := client.Zone.Get(ctx, \"example.com\")\n}"
+          },
+          {
+            "label": "Python",
+            "lang": "Python",
+            "source": "from __future__ import annotations\n\nfrom os import environ\n\nfrom hcloud import Client\n\ntoken = environ[\"HCLOUD_TOKEN\"]\nclient = Client(token=token)\n\nzone = client.zones.get(\"example.com\")"
+          },
+          {
+            "label": "CLI",
+            "lang": "Shell",
+            "source": "hcloud zone describe $ZONE"
+          }
+        ]
+      },
+      "put": {
+        "description": "Updates a [Zone](#zones).\n\nTo modify resource record sets ([RRSets](#zone-rrsets)), use the [RRSet Actions\nendpoints](#zone-rrsets-actions).\n",
+        "operationId": "replace_zone",
+        "parameters": [
+          {
+            "description": "ID or Name of the Zone.",
+            "in": "path",
+            "name": "id_or_name",
+            "required": true,
+            "schema": {
+              "description": "ID or Name of the [Zone](#zones).",
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/replace_zone_request"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "example": {
+                  "zone": {
+                    "authoritative_nameservers": {
+                      "assigned": [
+                        "hydrogen.ns.hetzner.com.",
+                        "oxygen.ns.hetzner.com.",
+                        "helium.ns.hetzner.de."
+                      ],
+                      "delegated": [
+                        "hydrogen.ns.hetzner.com.",
+                        "oxygen.ns.hetzner.com.",
+                        "helium.ns.hetzner.de."
+                      ],
+                      "delegation_last_check": "2016-01-30T23:50:00+00:00",
+                      "delegation_status": "valid"
+                    },
+                    "created": "2016-01-30T23:50:00+00:00",
+                    "id": 42,
+                    "labels": {
+                      "key": "value"
+                    },
+                    "mode": "primary",
+                    "name": "example.com",
+                    "protection": {
+                      "delete": false
+                    },
+                    "record_count": 4,
+                    "registrar": "hetzner",
+                    "status": "ok",
+                    "ttl": 3600
+                  }
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/replace_zone_response"
+                }
+              }
+            },
+            "description": "Request succeeded."
+          }
+        },
+        "summary": "Update a Zone",
+        "tags": [
+          "zones"
+        ],
+        "x-codeSamples": [
+          {
+            "label": "Go",
+            "lang": "Go",
+            "source": "package examples\n\nimport (\n\t\"context\"\n\t\"os\"\n\n\t\"github.com/hetznercloud/hcloud-go/v2/hcloud\"\n)\n\nfunc main() {\n\ttoken := os.Getenv(\"HCLOUD_TOKEN\")\n\n\tclient := hcloud.NewClient(hcloud.WithToken(token))\n\tctx := context.TODO()\n\n\tzone, _, err := client.Zone.Update(ctx, &hcloud.Zone{Name: \"example.com\"}, hcloud.ZoneUpdateOpts{\n\t\tLabels: map[string]string{\n\t\t\t\"environment\":    \"prod\",\n\t\t\t\"example.com/my\": \"label\",\n\t\t\t\"just-a-key\":     \"\",\n\t\t},\n\t})\n}"
+          },
+          {
+            "label": "Python",
+            "lang": "Python",
+            "source": "from __future__ import annotations\n\nfrom os import environ\n\nfrom hcloud import Client\nfrom hcloud.zones import Zone\n\ntoken = environ[\"HCLOUD_TOKEN\"]\nclient = Client(token=token)\n\nzone = client.zones.update(\n    zone=Zone(name=\"example.com\"),\n    labels={\n        \"environment\": \"prod\",\n        \"example.com/my\": \"label\",\n        \"just-a-key\": \"\",\n    },\n)"
+          },
+          {
+            "label": "CLI",
+            "lang": "Shell",
+            "source": "hcloud zone add-label --overwrite $ZONE \\\n    \"environment=prod\" \"example.com/my=label\" \"just-a-key=\"\nhcloud zone remove-label $ZONE \\\n    \"environment\" \"example.com\" \"just-a-key\""
+          }
+        ]
+      },
+      "servers": [
+        {
+          "url": "https://api.hetzner.cloud/v1"
+        }
+      ]
+    },
+    "/zones/{id_or_name}/actions": {
+      "get": {
+        "description": "Returns all [Actions](#actions) for a [Zone](#zones).\n\nUse the provided URI parameters to modify the result.\n",
+        "operationId": "list_actions_for_zone",
+        "parameters": [
+          {
+            "description": "ID or Name of the Zone.",
+            "in": "path",
+            "name": "id_or_name",
+            "required": true,
+            "schema": {
+              "description": "ID or Name of the [Zone](#zones).",
+              "type": "string"
+            }
+          },
+          {
+            "description": "Sort actions by field and direction. Can be used multiple times. For more\ninformation, see \"[Sorting](#sorting)\".\n",
+            "in": "query",
+            "name": "sort",
+            "required": false,
+            "schema": {
+              "items": {
+                "enum": [
+                  "id",
+                  "id:asc",
+                  "id:desc",
+                  "command",
+                  "command:asc",
+                  "command:desc",
+                  "status",
+                  "status:asc",
+                  "status:desc",
+                  "started",
+                  "started:asc",
+                  "started:desc",
+                  "finished",
+                  "finished:asc",
+                  "finished:desc"
+                ],
+                "type": "string"
+              },
+              "type": "array"
+            }
+          },
+          {
+            "description": "Filter the actions by status. Can be used multiple times. The response will only\ncontain actions matching the specified statuses.\n",
+            "in": "query",
+            "name": "status",
+            "required": false,
+            "schema": {
+              "items": {
+                "description": "Status of the Action.",
+                "enum": [
+                  "running",
+                  "success",
+                  "error"
+                ],
+                "type": "string"
+              },
+              "type": "array"
+            }
+          },
+          {
+            "description": "Page number to return. For more information, see \"[Pagination](#pagination)\".",
+            "in": "query",
+            "name": "page",
+            "required": false,
+            "schema": {
+              "default": 1,
+              "example": 2,
+              "format": "int64",
+              "type": "integer"
+            }
+          },
+          {
+            "description": "Maximum number of entries returned per page. For more information, see \"[Pagination](#pagination)\".",
+            "in": "query",
+            "name": "per_page",
+            "required": false,
+            "schema": {
+              "default": 25,
+              "example": 25,
+              "format": "int64",
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/list_actions_response"
+                }
+              }
+            },
+            "description": "Request succeeded."
+          }
+        },
+        "summary": "List Actions for a Zone",
+        "tags": [
+          "zones"
+        ]
+      },
+      "servers": [
+        {
+          "url": "https://api.hetzner.cloud/v1"
+        }
+      ]
+    },
+    "/zones/{id_or_name}/actions/change_primary_nameservers": {
+      "post": {
+        "description": "Overwrites the primary nameservers of a [Zone](#zones).\n\nOnly applicable for [Zones](#zones) in [secondary mode](#zone-modes).\n\n#### Call specific error codes\n\n| Code                  | Description                        |\n|-----------------------|------------------------------------|\n| `incorrect_zone_mode` | The zone is not in secondary mode. |\n",
+        "operationId": "change_zones_primary_nameservers",
+        "parameters": [
+          {
+            "description": "ID or Name of the Zone.",
+            "in": "path",
+            "name": "id_or_name",
+            "required": true,
+            "schema": {
+              "description": "ID or Name of the [Zone](#zones).",
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/change_zones_primary_nameservers_request"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {
+                "example": {
+                  "action": {
+                    "command": "change_primary_nameservers",
+                    "error": null,
+                    "finished": null,
+                    "id": 1,
+                    "progress": 50,
+                    "resources": [
+                      {
+                        "id": 42,
+                        "type": "zone"
+                      }
+                    ],
+                    "started": "2016-01-30T23:55:00+00:00",
+                    "status": "running"
+                  }
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/change_zones_primary_nameservers_response"
+                }
+              }
+            },
+            "description": "Request succeeded."
+          }
+        },
+        "summary": "Change a Zone's Primary Nameservers",
+        "tags": [
+          "zones"
+        ],
+        "x-codeSamples": [
+          {
+            "label": "Go",
+            "lang": "Go",
+            "source": "package examples\n\nimport (\n\t\"context\"\n\t\"os\"\n\n\t\"github.com/hetznercloud/hcloud-go/v2/hcloud\"\n)\n\nfunc main() {\n\ttoken := os.Getenv(\"HCLOUD_TOKEN\")\n\n\tclient := hcloud.NewClient(hcloud.WithToken(token))\n\tctx := context.TODO()\n\n\taction, _, err := client.Zone.ChangePrimaryNameservers(ctx, &hcloud.Zone{Name: \"example.com\"}, hcloud.ZoneChangePrimaryNameserversOpts{\n\t\tPrimaryNameservers: []hcloud.ZoneChangePrimaryNameserversOptsPrimaryNameserver{\n\t\t\t{Address: \"198.51.100.1\", Port: 53},\n\t\t\t{Address: \"203.0.113.1\", Port: 53},\n\t\t},\n\t})\n\n\terr = client.Action.WaitFor(ctx, action)\n}"
+          },
+          {
+            "label": "Python",
+            "lang": "Python",
+            "source": "from __future__ import annotations\n\nfrom os import environ\n\nfrom hcloud import Client\nfrom hcloud.zones import Zone, ZonePrimaryNameserver\n\ntoken = environ[\"HCLOUD_TOKEN\"]\nclient = Client(token=token)\n\naction = client.zones.change_primary_nameservers(\n    zone=Zone(name=\"example.com\"),\n    primary_nameservers=[\n        ZonePrimaryNameserver(address=\"198.51.100.1\", port=53),\n        ZonePrimaryNameserver(address=\"203.0.113.1\", port=53),\n    ],\n)\n\naction.wait_until_finished()"
+          },
+          {
+            "label": "CLI",
+            "lang": "Shell",
+            "source": "hcloud zone change-primary-nameservers $ZONE --primary-nameservers-file <(echo '[\n    {\"address\": \"198.51.100.1\", \"port\": 53},\n    {\"address\": \"203.0.113.1\", \"port\": 53}\n]')"
+          }
+        ]
+      },
+      "servers": [
+        {
+          "url": "https://api.hetzner.cloud/v1"
+        }
+      ]
+    },
+    "/zones/{id_or_name}/actions/change_protection": {
+      "post": {
+        "description": "Changes the protection configuration of a [Zone](#zones).\n",
+        "operationId": "change_zones_protection",
+        "parameters": [
+          {
+            "description": "ID or Name of the Zone.",
+            "in": "path",
+            "name": "id_or_name",
+            "required": true,
+            "schema": {
+              "description": "ID or Name of the [Zone](#zones).",
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/change_zones_protection_request"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {
+                "example": {
+                  "action": {
+                    "command": "change_protection",
+                    "error": null,
+                    "finished": null,
+                    "id": 1,
+                    "progress": 50,
+                    "resources": [
+                      {
+                        "id": 42,
+                        "type": "zone"
+                      }
+                    ],
+                    "started": "2016-01-30T23:55:00+00:00",
+                    "status": "running"
+                  }
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/change_zones_protection_response"
+                }
+              }
+            },
+            "description": "Request succeeded."
+          }
+        },
+        "summary": "Change a Zone's Protection",
+        "tags": [
+          "zones"
+        ],
+        "x-codeSamples": [
+          {
+            "label": "Go",
+            "lang": "Go",
+            "source": "package examples\n\nimport (\n\t\"context\"\n\t\"os\"\n\n\t\"github.com/hetznercloud/hcloud-go/v2/hcloud\"\n)\n\nfunc main() {\n\ttoken := os.Getenv(\"HCLOUD_TOKEN\")\n\n\tclient := hcloud.NewClient(hcloud.WithToken(token))\n\tctx := context.TODO()\n\n\taction, _, err := client.Zone.ChangeProtection(ctx, &hcloud.Zone{Name: \"example.com\"}, hcloud.ZoneChangeProtectionOpts{\n\t\tDelete: hcloud.Ptr(true),\n\t})\n\n\terr = client.Action.WaitFor(ctx, action)\n}"
+          },
+          {
+            "label": "Python",
+            "lang": "Python",
+            "source": "from __future__ import annotations\n\nfrom os import environ\n\nfrom hcloud import Client\nfrom hcloud.zones import Zone\n\ntoken = environ[\"HCLOUD_TOKEN\"]\nclient = Client(token=token)\n\naction = client.zones.change_protection(\n    zone=Zone(name=\"example.com\"),\n    delete=True,\n)\n\naction.wait_until_finished()"
+          },
+          {
+            "label": "CLI",
+            "lang": "Shell",
+            "source": "hcloud zone enable-protection $ZONE delete\nhcloud zone disable-protection $ZONE delete"
+          }
+        ]
+      },
+      "servers": [
+        {
+          "url": "https://api.hetzner.cloud/v1"
+        }
+      ]
+    },
+    "/zones/{id_or_name}/actions/change_ttl": {
+      "post": {
+        "description": "Changes the default Time To Live (TTL) of a [Zone](#zones).\n\nThis TTL is used for [RRSets](#zone-rrsets) that do not explicitly define a TTL.\n\nOnly applicable for [Zones](#zones) in [primary mode](#zone-modes).\n\n#### Call specific error codes\n\n| Code                  | Description                      |\n|-----------------------|----------------------------------|\n| `incorrect_zone_mode` | The zone is not in primary mode. |\n",
+        "operationId": "change_zones_default_ttl",
+        "parameters": [
+          {
+            "description": "ID or Name of the Zone.",
+            "in": "path",
+            "name": "id_or_name",
+            "required": true,
+            "schema": {
+              "description": "ID or Name of the [Zone](#zones).",
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/change_zones_default_ttl_request"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {
+                "example": {
+                  "action": {
+                    "command": "change_ttl",
+                    "error": null,
+                    "finished": null,
+                    "id": 1,
+                    "progress": 50,
+                    "resources": [
+                      {
+                        "id": 1,
+                        "type": "zone"
+                      }
+                    ],
+                    "started": "2016-01-30T23:55:00+00:00",
+                    "status": "running"
+                  }
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/change_zones_default_ttl_response"
+                }
+              }
+            },
+            "description": "Request succeeded."
+          }
+        },
+        "summary": "Change a Zone's Default TTL",
+        "tags": [
+          "zones"
+        ],
+        "x-codeSamples": [
+          {
+            "label": "Go",
+            "lang": "Go",
+            "source": "package examples\n\nimport (\n\t\"context\"\n\t\"os\"\n\n\t\"github.com/hetznercloud/hcloud-go/v2/hcloud\"\n)\n\nfunc main() {\n\ttoken := os.Getenv(\"HCLOUD_TOKEN\")\n\n\tclient := hcloud.NewClient(hcloud.WithToken(token))\n\tctx := context.TODO()\n\n\taction, _, err := client.Zone.ChangeTTL(ctx, &hcloud.Zone{Name: \"example.com\"}, hcloud.ZoneChangeTTLOpts{\n\t\tTTL: 10800,\n\t})\n\n\terr = client.Action.WaitFor(ctx, action)\n}"
+          },
+          {
+            "label": "Python",
+            "lang": "Python",
+            "source": "from __future__ import annotations\n\nfrom os import environ\n\nfrom hcloud import Client\nfrom hcloud.zones import Zone\n\ntoken = environ[\"HCLOUD_TOKEN\"]\nclient = Client(token=token)\n\naction = client.zones.change_ttl(\n    zone=Zone(name=\"example.com\"),\n    ttl=10800,\n)\n\naction.wait_until_finished()"
+          },
+          {
+            "label": "CLI",
+            "lang": "Shell",
+            "source": "hcloud zone change-ttl $ZONE --ttl 10800"
+          }
+        ]
+      },
+      "servers": [
+        {
+          "url": "https://api.hetzner.cloud/v1"
+        }
+      ]
+    },
+    "/zones/{id_or_name}/actions/import_zonefile": {
+      "post": {
+        "description": "Imports a zone file, replacing all resource record sets ([RRSets](#zone-rrsets)).\n\nThe import will fail if existing [RRSet](#zone-rrsets) are `change` protected.\n\nSee [Zone file import](#zone-file-import) for more details.\nOnly applicable for [Zones](#zones) in [primary mode](#zone-modes).\n\n#### Call specific error codes\n\n| Code                  | Description                      |\n|-----------------------|----------------------------------|\n| `incorrect_zone_mode` | The zone is not in primary mode. |\n",
+        "operationId": "import_zone_file",
+        "parameters": [
+          {
+            "description": "ID or Name of the Zone.",
+            "in": "path",
+            "name": "id_or_name",
+            "required": true,
+            "schema": {
+              "description": "ID or Name of the [Zone](#zones).",
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/import_zone_file_request"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {
+                "example": {
+                  "action": {
+                    "command": "import_zonefile",
+                    "error": null,
+                    "finished": null,
+                    "id": 1,
+                    "progress": 50,
+                    "resources": [
+                      {
+                        "id": 42,
+                        "type": "zone"
+                      }
+                    ],
+                    "started": "2016-01-30T23:55:00+00:00",
+                    "status": "running"
+                  }
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/import_zone_file_response"
+                }
+              }
+            },
+            "description": "Request succeeded."
+          }
+        },
+        "summary": "Import a Zone file",
+        "tags": [
+          "zones"
+        ],
+        "x-codeSamples": [
+          {
+            "label": "Go",
+            "lang": "Go",
+            "source": "package examples\n\nimport (\n\t\"context\"\n\t\"os\"\n\n\t\"github.com/hetznercloud/hcloud-go/v2/hcloud\"\n)\n\nfunc main() {\n\ttoken := os.Getenv(\"HCLOUD_TOKEN\")\n\n\tclient := hcloud.NewClient(hcloud.WithToken(token))\n\tctx := context.TODO()\n\n\taction, _, err := client.Zone.ImportZonefile(ctx, &hcloud.Zone{Name: \"example.com\"}, hcloud.ZoneImportZonefileOpts{\n\t\tZonefile: `$ORIGIN\texample.com.\n$TTL\t3600\n\n@\tIN\tSOA\thydrogen.ns.hetzner.com. dns.hetzner.com. 2024010100 86400 10800 3600000 3600\n\n@\tIN\t10800\tNS\thydrogen.ns.hetzner.com. ; Some comment.\n@\tIN\t10800\tNS\toxygen.ns.hetzner.com.\n@\tIN\t10800\tNS\thelium.ns.hetzner.de.\n`,\n\t})\n\n\terr = client.Action.WaitFor(ctx, action)\n}"
+          },
+          {
+            "label": "Python",
+            "lang": "Python",
+            "source": "from __future__ import annotations\n\nfrom os import environ\n\nfrom hcloud import Client\nfrom hcloud.zones import Zone\n\ntoken = environ[\"HCLOUD_TOKEN\"]\nclient = Client(token=token)\n\naction = client.zones.import_zonefile(\n    zone=Zone(name=\"example.com\"),\n    zonefile=\"\"\"$ORIGIN\texample.com.\n$TTL\t3600\n\n@\tIN\tSOA\thydrogen.ns.hetzner.com. dns.hetzner.com. 2024010100 86400 10800 3600000 3600\n\n@\tIN\t10800\tNS\thydrogen.ns.hetzner.com. ; Some comment.\n@\tIN\t10800\tNS\toxygen.ns.hetzner.com.\n@\tIN\t10800\tNS\thelium.ns.hetzner.de.\n\"\"\",\n)\n\naction.wait_until_finished()"
+          },
+          {
+            "label": "CLI",
+            "lang": "Shell",
+            "source": "hcloud zone import-zonefile $ZONE --zonefile <(echo '$ORIGIN\texample.com.\n$TTL\t3600\n\n@\tIN\tSOA\thydrogen.ns.hetzner.com. dns.hetzner.com. 2024010100 86400 10800 3600000 3600\n\n@\tIN\t10800\tNS\thydrogen.ns.hetzner.com. ; Some comment.\n@\tIN\t10800\tNS\toxygen.ns.hetzner.com.\n@\tIN\t10800\tNS\thelium.ns.hetzner.de.\n')"
+          }
+        ]
+      },
+      "servers": [
+        {
+          "url": "https://api.hetzner.cloud/v1"
+        }
+      ]
+    },
+    "/zones/{id_or_name}/actions/{action_id}": {
+      "get": {
+        "description": "Returns a specific [Action](#actions) for a [Zone](#zones).\n",
+        "operationId": "get_action_for_zone",
+        "parameters": [
+          {
+            "description": "ID or Name of the Zone.",
+            "in": "path",
+            "name": "id_or_name",
+            "required": true,
+            "schema": {
+              "description": "ID or Name of the [Zone](#zones).",
+              "type": "string"
+            }
+          },
+          {
+            "description": "ID of the Action.",
+            "in": "path",
+            "name": "action_id",
+            "required": true,
+            "schema": {
+              "description": "ID of the [Action](#actions).",
+              "example": 42,
+              "format": "int64",
+              "maximum": 9007199254740991,
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "example": {
+                  "action": {
+                    "command": "import_zonefile",
+                    "error": null,
+                    "finished": null,
+                    "id": 1,
+                    "progress": 50,
+                    "resources": [
+                      {
+                        "id": 42,
+                        "type": "zone"
+                      }
+                    ],
+                    "started": "2016-01-30T23:55:00+00:00",
+                    "status": "running"
+                  }
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/get_action_response"
+                }
+              }
+            },
+            "description": "Request succeeded."
+          }
+        },
+        "summary": "Get an Action for a Zone",
+        "tags": [
+          "zones"
+        ]
+      },
+      "servers": [
+        {
+          "url": "https://api.hetzner.cloud/v1"
+        }
+      ]
+    },
+    "/zones/{id_or_name}/rrsets": {
+      "get": {
+        "description": "Returns all [RRSets](#zone-rrsets) in the [Zone](#zones).\n\nUse the provided URI parameters to modify the result.\n\nOnly applicable for [Zones](#zones) in [primary mode](#zone-modes).\n\n#### Call specific error codes\n\n| Code                  | Description                      |\n|-----------------------|----------------------------------|\n| `incorrect_zone_mode` | The zone is not in primary mode. |\n",
+        "operationId": "list_rrsets",
+        "parameters": [
+          {
+            "description": "ID or Name of the Zone.",
+            "in": "path",
+            "name": "id_or_name",
+            "required": true,
+            "schema": {
+              "description": "ID or Name of the [Zone](#zones).",
+              "type": "string"
+            }
+          },
+          {
+            "description": "Filter resources by their name. The response will only contain the resources\nmatching exactly the specified name.\n",
+            "in": "query",
+            "name": "name",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Filter resources by their type. Can be used multiple times. The response will only\ncontain resources matching the specified types.\n",
+            "in": "query",
+            "name": "type",
+            "required": false,
+            "schema": {
+              "items": {
+                "description": "Type of the [RRSet](#zone-rrsets).\n",
+                "enum": [
+                  "A",
+                  "AAAA",
+                  "CAA",
+                  "CNAME",
+                  "DS",
+                  "HINFO",
+                  "HTTPS",
+                  "MX",
+                  "NS",
+                  "PTR",
+                  "RP",
+                  "SOA",
+                  "SRV",
+                  "SVCB",
+                  "TLSA",
+                  "TXT"
+                ],
+                "example": "A",
+                "type": "string"
+              },
+              "type": "array"
+            }
+          },
+          {
+            "description": "Filter resources by labels. The response will only contain resources matching the\nlabel selector. For more information, see \"[Label Selector](#label-selector)\".\n",
+            "in": "query",
+            "name": "label_selector",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Sort resources by field and direction. Can be used multiple times. For more\ninformation, see \"[Sorting](#sorting)\".\n",
+            "in": "query",
+            "name": "sort",
+            "required": false,
+            "schema": {
+              "items": {
+                "enum": [
+                  "id",
+                  "id:asc",
+                  "id:desc",
+                  "name",
+                  "name:asc",
+                  "name:desc",
+                  "created",
+                  "created:asc",
+                  "created:desc"
+                ],
+                "type": "string"
+              },
+              "type": "array"
+            }
+          },
+          {
+            "description": "Page number to return. For more information, see \"[Pagination](#pagination)\".",
+            "in": "query",
+            "name": "page",
+            "required": false,
+            "schema": {
+              "default": 1,
+              "example": 2,
+              "format": "int64",
+              "type": "integer"
+            }
+          },
+          {
+            "description": "Maximum number of entries returned per page. For more information, see \"[Pagination](#pagination)\".",
+            "in": "query",
+            "name": "per_page",
+            "required": false,
+            "schema": {
+              "default": 25,
+              "example": 25,
+              "format": "int64",
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/list_rrsets_response"
+                }
+              }
+            },
+            "description": "Request succeeded."
+          }
+        },
+        "summary": "List RRSets",
+        "tags": [
+          "zones"
+        ],
+        "x-codeSamples": [
+          {
+            "label": "Go",
+            "lang": "Go",
+            "source": "package examples\n\nimport (\n\t\"context\"\n\t\"os\"\n\n\t\"github.com/hetznercloud/hcloud-go/v2/hcloud\"\n)\n\nfunc main() {\n\ttoken := os.Getenv(\"HCLOUD_TOKEN\")\n\n\tclient := hcloud.NewClient(hcloud.WithToken(token))\n\tctx := context.TODO()\n\n\trrSets, _, err := client.Zone.ListRRSets(ctx, &hcloud.Zone{Name: \"example.com\"}, hcloud.ZoneRRSetListOpts{})\n}"
+          },
+          {
+            "label": "Python",
+            "lang": "Python",
+            "source": "from __future__ import annotations\n\nfrom os import environ\n\nfrom hcloud import Client\nfrom hcloud.zones import Zone\n\ntoken = environ[\"HCLOUD_TOKEN\"]\nclient = Client(token=token)\n\nzones = client.zones.get_rrset_all(zone=Zone(name=\"example.com\"))"
+          },
+          {
+            "label": "CLI",
+            "lang": "Shell",
+            "source": "hcloud zone rrset list $ZONE"
+          }
+        ]
+      },
+      "post": {
+        "description": "Create an [RRSet](#zone-rrsets) in the [Zone](#zones).\n\nOnly applicable for [Zones](#zones) in [primary mode](#zone-modes).\n\n| Code                  | Description                      |\n|-----------------------|----------------------------------|\n| `incorrect_zone_mode` | The zone is not in primary mode. |\n",
+        "operationId": "create_rrset",
+        "parameters": [
+          {
+            "description": "ID or Name of the Zone.",
+            "in": "path",
+            "name": "id_or_name",
+            "required": true,
+            "schema": {
+              "description": "ID or Name of the [Zone](#zones).",
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/create_rrset_request"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {
+                "example": {
+                  "action": {
+                    "command": "create_rrset",
+                    "error": null,
+                    "finished": null,
+                    "id": 1,
+                    "progress": 50,
+                    "resources": [
+                      {
+                        "id": 42,
+                        "type": "zone"
+                      }
+                    ],
+                    "started": "2016-01-30T23:55:00+00:00",
+                    "status": "running"
+                  },
+                  "rrset": {
+                    "id": "www/A",
+                    "labels": {
+                      "key": "value"
+                    },
+                    "name": "www",
+                    "protection": {
+                      "change": false
+                    },
+                    "records": [
+                      {
+                        "comment": "My web server at Hetzner Cloud.",
+                        "value": "198.51.100.1"
+                      }
+                    ],
+                    "ttl": 3600,
+                    "type": "A",
+                    "zone": 42
+                  }
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/create_rrset_response"
+                }
+              }
+            },
+            "description": "Request succeeded."
+          }
+        },
+        "summary": "Create an RRSet",
+        "tags": [
+          "zones"
+        ],
+        "x-codeSamples": [
+          {
+            "label": "Go",
+            "lang": "Go",
+            "source": "package examples\n\nimport (\n\t\"context\"\n\t\"os\"\n\n\t\"github.com/hetznercloud/hcloud-go/v2/hcloud\"\n)\n\nfunc main() {\n\ttoken := os.Getenv(\"HCLOUD_TOKEN\")\n\n\tclient := hcloud.NewClient(hcloud.WithToken(token))\n\tctx := context.TODO()\n\n\tresult, _, err := client.Zone.CreateRRSet(ctx, &hcloud.Zone{Name: \"example.com\"}, hcloud.ZoneRRSetCreateOpts{\n\t\tName: \"www\",\n\t\tType: hcloud.ZoneRRSetTypeA,\n\t\tTTL:  hcloud.Ptr(3600),\n\t\tRecords: []hcloud.ZoneRRSetRecord{\n\t\t\t{\n\t\t\t\tValue:   \"198.51.100.1\",\n\t\t\t\tComment: \"My web server at Hetzner Cloud.\",\n\t\t\t},\n\t\t},\n\t\tLabels: map[string]string{\n\t\t\t\"environment\":    \"prod\",\n\t\t\t\"example.com/my\": \"label\",\n\t\t\t\"just-a-key\":     \"\",\n\t\t},\n\t})\n\n\terr = client.Action.WaitFor(ctx, result.Action)\n\n\trrSet := result.RRSet\n}"
+          },
+          {
+            "label": "Python",
+            "lang": "Python",
+            "source": "from __future__ import annotations\n\nfrom os import environ\n\nfrom hcloud import Client\nfrom hcloud.zones import Zone, ZoneRecord\n\ntoken = environ[\"HCLOUD_TOKEN\"]\nclient = Client(token=token)\n\nresponse = client.zones.create_rrset(\n    zone=Zone(name=\"example.com\"),\n    name=\"www\",\n    type=\"A\",\n    ttl=3600,\n    records=[\n        ZoneRecord(\n            value=\"198.51.100.1\",\n            comment=\"My web server at Hetzner Cloud.\",\n        )\n    ],\n    labels={\n        \"environment\": \"prod\",\n        \"example.com/my\": \"label\",\n        \"just-a-key\": \"\",\n    },\n)\n\nresponse.action.wait_until_finished()\n\nrrset = response.rrset"
+          },
+          {
+            "label": "CLI",
+            "lang": "Shell",
+            "source": "hcloud zone rrset create $ZONE \\\n    --name www \\\n    --type A \\\n    --ttl 3600 \\\n    --record \"198.51.100.1\" \\\n    --label \"environment=prod\" \\\n    --label \"example.com/my=label\" \\\n    --label \"just-a-key=\""
+          }
+        ]
+      },
+      "servers": [
+        {
+          "url": "https://api.hetzner.cloud/v1"
+        }
+      ]
+    },
+    "/zones/{id_or_name}/rrsets/{rr_name}/{rr_type}": {
+      "delete": {
+        "description": "Deletes an [RRSet](#zone-rrsets) from the [Zone](#zones).\n\nOnly applicable for [Zones](#zones) in [primary mode](#zone-modes).\n\n| Code                  | Description                      |\n|-----------------------|----------------------------------|\n| `incorrect_zone_mode` | The zone is not in primary mode. |\n",
+        "operationId": "delete_rrset",
+        "parameters": [
+          {
+            "description": "ID or Name of the Zone.",
+            "in": "path",
+            "name": "id_or_name",
+            "required": true,
+            "schema": {
+              "description": "ID or Name of the [Zone](#zones).",
+              "type": "string"
+            }
+          },
+          {
+            "in": "path",
+            "name": "rr_name",
+            "required": true,
+            "schema": {
+              "description": "Name of the [RRSet](#zone-rrsets).\n\nThe name must be in lower case, and must not end with a dot or the [Zone](#zones)\nname. Names containing non-ASCII characters must be transcribed to\n[Punycode](https://wikipedia.org/wiki/Punycode) representation with ACE prefix, e.g.\n`xn--4bi` (✉️).\n\nFor the [Zone](#zones) apex, use `@`.\n",
+              "example": "www",
+              "type": "string"
+            }
+          },
+          {
+            "in": "path",
+            "name": "rr_type",
+            "required": true,
+            "schema": {
+              "description": "Type of the [RRSet](#zone-rrsets).\n",
+              "enum": [
+                "A",
+                "AAAA",
+                "CAA",
+                "CNAME",
+                "DS",
+                "HINFO",
+                "HTTPS",
+                "MX",
+                "NS",
+                "PTR",
+                "RP",
+                "SOA",
+                "SRV",
+                "SVCB",
+                "TLSA",
+                "TXT"
+              ],
+              "example": "A",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {
+                "example": {
+                  "action": {
+                    "command": "delete_rrset",
+                    "error": null,
+                    "finished": null,
+                    "id": 1,
+                    "progress": 50,
+                    "resources": [
+                      {
+                        "id": 42,
+                        "type": "zone"
+                      }
+                    ],
+                    "started": "2016-01-30T23:55:00+00:00",
+                    "status": "running"
+                  }
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/delete_rrset_response"
+                }
+              }
+            },
+            "description": "Request succeeded."
+          }
+        },
+        "summary": "Delete an RRSet",
+        "tags": [
+          "zones"
+        ],
+        "x-codeSamples": [
+          {
+            "label": "Go",
+            "lang": "Go",
+            "source": "package examples\n\nimport (\n\t\"context\"\n\t\"os\"\n\n\t\"github.com/hetznercloud/hcloud-go/v2/hcloud\"\n)\n\nfunc main() {\n\ttoken := os.Getenv(\"HCLOUD_TOKEN\")\n\n\tclient := hcloud.NewClient(hcloud.WithToken(token))\n\tctx := context.TODO()\n\n\tresult, _, err := client.Zone.DeleteRRSet(ctx, &hcloud.ZoneRRSet{\n\t\tZone: &hcloud.Zone{Name: \"example.com\"},\n\t\tName: \"www\",\n\t\tType: hcloud.ZoneRRSetTypeA,\n\t})\n\n\terr = client.Action.WaitFor(ctx, result.Action)\n}"
+          },
+          {
+            "label": "Python",
+            "lang": "Python",
+            "source": "from __future__ import annotations\n\nfrom os import environ\n\nfrom hcloud import Client\nfrom hcloud.zones import Zone, ZoneRRSet\n\ntoken = environ[\"HCLOUD_TOKEN\"]\nclient = Client(token=token)\n\nresponse = client.zones.delete_rrset(\n    rrset=ZoneRRSet(\n        zone=Zone(name=\"example.com\"),\n        name=\"www\",\n        type=\"A\",\n    ),\n)\n\nresponse.action.wait_until_finished()"
+          },
+          {
+            "label": "CLI",
+            "lang": "Shell",
+            "source": "hcloud zone rrset delete $ZONE $RR_NAME $RR_TYPE"
+          }
+        ]
+      },
+      "get": {
+        "description": "Returns a single [RRSet](#zone-rrsets) from the [Zone](#zones).\n\nOnly applicable for [Zones](#zones) in [primary mode](#zone-modes).\n\n#### Call specific error codes\n\n| Code                  | Description                      |\n|-----------------------|----------------------------------|\n| `incorrect_zone_mode` | The zone is not in primary mode. |\n",
+        "operationId": "get_rrset",
+        "parameters": [
+          {
+            "description": "ID or Name of the Zone.",
+            "in": "path",
+            "name": "id_or_name",
+            "required": true,
+            "schema": {
+              "description": "ID or Name of the [Zone](#zones).",
+              "type": "string"
+            }
+          },
+          {
+            "in": "path",
+            "name": "rr_name",
+            "required": true,
+            "schema": {
+              "description": "Name of the [RRSet](#zone-rrsets).\n\nThe name must be in lower case, and must not end with a dot or the [Zone](#zones)\nname. Names containing non-ASCII characters must be transcribed to\n[Punycode](https://wikipedia.org/wiki/Punycode) representation with ACE prefix, e.g.\n`xn--4bi` (✉️).\n\nFor the [Zone](#zones) apex, use `@`.\n",
+              "example": "www",
+              "type": "string"
+            }
+          },
+          {
+            "in": "path",
+            "name": "rr_type",
+            "required": true,
+            "schema": {
+              "description": "Type of the [RRSet](#zone-rrsets).\n",
+              "enum": [
+                "A",
+                "AAAA",
+                "CAA",
+                "CNAME",
+                "DS",
+                "HINFO",
+                "HTTPS",
+                "MX",
+                "NS",
+                "PTR",
+                "RP",
+                "SOA",
+                "SRV",
+                "SVCB",
+                "TLSA",
+                "TXT"
+              ],
+              "example": "A",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/get_rrset_response"
+                }
+              }
+            },
+            "description": "Request succeeded."
+          }
+        },
+        "summary": "Get an RRSet",
+        "tags": [
+          "zones"
+        ],
+        "x-codeSamples": [
+          {
+            "label": "Go",
+            "lang": "Go",
+            "source": "package examples\n\nimport (\n\t\"context\"\n\t\"os\"\n\n\t\"github.com/hetznercloud/hcloud-go/v2/hcloud\"\n)\n\nfunc main() {\n\ttoken := os.Getenv(\"HCLOUD_TOKEN\")\n\n\tclient := hcloud.NewClient(hcloud.WithToken(token))\n\tctx := context.TODO()\n\n\trrSet, _, err := client.Zone.GetRRSetByNameAndType(ctx, &hcloud.Zone{Name: \"example.com\"}, \"www\", hcloud.ZoneRRSetTypeA)\n}"
+          },
+          {
+            "label": "Python",
+            "lang": "Python",
+            "source": "from __future__ import annotations\n\nfrom os import environ\n\nfrom hcloud import Client\nfrom hcloud.zones import Zone\n\ntoken = environ[\"HCLOUD_TOKEN\"]\nclient = Client(token=token)\n\nrrset = client.zones.get_rrset(zone=Zone(name=\"example.com\"), name=\"www\", type=\"A\")"
+          },
+          {
+            "label": "CLI",
+            "lang": "Shell",
+            "source": "hcloud zone rrset describe $ZONE $RR_NAME $RR_TYPE"
+          }
+        ]
+      },
+      "put": {
+        "description": "Updates an [RRSet](#zone-rrsets) in the [Zone](#zones).\n\nOnly applicable for [Zones](#zones) in [primary mode](#zone-modes).\n\n| Code                  | Description                      |\n|-----------------------|----------------------------------|\n| `incorrect_zone_mode` | The zone is not in primary mode. |\n",
+        "operationId": "replace_rrset",
+        "parameters": [
+          {
+            "description": "ID or Name of the Zone.",
+            "in": "path",
+            "name": "id_or_name",
+            "required": true,
+            "schema": {
+              "description": "ID or Name of the [Zone](#zones).",
+              "type": "string"
+            }
+          },
+          {
+            "in": "path",
+            "name": "rr_name",
+            "required": true,
+            "schema": {
+              "description": "Name of the [RRSet](#zone-rrsets).\n\nThe name must be in lower case, and must not end with a dot or the [Zone](#zones)\nname. Names containing non-ASCII characters must be transcribed to\n[Punycode](https://wikipedia.org/wiki/Punycode) representation with ACE prefix, e.g.\n`xn--4bi` (✉️).\n\nFor the [Zone](#zones) apex, use `@`.\n",
+              "example": "www",
+              "type": "string"
+            }
+          },
+          {
+            "in": "path",
+            "name": "rr_type",
+            "required": true,
+            "schema": {
+              "description": "Type of the [RRSet](#zone-rrsets).\n",
+              "enum": [
+                "A",
+                "AAAA",
+                "CAA",
+                "CNAME",
+                "DS",
+                "HINFO",
+                "HTTPS",
+                "MX",
+                "NS",
+                "PTR",
+                "RP",
+                "SOA",
+                "SRV",
+                "SVCB",
+                "TLSA",
+                "TXT"
+              ],
+              "example": "A",
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/replace_rrset_request"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "example": {
+                  "rrset": {
+                    "id": "www/A",
+                    "labels": {
+                      "environment": "prod",
+                      "example.com/my": "label",
+                      "just-a-key": ""
+                    },
+                    "name": "www",
+                    "protection": {
+                      "change": false
+                    },
+                    "records": [
+                      {
+                        "comment": "My web server at Hetzner Cloud.",
+                        "value": "198.51.100.1"
+                      }
+                    ],
+                    "ttl": null,
+                    "type": "A",
+                    "zone": 42
+                  }
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/replace_rrset_response"
+                }
+              }
+            },
+            "description": "Request succeeded."
+          }
+        },
+        "summary": "Update an RRSet",
+        "tags": [
+          "zones"
+        ],
+        "x-codeSamples": [
+          {
+            "label": "Go",
+            "lang": "Go",
+            "source": "package examples\n\nimport (\n\t\"context\"\n\t\"os\"\n\n\t\"github.com/hetznercloud/hcloud-go/v2/hcloud\"\n)\n\nfunc main() {\n\ttoken := os.Getenv(\"HCLOUD_TOKEN\")\n\n\tclient := hcloud.NewClient(hcloud.WithToken(token))\n\tctx := context.TODO()\n\n\trrSet, _, err := client.Zone.UpdateRRSet(ctx, &hcloud.ZoneRRSet{\n\t\tZone: &hcloud.Zone{Name: \"example.com\"},\n\t\tName: \"www\",\n\t\tType: hcloud.ZoneRRSetTypeA,\n\t}, hcloud.ZoneRRSetUpdateOpts{\n\t\tLabels: map[string]string{\n\t\t\t\"environment\":    \"prod\",\n\t\t\t\"example.com/my\": \"label\",\n\t\t\t\"just-a-key\":     \"\",\n\t\t},\n\t})\n}"
+          },
+          {
+            "label": "Python",
+            "lang": "Python",
+            "source": "from __future__ import annotations\n\nfrom os import environ\n\nfrom hcloud import Client\nfrom hcloud.zones import Zone, ZoneRRSet\n\ntoken = environ[\"HCLOUD_TOKEN\"]\nclient = Client(token=token)\n\nrrset = client.zones.update_rrset(\n    rrset=ZoneRRSet(\n        zone=Zone(name=\"example.com\"),\n        name=\"www\",\n        type=\"A\",\n    ),\n    labels={\n        \"environment\": \"prod\",\n        \"example.com/my\": \"label\",\n        \"just-a-key\": \"\",\n    },\n)"
+          },
+          {
+            "label": "CLI",
+            "lang": "Shell",
+            "source": "hcloud zone rrset add-label --overwrite $ZONE $RR_NAME $RR_TYPE \\\n    \"environment=prod\" \"example.com/my=label\" \"just-a-key=\"\nhcloud zone remove-label $ZONE $RR_NAME $RR_TYPE \\\n    \"environment\" \"example.com\" \"just-a-key\""
+          }
+        ]
+      },
+      "servers": [
+        {
+          "url": "https://api.hetzner.cloud/v1"
+        }
+      ]
+    },
+    "/zones/{id_or_name}/rrsets/{rr_name}/{rr_type}/actions/add_records": {
+      "post": {
+        "description": "Adds resource records (RRs) to an [RRSet](#zone-rrsets) in the [Zone](#zones).\n\nFor convenience, the [RRSet](#zone-rrsets) will be automatically created if it doesn't exist. Otherwise, the new\nrecords are appended to the existing [RRSet](#zone-rrsets).\n\nOnly applicable for [Zones](#zones) in [primary mode](#zone-modes).\n\n#### Call specific error codes\n\n| Code                  | Description                      |\n|-----------------------|----------------------------------|\n| `incorrect_zone_mode` | The zone is not in primary mode. |\n",
+        "operationId": "add_records_to_rrset",
+        "parameters": [
+          {
+            "description": "ID or Name of the Zone.",
+            "in": "path",
+            "name": "id_or_name",
+            "required": true,
+            "schema": {
+              "description": "ID or Name of the [Zone](#zones).",
+              "type": "string"
+            }
+          },
+          {
+            "in": "path",
+            "name": "rr_name",
+            "required": true,
+            "schema": {
+              "description": "Name of the [RRSet](#zone-rrsets).\n\nThe name must be in lower case, and must not end with a dot or the [Zone](#zones)\nname. Names containing non-ASCII characters must be transcribed to\n[Punycode](https://wikipedia.org/wiki/Punycode) representation with ACE prefix, e.g.\n`xn--4bi` (✉️).\n\nFor the [Zone](#zones) apex, use `@`.\n",
+              "example": "www",
+              "type": "string"
+            }
+          },
+          {
+            "in": "path",
+            "name": "rr_type",
+            "required": true,
+            "schema": {
+              "description": "Type of the [RRSet](#zone-rrsets).\n",
+              "enum": [
+                "A",
+                "AAAA",
+                "CAA",
+                "CNAME",
+                "DS",
+                "HINFO",
+                "HTTPS",
+                "MX",
+                "NS",
+                "PTR",
+                "RP",
+                "SOA",
+                "SRV",
+                "SVCB",
+                "TLSA",
+                "TXT"
+              ],
+              "example": "A",
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/add_records_to_rrset_request"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {
+                "example": {
+                  "action": {
+                    "command": "add_rrset_records",
+                    "error": null,
+                    "finished": null,
+                    "id": 1,
+                    "progress": 50,
+                    "resources": [
+                      {
+                        "id": 42,
+                        "type": "zone"
+                      }
+                    ],
+                    "started": "2016-01-30T23:55:00+00:00",
+                    "status": "running"
+                  }
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/add_records_to_rrset_response"
+                }
+              }
+            },
+            "description": "Request succeeded."
+          }
+        },
+        "summary": "Add Records to an RRSet",
+        "tags": [
+          "zones"
+        ],
+        "x-codeSamples": [
+          {
+            "label": "Go",
+            "lang": "Go",
+            "source": "package examples\n\nimport (\n\t\"context\"\n\t\"os\"\n\n\t\"github.com/hetznercloud/hcloud-go/v2/hcloud\"\n)\n\nfunc main() {\n\ttoken := os.Getenv(\"HCLOUD_TOKEN\")\n\n\tclient := hcloud.NewClient(hcloud.WithToken(token))\n\tctx := context.TODO()\n\n\taction, _, err := client.Zone.AddRRSetRecords(ctx, &hcloud.ZoneRRSet{\n\t\tZone: &hcloud.Zone{Name: \"example.com\"},\n\t\tName: \"www\",\n\t\tType: hcloud.ZoneRRSetTypeA,\n\t}, hcloud.ZoneRRSetAddRecordsOpts{\n\t\tTTL: hcloud.Ptr(3600),\n\t\tRecords: []hcloud.ZoneRRSetRecord{\n\t\t\t{\n\t\t\t\tValue:   \"198.51.100.1\",\n\t\t\t\tComment: \"My web server at Hetzner Cloud.\",\n\t\t\t},\n\t\t},\n\t})\n\n\terr = client.Action.WaitFor(ctx, action)\n}"
+          },
+          {
+            "label": "Python",
+            "lang": "Python",
+            "source": "from __future__ import annotations\n\nfrom os import environ\n\nfrom hcloud import Client\nfrom hcloud.zones import Zone, ZoneRecord, ZoneRRSet\n\ntoken = environ[\"HCLOUD_TOKEN\"]\nclient = Client(token=token)\n\naction = client.zones.add_rrset_records(\n    rrset=ZoneRRSet(\n        zone=Zone(name=\"example.com\"),\n        name=\"www\",\n        type=\"A\",\n    ),\n    ttl=3600,\n    records=[\n        ZoneRecord(value=\"198.51.100.1\", comment=\"My web server at Hetzner Cloud.\")\n    ],\n)\n\naction.wait_until_finished()"
+          },
+          {
+            "label": "CLI",
+            "lang": "Shell",
+            "source": "hcloud zone rrset add-records $ZONE $RR_NAME $RR_TYPE \\\n    --ttl 3600 \\\n    --records-file <(echo '[\n  {\n    \"value\": \"198.51.100.1\",\n    \"comment\": \"My web server at Hetzner Cloud.\"\n  }\n]')"
+          }
+        ]
+      },
+      "servers": [
+        {
+          "url": "https://api.hetzner.cloud/v1"
+        }
+      ]
+    },
+    "/zones/{id_or_name}/rrsets/{rr_name}/{rr_type}/actions/change_protection": {
+      "post": {
+        "description": "Changes the protection of an [RRSet](#zone-rrsets) in the [Zone](#zones).\n\nOnly applicable for [Zones](#zones) in [primary mode](#zone-modes).\n\n#### Call specific error codes\n\n| Code                  | Description                      |\n|-----------------------|----------------------------------|\n| `incorrect_zone_mode` | The zone is not in primary mode. |\n",
+        "operationId": "change_rrsets_protection",
+        "parameters": [
+          {
+            "description": "ID or Name of the Zone.",
+            "in": "path",
+            "name": "id_or_name",
+            "required": true,
+            "schema": {
+              "description": "ID or Name of the [Zone](#zones).",
+              "type": "string"
+            }
+          },
+          {
+            "in": "path",
+            "name": "rr_name",
+            "required": true,
+            "schema": {
+              "description": "Name of the [RRSet](#zone-rrsets).\n\nThe name must be in lower case, and must not end with a dot or the [Zone](#zones)\nname. Names containing non-ASCII characters must be transcribed to\n[Punycode](https://wikipedia.org/wiki/Punycode) representation with ACE prefix, e.g.\n`xn--4bi` (✉️).\n\nFor the [Zone](#zones) apex, use `@`.\n",
+              "example": "www",
+              "type": "string"
+            }
+          },
+          {
+            "in": "path",
+            "name": "rr_type",
+            "required": true,
+            "schema": {
+              "description": "Type of the [RRSet](#zone-rrsets).\n",
+              "enum": [
+                "A",
+                "AAAA",
+                "CAA",
+                "CNAME",
+                "DS",
+                "HINFO",
+                "HTTPS",
+                "MX",
+                "NS",
+                "PTR",
+                "RP",
+                "SOA",
+                "SRV",
+                "SVCB",
+                "TLSA",
+                "TXT"
+              ],
+              "example": "A",
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/change_rrsets_protection_request"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {
+                "example": {
+                  "action": {
+                    "command": "change_rrset_protection",
+                    "error": null,
+                    "finished": null,
+                    "id": 1,
+                    "progress": 50,
+                    "resources": [
+                      {
+                        "id": 42,
+                        "type": "zone"
+                      }
+                    ],
+                    "started": "2016-01-30T23:55:00+00:00",
+                    "status": "running"
+                  }
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/change_rrsets_protection_response"
+                }
+              }
+            },
+            "description": "Request succeeded."
+          }
+        },
+        "summary": "Change an RRSet's Protection",
+        "tags": [
+          "zones"
+        ],
+        "x-codeSamples": [
+          {
+            "label": "Go",
+            "lang": "Go",
+            "source": "package examples\n\nimport (\n\t\"context\"\n\t\"os\"\n\n\t\"github.com/hetznercloud/hcloud-go/v2/hcloud\"\n)\n\nfunc main() {\n\ttoken := os.Getenv(\"HCLOUD_TOKEN\")\n\n\tclient := hcloud.NewClient(hcloud.WithToken(token))\n\tctx := context.TODO()\n\n\taction, _, err := client.Zone.ChangeRRSetProtection(ctx, &hcloud.ZoneRRSet{\n\t\tZone: &hcloud.Zone{Name: \"example.com\"},\n\t\tName: \"www\",\n\t\tType: hcloud.ZoneRRSetTypeA,\n\t}, hcloud.ZoneRRSetChangeProtectionOpts{\n\t\tChange: hcloud.Ptr(false),\n\t})\n\n\terr = client.Action.WaitFor(ctx, action)\n}"
+          },
+          {
+            "label": "Python",
+            "lang": "Python",
+            "source": "from __future__ import annotations\n\nfrom os import environ\n\nfrom hcloud import Client\nfrom hcloud.zones import Zone, ZoneRRSet\n\ntoken = environ[\"HCLOUD_TOKEN\"]\nclient = Client(token=token)\n\naction = client.zones.change_rrset_protection(\n    rrset=ZoneRRSet(\n        zone=Zone(name=\"example.com\"),\n        name=\"www\",\n        type=\"A\",\n    ),\n    change=False,\n)\n\naction.wait_until_finished()"
+          },
+          {
+            "label": "CLI",
+            "lang": "Shell",
+            "source": "hcloud zone rrset enable-protection $ZONE $RR_NAME $RR_TYPE change\nhcloud zone rrset disable-protection $ZONE $RR_NAME $RR_TYPE change"
+          }
+        ]
+      },
+      "servers": [
+        {
+          "url": "https://api.hetzner.cloud/v1"
+        }
+      ]
+    },
+    "/zones/{id_or_name}/rrsets/{rr_name}/{rr_type}/actions/change_ttl": {
+      "post": {
+        "description": "Changes the Time To Live (TTL) of an [RRSet](#zone-rrsets) in the [Zone](#zones).\n\nOnly applicable for [Zones](#zones) in [primary mode](#zone-modes).\n\n#### Call specific error codes\n\n| Code                  | Description                      |\n|-----------------------|----------------------------------|\n| `incorrect_zone_mode` | The zone is not in primary mode. |\n",
+        "operationId": "change_rrsets_ttl",
+        "parameters": [
+          {
+            "description": "ID or Name of the Zone.",
+            "in": "path",
+            "name": "id_or_name",
+            "required": true,
+            "schema": {
+              "description": "ID or Name of the [Zone](#zones).",
+              "type": "string"
+            }
+          },
+          {
+            "in": "path",
+            "name": "rr_name",
+            "required": true,
+            "schema": {
+              "description": "Name of the [RRSet](#zone-rrsets).\n\nThe name must be in lower case, and must not end with a dot or the [Zone](#zones)\nname. Names containing non-ASCII characters must be transcribed to\n[Punycode](https://wikipedia.org/wiki/Punycode) representation with ACE prefix, e.g.\n`xn--4bi` (✉️).\n\nFor the [Zone](#zones) apex, use `@`.\n",
+              "example": "www",
+              "type": "string"
+            }
+          },
+          {
+            "in": "path",
+            "name": "rr_type",
+            "required": true,
+            "schema": {
+              "description": "Type of the [RRSet](#zone-rrsets).\n",
+              "enum": [
+                "A",
+                "AAAA",
+                "CAA",
+                "CNAME",
+                "DS",
+                "HINFO",
+                "HTTPS",
+                "MX",
+                "NS",
+                "PTR",
+                "RP",
+                "SOA",
+                "SRV",
+                "SVCB",
+                "TLSA",
+                "TXT"
+              ],
+              "example": "A",
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/change_rrsets_ttl_request"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {
+                "example": {
+                  "action": {
+                    "command": "change_rrset_ttl",
+                    "error": null,
+                    "finished": null,
+                    "id": 1,
+                    "progress": 50,
+                    "resources": [
+                      {
+                        "id": 42,
+                        "type": "zone"
+                      }
+                    ],
+                    "started": "2016-01-30T23:55:00+00:00",
+                    "status": "running"
+                  }
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/change_rrsets_ttl_response"
+                }
+              }
+            },
+            "description": "Request succeeded."
+          }
+        },
+        "summary": "Change an RRSet's TTL",
+        "tags": [
+          "zones"
+        ],
+        "x-codeSamples": [
+          {
+            "label": "Go",
+            "lang": "Go",
+            "source": "package examples\n\nimport (\n\t\"context\"\n\t\"os\"\n\n\t\"github.com/hetznercloud/hcloud-go/v2/hcloud\"\n)\n\nfunc main() {\n\ttoken := os.Getenv(\"HCLOUD_TOKEN\")\n\n\tclient := hcloud.NewClient(hcloud.WithToken(token))\n\tctx := context.TODO()\n\n\taction, _, err := client.Zone.ChangeRRSetTTL(ctx, &hcloud.ZoneRRSet{\n\t\tZone: &hcloud.Zone{Name: \"example.com\"},\n\t\tName: \"www\",\n\t\tType: hcloud.ZoneRRSetTypeA,\n\t}, hcloud.ZoneRRSetChangeTTLOpts{\n\t\tTTL: hcloud.Ptr(3600),\n\t})\n\n\terr = client.Action.WaitFor(ctx, action)\n}"
+          },
+          {
+            "label": "Python",
+            "lang": "Python",
+            "source": "from __future__ import annotations\n\nfrom os import environ\n\nfrom hcloud import Client\nfrom hcloud.zones import Zone, ZoneRRSet\n\ntoken = environ[\"HCLOUD_TOKEN\"]\nclient = Client(token=token)\n\naction = client.zones.change_rrset_ttl(\n    rrset=ZoneRRSet(\n        zone=Zone(name=\"example.com\"),\n        name=\"www\",\n        type=\"A\",\n    ),\n    ttl=3600,\n)\n\naction.wait_until_finished()"
+          },
+          {
+            "label": "CLI",
+            "lang": "Shell",
+            "source": "hcloud zone rrset change-ttl $ZONE $RR_NAME $RR_TYPE --ttl 3600"
+          }
+        ]
+      },
+      "servers": [
+        {
+          "url": "https://api.hetzner.cloud/v1"
+        }
+      ]
+    },
+    "/zones/{id_or_name}/rrsets/{rr_name}/{rr_type}/actions/remove_records": {
+      "post": {
+        "description": "Removes resource records (RRs) from an existing [RRSet](#zone-rrsets) in the [Zone](#zones).\n\nFor convenience, the [RRSet](#zone-rrsets) will be automatically deleted if it doesn't contain any RRs afterwards.\n\nOnly applicable for [Zones](#zones) in [primary mode](#zone-modes).\n\n#### Call specific error codes\n\n| Code                  | Description                      |\n|-----------------------|----------------------------------|\n| `incorrect_zone_mode` | The zone is not in primary mode. |\n",
+        "operationId": "remove_records_from_rrset",
+        "parameters": [
+          {
+            "description": "ID or Name of the Zone.",
+            "in": "path",
+            "name": "id_or_name",
+            "required": true,
+            "schema": {
+              "description": "ID or Name of the [Zone](#zones).",
+              "type": "string"
+            }
+          },
+          {
+            "in": "path",
+            "name": "rr_name",
+            "required": true,
+            "schema": {
+              "description": "Name of the [RRSet](#zone-rrsets).\n\nThe name must be in lower case, and must not end with a dot or the [Zone](#zones)\nname. Names containing non-ASCII characters must be transcribed to\n[Punycode](https://wikipedia.org/wiki/Punycode) representation with ACE prefix, e.g.\n`xn--4bi` (✉️).\n\nFor the [Zone](#zones) apex, use `@`.\n",
+              "example": "www",
+              "type": "string"
+            }
+          },
+          {
+            "in": "path",
+            "name": "rr_type",
+            "required": true,
+            "schema": {
+              "description": "Type of the [RRSet](#zone-rrsets).\n",
+              "enum": [
+                "A",
+                "AAAA",
+                "CAA",
+                "CNAME",
+                "DS",
+                "HINFO",
+                "HTTPS",
+                "MX",
+                "NS",
+                "PTR",
+                "RP",
+                "SOA",
+                "SRV",
+                "SVCB",
+                "TLSA",
+                "TXT"
+              ],
+              "example": "A",
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/remove_records_from_rrset_request"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {
+                "example": {
+                  "action": {
+                    "command": "remove_rrset_records",
+                    "error": null,
+                    "finished": null,
+                    "id": 1,
+                    "progress": 50,
+                    "resources": [
+                      {
+                        "id": 42,
+                        "type": "zone"
+                      }
+                    ],
+                    "started": "2016-01-30T23:55:00+00:00",
+                    "status": "running"
+                  }
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/remove_records_from_rrset_response"
+                }
+              }
+            },
+            "description": "Request succeeded."
+          }
+        },
+        "summary": "Remove Records from an RRSet",
+        "tags": [
+          "zones"
+        ],
+        "x-codeSamples": [
+          {
+            "label": "Go",
+            "lang": "Go",
+            "source": "package examples\n\nimport (\n\t\"context\"\n\t\"os\"\n\n\t\"github.com/hetznercloud/hcloud-go/v2/hcloud\"\n)\n\nfunc main() {\n\ttoken := os.Getenv(\"HCLOUD_TOKEN\")\n\n\tclient := hcloud.NewClient(hcloud.WithToken(token))\n\tctx := context.TODO()\n\n\taction, _, err := client.Zone.RemoveRRSetRecords(ctx, &hcloud.ZoneRRSet{\n\t\tZone: &hcloud.Zone{Name: \"example.com\"},\n\t\tName: \"www\",\n\t\tType: hcloud.ZoneRRSetTypeA,\n\t}, hcloud.ZoneRRSetRemoveRecordsOpts{\n\t\tRecords: []hcloud.ZoneRRSetRecord{\n\t\t\t{\n\t\t\t\tValue:   \"198.51.100.1\",\n\t\t\t\tComment: \"My web server at Hetzner Cloud.\",\n\t\t\t},\n\t\t},\n\t})\n\n\terr = client.Action.WaitFor(ctx, action)\n}"
+          },
+          {
+            "label": "Python",
+            "lang": "Python",
+            "source": "from __future__ import annotations\n\nfrom os import environ\n\nfrom hcloud import Client\nfrom hcloud.zones import Zone, ZoneRecord, ZoneRRSet\n\ntoken = environ[\"HCLOUD_TOKEN\"]\nclient = Client(token=token)\n\naction = client.zones.remove_rrset_records(\n    rrset=ZoneRRSet(\n        zone=Zone(name=\"example.com\"),\n        name=\"www\",\n        type=\"A\",\n    ),\n    records=[\n        ZoneRecord(value=\"198.51.100.1\", comment=\"My web server at Hetzner Cloud.\")\n    ],\n)\n\naction.wait_until_finished()"
+          },
+          {
+            "label": "CLI",
+            "lang": "Shell",
+            "source": "hcloud zone rrset remove-records $ZONE $RR_NAME $RR_TYPE --record 198.51.100.1"
+          }
+        ]
+      },
+      "servers": [
+        {
+          "url": "https://api.hetzner.cloud/v1"
+        }
+      ]
+    },
+    "/zones/{id_or_name}/rrsets/{rr_name}/{rr_type}/actions/set_records": {
+      "post": {
+        "description": "Overwrites the resource records (RRs) of an existing [RRSet](#zone-rrsets) in the [Zone](#zones).\n\nOnly applicable for [Zones](#zones) in [primary mode](#zone-modes).\n\n#### Call specific error codes\n\n| Code                  | Description                      |\n|-----------------------|----------------------------------|\n| `incorrect_zone_mode` | The zone is not in primary mode. |\n",
+        "operationId": "set_records_of_rrset",
+        "parameters": [
+          {
+            "description": "ID or Name of the Zone.",
+            "in": "path",
+            "name": "id_or_name",
+            "required": true,
+            "schema": {
+              "description": "ID or Name of the [Zone](#zones).",
+              "type": "string"
+            }
+          },
+          {
+            "in": "path",
+            "name": "rr_name",
+            "required": true,
+            "schema": {
+              "description": "Name of the [RRSet](#zone-rrsets).\n\nThe name must be in lower case, and must not end with a dot or the [Zone](#zones)\nname. Names containing non-ASCII characters must be transcribed to\n[Punycode](https://wikipedia.org/wiki/Punycode) representation with ACE prefix, e.g.\n`xn--4bi` (✉️).\n\nFor the [Zone](#zones) apex, use `@`.\n",
+              "example": "www",
+              "type": "string"
+            }
+          },
+          {
+            "in": "path",
+            "name": "rr_type",
+            "required": true,
+            "schema": {
+              "description": "Type of the [RRSet](#zone-rrsets).\n",
+              "enum": [
+                "A",
+                "AAAA",
+                "CAA",
+                "CNAME",
+                "DS",
+                "HINFO",
+                "HTTPS",
+                "MX",
+                "NS",
+                "PTR",
+                "RP",
+                "SOA",
+                "SRV",
+                "SVCB",
+                "TLSA",
+                "TXT"
+              ],
+              "example": "A",
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/set_records_of_rrset_request"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {
+                "example": {
+                  "action": {
+                    "command": "set_rrset_records",
+                    "error": null,
+                    "finished": null,
+                    "id": 1,
+                    "progress": 50,
+                    "resources": [
+                      {
+                        "id": 42,
+                        "type": "zone"
+                      }
+                    ],
+                    "started": "2016-01-30T23:55:00+00:00",
+                    "status": "running"
+                  }
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/set_records_of_rrset_response"
+                }
+              }
+            },
+            "description": "Request succeeded."
+          }
+        },
+        "summary": "Set Records of an RRSet",
+        "tags": [
+          "zones"
+        ],
+        "x-codeSamples": [
+          {
+            "label": "Go",
+            "lang": "Go",
+            "source": "package examples\n\nimport (\n\t\"context\"\n\t\"os\"\n\n\t\"github.com/hetznercloud/hcloud-go/v2/hcloud\"\n)\n\nfunc main() {\n\ttoken := os.Getenv(\"HCLOUD_TOKEN\")\n\n\tclient := hcloud.NewClient(hcloud.WithToken(token))\n\tctx := context.TODO()\n\n\taction, _, err := client.Zone.SetRRSetRecords(ctx, &hcloud.ZoneRRSet{\n\t\tZone: &hcloud.Zone{Name: \"example.com\"},\n\t\tName: \"www\",\n\t\tType: hcloud.ZoneRRSetTypeA,\n\t}, hcloud.ZoneRRSetSetRecordsOpts{\n\t\tRecords: []hcloud.ZoneRRSetRecord{\n\t\t\t{\n\t\t\t\tValue:   \"198.51.100.1\",\n\t\t\t\tComment: \"My web server at Hetzner Cloud.\",\n\t\t\t},\n\t\t},\n\t})\n\n\terr = client.Action.WaitFor(ctx, action)\n}"
+          },
+          {
+            "label": "Python",
+            "lang": "Python",
+            "source": "from __future__ import annotations\n\nfrom os import environ\n\nfrom hcloud import Client\nfrom hcloud.zones import Zone, ZoneRecord, ZoneRRSet\n\ntoken = environ[\"HCLOUD_TOKEN\"]\nclient = Client(token=token)\n\naction = client.zones.set_rrset_records(\n    rrset=ZoneRRSet(\n        zone=Zone(name=\"example.com\"),\n        name=\"www\",\n        type=\"A\",\n    ),\n    records=[\n        ZoneRecord(value=\"198.51.100.1\", comment=\"My web server at Hetzner Cloud.\")\n    ],\n)\n\naction.wait_until_finished()"
+          },
+          {
+            "label": "CLI",
+            "lang": "Shell",
+            "source": "hcloud zone rrset set-records $ZONE $RR_NAME $RR_TYPE --records-file <(echo '[\n  {\n    \"value\": \"198.51.100.1\",\n    \"comment\": \"My web server at Hetzner Cloud.\"\n  }\n]')"
+          }
+        ]
+      },
+      "servers": [
+        {
+          "url": "https://api.hetzner.cloud/v1"
+        }
+      ]
+    },
+    "/zones/{id_or_name}/zonefile": {
+      "get": {
+        "description": "Returns a generated [Zone](#zones) file in BIND (RFC [1034](https://datatracker.ietf.org/doc/html/rfc1034)/[1035](https://datatracker.ietf.org/doc/html/rfc1035)) format.\n\nOnly applicable for [Zones](#zones) in [primary mode](#zone-modes).\n\n#### Call specific error codes\n\n| Code                  | Description                      |\n|-----------------------|----------------------------------|\n| `incorrect_zone_mode` | The zone is not in primary mode. |\n",
+        "operationId": "export_zone_file",
+        "parameters": [
+          {
+            "description": "ID or Name of the Zone.",
+            "in": "path",
+            "name": "id_or_name",
+            "required": true,
+            "schema": {
+              "description": "ID or Name of the [Zone](#zones).",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/export_zone_file_response"
+                }
+              }
+            },
+            "description": "Request succeeded."
+          }
+        },
+        "summary": "Export a Zone file",
+        "tags": [
+          "zones"
+        ],
+        "x-codeSamples": [
+          {
+            "label": "Go",
+            "lang": "Go",
+            "source": "package examples\n\nimport (\n\t\"context\"\n\t\"os\"\n\n\t\"github.com/hetznercloud/hcloud-go/v2/hcloud\"\n)\n\nfunc main() {\n\ttoken := os.Getenv(\"HCLOUD_TOKEN\")\n\n\tclient := hcloud.NewClient(hcloud.WithToken(token))\n\tctx := context.TODO()\n\n\tresult, _, err := client.Zone.ExportZonefile(ctx, &hcloud.Zone{Name: \"example.com\"})\n\n\tzonefile := result.Zonefile\n}"
+          },
+          {
+            "label": "Python",
+            "lang": "Python",
+            "source": "from __future__ import annotations\n\nfrom os import environ\n\nfrom hcloud import Client\nfrom hcloud.zones import Zone\n\ntoken = environ[\"HCLOUD_TOKEN\"]\nclient = Client(token=token)\n\nresponse = client.zones.export_zonefile(\n    zone=Zone(name=\"example.com\"),\n)\n\nzonefile = response.zonefile"
+          },
+          {
+            "label": "CLI",
+            "lang": "Shell",
+            "source": "hcloud zone export-zonefile $ZONE"
+          }
+        ]
+      },
+      "servers": [
+        {
+          "url": "https://api.hetzner.cloud/v1"
         }
       ]
     }

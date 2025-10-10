@@ -227,6 +227,19 @@
   },
 
   {
+    "path": ["paths", "/zones/actions", "get"],
+    "set": {
+      "operationId": "list_zone_actions"
+    }
+  },
+  {
+    "path": ["paths", "/zones/actions/{id}", "get"],
+    "set": {
+      "operationId": "get_zone_action"
+    }
+  },
+
+  {
     "path": ["paths", "/storage_boxes/actions", "get"],
     "set": {
       "operationId": "list_storage_box_actions"
