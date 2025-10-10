@@ -471,10 +471,9 @@ export async function deduplicateSchemas(
           }
 
           const externalizedProps = Object.fromEntries(
-            Array.from(externalizedBoolProperties).map((prop) => [
-              prop,
-              (part[prop] as boolean) || undefined,
-            ])
+            Array.from(externalizedBoolProperties)
+              .map((prop) => [prop, (part[prop] as boolean) || undefined])
+              .filter(([_, value]) => value !== undefined)
           );
 
           // store information as common component
@@ -489,9 +488,10 @@ export async function deduplicateSchemas(
             delete part[key];
           });
 
-          if (externalizedProps) {
+          if (Object.keys(externalizedProps).length > 0) {
+            console.log(externalizedProps);
             Object.assign(part, externalizedProps);
-            part["$ref"] = "#/components/schemas/" + info.name;
+            part["allOf"] = [{ $ref: "#/components/schemas/" + info.name }];
           } else {
             // leave a reference to the common component
             part["$ref"] = "#/components/schemas/" + info.name;

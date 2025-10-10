@@ -6,7 +6,7 @@
     },
     "description": "Copied from the official API documentation for the Public Hetzner Cloud.",
     "title": "Hetzner Cloud API",
-    "version": "60db104-dirty"
+    "version": "ccb8fec-dirty"
   },
   "servers": [
     {
@@ -110,7 +110,11 @@
             "type": "string"
           },
           "error": {
-            "$ref": "#/components/schemas/error",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/error"
+              }
+            ],
             "nullable": true
           },
           "finished": {
@@ -1147,7 +1151,11 @@
         "description": "Response to POST https://api.hetzner.cloud/v1/certificates",
         "properties": {
           "action": {
-            "$ref": "#/components/schemas/action",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/action"
+              }
+            ],
             "nullable": true
           },
           "certificate": {
@@ -1514,7 +1522,11 @@
         "description": "Response to POST https://api.hetzner.cloud/v1/placement_groups",
         "properties": {
           "action": {
-            "$ref": "#/components/schemas/action",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/action"
+              }
+            ],
             "nullable": true
           },
           "placement_group": {
@@ -3517,7 +3529,11 @@
             "type": "string"
           },
           "created_from": {
-            "$ref": "#/components/schemas/created_from",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/created_from"
+              }
+            ],
             "nullable": true
           },
           "deleted": {
@@ -3717,11 +3733,19 @@
         "description": "ISO Image that is attached to this Server. Null if no ISO is attached.",
         "properties": {
           "architecture": {
-            "$ref": "#/components/schemas/architecture",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/architecture"
+              }
+            ],
             "nullable": true
           },
           "deprecation": {
-            "$ref": "#/components/schemas/deprecation_info",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/deprecation_info"
+              }
+            ],
             "nullable": true
           },
           "description": {
@@ -6441,7 +6465,11 @@
             "type": "integer"
           },
           "image": {
-            "$ref": "#/components/schemas/image",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/image"
+              }
+            ],
             "nullable": true
           },
           "included_traffic": {
@@ -6459,7 +6487,11 @@
             "type": "integer"
           },
           "iso": {
-            "$ref": "#/components/schemas/iso",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/iso"
+              }
+            ],
             "nullable": true
           },
           "labels": {
@@ -6711,11 +6743,19 @@
             "type": "array"
           },
           "ipv4": {
-            "$ref": "#/components/schemas/ipv4",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/ipv4"
+              }
+            ],
             "nullable": true
           },
           "ipv6": {
-            "$ref": "#/components/schemas/ipv6",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/ipv6"
+              }
+            ],
             "nullable": true
           }
         },
@@ -6757,7 +6797,11 @@
             "type": "boolean"
           },
           "deprecation": {
-            "$ref": "#/components/schemas/deprecation_info",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/deprecation_info"
+              }
+            ],
             "deprecated": true,
             "nullable": true
           },
@@ -6831,7 +6875,11 @@
         "description": "A [Location](#locations) (containing only id and name) and Server Type specific metadata.\n",
         "properties": {
           "deprecation": {
-            "$ref": "#/components/schemas/deprecation_info",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/deprecation_info"
+              }
+            ],
             "nullable": true
           },
           "id": {
@@ -7104,11 +7152,19 @@
             "type": "string"
           },
           "snapshot_plan": {
-            "$ref": "#/components/schemas/snapshot_plan",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/snapshot_plan"
+              }
+            ],
             "nullable": true
           },
           "stats": {
-            "$ref": "#/components/schemas/storage_box_stats",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/storage_box_stats"
+              }
+            ],
             "nullable": true
           },
           "status": {
@@ -7216,7 +7272,11 @@
             "type": "integer"
           },
           "deprecation": {
-            "$ref": "#/components/schemas/deprecation_info",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/deprecation_info"
+              }
+            ],
             "nullable": true
           },
           "description": {
