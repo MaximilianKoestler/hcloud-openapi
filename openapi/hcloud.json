@@ -6,7 +6,7 @@
     },
     "description": "Copied from the official API documentation for the Public Hetzner Cloud.",
     "title": "Hetzner Cloud API",
-    "version": "0b0a9b9"
+    "version": "0c28cd3-dirty"
   },
   "servers": [
     {
@@ -1934,41 +1934,7 @@
         "type": "object"
       },
       "create_rrset_request": {
-        "description": "Request for POST https://api.hetzner.cloud/v1/zones/{id_or_name}/rrsets",
-        "properties": {
-          "labels": {
-            "$ref": "#/components/schemas/labels"
-          },
-          "name": {
-            "description": "Name of the [RRSet](#zone-rrsets).\n\nThe name must be in lower case, and must not end with a dot or the [Zone](#zones)\nname. Names containing non-ASCII characters must be transcribed to\n[Punycode](https://wikipedia.org/wiki/Punycode) representation with ACE prefix, e.g.\n`xn--4bi` (✉️).\n\nFor the [Zone](#zones) apex, use `@`.\n",
-            "example": "www",
-            "type": "string"
-          },
-          "records": {
-            "description": "Records of the [RRSet](#zone-rrsets).\n\nMust not be empty and must only contain distinct record values.\n",
-            "items": {
-              "$ref": "#/components/schemas/resource_record"
-            },
-            "type": "array"
-          },
-          "ttl": {
-            "description": "Time To Live (TTL) of the [RRSet](#zone-rrsets).\n\nMust be in between 60s and 2147483647s.\n\nIf not set, the [Zone's](#zones) Default TTL is used.\n",
-            "example": 3600,
-            "maximum": 2147483647,
-            "minimum": 60,
-            "nullable": true,
-            "type": "integer"
-          },
-          "type": {
-            "$ref": "#/components/schemas/resource_record_set_type"
-          }
-        },
-        "required": [
-          "name",
-          "type",
-          "records"
-        ],
-        "type": "object"
+        "$ref": "#/components/schemas/resource_record_set_to_create"
       },
       "create_rrset_response": {
         "description": "Response to POST https://api.hetzner.cloud/v1/zones/{id_or_name}/rrsets",
@@ -2540,40 +2506,7 @@
           "rrsets": {
             "description": "[RRSets](#zone-rrsets) to be added to the [Zone](#zones).\n\nOnly applicable for [Zones](#zones) in [primary mode](#zone-modes).\nIgnored for [Zones](#zones) in [secondary mode](#zone-modes).\n",
             "items": {
-              "properties": {
-                "labels": {
-                  "$ref": "#/components/schemas/labels"
-                },
-                "name": {
-                  "description": "Name of the [RRSet](#zone-rrsets).\n\nThe name must be in lower case, and must not end with a dot or the [Zone](#zones)\nname. Names containing non-ASCII characters must be transcribed to\n[Punycode](https://wikipedia.org/wiki/Punycode) representation with ACE prefix, e.g.\n`xn--4bi` (✉️).\n\nFor the [Zone](#zones) apex, use `@`.\n",
-                  "example": "www",
-                  "type": "string"
-                },
-                "records": {
-                  "description": "Records of the [RRSet](#zone-rrsets).\n\nMust not be empty and must only contain distinct record values.\n",
-                  "items": {
-                    "$ref": "#/components/schemas/resource_record"
-                  },
-                  "type": "array"
-                },
-                "ttl": {
-                  "description": "Time To Live (TTL) of the [RRSet](#zone-rrsets).\n\nMust be in between 60s and 2147483647s.\n\nIf not set, the [Zone's](#zones) Default TTL is used.\n",
-                  "example": 3600,
-                  "maximum": 2147483647,
-                  "minimum": 60,
-                  "nullable": true,
-                  "type": "integer"
-                },
-                "type": {
-                  "$ref": "#/components/schemas/resource_record_set_type"
-                }
-              },
-              "required": [
-                "name",
-                "type",
-                "records"
-              ],
-              "type": "object"
+              "$ref": "#/components/schemas/resource_record_set_to_create"
             },
             "type": "array"
           },
@@ -7000,6 +6933,43 @@
           "zone"
         ],
         "title": "RRSet",
+        "type": "object"
+      },
+      "resource_record_set_to_create": {
+        "description": "Request for POST https://api.hetzner.cloud/v1/zones/{id_or_name}/rrsets",
+        "properties": {
+          "labels": {
+            "$ref": "#/components/schemas/labels"
+          },
+          "name": {
+            "description": "Name of the [RRSet](#zone-rrsets).\n\nThe name must be in lower case, and must not end with a dot or the [Zone](#zones)\nname. Names containing non-ASCII characters must be transcribed to\n[Punycode](https://wikipedia.org/wiki/Punycode) representation with ACE prefix, e.g.\n`xn--4bi` (✉️).\n\nFor the [Zone](#zones) apex, use `@`.\n",
+            "example": "www",
+            "type": "string"
+          },
+          "records": {
+            "description": "Records of the [RRSet](#zone-rrsets).\n\nMust not be empty and must only contain distinct record values.\n",
+            "items": {
+              "$ref": "#/components/schemas/resource_record"
+            },
+            "type": "array"
+          },
+          "ttl": {
+            "description": "Time To Live (TTL) of the [RRSet](#zone-rrsets).\n\nMust be in between 60s and 2147483647s.\n\nIf not set, the [Zone's](#zones) Default TTL is used.\n",
+            "example": 3600,
+            "maximum": 2147483647,
+            "minimum": 60,
+            "nullable": true,
+            "type": "integer"
+          },
+          "type": {
+            "$ref": "#/components/schemas/resource_record_set_type"
+          }
+        },
+        "required": [
+          "name",
+          "type",
+          "records"
+        ],
         "type": "object"
       },
       "resource_record_set_type": {

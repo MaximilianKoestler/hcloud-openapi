@@ -369,6 +369,13 @@
     ]
   },
   {
+    "name": "resource_record_set_to_create",
+    "path": [
+      "create_zone_request",
+      "rrsets"
+    ]
+  },
+  {
     "name": "resource_record_set_type",
     "path": [
       "create_rrset_request",
