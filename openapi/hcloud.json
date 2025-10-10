@@ -6,7 +6,7 @@
     },
     "description": "Copied from the official API documentation for the Public Hetzner Cloud.",
     "title": "Hetzner Cloud API",
-    "version": "9bc963c-dirty"
+    "version": "8eaf273"
   },
   "servers": [
     {
@@ -10603,7 +10603,7 @@
     },
     "/firewalls/{id}/actions/apply_to_resources": {
       "post": {
-        "description": "Applies a [Firewall](#firewalls) to multiple resources.\n\nSupported resources:\n- [Servers](#servers) (with a public network interface)\n- [Label Selectors](#label-selector)\n\nA server can be applied to [a maximum of 5 Firewalls](https://docs.hetzner.com/cloud/firewalls/overview#limits).\n\n#### Error Codes specific to this Call\n\n| Code                          | Description                                                                                     |\n|-------------------------------|-------------------------------------------------------------------------------------------------|\n| `firewall_already_applied`    | [Firewall](#firewalls) is already applied to resource                                           |\n| `incompatible_network_type`   | The network type of the resource is not supported by [Firewalls](#firewalls)                    |\n| `firewall_resource_not_found` | The resource the [Firewall](#firewalls) should be applied to was not found                      |\n| `private_net_only_server`     | The [Server](#servers) the [Firewall](#firewalls) should be applied to has no public interface  |\n",
+        "description": "Applies a [Firewall](#firewalls) to multiple resources.\n\nSupported resources:\n- [Servers](#servers) (with a public network interface)\n- [Label Selectors](#label-selector)\n\nA [Server](#servers) can be applied to [a maximum of 5 Firewalls](https://docs.hetzner.com/cloud/firewalls/overview#limits). This limit\napplies to [Servers](#servers) applied via a matching [Label Selector](#label-selector) as well.\n\nUpdates to resources matching or no longer matching a [Label Selector](#label-selector) can take up to a few seconds\nto be processed.\n\nA [Firewall](#firewalls) is applied to a resource once the related [Action](#actions) with command `apply_firewall` successfully finished.\n\n#### Error Codes specific to this Call\n\n| Code                          | Description                                                                                     |\n|-------------------------------|-------------------------------------------------------------------------------------------------|\n| `firewall_already_applied`    | [Firewall](#firewalls) is already applied to resource                                           |\n| `incompatible_network_type`   | The network type of the resource is not supported by [Firewalls](#firewalls)                    |\n| `firewall_resource_not_found` | The resource the [Firewall](#firewalls) should be applied to was not found                      |\n| `private_net_only_server`     | The [Server](#servers) the [Firewall](#firewalls) should be applied to has no public interface  |\n",
         "operationId": "apply_to_resources",
         "parameters": [
           {
@@ -10708,7 +10708,7 @@
     },
     "/firewalls/{id}/actions/remove_from_resources": {
       "post": {
-        "description": "Removes a [Firewall](#firewalls) from multiple resources.\n\nSupported resources:\n- [Servers](#servers) (with a public network interface)\n\n#### Error Codes specific to this Call\n\n| Code                                  | Description                                                                                             |\n|---------------------------------------|---------------------------------------------------------------------------------------------------------|\n| `firewall_already_removed`            | [Firewall](#firewalls) is already removed from the resource                                             |\n| `firewall_resource_not_found`         | The resource the [Firewall](#firewalls) should be removed from was not found                            |\n| `firewall_managed_by_label_selector`  | [Firewall](#firewall) is applied via a [Label Selector](#label-selector) and cannot be removed manually |\n",
+        "description": "Removes a [Firewall](#firewalls) from multiple resources.\n\nSupported resources:\n- [Servers](#servers) (with a public network interface)\n\nA [Firewall](#firewalls) is removed from a resource once the related [Action](#actions) with command `remove_firewall` successfully finished.\n\n#### Error Codes specific to this Call\n\n| Code                                  | Description                                                                                             |\n|---------------------------------------|---------------------------------------------------------------------------------------------------------|\n| `firewall_resource_not_found`         | The resource the [Firewall](#firewalls) should be removed from was not found                            |\n| `firewall_managed_by_label_selector`  | [Firewall](#firewall) is applied via a [Label Selector](#label-selector) and cannot be removed manually |\n",
         "operationId": "remove_from_resources",
         "parameters": [
           {
