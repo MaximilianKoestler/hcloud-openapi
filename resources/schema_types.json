@@ -8,27 +8,10 @@
     ]
   },
   {
-    "description": "Actions show the results and progress of asynchronous requests to the API.",
-    "name": "action_optional",
-    "path": [
-      "create_certificate_response",
-      "action"
-    ]
-  },
-  {
     "name": "architecture",
     "path": [
       "list_server_types_response",
       "server_types",
-      "architecture"
-    ]
-  },
-  {
-    "name": "architecture_optional",
-    "path": [
-      "list_servers_response",
-      "servers",
-      "iso",
       "architecture"
     ]
   },
@@ -60,14 +43,6 @@
     "path": [
       "list_isos_response",
       "isos",
-      "deprecation"
-    ]
-  },
-  {
-    "name": "deprecation_info_server_types_deprecated",
-    "path": [
-      "list_server_types_response",
-      "server_types",
       "deprecation"
     ]
   },
@@ -134,14 +109,6 @@
     ]
   },
   {
-    "name": "image_optional",
-    "path": [
-      "list_servers_response",
-      "servers",
-      "image"
-    ]
-  },
-  {
     "name": "ip_type",
     "path": [
       "create_primary_ip_request",
@@ -171,14 +138,6 @@
     "path": [
       "list_isos_response",
       "isos"
-    ]
-  },
-  {
-    "name": "iso_optional",
-    "path": [
-      "list_servers_response",
-      "servers",
-      "iso"
     ]
   },
   {

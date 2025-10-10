@@ -318,6 +318,8 @@ async function validateOpenApiDocument(document: OpenApiDocumentFragment) {
     /Schema of type string should use one of the following formats/,
     /Schema property should have a non-empty description/,
     /Should define a .* for a valid string/,
+    /"nullable" cannot be used without "type"/,
+    /Array schemas should avoid having items of type array/,
   ];
 
   let warnings = Array.from(results.warnings).filter(

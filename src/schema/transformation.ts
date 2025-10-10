@@ -45,8 +45,8 @@ function fixItem(part: OpenApiDocumentFragment, location: string[]) {
   ];
 
   if (
-    part.type == "number" &&
-    !allowedFloats.includes(location[location.length - 1]) ||
+    (part.type == "number" &&
+      !allowedFloats.includes(location[location.length - 1])) ||
     (part.format !== undefined && part.format.startsWith("int"))
   ) {
     part.type = "integer";
@@ -63,12 +63,20 @@ function fixItem(part: OpenApiDocumentFragment, location: string[]) {
   }
 
   // add 52 (53?) bit maximum value for IDs
-  if (location[location.length - 1] == "id" && part.format == "int64" && part.type == "integer" && part.maximum == undefined) {
+  if (
+    location[location.length - 1] == "id" &&
+    part.format == "int64" &&
+    part.type == "integer" &&
+    part.maximum == undefined
+  ) {
     part.maximum = 9007199254740991;
   }
 
   // all firewall rules have nullable ports because some protocols do not have ports at all
-  if (location[location.length - 1] == "port" && location[location.length - 2] == "rules") {
+  if (
+    location[location.length - 1] == "port" &&
+    location[location.length - 2] == "rules"
+  ) {
     part.nullable = true;
   }
 }
@@ -188,6 +196,15 @@ async function storeCommonComponents(commonComponents: CommonComponent[]) {
   );
 }
 
+let externalizedBoolProperties = new Set<string>(["nullable", "deprecated"]);
+let removeExternalizedBoolProperties = (part: OpenApiDocumentFragment) => {
+  for (const prop of externalizedBoolProperties) {
+    if (prop in part) {
+      delete part[prop];
+    }
+  }
+};
+
 /**
  * Merge a schema which was found somewhere in the document with an identical
  * schema in the "components" section.
@@ -203,6 +220,8 @@ function mergeSchemaComponents(
   name: string,
   newSchema: OpenApiDocumentFragment
 ) {
+  removeExternalizedBoolProperties(newSchema);
+
   if (!(name in schemas)) {
     schemas[name] = newSchema;
   } else {
@@ -253,11 +272,17 @@ export async function deduplicateSchemas(
             hashableParts.items = items["x-hash"];
             part["x-hash"] = objectHash(hashableParts);
             part["x-complexity"] = items["x-complexity"] + 1;
+
+            removeExternalizedBoolProperties(hashableParts);
+            part["x-hash-no-props"] = objectHash(hashableParts);
           } else {
             console.warn(`Found array without "items"`);
             const { description, example, ...hashableParts } = part;
             part["x-hash"] = objectHash(hashableParts);
             part["x-complexity"] = 1;
+
+            removeExternalizedBoolProperties(hashableParts);
+            part["x-hash-no-props"] = objectHash(hashableParts);
           }
         } else if (part.type == "object") {
           if (part.properties !== undefined) {
@@ -278,19 +303,31 @@ export async function deduplicateSchemas(
               (value: number, element: any) => value + element["x-complexity"],
               1
             );
+
+            removeExternalizedBoolProperties(hashableParts);
+            part["x-hash-no-props"] = objectHash(hashableParts);
           } else {
             const { description, example, ...hashableParts } = part;
             part["x-hash"] = objectHash(hashableParts);
             part["x-complexity"] = 1;
+
+            removeExternalizedBoolProperties(hashableParts);
+            part["x-hash-no-props"] = objectHash(hashableParts);
           }
         } else {
           const { description, example, ...hashableParts } = part;
           part["x-hash"] = objectHash(hashableParts);
           part["x-complexity"] = 1;
+
+          removeExternalizedBoolProperties(hashableParts);
+          part["x-hash-no-props"] = objectHash(hashableParts);
         }
 
         if (!("x-hash" in part)) {
           throw Error("Could not insert x-hash into part!");
+        }
+        if (!("x-hash-no-props" in part)) {
+          throw Error("Could not insert x-hash-no-props into part!");
         }
       },
     });
@@ -313,7 +350,7 @@ export async function deduplicateSchemas(
     walkSchema(schemas[id], {
       afterChildren: (part) => {
         if (part.type == "object" || part.type == "string") {
-          const hash = part["x-hash"];
+          const hash = part["x-hash-no-props"];
           if (!(hash in objectInfos)) {
             objectInfos[hash] = {
               count: 0,
@@ -426,12 +463,21 @@ export async function deduplicateSchemas(
   Object.keys(schemas).forEach((id) => {
     walkSchema(schemas[id], {
       afterChildren: (part) => {
-        if (part["x-hash"] in objectInfos) {
-          const info = objectInfos[part["x-hash"]];
+        if (part["x-hash-no-props"] in objectInfos) {
+          const info = objectInfos[part["x-hash-no-props"]];
 
           if (info.name == undefined) {
             throw Error("ObjectInfo without name encountered!");
           }
+
+          const externalizedProps = Object.fromEntries(
+            Array.from(externalizedBoolProperties)
+              .map((prop) => [prop, (part[prop] as boolean) || undefined])
+              .filter(([_, value]) => value !== undefined)
+          );
+          const hasExternalizedProps =
+            Object.keys(externalizedProps).length > 0;
+          const originalDescription = part.description;
 
           // store information as common component
           mergeSchemaComponents(
@@ -439,12 +485,26 @@ export async function deduplicateSchemas(
             info.name,
             JSON.parse(JSON.stringify(part))
           );
+
           // remove entries from old location
           Object.keys(part).forEach((key) => {
             delete part[key];
           });
-          // leave a reference to the common component
-          part["$ref"] = "#/components/schemas/" + info.name;
+
+          // TODO: potentially always do this if there is a description?
+          if (hasExternalizedProps) {
+            if (originalDescription) {
+              part.description = originalDescription;
+            }
+
+            if (hasExternalizedProps) {
+              Object.assign(part, externalizedProps);
+            }
+            part["allOf"] = [{ $ref: "#/components/schemas/" + info.name }];
+          } else {
+            // leave a reference to the common component
+            part["$ref"] = "#/components/schemas/" + info.name;
+          }
         }
       },
     });
@@ -494,6 +554,7 @@ export async function deduplicateSchemas(
       afterChildren: (part) => {
         delete part["x-hash"];
         delete part["x-complexity"];
+        delete part["x-hash-no-props"];
       },
     });
   });
