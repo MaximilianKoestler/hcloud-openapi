@@ -10,7 +10,11 @@ import {
   transformDocument,
   preTransformDocument,
 } from "./document/transformation";
-import { deduplicateSchemas, fixSchema } from "./schema/transformation";
+import {
+  deduplicateSchemas,
+  fixSchema,
+  fixDocument,
+} from "./schema/transformation";
 import { OpenApiDocumentFragment } from "./types";
 
 interface Arguments {
@@ -439,6 +443,8 @@ async function main() {
 
     // apply transformations from `resources/document_transformations.json`
     await transformDocument(document);
+
+    await fixDocument(document);
 
     overWriteTagList(document);
 

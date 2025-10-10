@@ -81,6 +81,31 @@ function fixItem(part: OpenApiDocumentFragment, location: string[]) {
   }
 }
 
+export function fixDocument(obj: OpenApiDocumentFragment) {
+  if (obj === null || obj === undefined) {
+    return;
+  }
+
+  if (Array.isArray(obj)) {
+    for (let i = 0; i < obj.length; i++) {
+      fixDocument(obj[i]);
+    }
+    return;
+  }
+
+  if (typeof obj === "object") {
+    for (const key of Object.keys(obj)) {
+      fixDocument(obj[key]);
+    }
+    if (obj.description !== undefined && typeof obj.description === "string") {
+      obj.description = obj.description.replace(
+        /\[([^\]]+)\]\(#[^\)]+\)/g,
+        "$1"
+      );
+    }
+  }
+}
+
 export function fixSchema(id: string, schemas: OpenApiDocumentFragment) {
   // fix "items" in array form (they may only appear as objects)
   walkSchema(schemas[id], {
