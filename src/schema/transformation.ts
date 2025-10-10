@@ -475,6 +475,9 @@ export async function deduplicateSchemas(
               .map((prop) => [prop, (part[prop] as boolean) || undefined])
               .filter(([_, value]) => value !== undefined)
           );
+          const hasExternalizedProps =
+            Object.keys(externalizedProps).length > 0;
+          const originalDescription = part.description;
 
           // store information as common component
           mergeSchemaComponents(
@@ -488,9 +491,15 @@ export async function deduplicateSchemas(
             delete part[key];
           });
 
-          if (Object.keys(externalizedProps).length > 0) {
-            console.log(externalizedProps);
-            Object.assign(part, externalizedProps);
+          // TODO: potentially always do this if there is a description?
+          if (hasExternalizedProps) {
+            if (originalDescription) {
+              part.description = originalDescription;
+            }
+
+            if (hasExternalizedProps) {
+              Object.assign(part, externalizedProps);
+            }
             part["allOf"] = [{ $ref: "#/components/schemas/" + info.name }];
           } else {
             // leave a reference to the common component

@@ -6,7 +6,7 @@
     },
     "description": "Copied from the official API documentation for the Public Hetzner Cloud.",
     "title": "Hetzner Cloud API",
-    "version": "1b5ebe3-dirty"
+    "version": "aecd43f-dirty"
   },
   "servers": [
     {
@@ -115,6 +115,7 @@
                 "$ref": "#/components/schemas/error"
               }
             ],
+            "description": "Error message for the Action if an error occurred, otherwise null.",
             "nullable": true
           },
           "finished": {
@@ -3534,6 +3535,7 @@
                 "$ref": "#/components/schemas/created_from"
               }
             ],
+            "description": "Information about the Server the Image was created from.",
             "nullable": true
           },
           "deleted": {
@@ -3738,6 +3740,7 @@
                 "$ref": "#/components/schemas/architecture"
               }
             ],
+            "description": "CPU architecture compatible with the ISO.\n\nNull indicates no restriction on the architecture (wildcard).\n",
             "nullable": true
           },
           "deprecation": {
@@ -3746,6 +3749,7 @@
                 "$ref": "#/components/schemas/deprecation_info"
               }
             ],
+            "description": "Describes if, when and how the resource is deprecated. If this field is\nset to `null` the resource is not deprecated. If a value is set, it is\nconsidered deprecated.\n",
             "nullable": true
           },
           "description": {
@@ -6470,6 +6474,7 @@
                 "$ref": "#/components/schemas/image"
               }
             ],
+            "description": "Image the server is based on.",
             "nullable": true
           },
           "included_traffic": {
@@ -6492,6 +6497,7 @@
                 "$ref": "#/components/schemas/iso"
               }
             ],
+            "description": "ISO Image that is attached to this Server. Null if no ISO is attached.",
             "nullable": true
           },
           "labels": {
@@ -6748,6 +6754,7 @@
                 "$ref": "#/components/schemas/ipv4"
               }
             ],
+            "description": "IP address (v4) and its reverse DNS entry of this Server.",
             "nullable": true
           },
           "ipv6": {
@@ -6756,6 +6763,7 @@
                 "$ref": "#/components/schemas/ipv6"
               }
             ],
+            "description": "IPv6 network assigned to this Server and its reverse DNS entry.",
             "nullable": true
           }
         },
@@ -6803,6 +6811,7 @@
               }
             ],
             "deprecated": true,
+            "description": "This field is deprecated.\n\nUse the `deprecation` object in the `locations` field instead (`.locations[].deprecation`).\n",
             "nullable": true
           },
           "description": {
@@ -6880,6 +6889,7 @@
                 "$ref": "#/components/schemas/deprecation_info"
               }
             ],
+            "description": "Describes if, when and how the resource is deprecated. If this field is\nset to `null` the resource is not deprecated. If a value is set, it is\nconsidered deprecated.\n",
             "nullable": true
           },
           "id": {
@@ -7157,6 +7167,7 @@
                 "$ref": "#/components/schemas/snapshot_plan"
               }
             ],
+            "description": "Details of the active snapshot plan. Not available if the status is \"initializing\".",
             "nullable": true
           },
           "stats": {
@@ -7165,6 +7176,7 @@
                 "$ref": "#/components/schemas/storage_box_stats"
               }
             ],
+            "description": "Information about disk usage. Not available if the status is \"initializing\".",
             "nullable": true
           },
           "status": {
@@ -7277,6 +7289,7 @@
                 "$ref": "#/components/schemas/deprecation_info"
               }
             ],
+            "description": "Describes if, when and how the resource is deprecated. If this field is\nset to `null` the resource is not deprecated. If a value is set, it is\nconsidered deprecated.\n",
             "nullable": true
           },
           "description": {
