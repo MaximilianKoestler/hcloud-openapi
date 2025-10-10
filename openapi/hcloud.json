@@ -6,7 +6,7 @@
     },
     "description": "Copied from the official API documentation for the Public Hetzner Cloud.",
     "title": "Hetzner Cloud API",
-    "version": "8eaf273"
+    "version": "0b0a9b9"
   },
   "servers": [
     {
@@ -11877,7 +11877,7 @@
               }
             }
           },
-          "description": "The `ip` attributes specifies for which IP address the record is set. For IPv4 addresses this must be the exact address of the [Floating IP](#floating-ips). For IPv6 addresses this must be a single address within the `/64` subnet of the [Floating IP](#floating-ips).\n\nThe `dns_ptr` attribute specifies the hostname used for the IP address.\n\nFor IPv6 [Floating IPs](#floating-ips) up to 100 entries can be created.\n",
+          "description": "The `ip` attributes specifies for which IP address the record is set. For IPv4 addresses this must be the exact address of the [Floating IP](#floating-ips). For IPv6 addresses this must be a single address within the `/64` subnet of the [Floating IP](#floating-ips).\n\nThe `dns_ptr` attribute specifies the hostname used for the IP address. Must be a fully qualified domain name (FQDN) without trailing dot.\n\nFor IPv6 [Floating IPs](#floating-ips) up to 100 entries can be created.\n",
           "required": true
         },
         "responses": {
@@ -14687,7 +14687,7 @@
               }
             }
           },
-          "description": "Select the IP address for which to change the DNS entry by passing `ip`. It can be either IPv4 or IPv6. The target hostname is set by passing `dns_ptr`.",
+          "description": "Select the IP address for which to change the DNS entry by passing `ip`. It can be either IPv4 or IPv6. The target hostname is set by passing `dns_ptr`, which must be a fully qualified domain name (FQDN) without trailing dot.",
           "required": true
         },
         "responses": {
@@ -18165,7 +18165,7 @@
               }
             }
           },
-          "description": "The `ip` attributes specifies for which IP address the record is set. For IPv4 addresses this must be the exact address of the [Primary IP](#primary-ips). For IPv6 addresses this must be a single address within the `/64` subnet of the [Primary IP](#primary-ips).\n\nThe `dns_ptr` attribute specifies the hostname used for the IP address.\n\nFor IPv6 [Primary IPs](#primary-ips) up to 100 entries can be created.\n",
+          "description": "The `ip` attributes specifies for which IP address the record is set. For IPv4 addresses this must be the exact address of the [Primary IP](#primary-ips). For IPv6 addresses this must be a single address within the `/64` subnet of the [Primary IP](#primary-ips).\n\nThe `dns_ptr` attribute specifies the hostname used for the IP address. Must be a fully qualified domain name (FQDN) without trailing dot.\n\nFor IPv6 [Primary IPs](#primary-ips) up to 100 entries can be created.\n",
           "required": true
         },
         "responses": {
@@ -19908,7 +19908,7 @@
               }
             }
           },
-          "description": "Select the IP address for which to change the DNS entry by passing `ip`. It can be either IPv4 or IPv6. The target hostname is set by passing `dns_ptr`.",
+          "description": "Select the IP address for which to change the DNS entry by passing `ip`. It can be either IPv4 or IPv6. The target hostname is set by passing `dns_ptr`, which must be a fully qualified domain name (FQDN) without trailing dot.",
           "required": true
         },
         "responses": {
