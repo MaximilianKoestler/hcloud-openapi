@@ -6,7 +6,7 @@
     },
     "description": "Copied from the official API documentation for the Public Hetzner Cloud.",
     "title": "Hetzner Cloud API",
-    "version": "aecd43f-dirty"
+    "version": "ea03e01"
   },
   "servers": [
     {
@@ -7891,7 +7891,7 @@
     },
     "/actions/{id}": {
       "get": {
-        "description": "Returns a specific Action object.",
+        "description": "Returns a specific Action object.\n",
         "operationId": "get_action",
         "parameters": [
           {
@@ -7945,7 +7945,7 @@
     },
     "/certificates": {
       "get": {
-        "description": "Returns all Certificate objects.",
+        "description": "Returns all Certificate objects.\n",
         "operationId": "list_certificates",
         "parameters": [
           {
@@ -8283,7 +8283,7 @@
     },
     "/certificates/{id}": {
       "delete": {
-        "description": "Deletes a Certificate.",
+        "description": "Deletes a Certificate.\n",
         "operationId": "delete_certificate",
         "parameters": [
           {
@@ -8328,7 +8328,7 @@
         ]
       },
       "get": {
-        "description": "Gets a specific Certificate object.",
+        "description": "Gets a specific Certificate object.\n",
         "operationId": "get_certificate",
         "parameters": [
           {
@@ -8649,7 +8649,7 @@
     },
     "/certificates/{id}/actions/{action_id}": {
       "get": {
-        "description": "Returns a specific Action for a Certificate. Only type `managed` Certificates have Actions.",
+        "description": "Returns a specific Action for a Certificate. Only type `managed` Certificates have Actions.\n",
         "operationId": "get_action_for_certificate",
         "parameters": [
           {
@@ -8803,7 +8803,7 @@
     },
     "/certificates/actions": {
       "get": {
-        "description": "Returns all Action objects. You can `sort` the results by using the sort URI parameter, and filter them with the `status` and `id` parameter.",
+        "description": "Returns all Action objects. You can `sort` the results by using the sort URI parameter, and filter them with the `status` and `id` parameter.\n",
         "operationId": "list_certificate_actions",
         "parameters": [
           {
@@ -8931,7 +8931,7 @@
     },
     "/certificates/actions/{id}": {
       "get": {
-        "description": "Returns a specific Action object.",
+        "description": "Returns a specific Action object.\n",
         "operationId": "get_certificate_action",
         "parameters": [
           {
@@ -8985,7 +8985,7 @@
     },
     "/datacenters": {
       "get": {
-        "description": "Returns all [Datacenters](#datacenters).",
+        "description": "Returns all [Datacenters](#datacenters).\n",
         "operationId": "list_datacenters",
         "parameters": [
           {
@@ -9084,7 +9084,7 @@
     },
     "/datacenters/{id}": {
       "get": {
-        "description": "Returns a single [Datacenter](#datacenters).",
+        "description": "Returns a single [Datacenter](#datacenters).\n",
         "operationId": "get_datacenter",
         "parameters": [
           {
@@ -9373,7 +9373,7 @@
         ]
       },
       "get": {
-        "description": "Returns a single [Firewall](#firewalls).",
+        "description": "Returns a single [Firewall](#firewalls).\n",
         "operationId": "get_firewall",
         "parameters": [
           {
@@ -9640,7 +9640,7 @@
     },
     "/firewalls/{id}/actions/{action_id}": {
       "get": {
-        "description": "Returns a specific [Action](#actions) for a [Firewall](#firewalls).",
+        "description": "Returns a specific [Action](#actions) for a [Firewall](#firewalls).\n",
         "operationId": "get_action_for_firewall",
         "parameters": [
           {
@@ -10181,7 +10181,7 @@
     },
     "/firewalls/actions/{id}": {
       "get": {
-        "description": "Returns the specific [Action](#actions).",
+        "description": "Returns the specific [Action](#actions).\n",
         "operationId": "get_firewall_action",
         "parameters": [
           {
@@ -10488,7 +10488,7 @@
         ]
       },
       "get": {
-        "description": "Returns a single [Floating IP](#floating-ips).",
+        "description": "Returns a single [Floating IP](#floating-ips).\n",
         "operationId": "get_floating_ip",
         "parameters": [
           {
@@ -10792,7 +10792,7 @@
     },
     "/floating_ips/{id}/actions/{action_id}": {
       "get": {
-        "description": "Returns a specific [Action](#actions) for a [Floating IP](#floating-ips).",
+        "description": "Returns a specific [Action](#actions) for a [Floating IP](#floating-ips).\n",
         "operationId": "get_action_for_floating_ip",
         "parameters": [
           {
@@ -10871,7 +10871,7 @@
     },
     "/floating_ips/{id}/actions/assign": {
       "post": {
-        "description": "Assigns a [Floating IP](#floating-ips) to a [Server](#servers).",
+        "description": "Assigns a [Floating IP](#floating-ips) to a [Server](#servers).\n",
         "operationId": "assign_floating_ip_to_server",
         "parameters": [
           {
@@ -11054,7 +11054,7 @@
     },
     "/floating_ips/{id}/actions/change_protection": {
       "post": {
-        "description": "Changes the protection settings configured for the [Floating IP](#floating-ips).",
+        "description": "Changes the protection settings configured for the [Floating IP](#floating-ips).\n",
         "operationId": "change_floating_ip_protection",
         "parameters": [
           {
@@ -11354,7 +11354,7 @@
     },
     "/floating_ips/actions/{id}": {
       "get": {
-        "description": "Returns a single [Action](#actions).",
+        "description": "Returns a single [Action](#actions).\n",
         "operationId": "get_floating_ip_action",
         "parameters": [
           {
@@ -11408,7 +11408,7 @@
     },
     "/images": {
       "get": {
-        "description": "Returns all Image objects. You can select specific Image types only and sort the results by using URI parameters.",
+        "description": "Returns all Image objects. You can select specific Image types only and sort the results by using URI parameters.\n",
         "operationId": "list_images",
         "parameters": [
           {
@@ -11594,7 +11594,7 @@
     },
     "/images/{id}": {
       "delete": {
-        "description": "Deletes an Image. Only Images of type `snapshot` and `backup` can be deleted.",
+        "description": "Deletes an Image. Only Images of type `snapshot` and `backup` can be deleted.\n",
         "operationId": "delete_image",
         "parameters": [
           {
@@ -11639,7 +11639,7 @@
         ]
       },
       "get": {
-        "description": "Returns a specific Image object.",
+        "description": "Returns a specific Image object.\n",
         "operationId": "get_image",
         "parameters": [
           {
@@ -11789,7 +11789,7 @@
     },
     "/images/{id}/actions": {
       "get": {
-        "description": "Returns all Action objects for an Image. You can sort the results by using the `sort` URI parameter, and filter them with the `status` parameter.",
+        "description": "Returns all Action objects for an Image. You can sort the results by using the `sort` URI parameter, and filter them with the `status` parameter.\n",
         "operationId": "list_actions_for_image",
         "parameters": [
           {
@@ -11934,7 +11934,7 @@
     },
     "/images/{id}/actions/{action_id}": {
       "get": {
-        "description": "Returns a specific Action for an Image.",
+        "description": "Returns a specific Action for an Image.\n",
         "operationId": "get_action_for_image",
         "parameters": [
           {
@@ -12009,7 +12009,7 @@
     },
     "/images/{id}/actions/change_protection": {
       "post": {
-        "description": "Changes the protection configuration of the Image. Can only be used on snapshots.",
+        "description": "Changes the protection configuration of the Image. Can only be used on snapshots.\n",
         "operationId": "change_image_protection",
         "parameters": [
           {
@@ -12098,7 +12098,7 @@
     },
     "/images/actions": {
       "get": {
-        "description": "Returns all Action objects. You can `sort` the results by using the sort URI parameter, and filter them with the `status` and `id` parameter.",
+        "description": "Returns all Action objects. You can `sort` the results by using the sort URI parameter, and filter them with the `status` and `id` parameter.\n",
         "operationId": "list_image_actions",
         "parameters": [
           {
@@ -12226,7 +12226,7 @@
     },
     "/images/actions/{id}": {
       "get": {
-        "description": "Returns a specific Action object.",
+        "description": "Returns a specific Action object.\n",
         "operationId": "get_image_action",
         "parameters": [
           {
@@ -12280,7 +12280,7 @@
     },
     "/isos": {
       "get": {
-        "description": "Returns all available ISO objects.",
+        "description": "Returns all available ISO objects.\n",
         "operationId": "list_isos",
         "parameters": [
           {
@@ -12383,7 +12383,7 @@
     },
     "/isos/{id}": {
       "get": {
-        "description": "Returns a specific ISO object.",
+        "description": "Returns a specific ISO object.\n",
         "operationId": "get_iso",
         "parameters": [
           {
@@ -12442,7 +12442,7 @@
     },
     "/load_balancer_types": {
       "get": {
-        "description": "Gets all Load Balancer type objects.",
+        "description": "Gets all Load Balancer type objects.\n",
         "operationId": "list_load_balancer_types",
         "parameters": [
           {
@@ -12521,7 +12521,7 @@
     },
     "/load_balancer_types/{id}": {
       "get": {
-        "description": "Gets a specific Load Balancer type object.",
+        "description": "Gets a specific Load Balancer type object.\n",
         "operationId": "get_load_balancer_type",
         "parameters": [
           {
@@ -12580,7 +12580,7 @@
     },
     "/load_balancers": {
       "get": {
-        "description": "Gets all existing Load Balancers that you have available.",
+        "description": "Gets all existing Load Balancers that you have available.\n",
         "operationId": "list_load_balancers",
         "parameters": [
           {
@@ -12891,7 +12891,7 @@
     },
     "/load_balancers/{id}": {
       "delete": {
-        "description": "Deletes a Load Balancer.",
+        "description": "Deletes a Load Balancer.\n",
         "operationId": "delete_load_balancer",
         "parameters": [
           {
@@ -12936,7 +12936,7 @@
         ]
       },
       "get": {
-        "description": "Gets a specific Load Balancer object.",
+        "description": "Gets a specific Load Balancer object.\n",
         "operationId": "get_load_balancer",
         "parameters": [
           {
@@ -13198,7 +13198,7 @@
     },
     "/load_balancers/{id}/actions": {
       "get": {
-        "description": "Returns all Action objects for a Load Balancer. You can sort the results by using the `sort` URI parameter, and filter them with the `status` parameter.",
+        "description": "Returns all Action objects for a Load Balancer. You can sort the results by using the `sort` URI parameter, and filter them with the `status` parameter.\n",
         "operationId": "list_actions_for_load_balancer",
         "parameters": [
           {
@@ -13343,7 +13343,7 @@
     },
     "/load_balancers/{id}/actions/{action_id}": {
       "get": {
-        "description": "Returns a specific Action for a Load Balancer.",
+        "description": "Returns a specific Action for a Load Balancer.\n",
         "operationId": "get_action_for_load_balancer",
         "parameters": [
           {
@@ -13685,7 +13685,7 @@
     },
     "/load_balancers/{id}/actions/change_algorithm": {
       "post": {
-        "description": "Change the algorithm that determines to which target new requests are sent.",
+        "description": "Change the algorithm that determines to which target new requests are sent.\n",
         "operationId": "change_algorithm",
         "parameters": [
           {
@@ -13864,7 +13864,7 @@
     },
     "/load_balancers/{id}/actions/change_protection": {
       "post": {
-        "description": "Changes the protection configuration of a Load Balancer.",
+        "description": "Changes the protection configuration of a Load Balancer.\n",
         "operationId": "change_load_balancer_protection",
         "parameters": [
           {
@@ -14042,7 +14042,7 @@
     },
     "/load_balancers/{id}/actions/delete_service": {
       "post": {
-        "description": "Delete a service of a Load Balancer.",
+        "description": "Delete a service of a Load Balancer.\n",
         "operationId": "delete_service",
         "parameters": [
           {
@@ -14131,7 +14131,7 @@
     },
     "/load_balancers/{id}/actions/detach_from_network": {
       "post": {
-        "description": "Detaches a Load Balancer from a network.",
+        "description": "Detaches a Load Balancer from a network.\n",
         "operationId": "detach_load_balancer_from_network",
         "parameters": [
           {
@@ -14307,7 +14307,7 @@
     },
     "/load_balancers/{id}/actions/enable_public_interface": {
       "post": {
-        "description": "Enable the public interface of a Load Balancer. The Load Balancer will be accessible from the internet via its public IPs.",
+        "description": "Enable the public interface of a Load Balancer. The Load Balancer will be accessible from the internet via its public IPs.\n",
         "operationId": "enable_public_interface_of_load_balancer",
         "parameters": [
           {
@@ -14390,7 +14390,7 @@
     },
     "/load_balancers/{id}/actions/remove_target": {
       "post": {
-        "description": "Removes a target from a Load Balancer.",
+        "description": "Removes a target from a Load Balancer.\n",
         "operationId": "remove_target",
         "parameters": [
           {
@@ -14669,7 +14669,7 @@
     },
     "/load_balancers/actions": {
       "get": {
-        "description": "Returns all Action objects. You can `sort` the results by using the sort URI parameter, and filter them with the `status` and `id` parameter.",
+        "description": "Returns all Action objects. You can `sort` the results by using the sort URI parameter, and filter them with the `status` and `id` parameter.\n",
         "operationId": "list_load_balancer_actions",
         "parameters": [
           {
@@ -14797,7 +14797,7 @@
     },
     "/load_balancers/actions/{id}": {
       "get": {
-        "description": "Returns a specific Action object.",
+        "description": "Returns a specific Action object.\n",
         "operationId": "get_load_balancer_action",
         "parameters": [
           {
@@ -14950,7 +14950,7 @@
     },
     "/locations/{id}": {
       "get": {
-        "description": "Returns a [Location](#locations).",
+        "description": "Returns a [Location](#locations).\n",
         "operationId": "get_location",
         "parameters": [
           {
@@ -15212,7 +15212,7 @@
         ]
       },
       "get": {
-        "description": "Get a specific [Network](#networks).",
+        "description": "Get a specific [Network](#networks).\n",
         "operationId": "get_network",
         "parameters": [
           {
@@ -15513,7 +15513,7 @@
     },
     "/networks/{id}/actions/{action_id}": {
       "get": {
-        "description": "Returns a specific [Action](#actions) for a [Network](#networks).",
+        "description": "Returns a specific [Action](#actions) for a [Network](#networks).\n",
         "operationId": "get_action_for_network",
         "parameters": [
           {
@@ -16250,7 +16250,7 @@
     },
     "/networks/actions/{id}": {
       "get": {
-        "description": "Returns a single [Action](#actions).",
+        "description": "Returns a single [Action](#actions).\n",
         "operationId": "get_network_action",
         "parameters": [
           {
@@ -16304,7 +16304,7 @@
     },
     "/placement_groups": {
       "get": {
-        "description": "Returns all Placement Group objects.",
+        "description": "Returns all Placement Group objects.\n",
         "operationId": "list_placement_groups",
         "parameters": [
           {
@@ -16522,7 +16522,7 @@
     },
     "/placement_groups/{id}": {
       "delete": {
-        "description": "Deletes a Placement Group.",
+        "description": "Deletes a Placement Group.\n",
         "operationId": "delete_placementgroup",
         "parameters": [
           {
@@ -16567,7 +16567,7 @@
         ]
       },
       "get": {
-        "description": "Gets a specific Placement Group object.",
+        "description": "Gets a specific Placement Group object.\n",
         "operationId": "get_placementgroup",
         "parameters": [
           {
@@ -17038,7 +17038,7 @@
         ]
       },
       "get": {
-        "description": "Returns a [Primary IP](#primary-ips).",
+        "description": "Returns a [Primary IP](#primary-ips).\n",
         "operationId": "get_primary_ip",
         "parameters": [
           {
@@ -17277,7 +17277,7 @@
               }
             }
           },
-          "description": "The `ip` attributes specifies for which IP address the record is set. For IPv4 addresses this must be the exact address of the [Primary IP](#primary-ips). For IPv6 addresses this must be a single address within the `/64` subnet of the [Primary IP](#primary-ips).\n\nThe `dns_ptr` attribute specifies the hostname used for the IP address.\n\nFor IPv6 [Floating IPs](#floating-ips) up to 100 entries can be created.\n",
+          "description": "The `ip` attributes specifies for which IP address the record is set. For IPv4 addresses this must be the exact address of the [Primary IP](#primary-ips). For IPv6 addresses this must be a single address within the `/64` subnet of the [Primary IP](#primary-ips).\n\nThe `dns_ptr` attribute specifies the hostname used for the IP address.\n\nFor IPv6 [Primary IPs](#primary-ips) up to 100 entries can be created.\n",
           "required": true
         },
         "responses": {
@@ -17642,7 +17642,7 @@
     },
     "/primary_ips/actions/{id}": {
       "get": {
-        "description": "Returns a single [Action](#actions).",
+        "description": "Returns a single [Action](#actions).\n",
         "operationId": "get_primary_ip_action",
         "parameters": [
           {
@@ -17696,7 +17696,7 @@
     },
     "/server_types": {
       "get": {
-        "description": "Gets all Server type objects.",
+        "description": "Gets all Server type objects.\n",
         "operationId": "list_server_types",
         "parameters": [
           {
@@ -17775,7 +17775,7 @@
     },
     "/server_types/{id}": {
       "get": {
-        "description": "Gets a specific Server type object.",
+        "description": "Gets a specific Server type object.\n",
         "operationId": "get_server_type",
         "parameters": [
           {
@@ -17834,7 +17834,7 @@
     },
     "/servers": {
       "get": {
-        "description": "Returns all existing Server objects.",
+        "description": "Returns all existing Server objects.\n",
         "operationId": "list_servers",
         "parameters": [
           {
@@ -17970,7 +17970,7 @@
         ]
       },
       "post": {
-        "description": "Creates a new Server. Returns preliminary information about the Server as well as an Action that covers progress of creation.",
+        "description": "Creates a new Server. Returns preliminary information about the Server as well as an Action that covers progress of creation.\n",
         "operationId": "create_server",
         "requestBody": {
           "content": {
@@ -18289,7 +18289,7 @@
         ]
       },
       "get": {
-        "description": "Returns a specific Server object. The Server must exist inside the Project.",
+        "description": "Returns a specific Server object. The Server must exist inside the Project.\n",
         "operationId": "get_server",
         "parameters": [
           {
@@ -18410,7 +18410,7 @@
     },
     "/servers/{id}/actions": {
       "get": {
-        "description": "Returns all Action objects for a Server. You can `sort` the results by using the sort URI parameter, and filter them with the `status` parameter.",
+        "description": "Returns all Action objects for a Server. You can `sort` the results by using the sort URI parameter, and filter them with the `status` parameter.\n",
         "operationId": "list_actions_for_server",
         "parameters": [
           {
@@ -18556,7 +18556,7 @@
     },
     "/servers/{id}/actions/{action_id}": {
       "get": {
-        "description": "Returns a specific Action object for a Server.",
+        "description": "Returns a specific Action object for a Server.\n",
         "operationId": "get_action_for_server",
         "parameters": [
           {
@@ -18902,7 +18902,7 @@
     },
     "/servers/{id}/actions/change_alias_ips": {
       "post": {
-        "description": "Changes the alias IPs of an already attached Network. Note that the existing aliases for the specified Network will be replaced with these provided in the request body. So if you want to add an alias IP, you have to provide the existing ones from the Network plus the new alias IP in the request body.",
+        "description": "Changes the alias IPs of an already attached Network. Note that the existing aliases for the specified Network will be replaced with these provided in the request body. So if you want to add an alias IP, you have to provide the existing ones from the Network plus the new alias IP in the request body.\n",
         "operationId": "change_alias_ips_of_network",
         "parameters": [
           {
@@ -19085,7 +19085,7 @@
     },
     "/servers/{id}/actions/change_protection": {
       "post": {
-        "description": "Changes the protection configuration of the Server.",
+        "description": "Changes the protection configuration of the Server.\n",
         "operationId": "change_server_protection",
         "parameters": [
           {
@@ -19379,7 +19379,7 @@
     },
     "/servers/{id}/actions/detach_from_network": {
       "post": {
-        "description": "Detaches a Server from a network. The interface for this network will vanish.",
+        "description": "Detaches a Server from a network. The interface for this network will vanish.\n",
         "operationId": "detach_server_from_network",
         "parameters": [
           {
@@ -19472,7 +19472,7 @@
     },
     "/servers/{id}/actions/detach_iso": {
       "post": {
-        "description": "Detaches an ISO from a Server. In case no ISO Image is attached to the Server, the status of the returned Action is immediately set to `success`.",
+        "description": "Detaches an ISO from a Server. In case no ISO Image is attached to the Server, the status of the returned Action is immediately set to `success`.\n",
         "operationId": "detach_iso_from_server",
         "parameters": [
           {
@@ -19878,7 +19878,7 @@
     },
     "/servers/{id}/actions/poweroff": {
       "post": {
-        "description": "Cuts power to the Server. This forcefully stops it without giving the Server operating system time to gracefully stop. May lead to data loss, equivalent to pulling the power cord. Power off should only be used when shutdown does not work.",
+        "description": "Cuts power to the Server. This forcefully stops it without giving the Server operating system time to gracefully stop. May lead to data loss, equivalent to pulling the power cord. Power off should only be used when shutdown does not work.\n",
         "operationId": "power_off_server",
         "parameters": [
           {
@@ -19957,7 +19957,7 @@
     },
     "/servers/{id}/actions/poweron": {
       "post": {
-        "description": "Starts a Server by turning its power on.",
+        "description": "Starts a Server by turning its power on.\n",
         "operationId": "power_on_server",
         "parameters": [
           {
@@ -20036,7 +20036,7 @@
     },
     "/servers/{id}/actions/reboot": {
       "post": {
-        "description": "Reboots a Server gracefully by sending an ACPI request. The Server operating system must support ACPI and react to the request, otherwise the Server will not reboot.",
+        "description": "Reboots a Server gracefully by sending an ACPI request. The Server operating system must support ACPI and react to the request, otherwise the Server will not reboot.\n",
         "operationId": "soft_reboot_server",
         "parameters": [
           {
@@ -20285,7 +20285,7 @@
     },
     "/servers/{id}/actions/request_console": {
       "post": {
-        "description": "Requests credentials for remote access via VNC over websocket to keyboard, monitor, and mouse for a Server. The provided URL is valid for 1 minute, after this period a new url needs to be created to connect to the Server. How long the connection is open after the initial connect is not subject to this timeout.",
+        "description": "Requests credentials for remote access via VNC over websocket to keyboard, monitor, and mouse for a Server. The provided URL is valid for 1 minute, after this period a new url needs to be created to connect to the Server. How long the connection is open after the initial connect is not subject to this timeout.\n",
         "operationId": "request_console_for_server",
         "parameters": [
           {
@@ -20366,7 +20366,7 @@
     },
     "/servers/{id}/actions/reset": {
       "post": {
-        "description": "Cuts power to a Server and starts it again. This forcefully stops it without giving the Server operating system time to gracefully stop. This may lead to data loss, it’s equivalent to pulling the power cord and plugging it in again. Reset should only be used when reboot does not work.",
+        "description": "Cuts power to a Server and starts it again. This forcefully stops it without giving the Server operating system time to gracefully stop. This may lead to data loss, it’s equivalent to pulling the power cord and plugging it in again. Reset should only be used when reboot does not work.\n",
         "operationId": "reset_server",
         "parameters": [
           {
@@ -20704,7 +20704,7 @@
     },
     "/servers/actions": {
       "get": {
-        "description": "Returns all Action objects. You can `sort` the results by using the sort URI parameter, and filter them with the `status` and `id` parameter.",
+        "description": "Returns all Action objects. You can `sort` the results by using the sort URI parameter, and filter them with the `status` and `id` parameter.\n",
         "operationId": "list_server_actions",
         "parameters": [
           {
@@ -20832,7 +20832,7 @@
     },
     "/servers/actions/{id}": {
       "get": {
-        "description": "Returns a specific Action object.",
+        "description": "Returns a specific Action object.\n",
         "operationId": "get_server_action",
         "parameters": [
           {
@@ -20886,7 +20886,7 @@
     },
     "/ssh_keys": {
       "get": {
-        "description": "Returns all SSH key objects.",
+        "description": "Returns all SSH key objects.\n",
         "operationId": "list_ssh_keys",
         "parameters": [
           {
@@ -20996,7 +20996,7 @@
         ]
       },
       "post": {
-        "description": "Creates a new SSH key with the given `name` and `public_key`. Once an SSH key is created, it can be used in other calls such as creating Servers.",
+        "description": "Creates a new SSH key with the given `name` and `public_key`. Once an SSH key is created, it can be used in other calls such as creating Servers.\n",
         "operationId": "create_ssh_key",
         "requestBody": {
           "content": {
@@ -21050,7 +21050,7 @@
     },
     "/ssh_keys/{id}": {
       "delete": {
-        "description": "Deletes an SSH key. It cannot be used anymore.",
+        "description": "Deletes an SSH key. It cannot be used anymore.\n",
         "operationId": "delete_ssh_key",
         "parameters": [
           {
@@ -21095,7 +21095,7 @@
         ]
       },
       "get": {
-        "description": "Returns a specific SSH key object.",
+        "description": "Returns a specific SSH key object.\n",
         "operationId": "get_ssh_key",
         "parameters": [
           {
@@ -21228,7 +21228,7 @@
     },
     "/volumes": {
       "get": {
-        "description": "Gets all existing Volumes that you have available.",
+        "description": "Gets all existing Volumes that you have available.\n",
         "operationId": "list_volumes",
         "parameters": [
           {
@@ -21488,7 +21488,7 @@
     },
     "/volumes/{id}": {
       "delete": {
-        "description": "Deletes a volume. All Volume data is irreversibly destroyed. The Volume must not be attached to a Server and it must not have delete protection enabled.",
+        "description": "Deletes a volume. All Volume data is irreversibly destroyed. The Volume must not be attached to a Server and it must not have delete protection enabled.\n",
         "operationId": "delete_volume",
         "parameters": [
           {
@@ -21533,7 +21533,7 @@
         ]
       },
       "get": {
-        "description": "Gets a specific Volume object.",
+        "description": "Gets a specific Volume object.\n",
         "operationId": "get_volume",
         "parameters": [
           {
@@ -21682,7 +21682,7 @@
     },
     "/volumes/{id}/actions": {
       "get": {
-        "description": "Returns all Action objects for a Volume. You can `sort` the results by using the sort URI parameter, and filter them with the `status` parameter.",
+        "description": "Returns all Action objects for a Volume. You can `sort` the results by using the sort URI parameter, and filter them with the `status` parameter.\n",
         "operationId": "list_actions_for_volume",
         "parameters": [
           {
@@ -21831,7 +21831,7 @@
     },
     "/volumes/{id}/actions/{action_id}": {
       "get": {
-        "description": "Returns a specific Action for a Volume.",
+        "description": "Returns a specific Action for a Volume.\n",
         "operationId": "get_action_for_volume",
         "parameters": [
           {
@@ -21906,7 +21906,7 @@
     },
     "/volumes/{id}/actions/attach": {
       "post": {
-        "description": "Attaches a Volume to a Server. Works only if the Server is in the same Location as the Volume.",
+        "description": "Attaches a Volume to a Server. Works only if the Server is in the same Location as the Volume.\n",
         "operationId": "attach_volume_to_server",
         "parameters": [
           {
@@ -21999,7 +21999,7 @@
     },
     "/volumes/{id}/actions/change_protection": {
       "post": {
-        "description": "Changes the protection configuration of a Volume.",
+        "description": "Changes the protection configuration of a Volume.\n",
         "operationId": "change_volume_protection",
         "parameters": [
           {
@@ -22092,7 +22092,7 @@
     },
     "/volumes/{id}/actions/detach": {
       "post": {
-        "description": "Detaches a Volume from the Server it’s attached to. You may attach it to a Server again at a later time.",
+        "description": "Detaches a Volume from the Server it’s attached to. You may attach it to a Server again at a later time.\n",
         "operationId": "detach_volume",
         "parameters": [
           {
@@ -22171,7 +22171,7 @@
     },
     "/volumes/{id}/actions/resize": {
       "post": {
-        "description": "Changes the size of a Volume. Note that downsizing a Volume is not possible.",
+        "description": "Changes the size of a Volume. Note that downsizing a Volume is not possible.\n",
         "operationId": "resize_volume",
         "parameters": [
           {
@@ -22260,7 +22260,7 @@
     },
     "/volumes/actions": {
       "get": {
-        "description": "Returns all Action objects. You can `sort` the results by using the sort URI parameter, and filter them with the `status` and `id` parameter.",
+        "description": "Returns all Action objects. You can `sort` the results by using the sort URI parameter, and filter them with the `status` and `id` parameter.\n",
         "operationId": "list_volume_actions",
         "parameters": [
           {
@@ -22388,7 +22388,7 @@
     },
     "/volumes/actions/{id}": {
       "get": {
-        "description": "Returns a specific Action object.",
+        "description": "Returns a specific Action object.\n",
         "operationId": "get_volume_action",
         "parameters": [
           {
@@ -22442,7 +22442,7 @@
     },
     "/storage_box_types": {
       "get": {
-        "description": "Returns a paginated list of [Storage Box Types](#storage-box-types).",
+        "description": "Returns a paginated list of [Storage Box Types](#storage-box-types).\n",
         "operationId": "list_storage_box_types",
         "parameters": [
           {
@@ -22504,7 +22504,7 @@
     },
     "/storage_box_types/{id}": {
       "get": {
-        "description": "Returns a specific [Storage Box Type](#storage-box-types).",
+        "description": "Returns a specific [Storage Box Type](#storage-box-types).\n",
         "operationId": "get_storage_box_type",
         "parameters": [
           {
@@ -22610,7 +22610,7 @@
         ]
       },
       "post": {
-        "description": "Creates a new Storage Box. Returns an Action that covers progress of creation.",
+        "description": "Creates a new Storage Box. Returns an Action that covers progress of creation.\n",
         "operationId": "create_storage_box",
         "requestBody": {
           "content": {
@@ -22729,7 +22729,7 @@
     },
     "/storage_boxes/actions": {
       "get": {
-        "description": "Returns all Action objects.",
+        "description": "Returns all Action objects.\n",
         "operationId": "list_storage_box_actions",
         "parameters": [
           {
@@ -22845,7 +22845,7 @@
     },
     "/storage_boxes/actions/{id}": {
       "get": {
-        "description": "Returns a specific Action object.",
+        "description": "Returns a specific Action object.\n",
         "operationId": "get_storage_box_action",
         "parameters": [
           {
@@ -22887,7 +22887,7 @@
     },
     "/storage_boxes/{id}": {
       "delete": {
-        "description": "Deletes an existing Storage Box.",
+        "description": "Deletes an existing Storage Box.\n",
         "operationId": "delete_storage_box",
         "parameters": [
           {
@@ -23031,7 +23031,7 @@
     },
     "/storage_boxes/{id}/actions": {
       "get": {
-        "description": "List all Actions related to a specific Storage Box.",
+        "description": "List all Actions related to a specific Storage Box.\n",
         "operationId": "list_actions_for_storage_box",
         "parameters": [
           {
@@ -23144,7 +23144,7 @@
     },
     "/storage_boxes/{id}/actions/change_protection": {
       "post": {
-        "description": "Changes the protection configuration of the Storage Box.",
+        "description": "Changes the protection configuration of the Storage Box.\n",
         "operationId": "change_storage_box_protection",
         "parameters": [
           {
@@ -23674,7 +23674,7 @@
     },
     "/storage_boxes/{id}/actions/{action_id}": {
       "get": {
-        "description": "Returns a specific Action object for a Storage Box.",
+        "description": "Returns a specific Action object for a Storage Box.\n",
         "operationId": "get_action_for_storage_box",
         "parameters": [
           {
@@ -23729,7 +23729,7 @@
     },
     "/storage_boxes/{id}/folders": {
       "get": {
-        "description": "Lists the (sub)folders contained in a Storage Box at the location specified by the path. Files are not part of the response.",
+        "description": "Lists the (sub)folders contained in a Storage Box at the location specified by the path. Files are not part of the response.\n",
         "operationId": "list_content_of_storage_box",
         "parameters": [
           {
@@ -23792,7 +23792,7 @@
     },
     "/storage_boxes/{id}/snapshots": {
       "get": {
-        "description": "Get all Snapshots created both manually and through the Snapshot Plan.",
+        "description": "Get all Snapshots created both manually and through the Snapshot Plan.\n",
         "operationId": "list_snapshots_for_storage_box",
         "parameters": [
           {
@@ -23972,7 +23972,7 @@
     },
     "/storage_boxes/{id}/snapshots/{snapshot_id}": {
       "delete": {
-        "description": "Delete the given Snapshot.",
+        "description": "Delete the given Snapshot.\n",
         "operationId": "delete_snapshot",
         "parameters": [
           {
@@ -24049,7 +24049,7 @@
         ]
       },
       "get": {
-        "description": "Returns a specific Snapshot object.",
+        "description": "Returns a specific Snapshot object.\n",
         "operationId": "get_snapshot",
         "parameters": [
           {
@@ -24097,7 +24097,7 @@
         ]
       },
       "put": {
-        "description": "Updates the name and labels of a Snapshot.",
+        "description": "Updates the name and labels of a Snapshot.\n",
         "operationId": "replace_snapshot",
         "parameters": [
           {
@@ -24162,7 +24162,7 @@
     },
     "/storage_boxes/{id}/subaccounts": {
       "get": {
-        "description": "Get a list of all available Subaccounts.",
+        "description": "Get a list of all available Subaccounts.\n",
         "operationId": "list_subaccounts_for_storage_box",
         "parameters": [
           {
@@ -24235,7 +24235,7 @@
         ]
       },
       "post": {
-        "description": "Creates a new Subaccount with a separate home directory.",
+        "description": "Creates a new Subaccount with a separate home directory.\n",
         "operationId": "create_subaccount",
         "parameters": [
           {
@@ -24320,7 +24320,7 @@
     },
     "/storage_boxes/{id}/subaccounts/{subaccount_id}": {
       "delete": {
-        "description": "Deletes an existing subaccount.",
+        "description": "Deletes an existing subaccount.\n",
         "operationId": "delete_subaccount",
         "parameters": [
           {
@@ -24397,7 +24397,7 @@
         ]
       },
       "get": {
-        "description": "Returns a specific Subaccount object.",
+        "description": "Returns a specific Subaccount object.\n",
         "operationId": "get_subaccount",
         "parameters": [
           {
@@ -24445,7 +24445,7 @@
         ]
       },
       "put": {
-        "description": "Updates the description and the labels of a Subaccount.",
+        "description": "Updates the description and the labels of a Subaccount.\n",
         "operationId": "replace_subaccount",
         "parameters": [
           {
