@@ -149,6 +149,7 @@
   "/storage_boxes/{id}/snapshots/{snapshot_id}",
   "/storage_boxes/{id}/subaccounts",
   "/storage_boxes/{id}/subaccounts/{subaccount_id}",
+  "/storage_boxes/{id}/subaccounts/{subaccount_id}/actions/change_home_directory",
   "/storage_boxes/{id}/subaccounts/{subaccount_id}/actions/reset_subaccount_password",
   "/storage_boxes/{id}/subaccounts/{subaccount_id}/actions/update_access_settings",
   "/zones",

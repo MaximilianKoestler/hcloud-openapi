@@ -230,6 +230,7 @@ This API description is currently being used by the following projects:
 /storage_boxes/{id}/snapshots/{snapshot_id} (DELETE, GET, PUT)
 /storage_boxes/{id}/subaccounts (GET, POST)
 /storage_boxes/{id}/subaccounts/{subaccount_id} (DELETE, GET, PUT)
+/storage_boxes/{id}/subaccounts/{subaccount_id}/actions/change_home_directory (POST)
 /storage_boxes/{id}/subaccounts/{subaccount_id}/actions/reset_subaccount_password (POST)
 /storage_boxes/{id}/subaccounts/{subaccount_id}/actions/update_access_settings (POST)
 ```

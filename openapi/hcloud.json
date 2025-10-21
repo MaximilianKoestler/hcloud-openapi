@@ -6,7 +6,7 @@
     },
     "description": "Copied from the official API documentation for the Public Hetzner Cloud.",
     "title": "Hetzner Cloud API",
-    "version": "93cfce1"
+    "version": "2815456"
   },
   "servers": [
     {
@@ -759,6 +759,33 @@
       },
       "change_floating_ip_protection_response": {
         "description": "Response to POST https://api.hetzner.cloud/v1/floating_ips/{id}/actions/change_protection",
+        "properties": {
+          "action": {
+            "$ref": "#/components/schemas/action"
+          }
+        },
+        "required": [
+          "action"
+        ],
+        "title": "ActionResponse",
+        "type": "object"
+      },
+"change_home_directory_request": {
+        "description": "Request for POST https://api.hetzner.com/v1/storage_boxes/{id}/subaccounts/{subaccount_id}/actions/change_home_directory",
+        "properties": {
+          "home_directory": {
+            "description": "Home directory of the Storage Box Subaccount.\n\nThe directory will be created if it doesn't exist yet.\n",
+            "example": "my-backup/server01",
+            "type": "string"
+          }
+        },
+        "required": [
+          "home_directory"
+        ],
+        "type": "object"
+      },
+      "change_home_directory_response": {
+        "description": "Response to POST https://api.hetzner.com/v1/storage_boxes/{id}/subaccounts/{subaccount_id}/actions/change_home_directory",
         "properties": {
           "action": {
             "$ref": "#/components/schemas/action"
@@ -25356,6 +25383,97 @@
           }
         },
         "summary": "Update Subaccount",
+        "tags": [
+          "storage_boxes"
+        ]
+      },
+      "servers": [
+        {
+          "url": "https://api.hetzner.com/v1"
+        }
+      ]
+    },
+    "/storage_boxes/{id}/subaccounts/{subaccount_id}/actions/change_home_directory": {
+      "post": {
+        "description": "Change the home directory of a Storage Box Subaccount.\n",
+        "operationId": "change_home_directory",
+        "parameters": [
+          {
+            "description": "ID of the Storage Box.",
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "description": "ID of the Storage Box.",
+              "example": 42,
+              "format": "int64",
+              "maximum": 9007199254740991,
+              "type": "integer"
+            }
+          },
+          {
+            "description": "ID of the Storage Box Subaccount.",
+            "in": "path",
+            "name": "subaccount_id",
+            "required": true,
+            "schema": {
+              "description": "ID of the Storage Box Subaccount.",
+              "example": 42,
+              "format": "int64",
+              "maximum": 9007199254740991,
+              "type": "integer"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/change_home_directory_request"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {
+                "examples": {
+                  "201": {
+                    "description": "Action successfully created.",
+                    "value": {
+                      "action": {
+                        "command": "change_home_directory",
+                        "error": null,
+                        "finished": null,
+                        "id": 13,
+                        "progress": 0,
+                        "resources": [
+                          {
+                            "id": 42,
+                            "type": "storage_box"
+                          },
+                          {
+                            "id": 42,
+                            "type": "storage_box_subaccount"
+                          }
+                        ],
+                        "started": "2016-01-30T23:50:00+00:00",
+                        "status": "running"
+                      }
+                    }
+                  }
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/change_home_directory_response"
+                }
+              }
+            },
+            "description": "The `action` key in the reply contains an Action object with this structure."
+          }
+        },
+        "summary": "Change Home Directory",
         "tags": [
           "storage_boxes"
         ]
