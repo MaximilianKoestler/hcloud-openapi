@@ -6,7 +6,7 @@
     },
     "description": "Copied from the official API documentation for the Public Hetzner Cloud.",
     "title": "Hetzner Cloud API",
-    "version": "cfd1f5b"
+    "version": "f6a44a7"
   },
   "servers": [
     {
@@ -23441,6 +23441,15 @@
         "operationId": "list_storage_boxes",
         "parameters": [
           {
+            "description": "Filter resources by their name. The response will only contain the resources\nmatching exactly the specified name.\n",
+            "in": "query",
+            "name": "name",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
             "description": "Filter resources by labels. The response will only contain resources matching the\nlabel selector. For more information, see \"Label Selector\".\n",
             "in": "query",
             "name": "label_selector",
@@ -23450,12 +23459,32 @@
             }
           },
           {
-            "description": "Filter resources by their name. The response will only contain the resources\nmatching exactly the specified name.\n",
+            "description": "Sort resources by field and direction. Can be used multiple times. For more\ninformation, see \"Sorting\".\n",
             "in": "query",
-            "name": "name",
+            "name": "sort",
             "required": false,
             "schema": {
+              "items": {
+                "enum": [
+                  "id",
+                  "id:asc",
+                  "id:desc",
+                  "name",
+                  "name:asc",
+                  "name:desc",
+                  "created",
+                  "created:asc",
+                  "created:desc",
+                  "stats.size",
+                  "stats.size:asc",
+                  "stats.size:desc",
+                  "stats.size_filesystem",
+                  "stats.size_filesystem:asc",
+                  "stats.size_filesystem:desc"
+                ],
               "type": "string"
+              },
+              "type": "array"
             }
           },
           {
@@ -24716,6 +24745,38 @@
             "schema": {
               "type": "string"
             }
+          },
+          {
+            "description": "Sort resources by field and direction. Can be used multiple times. For more\ninformation, see \"Sorting\".\n",
+            "in": "query",
+            "name": "sort",
+            "required": false,
+            "schema": {
+              "items": {
+                "enum": [
+                  "id",
+                  "id:asc",
+                  "id:desc",
+                  "name",
+                  "name:asc",
+                  "name:desc",
+                  "created",
+                  "created:asc",
+                  "created:desc"
+                ],
+                "type": "string"
+              },
+              "type": "array"
+            }
+          },
+          {
+            "description": "Filter wether a Storage Box Snapshot is automatic.\n",
+            "in": "query",
+            "name": "is_automatic",
+            "required": false,
+            "schema": {
+              "type": "boolean"
+            }
           }
         ],
         "responses": {
@@ -25073,6 +25134,35 @@
             "description": "Filter resources by labels. The response will only contain resources matching the\nlabel selector. For more information, see \"Label Selector\".\n",
             "in": "query",
             "name": "label_selector",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Sort resources by field and direction. Can be used multiple times. For more\ninformation, see \"Sorting\".\n",
+            "in": "query",
+            "name": "sort",
+            "required": false,
+            "schema": {
+              "items": {
+                "enum": [
+                  "id",
+                  "id:asc",
+                  "id:desc",
+                  "created",
+                  "created:asc",
+                  "created:desc"
+                ],
+                "type": "string"
+              },
+              "type": "array"
+            }
+          },
+          {
+            "description": "Filter Storage Box Subaccounts by username. The response will only contain the resources\nmatching exactly the specified username.\n",
+            "in": "query",
+            "name": "username",
             "required": false,
             "schema": {
               "type": "string"
