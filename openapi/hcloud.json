@@ -6,7 +6,7 @@
     },
     "description": "Copied from the official API documentation for the Public Hetzner Cloud.",
     "title": "Hetzner Cloud API",
-    "version": "2815456"
+    "version": "eec0b1b"
   },
   "servers": [
     {
@@ -1182,7 +1182,7 @@
         "description": "Request for POST https://api.hetzner.com/v1/storage_boxes/{id}/actions/change_type",
         "properties": {
           "storage_box_type": {
-            "description": "The ID or the name of the Storage Box Type.",
+            "description": "ID or Name of the Storage Box Type.",
             "example": "BX21",
             "type": "string"
           }
@@ -2157,7 +2157,7 @@
         "description": "Request for POST https://api.hetzner.com/v1/storage_boxes/{id}/snapshots",
         "properties": {
           "description": {
-            "description": "Description of the Snapshot.",
+            "description": "Description of the Storage Box Snapshot.",
             "example": "snapshot-0001",
             "maxLength": 1000,
             "pattern": "[a-zA-Z0-9-_,:<>+#!\\(\\)\\[\\]\\{\\} ]*",
@@ -2242,30 +2242,31 @@
         "description": "Request for POST https://api.hetzner.com/v1/storage_boxes",
         "properties": {
           "access_settings": {
+            "description": "Access settings of the Storage Box.",
             "properties": {
               "reachable_externally": {
-                "description": "Whether the Storage Box should be accessible from outside the Hetzner network.",
+                "description": "Whether access from outside the Hetzner network is allowed.",
                 "nullable": true,
                 "type": "boolean"
               },
               "samba_enabled": {
-                "description": "Whether the Samba subsystem should be enabled.",
+                "description": "Whether the Samba subsystem is enabled.",
                 "nullable": true,
                 "type": "boolean"
               },
               "ssh_enabled": {
-                "description": "Whether the SSH subsystem should be enabled.",
+                "description": "Whether the SSH subsystem is enabled.",
                 "example": true,
                 "nullable": true,
                 "type": "boolean"
               },
               "webdav_enabled": {
-                "description": "Whether the WebDAV subsystem should be enabled.",
+                "description": "Whether the WebDAV subsystem is enabled.",
                 "nullable": true,
                 "type": "boolean"
               },
               "zfs_enabled": {
-                "description": "Whether the ZFS Snapshot folder should be visible.",
+                "description": "Whether the ZFS snapshot folder is visible.",
                 "nullable": true,
                 "type": "boolean"
               }
@@ -2277,21 +2278,21 @@
             "$ref": "#/components/schemas/labels"
           },
           "location": {
-            "description": "Unique identifier of the Location.",
+            "description": "ID or Name of Location.",
             "example": "fsn1",
             "type": "string"
           },
           "name": {
-            "description": "Name of the Resource. Must be unique per Project.",
+            "description": "Name of the Storage Box.\n",
             "example": "my-resource",
             "type": "string"
           },
           "password": {
-            "description": "The password that will be set for this Storage Box.",
+            "description": "Password of the Storage Box.\n\nFor more details, see the Storage Boxes password policy.\n",
             "type": "string"
           },
           "ssh_keys": {
-            "description": "Array of SSH public keys in OpenSSH format which should be injected into the Storage Box.",
+            "description": "SSH public keys in OpenSSH format to inject into the Storage Box.",
             "items": {
               "example": "ssh-rsa AAAjjk76kgf...Xt",
               "type": "string"
@@ -2299,7 +2300,7 @@
             "type": "array"
           },
           "storage_box_type": {
-            "description": "The name or the ID of the Storage Box Type.",
+            "description": "ID or Name of the Storage Box Type.",
             "example": "bx20",
             "type": "string"
           }
@@ -2334,28 +2335,28 @@
           "access_settings": {
             "properties": {
               "reachable_externally": {
-                "description": "Whether the Subaccount should be accessible from outside the Hetzner network.",
+                "description": "Whether access from outside the Hetzner network is allowed.",
                 "nullable": true,
                 "type": "boolean"
               },
               "readonly": {
-                "description": "Whether the Subaccount should be read-only.",
+                "description": "Whether the Subaccount is read-only.",
                 "nullable": true,
                 "type": "boolean"
               },
               "samba_enabled": {
-                "description": "Whether the Samba subsystem should be enabled.",
+                "description": "Whether the Samba subsystem is enabled.",
                 "nullable": true,
                 "type": "boolean"
               },
               "ssh_enabled": {
-                "description": "Whether the SSH subsystem should be enabled.",
+                "description": "Whether the SSH subsystem is enabled.",
                 "example": true,
                 "nullable": true,
                 "type": "boolean"
               },
               "webdav_enabled": {
-                "description": "Whether the WebDAV subsystem should be enabled.",
+                "description": "Whether the WebDAV subsystem is enabled.",
                 "nullable": true,
                 "type": "boolean"
               }
@@ -2363,14 +2364,14 @@
             "type": "object"
           },
           "description": {
-            "description": "A description to remind you of the purpose of this Subaccount.",
+            "description": "A description of Storage Box Subaccount.\n",
             "example": "my-backup-server01",
             "maxLength": 1000,
             "nullable": true,
             "type": "string"
           },
           "home_directory": {
-            "description": "Home directory of the Subaccount. Will be created if it doesn't exist yet.",
+            "description": "Home directory of the Storage Box Subaccount.\n\nThe directory will be created if it doesn't exist yet.\n",
             "example": "my-backup/server01",
             "nullable": true,
             "type": "string"
@@ -2379,7 +2380,7 @@
             "$ref": "#/components/schemas/labels"
           },
           "password": {
-            "description": "New password.",
+            "description": "Password of the Storage Box Subaccount.\n\nFor more details, see the Storage Boxes password policy.\n",
             "type": "string"
           }
         },
@@ -3071,21 +3072,21 @@
         "description": "Request for POST https://api.hetzner.com/v1/storage_boxes/{id}/actions/enable_snapshot_plan",
         "properties": {
           "day_of_month": {
-            "description": "Day of the month the Snapshot Plan should be executed on. Null means every day.",
+            "description": "Day of the month when the Snapshot Plan is executed.\n\nNull means every day.\n",
             "maximum": 31,
             "minimum": 1,
             "nullable": true,
             "type": "integer"
           },
           "day_of_week": {
-            "description": "Day of the week the Snapshot Plan should be executed on. Starts at 1 for Monday til 7 for Sunday. Null means every day.",
+            "description": "Day of the week when the Snapshot Plan is executed.\n\nStarts at 1 for Monday til 7 for Sunday. Null means every day.\n",
             "maximum": 7,
             "minimum": 1,
             "nullable": true,
             "type": "integer"
           },
           "hour": {
-            "description": "Hour the Snapshot Plan should be executed on (UTC). Null means every hour.",
+            "description": "Hour when the Snapshot Plan is executed (UTC).\n",
             "example": 3,
             "maximum": 23,
             "minimum": 0,
@@ -3093,14 +3094,14 @@
             "type": "integer"
           },
           "max_snapshots": {
-            "description": "Maximum amount of Snapshots that should be created by this Snapshot Plan. Older Snapshots will be deleted.",
+            "description": "Maximum amount of Snapshots that will be created by this Snapshot Plan.\n\nOlder Snapshots will be deleted.\n",
             "example": 10,
             "exclusiveMinimum": true,
             "minimum": 0,
             "type": "integer"
           },
           "minute": {
-            "description": "Minute the Snapshot Plan should be executed on (UTC). Null means every minute.",
+            "description": "Minute when the Snapshot Plan is executed (UTC).\n",
             "example": 30,
             "maximum": 59,
             "minimum": 0,
@@ -4220,7 +4221,7 @@
           "pattern": "^(()|[a-z0-9A-Z]|([a-z0-9A-Z][a-z0-9A-Z\\._-]{0,61}[a-z0-9A-Z]))$",
           "type": "string"
         },
-        "description": "User-defined labels (`key/value` pairs) for the Resource.\nFor more information, see \"Labels\".\n | User-defined labels (`key/value` pairs) for the Resource.\n\nNote that the set of Labels provided in the request will overwrite the\nexisting one.\n\nFor more information, see \"Labels\".\n | The Storage Boxes' labels. | The Subaccounts' labels. | The Snapshots' labels.",
+        "description": "User-defined labels (`key/value` pairs) for the Resource.\nFor more information, see \"Labels\".\n | User-defined labels (`key/value` pairs) for the Resource.\n\nNote that the set of Labels provided in the request will overwrite the\nexisting one.\n\nFor more information, see \"Labels\".\n",
         "example": {
           "environment": "prod",
           "example.com/my": "label",
@@ -6579,7 +6580,7 @@
         "description": "Request for PUT https://api.hetzner.com/v1/storage_boxes/{id}/snapshots/{snapshot_id}",
         "properties": {
           "description": {
-            "description": "Description of the Snapshot.",
+            "description": "Description of the Storage Box Snapshot.",
             "example": "snapshot-0001",
             "maxLength": 1000,
             "pattern": "[a-zA-Z0-9-_,:<>+#!\\(\\)\\[\\]\\{\\} ]*",
@@ -6637,7 +6638,7 @@
             "$ref": "#/components/schemas/labels"
           },
           "name": {
-            "description": "The Storage Boxes' name.",
+            "description": "Name of the Storage Box.\n",
             "type": "string"
           }
         },
@@ -6659,7 +6660,7 @@
         "description": "Request for PUT https://api.hetzner.com/v1/storage_boxes/{id}/subaccounts/{subaccount_id}",
         "properties": {
           "description": {
-            "description": "A description to remind you of the purpose of this Subaccount.",
+            "description": "A description of Storage Box Subaccount.\n",
             "example": "my-backup-server01",
             "maxLength": 1000,
             "nullable": true,
@@ -6761,7 +6762,7 @@
         "description": "Request for POST https://api.hetzner.com/v1/storage_boxes/{id}/subaccounts/{subaccount_id}/actions/reset_subaccount_password",
         "properties": {
           "password": {
-            "description": "New password.",
+            "description": "Password of the Storage Box Subaccount.\n\nFor more details, see the Storage Boxes password policy.\n",
             "type": "string"
           }
         },
@@ -7696,7 +7697,7 @@
       "snapshot": {
         "properties": {
           "created": {
-            "description": "Point in time (in ISO-8601 format).",
+            "description": "Point in time when the Resource was created (in ISO-8601 format).",
             "example": "2016-01-30T23:55:00+00:00",
             "type": "string"
           },
@@ -7714,7 +7715,7 @@
             "type": "integer"
           },
           "is_automatic": {
-            "description": "Whether the Snapshot was created automatically.",
+            "description": "Whether the Storage Box Snapshot was created automatically.",
             "type": "boolean"
           },
           "labels": {
@@ -7749,29 +7750,29 @@
         "type": "object"
       },
       "snapshot_plan": {
-        "description": "Details of the active snapshot plan. Not available if the status is \"initializing\".",
+        "description": "Details of the active snapshot plan.\n\nNot available if the `status` is `initializing`.\n",
         "properties": {
           "day_of_month": {
-            "description": "Day of the month the Snapshot Plan is executed on.",
+            "description": "Day of the month when the Snapshot Plan is executed.\n\nNull means every day.\n",
             "nullable": true,
             "type": "integer"
           },
           "day_of_week": {
-            "description": "Day of the week the Snapshot Plan is executed on.",
+            "description": "Day of the week when the Snapshot Plan is executed.\n\nStarts at 1 for Monday til 7 for Sunday. Null means every day.\n",
             "nullable": true,
             "type": "integer"
           },
           "hour": {
-            "description": "Hour the Snapshot Plan is executed at (UTC).",
+            "description": "Hour when the Snapshot Plan is executed (UTC).\n",
             "nullable": true,
             "type": "integer"
           },
           "max_snapshots": {
-            "description": "Maximum amount of Snapshots that will be created by this Snapshot Plan. Older Snapshots will be deleted.",
+            "description": "Maximum amount of Snapshots that will be created by this Snapshot Plan.\n\nOlder Snapshots will be deleted.\n",
             "type": "integer"
           },
           "minute": {
-            "description": "Minute the Snapshot Plan is executed at (UTC).",
+            "description": "Minute when the Snapshot Plan is executed (UTC).\n",
             "nullable": true,
             "type": "integer"
           }
@@ -7786,7 +7787,7 @@
         "type": "object"
       },
       "snapshot_stats": {
-        "description": "Information about disk usage.",
+        "description": "Statistics of the Storage Box Snapshot.\n",
         "properties": {
           "size": {
             "description": "Current storage requirements of the Snapshot in bytes.",
@@ -7866,7 +7867,7 @@
             "$ref": "#/components/schemas/storage_box_access_setting"
           },
           "created": {
-            "description": "Point in time (in ISO-8601 format).",
+            "description": "Point in time when the Resource was created (in ISO-8601 format).",
             "example": "2016-01-30T23:55:00+00:00",
             "type": "string"
           },
@@ -7884,13 +7885,14 @@
             "$ref": "#/components/schemas/location"
           },
           "name": {
+            "description": "Name of the Storage Box.\n",
             "type": "string"
           },
           "protection": {
             "$ref": "#/components/schemas/protection"
           },
           "server": {
-            "description": "FQDN of the Storage Box. Not available if the status is \"initializing\".",
+            "description": "FQDN of the Storage Box.\n\nNot available if the `status` is `initializing`.\n",
             "example": "u1337.your-storagebox.de",
             "nullable": true,
             "type": "string"
@@ -7901,7 +7903,7 @@
                 "$ref": "#/components/schemas/snapshot_plan"
               }
             ],
-            "description": "Details of the active snapshot plan. Not available if the status is \"initializing\".",
+            "description": "Details of the active snapshot plan.\n\nNot available if the `status` is `initializing`.\n",
             "nullable": true
           },
           "stats": {
@@ -7914,6 +7916,7 @@
             "nullable": true
           },
           "status": {
+            "description": "Status of the Storage Box.",
             "enum": [
               "active",
               "initializing",
@@ -7925,13 +7928,13 @@
             "$ref": "#/components/schemas/storage_box_type"
           },
           "system": {
-            "description": "Storage Box host system. Not available if the status is \"initializing\".",
+            "description": "Host system of the Storage Box.\n\nNot available if the `status` is `initializing`.\n",
             "example": "FSN1-BX355",
             "nullable": true,
             "type": "string"
           },
           "username": {
-            "description": "Primary username of the Storage Box.\n\nNot available if the status is \"initializing\".\n",
+            "description": "Primary username of the Storage Box.\n\nNot available if the `status` is `initializing`.\n",
             "example": "u12345",
             "nullable": true,
             "type": "string"
@@ -7955,9 +7958,10 @@
         "type": "object"
       },
       "storage_box_access_setting": {
+        "description": "Access settings of the Storage Box.",
         "properties": {
           "reachable_externally": {
-            "description": "Whether the Storage Box is accessible from outside the Hetzner network.",
+            "description": "Whether access from outside the Hetzner network is allowed.",
             "type": "boolean"
           },
           "samba_enabled": {
@@ -7987,7 +7991,7 @@
         "type": "object"
       },
       "storage_box_stats": {
-        "description": "Information about disk usage. Not available if the status is \"initializing\".",
+        "description": "Statistics of the Storage Box.\n",
         "properties": {
           "size": {
             "description": "Current disk usage in bytes.",
@@ -8010,6 +8014,7 @@
         "type": "object"
       },
       "storage_box_type": {
+        "description": "Type of the Storage Box.",
         "properties": {
           "automatic_snapshot_limit": {
             "description": "Maximum number of snapshots created automatically by a snapshot plan.",
@@ -8109,7 +8114,7 @@
             "$ref": "#/components/schemas/subaccount_access_setting"
           },
           "created": {
-            "description": "Point in time (in ISO-8601 format).",
+            "description": "Point in time when the Resource was created (in ISO-8601 format).",
             "example": "2016-01-30T23:55:00+00:00",
             "type": "string"
           },
@@ -8135,7 +8140,7 @@
             "$ref": "#/components/schemas/labels"
           },
           "server": {
-            "description": "FQDN of the Subaccount.",
+            "description": "FQDN of the Storage Box Subaccount.",
             "example": "u1337-sub1.your-storagebox.de",
             "type": "string"
           },
@@ -8147,7 +8152,7 @@
             "type": "integer"
           },
           "username": {
-            "description": "Username of the Subaccount.",
+            "description": "Username of the Storage Box Subaccount.",
             "example": "u1337-sub1",
             "type": "string"
           }
@@ -8166,9 +8171,10 @@
         "type": "object"
       },
       "subaccount_access_setting": {
+        "description": "Access settings for the Subaccount.\n",
         "properties": {
           "reachable_externally": {
-            "description": "Whether the Subaccount is accessible from outside the Hetzner network.",
+            "description": "Whether access from outside the Hetzner network is allowed.",
             "type": "boolean"
           },
           "readonly": {
@@ -8309,28 +8315,28 @@
             "type": "string"
           },
           "reachable_externally": {
-            "description": "Whether the Subaccount should be accessible from outside the Hetzner network.",
+            "description": "Whether access from outside the Hetzner network is allowed.",
             "nullable": true,
             "type": "boolean"
           },
           "readonly": {
-            "description": "Whether the Subaccount should be read-only.",
+            "description": "Whether the Subaccount is read-only.",
             "nullable": true,
             "type": "boolean"
           },
           "samba_enabled": {
-            "description": "Whether the Samba subsystem should be enabled.",
+            "description": "Whether the Samba subsystem is enabled.",
             "nullable": true,
             "type": "boolean"
           },
           "ssh_enabled": {
-            "description": "Whether the SSH subsystem should be enabled.",
+            "description": "Whether the SSH subsystem is enabled.",
             "example": true,
             "nullable": true,
             "type": "boolean"
           },
           "webdav_enabled": {
-            "description": "Whether the WebDAV subsystem should be enabled.",
+            "description": "Whether the WebDAV subsystem is enabled.",
             "nullable": true,
             "type": "boolean"
           }
@@ -23431,7 +23437,7 @@
     },
     "/storage_boxes": {
       "get": {
-        "description": "Returns all existing Storage Box objects.\n",
+        "description": "Returns a paginated list of Storage Boxes.\n",
         "operationId": "list_storage_boxes",
         "parameters": [
           {
@@ -23495,7 +23501,7 @@
         ]
       },
       "post": {
-        "description": "Creates a new Storage Box. Returns an Action that covers progress of creation.\n",
+        "description": "Creates a Storage Box.\n",
         "operationId": "create_storage_box",
         "requestBody": {
           "content": {
@@ -23772,7 +23778,7 @@
     },
     "/storage_boxes/{id}": {
       "delete": {
-        "description": "Deletes an existing Storage Box.\n",
+        "description": "Deletes a Storage Box.\n",
         "operationId": "delete_storage_box",
         "parameters": [
           {
@@ -23823,13 +23829,13 @@
             "description": "The `action` key in the reply contains an Action object with this structure."
           }
         },
-        "summary": "Delete Storage Box",
+        "summary": "Delete a Storage Box",
         "tags": [
           "storage_boxes"
         ]
       },
       "get": {
-        "description": "Returns a specific Storage Box object. The Storage Box must exist inside the Project.\n",
+        "description": "Returns a specific Storage Box.\n",
         "operationId": "get_storage_box",
         "parameters": [
           {
@@ -23864,7 +23870,7 @@
         ]
       },
       "put": {
-        "description": "Updates a Storage Box. You can update a Storage Boxes' name and labels.\n",
+        "description": "Updates a Storage Box.\n",
         "operationId": "replace_storage_box",
         "parameters": [
           {
@@ -24029,7 +24035,7 @@
     },
     "/storage_boxes/{id}/actions/change_protection": {
       "post": {
-        "description": "Changes the protection configuration of the Storage Box.\n",
+        "description": "Changes the protection configuration of a Storage Box.\n",
         "operationId": "change_storage_box_protection",
         "parameters": [
           {
@@ -24103,8 +24109,8 @@
     },
     "/storage_boxes/{id}/actions/change_type": {
       "post": {
-        "description": "Requests a Storage Box to be upgraded or downgraded to another Storage Box Type.\n\nPlease note that it is not possible to downgrade to a Storage Box Type that offers less disk space than you are currently using.\n",
-        "operationId": "change_type_of_storage_box",
+        "description": "Changes the type of a Storage Box.\n\nUpgrades or downgrades a Storage Box to another Storage Box Type.\n\nIt is not possible to downgrade to a Storage Box Type that offers less disk space\nthan you are currently using.\n",
+        "operationId": "change_type",
         "parameters": [
           {
             "description": "ID of the Storage Box.",
@@ -24180,7 +24186,7 @@
     },
     "/storage_boxes/{id}/actions/disable_snapshot_plan": {
       "post": {
-        "description": "Disables the active Snapshot Plan.\n\nThis action doesn't result in the deletion of the Snapshots created by the Snapshot Plan. They must be removed manually.\n",
+        "description": "Disables the active Snapshot Plan of a Storage Box.\n\nExisting Storage Box Snapshots created by the Snapshot\nPlan will not be delete, they must be removed manually.\n",
         "operationId": "disable_snapshot_plan",
         "parameters": [
           {
@@ -24247,7 +24253,7 @@
     },
     "/storage_boxes/{id}/actions/enable_snapshot_plan": {
       "post": {
-        "description": "Enables a Snapshot Plan for a given StorageBox. Once enabled, a Snapshot Plan will create Snapshots at predefined intervals.\nThere can only ever be one Snapshot Plan. The existing Snapshot Plan will be deleted before a new one is set up.\n\nAutomatic Snapshots are retained until explicitly deleted by the user or the maximum snapshot count for the plan (\"max_snapshots\") is exceeded.\n\nYou can choose the specific time (UTC timezone), day of the week, and day of the month. The time-related options are cron like. Some typical use cases include:\n\n| Interval                                   | Request body                                                  |\n| ------------------------------------------ | ------------------------------------------------------------- |\n| Every day at 3 o'clock                     | `{\"max_snapshots\":10,\"minute\":0,\"hour\":3}`                    |\n| Every Friday at 3 o'clock                  | `{\"max_snapshots\":10,\"minute\":0,\"hour\":3,\"day_of_week\": 5}`   |\n| On the first of every month at half past 6 | `{\"max_snapshots\":10,\"minute\":30,\"hour\":6,\"day_of_month\": 1}` |\n",
+        "description": "Enables a Snapshot Plan for a Storage Box.\n\nOnce enabled, a Snapshot Plan will create Snapshots at predefined intervals.\nThere can only ever be one Snapshot Plan. The existing Snapshot Plan will be deleted before a new one is set up.\n\nAutomatic Snapshots are retained until explicitly deleted by the user or the maximum snapshot count for the plan (\"max_snapshots\") is exceeded.\n\nYou can choose the specific time (UTC timezone), day of the week, and day of the month. The time-related options are cron like. Some typical use cases include:\n\n| Interval                                   | Request body                                                  |\n| ------------------------------------------ | ------------------------------------------------------------- |\n| Every day at 3 o'clock                     | `{\"max_snapshots\":10,\"minute\":0,\"hour\":3}`                    |\n| Every Friday at 3 o'clock                  | `{\"max_snapshots\":10,\"minute\":0,\"hour\":3,\"day_of_week\": 5}`   |\n| On the first of every month at half past 6 | `{\"max_snapshots\":10,\"minute\":30,\"hour\":6,\"day_of_month\": 1}` |\n",
         "operationId": "enable_snapshot_plan",
         "parameters": [
           {
@@ -24324,7 +24330,7 @@
     },
     "/storage_boxes/{id}/actions/reset_password": {
       "post": {
-        "description": "Reset the password of the given Storage Box.\n",
+        "description": "Reset the password of a Storage Box.\n",
         "operationId": "reset_storage_box_password",
         "parameters": [
           {
@@ -24401,7 +24407,7 @@
     },
     "/storage_boxes/{id}/actions/rollback_snapshot": {
       "post": {
-        "description": "Rolls back the Storage Box to the given Snapshot.\n\nThis action will remove all newer Snapshots and irrevocably delete all data that was since written to the Storage Box.\n",
+        "description": "Rolls back a Storage Box to the given Storage Box Snapshot.\n\nThis will remove all newer Storage Box Snapshot and\nirrevocably delete all data that was since written to the Storage Box.\n",
         "operationId": "rollback_snapshot",
         "parameters": [
           {
@@ -24482,7 +24488,7 @@
     },
     "/storage_boxes/{id}/actions/update_access_settings": {
       "post": {
-        "description": "Update access settings of the primary Storage Box account.\n\nThis endpoints supports partial updates. Omitted optional parameters do not result in any changes to the respective properties.\n",
+        "description": "Update access settings of a primary Storage Box account.\n\nThis endpoints supports partial updates. Omitted optional parameters do not result in any changes to the respective properties.\n",
         "operationId": "update_storage_box_access_settings",
         "parameters": [
           {
@@ -24614,7 +24620,7 @@
     },
     "/storage_boxes/{id}/folders": {
       "get": {
-        "description": "Lists the (sub)folders contained in a Storage Box at the location specified by the path. Files are not part of the response.\n",
+        "description": "Returns a list of (sub)folders in a Storage Box.\n\nThe folder location is specified by the `path` query parameter.\n",
         "operationId": "list_content_of_storage_box",
         "parameters": [
           {
@@ -24677,7 +24683,7 @@
     },
     "/storage_boxes/{id}/snapshots": {
       "get": {
-        "description": "Get all Snapshots created both manually and through the Snapshot Plan.\n",
+        "description": "Returns a list of Storage Box Snapshot.\n\nBoth snapshots created manually and by the snapshot plan are returned.\n",
         "operationId": "list_snapshots_for_storage_box",
         "parameters": [
           {
@@ -24772,7 +24778,7 @@
         ]
       },
       "post": {
-        "description": "Creates a new Snapshot.\n",
+        "description": "Creates a Storage Box Snapshot.\n",
         "operationId": "create_snapshot",
         "parameters": [
           {
@@ -24857,7 +24863,7 @@
     },
     "/storage_boxes/{id}/snapshots/{snapshot_id}": {
       "delete": {
-        "description": "Delete the given Snapshot.\n",
+        "description": "Deletes a Storage Box Snapshot.\n",
         "operationId": "delete_snapshot",
         "parameters": [
           {
@@ -24934,7 +24940,7 @@
         ]
       },
       "get": {
-        "description": "Returns a specific Snapshot object.\n",
+        "description": "Returns a specific Storage Box Snapshot.\n",
         "operationId": "get_snapshot",
         "parameters": [
           {
@@ -24982,7 +24988,7 @@
         ]
       },
       "put": {
-        "description": "Updates the name and labels of a Snapshot.\n",
+        "description": "Updates a Storage Box Snapshot.\n",
         "operationId": "replace_snapshot",
         "parameters": [
           {
@@ -25047,7 +25053,7 @@
     },
     "/storage_boxes/{id}/subaccounts": {
       "get": {
-        "description": "Get a list of all available Subaccounts.\n",
+        "description": "Returns a list of Storage Box Subaccount.\n",
         "operationId": "list_subaccounts_for_storage_box",
         "parameters": [
           {
@@ -25120,7 +25126,7 @@
         ]
       },
       "post": {
-        "description": "Creates a new Subaccount with a separate home directory.\n",
+        "description": "Creates a Storage Box Subaccount.\n\nA Storage Box Subaccount will use a separate home directory.\n",
         "operationId": "create_subaccount",
         "parameters": [
           {
@@ -25205,7 +25211,7 @@
     },
     "/storage_boxes/{id}/subaccounts/{subaccount_id}": {
       "delete": {
-        "description": "Deletes an existing subaccount.\n",
+        "description": "Deletes a Storage Box Subaccount.\n",
         "operationId": "delete_subaccount",
         "parameters": [
           {
@@ -25282,7 +25288,7 @@
         ]
       },
       "get": {
-        "description": "Returns a specific Subaccount object.\n",
+        "description": "Returns a specific Storage Box Subaccount.\n",
         "operationId": "get_subaccount",
         "parameters": [
           {
@@ -25330,7 +25336,7 @@
         ]
       },
       "put": {
-        "description": "Updates the description and the labels of a Subaccount.\n",
+        "description": "Updates a Storage Box Subaccount.\n",
         "operationId": "replace_subaccount",
         "parameters": [
           {
@@ -25486,7 +25492,7 @@
     },
     "/storage_boxes/{id}/subaccounts/{subaccount_id}/actions/reset_subaccount_password": {
       "post": {
-        "description": "Reset the password of the given Subaccount.\n",
+        "description": "Reset the password of a Storage Box Subaccount.\n",
         "operationId": "reset_storage_box_subaccount_password",
         "parameters": [
           {
@@ -25580,7 +25586,7 @@
     },
     "/storage_boxes/{id}/subaccounts/{subaccount_id}/actions/update_access_settings": {
       "post": {
-        "description": "Updates the access settings of a Subaccount.\n\nThis endpoints supports partial updates. Omitted optional parameters do not result in any changes to the respective properties.\n",
+        "description": "Updates the access settings of a Storage Box Subaccount.\n\nThis endpoints supports partial updates. Omitted optional parameters do not result in any changes to the respective properties.\n",
         "operationId": "update_storage_box_subaccount_access_settings",
         "parameters": [
           {
