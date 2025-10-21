@@ -6,7 +6,7 @@
     },
     "description": "Copied from the official API documentation for the Public Hetzner Cloud.",
     "title": "Hetzner Cloud API",
-    "version": "0094e4d"
+    "version": "cfd1f5b"
   },
   "servers": [
     {
@@ -7047,16 +7047,14 @@
       "rollback_snapshot_request": {
         "description": "Request for POST https://api.hetzner.com/v1/storage_boxes/{id}/actions/rollback_snapshot",
         "properties": {
-          "snapshot_id": {
-            "description": "ID of the Storage Box Snapshot.",
-            "example": 42,
-            "format": "int64",
-            "maximum": 9007199254740991,
-            "type": "integer"
+          "snapshot": {
+            "description": "ID or Name of the Storage Box Snapshot.",
+            "example": "my-snapshot",
+            "type": "string"
           }
         },
         "required": [
-          "snapshot_id"
+          "snapshot"
         ],
         "type": "object"
       },
