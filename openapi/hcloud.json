@@ -914,6 +914,30 @@
         "title": "ActionResponse",
         "type": "object"
       },
+"change_protection_request": {
+        "description": "Request for POST https://api.hetzner.com/v1/storage_boxes/{id}/actions/change_protection",
+        "properties": {
+          "delete": {
+            "description": "Prevent the Resource from being deleted.",
+            "example": false,
+            "type": "boolean"
+          }
+        },
+        "type": "object"
+      },
+      "change_protection_response": {
+        "description": "Response to POST https://api.hetzner.com/v1/storage_boxes/{id}/actions/change_protection",
+        "properties": {
+          "action": {
+            "$ref": "#/components/schemas/action"
+          }
+        },
+        "required": [
+          "action"
+        ],
+        "title": "ActionResponse",
+        "type": "object"
+      },
       "change_reverse_dns_entry_for_this_load_balancer_request": {
         "description": "Request for POST https://api.hetzner.cloud/v1/load_balancers/{id}/actions/change_dns_ptr",
         "properties": {
@@ -1101,22 +1125,6 @@
         "title": "ActionResponse",
         "type": "object"
       },
-      "change_storage_box_protection_request": {
-        "$ref": "#/components/schemas/protection"
-      },
-      "change_storage_box_protection_response": {
-        "description": "Response to POST https://api.hetzner.com/v1/storage_boxes/{id}/actions/change_protection",
-        "properties": {
-          "action": {
-            "$ref": "#/components/schemas/action"
-          }
-        },
-        "required": [
-          "action"
-        ],
-        "title": "ActionResponse",
-        "type": "object"
-      },
       "change_type_of_load_balancer_request": {
         "description": "Request for POST https://api.hetzner.cloud/v1/load_balancers/{id}/actions/change_type",
         "properties": {
@@ -1178,7 +1186,7 @@
         "title": "ActionResponse",
         "type": "object"
       },
-      "change_type_of_storage_box_request": {
+      "change_type_request": {
         "description": "Request for POST https://api.hetzner.com/v1/storage_boxes/{id}/actions/change_type",
         "properties": {
           "storage_box_type": {
@@ -1192,7 +1200,7 @@
         ],
         "type": "object"
       },
-      "change_type_of_storage_box_response": {
+      "change_type_response": {
         "description": "Response to POST https://api.hetzner.com/v1/storage_boxes/{id}/actions/change_type",
         "properties": {
           "action": {
@@ -4269,21 +4277,6 @@
         "title": "CertificatesResponse",
         "type": "object"
       },
-      "list_content_of_storage_box_response": {
-        "description": "Response to GET https://api.hetzner.com/v1/storage_boxes/{id}/folders",
-        "properties": {
-          "folders": {
-            "items": {
-              "type": "string"
-            },
-            "type": "array"
-          }
-        },
-        "required": [
-          "folders"
-        ],
-        "type": "object"
-      },
       "list_data_centers_response": {
         "description": "Response to GET https://api.hetzner.cloud/v1/datacenters",
         "properties": {
@@ -4347,6 +4340,21 @@
         "required": [
           "floating_ips",
           "meta"
+        ],
+        "type": "object"
+      },
+      "list_folders_of_storage_box_response": {
+        "description": "Response to GET https://api.hetzner.com/v1/storage_boxes/{id}/folders",
+        "properties": {
+          "folders": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          }
+        },
+        "required": [
+          "folders"
         ],
         "type": "object"
       },
@@ -4902,7 +4910,7 @@
         ],
         "type": "object"
       },
-      "list_snapshots_for_storage_box_response": {
+      "list_snapshots_response": {
         "description": "Response to GET https://api.hetzner.com/v1/storage_boxes/{id}/snapshots",
         "properties": {
           "snapshots": {
@@ -4974,7 +4982,7 @@
         ],
         "type": "object"
       },
-      "list_subaccounts_for_storage_box_response": {
+      "list_subaccounts_response": {
         "description": "Response to GET https://api.hetzner.com/v1/storage_boxes/{id}/subaccounts",
         "properties": {
           "subaccounts": {
@@ -24036,7 +24044,7 @@
     "/storage_boxes/{id}/actions/change_protection": {
       "post": {
         "description": "Changes the protection configuration of a Storage Box.\n",
-        "operationId": "change_storage_box_protection",
+        "operationId": "change_protection",
         "parameters": [
           {
             "description": "ID of the Storage Box.",
@@ -24056,7 +24064,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/change_storage_box_protection_request"
+                "$ref": "#/components/schemas/change_protection_request"
               }
             }
           },
@@ -24089,14 +24097,14 @@
                   }
                 },
                 "schema": {
-                  "$ref": "#/components/schemas/change_storage_box_protection_response"
+                  "$ref": "#/components/schemas/change_protection_response"
                 }
               }
             },
             "description": "The `action` key in the reply contains an Action object with this structure."
           }
         },
-        "summary": "Change Storage Box Protection",
+        "summary": "Change Protection",
         "tags": [
           "storage_boxes"
         ]
@@ -24130,7 +24138,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/change_type_of_storage_box_request"
+                "$ref": "#/components/schemas/change_type_request"
               }
             }
           },
@@ -24166,14 +24174,14 @@
                   }
                 },
                 "schema": {
-                  "$ref": "#/components/schemas/change_type_of_storage_box_response"
+                  "$ref": "#/components/schemas/change_type_response"
                 }
               }
             },
             "description": "The `action` key in the reply contains an Action object with this structure."
           }
         },
-        "summary": "Change the Type of a Storage Box",
+        "summary": "Change Type",
         "tags": [
           "storage_boxes"
         ]
@@ -24552,7 +24560,7 @@
             "description": "The `action` key in the reply contains an Action object with this structure."
           }
         },
-        "summary": "Update access settings",
+        "summary": "Update Access Settings",
         "tags": [
           "storage_boxes"
         ]
@@ -24621,7 +24629,7 @@
     "/storage_boxes/{id}/folders": {
       "get": {
         "description": "Returns a list of (sub)folders in a Storage Box.\n\nThe folder location is specified by the `path` query parameter.\n",
-        "operationId": "list_content_of_storage_box",
+        "operationId": "list_folders_of_storage_box",
         "parameters": [
           {
             "description": "ID of the Storage Box.",
@@ -24663,14 +24671,14 @@
                   }
                 },
                 "schema": {
-                  "$ref": "#/components/schemas/list_content_of_storage_box_response"
+                  "$ref": "#/components/schemas/list_folders_of_storage_box_response"
                 }
               }
             },
             "description": "The `folders` key lists the directories the Storage Box contains at the specified path."
           }
         },
-        "summary": "List content of Storage Box",
+        "summary": "List folders of a Storage Box",
         "tags": [
           "storage_boxes"
         ]
@@ -24684,7 +24692,7 @@
     "/storage_boxes/{id}/snapshots": {
       "get": {
         "description": "Returns a list of Storage Box Snapshot.\n\nBoth snapshots created manually and by the snapshot plan are returned.\n",
-        "operationId": "list_snapshots_for_storage_box",
+        "operationId": "list_snapshots",
         "parameters": [
           {
             "description": "ID of the Storage Box.",
@@ -24765,14 +24773,14 @@
                   }
                 },
                 "schema": {
-                  "$ref": "#/components/schemas/list_snapshots_for_storage_box_response"
+                  "$ref": "#/components/schemas/list_snapshots_response"
                 }
               }
             },
             "description": "The `snapshots` key contains a list of Snapshots."
           }
         },
-        "summary": "List Snapshots for a Storage Box",
+        "summary": "List Snapshots",
         "tags": [
           "storage_boxes"
         ]
@@ -25054,7 +25062,7 @@
     "/storage_boxes/{id}/subaccounts": {
       "get": {
         "description": "Returns a list of Storage Box Subaccount.\n",
-        "operationId": "list_subaccounts_for_storage_box",
+        "operationId": "list_subaccounts",
         "parameters": [
           {
             "description": "ID of the Storage Box.",
@@ -25113,14 +25121,14 @@
                   }
                 },
                 "schema": {
-                  "$ref": "#/components/schemas/list_subaccounts_for_storage_box_response"
+                  "$ref": "#/components/schemas/list_subaccounts_response"
                 }
               }
             },
             "description": "The `subaccounts` key contains a list of Subaccounts."
           }
         },
-        "summary": "List Subaccounts for a Storage Box",
+        "summary": "List Subaccounts",
         "tags": [
           "storage_boxes"
         ]
@@ -25198,7 +25206,7 @@
             "description": "The `action` key in the reply contains an Action object with this structure."
           }
         },
-        "summary": "Create Subaccount",
+        "summary": "Create a Subaccount",
         "tags": [
           "storage_boxes"
         ]
@@ -25282,7 +25290,7 @@
             "description": "The `action` key in the reply contains an Action object with this structure."
           }
         },
-        "summary": "Delete Subaccount",
+        "summary": "Delete a Subaccount",
         "tags": [
           "storage_boxes"
         ]
@@ -25388,7 +25396,7 @@
             "description": "The `subaccount` key contains the updated Subaccount."
           }
         },
-        "summary": "Update Subaccount",
+        "summary": "Update a Subaccount",
         "tags": [
           "storage_boxes"
         ]
@@ -25667,7 +25675,7 @@
             "description": "The `action` key in the reply contains an Action object with this structure."
           }
         },
-        "summary": "Update access settings",
+        "summary": "Update Access Settings",
         "tags": [
           "storage_boxes"
         ]

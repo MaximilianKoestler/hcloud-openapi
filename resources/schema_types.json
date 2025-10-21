@@ -447,7 +447,7 @@
   {
     "name": "snapshot",
     "path": [
-      "list_snapshots_for_storage_box_response",
+      "list_snapshots_response",
       "snapshots"
     ]
   },
@@ -462,7 +462,7 @@
   {
     "name": "snapshot_stats",
     "path": [
-      "list_snapshots_for_storage_box_response",
+      "list_snapshots_response",
       "snapshots",
       "stats"
     ]
@@ -508,14 +508,14 @@
   {
     "name": "subaccount",
     "path": [
-      "list_subaccounts_for_storage_box_response",
+      "list_subaccounts_response",
       "subaccounts"
     ]
   },
   {
     "name": "subaccount_access_setting",
     "path": [
-      "list_subaccounts_for_storage_box_response",
+      "list_subaccounts_response",
       "subaccounts",
       "access_settings"
     ]
