@@ -6,7 +6,7 @@
     },
     "description": "Copied from the official API documentation for the Public Hetzner Cloud.",
     "title": "Hetzner Cloud API",
-    "version": "4bbdf61"
+    "version": "98fe64b"
   },
   "servers": [
     {
@@ -7799,10 +7799,12 @@
         "properties": {
           "size": {
             "description": "Current storage requirements of the Snapshot in bytes.",
+            "format": "int64",
             "type": "integer"
           },
           "size_filesystem": {
             "description": "Size of the compressed file system contained in the Snapshot in bytes.",
+            "format": "int64",
             "type": "integer"
           }
         },
@@ -8003,14 +8005,17 @@
         "properties": {
           "size": {
             "description": "Current disk usage in bytes.",
+            "format": "int64",
             "type": "integer"
           },
           "size_data": {
             "description": "Current disk usage for data in bytes.",
+            "format": "int64",
             "type": "integer"
           },
           "size_snapshots": {
             "description": "Current disk usage for snapshots in bytes.",
+            "format": "int64",
             "type": "integer"
           }
         },
