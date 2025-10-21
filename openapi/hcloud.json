@@ -6,7 +6,7 @@
     },
     "description": "Copied from the official API documentation for the Public Hetzner Cloud.",
     "title": "Hetzner Cloud API",
-    "version": "f6a44a7"
+    "version": "4bbdf61"
   },
   "servers": [
     {
@@ -2170,9 +2170,11 @@
             "maxLength": 1000,
             "pattern": "[a-zA-Z0-9-_,:<>+#!\\(\\)\\[\\]\\{\\} ]*",
             "type": "string"
+          },
+          "labels": {
+            "$ref": "#/components/schemas/labels"
           }
         },
-        "title": "CreateSnapshot",
         "type": "object"
       },
       "create_snapshot_response": {
