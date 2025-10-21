@@ -32,9 +32,9 @@
     ]
   },
   {
-    "name": "datacenter",
+    "name": "data_center",
     "path": [
-      "list_datacenters_response",
+      "list_data_centers_response",
       "datacenters"
     ]
   },

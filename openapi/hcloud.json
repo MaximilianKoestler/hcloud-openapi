@@ -6,7 +6,7 @@
     },
     "description": "Copied from the official API documentation for the Public Hetzner Cloud.",
     "title": "Hetzner Cloud API",
-    "version": "e025a04-dirty"
+    "version": "bdbe50d-dirty"
   },
   "servers": [
     {
@@ -1808,7 +1808,7 @@
             "type": "boolean"
           },
           "datacenter": {
-            "description": "Datacenter ID or name.\n\nThe  Primary IP will be bound to this Datacenter. Omit if `assignee_id`/`assignee_type` is provided.\n",
+            "description": "Data Center ID or name.\n\nThe  Primary IP will be bound to this Data Center. Omit if `assignee_id`/`assignee_type` is provided.\n",
             "example": "fsn1-dc8",
             "type": "string"
           },
@@ -1872,7 +1872,7 @@
                 "type": "string"
               },
               "datacenter": {
-                "$ref": "#/components/schemas/datacenter"
+                "$ref": "#/components/schemas/data_center"
               },
               "dns_ptr": {
                 "description": "List of reverse DNS records.",
@@ -1961,7 +1961,7 @@
             "type": "boolean"
           },
           "datacenter": {
-            "description": "ID or name of Datacenter to create Server in (must not be used together with location).",
+            "description": "ID or name of Data Center to create Server in (must not be used together with location).",
             "example": "nbg1-dc3",
             "type": "string"
           },
@@ -2568,16 +2568,16 @@
         ],
         "type": "object"
       },
-      "datacenter": {
-        "description": "Datacenter the Primary IP is located at. | Datacenter this Resource is located at.",
+      "data_center": {
+        "description": "Data Center the Primary IP is located at. | Data Center this Resource is located at.",
         "properties": {
           "description": {
-            "description": "Descriptive name for the Datacenter.\n\nDesired to be easy to understand for humans. Might be changed for cosmetic reasons. Do not use this as an identifier.\n",
+            "description": "Descriptive name for the Data Center.\n\nDesired to be easy to understand for humans. Might be changed for cosmetic reasons. Do not use this as an identifier.\n",
             "example": "Falkenstein DC Park 8",
             "type": "string"
           },
           "id": {
-            "description": "ID of the Datacenter.",
+            "description": "ID of the Data Center.",
             "example": 42,
             "format": "int64",
             "maximum": 9007199254740991,
@@ -2587,16 +2587,16 @@
             "$ref": "#/components/schemas/location"
           },
           "name": {
-            "description": "Unique name for the Datacenter.\n\nCan be used as a more descriptive identifier.\n",
+            "description": "Unique name for the Data Center.\n\nCan be used as a more descriptive identifier.\n",
             "example": "fsn1-dc8",
             "pattern": "^[a-z0-9]+(-?[a-z0-9]*)*$",
             "type": "string"
           },
           "server_types": {
-            "description": "Server Types supported and available in this Datacenter.\n",
+            "description": "Server Types supported and available in this Data Center.\n",
             "properties": {
               "available": {
-                "description": "Server Types currently available in this Datacenter.\n\nThese Server Types can currently be purchased. Types that are temporarily unavailable\nbut are supported in this Datacenter are listed as `supported`.\n",
+                "description": "Server Types currently available in this Data Center.\n\nThese Server Types can currently be purchased. Types that are temporarily unavailable\nbut are supported in this Data Center are listed as `supported`.\n",
                 "example": [
                   1,
                   2,
@@ -2609,7 +2609,7 @@
                 "type": "array"
               },
               "available_for_migration": {
-                "description": "Server Types available to migrate to in this Datacenter.\n\nExisting Servers can be migrated to these Server Types.\n",
+                "description": "Server Types available to migrate to in this Data Center.\n\nExisting Servers can be migrated to these Server Types.\n",
                 "example": [
                   1,
                   2,
@@ -2622,7 +2622,7 @@
                 "type": "array"
               },
               "supported": {
-                "description": "List of Server Types supported in this Datacenter.\n\nThese Server Types are generally available in this Datacenter, but might be\ntemporarily out of stock.\n",
+                "description": "List of Server Types supported in this Data Center.\n\nThese Server Types are generally available in this Data Center, but might be\ntemporarily out of stock.\n",
                 "example": [
                   1,
                   2,
@@ -3414,11 +3414,11 @@
         "title": "CertificateResponse",
         "type": "object"
       },
-      "get_datacenter_response": {
+      "get_data_center_response": {
         "description": "Response to GET https://api.hetzner.cloud/v1/datacenters/{id}",
         "properties": {
           "datacenter": {
-            "$ref": "#/components/schemas/datacenter"
+            "$ref": "#/components/schemas/data_center"
           }
         },
         "required": [
@@ -3654,7 +3654,7 @@
                 "type": "string"
               },
               "datacenter": {
-                "$ref": "#/components/schemas/datacenter"
+                "$ref": "#/components/schemas/data_center"
               },
               "dns_ptr": {
                 "description": "List of reverse DNS records.",
@@ -4256,13 +4256,13 @@
         ],
         "type": "object"
       },
-      "list_datacenters_response": {
+      "list_data_centers_response": {
         "description": "Response to GET https://api.hetzner.cloud/v1/datacenters",
         "properties": {
           "datacenters": {
-            "description": "List of Datacenters.",
+            "description": "List of Data Centers.",
             "items": {
-              "$ref": "#/components/schemas/datacenter"
+              "$ref": "#/components/schemas/data_center"
             },
             "type": "array"
           },
@@ -4270,7 +4270,7 @@
             "$ref": "#/components/schemas/meta"
           },
           "recommendation": {
-            "description": "Recommended Datacenter for creating new resources.",
+            "description": "Recommended Data Center for creating new resources.",
             "example": 1,
             "format": "int64",
             "type": "integer"
@@ -4753,7 +4753,7 @@
                   "type": "string"
                 },
                 "datacenter": {
-                  "$ref": "#/components/schemas/datacenter"
+                  "$ref": "#/components/schemas/data_center"
                 },
                 "dns_ptr": {
                   "description": "List of reverse DNS records.",
@@ -5534,7 +5534,7 @@
         "type": "object"
       },
       "location": {
-        "description": "Location the Datacenter is located at.\n | Location of the Volume. Volume can only be attached to Servers in the same Location.",
+        "description": "Location the Data Center is located at.\n | Location of the Volume. Volume can only be attached to Servers in the same Location.",
         "properties": {
           "city": {
             "description": "Name of the closest city to the Location.\n\nCity name or city name and state in short form. E.g. `Falkenstein` or `Ashburn, VA`.\n",
@@ -6442,7 +6442,7 @@
                 "type": "string"
               },
               "datacenter": {
-                "$ref": "#/components/schemas/datacenter"
+                "$ref": "#/components/schemas/data_center"
               },
               "dns_ptr": {
                 "description": "List of reverse DNS records.",
@@ -7135,7 +7135,7 @@
             "type": "string"
           },
           "datacenter": {
-            "$ref": "#/components/schemas/datacenter"
+            "$ref": "#/components/schemas/data_center"
           },
           "id": {
             "description": "ID of the Server.",
@@ -9843,8 +9843,8 @@
     },
     "/datacenters": {
       "get": {
-        "description": "Returns all Datacenters.\n",
-        "operationId": "list_datacenters",
+        "description": "Returns all Data Centers.\n",
+        "operationId": "list_data_centers",
         "parameters": [
           {
             "description": "Filter resources by their name. The response will only contain the resources\nmatching exactly the specified name.\n",
@@ -9905,14 +9905,14 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/list_datacenters_response"
+                  "$ref": "#/components/schemas/list_data_centers_response"
                 }
               }
             },
-            "description": "Contains the queried Datacenters."
+            "description": "Contains the queried Data Centers."
           }
         },
-        "summary": "List Datacenters",
+        "summary": "List Data Centers",
         "tags": [
           "datacenters"
         ],
@@ -9942,16 +9942,16 @@
     },
     "/datacenters/{id}": {
       "get": {
-        "description": "Returns a single Datacenter.\n",
-        "operationId": "get_datacenter",
+        "description": "Returns a single Data Center.\n",
+        "operationId": "get_data_center",
         "parameters": [
           {
-            "description": "ID of the Datacenter.",
+            "description": "ID of the Data Center.",
             "in": "path",
             "name": "id",
             "required": true,
             "schema": {
-              "description": "ID of the Datacenter.",
+              "description": "ID of the Data Center.",
               "example": 42,
               "format": "int64",
               "maximum": 9007199254740991,
@@ -9964,14 +9964,14 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/get_datacenter_response"
+                  "$ref": "#/components/schemas/get_data_center_response"
                 }
               }
             },
-            "description": "Contains the queried Datacenter."
+            "description": "Contains the queried Data Center."
           }
         },
-        "summary": "Get a Datacenter",
+        "summary": "Get a Data Center",
         "tags": [
           "datacenters"
         ],
@@ -17721,7 +17721,7 @@
         ]
       },
       "post": {
-        "description": "Create a new Primary IP.\n\nCan optionally be assigned to a resource by providing an `assignee_id` and `assignee_type`.\n\nIf not assigned to a resource the `datacenter` key needs to be provided. This can be either the ID or the name of the Datacenter this Primary IP shall be created in.\n\nA Primary IP can only be assigned to resource in the same Datacenter later on.\n\n#### Call specific error codes\n\n| Code                          | Description                                                              |\n|------------------------------ |------------------------------------------------------------------------- |\n| `server_not_stopped`          | The specified Server is running, but needs to be powered off |\n| `server_has_ipv4`             | The Server already has an ipv4 address                       |\n| `server_has_ipv6`             | The Server already has an ipv6 address                       |\n",
+        "description": "Create a new Primary IP.\n\nCan optionally be assigned to a resource by providing an `assignee_id` and `assignee_type`.\n\nIf not assigned to a resource the `datacenter` key needs to be provided. This can be either the ID or the name of the Data Center this Primary IP shall be created in.\n\nA Primary IP can only be assigned to resource in the same Data Center later on.\n\n#### Call specific error codes\n\n| Code                          | Description                                                              |\n|------------------------------ |------------------------------------------------------------------------- |\n| `server_not_stopped`          | The specified Server is running, but needs to be powered off |\n| `server_has_ipv4`             | The Server already has an ipv4 address                       |\n| `server_has_ipv6`             | The Server already has an ipv6 address                       |\n",
         "operationId": "create_primary_ip",
         "requestBody": {
           "content": {
@@ -18838,7 +18838,7 @@
               }
             }
           },
-          "description": "Please note that Server names must be unique per Project and valid hostnames as per RFC 1123 (i.e. may only contain letters, digits, periods, and dashes).\n\nFor `server_type` you can either use the ID as listed in `/server_types` or its name.\n\nFor `image` you can either use the ID as listed in `/images` or its name.\n\nIf you want to create the Server in a Location, you must set `location` to the ID or name as listed in `/locations`. This is the recommended way. You can be even more specific by setting `datacenter` to the ID or name as listed in `/datacenters`. However we only recommend this if you want to assign a specific Primary IP to the Server which is located in the specified Datacenter.\n\nSome properties like `start_after_create` or `automount` will trigger Actions after the Server is created. Those Actions are listed in the `next_actions` field in the response.\n\nFor accessing your Server we strongly recommend to use SSH keys by passing the respective key IDs in `ssh_keys`. If you do not specify any `ssh_keys` we will generate a root password for you and return it in the response.\n\nPlease note that provided user-data is stored in our systems. While we take measures to protect it we highly recommend that you don’t use it to store passwords or other sensitive information.\n\n#### Call specific error codes\n\n| Code                             | Description                                                |\n|----------------------------------|------------------------------------------------------------|\n| `placement_error`                | An error during the placement occurred                     |\n| `primary_ip_assigned`            | The specified Primary IP is already assigned to a server   |\n| `primary_ip_datacenter_mismatch` | The specified Primary IP is in a different datacenter      |\n| `primary_ip_version_mismatch`    | The specified Primary IP has the wrong IP Version          |\n",
+          "description": "Please note that Server names must be unique per Project and valid hostnames as per RFC 1123 (i.e. may only contain letters, digits, periods, and dashes).\n\nFor `server_type` you can either use the ID as listed in `/server_types` or its name.\n\nFor `image` you can either use the ID as listed in `/images` or its name.\n\nIf you want to create the Server in a Location, you must set `location` to the ID or name as listed in `/locations`. This is the recommended way. You can be even more specific by setting `datacenter` to the ID or name as listed in `/datacenters`. However we only recommend this if you want to assign a specific Primary IP to the Server which is located in the specified Data Center.\n\nSome properties like `start_after_create` or `automount` will trigger Actions after the Server is created. Those Actions are listed in the `next_actions` field in the response.\n\nFor accessing your Server we strongly recommend to use SSH keys by passing the respective key IDs in `ssh_keys`. If you do not specify any `ssh_keys` we will generate a root password for you and return it in the response.\n\nPlease note that provided user-data is stored in our systems. While we take measures to protect it we highly recommend that you don’t use it to store passwords or other sensitive information.\n\n#### Call specific error codes\n\n| Code                             | Description                                                |\n|----------------------------------|------------------------------------------------------------|\n| `placement_error`                | An error during the placement occurred                     |\n| `primary_ip_assigned`            | The specified Primary IP is already assigned to a server   |\n| `primary_ip_datacenter_mismatch` | The specified Primary IP is in a different datacenter      |\n| `primary_ip_version_mismatch`    | The specified Primary IP has the wrong IP Version          |\n",
           "required": true
         },
         "responses": {

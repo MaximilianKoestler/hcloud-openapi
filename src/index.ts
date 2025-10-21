@@ -354,7 +354,7 @@ function overWriteTagList(document: OpenApiDocumentFragment) {
   for (const tag of document.tags) {
     const canonical_name = (tag.name as string)
       .toLowerCase()
-      .replace(/\s+/g, "_");
+      .replace(/\s+/g, "_").replace("data_centers", "datacenters");
     mapping[canonical_name] = tag;
   }
 
