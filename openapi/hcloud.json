@@ -6,7 +6,7 @@
     },
     "description": "Copied from the official API documentation for the Public Hetzner Cloud.",
     "title": "Hetzner Cloud API",
-    "version": "eec0b1b"
+    "version": "0094e4d"
   },
   "servers": [
     {
@@ -8316,12 +8316,6 @@
       "update_access_settings_request": {
         "description": "Request for POST https://api.hetzner.com/v1/storage_boxes/{id}/subaccounts/{subaccount_id}/actions/update_access_settings",
         "properties": {
-          "home_directory": {
-            "description": "Home directory of the Subaccount. Will be created if it doesn't exist yet.",
-            "example": "my-backup/server01",
-            "nullable": true,
-            "type": "string"
-          },
           "reachable_externally": {
             "description": "Whether access from outside the Hetzner network is allowed.",
             "nullable": true,
