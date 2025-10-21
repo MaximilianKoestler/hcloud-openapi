@@ -6,7 +6,7 @@
     },
     "description": "Copied from the official API documentation for the Public Hetzner Cloud.",
     "title": "Hetzner Cloud API",
-    "version": "98fe64b"
+    "version": "13cd5b3"
   },
   "servers": [
     {
@@ -770,7 +770,7 @@
         "title": "ActionResponse",
         "type": "object"
       },
-"change_home_directory_request": {
+      "change_home_directory_request": {
         "description": "Request for POST https://api.hetzner.com/v1/storage_boxes/{id}/subaccounts/{subaccount_id}/actions/change_home_directory",
         "properties": {
           "home_directory": {
@@ -914,7 +914,7 @@
         "title": "ActionResponse",
         "type": "object"
       },
-"change_protection_request": {
+      "change_protection_request": {
         "description": "Request for POST https://api.hetzner.com/v1/storage_boxes/{id}/actions/change_protection",
         "properties": {
           "delete": {
@@ -1191,7 +1191,7 @@
         "properties": {
           "storage_box_type": {
             "description": "ID or Name of the Storage Box Type.",
-            "example": "BX21",
+            "example": "bx20",
             "type": "string"
           }
         },
@@ -2256,32 +2256,26 @@
             "properties": {
               "reachable_externally": {
                 "description": "Whether access from outside the Hetzner network is allowed.",
-                "nullable": true,
                 "type": "boolean"
               },
               "samba_enabled": {
                 "description": "Whether the Samba subsystem is enabled.",
-                "nullable": true,
                 "type": "boolean"
               },
               "ssh_enabled": {
                 "description": "Whether the SSH subsystem is enabled.",
-                "example": true,
-                "nullable": true,
                 "type": "boolean"
               },
               "webdav_enabled": {
                 "description": "Whether the WebDAV subsystem is enabled.",
-                "nullable": true,
                 "type": "boolean"
               },
               "zfs_enabled": {
                 "description": "Whether the ZFS snapshot folder is visible.",
-                "nullable": true,
                 "type": "boolean"
               }
             },
-            "title": "UpdateAccessSettings",
+            "required": [],
             "type": "object"
           },
           "labels": {
@@ -2294,7 +2288,6 @@
           },
           "name": {
             "description": "Name of the Storage Box.\n",
-            "example": "my-resource",
             "type": "string"
           },
           "password": {
@@ -2346,28 +2339,22 @@
             "properties": {
               "reachable_externally": {
                 "description": "Whether access from outside the Hetzner network is allowed.",
-                "nullable": true,
                 "type": "boolean"
               },
               "readonly": {
                 "description": "Whether the Subaccount is read-only.",
-                "nullable": true,
                 "type": "boolean"
               },
               "samba_enabled": {
                 "description": "Whether the Samba subsystem is enabled.",
-                "nullable": true,
                 "type": "boolean"
               },
               "ssh_enabled": {
                 "description": "Whether the SSH subsystem is enabled.",
-                "example": true,
-                "nullable": true,
                 "type": "boolean"
               },
               "webdav_enabled": {
                 "description": "Whether the WebDAV subsystem is enabled.",
-                "nullable": true,
                 "type": "boolean"
               }
             },
@@ -2377,13 +2364,11 @@
             "description": "A description of Storage Box Subaccount.\n",
             "example": "my-backup-server01",
             "maxLength": 1000,
-            "nullable": true,
             "type": "string"
           },
           "home_directory": {
             "description": "Home directory of the Storage Box Subaccount.\n\nThe directory will be created if it doesn't exist yet.\n",
             "example": "my-backup/server01",
-            "nullable": true,
             "type": "string"
           },
           "labels": {
@@ -2395,8 +2380,8 @@
           }
         },
         "required": [
-          "password",
-          "home_directory"
+          "home_directory",
+          "password"
         ],
         "type": "object"
       },
@@ -3082,14 +3067,18 @@
         "description": "Request for POST https://api.hetzner.com/v1/storage_boxes/{id}/actions/enable_snapshot_plan",
         "properties": {
           "day_of_month": {
+            "default": null,
             "description": "Day of the month when the Snapshot Plan is executed.\n\nNull means every day.\n",
+            "example": null,
             "maximum": 31,
             "minimum": 1,
             "nullable": true,
             "type": "integer"
           },
           "day_of_week": {
+            "default": null,
             "description": "Day of the week when the Snapshot Plan is executed.\n\nStarts at 1 for Monday til 7 for Sunday. Null means every day.\n",
+            "example": 7,
             "maximum": 7,
             "minimum": 1,
             "nullable": true,
@@ -3100,14 +3089,12 @@
             "example": 3,
             "maximum": 23,
             "minimum": 0,
-            "nullable": true,
             "type": "integer"
           },
           "max_snapshots": {
             "description": "Maximum amount of Snapshots that will be created by this Snapshot Plan.\n\nOlder Snapshots will be deleted.\n",
             "example": 10,
-            "exclusiveMinimum": true,
-            "minimum": 0,
+            "minimum": 1,
             "type": "integer"
           },
           "minute": {
@@ -3115,12 +3102,13 @@
             "example": 30,
             "maximum": 59,
             "minimum": 0,
-            "nullable": true,
             "type": "integer"
           }
         },
         "required": [
-          "max_snapshots"
+          "max_snapshots",
+          "minute",
+          "hour"
         ],
         "type": "object"
       },
@@ -3793,6 +3781,9 @@
             "$ref": "#/components/schemas/snapshot"
           }
         },
+        "required": [
+          "snapshot"
+        ],
         "type": "object"
       },
       "get_ssh_key_response": {
@@ -3838,6 +3829,9 @@
             "$ref": "#/components/schemas/subaccount"
           }
         },
+        "required": [
+          "subaccount"
+        ],
         "type": "object"
       },
       "get_volume_response": {
@@ -5572,7 +5566,7 @@
         "type": "object"
       },
       "location": {
-        "description": "Location the Data Center is located at.\n | Location of the Volume. Volume can only be attached to Servers in the same Location.",
+        "description": "Location the Data Center is located at.\n | Location of the Volume. Volume can only be attached to Servers in the same Location. | Location of the Storage Box.",
         "properties": {
           "city": {
             "description": "Name of the closest city to the Location.\n\nCity name or city name and state in short form. E.g. `Falkenstein` or `Ashburn, VA`.\n",
@@ -6600,10 +6594,6 @@
             "$ref": "#/components/schemas/labels"
           }
         },
-        "required": [
-          "description",
-          "labels"
-        ],
         "type": "object"
       },
       "replace_snapshot_response": {
@@ -6613,6 +6603,9 @@
             "$ref": "#/components/schemas/snapshot"
           }
         },
+        "required": [
+          "snapshot"
+        ],
         "type": "object"
       },
       "replace_ssh_key_request": {
@@ -6673,17 +6666,12 @@
             "description": "A description of Storage Box Subaccount.\n",
             "example": "my-backup-server01",
             "maxLength": 1000,
-            "nullable": true,
             "type": "string"
           },
           "labels": {
             "$ref": "#/components/schemas/labels"
           }
         },
-        "required": [
-          "labels",
-          "description"
-        ],
         "type": "object"
       },
       "replace_subaccount_response": {
@@ -6693,6 +6681,9 @@
             "$ref": "#/components/schemas/subaccount"
           }
         },
+        "required": [
+          "subaccount"
+        ],
         "type": "object"
       },
       "replace_volume_request": {
@@ -6779,7 +6770,6 @@
         "required": [
           "password"
         ],
-        "title": "ResetPassword",
         "type": "object"
       },
       "reset_password_response": {
@@ -7710,9 +7700,10 @@
             "type": "string"
           },
           "description": {
-            "description": "Description of the Resource.",
-            "example": "This describes my resource",
-            "nullable": true,
+            "description": "Description of the Storage Box Snapshot.",
+            "example": "snapshot-0001",
+            "maxLength": 1000,
+            "pattern": "[a-zA-Z0-9-_,:<>+#!\\(\\)\\[\\]\\{\\} ]*",
             "type": "string"
           },
           "id": {
@@ -7730,8 +7721,8 @@
             "$ref": "#/components/schemas/labels"
           },
           "name": {
-            "description": "Name of the Resource. Must be unique per Project.",
-            "example": "my-resource",
+            "description": "Name of the Storage Box Snapshot.",
+            "example": "my-snapshot",
             "type": "string"
           },
           "stats": {
@@ -7761,27 +7752,41 @@
         "description": "Details of the active snapshot plan.\n\nNot available if the `status` is `initializing`.\n",
         "properties": {
           "day_of_month": {
+            "default": null,
             "description": "Day of the month when the Snapshot Plan is executed.\n\nNull means every day.\n",
+            "example": null,
+            "maximum": 31,
+            "minimum": 1,
             "nullable": true,
             "type": "integer"
           },
           "day_of_week": {
+            "default": null,
             "description": "Day of the week when the Snapshot Plan is executed.\n\nStarts at 1 for Monday til 7 for Sunday. Null means every day.\n",
+            "example": 7,
+            "maximum": 7,
+            "minimum": 1,
             "nullable": true,
             "type": "integer"
           },
           "hour": {
             "description": "Hour when the Snapshot Plan is executed (UTC).\n",
-            "nullable": true,
+            "example": 3,
+            "maximum": 23,
+            "minimum": 0,
             "type": "integer"
           },
           "max_snapshots": {
             "description": "Maximum amount of Snapshots that will be created by this Snapshot Plan.\n\nOlder Snapshots will be deleted.\n",
+            "example": 10,
+            "minimum": 1,
             "type": "integer"
           },
           "minute": {
             "description": "Minute when the Snapshot Plan is executed (UTC).\n",
-            "nullable": true,
+            "example": 30,
+            "maximum": 59,
+            "minimum": 0,
             "type": "integer"
           }
         },
@@ -7917,13 +7922,7 @@
             "nullable": true
           },
           "stats": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/storage_box_stats"
-              }
-            ],
-            "description": "Information about disk usage. Not available if the status is \"initializing\".",
-            "nullable": true
+            "$ref": "#/components/schemas/storage_box_stats"
           },
           "status": {
             "description": "Status of the Storage Box.",
@@ -7954,6 +7953,7 @@
           "id",
           "status",
           "name",
+          "username",
           "storage_box_type",
           "location",
           "access_settings",
@@ -8132,14 +8132,14 @@
             "type": "string"
           },
           "description": {
-            "description": "A description to remind you of the purpose of this Subaccount.",
-            "example": "host01 backup",
+            "description": "A description of Storage Box Subaccount.\n",
+            "example": "my-backup-server01",
             "maxLength": 1000,
             "type": "string"
           },
           "home_directory": {
-            "description": "Home directory of the Subaccount.",
-            "example": "my_backups/host01.my.company",
+            "description": "Home directory of the Storage Box Subaccount.\n",
+            "example": "my-backup/server01",
             "type": "string"
           },
           "id": {
@@ -8172,11 +8172,11 @@
         },
         "required": [
           "id",
+          "description",
           "username",
           "home_directory",
           "server",
           "access_settings",
-          "description",
           "labels",
           "created",
           "storage_box"
@@ -8209,10 +8209,10 @@
         },
         "required": [
           "reachable_externally",
-          "readonly",
           "samba_enabled",
           "ssh_enabled",
-          "webdav_enabled"
+          "webdav_enabled",
+          "readonly"
         ],
         "type": "object"
       },
@@ -8323,32 +8323,25 @@
         "properties": {
           "reachable_externally": {
             "description": "Whether access from outside the Hetzner network is allowed.",
-            "nullable": true,
             "type": "boolean"
           },
           "readonly": {
             "description": "Whether the Subaccount is read-only.",
-            "nullable": true,
             "type": "boolean"
           },
           "samba_enabled": {
             "description": "Whether the Samba subsystem is enabled.",
-            "nullable": true,
             "type": "boolean"
           },
           "ssh_enabled": {
             "description": "Whether the SSH subsystem is enabled.",
-            "example": true,
-            "nullable": true,
             "type": "boolean"
           },
           "webdav_enabled": {
             "description": "Whether the WebDAV subsystem is enabled.",
-            "nullable": true,
             "type": "boolean"
           }
         },
-        "title": "UpdateAccessSettings",
         "type": "object"
       },
       "update_access_settings_response": {
@@ -23489,7 +23482,7 @@
                   "stats.size_filesystem:asc",
                   "stats.size_filesystem:desc"
                 ],
-              "type": "string"
+                "type": "string"
               },
               "type": "array"
             }
@@ -24678,7 +24671,8 @@
             "name": "path",
             "required": false,
             "schema": {
-              "default": "",
+              "default": ".",
+              "example": "./documents",
               "type": "string"
             }
           }
