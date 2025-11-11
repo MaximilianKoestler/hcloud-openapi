@@ -6,7 +6,7 @@
     },
     "description": "Copied from the official API documentation for the Public Hetzner Cloud.",
     "title": "Hetzner Cloud API",
-    "version": "13cd5b3"
+    "version": "0f751c9"
   },
   "servers": [
     {
@@ -59,7 +59,7 @@
       "name": "locations"
     },
     {
-      "description": "Networks is a private networks feature. These Networks are optional and they coexist with the public network that every Server has by default.\n\nThey allow Servers to talk to each other over a dedicated network interface using private IP addresses not available publicly.\n\nThe IP addresses are allocated and managed via the API, they must conform to [RFC1918](https://tools.ietf.org/html/rfc1918#section-3) standard. IPs and network interfaces defined under Networks do not provide public internet connectivity, you will need to use the already existing public network interface for that.\n\nEach network has a user selected `ip_range` which defines all available IP addresses which can be used for Subnets within the Network.\n\nTo assign individual IPs to Servers you will need to create Network Subnets, described below.\n\nCurrently Networks support IPv4 only.\n\n### Subnets\n\nSubnets divide the `ip_range` from the parent Network object into multiple Subnetworks that you can use for different specific purposes.\n\nFor each subnet you need to specify its own `ip_range` which must be contained within the parent Network’s `ip_range`. Additionally each subnet must belong to one of the available Network Zones described below. Subnets can not have overlapping IP ranges.\n\nCurrently there are three types of subnet:\n\n- type `cloud` is used to connect cloud Resources into your Network.\n- type `server` was used to connect only cloud Servers into your Network. This type is deprecated and is replaced by type cloud.\n- type `vswitch` allows you to connect [Dedicated Server vSwitch](https://docs.hetzner.com/robot/dedicated-server/network/vswitch) - and all Dedicated Servers attached to it - into your Network\n\nSubnets of type `vswitch` must set a `vswitch_id` which is the ID of the existing vSwitch in Hetzner Robot that should be coupled.\n\n### Network Zones\n\nNetwork Zones are groups of Locations which have special high-speed network connections between them. The [Location object](https://docs.hetzner.cloud/#locations-get-a-location) contains the `network_zone` property each Location belongs to. Currently these network zones exist:\n\n| Network Zone | Contains Locations |\n| ------------ | ------------------ |\n| eu-central   | nbg1, fsn1, hel1   |\n| us-east      | ash                |\n| us-west      | hil                |\n| ap-southeast | sin                |\n\n### IP address management\n\nWhen a cloud Server is attached to a network without the user specifying an IP it automatically gets an IP address assigned from a subnet of type `server` in the same network zone. If you specify the optional `ip` parameter when attaching then we will try to assign that IP. Keep in mind that the Server’s location must be covered by the Subnet’s Network Zone if you specify an IP, or that at least one Subnet with the zone covering Server’s location must exist.\n\nA cloud Server can also have more than one IP address in a Network by specifying aliases. For details see the [attach to network action](https://docs.hetzner.cloud/#server-actions-attach-a-server-to-a-network).\n\nThe following IP addresses are reserved in networks and can not be used:\n\n- the first IP of the network `ip_range` as it will be used as a default gateway for the private Network interface.\n- `172.31.1.1` as it is being used as default gateway for our public Network interfaces.\n\n### Coupling Dedicated Servers\n\nBy using subnets of type `vswitch` you can couple the Cloud Networks with an existing [Dedicated Server vSwitch](https://docs.hetzner.com/robot/dedicated-server/network/vswitch) and enable dedicated and cloud servers to\ntalk to each other over the Network.\nIn order for this to work the dedicated servers may only use IPs from the subnet and must have a special network configuration. Please refer to [FAQ](https://docs.hetzner.com/cloud/networks/connect-dedi-vswitch). vSwitch Layer 2 features are not supported.\n\n### Routes\n\nNetworks also support the notion of routes which are automatically applied to private traffic. A route makes sure that all packets for a given `destination` IP prefix will be sent to the address specified in its `gateway`.\n",
+      "description": "Networks is a private networks feature. These Networks are optional and they coexist with the public network that every Server has by default.\n\nThey allow Servers to talk to each other over a dedicated network interface using private IP addresses not available publicly.\n\nThe IP addresses are allocated and managed via the API, they must conform to [RFC1918](https://tools.ietf.org/html/rfc1918#section-3) standard. IPs and network interfaces defined under Networks do not provide public internet connectivity, you will need to use the already existing public network interface for that.\n\nEach network has a user selected `ip_range` which defines all available IP addresses which can be used for Subnets within the Network.\n\nTo assign individual IPs to Servers you will need to create Network Subnets, described below.\n\nCurrently Networks support IPv4 only.\n\n### Subnets\n\nSubnets divide the `ip_range` from the parent Network object into multiple Subnetworks that you can use for different specific purposes.\n\nFor each subnet you need to specify its own `ip_range` which must be contained within the parent Network’s `ip_range`. Additionally each subnet must belong to one of the available Network Zones described below. Subnets can not have overlapping IP ranges.\n\nCurrently there are three types of subnet:\n\n- type `cloud` is used to connect cloud Resources into your Network.\n- type `server` was used to connect only cloud Servers into your Network. This type is deprecated and is replaced by type cloud.\n- type `vswitch` allows you to connect [Dedicated Server vSwitch](https://docs.hetzner.com/robot/dedicated-server/network/vswitch) - and all Dedicated Servers attached to it - into your Network\n\nSubnets of type `vswitch` must set a `vswitch_id` which is the ID of the existing vSwitch in Hetzner Robot that should be coupled.\n\n### Network Zones\n\nNetwork Zones are groups of Locations which have special high-speed network connections between them. The [Location object](https://docs.hetzner.cloud/reference/cloud#locations-get-a-location) contains the `network_zone` property each Location belongs to. Currently these network zones exist:\n\n| Network Zone | Contains Locations |\n| ------------ | ------------------ |\n| eu-central   | nbg1, fsn1, hel1   |\n| us-east      | ash                |\n| us-west      | hil                |\n| ap-southeast | sin                |\n\n### IP address management\n\nWhen a cloud Server is attached to a network without the user specifying an IP it automatically gets an IP address assigned from a subnet of type `server` in the same network zone. If you specify the optional `ip` parameter when attaching then we will try to assign that IP. Keep in mind that the Server’s location must be covered by the Subnet’s Network Zone if you specify an IP, or that at least one Subnet with the zone covering Server’s location must exist.\n\nA cloud Server can also have more than one IP address in a Network by specifying aliases. For details see the [attach to network action](https://docs.hetzner.cloud/reference/cloud#server-actions-attach-a-server-to-a-network).\n\nThe following IP addresses are reserved in networks and can not be used:\n\n- the first IP of the network `ip_range` as it will be used as a default gateway for the private Network interface.\n- `172.31.1.1` as it is being used as default gateway for our public Network interfaces.\n\n### Coupling Dedicated Servers\n\nBy using subnets of type `vswitch` you can couple the Cloud Networks with an existing [Dedicated Server vSwitch](https://docs.hetzner.com/robot/dedicated-server/network/vswitch) and enable dedicated and cloud servers to\ntalk to each other over the Network.\nIn order for this to work the dedicated servers may only use IPs from the subnet and must have a special network configuration. Please refer to [FAQ](https://docs.hetzner.com/cloud/networks/connect-dedi-vswitch). vSwitch Layer 2 features are not supported.\n\n### Routes\n\nNetworks also support the notion of routes which are automatically applied to private traffic. A route makes sure that all packets for a given `destination` IP prefix will be sent to the address specified in its `gateway`.\n",
       "name": "networks"
     },
     {
@@ -1158,7 +1158,7 @@
         "properties": {
           "server_type": {
             "description": "ID or name of Server type the Server should migrate to.",
-            "example": "cpx11",
+            "example": "cpx22",
             "type": "string"
           },
           "upgrade_disk": {
@@ -1340,7 +1340,10 @@
           },
           "domain_names": {
             "description": "Domains and subdomains that should be contained in the Certificate issued by *Let's Encrypt*. Required for type `managed` Certificates.",
-            "example": null,
+            "example": [
+              "example.com",
+              "www.example.com"
+            ],
             "items": {
               "type": "string"
             },
@@ -2025,7 +2028,7 @@
           },
           "image": {
             "description": "ID or name of the Image the Server is created from.",
-            "example": "ubuntu-20.04",
+            "example": "ubuntu-24.04",
             "type": "string"
           },
           "labels": {
@@ -2086,7 +2089,7 @@
           },
           "server_type": {
             "description": "ID or name of the Server type this Server should be created with.",
-            "example": "cpx11",
+            "example": "cpx22",
             "type": "string"
           },
           "ssh_keys": {
@@ -3941,7 +3944,7 @@
           },
           "description": {
             "description": "Description of the Image.",
-            "example": "Ubuntu 20.04 Standard 64 bit",
+            "example": "Ubuntu 24.04 Standard 64 bit",
             "type": "string"
           },
           "disk_size": {
@@ -3967,7 +3970,7 @@
           },
           "name": {
             "description": "Unique identifier of the Image. This value is only set for system Images.",
-            "example": "ubuntu-20.04",
+            "example": "ubuntu-24.04",
             "nullable": true,
             "type": "string"
           },
@@ -3988,7 +3991,7 @@
           },
           "os_version": {
             "description": "Operating system version.",
-            "example": "20.04",
+            "example": "24.04",
             "nullable": true,
             "type": "string"
           },
@@ -4684,7 +4687,7 @@
                     },
                     "name": {
                       "description": "Name of the Server Types the price is for.",
-                      "example": "cpx11",
+                      "example": "cpx22",
                       "type": "string"
                     },
                     "prices": {
@@ -5735,7 +5738,7 @@
             "type": "string"
           },
           "tsig_key": {
-            "description": "[Transaction signature (TSIG)](https://en.wikipedia.org/wiki/TSIG) key to use\nfor the zone transfer.\n",
+            "description": "[Transaction signature (TSIG)](https://en.wikipedia.org/wiki/TSIG) key to use\nfor the zone transfer. Must be base64 encoded.\n",
             "type": "string"
           }
         },
@@ -6021,7 +6024,7 @@
         "properties": {
           "image": {
             "description": "ID or name of Image to rebuilt from.",
-            "example": "ubuntu-20.04",
+            "example": "ubuntu-24.04",
             "type": "string"
           }
         },
@@ -6885,7 +6888,7 @@
             "type": "string"
           },
           "value": {
-            "description": "Value of the record.",
+            "description": "Value of the record.\n\nFor details about accepted values, see the [DNS record types documentation](https://docs.hetzner.com/networking/dns/record-types/overview/).\n",
             "example": "198.51.100.1",
             "type": "string"
           }
@@ -7518,12 +7521,12 @@
           },
           "description": {
             "description": "Description of the Server type.",
-            "example": "CPX11",
+            "example": "CPX22",
             "type": "string"
           },
           "disk": {
             "description": "Disk size a Server of this type will have in GB.",
-            "example": 40,
+            "example": 80,
             "type": "number"
           },
           "id": {
@@ -7542,12 +7545,12 @@
           },
           "memory": {
             "description": "Memory a Server of this type will have in GB.",
-            "example": 2,
+            "example": 4,
             "type": "number"
           },
           "name": {
             "description": "Unique identifier of the Server type.",
-            "example": "cpx11",
+            "example": "cpx22",
             "type": "string"
           },
           "prices": {
@@ -18964,16 +18967,16 @@
                       },
                       "deleted": null,
                       "deprecated": "2018-02-28T00:00:00+00:00",
-                      "description": "Ubuntu 20.04 Standard 64 bit",
+                      "description": "Ubuntu 24.04 Standard 64 bit",
                       "disk_size": 10,
                       "id": 4711,
                       "image_size": 2.3,
                       "labels": {
                         "key": "value"
                       },
-                      "name": "ubuntu-20.04",
+                      "name": "ubuntu-24.04",
                       "os_flavor": "ubuntu",
-                      "os_version": "20.04",
+                      "os_version": "24.04",
                       "protection": {
                         "delete": false
                       },
@@ -19046,8 +19049,8 @@
                       "cores": 2,
                       "cpu_type": "shared",
                       "deprecated": true,
-                      "description": "CPX11",
-                      "disk": 40,
+                      "description": "CPX22",
+                      "disk": 80,
                       "id": 1,
                       "locations": [
                         {
@@ -19064,8 +19067,8 @@
                           "name": "nbg1"
                         }
                       ],
-                      "memory": 2,
-                      "name": "cpx11",
+                      "memory": 4,
+                      "name": "cpx22",
                       "prices": [
                         {
                           "included_traffic": 21990232555520,
@@ -19106,17 +19109,17 @@
           {
             "label": "Go",
             "lang": "Go",
-            "source": "package examples\n\nimport (\n\t\"context\"\n\t\"os\"\n\n\t\"github.com/hetznercloud/hcloud-go/v2/hcloud\"\n)\n\nfunc main() {\n\ttoken := os.Getenv(\"HCLOUD_TOKEN\")\n\n\tclient := hcloud.NewClient(hcloud.WithToken(token))\n\tctx := context.TODO()\n\n\tresult, _, err := client.Server.Create(ctx, hcloud.ServerCreateOpts{\n\t\tAutomount:  hcloud.Ptr(false),\n\t\tDatacenter: &hcloud.Datacenter{Name: \"nbg1-dc3\"},\n\t\tFirewalls: []*hcloud.ServerCreateFirewall{\n\t\t\t{\n\t\t\t\tFirewall: hcloud.Firewall{ID: 38},\n\t\t\t},\n\t\t},\n\t\tImage: &hcloud.Image{Name: \"ubuntu-20.04\"},\n\t\tLabels: map[string]string{\n\t\t\t\"environment\":    \"prod\",\n\t\t\t\"example.com/my\": \"label\",\n\t\t\t\"just-a-key\":     \"\",\n\t\t},\n\t\tLocation: &hcloud.Location{Name: \"nbg1\"},\n\t\tName:     \"my-server\",\n\t\tNetworks: []*hcloud.Network{\n\t\t\t{\n\t\t\t\tID: 456,\n\t\t\t},\n\t\t},\n\t\tPlacementGroup: &hcloud.PlacementGroup{ID: 1},\n\t\tPublicNet: &hcloud.ServerCreatePublicNet{\n\t\t\tEnableIPv4: false,\n\t\t\tEnableIPv6: false,\n\t\t\tIPv4:       nil,\n\t\t\tIPv6:       nil,\n\t\t},\n\t\tServerType: &hcloud.ServerType{Name: \"cx22\"},\n\t\tSSHKeys: []*hcloud.SSHKey{\n\t\t\t{\n\t\t\t\tName: \"my-ssh-key\",\n\t\t\t},\n\t\t},\n\t\tStartAfterCreate: hcloud.Ptr(true),\n\t\tUserData:         \"#cloud-config\\nruncmd:\\n- [touch, /root/cloud-init-worked]\\n\",\n\t\tVolumes: []*hcloud.Volume{\n\t\t\t{\n\t\t\t\tID: 123,\n\t\t\t},\n\t\t},\n\t})\n\n\terr = client.Action.WaitFor(ctx, result.Action)\n\n\tserver := result.Server\n}"
+            "source": "package examples\n\nimport (\n\t\"context\"\n\t\"os\"\n\n\t\"github.com/hetznercloud/hcloud-go/v2/hcloud\"\n)\n\nfunc main() {\n\ttoken := os.Getenv(\"HCLOUD_TOKEN\")\n\n\tclient := hcloud.NewClient(hcloud.WithToken(token))\n\tctx := context.TODO()\n\n\tresult, _, err := client.Server.Create(ctx, hcloud.ServerCreateOpts{\n\t\tAutomount:  hcloud.Ptr(false),\n\t\tDatacenter: &hcloud.Datacenter{Name: \"nbg1-dc3\"},\n\t\tFirewalls: []*hcloud.ServerCreateFirewall{\n\t\t\t{\n\t\t\t\tFirewall: hcloud.Firewall{ID: 38},\n\t\t\t},\n\t\t},\n\t\tImage: &hcloud.Image{Name: \"ubuntu-24.04\"},\n\t\tLabels: map[string]string{\n\t\t\t\"environment\":    \"prod\",\n\t\t\t\"example.com/my\": \"label\",\n\t\t\t\"just-a-key\":     \"\",\n\t\t},\n\t\tLocation: &hcloud.Location{Name: \"nbg1\"},\n\t\tName:     \"my-server\",\n\t\tNetworks: []*hcloud.Network{\n\t\t\t{\n\t\t\t\tID: 456,\n\t\t\t},\n\t\t},\n\t\tPlacementGroup: &hcloud.PlacementGroup{ID: 1},\n\t\tPublicNet: &hcloud.ServerCreatePublicNet{\n\t\t\tEnableIPv4: false,\n\t\t\tEnableIPv6: false,\n\t\t\tIPv4:       nil,\n\t\t\tIPv6:       nil,\n\t\t},\n\t\tServerType: &hcloud.ServerType{Name: \"cx23\"},\n\t\tSSHKeys: []*hcloud.SSHKey{\n\t\t\t{\n\t\t\t\tName: \"my-ssh-key\",\n\t\t\t},\n\t\t},\n\t\tStartAfterCreate: hcloud.Ptr(true),\n\t\tUserData:         \"#cloud-config\\nruncmd:\\n- [touch, /root/cloud-init-worked]\\n\",\n\t\tVolumes: []*hcloud.Volume{\n\t\t\t{\n\t\t\t\tID: 123,\n\t\t\t},\n\t\t},\n\t})\n\n\terr = client.Action.WaitFor(ctx, result.Action)\n\n\tserver := result.Server\n}"
           },
           {
             "label": "Python",
             "lang": "Python",
-            "source": "from __future__ import annotations\n\nfrom os import environ\n\nfrom hcloud import Client\nfrom hcloud.firewalls import Firewall\nfrom hcloud.images import Image\nfrom hcloud.locations import Location\nfrom hcloud.networks import Network\nfrom hcloud.placement_groups import PlacementGroup\nfrom hcloud.server_types import ServerType\nfrom hcloud.servers import ServerCreatePublicNetwork\nfrom hcloud.ssh_keys import SSHKey\nfrom hcloud.volumes import Volume\n\ntoken = environ[\"HCLOUD_TOKEN\"]\nclient = Client(token=token)\n\nresponse = client.servers.create(\n    automount=False,\n    datacenter=\"nbg1-dc3\",\n    firewalls=[Firewall(id=38)],\n    image=Image(name=\"ubuntu-20.04\"),\n    labels={\n        \"environment\": \"prod\",\n        \"example.com/my\": \"label\",\n        \"just-a-key\": \"\",\n    },\n    location=Location(name=\"nbg1\"),\n    name=\"my-server\",\n    networks=[Network(id=456)],\n    placement_group=PlacementGroup(id=1),\n    public_net=ServerCreatePublicNetwork(\n        enable_ipv4=False,\n        enable_ipv6=False,\n        ipv4=None,\n        ipv6=None,\n    ),\n    server_type=ServerType(name=\"cpx11\"),\n    ssh_keys=[SSHKey(name=\"my-ssh-key\")],\n    start_after_create=True,\n    user_data=\"#cloud-config\\nruncmd:\\n- [touch, /root/cloud-init-worked]\\n\",\n    volumes=[Volume(id=123)],\n)\n\nresponse.action.wait_until_finished()\n\nserver = response.server"
+            "source": "from __future__ import annotations\n\nfrom os import environ\n\nfrom hcloud import Client\nfrom hcloud.firewalls import Firewall\nfrom hcloud.images import Image\nfrom hcloud.locations import Location\nfrom hcloud.networks import Network\nfrom hcloud.placement_groups import PlacementGroup\nfrom hcloud.server_types import ServerType\nfrom hcloud.servers import ServerCreatePublicNetwork\nfrom hcloud.ssh_keys import SSHKey\nfrom hcloud.volumes import Volume\n\ntoken = environ[\"HCLOUD_TOKEN\"]\nclient = Client(token=token)\n\nresponse = client.servers.create(\n    automount=False,\n    datacenter=\"hel1-dc2\",\n    firewalls=[Firewall(id=38)],\n    image=Image(name=\"ubuntu-24.04\"),\n    labels={\n        \"environment\": \"prod\",\n        \"example.com/my\": \"label\",\n        \"just-a-key\": \"\",\n    },\n    location=Location(name=\"hel1\"),\n    name=\"my-server\",\n    networks=[Network(id=456)],\n    placement_group=PlacementGroup(id=1),\n    public_net=ServerCreatePublicNetwork(\n        enable_ipv4=False,\n        enable_ipv6=False,\n        ipv4=None,\n        ipv6=None,\n    ),\n    server_type=ServerType(name=\"cpx22\"),\n    ssh_keys=[SSHKey(name=\"my-ssh-key\")],\n    start_after_create=True,\n    user_data=\"#cloud-config\\nruncmd:\\n- [touch, /root/cloud-init-worked]\\n\",\n    volumes=[Volume(id=123)],\n)\n\nresponse.action.wait_until_finished()\n\nserver = response.server"
           },
           {
             "label": "CLI",
             "lang": "Shell",
-            "source": "hcloud server create \\\n    --automount=false \\\n    --datacenter nbg1-dc3 \\\n    --firewall 38 \\\n    --image ubuntu-20.04 \\\n    --label \"environment=prod\" \\\n    --label \"example.com/my=label\" \\\n    --label \"just-a-key=\" \\\n    --location nbg1 \\\n    --name my-server \\\n    --network 456 \\\n    --placement-group 1 \\\n    --without-ipv4 \\\n    --without-ipv6 \\\n    --type cx22 \\\n    --ssh-key my-ssh-key \\\n    --start-after-create \\\n    --volume 123 \\\n    --user-data-from-file <(printf '#cloud-config\\nruncmd:\\n- [touch, /root/cloud-init-worked]\\n')"
+            "source": "hcloud server create \\\n    --automount=false \\\n    --datacenter hel1-dc2 \\\n    --firewall 38 \\\n    --image ubuntu-24.04 \\\n    --label \"environment=prod\" \\\n    --label \"example.com/my=label\" \\\n    --label \"just-a-key=\" \\\n    --location hel1 \\\n    --name my-server \\\n    --network 456 \\\n    --placement-group 1 \\\n    --without-ipv4 \\\n    --without-ipv6 \\\n    --type cpx22 \\\n    --ssh-key my-ssh-key \\\n    --start-after-create \\\n    --volume 123 \\\n    --user-data-from-file <(printf '#cloud-config\\nruncmd:\\n- [touch, /root/cloud-init-worked]\\n')"
           }
         ]
       },
@@ -20132,17 +20135,17 @@
           {
             "label": "Go",
             "lang": "Go",
-            "source": "package examples\n\nimport (\n\t\"context\"\n\t\"os\"\n\n\t\"github.com/hetznercloud/hcloud-go/v2/hcloud\"\n)\n\nfunc main() {\n\ttoken := os.Getenv(\"HCLOUD_TOKEN\")\n\n\tclient := hcloud.NewClient(hcloud.WithToken(token))\n\tctx := context.TODO()\n\n\taction, _, err := client.Server.ChangeType(ctx, &hcloud.Server{ID: 123}, hcloud.ServerChangeTypeOpts{\n\t\tServerType:  &hcloud.ServerType{Name: \"cx22\"},\n\t\tUpgradeDisk: true,\n\t})\n\n\terr = client.Action.WaitFor(ctx, action)\n}"
+            "source": "package examples\n\nimport (\n\t\"context\"\n\t\"os\"\n\n\t\"github.com/hetznercloud/hcloud-go/v2/hcloud\"\n)\n\nfunc main() {\n\ttoken := os.Getenv(\"HCLOUD_TOKEN\")\n\n\tclient := hcloud.NewClient(hcloud.WithToken(token))\n\tctx := context.TODO()\n\n\taction, _, err := client.Server.ChangeType(ctx, &hcloud.Server{ID: 123}, hcloud.ServerChangeTypeOpts{\n\t\tServerType:  &hcloud.ServerType{Name: \"cpx22\"},\n\t\tUpgradeDisk: true,\n\t})\n\n\terr = client.Action.WaitFor(ctx, action)\n}"
           },
           {
             "label": "Python",
             "lang": "Python",
-            "source": "from __future__ import annotations\n\nfrom os import environ\n\nfrom hcloud import Client\nfrom hcloud.server_types import ServerType\nfrom hcloud.servers import Server\n\ntoken = environ[\"HCLOUD_TOKEN\"]\nclient = Client(token=token)\n\naction = client.servers.change_type(\n    server=Server(id=123),\n    server_type=ServerType(name=\"cpx11\"),\n    upgrade_disk=True,\n)\n\naction.wait_until_finished()"
+            "source": "from __future__ import annotations\n\nfrom os import environ\n\nfrom hcloud import Client\nfrom hcloud.server_types import ServerType\nfrom hcloud.servers import Server\n\ntoken = environ[\"HCLOUD_TOKEN\"]\nclient = Client(token=token)\n\naction = client.servers.change_type(\n    server=Server(id=123),\n    server_type=ServerType(name=\"cpx22\"),\n    upgrade_disk=True,\n)\n\naction.wait_until_finished()"
           },
           {
             "label": "CLI",
             "lang": "Shell",
-            "source": "hcloud server change-type --keep-disk $SERVER cx22"
+            "source": "hcloud server change-type --keep-disk $SERVER cpx32"
           }
         ]
       },
@@ -21075,17 +21078,17 @@
           {
             "label": "Go",
             "lang": "Go",
-            "source": "package examples\n\nimport (\n\t\"context\"\n\t\"os\"\n\n\t\"github.com/hetznercloud/hcloud-go/v2/hcloud\"\n)\n\nfunc main() {\n\ttoken := os.Getenv(\"HCLOUD_TOKEN\")\n\n\tclient := hcloud.NewClient(hcloud.WithToken(token))\n\tctx := context.TODO()\n\n\tresult, _, err := client.Server.RebuildWithResult(ctx, &hcloud.Server{ID: 123}, hcloud.ServerRebuildOpts{\n\t\tImage: &hcloud.Image{Name: \"ubuntu-20.04\"},\n\t})\n\n\terr = client.Action.WaitFor(ctx, result.Action)\n\n\trootPassword := result.RootPassword\n}"
+            "source": "package examples\n\nimport (\n\t\"context\"\n\t\"os\"\n\n\t\"github.com/hetznercloud/hcloud-go/v2/hcloud\"\n)\n\nfunc main() {\n\ttoken := os.Getenv(\"HCLOUD_TOKEN\")\n\n\tclient := hcloud.NewClient(hcloud.WithToken(token))\n\tctx := context.TODO()\n\n\tresult, _, err := client.Server.RebuildWithResult(ctx, &hcloud.Server{ID: 123}, hcloud.ServerRebuildOpts{\n\t\tImage: &hcloud.Image{Name: \"ubuntu-24.04\"},\n\t})\n\n\terr = client.Action.WaitFor(ctx, result.Action)\n\n\trootPassword := result.RootPassword\n}"
           },
           {
             "label": "Python",
             "lang": "Python",
-            "source": "from __future__ import annotations\n\nfrom os import environ\n\nfrom hcloud import Client\nfrom hcloud.images import Image\nfrom hcloud.servers import Server\n\ntoken = environ[\"HCLOUD_TOKEN\"]\nclient = Client(token=token)\n\naction = client.servers.rebuild(server=Server(id=123), image=Image(name=\"ubuntu-20.04\"))\n\naction.wait_until_finished()"
+            "source": "from __future__ import annotations\n\nfrom os import environ\n\nfrom hcloud import Client\nfrom hcloud.images import Image\nfrom hcloud.servers import Server\n\ntoken = environ[\"HCLOUD_TOKEN\"]\nclient = Client(token=token)\n\naction = client.servers.rebuild(server=Server(id=123), image=Image(name=\"ubuntu-24.04\"))\n\naction.wait_until_finished()"
           },
           {
             "label": "CLI",
             "lang": "Shell",
-            "source": "hcloud server rebuild --image ubuntu-20.04 $SERVER"
+            "source": "hcloud server rebuild --image ubuntu-24.04 $SERVER"
           }
         ]
       },
