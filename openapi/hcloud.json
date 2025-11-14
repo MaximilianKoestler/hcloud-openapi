@@ -6,7 +6,7 @@
     },
     "description": "Copied from the official API documentation for the Public Hetzner Cloud.",
     "title": "Hetzner Cloud API",
-    "version": "0f751c9"
+    "version": "2231c30"
   },
   "servers": [
     {
@@ -1426,9 +1426,9 @@
                 "port": "80",
                 "protocol": "tcp",
                 "source_ips": [
-                  "28.239.13.1/32",
-                  "28.239.14.0/24",
-                  "ff21:1eac:9a3b:ee58:5ca:990c:8bc9:c03b/128"
+                  "192.0.2.2/32",
+                  "192.0.2.0/24",
+                  "2001:0db8:9a3b:ee58:5ca:990c:8bc9:c03b/128"
                 ]
               }
             ],
@@ -3201,7 +3201,7 @@
                   "type": "string"
                 },
                 "destination_ips": {
-                  "description": "List of permitted IPv4/IPv6 addresses for outgoing traffic.\n\nThe `direction` must be set to `out`.\n\nIPs must be in [CIDR block notation](https://wikipedia.org/wiki/CIDR). You can specify 100 CIDR\nblocks at most.\n\nThe CIDR blocks may refer to networks (with empty host bits) or single hosts.\nFor example, a network could be defined with `10.0.1.0/24` or `2001:db8:ff00:42::/64`,\nand a single host with `10.0.1.1/32` or `2001:db8:ff00:42::8329/128`.\n\nUse `0.0.0.0/0` to allow any IPv4 addresses and `::/0` to allow any IPv6 addresses.\n",
+                  "description": "List of permitted IPv4/IPv6 addresses for outgoing traffic.\n\nThe `direction` must be set to `out`.\n\nIPs must be in [CIDR block notation](https://wikipedia.org/wiki/CIDR). You can specify 100 CIDR\nblocks at most.\n\nThe CIDR blocks may refer to networks (with empty host bits) or single hosts.\nFor example, a network could be defined with `10.0.1.0/24` or `2001:db8:ff00:42::/64`,\nand a single host with `10.0.1.1/32` or `2001:db8:ff00:42::8329/128`.\n\nUse `0.0.0.0/0` to allow any IPv4 addresses and `::/0` to allow any IPv6 addresses.\n\nIPv6 CIDRs will be transformed to their canonical form according to [RFC5952](https://datatracker.ietf.org/doc/html/rfc5952#section-4).\n",
                   "example": [],
                   "items": {
                     "type": "string"
@@ -3235,11 +3235,11 @@
                   "type": "string"
                 },
                 "source_ips": {
-                  "description": "List of permitted IPv4/IPv6 addresses for incoming traffic.\n\nThe `direction` must be set to `in`.\n\nIPs must be provided in [CIDR block notation](https://wikipedia.org/wiki/CIDR). You can specify 100 CIDR\nblocks at most.\n\nThe CIDR blocks may refer to networks (with empty host bits) or single hosts.\nFor example, a network could be defined with `10.0.1.0/24` or `2001:db8:ff00:42::/64`,\nand a single host with `10.0.1.1/32` or `2001:db8:ff00:42::8329/128`.\n\nUse `0.0.0.0/0` to allow any IPv4 addresses and `::/0` to allow any IPv6 addresses.\n",
+                  "description": "List of permitted IPv4/IPv6 addresses for incoming traffic.\n\nThe `direction` must be set to `in`.\n\nIPs must be provided in [CIDR block notation](https://wikipedia.org/wiki/CIDR). You can specify 100 CIDR\nblocks at most.\n\nThe CIDR blocks may refer to networks (with empty host bits) or single hosts.\nFor example, a network could be defined with `10.0.1.0/24` or `2001:db8:ff00:42::/64`,\nand a single host with `10.0.1.1/32` or `2001:db8:ff00:42::8329/128`.\n\nUse `0.0.0.0/0` to allow any IPv4 addresses and `::/0` to allow any IPv6 addresses.\n\nIPv6 CIDRs will be transformed to their canonical form according to [RFC5952](https://datatracker.ietf.org/doc/html/rfc5952#section-4).\n",
                   "example": [
-                    "28.239.13.1/32",
-                    "28.239.14.0/24",
-                    "ff21:1eac:9a3b:ee58:5ca:990c:8bc9:c03b/128"
+                    "192.0.2.2/32",
+                    "192.0.2.0/24",
+                    "2001:0db8:9a3b:ee58:5ca:990c:8bc9:c03b/128"
                   ],
                   "items": {
                     "type": "string"
@@ -7096,7 +7096,7 @@
             "type": "string"
           },
           "destination_ips": {
-            "description": "List of permitted IPv4/IPv6 addresses for outgoing traffic.\n\nThe `direction` must be set to `out`.\n\nIPs must be in [CIDR block notation](https://wikipedia.org/wiki/CIDR). You can specify 100 CIDR\nblocks at most.\n\nThe CIDR blocks may refer to networks (with empty host bits) or single hosts.\nFor example, a network could be defined with `10.0.1.0/24` or `2001:db8:ff00:42::/64`,\nand a single host with `10.0.1.1/32` or `2001:db8:ff00:42::8329/128`.\n\nUse `0.0.0.0/0` to allow any IPv4 addresses and `::/0` to allow any IPv6 addresses.\n",
+            "description": "List of permitted IPv4/IPv6 addresses for outgoing traffic.\n\nThe `direction` must be set to `out`.\n\nIPs must be in [CIDR block notation](https://wikipedia.org/wiki/CIDR). You can specify 100 CIDR\nblocks at most.\n\nThe CIDR blocks may refer to networks (with empty host bits) or single hosts.\nFor example, a network could be defined with `10.0.1.0/24` or `2001:db8:ff00:42::/64`,\nand a single host with `10.0.1.1/32` or `2001:db8:ff00:42::8329/128`.\n\nUse `0.0.0.0/0` to allow any IPv4 addresses and `::/0` to allow any IPv6 addresses.\n\nIPv6 CIDRs will be transformed to their canonical form according to [RFC5952](https://datatracker.ietf.org/doc/html/rfc5952#section-4).\n",
             "example": [],
             "items": {
               "type": "string"
@@ -7130,11 +7130,11 @@
             "type": "string"
           },
           "source_ips": {
-            "description": "List of permitted IPv4/IPv6 addresses for incoming traffic.\n\nThe `direction` must be set to `in`.\n\nIPs must be provided in [CIDR block notation](https://wikipedia.org/wiki/CIDR). You can specify 100 CIDR\nblocks at most.\n\nThe CIDR blocks may refer to networks (with empty host bits) or single hosts.\nFor example, a network could be defined with `10.0.1.0/24` or `2001:db8:ff00:42::/64`,\nand a single host with `10.0.1.1/32` or `2001:db8:ff00:42::8329/128`.\n\nUse `0.0.0.0/0` to allow any IPv4 addresses and `::/0` to allow any IPv6 addresses.\n",
+            "description": "List of permitted IPv4/IPv6 addresses for incoming traffic.\n\nThe `direction` must be set to `in`.\n\nIPs must be provided in [CIDR block notation](https://wikipedia.org/wiki/CIDR). You can specify 100 CIDR\nblocks at most.\n\nThe CIDR blocks may refer to networks (with empty host bits) or single hosts.\nFor example, a network could be defined with `10.0.1.0/24` or `2001:db8:ff00:42::/64`,\nand a single host with `10.0.1.1/32` or `2001:db8:ff00:42::8329/128`.\n\nUse `0.0.0.0/0` to allow any IPv4 addresses and `::/0` to allow any IPv6 addresses.\n\nIPv6 CIDRs will be transformed to their canonical form according to [RFC5952](https://datatracker.ietf.org/doc/html/rfc5952#section-4).\n",
             "example": [
-              "28.239.13.1/32",
-              "28.239.14.0/24",
-              "ff21:1eac:9a3b:ee58:5ca:990c:8bc9:c03b/128"
+              "192.0.2.2/32",
+              "192.0.2.0/24",
+              "2001:0db8:9a3b:ee58:5ca:990c:8bc9:c03b/128"
             ],
             "items": {
               "type": "string"
@@ -10166,9 +10166,9 @@
                     "port": "80",
                     "protocol": "tcp",
                     "source_ips": [
-                      "28.239.13.1/32",
-                      "28.239.14.0/24",
-                      "ff21:1eac:9a3b:ee58:5ca:990c:8bc9:c03b/128"
+                      "192.0.2.2/32",
+                      "192.0.2.0/24",
+                      "2001:0db8:9a3b:ee58:5ca:990c:8bc9:c03b/128"
                     ]
                   }
                 ]
@@ -10200,17 +10200,17 @@
           {
             "label": "Go",
             "lang": "Go",
-            "source": "package examples\n\nimport (\n\t\"context\"\n\t\"os\"\n\n\t\"github.com/hetznercloud/hcloud-go/v2/hcloud\"\n)\n\nimport (\n\t\"net\"\n)\n\nfunc main() {\n\ttoken := os.Getenv(\"HCLOUD_TOKEN\")\n\n\tclient := hcloud.NewClient(hcloud.WithToken(token))\n\tctx := context.TODO()\n\n\tresult, _, err := client.Firewall.Create(ctx, hcloud.FirewallCreateOpts{\n\t\tApplyTo: []hcloud.FirewallResource{\n\t\t\t{\n\t\t\t\tType: hcloud.FirewallResourceTypeServer,\n\t\t\t\tServer: &hcloud.FirewallResourceServer{\n\t\t\t\t\tID: 42,\n\t\t\t\t},\n\t\t\t},\n\t\t},\n\t\tLabels: map[string]string{\n\t\t\t\"env\": \"dev\",\n\t\t},\n\t\tName: \"Corporate Intranet Protection\",\n\t\tRules: []hcloud.FirewallRule{\n\t\t\t{\n\t\t\t\tDescription: hcloud.Ptr(\"Allow port 80\"),\n\t\t\t\tDirection:   hcloud.FirewallRuleDirectionIn,\n\t\t\t\tPort:        hcloud.Ptr(\"80\"),\n\t\t\t\tProtocol:    hcloud.FirewallRuleProtocolTCP,\n\t\t\t\tSourceIPs: []net.IPNet{\n\t\t\t\t\t{\n\t\t\t\t\t\tIP:   net.ParseIP(\"28.239.13.1\"),\n\t\t\t\t\t\tMask: net.CIDRMask(32, 32),\n\t\t\t\t\t},\n\t\t\t\t\t{\n\t\t\t\t\t\tIP:   net.ParseIP(\"28.239.14.0\"),\n\t\t\t\t\t\tMask: net.CIDRMask(24, 32),\n\t\t\t\t\t},\n\t\t\t\t\t{\n\t\t\t\t\t\tIP:   net.ParseIP(\"ff21:1eac:9a3b:ee58:5ca:990c:8bc9:c03b\"),\n\t\t\t\t\t\tMask: net.CIDRMask(128, 128),\n\t\t\t\t\t},\n\t\t\t\t},\n\t\t\t},\n\t\t},\n\t})\n\n\terr = client.Action.WaitFor(ctx, result.Actions...)\n\n\tfirewall := result.Firewall\n}"
+            "source": "package examples\n\nimport (\n\t\"context\"\n\t\"net\"\n\t\"os\"\n\n\t\"github.com/hetznercloud/hcloud-go/v2/hcloud\"\n)\n\nfunc main() {\n\ttoken := os.Getenv(\"HCLOUD_TOKEN\")\n\n\tclient := hcloud.NewClient(hcloud.WithToken(token))\n\tctx := context.TODO()\n\n\tresult, _, err := client.Firewall.Create(ctx, hcloud.FirewallCreateOpts{\n\t\tApplyTo: []hcloud.FirewallResource{\n\t\t\t{\n\t\t\t\tType: hcloud.FirewallResourceTypeServer,\n\t\t\t\tServer: &hcloud.FirewallResourceServer{\n\t\t\t\t\tID: 42,\n\t\t\t\t},\n\t\t\t},\n\t\t},\n\t\tLabels: map[string]string{\n\t\t\t\"env\": \"dev\",\n\t\t},\n\t\tName: \"Corporate Intranet Protection\",\n\t\tRules: []hcloud.FirewallRule{\n\t\t\t{\n\t\t\t\tDescription: hcloud.Ptr(\"Allow port 80\"),\n\t\t\t\tDirection:   hcloud.FirewallRuleDirectionIn,\n\t\t\t\tPort:        hcloud.Ptr(\"80\"),\n\t\t\t\tProtocol:    hcloud.FirewallRuleProtocolTCP,\n\t\t\t\tSourceIPs: []net.IPNet{\n\t\t\t\t\t{\n\t\t\t\t\t\tIP:   net.ParseIP(\"192.0.2.2\"),\n\t\t\t\t\t\tMask: net.CIDRMask(32, 32),\n\t\t\t\t\t},\n\t\t\t\t\t{\n\t\t\t\t\t\tIP:   net.ParseIP(\"192.0.2.0\"),\n\t\t\t\t\t\tMask: net.CIDRMask(24, 32),\n\t\t\t\t\t},\n\t\t\t\t\t{\n\t\t\t\t\t\tIP:   net.ParseIP(\"2001:0db8:9a3b:ee58:5ca:990c:8bc9:c03b\"),\n\t\t\t\t\t\tMask: net.CIDRMask(128, 128),\n\t\t\t\t\t},\n\t\t\t\t},\n\t\t\t},\n\t\t},\n\t})\n\n\terr = client.Action.WaitFor(ctx, result.Actions...)\n\n\tfirewall := result.Firewall\n}"
           },
           {
             "label": "Python",
             "lang": "Python",
-            "source": "from __future__ import annotations\n\nfrom os import environ\n\nfrom hcloud import Client\nfrom hcloud.firewalls import FirewallResource, FirewallRule\nfrom hcloud.servers import Server\n\ntoken = environ[\"HCLOUD_TOKEN\"]\nclient = Client(token=token)\n\nresponse = client.firewalls.create(\n    resources=[\n        FirewallResource(\n            type=\"server\",\n            server=Server(id=42),\n        )\n    ],\n    labels={\n        \"env\": \"dev\",\n    },\n    name=\"Corporate Intranet Protection\",\n    rules=[\n        FirewallRule(\n            description=\"Allow port 80\",\n            direction=\"in\",\n            port=\"80\",\n            protocol=\"tcp\",\n            source_ips=[\n                \"28.239.13.1\",\n                \"28.239.14.0/24\",\n                \"ff21:1eac:9a3b:ee58:5ca:990c:8bc9:c03b\",\n            ],\n        )\n    ],\n)\n\nfor action in response.actions:\n    action.wait_until_finished()\n\nfirewall = response.firewall"
+            "source": "from __future__ import annotations\n\nfrom os import environ\n\nfrom hcloud import Client\nfrom hcloud.firewalls import FirewallResource, FirewallRule\nfrom hcloud.servers import Server\n\ntoken = environ[\"HCLOUD_TOKEN\"]\nclient = Client(token=token)\n\nresponse = client.firewalls.create(\n    resources=[\n        FirewallResource(\n            type=\"server\",\n            server=Server(id=42),\n        )\n    ],\n    labels={\n        \"env\": \"dev\",\n    },\n    name=\"Corporate Intranet Protection\",\n    rules=[\n        FirewallRule(\n            description=\"Allow port 80\",\n            direction=\"in\",\n            port=\"80\",\n            protocol=\"tcp\",\n            source_ips=[\n                \"192.0.2.2\",\n                \"192.0.2.0/24\",\n                \"2001:0db8:9a3b:ee58:5ca:990c:8bc9:c03b\",\n            ],\n        )\n    ],\n)\n\nfor action in response.actions:\n    action.wait_until_finished()\n\nfirewall = response.firewall"
           },
           {
             "label": "CLI",
             "lang": "Shell",
-            "source": "hcloud firewall create \\\n    --name \"Corporate Intranet Protection\" \\\n    --label \"env=dev\" \\\n    --rules-file <(echo '[\n  {\n    \"description\": \"Allow port 80\",\n    \"direction\": \"in\",\n    \"port\": \"80\",\n    \"protocol\": \"tcp\",\n    \"source_ips\": [\n      \"28.239.13.1/32\",\n      \"28.239.14.0/24\",\n      \"ff21:1eac:9a3b:ee58:5ca:990c:8bc9:c03b/128\"\n    ]\n  }\n]')"
+            "source": "hcloud firewall create \\\n    --name \"Corporate Intranet Protection\" \\\n    --label \"env=dev\" \\\n    --rules-file <(echo '[\n  {\n    \"description\": \"Allow port 80\",\n    \"direction\": \"in\",\n    \"port\": \"80\",\n    \"protocol\": \"tcp\",\n    \"source_ips\": [\n      \"192.0.2.2/32\",\n      \"192.0.2.0/24\",\n      \"2001:0db8:9a3b:ee58:5ca:990c:8bc9:c03b/128\"\n    ]\n  }\n]')"
           }
         ]
       },
@@ -10847,9 +10847,9 @@
                     "port": "80",
                     "protocol": "tcp",
                     "source_ips": [
-                      "28.239.13.1/32",
-                      "28.239.14.0/24",
-                      "ff21:1eac:9a3b:ee58:5ca:990c:8bc9:c03b/128"
+                      "192.0.2.2/32",
+                      "192.0.2.0/24",
+                      "2001:0db8:9a3b:ee58:5ca:990c:8bc9:c03b/128"
                     ]
                   }
                 ]
@@ -10925,17 +10925,17 @@
           {
             "label": "Go",
             "lang": "Go",
-            "source": "package examples\n\nimport (\n\t\"context\"\n\t\"net\"\n\t\"os\"\n\n\t\"github.com/hetznercloud/hcloud-go/v2/hcloud\"\n)\n\nfunc main() {\n\ttoken := os.Getenv(\"HCLOUD_TOKEN\")\n\n\tclient := hcloud.NewClient(hcloud.WithToken(token))\n\tctx := context.TODO()\n\n\tactions, _, err := client.Firewall.SetRules(ctx, &hcloud.Firewall{ID: 123}, hcloud.FirewallSetRulesOpts{\n\t\tRules: []hcloud.FirewallRule{\n\t\t\t{\n\t\t\t\tDescription: hcloud.Ptr(\"Allow port 80\"),\n\t\t\t\tDirection:   hcloud.FirewallRuleDirectionIn,\n\t\t\t\tPort:        hcloud.Ptr(\"80\"),\n\t\t\t\tProtocol:    hcloud.FirewallRuleProtocolTCP,\n\t\t\t\tSourceIPs: []net.IPNet{\n\t\t\t\t\t{\n\t\t\t\t\t\tIP:   net.ParseIP(\"28.239.13.1\"),\n\t\t\t\t\t\tMask: net.CIDRMask(32, 32),\n\t\t\t\t\t},\n\t\t\t\t\t{\n\t\t\t\t\t\tIP:   net.ParseIP(\"28.239.14.0\"),\n\t\t\t\t\t\tMask: net.CIDRMask(24, 32),\n\t\t\t\t\t},\n\t\t\t\t\t{\n\t\t\t\t\t\tIP:   net.ParseIP(\"ff21:1eac:9a3b:ee58:5ca:990c:8bc9:c03b\"),\n\t\t\t\t\t\tMask: net.CIDRMask(128, 128),\n\t\t\t\t\t},\n\t\t\t\t},\n\t\t\t},\n\t\t},\n\t})\n\n\terr = client.Action.WaitFor(ctx, actions...)\n}"
+            "source": "package examples\n\nimport (\n\t\"context\"\n\t\"net\"\n\t\"os\"\n\n\t\"github.com/hetznercloud/hcloud-go/v2/hcloud\"\n)\n\nfunc main() {\n\ttoken := os.Getenv(\"HCLOUD_TOKEN\")\n\n\tclient := hcloud.NewClient(hcloud.WithToken(token))\n\tctx := context.TODO()\n\n\tactions, _, err := client.Firewall.SetRules(ctx, &hcloud.Firewall{ID: 123}, hcloud.FirewallSetRulesOpts{\n\t\tRules: []hcloud.FirewallRule{\n\t\t\t{\n\t\t\t\tDescription: hcloud.Ptr(\"Allow port 80\"),\n\t\t\t\tDirection:   hcloud.FirewallRuleDirectionIn,\n\t\t\t\tPort:        hcloud.Ptr(\"80\"),\n\t\t\t\tProtocol:    hcloud.FirewallRuleProtocolTCP,\n\t\t\t\tSourceIPs: []net.IPNet{\n\t\t\t\t\t{\n\t\t\t\t\t\tIP:   net.ParseIP(\"192.0.2.2\"),\n\t\t\t\t\t\tMask: net.CIDRMask(32, 32),\n\t\t\t\t\t},\n\t\t\t\t\t{\n\t\t\t\t\t\tIP:   net.ParseIP(\"192.0.2.0\"),\n\t\t\t\t\t\tMask: net.CIDRMask(24, 32),\n\t\t\t\t\t},\n\t\t\t\t\t{\n\t\t\t\t\t\tIP:   net.ParseIP(\"2001:0db8:9a3b:ee58:5ca:990c:8bc9:c03b\"),\n\t\t\t\t\t\tMask: net.CIDRMask(128, 128),\n\t\t\t\t\t},\n\t\t\t\t},\n\t\t\t},\n\t\t},\n\t})\n\n\terr = client.Action.WaitFor(ctx, actions...)\n}"
           },
           {
             "label": "Python",
             "lang": "Python",
-            "source": "from __future__ import annotations\n\nfrom os import environ\n\nfrom hcloud import Client\nfrom hcloud.firewalls import Firewall, FirewallRule\n\ntoken = environ[\"HCLOUD_TOKEN\"]\nclient = Client(token=token)\n\nactions = client.firewalls.set_rules(\n    firewall=Firewall(id=123),\n    rules=[\n        FirewallRule(\n            description=\"Allow port 80\",\n            direction=\"in\",\n            port=\"80\",\n            protocol=\"tcp\",\n            source_ips=[\n                \"28.239.13.1\",\n                \"28.239.14.0/24\",\n                \"ff21:1eac:9a3b:ee58:5ca:990c:8bc9:c03b\",\n            ],\n        )\n    ],\n)\n\nfor action in actions:\n    action.wait_until_finished()"
+            "source": "from __future__ import annotations\n\nfrom os import environ\n\nfrom hcloud import Client\nfrom hcloud.firewalls import Firewall, FirewallRule\n\ntoken = environ[\"HCLOUD_TOKEN\"]\nclient = Client(token=token)\n\nactions = client.firewalls.set_rules(\n    firewall=Firewall(id=123),\n    rules=[\n        FirewallRule(\n            description=\"Allow port 80\",\n            direction=\"in\",\n            port=\"80\",\n            protocol=\"tcp\",\n            source_ips=[\n                \"192.0.2.2\",\n                \"192.0.2.0/24\",\n                \"2001:0db8:9a3b:ee58:5ca:990c:8bc9:c03b\",\n            ],\n        )\n    ],\n)\n\nfor action in actions:\n    action.wait_until_finished()"
           },
           {
             "label": "CLI",
             "lang": "Shell",
-            "source": "hcloud firewall replace-rules $FIREWALL --rules-file <(echo '[\n  {\n    \"description\": \"Allow port 80\",\n    \"direction\": \"in\",\n    \"port\": \"80\",\n    \"protocol\": \"tcp\",\n    \"source_ips\": [\n      \"28.239.13.1/32\",\n      \"28.239.14.0/24\",\n      \"ff21:1eac:9a3b:ee58:5ca:990c:8bc9:c03b/128\"\n    ]\n  }\n]')"
+            "source": "hcloud firewall replace-rules $FIREWALL --rules-file <(echo '[\n  {\n    \"description\": \"Allow port 80\",\n    \"direction\": \"in\",\n    \"port\": \"80\",\n    \"protocol\": \"tcp\",\n    \"source_ips\": [\n      \"192.0.2.2/32\",\n      \"192.0.2.0/24\",\n      \"2001:0db8:9a3b:ee58:5ca:990c:8bc9:c03b/128\"\n    ]\n  }\n]')"
           }
         ]
       },
