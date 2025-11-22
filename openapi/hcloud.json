@@ -6,7 +6,7 @@
     },
     "description": "Copied from the official API documentation for the Public Hetzner Cloud.",
     "title": "Hetzner Cloud API",
-    "version": "2231c30"
+    "version": "ebf0601"
   },
   "servers": [
     {
@@ -6928,7 +6928,7 @@
             "type": "object"
           },
           "records": {
-            "description": "Records of the RRSet.\n\nMust not be empty and must only contain distinct record values.\n",
+            "description": "Records of the RRSet.\n\nMust not be empty and must only contain distinct record values.\nThe order of records returned in responses is not guaranteed to be consistent.\n",
             "items": {
               "$ref": "#/components/schemas/resource_record"
             },
@@ -6978,7 +6978,7 @@
             "type": "string"
           },
           "records": {
-            "description": "Records of the RRSet.\n\nMust not be empty and must only contain distinct record values.\n",
+            "description": "Records of the RRSet.\n\nMust not be empty and must only contain distinct record values.\nThe order of records returned in responses is not guaranteed to be consistent.\n",
             "items": {
               "$ref": "#/components/schemas/resource_record"
             },
@@ -8476,6 +8476,37 @@
           "listen_port"
         ],
         "title": "UpdateLoadBalancerService",
+        "type": "object"
+      },
+      "update_records_of_rrset_request": {
+        "description": "Request for POST https://api.hetzner.cloud/v1/zones/{id_or_name}/rrsets/{rr_name}/{rr_type}/actions/update_records",
+        "properties": {
+          "records": {
+            "description": "Records to update in the RRSet.\n\nMust not be empty and must only contain distinct record values.\n",
+            "items": {
+              "$ref": "#/components/schemas/resource_record"
+            },
+            "maxItems": 50,
+            "minItems": 1,
+            "type": "array"
+          }
+        },
+        "required": [
+          "records"
+        ],
+        "type": "object"
+      },
+      "update_records_of_rrset_response": {
+        "description": "Response to POST https://api.hetzner.cloud/v1/zones/{id_or_name}/rrsets/{rr_name}/{rr_type}/actions/update_records",
+        "properties": {
+          "action": {
+            "$ref": "#/components/schemas/action"
+          }
+        },
+        "required": [
+          "action"
+        ],
+        "title": "ActionResponse",
         "type": "object"
       },
       "update_service_request": {
@@ -15484,13 +15515,16 @@
             "name": "type",
             "required": true,
             "schema": {
-              "enum": [
-                "open_connections",
-                "connections_per_second",
-                "requests_per_second",
-                "bandwidth"
-              ],
-              "type": "string"
+              "items": {
+                "enum": [
+                  "open_connections",
+                  "connections_per_second",
+                  "requests_per_second",
+                  "bandwidth"
+                ],
+                "type": "string"
+              },
+              "type": "array"
             }
           },
           {
@@ -21520,12 +21554,15 @@
             "name": "type",
             "required": true,
             "schema": {
-              "enum": [
-                "cpu",
-                "disk",
-                "network"
-              ],
-              "type": "string"
+              "items": {
+                "enum": [
+                  "cpu",
+                  "disk",
+                  "network"
+                ],
+                "type": "string"
+              },
+              "type": "array"
             }
           },
           {
@@ -28146,6 +28183,110 @@
             "lang": "Shell",
             "source": "hcloud zone rrset set-records $ZONE $RR_NAME $RR_TYPE --records-file <(echo '[\n  {\n    \"value\": \"198.51.100.1\",\n    \"comment\": \"My web server at Hetzner Cloud.\"\n  }\n]')"
           }
+        ]
+      },
+      "servers": [
+        {
+          "url": "https://api.hetzner.cloud/v1"
+        }
+      ]
+    },
+    "/zones/{id_or_name}/rrsets/{rr_name}/{rr_type}/actions/update_records": {
+      "post": {
+        "description": "Updates resource records' (RRs) comments of an existing RRSet in the Zone.\n\nOnly applicable for Zones in primary mode.\n\n#### Call specific error codes\n\n| Code                  | Description                      |\n|-----------------------|----------------------------------|\n| `incorrect_zone_mode` | The zone is not in primary mode. |\n",
+        "operationId": "update_records_of_rrset",
+        "parameters": [
+          {
+            "description": "ID or Name of the Zone.",
+            "in": "path",
+            "name": "id_or_name",
+            "required": true,
+            "schema": {
+              "description": "ID or Name of the Zone.",
+              "type": "string"
+            }
+          },
+          {
+            "in": "path",
+            "name": "rr_name",
+            "required": true,
+            "schema": {
+              "description": "Name of the RRSet.\n\nThe name must be in lower case, and must not end with a dot or the Zone\nname. Names containing non-ASCII characters must be transcribed to\n[Punycode](https://wikipedia.org/wiki/Punycode) representation with ACE prefix, e.g.\n`xn--4bi` (✉️).\n\nFor the Zone apex, use `@`.\n",
+              "example": "www",
+              "type": "string"
+            }
+          },
+          {
+            "in": "path",
+            "name": "rr_type",
+            "required": true,
+            "schema": {
+              "description": "Type of the RRSet.\n",
+              "enum": [
+                "A",
+                "AAAA",
+                "CAA",
+                "CNAME",
+                "DS",
+                "HINFO",
+                "HTTPS",
+                "MX",
+                "NS",
+                "PTR",
+                "RP",
+                "SOA",
+                "SRV",
+                "SVCB",
+                "TLSA",
+                "TXT"
+              ],
+              "example": "A",
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/update_records_of_rrset_request"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "example": {
+                  "action": {
+                    "command": "update_rrset_records",
+                    "error": null,
+                    "finished": null,
+                    "id": 1,
+                    "progress": 50,
+                    "resources": [
+                      {
+                        "id": 42,
+                        "type": "zone"
+                      }
+                    ],
+                    "started": "2016-01-30T23:55:00+00:00",
+                    "status": "running"
+                  }
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/update_records_of_rrset_response"
+                }
+              }
+            },
+            "description": "Request succeeded."
+          }
+        },
+        "summary": "Update Records of an RRSet",
+        "tags": [
+          "zones"
         ]
       },
       "servers": [
