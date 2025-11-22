@@ -6,7 +6,7 @@
     },
     "description": "Copied from the official API documentation for the Public Hetzner Cloud.",
     "title": "Hetzner Cloud API",
-    "version": "2231c30"
+    "version": "8f39e4c"
   },
   "servers": [
     {
@@ -6928,7 +6928,7 @@
             "type": "object"
           },
           "records": {
-            "description": "Records of the RRSet.\n\nMust not be empty and must only contain distinct record values.\n",
+            "description": "Records of the RRSet.\n\nMust not be empty and must only contain distinct record values.\nThe order of records returned in responses is not guaranteed to be consistent.\n",
             "items": {
               "$ref": "#/components/schemas/resource_record"
             },
@@ -6978,7 +6978,7 @@
             "type": "string"
           },
           "records": {
-            "description": "Records of the RRSet.\n\nMust not be empty and must only contain distinct record values.\n",
+            "description": "Records of the RRSet.\n\nMust not be empty and must only contain distinct record values.\nThe order of records returned in responses is not guaranteed to be consistent.\n",
             "items": {
               "$ref": "#/components/schemas/resource_record"
             },
