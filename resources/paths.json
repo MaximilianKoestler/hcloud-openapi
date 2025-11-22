@@ -169,5 +169,6 @@
   "/zones/{id_or_name}/rrsets/{rr_name}/{rr_type}/actions/change_ttl",
   "/zones/{id_or_name}/rrsets/{rr_name}/{rr_type}/actions/remove_records",
   "/zones/{id_or_name}/rrsets/{rr_name}/{rr_type}/actions/set_records",
+  "/zones/{id_or_name}/rrsets/{rr_name}/{rr_type}/actions/update_records",
   "/zones/{id_or_name}/zonefile"
 ]

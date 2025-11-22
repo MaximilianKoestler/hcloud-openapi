@@ -207,6 +207,8 @@ This API description is currently being used by the following projects:
 /zones/{id_or_name}/rrsets/{rr_name}/{rr_type}/actions/change_ttl (POST)
 /zones/{id_or_name}/rrsets/{rr_name}/{rr_type}/actions/remove_records (POST)
 /zones/{id_or_name}/rrsets/{rr_name}/{rr_type}/actions/set_records (POST)
+/zones/{id_or_name}/rrsets/{rr_name}/{rr_type}/actions/update_records (POST)
+/zones/{id_or_name}/zonefile (GET)
 
 # Storage Boxes
 
