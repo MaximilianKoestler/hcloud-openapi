@@ -6,7 +6,7 @@
     },
     "description": "Copied from the official API documentation for the Public Hetzner Cloud.",
     "title": "Hetzner Cloud API",
-    "version": "93eeac2"
+    "version": "ebf0601"
   },
   "servers": [
     {
@@ -15515,13 +15515,16 @@
             "name": "type",
             "required": true,
             "schema": {
-              "enum": [
-                "open_connections",
-                "connections_per_second",
-                "requests_per_second",
-                "bandwidth"
-              ],
-              "type": "string"
+              "items": {
+                "enum": [
+                  "open_connections",
+                  "connections_per_second",
+                  "requests_per_second",
+                  "bandwidth"
+                ],
+                "type": "string"
+              },
+              "type": "array"
             }
           },
           {
@@ -21551,12 +21554,15 @@
             "name": "type",
             "required": true,
             "schema": {
-              "enum": [
-                "cpu",
-                "disk",
-                "network"
-              ],
-              "type": "string"
+              "items": {
+                "enum": [
+                  "cpu",
+                  "disk",
+                  "network"
+                ],
+                "type": "string"
+              },
+              "type": "array"
             }
           },
           {
