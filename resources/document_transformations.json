@@ -396,5 +396,10 @@
     "set": {
       "format": "int64"
     }
+  },
+
+  {
+    "path": ["components", "schemas", "create_storage_box_request", "properties", "access_settings"],
+    "remove": ["required"]
   }
 ]
