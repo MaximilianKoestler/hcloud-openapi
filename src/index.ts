@@ -206,12 +206,20 @@ async function createComponents(document: OpenApiDocumentFragment) {
         `Request for ${verb.toUpperCase()} ${base_url}${path}`
       );
 
-      for (const [status_code, response_obj] of Object.entries(
+      const number_of_ok_responses = Object.keys(verb_data.responses).filter(
+        (code) => code.startsWith("2")
+      ).length;
+      for (const [response_key, response_obj] of Object.entries(
         verb_data.responses
       )) {
         const response_data = response_obj as OpenApiDocumentFragment;
 
-        const id = toSchemaName("response", verb, verb_data.summary);
+        let postfix = "response";
+        if (number_of_ok_responses > 1 || !response_key.startsWith("2")) {
+          postfix += "_" + response_key;
+        }
+
+        const id = toSchemaName(postfix, verb, verb_data.summary);
         appendSchema(
           schemas,
           id,
@@ -248,14 +256,22 @@ function transformPath(
     request_content.schema = { $ref: "#/components/schemas/" + id };
   }
 
-  for (const [status_code, response_obj] of Object.entries(
+  const number_of_ok_responses = Object.keys(verb_data.responses).filter(
+    (code) => code.startsWith("2")
+  ).length;
+  for (const [response_key, response_obj] of Object.entries(
     verb_data.responses
   )) {
     const response_data = response_obj as OpenApiDocumentFragment;
     const response_content = response_data?.content?.["application/json"];
 
     if (response_content?.schema !== undefined) {
-      const id = toSchemaName("response", verb, verb_data.summary);
+      let postfix = "response";
+      if (number_of_ok_responses > 1 || !response_key.startsWith("2")) {
+        postfix += "_" + response_key;
+      }
+
+      const id = toSchemaName(postfix, verb, verb_data.summary);
       response_content.schema = { $ref: "#/components/schemas/" + id };
     }
   }

@@ -6,7 +6,7 @@
     },
     "description": "Copied from the official API documentation for the Public Hetzner Cloud.",
     "title": "Hetzner Cloud API",
-    "version": "8010e51-dirty"
+    "version": "d330f8f-dirty"
   },
   "servers": [
     {
