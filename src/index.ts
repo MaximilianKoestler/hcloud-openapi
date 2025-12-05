@@ -195,7 +195,7 @@ async function createComponents(document: OpenApiDocumentFragment) {
         continue;
       }
 
-      const verb_data = verb_obj as OpenApiDocumentFragment;
+      const verb_data = JSON.parse(JSON.stringify(verb_obj)) as OpenApiDocumentFragment;
 
       const id = toSchemaName("request", verb, verb_data.summary);
       appendSchema(
