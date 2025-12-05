@@ -6,6 +6,7 @@ import pluralize = require("pluralize");
 import { OpenApiDocumentFragment } from "../types";
 
 import { walkSchema } from "./actions";
+import { assert } from "console";
 
 interface CommonComponent {
   description?: string;
@@ -583,4 +584,78 @@ export async function deduplicateSchemas(
       },
     });
   });
+}
+
+export async function inlineComponents(document: OpenApiDocumentFragment) {
+  // first, find all components which are just references to other components
+  const components_to_inline: { [key: string]: string } = {};
+  for (const [name, schema] of Object.entries(document.components.schemas)) {
+    const schemaObj = schema as OpenApiDocumentFragment;
+    if (Object.keys(schemaObj).length == 1 && "$ref" in schemaObj) {
+      const ref: string = schemaObj["$ref"];
+      assert(ref.startsWith("#/components/schemas/"));
+      const refName = ref.replace("#/components/schemas/", "");
+      components_to_inline[name] = refName;
+    }
+  }
+
+  // then, replace all references to those components with the referenced component directly
+  walkSchema(document.components.schemas, {
+    afterChildren: (part) => {
+      if ("$ref" in part) {
+        const ref: string = part["$ref"];
+        assert(ref.startsWith("#/components/schemas/"));
+        const refName = ref.replace("#/components/schemas/", "");
+        if (refName in components_to_inline) {
+          const newRefName = components_to_inline[refName];
+          part["$ref"] = "#/components/schemas/" + newRefName;
+        }
+      }
+    },
+  });
+  const paths = document.paths as OpenApiDocumentFragment;
+  for (const [path, path_obj] of Object.entries(paths)) {
+    const base_url = path_obj.servers[0].url;
+    for (const [verb, verb_obj] of Object.entries(path_obj)) {
+      const verb_data = verb_obj as OpenApiDocumentFragment;
+      if (verb_data.requestBody !== undefined) {
+        const request_body = verb_data.requestBody as OpenApiDocumentFragment;
+        const content = request_body.content as OpenApiDocumentFragment;
+        const schema_data = content?.["application/json"]?.schema as
+          | OpenApiDocumentFragment
+          | undefined;
+        if (schema_data !== undefined && "$ref" in schema_data) {
+          const ref: string = schema_data["$ref"];
+          assert(ref.startsWith("#/components/schemas/"));
+          const refName = ref.replace("#/components/schemas/", "");
+          if (refName in components_to_inline) {
+            const newRefName = components_to_inline[refName];
+            schema_data["$ref"] = "#/components/schemas/" + newRefName;
+          }
+        }
+      }
+
+      if (verb_data.responses !== undefined) {
+        for (const [_, response_obj] of Object.entries(verb_data.responses)) {
+          const response_data = response_obj as OpenApiDocumentFragment;
+          const schema_data = response_data?.content?.["application/json"]
+            ?.schema as OpenApiDocumentFragment | undefined;
+          if (schema_data !== undefined && "$ref" in schema_data) {
+            const ref: string = schema_data["$ref"];
+            assert(ref.startsWith("#/components/schemas/"));
+            const refName = ref.replace("#/components/schemas/", "");
+            if (refName in components_to_inline) {
+              const newRefName = components_to_inline[refName];
+              schema_data["$ref"] = "#/components/schemas/" + newRefName;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  // finally, remove the inlined components from the document
+  for (const name of Object.keys(components_to_inline)) {
+    delete document.components.schemas[name];
+  }
 }

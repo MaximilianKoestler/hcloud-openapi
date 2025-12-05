@@ -12,6 +12,7 @@ import {
 } from "./document/transformation";
 import {
   deduplicateSchemas,
+  inlineComponents,
   fixSchema,
   fixDocument,
 } from "./schema/transformation";
@@ -354,7 +355,8 @@ function overWriteTagList(document: OpenApiDocumentFragment) {
   for (const tag of document.tags) {
     const canonical_name = (tag.name as string)
       .toLowerCase()
-      .replace(/\s+/g, "_").replace("data_centers", "datacenters");
+      .replace(/\s+/g, "_")
+      .replace("data_centers", "datacenters");
     mapping[canonical_name] = tag;
   }
 
@@ -440,6 +442,7 @@ async function main() {
     // create components (and deduplicate them) and add references to components to the paths
     await createComponents(document);
     transformPaths(document);
+    await inlineComponents(document);
 
     // apply transformations from `resources/document_transformations.json`
     await transformDocument(document);
