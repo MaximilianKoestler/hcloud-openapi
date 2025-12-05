@@ -6,7 +6,7 @@
     },
     "description": "Copied from the official API documentation for the Public Hetzner Cloud.",
     "title": "Hetzner Cloud API",
-    "version": "474fd2f-dirty"
+    "version": "76113aa-dirty"
   },
   "servers": [
     {
@@ -3114,6 +3114,39 @@
         "required": [
           "code",
           "message"
+        ],
+        "type": "object"
+      },
+      "error_response": {
+        "description": "Response to GET https://api.hetzner.cloud/v1/actions | Response to GET https://api.hetzner.com/v1/storage_boxes/{id}/actions/{action_id} | Response to GET https://api.hetzner.cloud/v1/certificates | Response to POST https://api.hetzner.cloud/v1/certificates | Response to GET https://api.hetzner.com/v1/storage_boxes/{id}/actions | Response to GET https://api.hetzner.cloud/v1/certificates/{id} | Response to PUT https://api.hetzner.cloud/v1/certificates/{id} | Response to DELETE https://api.hetzner.cloud/v1/certificates/{id} | Response to POST https://api.hetzner.cloud/v1/certificates/{id}/actions/retry | Response to GET https://api.hetzner.cloud/v1/datacenters | Response to GET https://api.hetzner.cloud/v1/datacenters/{id} | Response to GET https://api.hetzner.cloud/v1/firewalls | Response to POST https://api.hetzner.cloud/v1/firewalls | Response to GET https://api.hetzner.cloud/v1/firewalls/{id} | Response to PUT https://api.hetzner.cloud/v1/firewalls/{id} | Response to DELETE https://api.hetzner.cloud/v1/firewalls/{id} | Response to POST https://api.hetzner.cloud/v1/firewalls/{id}/actions/apply_to_resources | Response to POST https://api.hetzner.cloud/v1/firewalls/{id}/actions/remove_from_resources | Response to POST https://api.hetzner.cloud/v1/firewalls/{id}/actions/set_rules | Response to GET https://api.hetzner.cloud/v1/floating_ips | Response to POST https://api.hetzner.cloud/v1/floating_ips | Response to GET https://api.hetzner.cloud/v1/floating_ips/{id} | Response to PUT https://api.hetzner.cloud/v1/floating_ips/{id} | Response to DELETE https://api.hetzner.cloud/v1/floating_ips/{id} | Response to POST https://api.hetzner.cloud/v1/floating_ips/{id}/actions/assign | Response to POST https://api.hetzner.cloud/v1/floating_ips/{id}/actions/change_dns_ptr | Response to POST https://api.hetzner.cloud/v1/floating_ips/{id}/actions/change_protection | Response to POST https://api.hetzner.cloud/v1/floating_ips/{id}/actions/unassign | Response to GET https://api.hetzner.cloud/v1/images | Response to GET https://api.hetzner.cloud/v1/images/{id} | Response to PUT https://api.hetzner.cloud/v1/images/{id} | Response to DELETE https://api.hetzner.cloud/v1/images/{id} | Response to POST https://api.hetzner.cloud/v1/images/{id}/actions/change_protection | Response to GET https://api.hetzner.cloud/v1/isos | Response to GET https://api.hetzner.cloud/v1/isos/{id} | Response to GET https://api.hetzner.cloud/v1/load_balancer_types | Response to GET https://api.hetzner.cloud/v1/load_balancer_types/{id} | Response to GET https://api.hetzner.cloud/v1/load_balancers | Response to POST https://api.hetzner.cloud/v1/load_balancers | Response to GET https://api.hetzner.cloud/v1/load_balancers/{id} | Response to PUT https://api.hetzner.cloud/v1/load_balancers/{id} | Response to DELETE https://api.hetzner.cloud/v1/load_balancers/{id} | Response to POST https://api.hetzner.cloud/v1/load_balancers/{id}/actions/add_service | Response to POST https://api.hetzner.cloud/v1/load_balancers/{id}/actions/add_target | Response to POST https://api.hetzner.cloud/v1/load_balancers/{id}/actions/attach_to_network | Response to POST https://api.hetzner.cloud/v1/load_balancers/{id}/actions/change_algorithm | Response to POST https://api.hetzner.cloud/v1/load_balancers/{id}/actions/change_dns_ptr | Response to POST https://api.hetzner.cloud/v1/load_balancers/{id}/actions/change_protection | Response to POST https://api.hetzner.cloud/v1/load_balancers/{id}/actions/change_type | Response to POST https://api.hetzner.cloud/v1/load_balancers/{id}/actions/delete_service | Response to POST https://api.hetzner.cloud/v1/load_balancers/{id}/actions/detach_from_network | Response to POST https://api.hetzner.cloud/v1/load_balancers/{id}/actions/disable_public_interface | Response to POST https://api.hetzner.cloud/v1/load_balancers/{id}/actions/enable_public_interface | Response to POST https://api.hetzner.cloud/v1/load_balancers/{id}/actions/remove_target | Response to POST https://api.hetzner.cloud/v1/load_balancers/{id}/actions/update_service | Response to GET https://api.hetzner.cloud/v1/load_balancers/{id}/metrics | Response to GET https://api.hetzner.cloud/v1/locations | Response to GET https://api.hetzner.cloud/v1/locations/{id} | Response to GET https://api.hetzner.cloud/v1/networks | Response to POST https://api.hetzner.cloud/v1/networks | Response to GET https://api.hetzner.cloud/v1/networks/{id} | Response to PUT https://api.hetzner.cloud/v1/networks/{id} | Response to DELETE https://api.hetzner.cloud/v1/networks/{id} | Response to POST https://api.hetzner.cloud/v1/networks/{id}/actions/add_route | Response to POST https://api.hetzner.cloud/v1/networks/{id}/actions/add_subnet | Response to POST https://api.hetzner.cloud/v1/networks/{id}/actions/change_ip_range | Response to POST https://api.hetzner.cloud/v1/networks/{id}/actions/change_protection | Response to POST https://api.hetzner.cloud/v1/networks/{id}/actions/delete_route | Response to POST https://api.hetzner.cloud/v1/networks/{id}/actions/delete_subnet | Response to GET https://api.hetzner.cloud/v1/placement_groups | Response to POST https://api.hetzner.cloud/v1/placement_groups | Response to GET https://api.hetzner.cloud/v1/placement_groups/{id} | Response to PUT https://api.hetzner.cloud/v1/placement_groups/{id} | Response to DELETE https://api.hetzner.cloud/v1/placement_groups/{id} | Response to GET https://api.hetzner.cloud/v1/pricing | Response to GET https://api.hetzner.cloud/v1/primary_ips | Response to POST https://api.hetzner.cloud/v1/primary_ips | Response to GET https://api.hetzner.cloud/v1/primary_ips/{id} | Response to PUT https://api.hetzner.cloud/v1/primary_ips/{id} | Response to DELETE https://api.hetzner.cloud/v1/primary_ips/{id} | Response to POST https://api.hetzner.cloud/v1/primary_ips/{id}/actions/assign | Response to POST https://api.hetzner.cloud/v1/primary_ips/{id}/actions/change_dns_ptr | Response to POST https://api.hetzner.cloud/v1/primary_ips/{id}/actions/change_protection | Response to POST https://api.hetzner.cloud/v1/primary_ips/{id}/actions/unassign | Response to GET https://api.hetzner.cloud/v1/server_types | Response to GET https://api.hetzner.cloud/v1/server_types/{id} | Response to GET https://api.hetzner.cloud/v1/servers | Response to POST https://api.hetzner.cloud/v1/servers | Response to GET https://api.hetzner.cloud/v1/servers/{id} | Response to PUT https://api.hetzner.cloud/v1/servers/{id} | Response to DELETE https://api.hetzner.cloud/v1/servers/{id} | Response to POST https://api.hetzner.cloud/v1/servers/{id}/actions/add_to_placement_group | Response to POST https://api.hetzner.cloud/v1/servers/{id}/actions/attach_iso | Response to POST https://api.hetzner.cloud/v1/servers/{id}/actions/attach_to_network | Response to POST https://api.hetzner.cloud/v1/servers/{id}/actions/change_alias_ips | Response to POST https://api.hetzner.cloud/v1/servers/{id}/actions/change_dns_ptr | Response to POST https://api.hetzner.cloud/v1/servers/{id}/actions/change_protection | Response to POST https://api.hetzner.cloud/v1/servers/{id}/actions/change_type | Response to POST https://api.hetzner.cloud/v1/servers/{id}/actions/create_image | Response to POST https://api.hetzner.cloud/v1/servers/{id}/actions/detach_from_network | Response to POST https://api.hetzner.cloud/v1/servers/{id}/actions/detach_iso | Response to POST https://api.hetzner.cloud/v1/servers/{id}/actions/disable_backup | Response to POST https://api.hetzner.cloud/v1/servers/{id}/actions/disable_rescue | Response to POST https://api.hetzner.cloud/v1/servers/{id}/actions/enable_backup | Response to POST https://api.hetzner.cloud/v1/servers/{id}/actions/enable_rescue | Response to POST https://api.hetzner.cloud/v1/servers/{id}/actions/poweroff | Response to POST https://api.hetzner.cloud/v1/servers/{id}/actions/poweron | Response to POST https://api.hetzner.cloud/v1/servers/{id}/actions/reboot | Response to POST https://api.hetzner.cloud/v1/servers/{id}/actions/rebuild | Response to POST https://api.hetzner.cloud/v1/servers/{id}/actions/remove_from_placement_group | Response to POST https://api.hetzner.cloud/v1/servers/{id}/actions/request_console | Response to POST https://api.hetzner.cloud/v1/servers/{id}/actions/reset | Response to POST https://api.hetzner.cloud/v1/servers/{id}/actions/reset_password | Response to POST https://api.hetzner.cloud/v1/servers/{id}/actions/shutdown | Response to GET https://api.hetzner.cloud/v1/servers/{id}/metrics | Response to GET https://api.hetzner.cloud/v1/ssh_keys | Response to POST https://api.hetzner.cloud/v1/ssh_keys | Response to GET https://api.hetzner.cloud/v1/ssh_keys/{id} | Response to PUT https://api.hetzner.cloud/v1/ssh_keys/{id} | Response to DELETE https://api.hetzner.cloud/v1/ssh_keys/{id} | Response to GET https://api.hetzner.cloud/v1/volumes | Response to POST https://api.hetzner.cloud/v1/volumes | Response to GET https://api.hetzner.cloud/v1/volumes/{id} | Response to PUT https://api.hetzner.cloud/v1/volumes/{id} | Response to DELETE https://api.hetzner.cloud/v1/volumes/{id} | Response to POST https://api.hetzner.cloud/v1/volumes/{id}/actions/attach | Response to POST https://api.hetzner.cloud/v1/volumes/{id}/actions/change_protection | Response to POST https://api.hetzner.cloud/v1/volumes/{id}/actions/detach | Response to POST https://api.hetzner.cloud/v1/volumes/{id}/actions/resize | Response to GET https://api.hetzner.cloud/v1/zones | Response to POST https://api.hetzner.cloud/v1/zones | Response to GET https://api.hetzner.cloud/v1/zones/{id_or_name} | Response to PUT https://api.hetzner.cloud/v1/zones/{id_or_name} | Response to DELETE https://api.hetzner.cloud/v1/zones/{id_or_name} | Response to GET https://api.hetzner.cloud/v1/zones/{id_or_name}/zonefile | Response to POST https://api.hetzner.cloud/v1/zones/{id_or_name}/actions/change_primary_nameservers | Response to POST https://api.hetzner.cloud/v1/zones/{id_or_name}/actions/change_protection | Response to POST https://api.hetzner.cloud/v1/zones/{id_or_name}/actions/change_ttl | Response to POST https://api.hetzner.cloud/v1/zones/{id_or_name}/actions/import_zonefile | Response to GET https://api.hetzner.cloud/v1/zones/{id_or_name}/rrsets | Response to POST https://api.hetzner.cloud/v1/zones/{id_or_name}/rrsets | Response to GET https://api.hetzner.cloud/v1/zones/{id_or_name}/rrsets/{rr_name}/{rr_type} | Response to PUT https://api.hetzner.cloud/v1/zones/{id_or_name}/rrsets/{rr_name}/{rr_type} | Response to DELETE https://api.hetzner.cloud/v1/zones/{id_or_name}/rrsets/{rr_name}/{rr_type} | Response to POST https://api.hetzner.cloud/v1/zones/{id_or_name}/rrsets/{rr_name}/{rr_type}/actions/change_protection | Response to POST https://api.hetzner.cloud/v1/zones/{id_or_name}/rrsets/{rr_name}/{rr_type}/actions/change_ttl | Response to POST https://api.hetzner.cloud/v1/zones/{id_or_name}/rrsets/{rr_name}/{rr_type}/actions/set_records | Response to POST https://api.hetzner.cloud/v1/zones/{id_or_name}/rrsets/{rr_name}/{rr_type}/actions/add_records | Response to POST https://api.hetzner.cloud/v1/zones/{id_or_name}/rrsets/{rr_name}/{rr_type}/actions/remove_records | Response to POST https://api.hetzner.cloud/v1/zones/{id_or_name}/rrsets/{rr_name}/{rr_type}/actions/update_records | Response to GET https://api.hetzner.com/v1/storage_boxes | Response to POST https://api.hetzner.com/v1/storage_boxes | Response to GET https://api.hetzner.com/v1/storage_boxes/{id} | Response to PUT https://api.hetzner.com/v1/storage_boxes/{id} | Response to DELETE https://api.hetzner.com/v1/storage_boxes/{id} | Response to GET https://api.hetzner.com/v1/storage_boxes/{id}/folders | Response to POST https://api.hetzner.com/v1/storage_boxes/{id}/actions/change_protection | Response to POST https://api.hetzner.com/v1/storage_boxes/{id}/actions/change_type | Response to POST https://api.hetzner.com/v1/storage_boxes/{id}/subaccounts/{subaccount_id}/actions/reset_subaccount_password | Response to POST https://api.hetzner.com/v1/storage_boxes/{id}/subaccounts/{subaccount_id}/actions/update_access_settings | Response to POST https://api.hetzner.com/v1/storage_boxes/{id}/actions/rollback_snapshot | Response to POST https://api.hetzner.com/v1/storage_boxes/{id}/actions/disable_snapshot_plan | Response to POST https://api.hetzner.com/v1/storage_boxes/{id}/actions/enable_snapshot_plan | Response to GET https://api.hetzner.com/v1/storage_boxes/{id}/subaccounts | Response to POST https://api.hetzner.com/v1/storage_boxes/{id}/subaccounts | Response to GET https://api.hetzner.com/v1/storage_boxes/{id}/subaccounts/{subaccount_id} | Response to PUT https://api.hetzner.com/v1/storage_boxes/{id}/subaccounts/{subaccount_id} | Response to DELETE https://api.hetzner.com/v1/storage_boxes/{id}/subaccounts/{subaccount_id} | Response to POST https://api.hetzner.com/v1/storage_boxes/{id}/subaccounts/{subaccount_id}/actions/change_home_directory | Response to GET https://api.hetzner.com/v1/storage_boxes/{id}/snapshots | Response to POST https://api.hetzner.com/v1/storage_boxes/{id}/snapshots | Response to GET https://api.hetzner.com/v1/storage_boxes/{id}/snapshots/{snapshot_id} | Response to PUT https://api.hetzner.com/v1/storage_boxes/{id}/snapshots/{snapshot_id} | Response to DELETE https://api.hetzner.com/v1/storage_boxes/{id}/snapshots/{snapshot_id} | Response to GET https://api.hetzner.com/v1/storage_box_types | Response to GET https://api.hetzner.com/v1/storage_box_types/{id}",
+        "properties": {
+          "error": {
+            "properties": {
+              "code": {
+                "description": "Error code for machines.",
+                "example": "unauthorized",
+                "type": "string"
+              },
+              "details": {
+                "description": "Details about the error.",
+                "nullable": true,
+                "type": "object"
+              },
+              "message": {
+                "description": "Error message for humans.",
+                "example": "unable to authenticate",
+                "type": "string"
+              }
+            },
+            "required": [
+              "code",
+              "message"
+            ],
+            "type": "object"
+          }
+        },
+        "required": [
+          "error"
         ],
         "type": "object"
       },
@@ -7015,7 +7048,7 @@
         ],
         "title": "Record",
         "type": "object"
-          },
+      },
       "retry_issuance_or_renewal_response": {
         "description": "Response to POST https://api.hetzner.cloud/v1/certificates/{id}/actions/retry",
         "properties": {
@@ -8781,6 +8814,16 @@
               }
             },
             "description": "Response for listing Actions."
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error_response"
+                }
+              }
+            },
+            "description": "Request failed."
           }
         },
         "summary": "Get multiple Actions",
@@ -8830,6 +8873,16 @@
               }
             },
             "description": "Response for getting an Action."
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error_response"
+                }
+              }
+            },
+            "description": "Request failed."
           }
         },
         "summary": "Get an Action",
@@ -8993,6 +9046,16 @@
               }
             },
             "description": "The `certificates` key contains an array of Certificate objects."
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error_response"
+                }
+              }
+            },
+            "description": "Request failed."
           }
         },
         "summary": "List Certificates",
@@ -9148,6 +9211,16 @@
               }
             },
             "description": "The `certificate` key contains the Certificate that was just created. For type `managed` Certificates the `action` key contains the Action that allows for tracking the issuance process. For type `uploaded` Certificates the `action` is always null."
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error_response"
+                }
+              }
+            },
+            "description": "Request failed."
           }
         },
         "summary": "Create a Certificate",
@@ -9215,6 +9288,16 @@
         "responses": {
           "204": {
             "description": "Certificate deleted."
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error_response"
+                }
+              }
+            },
+            "description": "Request failed."
           }
         },
         "summary": "Delete a Certificate",
@@ -9294,6 +9377,16 @@
               }
             },
             "description": "The `certificate` key contains a Certificate object."
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error_response"
+                }
+              }
+            },
+            "description": "Request failed."
           }
         },
         "summary": "Get a Certificate",
@@ -9383,6 +9476,16 @@
               }
             },
             "description": "The `certificate` key contains the Certificate that was just updated."
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error_response"
+                }
+              }
+            },
+            "description": "Request failed."
           }
         },
         "summary": "Update a Certificate",
@@ -9546,6 +9649,16 @@
               }
             },
             "description": "The `actions` key contains a list of Actions."
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error_response"
+                }
+              }
+            },
+            "description": "Request failed."
           }
         },
         "summary": "List Actions for a Certificate",
@@ -9621,6 +9734,16 @@
               }
             },
             "description": "The `action` key contains the Certificate Action."
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error_response"
+                }
+              }
+            },
+            "description": "Request failed."
           }
         },
         "summary": "Get an Action for a Certificate",
@@ -9683,6 +9806,16 @@
               }
             },
             "description": "The `action` key contains the resulting Action."
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error_response"
+                }
+              }
+            },
+            "description": "Request failed."
           }
         },
         "summary": "Retry Issuance or Renewal",
@@ -9816,6 +9949,16 @@
               }
             },
             "description": "The `actions` key contains a list of Actions."
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error_response"
+                }
+              }
+            },
+            "description": "Request failed."
           }
         },
         "summary": "List Actions",
@@ -9870,6 +10013,16 @@
               }
             },
             "description": "The `action` key in the reply has this structure."
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error_response"
+                }
+              }
+            },
+            "description": "Request failed."
           }
         },
         "summary": "Get an Action",
@@ -9964,6 +10117,16 @@
               }
             },
             "description": "Contains the queried Data Centers."
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error_response"
+                }
+              }
+            },
+            "description": "Request failed."
           }
         },
         "summary": "List Data Centers",
@@ -10023,6 +10186,16 @@
               }
             },
             "description": "Contains the queried Data Center."
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error_response"
+                }
+              }
+            },
+            "description": "Request failed."
           }
         },
         "summary": "Get a Data Center",
@@ -10134,6 +10307,16 @@
               }
             },
             "description": "The `firewalls` key contains the Firewalls."
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error_response"
+                }
+              }
+            },
+            "description": "Request failed."
           }
         },
         "summary": "List Firewalls",
@@ -10208,6 +10391,16 @@
               }
             },
             "description": "The `firewall` key contains the created Firewall."
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error_response"
+                }
+              }
+            },
+            "description": "Request failed."
           }
         },
         "summary": "Create a Firewall",
@@ -10260,6 +10453,16 @@
         "responses": {
           "204": {
             "description": "Firewall deleted."
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error_response"
+                }
+              }
+            },
+            "description": "Request failed."
           }
         },
         "summary": "Delete a Firewall",
@@ -10312,6 +10515,16 @@
               }
             },
             "description": "The `firewall` key contains the Firewall."
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error_response"
+                }
+              }
+            },
+            "description": "Request failed."
           }
         },
         "summary": "Get a Firewall",
@@ -10374,6 +10587,16 @@
               }
             },
             "description": "The `firewall` key contains the updated Firewall."
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error_response"
+                }
+              }
+            },
+            "description": "Request failed."
           }
         },
         "summary": "Update a Firewall",
@@ -10537,6 +10760,16 @@
               }
             },
             "description": "The `actions` key contains a list of Actions."
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error_response"
+                }
+              }
+            },
+            "description": "Request failed."
           }
         },
         "summary": "List Actions for a Firewall",
@@ -10612,6 +10845,16 @@
               }
             },
             "description": "The `action` key contains the Firewall Action."
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error_response"
+                }
+              }
+            },
+            "description": "Request failed."
           }
         },
         "summary": "Get an Action for a Firewall",
@@ -10700,6 +10943,16 @@
               }
             },
             "description": "The `actions` key contains multiple Actions with the `apply_firewall` command."
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error_response"
+                }
+              }
+            },
+            "description": "Request failed."
           }
         },
         "summary": "Apply to Resources",
@@ -10805,6 +11058,16 @@
               }
             },
             "description": "The `actions` key contains multiple Actions with the `remove_firewall` command."
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error_response"
+                }
+              }
+            },
+            "description": "Request failed."
           }
         },
         "summary": "Remove from Resources",
@@ -10933,6 +11196,16 @@
               }
             },
             "description": "The `action` key contains an Action with the `set_firewall_rules` command and additionally one with the `apply_firewall` command per resource of the Firewall."
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error_response"
+                }
+              }
+            },
+            "description": "Request failed."
           }
         },
         "summary": "Set Rules",
@@ -11066,6 +11339,16 @@
               }
             },
             "description": "The `actions` key contains a list of Actions."
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error_response"
+                }
+              }
+            },
+            "description": "Request failed."
           }
         },
         "summary": "List Actions",
@@ -11120,6 +11403,16 @@
               }
             },
             "description": "The `action` key contains the Action."
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error_response"
+                }
+              }
+            },
+            "description": "Request failed."
           }
         },
         "summary": "Get an Action",
@@ -11223,6 +11516,16 @@
               }
             },
             "description": "Response for listing Floating IPs."
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error_response"
+                }
+              }
+            },
+            "description": "Request failed."
           }
         },
         "summary": "List Floating IPs",
@@ -11323,6 +11626,16 @@
               }
             },
             "description": "Response for creating a Floating IP.\n\nContains the created IP.\n"
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error_response"
+                }
+              }
+            },
+            "description": "Request failed."
           }
         },
         "summary": "Create a Floating IP",
@@ -11375,6 +11688,16 @@
         "responses": {
           "204": {
             "description": "Floating IP deleted."
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error_response"
+                }
+              }
+            },
+            "description": "Request failed."
           }
         },
         "summary": "Delete a Floating IP",
@@ -11427,6 +11750,16 @@
               }
             },
             "description": "Response for getting a single Floating IP."
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error_response"
+                }
+              }
+            },
+            "description": "Request failed."
           }
         },
         "summary": "Get a Floating IP",
@@ -11523,6 +11856,16 @@
               }
             },
             "description": "Response for updating a Floating IP.\n\nContains the updated Floating IP.\n"
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error_response"
+                }
+              }
+            },
+            "description": "Request failed."
           }
         },
         "summary": "Update a Floating IP",
@@ -11689,6 +12032,16 @@
               }
             },
             "description": "Response for listing Actions."
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error_response"
+                }
+              }
+            },
+            "description": "Request failed."
           }
         },
         "summary": "List Actions for a Floating IP",
@@ -11768,6 +12121,16 @@
               }
             },
             "description": "Response for getting an Action."
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error_response"
+                }
+              }
+            },
+            "description": "Request failed."
           }
         },
         "summary": "Get an Action for a Floating IP",
@@ -11844,6 +12207,16 @@
               }
             },
             "description": "Response for assigning a Floating IP.\n\nContains an Action of type `assign_floating_ip`.\n"
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error_response"
+                }
+              }
+            },
+            "description": "Request failed."
           }
         },
         "summary": "Assign a Floating IP to a Server",
@@ -11934,6 +12307,16 @@
               }
             },
             "description": "Response for changing a Floating IPs DNS pointer.\n\nContains an Action of type `change_dns_ptr`.\n"
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error_response"
+                }
+              }
+            },
+            "description": "Request failed."
           }
         },
         "summary": "Change reverse DNS records for a Floating IP",
@@ -12023,6 +12406,16 @@
               }
             },
             "description": "Response for changing a Floating IPs protection settings.\n\nContains an Action of type `change_protection`.\n"
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error_response"
+                }
+              }
+            },
+            "description": "Request failed."
           }
         },
         "summary": "Change Floating IP Protection",
@@ -12106,6 +12499,16 @@
               }
             },
             "description": "Response for unassigning a Floating IP.\n\nContains an Action of type `unassign_floating_ip`.\n"
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error_response"
+                }
+              }
+            },
+            "description": "Request failed."
           }
         },
         "summary": "Unassign a Floating IP",
@@ -12239,6 +12642,16 @@
               }
             },
             "description": "Response for listing Actions."
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error_response"
+                }
+              }
+            },
+            "description": "Request failed."
           }
         },
         "summary": "List Actions",
@@ -12293,6 +12706,16 @@
               }
             },
             "description": "Response for getting a single Action."
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error_response"
+                }
+              }
+            },
+            "description": "Request failed."
           }
         },
         "summary": "Get an Action",
@@ -12474,6 +12897,16 @@
               }
             },
             "description": "The `images` key in the reply contains an array of Image objects with this structure."
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error_response"
+                }
+              }
+            },
+            "description": "Request failed."
           }
         },
         "summary": "List Images",
@@ -12526,6 +12959,16 @@
         "responses": {
           "204": {
             "description": "Image deleted."
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error_response"
+                }
+              }
+            },
+            "description": "Request failed."
           }
         },
         "summary": "Delete an Image",
@@ -12578,6 +13021,16 @@
               }
             },
             "description": "The `image` key in the reply contains an Image object with this structure."
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error_response"
+                }
+              }
+            },
+            "description": "Request failed."
           }
         },
         "summary": "Get an Image",
@@ -12669,6 +13122,16 @@
               }
             },
             "description": "The image key in the reply contains the modified Image object."
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error_response"
+                }
+              }
+            },
+            "description": "Request failed."
           }
         },
         "summary": "Update an Image",
@@ -12831,6 +13294,16 @@
               }
             },
             "description": "The `actions` key contains a list of Actions."
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error_response"
+                }
+              }
+            },
+            "description": "Request failed."
           }
         },
         "summary": "List Actions for an Image",
@@ -12906,6 +13379,16 @@
               }
             },
             "description": "The `action` key contains the Image Action."
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error_response"
+                }
+              }
+            },
+            "description": "Request failed."
           }
         },
         "summary": "Get an Action for an Image",
@@ -12978,6 +13461,16 @@
               }
             },
             "description": "The `action` key contains the `change_protection` Action."
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error_response"
+                }
+              }
+            },
+            "description": "Request failed."
           }
         },
         "summary": "Change Image Protection",
@@ -13111,6 +13604,16 @@
               }
             },
             "description": "The `actions` key contains a list of Actions."
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error_response"
+                }
+              }
+            },
+            "description": "Request failed."
           }
         },
         "summary": "List Actions",
@@ -13165,6 +13668,16 @@
               }
             },
             "description": "The `action` key in the reply has this structure."
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error_response"
+                }
+              }
+            },
+            "description": "Request failed."
           }
         },
         "summary": "Get an Action",
@@ -13263,6 +13776,16 @@
               }
             },
             "description": "The `isos` key in the reply contains an array of iso objects with this structure."
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error_response"
+                }
+              }
+            },
+            "description": "Request failed."
           }
         },
         "summary": "List ISOs",
@@ -13322,6 +13845,16 @@
               }
             },
             "description": "The `iso` key in the reply contains an array of ISO objects with this structure."
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error_response"
+                }
+              }
+            },
+            "description": "Request failed."
           }
         },
         "summary": "Get an ISO",
@@ -13401,6 +13934,16 @@
               }
             },
             "description": "The `load_balancer_types` key in the reply contains an array of Load Balancer type objects with this structure."
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error_response"
+                }
+              }
+            },
+            "description": "Request failed."
           }
         },
         "summary": "List Load Balancer Types",
@@ -13460,6 +14003,16 @@
               }
             },
             "description": "The `load_balancer_type` key in the reply contains a Load Balancer type object with this structure."
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error_response"
+                }
+              }
+            },
+            "description": "Request failed."
           }
         },
         "summary": "Get a Load Balancer Type",
@@ -13571,6 +14124,16 @@
               }
             },
             "description": "The `load_balancers` key contains a list of Load Balancers."
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error_response"
+                }
+              }
+            },
+            "description": "Request failed."
           }
         },
         "summary": "List Load Balancers",
@@ -13771,6 +14334,16 @@
               }
             },
             "description": "The `load_balancer` key contains the Load Balancer that was just created."
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error_response"
+                }
+              }
+            },
+            "description": "Request failed."
           }
         },
         "summary": "Create a Load Balancer",
@@ -13823,6 +14396,16 @@
         "responses": {
           "204": {
             "description": "Load Balancer deleted."
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error_response"
+                }
+              }
+            },
+            "description": "Request failed."
           }
         },
         "summary": "Delete a Load Balancer",
@@ -13875,6 +14458,16 @@
               }
             },
             "description": "The `load_balancer` key contains the Load Balancer."
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error_response"
+                }
+              }
+            },
+            "description": "Request failed."
           }
         },
         "summary": "Get a Load Balancer",
@@ -14078,6 +14671,16 @@
               }
             },
             "description": "The `load_balancer` key contains the updated Load Balancer."
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error_response"
+                }
+              }
+            },
+            "description": "Request failed."
           }
         },
         "summary": "Update a Load Balancer",
@@ -14240,6 +14843,16 @@
               }
             },
             "description": "The `actions` key contains a list of Actions."
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error_response"
+                }
+              }
+            },
+            "description": "Request failed."
           }
         },
         "summary": "List Actions for a Load Balancer",
@@ -14315,6 +14928,16 @@
               }
             },
             "description": "The `action` key contains the Load Balancer Action."
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error_response"
+                }
+              }
+            },
+            "description": "Request failed."
           }
         },
         "summary": "Get an Action for a Load Balancer",
@@ -14387,6 +15010,16 @@
               }
             },
             "description": "The `action` key contains the `add_service` Action."
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error_response"
+                }
+              }
+            },
+            "description": "Request failed."
           }
         },
         "summary": "Add Service",
@@ -14476,6 +15109,16 @@
               }
             },
             "description": "The `action` key contains the `add_target` Action."
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error_response"
+                }
+              }
+            },
+            "description": "Request failed."
           }
         },
         "summary": "Add Target",
@@ -14565,6 +15208,16 @@
               }
             },
             "description": "The `action` key contains the `attach_to_network` Action."
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error_response"
+                }
+              }
+            },
+            "description": "Request failed."
           }
         },
         "summary": "Attach a Load Balancer to a Network",
@@ -14654,6 +15307,16 @@
               }
             },
             "description": "The `action` key contains the `change_algorithm` Action."
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error_response"
+                }
+              }
+            },
+            "description": "Request failed."
           }
         },
         "summary": "Change Algorithm",
@@ -14744,6 +15407,16 @@
               }
             },
             "description": "The `action` key in the reply contains an Action object with this structure."
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error_response"
+                }
+              }
+            },
+            "description": "Request failed."
           }
         },
         "summary": "Change reverse DNS entry for this Load Balancer",
@@ -14833,6 +15506,16 @@
               }
             },
             "description": "The `action` key contains the `change_protection` Action."
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error_response"
+                }
+              }
+            },
+            "description": "Request failed."
           }
         },
         "summary": "Change Load Balancer Protection",
@@ -14922,6 +15605,16 @@
               }
             },
             "description": "The `action` key contains the `change_load_balancer_type` Action."
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error_response"
+                }
+              }
+            },
+            "description": "Request failed."
           }
         },
         "summary": "Change the Type of a Load Balancer",
@@ -15011,6 +15704,16 @@
               }
             },
             "description": "The `action` key contains the `delete_service` Action."
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error_response"
+                }
+              }
+            },
+            "description": "Request failed."
           }
         },
         "summary": "Delete Service",
@@ -15104,6 +15807,16 @@
               }
             },
             "description": "The `action` key contains the `detach_from_network` Action."
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error_response"
+                }
+              }
+            },
+            "description": "Request failed."
           }
         },
         "summary": "Detach a Load Balancer from a Network",
@@ -15187,6 +15900,16 @@
               }
             },
             "description": "The `action` key contains the `disable_public_interface` Action."
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error_response"
+                }
+              }
+            },
+            "description": "Request failed."
           }
         },
         "summary": "Disable the public interface of a Load Balancer",
@@ -15270,6 +15993,16 @@
               }
             },
             "description": "The `action` key contains the `enable_public_interface` Action."
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error_response"
+                }
+              }
+            },
+            "description": "Request failed."
           }
         },
         "summary": "Enable the public interface of a Load Balancer",
@@ -15359,6 +16092,16 @@
               }
             },
             "description": "The `action` key contains the `remove_target` Action."
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error_response"
+                }
+              }
+            },
+            "description": "Request failed."
           }
         },
         "summary": "Remove Target",
@@ -15448,6 +16191,16 @@
               }
             },
             "description": "The `action` key contains the `update_service` Action."
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error_response"
+                }
+              }
+            },
+            "description": "Request failed."
           }
         },
         "summary": "Update Service",
@@ -15552,6 +16305,16 @@
               }
             },
             "description": "The `metrics` key in the reply contains a metrics object with this structure."
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error_response"
+                }
+              }
+            },
+            "description": "Request failed."
           }
         },
         "summary": "Get Metrics for a LoadBalancer",
@@ -15685,6 +16448,16 @@
               }
             },
             "description": "The `actions` key contains a list of Actions."
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error_response"
+                }
+              }
+            },
+            "description": "Request failed."
           }
         },
         "summary": "List Actions",
@@ -15739,6 +16512,16 @@
               }
             },
             "description": "The `action` key in the reply has this structure."
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error_response"
+                }
+              }
+            },
+            "description": "Request failed."
           }
         },
         "summary": "Get an Action",
@@ -15833,6 +16616,16 @@
               }
             },
             "description": "Response with the Locations."
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error_response"
+                }
+              }
+            },
+            "description": "Request failed."
           }
         },
         "summary": "List Locations",
@@ -15892,6 +16685,16 @@
               }
             },
             "description": "Response with the Location."
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error_response"
+                }
+              }
+            },
+            "description": "Request failed."
           }
         },
         "summary": "Get a Location",
@@ -16003,6 +16806,16 @@
               }
             },
             "description": "Response for listing Networks."
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error_response"
+                }
+              }
+            },
+            "description": "Request failed."
           }
         },
         "summary": "List Networks",
@@ -16050,6 +16863,16 @@
               }
             },
             "description": "Response for creating a Network.\n\nContains the newly created Network.\n"
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error_response"
+                }
+              }
+            },
+            "description": "Request failed."
           }
         },
         "summary": "Create a Network",
@@ -16102,6 +16925,16 @@
         "responses": {
           "204": {
             "description": "Response for deleting a Network."
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error_response"
+                }
+              }
+            },
+            "description": "Request failed."
           }
         },
         "summary": "Delete a Network",
@@ -16154,6 +16987,16 @@
               }
             },
             "description": "The `network` key contains the network."
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error_response"
+                }
+              }
+            },
+            "description": "Request failed."
           }
         },
         "summary": "Get a Network",
@@ -16251,6 +17094,16 @@
               }
             },
             "description": "Response for updating a Network.\n\nContains the updated Network.\n"
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error_response"
+                }
+              }
+            },
+            "description": "Request failed."
           }
         },
         "summary": "Update a Network",
@@ -16413,6 +17266,16 @@
               }
             },
             "description": "Response for listing Actions."
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error_response"
+                }
+              }
+            },
+            "description": "Request failed."
           }
         },
         "summary": "List Actions for a Network",
@@ -16488,6 +17351,16 @@
               }
             },
             "description": "Response for getting an Action."
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error_response"
+                }
+              }
+            },
+            "description": "Request failed."
           }
         },
         "summary": "Get an Action for a Network",
@@ -16560,6 +17433,16 @@
               }
             },
             "description": "Response for adding a route to a Network.\n\nThe `action` key contains an Action with command `add_route`.\n"
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error_response"
+                }
+              }
+            },
+            "description": "Request failed."
           }
         },
         "summary": "Add a route to a Network",
@@ -16649,6 +17532,16 @@
               }
             },
             "description": "Response for adding a subnet to a Network.\n\nThe `action` key contains an Action with command `add_subnet`.\n"
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error_response"
+                }
+              }
+            },
+            "description": "Request failed."
           }
         },
         "summary": "Add a subnet to a Network",
@@ -16738,6 +17631,16 @@
               }
             },
             "description": "Response for changing the Networks IP range.\n\nThe `action` key contains an Action with command `change_ip_range`.\n"
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error_response"
+                }
+              }
+            },
+            "description": "Request failed."
           }
         },
         "summary": "Change IP range of a Network",
@@ -16827,6 +17730,16 @@
               }
             },
             "description": "Response for changing the Networks protection.\n\nThe `action` key contains an Action with command `change_protection`.\n"
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error_response"
+                }
+              }
+            },
+            "description": "Request failed."
           }
         },
         "summary": "Change Network Protection",
@@ -16916,6 +17829,16 @@
               }
             },
             "description": "Response for deleting a route from a Network.\n\nThe `action` key contains an Action with command `delete_route`.\n"
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error_response"
+                }
+              }
+            },
+            "description": "Request failed."
           }
         },
         "summary": "Delete a route from a Network",
@@ -17005,6 +17928,16 @@
               }
             },
             "description": "Response for deleting a subnet from a Network.\n\nThe `action` key contains an Action with command `delete_subnet`.\n"
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error_response"
+                }
+              }
+            },
+            "description": "Request failed."
           }
         },
         "summary": "Delete a subnet from a Network",
@@ -17138,6 +18071,16 @@
               }
             },
             "description": "Response for listing Actions."
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error_response"
+                }
+              }
+            },
+            "description": "Request failed."
           }
         },
         "summary": "List Actions",
@@ -17192,6 +18135,16 @@
               }
             },
             "description": "Response for getting a single Action."
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error_response"
+                }
+              }
+            },
+            "description": "Request failed."
           }
         },
         "summary": "Get an Action",
@@ -17342,6 +18295,16 @@
               }
             },
             "description": "The `placement_groups` key contains an array of Placement Group objects."
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error_response"
+                }
+              }
+            },
+            "description": "Request failed."
           }
         },
         "summary": "List Placement Groups",
@@ -17405,6 +18368,16 @@
               }
             },
             "description": "The `PlacementGroup` key contains the Placement Group that was just created."
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error_response"
+                }
+              }
+            },
+            "description": "Request failed."
           }
         },
         "summary": "Create a PlacementGroup",
@@ -17457,6 +18430,16 @@
         "responses": {
           "204": {
             "description": "Placement Group deleted."
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error_response"
+                }
+              }
+            },
+            "description": "Request failed."
           }
         },
         "summary": "Delete a PlacementGroup",
@@ -17524,6 +18507,16 @@
               }
             },
             "description": "The `placement_group` key contains a Placement Group object."
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error_response"
+                }
+              }
+            },
+            "description": "Request failed."
           }
         },
         "summary": "Get a PlacementGroup",
@@ -17601,6 +18594,16 @@
               }
             },
             "description": "The `certificate` key contains the Placement Group that was just updated."
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error_response"
+                }
+              }
+            },
+            "description": "Request failed."
           }
         },
         "summary": "Update a PlacementGroup",
@@ -17645,6 +18648,16 @@
               }
             },
             "description": "The `pricing` key in the reply contains an pricing object with this structure."
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error_response"
+                }
+              }
+            },
+            "description": "Request failed."
           }
         },
         "summary": "Get all prices",
@@ -17753,6 +18766,16 @@
               }
             },
             "description": "Response for listing Primary IPs."
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error_response"
+                }
+              }
+            },
+            "description": "Request failed."
           }
         },
         "summary": "List Primary IPs",
@@ -17876,6 +18899,16 @@
               }
             },
             "description": "Response for creating a Primary IP.\n\nContains the newly created Primary IP.\n"
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error_response"
+                }
+              }
+            },
+            "description": "Request failed."
           }
         },
         "summary": "Create a Primary IP",
@@ -17928,6 +18961,16 @@
         "responses": {
           "204": {
             "description": "Primary IP deletion succeeded."
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error_response"
+                }
+              }
+            },
+            "description": "Request failed."
           }
         },
         "summary": "Delete a Primary IP",
@@ -17980,6 +19023,16 @@
               }
             },
             "description": "The `primary_ip` key contains the Primary IP."
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error_response"
+                }
+              }
+            },
+            "description": "Request failed."
           }
         },
         "summary": "Get a Primary IP",
@@ -18042,6 +19095,16 @@
               }
             },
             "description": "The `primary_ip` key contains the updated Primary IP."
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error_response"
+                }
+              }
+            },
+            "description": "Request failed."
           }
         },
         "summary": "Update a Primary IP",
@@ -18135,6 +19198,16 @@
               }
             },
             "description": "Response for assigning a Primary IP.\n\nContains an Action of type `assign_primary_ip`.\n"
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error_response"
+                }
+              }
+            },
+            "description": "Request failed."
           }
         },
         "summary": "Assign a Primary IP to a resource",
@@ -18225,6 +19298,16 @@
               }
             },
             "description": "Response for changing a Primary IPs DNS pointer.\n\nContains an Action of type `change_dns_ptr`.\n"
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error_response"
+                }
+              }
+            },
+            "description": "Request failed."
           }
         },
         "summary": "Change reverse DNS records for a Primary IP",
@@ -18314,6 +19397,16 @@
               }
             },
             "description": "Response for changing a Primary IPs protection settings.\n\nContains an Action of type `change_protection`.\n"
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error_response"
+                }
+              }
+            },
+            "description": "Request failed."
           }
         },
         "summary": "Change Primary IP Protection",
@@ -18397,6 +19490,16 @@
               }
             },
             "description": "Response for unassigning a Primary IP.\n\nContains an Action of type `unassign_primary_ip`.\n"
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error_response"
+                }
+              }
+            },
+            "description": "Request failed."
           }
         },
         "summary": "Unassign a Primary IP from a resource",
@@ -18530,6 +19633,16 @@
               }
             },
             "description": "Response for listing Actions."
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error_response"
+                }
+              }
+            },
+            "description": "Request failed."
           }
         },
         "summary": "List Actions",
@@ -18584,6 +19697,16 @@
               }
             },
             "description": "Response for getting a single Action."
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error_response"
+                }
+              }
+            },
+            "description": "Request failed."
           }
         },
         "summary": "Get an Action",
@@ -18658,6 +19781,16 @@
               }
             },
             "description": "The `server_types` key in the reply contains an array of Server type objects with this structure."
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error_response"
+                }
+              }
+            },
+            "description": "Request failed."
           }
         },
         "summary": "List Server Types",
@@ -18717,6 +19850,16 @@
               }
             },
             "description": "The `server_type` key in the reply contains a Server type object with this structure."
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error_response"
+                }
+              }
+            },
+            "description": "Request failed."
           }
         },
         "summary": "Get a Server Type",
@@ -18860,6 +20003,16 @@
                 }
               }
             }
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error_response"
+                }
+              }
+            },
+            "description": "Request failed."
           }
         },
         "summary": "List Servers",
@@ -19120,6 +20273,16 @@
               }
             },
             "description": "The `server` key in the reply contains a Server object with this structure."
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error_response"
+                }
+              }
+            },
+            "description": "Request failed."
           }
         },
         "summary": "Create a Server",
@@ -19179,6 +20342,16 @@
               }
             },
             "description": "The `action` key in the reply contains an Action object with this structure."
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error_response"
+                }
+              }
+            },
+            "description": "Request failed."
           }
         },
         "summary": "Delete a Server",
@@ -19231,6 +20404,16 @@
               }
             },
             "description": "The `server` key in the reply contains a Server object with this structure."
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error_response"
+                }
+              }
+            },
+            "description": "Request failed."
           }
         },
         "summary": "Get a Server",
@@ -19293,6 +20476,16 @@
               }
             },
             "description": "The `server` key in the reply contains the updated Server."
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error_response"
+                }
+              }
+            },
+            "description": "Request failed."
           }
         },
         "summary": "Update a Server",
@@ -19456,6 +20649,16 @@
               }
             },
             "description": "The `actions` key contains a list of Actions."
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error_response"
+                }
+              }
+            },
+            "description": "Request failed."
           }
         },
         "summary": "List Actions for a Server",
@@ -19531,6 +20734,16 @@
               }
             },
             "description": "The `action` key in the reply has this structure."
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error_response"
+                }
+              }
+            },
+            "description": "Request failed."
           }
         },
         "summary": "Get an Action for a Server",
@@ -19603,6 +20816,16 @@
               }
             },
             "description": "The `action` key in the reply contains an Action object with this structure."
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error_response"
+                }
+              }
+            },
+            "description": "Request failed."
           }
         },
         "summary": "Add a Server to a Placement Group",
@@ -19692,6 +20915,16 @@
               }
             },
             "description": "The `action` key in the reply contains an Action object with this structure."
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error_response"
+                }
+              }
+            },
+            "description": "Request failed."
           }
         },
         "summary": "Attach an ISO to a Server",
@@ -19785,6 +21018,16 @@
               }
             },
             "description": "The `action` key in the reply contains an Action object with this structure."
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error_response"
+                }
+              }
+            },
+            "description": "Request failed."
           }
         },
         "summary": "Attach a Server to a Network",
@@ -19878,6 +21121,16 @@
               }
             },
             "description": "The `action` key in the reply contains an Action object with this structure."
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error_response"
+                }
+              }
+            },
+            "description": "Request failed."
           }
         },
         "summary": "Change alias IPs of a Network",
@@ -19968,6 +21221,16 @@
               }
             },
             "description": "The `action` key in the reply contains an Action object with this structure."
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error_response"
+                }
+              }
+            },
+            "description": "Request failed."
           }
         },
         "summary": "Change reverse DNS entry for this Server",
@@ -20057,6 +21320,16 @@
               }
             },
             "description": "The `action` key in the reply contains an Action object with this structure."
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error_response"
+                }
+              }
+            },
+            "description": "Request failed."
           }
         },
         "summary": "Change Server Protection",
@@ -20146,6 +21419,16 @@
               }
             },
             "description": "The `action` key in the reply contains an Action object with this structure."
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error_response"
+                }
+              }
+            },
+            "description": "Request failed."
           }
         },
         "summary": "Change the Type of a Server",
@@ -20262,6 +21545,16 @@
               }
             },
             "description": "The `image` key in the reply contains an the created Image, which is an object with this structure.\n\nThe `action` key in the reply contains an Action object with this structure.\n"
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error_response"
+                }
+              }
+            },
+            "description": "Request failed."
           }
         },
         "summary": "Create Image from a Server",
@@ -20355,6 +21648,16 @@
               }
             },
             "description": "The `action` key in the reply contains an Action object with this structure."
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error_response"
+                }
+              }
+            },
+            "description": "Request failed."
           }
         },
         "summary": "Detach a Server from a Network",
@@ -20434,6 +21737,16 @@
               }
             },
             "description": "The `action` key in the reply contains an Action object with this structure."
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error_response"
+                }
+              }
+            },
+            "description": "Request failed."
           }
         },
         "summary": "Detach an ISO from a Server",
@@ -20513,6 +21826,16 @@
               }
             },
             "description": "The `action` key in the reply contains an Action object with this structure."
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error_response"
+                }
+              }
+            },
+            "description": "Request failed."
           }
         },
         "summary": "Disable Backups for a Server",
@@ -20592,6 +21915,16 @@
               }
             },
             "description": "The `action` key in the reply contains an Action object with this structure."
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error_response"
+                }
+              }
+            },
+            "description": "Request failed."
           }
         },
         "summary": "Disable Rescue Mode for a Server",
@@ -20671,6 +22004,16 @@
               }
             },
             "description": "The `action` key in the reply contains an Action object with this structure."
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error_response"
+                }
+              }
+            },
+            "description": "Request failed."
           }
         },
         "summary": "Enable and Configure Backups for a Server",
@@ -20761,6 +22104,16 @@
               }
             },
             "description": "The `root_password` key in the reply contains the root password that can be used to access the booted rescue system.\n\nThe `action` key in the reply contains an Action object with this structure.\n"
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error_response"
+                }
+              }
+            },
+            "description": "Request failed."
           }
         },
         "summary": "Enable Rescue Mode for a Server",
@@ -20840,6 +22193,16 @@
               }
             },
             "description": "The `action` key in the reply contains an Action object with this structure."
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error_response"
+                }
+              }
+            },
+            "description": "Request failed."
           }
         },
         "summary": "Power off a Server",
@@ -20919,6 +22282,16 @@
               }
             },
             "description": "The `action` key in the reply contains an Action object with this structure."
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error_response"
+                }
+              }
+            },
+            "description": "Request failed."
           }
         },
         "summary": "Power on a Server",
@@ -20998,6 +22371,16 @@
               }
             },
             "description": "The `action` key in the reply contains an Action object with this structure."
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error_response"
+                }
+              }
+            },
+            "description": "Request failed."
           }
         },
         "summary": "Soft-reboot a Server",
@@ -21089,6 +22472,16 @@
               }
             },
             "description": "The `action` key in the reply contains an Action object with this structure."
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error_response"
+                }
+              }
+            },
+            "description": "Request failed."
           }
         },
         "summary": "Rebuild a Server from an Image",
@@ -21168,6 +22561,16 @@
               }
             },
             "description": "The `action` key in the reply contains an Action object with this structure."
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error_response"
+                }
+              }
+            },
+            "description": "Request failed."
           }
         },
         "summary": "Remove from Placement Group",
@@ -21249,6 +22652,16 @@
               }
             },
             "description": "The `action` key in the reply contains an Action object with this structure."
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error_response"
+                }
+              }
+            },
+            "description": "Request failed."
           }
         },
         "summary": "Request Console for a Server",
@@ -21328,6 +22741,16 @@
               }
             },
             "description": "The `action` key in the reply contains an Action object with this structure."
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error_response"
+                }
+              }
+            },
+            "description": "Request failed."
           }
         },
         "summary": "Reset a Server",
@@ -21408,6 +22831,16 @@
               }
             },
             "description": "The `root_password` key in the reply contains the new root password that will be active if the Action succeeds.\n\nThe `action` key in the reply contains an Action object with this structure.\n"
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error_response"
+                }
+              }
+            },
+            "description": "Request failed."
           }
         },
         "summary": "Reset root Password of a Server",
@@ -21487,6 +22920,16 @@
               }
             },
             "description": "The `action` key in the reply contains an Action object with this structure."
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error_response"
+                }
+              }
+            },
+            "description": "Request failed."
           }
         },
         "summary": "Shutdown a Server",
@@ -21590,6 +23033,16 @@
               }
             },
             "description": "The `metrics` key in the reply contains a metrics object with this structure."
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error_response"
+                }
+              }
+            },
+            "description": "Request failed."
           }
         },
         "summary": "Get Metrics for a Server",
@@ -21723,6 +23176,16 @@
               }
             },
             "description": "The `actions` key contains a list of Actions."
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error_response"
+                }
+              }
+            },
+            "description": "Request failed."
           }
         },
         "summary": "List Actions",
@@ -21777,6 +23240,16 @@
               }
             },
             "description": "The `action` key in the reply has this structure."
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error_response"
+                }
+              }
+            },
+            "description": "Request failed."
           }
         },
         "summary": "Get an Action",
@@ -21889,6 +23362,16 @@
               }
             },
             "description": "The `ssh_keys` key in the reply contains an array of SSH key objects with this structure."
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error_response"
+                }
+              }
+            },
+            "description": "Request failed."
           }
         },
         "summary": "List SSH keys",
@@ -21936,6 +23419,16 @@
               }
             },
             "description": "The `ssh_key` key in the reply contains the object that was just created."
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error_response"
+                }
+              }
+            },
+            "description": "Request failed."
           }
         },
         "summary": "Create an SSH key",
@@ -21988,6 +23481,16 @@
         "responses": {
           "204": {
             "description": "SSH key deleted."
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error_response"
+                }
+              }
+            },
+            "description": "Request failed."
           }
         },
         "summary": "Delete an SSH key",
@@ -22040,6 +23543,16 @@
               }
             },
             "description": "The `ssh_key` key in the reply contains an SSH key object with this structure."
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error_response"
+                }
+              }
+            },
+            "description": "Request failed."
           }
         },
         "summary": "Get a SSH key",
@@ -22114,6 +23627,16 @@
               }
             },
             "description": "The `ssh_key` key in the reply contains the modified SSH key object with the new description."
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error_response"
+                }
+              }
+            },
+            "description": "Request failed."
           }
         },
         "summary": "Update an SSH key",
@@ -22243,6 +23766,16 @@
               }
             },
             "description": "The `volumes` key contains a list of volumes."
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error_response"
+                }
+              }
+            },
+            "description": "Request failed."
           }
         },
         "summary": "List Volumes",
@@ -22374,6 +23907,16 @@
               }
             },
             "description": "The `volume` key contains the Volume that was just created.\n\nThe `action` key contains the Action tracking Volume creation.\n"
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error_response"
+                }
+              }
+            },
+            "description": "Request failed."
           }
         },
         "summary": "Create a Volume",
@@ -22426,6 +23969,16 @@
         "responses": {
           "204": {
             "description": "Volume deleted."
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error_response"
+                }
+              }
+            },
+            "description": "Request failed."
           }
         },
         "summary": "Delete a Volume",
@@ -22478,6 +24031,16 @@
               }
             },
             "description": "The `volume` key contains the volume."
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error_response"
+                }
+              }
+            },
+            "description": "Request failed."
           }
         },
         "summary": "Get a Volume",
@@ -22568,6 +24131,16 @@
               }
             },
             "description": "The `volume` key contains the updated volume."
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error_response"
+                }
+              }
+            },
+            "description": "Request failed."
           }
         },
         "summary": "Update a Volume",
@@ -22734,6 +24307,16 @@
               }
             },
             "description": "The `actions` key contains a list of Actions."
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error_response"
+                }
+              }
+            },
+            "description": "Request failed."
           }
         },
         "summary": "List Actions for a Volume",
@@ -22809,6 +24392,16 @@
               }
             },
             "description": "The `action` key contains the Volume Action."
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error_response"
+                }
+              }
+            },
+            "description": "Request failed."
           }
         },
         "summary": "Get an Action for a Volume",
@@ -22885,6 +24478,16 @@
               }
             },
             "description": "The `action` key contains the `attach_volume` Action."
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error_response"
+                }
+              }
+            },
+            "description": "Request failed."
           }
         },
         "summary": "Attach Volume to a Server",
@@ -22978,6 +24581,16 @@
               }
             },
             "description": "The `action` key contains the `change_protection` Action."
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error_response"
+                }
+              }
+            },
+            "description": "Request failed."
           }
         },
         "summary": "Change Volume Protection",
@@ -23057,6 +24670,16 @@
               }
             },
             "description": "The `action` key contains the `detach_volume` Action."
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error_response"
+                }
+              }
+            },
+            "description": "Request failed."
           }
         },
         "summary": "Detach Volume",
@@ -23146,6 +24769,16 @@
               }
             },
             "description": "The `action` key contains the `resize_volume` Action."
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error_response"
+                }
+              }
+            },
+            "description": "Request failed."
           }
         },
         "summary": "Resize Volume",
@@ -23279,6 +24912,16 @@
               }
             },
             "description": "The `actions` key contains a list of Actions."
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error_response"
+                }
+              }
+            },
+            "description": "Request failed."
           }
         },
         "summary": "List Actions",
@@ -23333,6 +24976,16 @@
               }
             },
             "description": "The `action` key in the reply has this structure."
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error_response"
+                }
+              }
+            },
+            "description": "Request failed."
           }
         },
         "summary": "Get an Action",
@@ -23407,6 +25060,16 @@
               }
             },
             "description": "Request succeeded."
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error_response"
+                }
+              }
+            },
+            "description": "Request failed."
           }
         },
         "summary": "List Storage Box Types",
@@ -23449,6 +25112,16 @@
               }
             },
             "description": "Request succeeded."
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error_response"
+                }
+              }
+            },
+            "description": "Request failed."
           }
         },
         "summary": "Get a Storage Box Type",
@@ -23549,6 +25222,16 @@
               }
             },
             "description": "The `storage_box` key in the reply contains a Storage Box object with this structure."
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error_response"
+                }
+              }
+            },
+            "description": "Request failed."
           }
         },
         "summary": "List Storage Boxes",
@@ -23661,6 +25344,16 @@
               }
             },
             "description": "The `action` key in the reply contains an Action object with this structure."
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error_response"
+                }
+              }
+            },
+            "description": "Request failed."
           }
         },
         "summary": "Create a Storage Box",
@@ -23777,6 +25470,16 @@
               }
             },
             "description": "The `actions` key contains a list of Actions."
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error_response"
+                }
+              }
+            },
+            "description": "Request failed."
           }
         },
         "summary": "List Actions",
@@ -23819,6 +25522,16 @@
               }
             },
             "description": "The `action` key in the reply has this structure."
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error_response"
+                }
+              }
+            },
+            "description": "Request failed."
           }
         },
         "summary": "Get an Action",
@@ -23883,6 +25596,16 @@
               }
             },
             "description": "The `action` key in the reply contains an Action object with this structure."
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error_response"
+                }
+              }
+            },
+            "description": "Request failed."
           }
         },
         "summary": "Delete a Storage Box",
@@ -23918,6 +25641,16 @@
               }
             },
             "description": "The `storage_box` key in the reply contains a Storage Box object with this structure."
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error_response"
+                }
+              }
+            },
+            "description": "Request failed."
           }
         },
         "summary": "Get a Storage Box",
@@ -23963,6 +25696,16 @@
               }
             },
             "description": "The `storage_box` key in the reply contains the updated Storage Box object with this structure."
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error_response"
+                }
+              }
+            },
+            "description": "Request failed."
           }
         },
         "summary": "Update a Storage Box",
@@ -24076,6 +25819,16 @@
               }
             },
             "description": "The `actions` key contains a list of Actions."
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error_response"
+                }
+              }
+            },
+            "description": "Request failed."
           }
         },
         "summary": "List Actions for a Storage Box",
@@ -24150,6 +25903,16 @@
               }
             },
             "description": "The `action` key in the reply contains an Action object with this structure."
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error_response"
+                }
+              }
+            },
+            "description": "Request failed."
           }
         },
         "summary": "Change Protection",
@@ -24227,6 +25990,16 @@
               }
             },
             "description": "The `action` key in the reply contains an Action object with this structure."
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error_response"
+                }
+              }
+            },
+            "description": "Request failed."
           }
         },
         "summary": "Change Type",
@@ -24294,6 +26067,16 @@
               }
             },
             "description": "The `action` key in the reply contains an Action object with this structure."
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error_response"
+                }
+              }
+            },
+            "description": "Request failed."
           }
         },
         "summary": "Disable Snapshot Plan",
@@ -24371,6 +26154,16 @@
               }
             },
             "description": "The `action` key in the reply contains an Action object with this structure."
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error_response"
+                }
+              }
+            },
+            "description": "Request failed."
           }
         },
         "summary": "Enable Snapshot Plan",
@@ -24448,6 +26241,16 @@
               }
             },
             "description": "The `action` key in the reply contains an Action object with this structure."
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error_response"
+                }
+              }
+            },
+            "description": "Request failed."
           }
         },
         "summary": "Reset Password",
@@ -24529,6 +26332,16 @@
               }
             },
             "description": "The `action` key in the reply contains an Action object with this structure."
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error_response"
+                }
+              }
+            },
+            "description": "Request failed."
           }
         },
         "summary": "Rollback Snapshot",
@@ -24606,6 +26419,16 @@
               }
             },
             "description": "The `action` key in the reply contains an Action object with this structure."
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error_response"
+                }
+              }
+            },
+            "description": "Request failed."
           }
         },
         "summary": "Update Access Settings",
@@ -24661,6 +26484,16 @@
               }
             },
             "description": "The `action` key in the reply has this structure."
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error_response"
+                }
+              }
+            },
+            "description": "Request failed."
           }
         },
         "summary": "Get an Action for a Storage Box",
@@ -24725,6 +26558,16 @@
               }
             },
             "description": "The `folders` key lists the directories the Storage Box contains at the specified path."
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error_response"
+                }
+              }
+            },
+            "description": "Request failed."
           }
         },
         "summary": "List folders of a Storage Box",
@@ -24859,6 +26702,16 @@
               }
             },
             "description": "The `snapshots` key contains a list of Snapshots."
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error_response"
+                }
+              }
+            },
+            "description": "Request failed."
           }
         },
         "summary": "List Snapshots",
@@ -24937,6 +26790,16 @@
               }
             },
             "description": "The `action` key in the reply contains an Action object with this structure."
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error_response"
+                }
+              }
+            },
+            "description": "Request failed."
           }
         },
         "summary": "Create a Snapshot",
@@ -25021,6 +26884,16 @@
               }
             },
             "description": "The `action` key in the reply contains an Action object with this structure."
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error_response"
+                }
+              }
+            },
+            "description": "Request failed."
           }
         },
         "summary": "Delete a Snapshot",
@@ -25069,6 +26942,16 @@
               }
             },
             "description": "The `snapshot` key in the reply contains a Snapshot object with this structure."
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error_response"
+                }
+              }
+            },
+            "description": "Request failed."
           }
         },
         "summary": "Get a Snapshot",
@@ -25127,6 +27010,16 @@
               }
             },
             "description": "The `snapshot` key contains the updated Snapshot."
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error_response"
+                }
+              }
+            },
+            "description": "Request failed."
           }
         },
         "summary": "Update a Snapshot",
@@ -25236,6 +27129,16 @@
               }
             },
             "description": "The `subaccounts` key contains a list of Subaccounts."
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error_response"
+                }
+              }
+            },
+            "description": "Request failed."
           }
         },
         "summary": "List Subaccounts",
@@ -25314,6 +27217,16 @@
               }
             },
             "description": "The `action` key in the reply contains an Action object with this structure."
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error_response"
+                }
+              }
+            },
+            "description": "Request failed."
           }
         },
         "summary": "Create a Subaccount",
@@ -25398,6 +27311,16 @@
               }
             },
             "description": "The `action` key in the reply contains an Action object with this structure."
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error_response"
+                }
+              }
+            },
+            "description": "Request failed."
           }
         },
         "summary": "Delete a Subaccount",
@@ -25446,6 +27369,16 @@
               }
             },
             "description": "The `subaccount` key in the reply contains a Subaccount object with this structure."
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error_response"
+                }
+              }
+            },
+            "description": "Request failed."
           }
         },
         "summary": "Get a Subaccount",
@@ -25504,6 +27437,16 @@
               }
             },
             "description": "The `subaccount` key contains the updated Subaccount."
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error_response"
+                }
+              }
+            },
+            "description": "Request failed."
           }
         },
         "summary": "Update a Subaccount",
@@ -25595,6 +27538,16 @@
               }
             },
             "description": "The `action` key in the reply contains an Action object with this structure."
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error_response"
+                }
+              }
+            },
+            "description": "Request failed."
           }
         },
         "summary": "Change Home Directory",
@@ -25689,6 +27642,16 @@
               }
             },
             "description": "The `action` key in the reply contains an Action object with this structure."
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error_response"
+                }
+              }
+            },
+            "description": "Request failed."
           }
         },
         "summary": "Reset Password",
@@ -25783,6 +27746,16 @@
               }
             },
             "description": "The `action` key in the reply contains an Action object with this structure."
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error_response"
+                }
+              }
+            },
+            "description": "Request failed."
           }
         },
         "summary": "Update Access Settings",
@@ -25892,6 +27865,16 @@
               }
             },
             "description": "Request succeeded."
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error_response"
+                }
+              }
+            },
+            "description": "Request failed."
           }
         },
         "summary": "List Zones",
@@ -26041,6 +28024,16 @@
               }
             },
             "description": "Request succeeded."
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error_response"
+                }
+              }
+            },
+            "description": "Request failed."
           }
         },
         "summary": "Create a Zone",
@@ -26204,6 +28197,16 @@
               }
             },
             "description": "Request succeeded."
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error_response"
+                }
+              }
+            },
+            "description": "Request failed."
           }
         },
         "summary": "List Actions",
@@ -26258,6 +28261,16 @@
               }
             },
             "description": "Request succeeded."
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error_response"
+                }
+              }
+            },
+            "description": "Request failed."
           }
         },
         "summary": "Get an Action",
@@ -26326,6 +28339,16 @@
               }
             },
             "description": "Request succeeded."
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error_response"
+                }
+              }
+            },
+            "description": "Request failed."
           }
         },
         "summary": "Delete a Zone",
@@ -26375,6 +28398,16 @@
               }
             },
             "description": "Request succeeded."
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error_response"
+                }
+              }
+            },
+            "description": "Request failed."
           }
         },
         "summary": "Get a Zone",
@@ -26466,6 +28499,16 @@
               }
             },
             "description": "Request succeeded."
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error_response"
+                }
+              }
+            },
+            "description": "Request failed."
           }
         },
         "summary": "Update a Zone",
@@ -26593,6 +28636,16 @@
               }
             },
             "description": "Request succeeded."
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error_response"
+                }
+              }
+            },
+            "description": "Request failed."
           }
         },
         "summary": "List Actions for a Zone",
@@ -26659,6 +28712,16 @@
               }
             },
             "description": "Request succeeded."
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error_response"
+                }
+              }
+            },
+            "description": "Request failed."
           }
         },
         "summary": "Change a Zone's Primary Nameservers",
@@ -26742,6 +28805,16 @@
               }
             },
             "description": "Request succeeded."
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error_response"
+                }
+              }
+            },
+            "description": "Request failed."
           }
         },
         "summary": "Change a Zone's Protection",
@@ -26825,6 +28898,16 @@
               }
             },
             "description": "Request succeeded."
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error_response"
+                }
+              }
+            },
+            "description": "Request failed."
           }
         },
         "summary": "Change a Zone's Default TTL",
@@ -26908,6 +28991,16 @@
               }
             },
             "description": "Request succeeded."
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error_response"
+                }
+              }
+            },
+            "description": "Request failed."
           }
         },
         "summary": "Import a Zone file",
@@ -26994,6 +29087,16 @@
               }
             },
             "description": "Request succeeded."
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error_response"
+                }
+              }
+            },
+            "description": "Request failed."
           }
         },
         "summary": "Get an Action for a Zone",
@@ -27130,6 +29233,16 @@
               }
             },
             "description": "Request succeeded."
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error_response"
+                }
+              }
+            },
+            "description": "Request failed."
           }
         },
         "summary": "List RRSets",
@@ -27225,6 +29338,16 @@
               }
             },
             "description": "Request succeeded."
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error_response"
+                }
+              }
+            },
+            "description": "Request failed."
           }
         },
         "summary": "Create an RRSet",
@@ -27336,6 +29459,16 @@
               }
             },
             "description": "Request succeeded."
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error_response"
+                }
+              }
+            },
+            "description": "Request failed."
           }
         },
         "summary": "Delete an RRSet",
@@ -27423,6 +29556,16 @@
               }
             },
             "description": "Request succeeded."
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error_response"
+                }
+              }
+            },
+            "description": "Request failed."
           }
         },
         "summary": "Get an RRSet",
@@ -27543,6 +29686,16 @@
               }
             },
             "description": "Request succeeded."
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error_response"
+                }
+              }
+            },
+            "description": "Request failed."
           }
         },
         "summary": "Update an RRSet",
@@ -27664,6 +29817,16 @@
               }
             },
             "description": "Request succeeded."
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error_response"
+                }
+              }
+            },
+            "description": "Request failed."
           }
         },
         "summary": "Add Records to an RRSet",
@@ -27785,6 +29948,16 @@
               }
             },
             "description": "Request succeeded."
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error_response"
+                }
+              }
+            },
+            "description": "Request failed."
           }
         },
         "summary": "Change an RRSet's Protection",
@@ -27906,6 +30079,16 @@
               }
             },
             "description": "Request succeeded."
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error_response"
+                }
+              }
+            },
+            "description": "Request failed."
           }
         },
         "summary": "Change an RRSet's TTL",
@@ -28027,6 +30210,16 @@
               }
             },
             "description": "Request succeeded."
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error_response"
+                }
+              }
+            },
+            "description": "Request failed."
           }
         },
         "summary": "Remove Records from an RRSet",
@@ -28148,6 +30341,16 @@
               }
             },
             "description": "Request succeeded."
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error_response"
+                }
+              }
+            },
+            "description": "Request failed."
           }
         },
         "summary": "Set Records of an RRSet",
@@ -28269,6 +30472,16 @@
               }
             },
             "description": "Request succeeded."
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error_response"
+                }
+              }
+            },
+            "description": "Request failed."
           }
         },
         "summary": "Update Records of an RRSet",
@@ -28308,6 +30521,16 @@
               }
             },
             "description": "Request succeeded."
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error_response"
+                }
+              }
+            },
+            "description": "Request failed."
           }
         },
         "summary": "Export a Zone file",

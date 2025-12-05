@@ -15,7 +15,7 @@ This project aims to convert the official specs to an improved version with the 
 - API-friendly tag names
 - Unique `operationId`s
 
-As an added benefit, mainly from use of common components, the improved spec is much smaller (945 KB vs 2.291 MB) than the original.
+As an added benefit, mainly from use of common components, the improved spec is much smaller (1.162 MB vs 2.902 MB) than the original.
 
 ## Further Reading
 

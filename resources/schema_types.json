@@ -63,6 +63,12 @@
     ]
   },
   {
+    "name": "error_response",
+    "path": [
+      "add_records_to_rrset_response_default"
+    ]
+  },
+  {
     "description": "Firewalls can limit the network access to or from your resources.",
     "name": "firewall",
     "path": [
@@ -385,7 +391,7 @@
   {
     "name": "resource_record_with_comment",
     "path": [
-      "export_zone_file_response",
+      "update_records_of_rrset_request",
       "records"
     ]
   },
