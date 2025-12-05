@@ -10138,7 +10138,7 @@
         ]
       },
       "post": {
-        "description": "Create a Firewall.\n\n#### Error Codes specific to this Call\n\n| Code                          | Description                                                                 |\n|------------------------------ |-----------------------------------------------------------------------------|\n| `server_already_added`        | Server applied more than once                                   |\n| `incompatible_network_type`   | The resources network type is not supported by Firewalls      |\n| `firewall_resource_not_found` | The resource the Firewall should be attached to was not found |\n",
+        "description": "Create a Firewall.\n\n#### Operation specific errors\n\n| Status Code | Error Code | Description |\n| --- | --- | --- |\n| `422` | `server_already_added` | The Server was applied more than once. |\n| `422` | `incompatible_network_type` | The resources network type is not supported by Firewalls. |\n| `422` | `firewall_resource_not_found` | The resource the Firewall should be attached to was not found. |\n",
         "operationId": "create_firewall",
         "requestBody": {
           "content": {
