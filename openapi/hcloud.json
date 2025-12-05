@@ -6,7 +6,7 @@
     },
     "description": "Copied from the official API documentation for the Public Hetzner Cloud.",
     "title": "Hetzner Cloud API",
-    "version": "d330f8f-dirty"
+    "version": "474fd2f-dirty"
   },
   "servers": [
     {
@@ -6995,6 +6995,27 @@
         "example": "A",
         "type": "string"
       },
+      "resource_record_with_comment": {
+        "description": "Record of a RRSet.\n\nThe `value` is used to identify the record in an RRSet.\n",
+        "properties": {
+          "comment": {
+            "description": "New comment for the record.\n",
+            "example": "My web server at Hetzner Cloud.",
+            "type": "string"
+          },
+          "value": {
+            "description": "Value of the record to update.\n",
+            "example": "198.51.100.1",
+            "type": "string"
+          }
+        },
+        "required": [
+          "value",
+          "comment"
+        ],
+        "title": "Record",
+        "type": "object"
+          },
       "retry_issuance_or_renewal_response": {
         "description": "Response to POST https://api.hetzner.cloud/v1/certificates/{id}/actions/retry",
         "properties": {
@@ -8453,7 +8474,7 @@
           "records": {
             "description": "Records to update in the RRSet.\n\nMust not be empty and must only contain distinct record values.\n",
             "items": {
-              "$ref": "#/components/schemas/resource_record"
+              "$ref": "#/components/schemas/resource_record_with_comment"
             },
             "maxItems": 50,
             "minItems": 1,

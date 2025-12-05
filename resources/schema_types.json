@@ -383,6 +383,13 @@
     ]
   },
   {
+    "name": "resource_record_with_comment",
+    "path": [
+      "export_zone_file_response",
+      "records"
+    ]
+  },
+  {
     "name": "route",
     "path": [
       "create_network_request",
