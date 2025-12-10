@@ -25106,6 +25106,23 @@
         "summary": "List Storage Box Types",
         "tags": [
           "storage_box_types"
+        ],
+        "x-codeSamples": [
+          {
+            "label": "Go",
+            "lang": "Go",
+            "source": "package examples\n\nimport (\n\t\"context\"\n\t\"os\"\n\n\t\"github.com/hetznercloud/hcloud-go/v2/hcloud\"\n)\n\nfunc main() {\n\ttoken := os.Getenv(\"HCLOUD_TOKEN\")\n\n\tclient := hcloud.NewClient(hcloud.WithToken(token))\n\tctx := context.TODO()\n\n\tstorageBoxTypes, err := client.StorageBoxType.All(ctx)\n}"
+          },
+          {
+            "label": "Python",
+            "lang": "Python",
+            "source": "from __future__ import annotations\n\nfrom os import environ\n\nfrom hcloud import Client\n\ntoken = environ[\"HCLOUD_TOKEN\"]\nclient = Client(token=token)\n\nstorage_box_types = client.storage_box_types.get_all()"
+          },
+          {
+            "label": "CLI",
+            "lang": "Shell",
+            "source": "hcloud storage-box-type list"
+          }
         ]
       },
       "servers": [
@@ -25158,6 +25175,23 @@
         "summary": "Get a Storage Box Type",
         "tags": [
           "storage_box_types"
+        ],
+        "x-codeSamples": [
+          {
+            "label": "Go",
+            "lang": "Go",
+            "source": "package examples\n\nimport (\n\t\"context\"\n\t\"os\"\n\n\t\"github.com/hetznercloud/hcloud-go/v2/hcloud\"\n)\n\nfunc main() {\n\ttoken := os.Getenv(\"HCLOUD_TOKEN\")\n\n\tclient := hcloud.NewClient(hcloud.WithToken(token))\n\tctx := context.TODO()\n\n\tstorageBoxType, _, err := client.StorageBoxType.GetByID(ctx, 123)\n}"
+          },
+          {
+            "label": "Python",
+            "lang": "Python",
+            "source": "from __future__ import annotations\n\nfrom os import environ\n\nfrom hcloud import Client\n\ntoken = environ[\"HCLOUD_TOKEN\"]\nclient = Client(token=token)\n\nstorage_box_type = client.storage_box_types.get_by_id(123)"
+          },
+          {
+            "label": "CLI",
+            "lang": "Shell",
+            "source": "hcloud storage-box-type describe $STORAGEBOXTYPE"
+          }
         ]
       },
       "servers": [
@@ -25268,6 +25302,23 @@
         "summary": "List Storage Boxes",
         "tags": [
           "storage_boxes"
+        ],
+        "x-codeSamples": [
+          {
+            "label": "Go",
+            "lang": "Go",
+            "source": "package examples\n\nimport (\n\t\"context\"\n\t\"os\"\n\n\t\"github.com/hetznercloud/hcloud-go/v2/hcloud\"\n)\n\nfunc main() {\n\ttoken := os.Getenv(\"HCLOUD_TOKEN\")\n\n\tclient := hcloud.NewClient(hcloud.WithToken(token))\n\tctx := context.TODO()\n\n\tstorageBoxes, err := client.StorageBox.All(ctx)\n}"
+          },
+          {
+            "label": "Python",
+            "lang": "Python",
+            "source": "from __future__ import annotations\n\nfrom os import environ\n\nfrom hcloud import Client\n\ntoken = environ[\"HCLOUD_TOKEN\"]\nclient = Client(token=token)\n\nstorage_boxes = client.storage_boxes.get_all()"
+          },
+          {
+            "label": "CLI",
+            "lang": "Shell",
+            "source": "hcloud storage-box list"
+          }
         ]
       },
       "post": {
@@ -25390,6 +25441,23 @@
         "summary": "Create a Storage Box",
         "tags": [
           "storage_boxes"
+        ],
+        "x-codeSamples": [
+          {
+            "label": "Go",
+            "lang": "Go",
+            "source": "package examples\n\nimport (\n\t\"context\"\n\t\"os\"\n\n\t\"github.com/hetznercloud/hcloud-go/v2/hcloud\"\n)\n\nfunc main() {\n\ttoken := os.Getenv(\"HCLOUD_TOKEN\")\n\n\tclient := hcloud.NewClient(hcloud.WithToken(token))\n\tctx := context.TODO()\n\n\tresult, _, err := client.StorageBox.Create(ctx, hcloud.StorageBoxCreateOpts{\n\t\tName:     \"string\",\n\t\tLocation: &hcloud.Location{Name: \"fsn1\"},\n\t\tStorageBoxType: &hcloud.StorageBoxType{\n\t\t\tName: \"bx11\",\n\t\t},\n\t\tLabels: map[string]string{\n\t\t\t\"environment\":    \"prod\",\n\t\t\t\"example.com/my\": \"label\",\n\t\t\t\"just-a-key\":     \"\",\n\t\t},\n\t\tPassword: \"my-password\",\n\t\tAccessSettings: &hcloud.StorageBoxCreateOptsAccessSettings{\n\t\t\tReachableExternally: hcloud.Ptr(false),\n\t\t\tSambaEnabled:        hcloud.Ptr(false),\n\t\t\tSSHEnabled:          hcloud.Ptr(false),\n\t\t\tWebDAVEnabled:       hcloud.Ptr(false),\n\t\t\tZFSEnabled:          hcloud.Ptr(false),\n\t\t},\n\t\tSSHKeys: []*hcloud.SSHKey{\n\t\t\t{PublicKey: \"ssh-rsa AAAjjk76kgf...Xt\"},\n\t\t},\n\t})\n\n\terr = client.Action.WaitFor(ctx, result.Action)\n\n\tstorageBox := result.StorageBox\n}"
+          },
+          {
+            "label": "Python",
+            "lang": "Python",
+            "source": "from __future__ import annotations\n\nfrom os import environ\n\nfrom hcloud import Client\nfrom hcloud.locations import Location\nfrom hcloud.ssh_keys import SSHKey\nfrom hcloud.storage_box_types import StorageBoxType\nfrom hcloud.storage_boxes import StorageBoxAccessSettings\n\ntoken = environ[\"HCLOUD_TOKEN\"]\nclient = Client(token=token)\n\nresponse = client.storage_boxes.create(\n    name=\"string\",\n    location=Location(name=\"fsn1\"),\n    storage_box_type=StorageBoxType(name=\"bx11\"),\n    labels={\n        \"environment\": \"prod\",\n        \"example.com/my\": \"label\",\n        \"just-a-key\": \"\",\n    },\n    password=\"my-password\",\n    access_settings=StorageBoxAccessSettings(\n        reachable_externally=False,\n        samba_enabled=False,\n        ssh_enabled=False,\n        webdav_enabled=False,\n        zfs_enabled=False,\n    ),\n    ssh_keys=[SSHKey(public_key=\"ssh-rsa AAAjjk76kgf...Xt\")],\n)\n\nresponse.action.wait_until_finished()\n\nstorage_box = response.storage_box"
+          },
+          {
+            "label": "CLI",
+            "lang": "Shell",
+            "source": "hcloud storage-box create \\\n    --name \"string\" \\\n    --location \"fsn1\" \\\n    --type \"bx21\" \\\n    --password \"string\" \\\n    --label \"environment=prod\" \\\n    --label \"example.com/my=label\" \\\n    --label \"just-a-key=\" \\\n    --ssh-key \"some-ssh-key\" \\\n    --ssh-key \"ssh-rsa AAAjjk76kgf...Xt\" \\\n    --reachable-externally \\\n    --enable-samba=false \\\n    --enable-ssh=true \\\n    --enable-webdav \\\n    --enable-zfs"
+          }
         ]
       },
       "servers": [
@@ -25516,6 +25584,18 @@
         "summary": "List Actions",
         "tags": [
           "storage_boxes"
+        ],
+        "x-codeSamples": [
+          {
+            "label": "Go",
+            "lang": "Go",
+            "source": "package examples\n\nimport (\n\t\"context\"\n\t\"os\"\n\n\t\"github.com/hetznercloud/hcloud-go/v2/hcloud\"\n)\n\nfunc main() {\n\ttoken := os.Getenv(\"HCLOUD_TOKEN\")\n\n\tclient := hcloud.NewClient(hcloud.WithToken(token))\n\tctx := context.TODO()\n\n\tactions, err := client.StorageBox.Action.All(ctx, hcloud.ActionListOpts{})\n}"
+          },
+          {
+            "label": "Python",
+            "lang": "Python",
+            "source": "from __future__ import annotations\n\nfrom os import environ\n\nfrom hcloud import Client\n\ntoken = environ[\"HCLOUD_TOKEN\"]\nclient = Client(token=token)\n\nactions = client.storage_boxes.actions.get_all()"
+          }
         ]
       },
       "servers": [
@@ -25568,6 +25648,18 @@
         "summary": "Get an Action",
         "tags": [
           "storage_boxes"
+        ],
+        "x-codeSamples": [
+          {
+            "label": "Go",
+            "lang": "Go",
+            "source": "package examples\n\nimport (\n\t\"context\"\n\t\"os\"\n\n\t\"github.com/hetznercloud/hcloud-go/v2/hcloud\"\n)\n\nfunc main() {\n\ttoken := os.Getenv(\"HCLOUD_TOKEN\")\n\n\tclient := hcloud.NewClient(hcloud.WithToken(token))\n\tctx := context.TODO()\n\n\taction, _, err := client.StorageBox.Action.GetByID(ctx, 123)\n}"
+          },
+          {
+            "label": "Python",
+            "lang": "Python",
+            "source": "from __future__ import annotations\n\nfrom os import environ\n\nfrom hcloud import Client\n\ntoken = environ[\"HCLOUD_TOKEN\"]\nclient = Client(token=token)\n\naction = client.storage_boxes.actions.get_by_id(123)"
+          }
         ]
       },
       "servers": [
@@ -25642,6 +25734,23 @@
         "summary": "Delete a Storage Box",
         "tags": [
           "storage_boxes"
+        ],
+        "x-codeSamples": [
+          {
+            "label": "Go",
+            "lang": "Go",
+            "source": "package examples\n\nimport (\n\t\"context\"\n\t\"os\"\n\n\t\"github.com/hetznercloud/hcloud-go/v2/hcloud\"\n)\n\nfunc main() {\n\ttoken := os.Getenv(\"HCLOUD_TOKEN\")\n\n\tclient := hcloud.NewClient(hcloud.WithToken(token))\n\tctx := context.TODO()\n\n\tresult, _, err := client.StorageBox.Delete(ctx, &hcloud.StorageBox{ID: 123})\n\n\terr = client.Action.WaitFor(ctx, result.Action)\n}"
+          },
+          {
+            "label": "Python",
+            "lang": "Python",
+            "source": "from __future__ import annotations\n\nfrom os import environ\n\nfrom hcloud import Client\nfrom hcloud.storage_boxes import StorageBox\n\ntoken = environ[\"HCLOUD_TOKEN\"]\nclient = Client(token=token)\n\nresponse = client.storage_boxes.delete(\n    storage_box=StorageBox(id=123),\n)\n\nresponse.action.wait_until_finished()"
+          },
+          {
+            "label": "CLI",
+            "lang": "Shell",
+            "source": "hcloud storage-box delete $STORAGEBOX"
+          }
         ]
       },
       "get": {
@@ -25687,6 +25796,23 @@
         "summary": "Get a Storage Box",
         "tags": [
           "storage_boxes"
+        ],
+        "x-codeSamples": [
+          {
+            "label": "Go",
+            "lang": "Go",
+            "source": "package examples\n\nimport (\n\t\"context\"\n\t\"os\"\n\n\t\"github.com/hetznercloud/hcloud-go/v2/hcloud\"\n)\n\nfunc main() {\n\ttoken := os.Getenv(\"HCLOUD_TOKEN\")\n\n\tclient := hcloud.NewClient(hcloud.WithToken(token))\n\tctx := context.TODO()\n\n\tstorageBox, _, err := client.StorageBox.GetByID(ctx, 123)\n}"
+          },
+          {
+            "label": "Python",
+            "lang": "Python",
+            "source": "from __future__ import annotations\n\nfrom os import environ\n\nfrom hcloud import Client\n\ntoken = environ[\"HCLOUD_TOKEN\"]\nclient = Client(token=token)\n\nstorage_box = client.storage_boxes.get_by_id(123)"
+          },
+          {
+            "label": "CLI",
+            "lang": "Shell",
+            "source": "hcloud storage-box describe $STORAGEBOX"
+          }
         ]
       },
       "put": {
@@ -25742,6 +25868,23 @@
         "summary": "Update a Storage Box",
         "tags": [
           "storage_boxes"
+        ],
+        "x-codeSamples": [
+          {
+            "label": "Go",
+            "lang": "Go",
+            "source": "package examples\n\nimport (\n\t\"context\"\n\t\"os\"\n\n\t\"github.com/hetznercloud/hcloud-go/v2/hcloud\"\n)\n\nfunc main() {\n\ttoken := os.Getenv(\"HCLOUD_TOKEN\")\n\n\tclient := hcloud.NewClient(hcloud.WithToken(token))\n\tctx := context.TODO()\n\n\tstorageBox, _, err := client.StorageBox.Update(ctx, &hcloud.StorageBox{ID: 123}, hcloud.StorageBoxUpdateOpts{\n\t\tName: \"string\",\n\t\tLabels: map[string]string{\n\t\t\t\"environment\":    \"prod\",\n\t\t\t\"example.com/my\": \"label\",\n\t\t\t\"just-a-key\":     \"\",\n\t\t},\n\t})\n}"
+          },
+          {
+            "label": "Python",
+            "lang": "Python",
+            "source": "from __future__ import annotations\n\nfrom os import environ\n\nfrom hcloud import Client\nfrom hcloud.storage_boxes import StorageBox\n\ntoken = environ[\"HCLOUD_TOKEN\"]\nclient = Client(token=token)\n\nstorage_box = client.storage_boxes.update(\n    storage_box=StorageBox(id=123),\n    labels={\n        \"environment\": \"prod\",\n        \"example.com/my\": \"label\",\n        \"just-a-key\": \"\",\n    },\n    name=\"string\",\n)"
+          },
+          {
+            "label": "CLI",
+            "lang": "Shell",
+            "source": "hcloud storage-box update $STORAGEBOX --name \"My Storage Box\"\nhcloud storage-box add-label --overwrite $STORAGEBOX \\\n    \"environment=prod\" \"example.com/my=label\" \"just-a-key=\"\nhcloud storage-box remove-label $STORAGEBOX \\\n    \"environment\" \"example.com\" \"just-a-key\""
+          }
         ]
       },
       "servers": [
@@ -25949,6 +26092,23 @@
         "summary": "Change Protection",
         "tags": [
           "storage_boxes"
+        ],
+        "x-codeSamples": [
+          {
+            "label": "Go",
+            "lang": "Go",
+            "source": "package examples\n\nimport (\n\t\"context\"\n\t\"os\"\n\n\t\"github.com/hetznercloud/hcloud-go/v2/hcloud\"\n)\n\nfunc main() {\n\ttoken := os.Getenv(\"HCLOUD_TOKEN\")\n\n\tclient := hcloud.NewClient(hcloud.WithToken(token))\n\tctx := context.TODO()\n\n\taction, _, err := client.StorageBox.ChangeProtection(ctx, &hcloud.StorageBox{ID: 123},\n\t\thcloud.StorageBoxChangeProtectionOpts{Delete: hcloud.Ptr(true)})\n\n\terr = client.Action.WaitFor(ctx, action)\n}"
+          },
+          {
+            "label": "Python",
+            "lang": "Python",
+            "source": "from __future__ import annotations\n\nfrom os import environ\n\nfrom hcloud import Client\nfrom hcloud.storage_boxes import StorageBox\n\ntoken = environ[\"HCLOUD_TOKEN\"]\nclient = Client(token=token)\n\naction = client.storage_boxes.change_protection(\n    storage_box=StorageBox(id=123),\n    delete=True,\n)\n\naction.wait_until_finished()"
+          },
+          {
+            "label": "CLI",
+            "lang": "Shell",
+            "source": "hcloud storage-box enable-protection $STORAGEBOX delete\nhcloud storage-box disable-protection $STORAGEBOX delete"
+          }
         ]
       },
       "servers": [
@@ -26036,6 +26196,23 @@
         "summary": "Change Type",
         "tags": [
           "storage_boxes"
+        ],
+        "x-codeSamples": [
+          {
+            "label": "Go",
+            "lang": "Go",
+            "source": "package examples\n\nimport (\n\t\"context\"\n\t\"os\"\n\n\t\"github.com/hetznercloud/hcloud-go/v2/hcloud\"\n)\n\nfunc main() {\n\ttoken := os.Getenv(\"HCLOUD_TOKEN\")\n\n\tclient := hcloud.NewClient(hcloud.WithToken(token))\n\tctx := context.TODO()\n\n\taction, _, err := client.StorageBox.ChangeType(ctx, &hcloud.StorageBox{ID: 123}, hcloud.StorageBoxChangeTypeOpts{\n\t\tStorageBoxType: &hcloud.StorageBoxType{Name: \"bx21\"},\n\t})\n\n\terr = client.Action.WaitFor(ctx, action)\n}"
+          },
+          {
+            "label": "Python",
+            "lang": "Python",
+            "source": "from __future__ import annotations\n\nfrom os import environ\n\nfrom hcloud import Client\nfrom hcloud.storage_box_types import StorageBoxType\nfrom hcloud.storage_boxes import StorageBox\n\ntoken = environ[\"HCLOUD_TOKEN\"]\nclient = Client(token=token)\n\naction = client.storage_boxes.change_type(\n    storage_box=StorageBox(id=123), storage_box_type=StorageBoxType(name=\"bx21\")\n)\n\naction.wait_until_finished()"
+          },
+          {
+            "label": "CLI",
+            "lang": "Shell",
+            "source": "hcloud storage-box change-type $STORAGEBOX bx21"
+          }
         ]
       },
       "servers": [
@@ -26113,6 +26290,23 @@
         "summary": "Disable Snapshot Plan",
         "tags": [
           "storage_boxes"
+        ],
+        "x-codeSamples": [
+          {
+            "label": "Go",
+            "lang": "Go",
+            "source": "package examples\n\nimport (\n\t\"context\"\n\t\"os\"\n\n\t\"github.com/hetznercloud/hcloud-go/v2/hcloud\"\n)\n\nfunc main() {\n\ttoken := os.Getenv(\"HCLOUD_TOKEN\")\n\n\tclient := hcloud.NewClient(hcloud.WithToken(token))\n\tctx := context.TODO()\n\n\taction, _, err := client.StorageBox.DisableSnapshotPlan(ctx, &hcloud.StorageBox{ID: 123})\n\n\terr = client.Action.WaitFor(ctx, action)\n}"
+          },
+          {
+            "label": "Python",
+            "lang": "Python",
+            "source": "from __future__ import annotations\n\nfrom os import environ\n\nfrom hcloud import Client\nfrom hcloud.storage_boxes import StorageBox\n\ntoken = environ[\"HCLOUD_TOKEN\"]\nclient = Client(token=token)\n\naction = client.storage_boxes.disable_snapshot_plan(\n    storage_box=StorageBox(id=123),\n)\n\naction.wait_until_finished()"
+          },
+          {
+            "label": "CLI",
+            "lang": "Shell",
+            "source": "hcloud storage-box disable-snapshot-plan $STORAGEBOX"
+          }
         ]
       },
       "servers": [
@@ -26200,6 +26394,23 @@
         "summary": "Enable Snapshot Plan",
         "tags": [
           "storage_boxes"
+        ],
+        "x-codeSamples": [
+          {
+            "label": "Go",
+            "lang": "Go",
+            "source": "package examples\n\nimport (\n\t\"context\"\n\t\"os\"\n\t\"time\"\n\n\t\"github.com/hetznercloud/hcloud-go/v2/hcloud\"\n)\n\nfunc main() {\n\ttoken := os.Getenv(\"HCLOUD_TOKEN\")\n\n\tclient := hcloud.NewClient(hcloud.WithToken(token))\n\tctx := context.TODO()\n\n\taction, _, err := client.StorageBox.EnableSnapshotPlan(ctx, &hcloud.StorageBox{ID: 123}, hcloud.StorageBoxEnableSnapshotPlanOpts{\n\t\tMaxSnapshots: 10,\n\t\tMinute:       30,\n\t\tHour:         3,\n\t\tDayOfWeek:    hcloud.Ptr(time.Sunday),\n\t\tDayOfMonth:   nil,\n\t})\n\n\terr = client.Action.WaitFor(ctx, action)\n}"
+          },
+          {
+            "label": "Python",
+            "lang": "Python",
+            "source": "from __future__ import annotations\n\nfrom os import environ\n\nfrom hcloud import Client\nfrom hcloud.storage_boxes import StorageBox, StorageBoxSnapshotPlan\n\ntoken = environ[\"HCLOUD_TOKEN\"]\nclient = Client(token=token)\n\naction = client.storage_boxes.enable_snapshot_plan(\n    storage_box=StorageBox(id=123),\n    snapshot_plan=StorageBoxSnapshotPlan(\n        max_snapshots=10,\n        minute=30,\n        hour=3,\n        day_of_week=7,\n        day_of_month=None,\n    ),\n)\n\naction.wait_until_finished()"
+          },
+          {
+            "label": "CLI",
+            "lang": "Shell",
+            "source": "hcloud storage-box enable-snapshot-plan $STORAGEBOX \\\n    --max-snapshots 10 \\\n    --minute 30 \\\n    --hour 3 \\\n    --day-of-week 7"
+          }
         ]
       },
       "servers": [
@@ -26287,6 +26498,23 @@
         "summary": "Reset Password",
         "tags": [
           "storage_boxes"
+        ],
+        "x-codeSamples": [
+          {
+            "label": "Go",
+            "lang": "Go",
+            "source": "package examples\n\nimport (\n\t\"context\"\n\t\"os\"\n\n\t\"github.com/hetznercloud/hcloud-go/v2/hcloud\"\n)\n\nfunc main() {\n\ttoken := os.Getenv(\"HCLOUD_TOKEN\")\n\n\tclient := hcloud.NewClient(hcloud.WithToken(token))\n\tctx := context.TODO()\n\n\taction, _, err := client.StorageBox.ResetPassword(ctx, &hcloud.StorageBox{ID: 123},\n\t\thcloud.StorageBoxResetPasswordOpts{Password: \"string\"})\n\n\terr = client.Action.WaitFor(ctx, action)\n}"
+          },
+          {
+            "label": "Python",
+            "lang": "Python",
+            "source": "from __future__ import annotations\n\nfrom os import environ\n\nfrom hcloud import Client\nfrom hcloud.storage_boxes import StorageBox\n\ntoken = environ[\"HCLOUD_TOKEN\"]\nclient = Client(token=token)\n\naction = client.storage_boxes.reset_password(\n    storage_box=StorageBox(id=123), password=\"string\"\n)\n\naction.wait_until_finished()"
+          },
+          {
+            "label": "CLI",
+            "lang": "Shell",
+            "source": "hcloud storage-box reset-password --password \"new-password\" $STORAGEBOX"
+          }
         ]
       },
       "servers": [
@@ -26378,6 +26606,23 @@
         "summary": "Rollback Snapshot",
         "tags": [
           "storage_boxes"
+        ],
+        "x-codeSamples": [
+          {
+            "label": "Go",
+            "lang": "Go",
+            "source": "package examples\n\nimport (\n\t\"context\"\n\t\"os\"\n\n\t\"github.com/hetznercloud/hcloud-go/v2/hcloud\"\n)\n\nfunc main() {\n\ttoken := os.Getenv(\"HCLOUD_TOKEN\")\n\n\tclient := hcloud.NewClient(hcloud.WithToken(token))\n\tctx := context.TODO()\n\n\taction, _, err := client.StorageBox.RollbackSnapshot(ctx, &hcloud.StorageBox{ID: 123}, hcloud.StorageBoxRollbackSnapshotOpts{\n\t\tSnapshot: &hcloud.StorageBoxSnapshot{Name: \"my-snapshot\"},\n\t})\n\n\terr = client.Action.WaitFor(ctx, action)\n}"
+          },
+          {
+            "label": "Python",
+            "lang": "Python",
+            "source": "from __future__ import annotations\n\nfrom os import environ\n\nfrom hcloud import Client\nfrom hcloud.storage_boxes import StorageBox, StorageBoxSnapshot\n\ntoken = environ[\"HCLOUD_TOKEN\"]\nclient = Client(token=token)\n\naction = client.storage_boxes.rollback_snapshot(\n    storage_box=StorageBox(id=123), snapshot=StorageBoxSnapshot(name=\"my-snapshot\")\n)\n\naction.wait_until_finished()"
+          },
+          {
+            "label": "CLI",
+            "lang": "Shell",
+            "source": "hcloud storage-box rollback-snapshot --snapshot \"my-snapshot\" $STORAGEBOX"
+          }
         ]
       },
       "servers": [
@@ -26465,6 +26710,23 @@
         "summary": "Update Access Settings",
         "tags": [
           "storage_boxes"
+        ],
+        "x-codeSamples": [
+          {
+            "label": "Go",
+            "lang": "Go",
+            "source": "package examples\n\nimport (\n\t\"context\"\n\t\"os\"\n\n\t\"github.com/hetznercloud/hcloud-go/v2/hcloud\"\n)\n\nfunc main() {\n\ttoken := os.Getenv(\"HCLOUD_TOKEN\")\n\n\tclient := hcloud.NewClient(hcloud.WithToken(token))\n\tctx := context.TODO()\n\n\taction, _, err := client.StorageBox.UpdateAccessSettings(ctx, &hcloud.StorageBox{ID: 123}, hcloud.StorageBoxUpdateAccessSettingsOpts{\n\t\tReachableExternally: hcloud.Ptr(false),\n\t\tSambaEnabled:        hcloud.Ptr(false),\n\t\tSSHEnabled:          hcloud.Ptr(false),\n\t\tWebDAVEnabled:       hcloud.Ptr(false),\n\t\tZFSEnabled:          hcloud.Ptr(false),\n\t})\n\n\terr = client.Action.WaitFor(ctx, action)\n}"
+          },
+          {
+            "label": "Python",
+            "lang": "Python",
+            "source": "from __future__ import annotations\n\nfrom os import environ\n\nfrom hcloud import Client\nfrom hcloud.storage_boxes import StorageBox, StorageBoxAccessSettings\n\ntoken = environ[\"HCLOUD_TOKEN\"]\nclient = Client(token=token)\n\naction = client.storage_boxes.update_access_settings(\n    storage_box=StorageBox(id=123),\n    access_settings=StorageBoxAccessSettings(\n        reachable_externally=False,\n        samba_enabled=False,\n        ssh_enabled=False,\n        webdav_enabled=False,\n        zfs_enabled=False,\n    ),\n)\n\naction.wait_until_finished()"
+          },
+          {
+            "label": "CLI",
+            "lang": "Shell",
+            "source": "hcloud storage-box update-access-settings $STORAGEBOX \\\n    --reachable-externally \\\n    --enable-samba=false \\\n    --enable-ssh=true \\\n    --enable-webdav \\\n    --enable-zfs"
+          }
         ]
       },
       "servers": [
@@ -26604,6 +26866,23 @@
         "summary": "List folders of a Storage Box",
         "tags": [
           "storage_boxes"
+        ],
+        "x-codeSamples": [
+          {
+            "label": "Go",
+            "lang": "Go",
+            "source": "package examples\n\nimport (\n\t\"context\"\n\t\"os\"\n\n\t\"github.com/hetznercloud/hcloud-go/v2/hcloud\"\n)\n\nfunc main() {\n\ttoken := os.Getenv(\"HCLOUD_TOKEN\")\n\n\tclient := hcloud.NewClient(hcloud.WithToken(token))\n\tctx := context.TODO()\n\n\tresult, _, err := client.StorageBox.Folders(ctx, &hcloud.StorageBox{ID: 123}, hcloud.StorageBoxFoldersOpts{\n\t\tPath: \".\",\n\t})\n\n\tfolders := result.Folders\n}"
+          },
+          {
+            "label": "Python",
+            "lang": "Python",
+            "source": "from __future__ import annotations\n\nfrom os import environ\n\nfrom hcloud import Client\nfrom hcloud.storage_boxes import StorageBox\n\ntoken = environ[\"HCLOUD_TOKEN\"]\nclient = Client(token=token)\n\nresponse = client.storage_boxes.get_folders(\n    storage_box=StorageBox(id=123),\n)\n\nfolders = response.folders"
+          },
+          {
+            "label": "CLI",
+            "lang": "Shell",
+            "source": "hcloud storage-box folders --path \"subfolder\" $STORAGEBOX"
+          }
         ]
       },
       "servers": [
@@ -26748,6 +27027,23 @@
         "summary": "List Snapshots",
         "tags": [
           "storage_boxes"
+        ],
+        "x-codeSamples": [
+          {
+            "label": "Go",
+            "lang": "Go",
+            "source": "package examples\n\nimport (\n\t\"context\"\n\t\"os\"\n\n\t\"github.com/hetznercloud/hcloud-go/v2/hcloud\"\n)\n\nfunc main() {\n\ttoken := os.Getenv(\"HCLOUD_TOKEN\")\n\n\tclient := hcloud.NewClient(hcloud.WithToken(token))\n\tctx := context.TODO()\n\n\tsnapshots, err := client.StorageBox.AllSnapshots(ctx, &hcloud.StorageBox{ID: 123})\n}"
+          },
+          {
+            "label": "Python",
+            "lang": "Python",
+            "source": "from __future__ import annotations\n\nfrom os import environ\n\nfrom hcloud import Client\nfrom hcloud.storage_boxes import StorageBox\n\ntoken = environ[\"HCLOUD_TOKEN\"]\nclient = Client(token=token)\n\nsnapshots = client.storage_boxes.get_snapshot_all(storage_box=StorageBox(id=123))"
+          },
+          {
+            "label": "CLI",
+            "lang": "Shell",
+            "source": "hcloud storage-box snapshot list $STORAGEBOX"
+          }
         ]
       },
       "post": {
@@ -26836,6 +27132,23 @@
         "summary": "Create a Snapshot",
         "tags": [
           "storage_boxes"
+        ],
+        "x-codeSamples": [
+          {
+            "label": "Go",
+            "lang": "Go",
+            "source": "package examples\n\nimport (\n\t\"context\"\n\t\"os\"\n\n\t\"github.com/hetznercloud/hcloud-go/v2/hcloud\"\n)\n\nfunc main() {\n\ttoken := os.Getenv(\"HCLOUD_TOKEN\")\n\n\tclient := hcloud.NewClient(hcloud.WithToken(token))\n\tctx := context.TODO()\n\n\tresult, _, err := client.StorageBox.CreateSnapshot(ctx, &hcloud.StorageBox{ID: 123}, hcloud.StorageBoxSnapshotCreateOpts{\n\t\tDescription: \"snapshot-0001\",\n\t\tLabels: map[string]string{\n\t\t\t\"environment\":    \"prod\",\n\t\t\t\"example.com/my\": \"label\",\n\t\t\t\"just-a-key\":     \"\",\n\t\t},\n\t})\n\n\terr = client.Action.WaitFor(ctx, result.Action)\n\n\tsnapshot := result.Snapshot\n}"
+          },
+          {
+            "label": "Python",
+            "lang": "Python",
+            "source": "from __future__ import annotations\n\nfrom os import environ\n\nfrom hcloud import Client\nfrom hcloud.storage_boxes import StorageBox\n\ntoken = environ[\"HCLOUD_TOKEN\"]\nclient = Client(token=token)\n\nresponse = client.storage_boxes.create_snapshot(\n    storage_box=StorageBox(id=123),\n    description=\"snapshot-0001\",\n    labels={\n        \"environment\": \"prod\",\n        \"example.com/my\": \"label\",\n        \"just-a-key\": \"\",\n    },\n)\n\nresponse.action.wait_until_finished()\n\nsnapshot = response.snapshot"
+          },
+          {
+            "label": "CLI",
+            "lang": "Shell",
+            "source": "hcloud storage-box snapshot create $STORAGEBOX \\\n    --description \"snapshot-0001\" \\\n    --label \"environment=prod\" \\\n    --label \"example.com/my=label\" \\\n    --label \"just-a-key=\""
+          }
         ]
       },
       "servers": [
@@ -26930,6 +27243,23 @@
         "summary": "Delete a Snapshot",
         "tags": [
           "storage_boxes"
+        ],
+        "x-codeSamples": [
+          {
+            "label": "Go",
+            "lang": "Go",
+            "source": "package examples\n\nimport (\n\t\"context\"\n\t\"os\"\n\n\t\"github.com/hetznercloud/hcloud-go/v2/hcloud\"\n)\n\nfunc main() {\n\ttoken := os.Getenv(\"HCLOUD_TOKEN\")\n\n\tclient := hcloud.NewClient(hcloud.WithToken(token))\n\tctx := context.TODO()\n\n\tresult, _, err := client.StorageBox.DeleteSnapshot(ctx, &hcloud.StorageBoxSnapshot{\n\t\tStorageBox: &hcloud.StorageBox{ID: 123},\n\t\tID:         456,\n\t})\n\n\terr = client.Action.WaitFor(ctx, result.Action)\n}"
+          },
+          {
+            "label": "Python",
+            "lang": "Python",
+            "source": "from __future__ import annotations\n\nfrom os import environ\n\nfrom hcloud import Client\nfrom hcloud.storage_boxes import StorageBox, StorageBoxSnapshot\n\ntoken = environ[\"HCLOUD_TOKEN\"]\nclient = Client(token=token)\n\nresponse = client.storage_boxes.delete_snapshot(\n    snapshot=StorageBoxSnapshot(\n        storage_box=StorageBox(id=123),\n        id=456,\n    )\n)\n\nresponse.action.wait_until_finished()"
+          },
+          {
+            "label": "CLI",
+            "lang": "Shell",
+            "source": "hcloud storage-box snapshot delete $STORAGEBOX $SNAPSHOT"
+          }
         ]
       },
       "get": {
@@ -26988,6 +27318,23 @@
         "summary": "Get a Snapshot",
         "tags": [
           "storage_boxes"
+        ],
+        "x-codeSamples": [
+          {
+            "label": "Go",
+            "lang": "Go",
+            "source": "package examples\n\nimport (\n\t\"context\"\n\t\"os\"\n\n\t\"github.com/hetznercloud/hcloud-go/v2/hcloud\"\n)\n\nfunc main() {\n\ttoken := os.Getenv(\"HCLOUD_TOKEN\")\n\n\tclient := hcloud.NewClient(hcloud.WithToken(token))\n\tctx := context.TODO()\n\n\tsubaccount, _, err := client.StorageBox.GetSnapshot(ctx, &hcloud.StorageBox{ID: 123}, \"my-snapshot\")\n}"
+          },
+          {
+            "label": "Python",
+            "lang": "Python",
+            "source": "from __future__ import annotations\n\nfrom os import environ\n\nfrom hcloud import Client\nfrom hcloud.storage_boxes import StorageBox\n\ntoken = environ[\"HCLOUD_TOKEN\"]\nclient = Client(token=token)\n\nsnapshot = client.storage_boxes.get_snapshot_by_id(\n    storage_box=StorageBox(id=123),\n    id=456,\n)"
+          },
+          {
+            "label": "CLI",
+            "lang": "Shell",
+            "source": "hcloud storage-box snapshot describe $STORAGEBOX $SNAPSHOT"
+          }
         ]
       },
       "put": {
@@ -27056,6 +27403,23 @@
         "summary": "Update a Snapshot",
         "tags": [
           "storage_boxes"
+        ],
+        "x-codeSamples": [
+          {
+            "label": "Go",
+            "lang": "Go",
+            "source": "package examples\n\nimport (\n\t\"context\"\n\t\"os\"\n\n\t\"github.com/hetznercloud/hcloud-go/v2/hcloud\"\n)\n\nfunc main() {\n\ttoken := os.Getenv(\"HCLOUD_TOKEN\")\n\n\tclient := hcloud.NewClient(hcloud.WithToken(token))\n\tctx := context.TODO()\n\n\tsubaccount, _, err := client.StorageBox.UpdateSnapshot(ctx, &hcloud.StorageBoxSnapshot{\n\t\tStorageBox: &hcloud.StorageBox{ID: 123},\n\t\tID:         456,\n\t}, hcloud.StorageBoxSnapshotUpdateOpts{\n\t\tDescription: hcloud.Ptr(\"snapshot-0001\"),\n\t\tLabels: map[string]string{\n\t\t\t\"environment\":    \"prod\",\n\t\t\t\"example.com/my\": \"label\",\n\t\t\t\"just-a-key\":     \"\",\n\t\t},\n\t})\n}"
+          },
+          {
+            "label": "Python",
+            "lang": "Python",
+            "source": "from __future__ import annotations\n\nfrom os import environ\n\nfrom hcloud import Client\nfrom hcloud.storage_boxes import StorageBox, StorageBoxSnapshot\n\ntoken = environ[\"HCLOUD_TOKEN\"]\nclient = Client(token=token)\n\nstorage_box = client.storage_boxes.update_snapshot(\n    snapshot=StorageBoxSnapshot(\n        storage_box=StorageBox(id=123),\n        id=456,\n    ),\n    labels={\n        \"environment\": \"prod\",\n        \"example.com/my\": \"label\",\n        \"just-a-key\": \"\",\n    },\n    description=\"snapshot-0001\",\n)"
+          },
+          {
+            "label": "CLI",
+            "lang": "Shell",
+            "source": "hcloud storage-box snapshot update $STORAGEBOX $SNAPSHOT --name \"My Storage Box\"\nhcloud storage-box snapshot add-label --overwrite $STORAGEBOX $SNAPSHOT \\\n    \"environment=prod\" \"example.com/my=label\" \"just-a-key=\"\nhcloud storage-box snapshot remove-label $STORAGEBOX $SNAPSHOT \\\n    \"environment\" \"example.com\" \"just-a-key\""
+          }
         ]
       },
       "servers": [
@@ -27175,6 +27539,23 @@
         "summary": "List Subaccounts",
         "tags": [
           "storage_boxes"
+        ],
+        "x-codeSamples": [
+          {
+            "label": "Go",
+            "lang": "Go",
+            "source": "package examples\n\nimport (\n\t\"context\"\n\t\"os\"\n\n\t\"github.com/hetznercloud/hcloud-go/v2/hcloud\"\n)\n\nfunc main() {\n\ttoken := os.Getenv(\"HCLOUD_TOKEN\")\n\n\tclient := hcloud.NewClient(hcloud.WithToken(token))\n\tctx := context.TODO()\n\n\tsubaccounts, err := client.StorageBox.AllSubaccounts(ctx, &hcloud.StorageBox{ID: 123})\n}"
+          },
+          {
+            "label": "Python",
+            "lang": "Python",
+            "source": "from __future__ import annotations\n\nfrom os import environ\n\nfrom hcloud import Client\nfrom hcloud.storage_boxes import StorageBox\n\ntoken = environ[\"HCLOUD_TOKEN\"]\nclient = Client(token=token)\n\nsubaccounts = client.storage_boxes.get_subaccount_all(storage_box=StorageBox(id=123))"
+          },
+          {
+            "label": "CLI",
+            "lang": "Shell",
+            "source": "hcloud storage-box subaccount list $STORAGEBOX"
+          }
         ]
       },
       "post": {
@@ -27263,6 +27644,23 @@
         "summary": "Create a Subaccount",
         "tags": [
           "storage_boxes"
+        ],
+        "x-codeSamples": [
+          {
+            "label": "Go",
+            "lang": "Go",
+            "source": "package examples\n\nimport (\n\t\"context\"\n\t\"os\"\n\n\t\"github.com/hetznercloud/hcloud-go/v2/hcloud\"\n)\n\nfunc main() {\n\ttoken := os.Getenv(\"HCLOUD_TOKEN\")\n\n\tclient := hcloud.NewClient(hcloud.WithToken(token))\n\tctx := context.TODO()\n\n\tresult, _, err := client.StorageBox.CreateSubaccount(ctx, &hcloud.StorageBox{ID: 123}, hcloud.StorageBoxSubaccountCreateOpts{\n\t\tHomeDirectory: \"my-backup/server01\",\n\t\tPassword:      \"string\",\n\t\tAccessSettings: &hcloud.StorageBoxSubaccountCreateOptsAccessSettings{\n\t\t\tReachableExternally: hcloud.Ptr(false),\n\t\t\tReadonly:            hcloud.Ptr(false),\n\t\t\tSambaEnabled:        hcloud.Ptr(false),\n\t\t\tSSHEnabled:          hcloud.Ptr(false),\n\t\t\tWebDAVEnabled:       hcloud.Ptr(false),\n\t\t},\n\t\tDescription: \"my-backup-server01\",\n\t\tLabels: map[string]string{\n\t\t\t\"environment\":    \"prod\",\n\t\t\t\"example.com/my\": \"label\",\n\t\t\t\"just-a-key\":     \"\",\n\t\t},\n\t})\n\n\terr = client.Action.WaitFor(ctx, result.Action)\n\n\tsubaccount := result.Subaccount\n}"
+          },
+          {
+            "label": "Python",
+            "lang": "Python",
+            "source": "from __future__ import annotations\n\nfrom os import environ\n\nfrom hcloud import Client\nfrom hcloud.storage_boxes import StorageBox, StorageBoxSubaccountAccessSettings\n\ntoken = environ[\"HCLOUD_TOKEN\"]\nclient = Client(token=token)\n\nresponse = client.storage_boxes.create_subaccount(\n    storage_box=StorageBox(id=123),\n    home_directory=\"my-backup/server01\",\n    password=\"string\",\n    access_settings=StorageBoxSubaccountAccessSettings(\n        reachable_externally=False,\n        readonly=False,\n        samba_enabled=False,\n        ssh_enabled=False,\n        webdav_enabled=False,\n    ),\n    description=\"my-backup-server01\",\n    labels={\n        \"environment\": \"prod\",\n        \"example.com/my\": \"label\",\n        \"just-a-key\": \"\",\n    },\n)\n\nresponse.action.wait_until_finished()\n\nsubaccount = response.subaccount"
+          },
+          {
+            "label": "CLI",
+            "lang": "Shell",
+            "source": "hcloud storage-box subaccount create $STORAGEBOX \\\n    --home-directory \"my-backup/server01\" \\\n    --password \"string\" \\\n    --reachable-externally \\\n    --enable-samba=true \\\n    --enable-ssh=false \\\n    --enable-webdav=false \\\n    --readonly \\\n    --description \"my-backup-server01\" \\\n    --label \"environment=prod\" \\\n    --label \"example.com/my=label\" \\\n    --label \"just-a-key=\""
+          }
         ]
       },
       "servers": [
@@ -27357,6 +27755,23 @@
         "summary": "Delete a Subaccount",
         "tags": [
           "storage_boxes"
+        ],
+        "x-codeSamples": [
+          {
+            "label": "Go",
+            "lang": "Go",
+            "source": "package examples\n\nimport (\n\t\"context\"\n\t\"os\"\n\n\t\"github.com/hetznercloud/hcloud-go/v2/hcloud\"\n)\n\nfunc main() {\n\ttoken := os.Getenv(\"HCLOUD_TOKEN\")\n\n\tclient := hcloud.NewClient(hcloud.WithToken(token))\n\tctx := context.TODO()\n\n\tresult, _, err := client.StorageBox.DeleteSubaccount(ctx, &hcloud.StorageBoxSubaccount{\n\t\tStorageBox: &hcloud.StorageBox{ID: 123},\n\t\tID:         456,\n\t})\n\n\terr = client.Action.WaitFor(ctx, result.Action)\n}"
+          },
+          {
+            "label": "Python",
+            "lang": "Python",
+            "source": "from __future__ import annotations\n\nfrom os import environ\n\nfrom hcloud import Client\nfrom hcloud.storage_boxes import StorageBox, StorageBoxSubaccount\n\ntoken = environ[\"HCLOUD_TOKEN\"]\nclient = Client(token=token)\n\nresponse = client.storage_boxes.delete_subaccount(\n    subaccount=StorageBoxSubaccount(\n        storage_box=StorageBox(id=123),\n        id=456,\n    )\n)\n\nresponse.action.wait_until_finished()"
+          },
+          {
+            "label": "CLI",
+            "lang": "Shell",
+            "source": "hcloud storage-box subaccount delete $SUBACCOUNT"
+          }
         ]
       },
       "get": {
@@ -27415,6 +27830,23 @@
         "summary": "Get a Subaccount",
         "tags": [
           "storage_boxes"
+        ],
+        "x-codeSamples": [
+          {
+            "label": "Go",
+            "lang": "Go",
+            "source": "package examples\n\nimport (\n\t\"context\"\n\t\"os\"\n\n\t\"github.com/hetznercloud/hcloud-go/v2/hcloud\"\n)\n\nfunc main() {\n\ttoken := os.Getenv(\"HCLOUD_TOKEN\")\n\n\tclient := hcloud.NewClient(hcloud.WithToken(token))\n\tctx := context.TODO()\n\n\tsubaccount, _, err := client.StorageBox.GetSubaccount(ctx, &hcloud.StorageBox{ID: 123}, \"my-subaccount\")\n}"
+          },
+          {
+            "label": "Python",
+            "lang": "Python",
+            "source": "from __future__ import annotations\n\nfrom os import environ\n\nfrom hcloud import Client\nfrom hcloud.storage_boxes import StorageBox\n\ntoken = environ[\"HCLOUD_TOKEN\"]\nclient = Client(token=token)\n\nsubaccount = client.storage_boxes.get_subaccount_by_id(\n    storage_box=StorageBox(id=123),\n    id=456,\n)"
+          },
+          {
+            "label": "CLI",
+            "lang": "Shell",
+            "source": "hcloud storage-box subaccount describe $SUBACCOUNT"
+          }
         ]
       },
       "put": {
@@ -27483,6 +27915,23 @@
         "summary": "Update a Subaccount",
         "tags": [
           "storage_boxes"
+        ],
+        "x-codeSamples": [
+          {
+            "label": "Go",
+            "lang": "Go",
+            "source": "package examples\n\nimport (\n\t\"context\"\n\t\"os\"\n\n\t\"github.com/hetznercloud/hcloud-go/v2/hcloud\"\n)\n\nfunc main() {\n\ttoken := os.Getenv(\"HCLOUD_TOKEN\")\n\n\tclient := hcloud.NewClient(hcloud.WithToken(token))\n\tctx := context.TODO()\n\n\tsubaccount, _, err := client.StorageBox.UpdateSubaccount(ctx, &hcloud.StorageBoxSubaccount{\n\t\tStorageBox: &hcloud.StorageBox{ID: 123},\n\t\tID:         456,\n\t}, hcloud.StorageBoxSubaccountUpdateOpts{\n\t\tDescription: hcloud.Ptr(\"my-backup-server01\"),\n\t\tLabels: map[string]string{\n\t\t\t\"environment\":    \"prod\",\n\t\t\t\"example.com/my\": \"label\",\n\t\t\t\"just-a-key\":     \"\",\n\t\t},\n\t})\n}"
+          },
+          {
+            "label": "Python",
+            "lang": "Python",
+            "source": "from __future__ import annotations\n\nfrom os import environ\n\nfrom hcloud import Client\nfrom hcloud.storage_boxes import StorageBox, StorageBoxSubaccount\n\ntoken = environ[\"HCLOUD_TOKEN\"]\nclient = Client(token=token)\n\nstorage_box = client.storage_boxes.update_subaccount(\n    subaccount=StorageBoxSubaccount(\n        storage_box=StorageBox(id=123),\n        id=456,\n    ),\n    labels={\n        \"environment\": \"prod\",\n        \"example.com/my\": \"label\",\n        \"just-a-key\": \"\",\n    },\n    description=\"my-backup-server01\",\n)"
+          },
+          {
+            "label": "CLI",
+            "lang": "Shell",
+            "source": "hcloud storage-box subaccount update $STORAGEBOX $SUBACCOUNT --description \"my-backup-server01\"\nhcloud storage-box subaccount add-label --overwrite $STORAGEBOX $SUBACCOUNT \\\n    \"environment=prod\" \"example.com/my=label\" \"just-a-key=\"\nhcloud storage-box subaccount remove-label $STORAGEBOX $SUBACCOUNT \\\n    \"environment\" \"example.com\" \"just-a-key\""
+          }
         ]
       },
       "servers": [
@@ -27584,6 +28033,23 @@
         "summary": "Change Home Directory",
         "tags": [
           "storage_boxes"
+        ],
+        "x-codeSamples": [
+          {
+            "label": "Go",
+            "lang": "Go",
+            "source": "package examples\n\nimport (\n\t\"context\"\n\t\"os\"\n\n\t\"github.com/hetznercloud/hcloud-go/v2/hcloud\"\n)\n\nfunc main() {\n\ttoken := os.Getenv(\"HCLOUD_TOKEN\")\n\n\tclient := hcloud.NewClient(hcloud.WithToken(token))\n\tctx := context.TODO()\n\n\taction, _, err := client.StorageBox.ChangeSubaccountHomeDirectory(ctx, &hcloud.StorageBoxSubaccount{\n\t\tStorageBox: &hcloud.StorageBox{ID: 123},\n\t\tID:         456,\n\t}, hcloud.StorageBoxSubaccountChangeHomeDirectoryOpts{\n\t\tHomeDirectory: \"my-backup/server01\",\n\t})\n\n\terr = client.Action.WaitFor(ctx, action)\n}"
+          },
+          {
+            "label": "Python",
+            "lang": "Python",
+            "source": "from __future__ import annotations\n\nfrom os import environ\n\nfrom hcloud import Client\nfrom hcloud.storage_boxes import StorageBox, StorageBoxSubaccount\n\ntoken = environ[\"HCLOUD_TOKEN\"]\nclient = Client(token=token)\n\naction = client.storage_boxes.change_subaccount_home_directory(\n    subaccount=StorageBoxSubaccount(\n        storage_box=StorageBox(id=123),\n        id=456,\n    ),\n    home_directory=\"my-backup/server01\",\n)\n\naction.wait_until_finished()"
+          },
+          {
+            "label": "CLI",
+            "lang": "Shell",
+            "source": "hcloud storage-box subaccount change-home-directory --home-directory \"my-backup/server01\" $STORAGEBOX $SUBACCOUNT"
+          }
         ]
       },
       "servers": [
@@ -27688,6 +28154,23 @@
         "summary": "Reset Password",
         "tags": [
           "storage_boxes"
+        ],
+        "x-codeSamples": [
+          {
+            "label": "Go",
+            "lang": "Go",
+            "source": "package examples\n\nimport (\n\t\"context\"\n\t\"os\"\n\n\t\"github.com/hetznercloud/hcloud-go/v2/hcloud\"\n)\n\nfunc main() {\n\ttoken := os.Getenv(\"HCLOUD_TOKEN\")\n\n\tclient := hcloud.NewClient(hcloud.WithToken(token))\n\tctx := context.TODO()\n\n\taction, _, err := client.StorageBox.ResetSubaccountPassword(ctx, &hcloud.StorageBoxSubaccount{\n\t\tStorageBox: &hcloud.StorageBox{ID: 123},\n\t\tID:         456,\n\t}, hcloud.StorageBoxSubaccountResetPasswordOpts{\n\t\tPassword: \"string\",\n\t})\n\n\terr = client.Action.WaitFor(ctx, action)\n}"
+          },
+          {
+            "label": "Python",
+            "lang": "Python",
+            "source": "from __future__ import annotations\n\nfrom os import environ\n\nfrom hcloud import Client\nfrom hcloud.storage_boxes import StorageBox, StorageBoxSubaccount\n\ntoken = environ[\"HCLOUD_TOKEN\"]\nclient = Client(token=token)\n\naction = client.storage_boxes.reset_subaccount_password(\n    subaccount=StorageBoxSubaccount(\n        storage_box=StorageBox(id=123),\n        id=456,\n    ),\n    password=\"string\",\n)\n\naction.wait_until_finished()"
+          },
+          {
+            "label": "CLI",
+            "lang": "Shell",
+            "source": "hcloud storage-box subaccount reset-password --password \"string\" $STORAGEBOX $SUBACCOUNT"
+          }
         ]
       },
       "servers": [
@@ -27792,6 +28275,23 @@
         "summary": "Update Access Settings",
         "tags": [
           "storage_boxes"
+        ],
+        "x-codeSamples": [
+          {
+            "label": "Go",
+            "lang": "Go",
+            "source": "package examples\n\nimport (\n\t\"context\"\n\t\"os\"\n\n\t\"github.com/hetznercloud/hcloud-go/v2/hcloud\"\n)\n\nfunc main() {\n\ttoken := os.Getenv(\"HCLOUD_TOKEN\")\n\n\tclient := hcloud.NewClient(hcloud.WithToken(token))\n\tctx := context.TODO()\n\n\taction, _, err := client.StorageBox.UpdateSubaccountAccessSettings(ctx, &hcloud.StorageBoxSubaccount{\n\t\tStorageBox: &hcloud.StorageBox{ID: 123},\n\t\tID:         456,\n\t}, hcloud.StorageBoxSubaccountUpdateAccessSettingsOpts{\n\t\tReachableExternally: hcloud.Ptr(false),\n\t\tReadonly:            hcloud.Ptr(false),\n\t\tSambaEnabled:        hcloud.Ptr(false),\n\t\tSSHEnabled:          hcloud.Ptr(false),\n\t\tWebDAVEnabled:       hcloud.Ptr(false),\n\t})\n\n\terr = client.Action.WaitFor(ctx, action)\n}"
+          },
+          {
+            "label": "Python",
+            "lang": "Python",
+            "source": "from __future__ import annotations\n\nfrom os import environ\n\nfrom hcloud import Client\nfrom hcloud.storage_boxes import (\n    StorageBox,\n    StorageBoxSubaccount,\n    StorageBoxSubaccountAccessSettings,\n)\n\ntoken = environ[\"HCLOUD_TOKEN\"]\nclient = Client(token=token)\n\naction = client.storage_boxes.update_subaccount_access_settings(\n    subaccount=StorageBoxSubaccount(\n        storage_box=StorageBox(id=123),\n        id=456,\n    ),\n    access_settings=StorageBoxSubaccountAccessSettings(\n        reachable_externally=False,\n        readonly=False,\n        samba_enabled=False,\n        ssh_enabled=False,\n        webdav_enabled=False,\n    ),\n)\n\naction.wait_until_finished()"
+          },
+          {
+            "label": "CLI",
+            "lang": "Shell",
+            "source": "hcloud storage-box subaccount update-access-settings $STORAGEBOX $SUBACCOUNT \\\n    --reachable-externally \\\n    --enable-samba=true \\\n    --enable-ssh=false \\\n    --enable-webdav=false \\\n    --readonly"
+          }
         ]
       },
       "servers": [
