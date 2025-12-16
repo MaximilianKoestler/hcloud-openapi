@@ -140,6 +140,8 @@ This API description is currently being used by the following projects:
 /pricing (GET)
 /primary_ips (GET, POST)
 /primary_ips/{id} (DELETE, GET, PUT)
+/primary_ips/{id}/actions (GET)
+/primary_ips/{id}/actions/{action_id} (GET)
 /primary_ips/{id}/actions/assign (POST)
 /primary_ips/{id}/actions/change_dns_ptr (POST)
 /primary_ips/{id}/actions/change_protection (POST)

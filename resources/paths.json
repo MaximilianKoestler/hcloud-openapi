@@ -79,6 +79,8 @@
   "/pricing",
   "/primary_ips",
   "/primary_ips/{id}",
+  "/primary_ips/{id}/actions",
+  "/primary_ips/{id}/actions/{action_id}",
   "/primary_ips/{id}/actions/assign",
   "/primary_ips/{id}/actions/change_dns_ptr",
   "/primary_ips/{id}/actions/change_protection",
