@@ -6,7 +6,7 @@
     },
     "description": "Copied from the official API documentation for the Public Hetzner Cloud.",
     "title": "Hetzner Cloud API",
-    "version": "1d0d76d"
+    "version": "c19d347"
   },
   "servers": [
     {
@@ -1828,12 +1828,18 @@
             "type": "boolean"
           },
           "datacenter": {
-            "description": "Data Center ID or name.\n\nThe  Primary IP will be bound to this Data Center. Omit if `assignee_id`/`assignee_type` is provided.\n",
+            "deprecated": true,
+            "description": "**Deprecated**: This property is deprecated and will be removed after 1 July 2026.\nUse the `location` key instead.\n\nData Center ID or name.\n\nThe Primary IP will be bound to this Data Center.\nOmit if `assignee_id`/`assignee_type` or `location` are provided.\n",
             "example": "fsn1-dc8",
             "type": "string"
           },
           "labels": {
             "$ref": "#/components/schemas/labels"
+          },
+          "location": {
+            "description": "Location ID or name the Primary IP will be bound to.\n\nOmit if `assignee_id`/`assignee_type` or `datacenter` are provided.\n",
+            "example": "fsn1",
+            "type": "string"
           },
           "name": {
             "description": "Name of the Resource. Must be unique per Project.",
@@ -1893,7 +1899,13 @@
                 "type": "string"
               },
               "datacenter": {
+                "allOf": [
+                  {
                 "$ref": "#/components/schemas/data_center"
+                  }
+                ],
+                "deprecated": true,
+                "description": "**Deprecated**: This property is deprecated and will be removed after the 1 July 2026.\nUse the `location` property instead.\n\nData Center of the Primary IP.\n"
               },
               "dns_ptr": {
                 "description": "List of reverse DNS records.",
@@ -1917,6 +1929,9 @@
               "labels": {
                 "$ref": "#/components/schemas/labels"
               },
+              "location": {
+                "$ref": "#/components/schemas/location"
+              },
               "name": {
                 "description": "Name of the Resource. Must be unique per Project.",
                 "example": "my-resource",
@@ -1935,6 +1950,7 @@
               "labels",
               "created",
               "blocked",
+              "location",
               "datacenter",
               "ip",
               "dns_ptr",
@@ -1979,7 +1995,8 @@
             "type": "boolean"
           },
           "datacenter": {
-            "description": "ID or name of Data Center to create Server in (must not be used together with location).",
+            "deprecated": true,
+            "description": "**Deprecated**: This property is deprecated and will be removed after the 1 July 2026.\nUse the `location` property instead.\n\nID or name of the Data Center to create Server in (must not be used together with `location`).\n",
             "example": "nbg1-dc3",
             "type": "string"
           },
@@ -2015,7 +2032,7 @@
             "$ref": "#/components/schemas/labels"
           },
           "location": {
-            "description": "ID or name of Location to create Server in (must not be used together with datacenter).",
+            "description": "ID or name of the Location to create the Server in (must not be used together with `datacenter`).",
             "example": "nbg1",
             "type": "string"
           },
@@ -2574,7 +2591,7 @@
         "type": "object"
       },
       "data_center": {
-        "description": "Data Center the Primary IP is located at. | Data Center this Resource is located at.",
+        "description": "**Deprecated**: This property is deprecated and will be removed after the 1 July 2026.\nUse the `location` property instead.\n\nData Center of the Primary IP.\n | **Deprecated**: This property is deprecated and will be removed after the 1 July 2026.\nUse the `location` property instead.\n\nData Center this Resource is located at.\n",
         "properties": {
           "description": {
             "description": "Descriptive name for the Data Center.\n\nDesired to be easy to understand for humans. Might be changed for cosmetic reasons. Do not use this as an identifier.\n",
@@ -3696,7 +3713,13 @@
                 "type": "string"
               },
               "datacenter": {
+                "allOf": [
+                  {
                 "$ref": "#/components/schemas/data_center"
+                  }
+                ],
+                "deprecated": true,
+                "description": "**Deprecated**: This property is deprecated and will be removed after the 1 July 2026.\nUse the `location` property instead.\n\nData Center of the Primary IP.\n"
               },
               "dns_ptr": {
                 "description": "List of reverse DNS records.",
@@ -3720,6 +3743,9 @@
               "labels": {
                 "$ref": "#/components/schemas/labels"
               },
+              "location": {
+                "$ref": "#/components/schemas/location"
+              },
               "name": {
                 "description": "Name of the Resource. Must be unique per Project.",
                 "example": "my-resource",
@@ -3738,6 +3764,7 @@
               "labels",
               "created",
               "blocked",
+              "location",
               "datacenter",
               "ip",
               "dns_ptr",
@@ -4805,7 +4832,13 @@
                   "type": "string"
                 },
                 "datacenter": {
+                  "allOf": [
+                    {
                   "$ref": "#/components/schemas/data_center"
+                    }
+                  ],
+                  "deprecated": true,
+                  "description": "**Deprecated**: This property is deprecated and will be removed after the 1 July 2026.\nUse the `location` property instead.\n\nData Center of the Primary IP.\n"
                 },
                 "dns_ptr": {
                   "description": "List of reverse DNS records.",
@@ -4829,6 +4862,9 @@
                 "labels": {
                   "$ref": "#/components/schemas/labels"
                 },
+                "location": {
+                  "$ref": "#/components/schemas/location"
+                },
                 "name": {
                   "description": "Name of the Resource. Must be unique per Project.",
                   "example": "my-resource",
@@ -4847,6 +4883,7 @@
                 "labels",
                 "created",
                 "blocked",
+                "location",
                 "datacenter",
                 "ip",
                 "dns_ptr",
@@ -5588,7 +5625,7 @@
         "type": "object"
       },
       "location": {
-        "description": "Location the Data Center is located at.\n | Location of the Volume. Volume can only be attached to Servers in the same Location. | Location of the Storage Box.",
+        "description": "Location the Data Center is located at.\n | Location of the Primary IP.\n | Location this Resource is located at.\n | Location of the Volume. Volume can only be attached to Servers in the same Location. | Location of the Storage Box.",
         "properties": {
           "city": {
             "description": "Name of the closest city to the Location.\n\nCity name or city name and state in short form. E.g. `Falkenstein` or `Ashburn, VA`.\n",
@@ -6501,7 +6538,13 @@
                 "type": "string"
               },
               "datacenter": {
+                "allOf": [
+                  {
                 "$ref": "#/components/schemas/data_center"
+                  }
+                ],
+                "deprecated": true,
+                "description": "**Deprecated**: This property is deprecated and will be removed after the 1 July 2026.\nUse the `location` property instead.\n\nData Center of the Primary IP.\n"
               },
               "dns_ptr": {
                 "description": "List of reverse DNS records.",
@@ -6525,6 +6568,9 @@
               "labels": {
                 "$ref": "#/components/schemas/labels"
               },
+              "location": {
+                "$ref": "#/components/schemas/location"
+              },
               "name": {
                 "description": "Name of the Resource. Must be unique per Project.",
                 "example": "my-resource",
@@ -6543,6 +6589,7 @@
               "labels",
               "created",
               "blocked",
+              "location",
               "datacenter",
               "ip",
               "dns_ptr",
@@ -7210,7 +7257,13 @@
             "type": "string"
           },
           "datacenter": {
+            "allOf": [
+              {
             "$ref": "#/components/schemas/data_center"
+              }
+            ],
+            "deprecated": true,
+            "description": "**Deprecated**: This property is deprecated and will be removed after the 1 July 2026.\nUse the `location` property instead.\n\nData Center this Resource is located at.\n"
           },
           "id": {
             "description": "ID of the Server.",
@@ -7261,6 +7314,9 @@
               "type": "integer"
             },
             "type": "array"
+          },
+          "location": {
+            "$ref": "#/components/schemas/location"
           },
           "locked": {
             "description": "True if Server has been locked and is not available to user.",
@@ -7393,6 +7449,7 @@
           "public_net",
           "private_net",
           "server_type",
+          "location",
           "datacenter",
           "image",
           "iso",
@@ -18832,7 +18889,7 @@
         ]
       },
       "post": {
-        "description": "Create a new Primary IP.\n\nCan optionally be assigned to a resource by providing an `assignee_id` and `assignee_type`.\n\nIf not assigned to a resource the `datacenter` key needs to be provided. This can be either the ID or the name of the Data Center this Primary IP shall be created in.\n\nA Primary IP can only be assigned to resource in the same Data Center later on.\n\n#### Call specific error codes\n\n| Code                          | Description                                                              |\n|------------------------------ |------------------------------------------------------------------------- |\n| `server_not_stopped`          | The specified Server is running, but needs to be powered off |\n| `server_has_ipv4`             | The Server already has an ipv4 address                       |\n| `server_has_ipv6`             | The Server already has an ipv6 address                       |\n",
+        "description": "Create a new Primary IP.\n\nCan optionally be assigned to a resource by providing an `assignee_id` and `assignee_type`.\n\nIf not assigned to a resource the `location` key needs to be provided. This can be either the ID or the name of the Location this Primary IP shall be created in.\n\nA Primary IP can only be assigned to resource in the same Location later on.\n\nThe `datacenter` key is deprecated in favor of `location` and will be removed after 01 July 2026.\n\n#### Call specific error codes\n\n| Code                          | Description                                                              |\n|------------------------------ |------------------------------------------------------------------------- |\n| `server_not_stopped`          | The specified Server is running, but needs to be powered off |\n| `server_has_ipv4`             | The Server already has an ipv4 address                       |\n| `server_has_ipv6`             | The Server already has an ipv6 address                       |\n",
         "operationId": "create_primary_ip",
         "requestBody": {
           "content": {
@@ -18842,7 +18899,7 @@
               }
             }
           },
-          "description": "Request Body for creating a new Primary IP.\n\nThe `datacenter` and `assignee_id`/`assignee_type` attributes are mutually exclusive.\n",
+          "description": "Request Body for creating a new Primary IP.\n\nThe `location`, `datacenter` and `assignee_id`/`assignee_type` attributes are mutually exclusive.\n",
           "required": true
         },
         "responses": {
@@ -18916,6 +18973,16 @@
                     "ip": "2001:db8::/64",
                     "labels": {
                       "key": "value"
+                    },
+                    "location": {
+                      "city": "Falkenstein",
+                      "country": "DE",
+                      "description": "Falkenstein DC Park 1",
+                      "id": 1,
+                      "latitude": 50.47612,
+                      "longitude": 12.370071,
+                      "name": "fsn1",
+                      "network_zone": "eu-central"
                     },
                     "name": "my-ip",
                     "protection": {
@@ -20079,7 +20146,7 @@
               }
             }
           },
-          "description": "Please note that Server names must be unique per Project and valid hostnames as per RFC 1123 (i.e. may only contain letters, digits, periods, and dashes).\n\nFor `server_type` you can either use the ID as listed in `/server_types` or its name.\n\nFor `image` you can either use the ID as listed in `/images` or its name.\n\nIf you want to create the Server in a Location, you must set `location` to the ID or name as listed in `/locations`. This is the recommended way. You can be even more specific by setting `datacenter` to the ID or name as listed in `/datacenters`. However we only recommend this if you want to assign a specific Primary IP to the Server which is located in the specified Data Center.\n\nSome properties like `start_after_create` or `automount` will trigger Actions after the Server is created. Those Actions are listed in the `next_actions` field in the response.\n\nFor accessing your Server we strongly recommend to use SSH keys by passing the respective key IDs in `ssh_keys`. If you do not specify any `ssh_keys` we will generate a root password for you and return it in the response.\n\nPlease note that provided user-data is stored in our systems. While we take measures to protect it we highly recommend that you don’t use it to store passwords or other sensitive information.\n\n#### Call specific error codes\n\n| Code                             | Description                                                |\n|----------------------------------|------------------------------------------------------------|\n| `placement_error`                | An error during the placement occurred                     |\n| `primary_ip_assigned`            | The specified Primary IP is already assigned to a server   |\n| `primary_ip_datacenter_mismatch` | The specified Primary IP is in a different datacenter      |\n| `primary_ip_version_mismatch`    | The specified Primary IP has the wrong IP Version          |\n",
+          "description": "Please note that Server names must be unique per Project and valid hostnames as per RFC 1123 (i.e. may only contain letters, digits, periods, and dashes).\n\nFor `server_type` you can either use the ID as listed in `/server_types` or its name.\n\nFor `image` you can either use the ID as listed in `/images` or its name.\n\nIf you want to create the Server in a Location, you must set `location` to the ID or name as listed in `/locations`.\n\nSome properties like `start_after_create` or `automount` will trigger Actions after the Server is created. Those Actions are listed in the `next_actions` field in the response.\n\nFor accessing your Server we strongly recommend to use SSH keys by passing the respective key IDs in `ssh_keys`. If you do not specify any `ssh_keys` we will generate a root password for you and return it in the response.\n\nPlease note that provided user-data is stored in our systems. While we take measures to protect it we highly recommend that you don’t use it to store passwords or other sensitive information.\n\n#### Call specific error codes\n\n| Code                             | Description                                                |\n|----------------------------------|------------------------------------------------------------|\n| `placement_error`                | An error during the placement occurred                     |\n| `primary_ip_assigned`            | The specified Primary IP is already assigned to a server   |\n| `primary_ip_datacenter_mismatch` | The specified Primary IP is in a different datacenter      |\n| `primary_ip_version_mismatch`    | The specified Primary IP has the wrong IP Version          |\n",
           "required": true
         },
         "responses": {
@@ -20206,6 +20273,16 @@
                       "key": "value"
                     },
                     "load_balancers": [],
+                    "location": {
+                      "city": "Falkenstein",
+                      "country": "DE",
+                      "description": "Falkenstein DC Park 1",
+                      "id": 1,
+                      "latitude": 50.47612,
+                      "longitude": 12.370071,
+                      "name": "fsn1",
+                      "network_zone": "eu-central"
+                    },
                     "locked": false,
                     "name": "my-server",
                     "outgoing_traffic": 123456,
