@@ -65,7 +65,7 @@
   {
     "name": "error_response",
     "path": [
-      "add_records_to_rrset_response_default"
+      "add_records_to_rrset_response_4xx"
     ]
   },
   {
