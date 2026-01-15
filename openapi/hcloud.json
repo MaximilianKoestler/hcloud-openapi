@@ -6,7 +6,7 @@
     },
     "description": "Copied from the official API documentation for the Public Hetzner Cloud.",
     "title": "Hetzner Cloud API",
-    "version": "8161c52"
+    "version": "670de00"
   },
   "servers": [
     {
@@ -2372,6 +2372,13 @@
           },
           "labels": {
             "$ref": "#/components/schemas/labels"
+          },
+          "name": {
+            "description": "Name of the Storage Box Subaccount.\n\nDefaults to the Storage Box Subaccount `username`.\n",
+            "example": "my-name",
+            "maxLength": 50,
+            "minLength": 1,
+            "type": "string"
           },
           "password": {
             "description": "Password of the Storage Box Subaccount.\n\nFor more details, see the Storage Boxes password policy.\n",
@@ -6744,6 +6751,13 @@
           },
           "labels": {
             "$ref": "#/components/schemas/labels"
+          },
+          "name": {
+            "description": "Name of the Storage Box Subaccount.\n",
+            "example": "my-name",
+            "maxLength": 50,
+            "minLength": 1,
+            "type": "string"
           }
         },
         "type": "object"
@@ -8262,6 +8276,13 @@
           },
           "labels": {
             "$ref": "#/components/schemas/labels"
+          },
+          "name": {
+            "description": "Name of the Storage Box Subaccount.\n",
+            "example": "my-name",
+            "maxLength": 50,
+            "minLength": 1,
+            "type": "string"
           },
           "server": {
             "description": "FQDN of the Storage Box Subaccount.",
@@ -29592,6 +29613,15 @@
             }
           },
           {
+            "description": "Filter resources by their name. The response will only contain the resources\nmatching exactly the specified name.\n",
+            "in": "query",
+            "name": "name",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
             "description": "Filter resources by labels. The response will only contain resources matching the\nlabel selector. For more information, see \"Label Selector\".\n",
             "in": "query",
             "name": "label_selector",
@@ -29655,6 +29685,7 @@
                             "example.com/my": "label",
                             "just-a-key": null
                           },
+                          "name": "my-name",
                           "server": "u1337-sub1.your-storagebox.de",
                           "storage_box": 42,
                           "username": "u1337-sub1"
