@@ -6,7 +6,7 @@
     },
     "description": "Copied from the official API documentation for the Public Hetzner Cloud.",
     "title": "Hetzner Cloud API",
-    "version": "ba7c999-dirty"
+    "version": "8161c52"
   },
   "servers": [
     {
@@ -8901,7 +8901,7 @@
                 }
               }
             },
-            "description": "Response for listing Actions."
+            "description": "Request succeeded."
           },
           "4xx": {
             "content": {
@@ -8970,7 +8970,7 @@
                 }
               }
             },
-            "description": "Response for getting an Action."
+            "description": "Request succeeded."
           },
           "4xx": {
             "content": {
@@ -9153,7 +9153,7 @@
                 }
               }
             },
-            "description": "The `certificates` key contains an array of Certificate objects."
+            "description": "Request succeeded."
           },
           "4xx": {
             "content": {
@@ -9328,7 +9328,7 @@
                 }
               }
             },
-            "description": "The `certificate` key contains the Certificate that was just created. For type `managed` Certificates the `action` key contains the Action that allows for tracking the issuance process. For type `uploaded` Certificates the `action` is always null."
+            "description": "Request succeeded."
           },
           "4xx": {
             "content": {
@@ -9415,7 +9415,7 @@
         ],
         "responses": {
           "204": {
-            "description": "Certificate deleted."
+            "description": "Request succeeded."
           },
           "4xx": {
             "content": {
@@ -9514,7 +9514,7 @@
                 }
               }
             },
-            "description": "The `certificate` key contains a Certificate object."
+            "description": "Request succeeded."
           },
           "4xx": {
             "content": {
@@ -9623,7 +9623,7 @@
                 }
               }
             },
-            "description": "The `certificate` key contains the Certificate that was just updated."
+            "description": "Request succeeded."
           },
           "4xx": {
             "content": {
@@ -9806,7 +9806,7 @@
                 }
               }
             },
-            "description": "The `actions` key contains a list of Actions."
+            "description": "Request succeeded."
           },
           "4xx": {
             "content": {
@@ -9901,7 +9901,7 @@
                 }
               }
             },
-            "description": "The `action` key contains the Certificate Action."
+            "description": "Request succeeded."
           },
           "4xx": {
             "content": {
@@ -9983,7 +9983,7 @@
                 }
               }
             },
-            "description": "The `action` key contains the resulting Action."
+            "description": "Request succeeded."
           },
           "4xx": {
             "content": {
@@ -10136,7 +10136,7 @@
                 }
               }
             },
-            "description": "The `actions` key contains a list of Actions."
+            "description": "Request succeeded."
           },
           "4xx": {
             "content": {
@@ -10210,7 +10210,7 @@
                 }
               }
             },
-            "description": "The `action` key in the reply has this structure."
+            "description": "Request succeeded."
           },
           "4xx": {
             "content": {
@@ -10324,7 +10324,7 @@
                 }
               }
             },
-            "description": "Contains the queried Data Centers."
+            "description": "Request succeeded."
           },
           "4xx": {
             "content": {
@@ -10403,7 +10403,7 @@
                 }
               }
             },
-            "description": "Contains the queried Data Center."
+            "description": "Request succeeded."
           },
           "4xx": {
             "content": {
@@ -10534,7 +10534,7 @@
                 }
               }
             },
-            "description": "The `firewalls` key contains the Firewalls."
+            "description": "Request succeeded."
           },
           "4xx": {
             "content": {
@@ -10628,7 +10628,7 @@
                 }
               }
             },
-            "description": "The `firewall` key contains the created Firewall."
+            "description": "Request succeeded."
           },
           "4xx": {
             "content": {
@@ -10700,7 +10700,7 @@
         ],
         "responses": {
           "204": {
-            "description": "Firewall deleted."
+            "description": "Request succeeded."
           },
           "4xx": {
             "content": {
@@ -10772,7 +10772,7 @@
                 }
               }
             },
-            "description": "The `firewall` key contains the Firewall."
+            "description": "Request succeeded."
           },
           "4xx": {
             "content": {
@@ -10854,7 +10854,7 @@
                 }
               }
             },
-            "description": "The `firewall` key contains the updated Firewall."
+            "description": "Request succeeded."
           },
           "4xx": {
             "content": {
@@ -11037,7 +11037,7 @@
                 }
               }
             },
-            "description": "The `actions` key contains a list of Actions."
+            "description": "Request succeeded."
           },
           "4xx": {
             "content": {
@@ -11132,7 +11132,7 @@
                 }
               }
             },
-            "description": "The `action` key contains the Firewall Action."
+            "description": "Request succeeded."
           },
           "4xx": {
             "content": {
@@ -11240,7 +11240,7 @@
                 }
               }
             },
-            "description": "The `actions` key contains multiple Actions with the `apply_firewall` command."
+            "description": "Request succeeded."
           },
           "4xx": {
             "content": {
@@ -11365,7 +11365,7 @@
                 }
               }
             },
-            "description": "The `actions` key contains multiple Actions with the `remove_firewall` command."
+            "description": "Request succeeded."
           },
           "4xx": {
             "content": {
@@ -11513,7 +11513,7 @@
                 }
               }
             },
-            "description": "The `action` key contains an Action with the `set_firewall_rules` command and additionally one with the `apply_firewall` command per resource of the Firewall."
+            "description": "Request succeeded."
           },
           "4xx": {
             "content": {
@@ -11666,7 +11666,7 @@
                 }
               }
             },
-            "description": "The `actions` key contains a list of Actions."
+            "description": "Request succeeded."
           },
           "4xx": {
             "content": {
@@ -11740,7 +11740,7 @@
                 }
               }
             },
-            "description": "The `action` key contains the Action."
+            "description": "Request succeeded."
           },
           "4xx": {
             "content": {
@@ -11863,7 +11863,7 @@
                 }
               }
             },
-            "description": "Response for listing Floating IPs."
+            "description": "Request succeeded."
           },
           "4xx": {
             "content": {
@@ -11983,7 +11983,7 @@
                 }
               }
             },
-            "description": "Response for creating a Floating IP.\n\nContains the created IP.\n"
+            "description": "Request succeeded."
           },
           "4xx": {
             "content": {
@@ -12055,7 +12055,7 @@
         ],
         "responses": {
           "204": {
-            "description": "Floating IP deleted."
+            "description": "Request succeeded."
           },
           "4xx": {
             "content": {
@@ -12127,7 +12127,7 @@
                 }
               }
             },
-            "description": "Response for getting a single Floating IP."
+            "description": "Request succeeded."
           },
           "4xx": {
             "content": {
@@ -12243,7 +12243,7 @@
                 }
               }
             },
-            "description": "Response for updating a Floating IP.\n\nContains the updated Floating IP.\n"
+            "description": "Request succeeded."
           },
           "4xx": {
             "content": {
@@ -12429,7 +12429,7 @@
                 }
               }
             },
-            "description": "Response for listing Actions."
+            "description": "Request succeeded."
           },
           "4xx": {
             "content": {
@@ -12528,7 +12528,7 @@
                 }
               }
             },
-            "description": "Response for getting an Action."
+            "description": "Request succeeded."
           },
           "4xx": {
             "content": {
@@ -12624,7 +12624,7 @@
                 }
               }
             },
-            "description": "Response for assigning a Floating IP.\n\nContains an Action of type `assign_floating_ip`.\n"
+            "description": "Request succeeded."
           },
           "4xx": {
             "content": {
@@ -12734,7 +12734,7 @@
                 }
               }
             },
-            "description": "Response for changing a Floating IPs DNS pointer.\n\nContains an Action of type `change_dns_ptr`.\n"
+            "description": "Request succeeded."
           },
           "4xx": {
             "content": {
@@ -12843,7 +12843,7 @@
                 }
               }
             },
-            "description": "Response for changing a Floating IPs protection settings.\n\nContains an Action of type `change_protection`.\n"
+            "description": "Request succeeded."
           },
           "4xx": {
             "content": {
@@ -12946,7 +12946,7 @@
                 }
               }
             },
-            "description": "Response for unassigning a Floating IP.\n\nContains an Action of type `unassign_floating_ip`.\n"
+            "description": "Request succeeded."
           },
           "4xx": {
             "content": {
@@ -13099,7 +13099,7 @@
                 }
               }
             },
-            "description": "Response for listing Actions."
+            "description": "Request succeeded."
           },
           "4xx": {
             "content": {
@@ -13173,7 +13173,7 @@
                 }
               }
             },
-            "description": "Response for getting a single Action."
+            "description": "Request succeeded."
           },
           "4xx": {
             "content": {
@@ -13374,7 +13374,7 @@
                 }
               }
             },
-            "description": "The `images` key in the reply contains an array of Image objects with this structure."
+            "description": "Request succeeded."
           },
           "4xx": {
             "content": {
@@ -13446,7 +13446,7 @@
         ],
         "responses": {
           "204": {
-            "description": "Image deleted."
+            "description": "Request succeeded."
           },
           "4xx": {
             "content": {
@@ -13518,7 +13518,7 @@
                 }
               }
             },
-            "description": "The `image` key in the reply contains an Image object with this structure."
+            "description": "Request succeeded."
           },
           "4xx": {
             "content": {
@@ -13629,7 +13629,7 @@
                 }
               }
             },
-            "description": "The image key in the reply contains the modified Image object."
+            "description": "Request succeeded."
           },
           "4xx": {
             "content": {
@@ -13811,7 +13811,7 @@
                 }
               }
             },
-            "description": "The `actions` key contains a list of Actions."
+            "description": "Request succeeded."
           },
           "4xx": {
             "content": {
@@ -13906,7 +13906,7 @@
                 }
               }
             },
-            "description": "The `action` key contains the Image Action."
+            "description": "Request succeeded."
           },
           "4xx": {
             "content": {
@@ -13998,7 +13998,7 @@
                 }
               }
             },
-            "description": "The `action` key contains the `change_protection` Action."
+            "description": "Request succeeded."
           },
           "4xx": {
             "content": {
@@ -14151,7 +14151,7 @@
                 }
               }
             },
-            "description": "The `actions` key contains a list of Actions."
+            "description": "Request succeeded."
           },
           "4xx": {
             "content": {
@@ -14225,7 +14225,7 @@
                 }
               }
             },
-            "description": "The `action` key in the reply has this structure."
+            "description": "Request succeeded."
           },
           "4xx": {
             "content": {
@@ -14343,7 +14343,7 @@
                 }
               }
             },
-            "description": "The `isos` key in the reply contains an array of iso objects with this structure."
+            "description": "Request succeeded."
           },
           "4xx": {
             "content": {
@@ -14422,7 +14422,7 @@
                 }
               }
             },
-            "description": "The `iso` key in the reply contains an array of ISO objects with this structure."
+            "description": "Request succeeded."
           },
           "4xx": {
             "content": {
@@ -14521,7 +14521,7 @@
                 }
               }
             },
-            "description": "The `load_balancer_types` key in the reply contains an array of Load Balancer type objects with this structure."
+            "description": "Request succeeded."
           },
           "4xx": {
             "content": {
@@ -14600,7 +14600,7 @@
                 }
               }
             },
-            "description": "The `load_balancer_type` key in the reply contains a Load Balancer type object with this structure."
+            "description": "Request succeeded."
           },
           "4xx": {
             "content": {
@@ -14731,7 +14731,7 @@
                 }
               }
             },
-            "description": "The `load_balancers` key contains a list of Load Balancers."
+            "description": "Request succeeded."
           },
           "4xx": {
             "content": {
@@ -14951,7 +14951,7 @@
                 }
               }
             },
-            "description": "The `load_balancer` key contains the Load Balancer that was just created."
+            "description": "Request succeeded."
           },
           "4xx": {
             "content": {
@@ -15023,7 +15023,7 @@
         ],
         "responses": {
           "204": {
-            "description": "Load Balancer deleted."
+            "description": "Request succeeded."
           },
           "4xx": {
             "content": {
@@ -15095,7 +15095,7 @@
                 }
               }
             },
-            "description": "The `load_balancer` key contains the Load Balancer."
+            "description": "Request succeeded."
           },
           "4xx": {
             "content": {
@@ -15318,7 +15318,7 @@
                 }
               }
             },
-            "description": "The `load_balancer` key contains the updated Load Balancer."
+            "description": "Request succeeded."
           },
           "4xx": {
             "content": {
@@ -15500,7 +15500,7 @@
                 }
               }
             },
-            "description": "The `actions` key contains a list of Actions."
+            "description": "Request succeeded."
           },
           "4xx": {
             "content": {
@@ -15595,7 +15595,7 @@
                 }
               }
             },
-            "description": "The `action` key contains the Load Balancer Action."
+            "description": "Request succeeded."
           },
           "4xx": {
             "content": {
@@ -15687,7 +15687,7 @@
                 }
               }
             },
-            "description": "The `action` key contains the `add_service` Action."
+            "description": "Request succeeded."
           },
           "4xx": {
             "content": {
@@ -15796,7 +15796,7 @@
                 }
               }
             },
-            "description": "The `action` key contains the `add_target` Action."
+            "description": "Request succeeded."
           },
           "4xx": {
             "content": {
@@ -15905,7 +15905,7 @@
                 }
               }
             },
-            "description": "The `action` key contains the `attach_to_network` Action."
+            "description": "Request succeeded."
           },
           "4xx": {
             "content": {
@@ -16014,7 +16014,7 @@
                 }
               }
             },
-            "description": "The `action` key contains the `change_algorithm` Action."
+            "description": "Request succeeded."
           },
           "4xx": {
             "content": {
@@ -16124,7 +16124,7 @@
                 }
               }
             },
-            "description": "The `action` key in the reply contains an Action object with this structure."
+            "description": "Request succeeded."
           },
           "4xx": {
             "content": {
@@ -16233,7 +16233,7 @@
                 }
               }
             },
-            "description": "The `action` key contains the `change_protection` Action."
+            "description": "Request succeeded."
           },
           "4xx": {
             "content": {
@@ -16342,7 +16342,7 @@
                 }
               }
             },
-            "description": "The `action` key contains the `change_load_balancer_type` Action."
+            "description": "Request succeeded."
           },
           "4xx": {
             "content": {
@@ -16451,7 +16451,7 @@
                 }
               }
             },
-            "description": "The `action` key contains the `delete_service` Action."
+            "description": "Request succeeded."
           },
           "4xx": {
             "content": {
@@ -16564,7 +16564,7 @@
                 }
               }
             },
-            "description": "The `action` key contains the `detach_from_network` Action."
+            "description": "Request succeeded."
           },
           "4xx": {
             "content": {
@@ -16667,7 +16667,7 @@
                 }
               }
             },
-            "description": "The `action` key contains the `disable_public_interface` Action."
+            "description": "Request succeeded."
           },
           "4xx": {
             "content": {
@@ -16770,7 +16770,7 @@
                 }
               }
             },
-            "description": "The `action` key contains the `enable_public_interface` Action."
+            "description": "Request succeeded."
           },
           "4xx": {
             "content": {
@@ -16879,7 +16879,7 @@
                 }
               }
             },
-            "description": "The `action` key contains the `remove_target` Action."
+            "description": "Request succeeded."
           },
           "4xx": {
             "content": {
@@ -16988,7 +16988,7 @@
                 }
               }
             },
-            "description": "The `action` key contains the `update_service` Action."
+            "description": "Request succeeded."
           },
           "4xx": {
             "content": {
@@ -17112,7 +17112,7 @@
                 }
               }
             },
-            "description": "The `metrics` key in the reply contains a metrics object with this structure."
+            "description": "Request succeeded."
           },
           "4xx": {
             "content": {
@@ -17265,7 +17265,7 @@
                 }
               }
             },
-            "description": "The `actions` key contains a list of Actions."
+            "description": "Request succeeded."
           },
           "4xx": {
             "content": {
@@ -17339,7 +17339,7 @@
                 }
               }
             },
-            "description": "The `action` key in the reply has this structure."
+            "description": "Request succeeded."
           },
           "4xx": {
             "content": {
@@ -17453,7 +17453,7 @@
                 }
               }
             },
-            "description": "Response with the Locations."
+            "description": "Request succeeded."
           },
           "4xx": {
             "content": {
@@ -17532,7 +17532,7 @@
                 }
               }
             },
-            "description": "Response with the Location."
+            "description": "Request succeeded."
           },
           "4xx": {
             "content": {
@@ -17663,7 +17663,7 @@
                 }
               }
             },
-            "description": "Response for listing Networks."
+            "description": "Request succeeded."
           },
           "4xx": {
             "content": {
@@ -17730,7 +17730,7 @@
                 }
               }
             },
-            "description": "Response for creating a Network.\n\nContains the newly created Network.\n"
+            "description": "Request succeeded."
           },
           "4xx": {
             "content": {
@@ -17802,7 +17802,7 @@
         ],
         "responses": {
           "204": {
-            "description": "Response for deleting a Network."
+            "description": "Request succeeded."
           },
           "4xx": {
             "content": {
@@ -17874,7 +17874,7 @@
                 }
               }
             },
-            "description": "The `network` key contains the network."
+            "description": "Request succeeded."
           },
           "4xx": {
             "content": {
@@ -17991,7 +17991,7 @@
                 }
               }
             },
-            "description": "Response for updating a Network.\n\nContains the updated Network.\n"
+            "description": "Request succeeded."
           },
           "4xx": {
             "content": {
@@ -18173,7 +18173,7 @@
                 }
               }
             },
-            "description": "Response for listing Actions."
+            "description": "Request succeeded."
           },
           "4xx": {
             "content": {
@@ -18268,7 +18268,7 @@
                 }
               }
             },
-            "description": "Response for getting an Action."
+            "description": "Request succeeded."
           },
           "4xx": {
             "content": {
@@ -18360,7 +18360,7 @@
                 }
               }
             },
-            "description": "Response for adding a route to a Network.\n\nThe `action` key contains an Action with command `add_route`.\n"
+            "description": "Request succeeded."
           },
           "4xx": {
             "content": {
@@ -18469,7 +18469,7 @@
                 }
               }
             },
-            "description": "Response for adding a subnet to a Network.\n\nThe `action` key contains an Action with command `add_subnet`.\n"
+            "description": "Request succeeded."
           },
           "4xx": {
             "content": {
@@ -18578,7 +18578,7 @@
                 }
               }
             },
-            "description": "Response for changing the Networks IP range.\n\nThe `action` key contains an Action with command `change_ip_range`.\n"
+            "description": "Request succeeded."
           },
           "4xx": {
             "content": {
@@ -18687,7 +18687,7 @@
                 }
               }
             },
-            "description": "Response for changing the Networks protection.\n\nThe `action` key contains an Action with command `change_protection`.\n"
+            "description": "Request succeeded."
           },
           "4xx": {
             "content": {
@@ -18796,7 +18796,7 @@
                 }
               }
             },
-            "description": "Response for deleting a route from a Network.\n\nThe `action` key contains an Action with command `delete_route`.\n"
+            "description": "Request succeeded."
           },
           "4xx": {
             "content": {
@@ -18905,7 +18905,7 @@
                 }
               }
             },
-            "description": "Response for deleting a subnet from a Network.\n\nThe `action` key contains an Action with command `delete_subnet`.\n"
+            "description": "Request succeeded."
           },
           "4xx": {
             "content": {
@@ -19058,7 +19058,7 @@
                 }
               }
             },
-            "description": "Response for listing Actions."
+            "description": "Request succeeded."
           },
           "4xx": {
             "content": {
@@ -19132,7 +19132,7 @@
                 }
               }
             },
-            "description": "Response for getting a single Action."
+            "description": "Request succeeded."
           },
           "4xx": {
             "content": {
@@ -19302,7 +19302,7 @@
                 }
               }
             },
-            "description": "The `placement_groups` key contains an array of Placement Group objects."
+            "description": "Request succeeded."
           },
           "4xx": {
             "content": {
@@ -19385,7 +19385,7 @@
                 }
               }
             },
-            "description": "The `PlacementGroup` key contains the Placement Group that was just created."
+            "description": "Request succeeded."
           },
           "4xx": {
             "content": {
@@ -19457,7 +19457,7 @@
         ],
         "responses": {
           "204": {
-            "description": "Placement Group deleted."
+            "description": "Request succeeded."
           },
           "4xx": {
             "content": {
@@ -19544,7 +19544,7 @@
                 }
               }
             },
-            "description": "The `placement_group` key contains a Placement Group object."
+            "description": "Request succeeded."
           },
           "4xx": {
             "content": {
@@ -19641,7 +19641,7 @@
                 }
               }
             },
-            "description": "The `certificate` key contains the Placement Group that was just updated."
+            "description": "Request succeeded."
           },
           "4xx": {
             "content": {
@@ -19705,7 +19705,7 @@
                 }
               }
             },
-            "description": "The `pricing` key in the reply contains an pricing object with this structure."
+            "description": "Request succeeded."
           },
           "4xx": {
             "content": {
@@ -19833,7 +19833,7 @@
                 }
               }
             },
-            "description": "Response for listing Primary IPs."
+            "description": "Request succeeded."
           },
           "4xx": {
             "content": {
@@ -19986,7 +19986,7 @@
                 }
               }
             },
-            "description": "Response for creating a Primary IP.\n\nContains the newly created Primary IP.\n"
+            "description": "Request succeeded."
           },
           "4xx": {
             "content": {
@@ -20058,7 +20058,7 @@
         ],
         "responses": {
           "204": {
-            "description": "Primary IP deletion succeeded."
+            "description": "Request succeeded."
           },
           "4xx": {
             "content": {
@@ -20130,7 +20130,7 @@
                 }
               }
             },
-            "description": "The `primary_ip` key contains the Primary IP."
+            "description": "Request succeeded."
           },
           "4xx": {
             "content": {
@@ -20212,7 +20212,7 @@
                 }
               }
             },
-            "description": "The `primary_ip` key contains the updated Primary IP."
+            "description": "Request succeeded."
           },
           "4xx": {
             "content": {
@@ -20533,7 +20533,7 @@
                 }
               }
             },
-            "description": "Response for assigning a Primary IP.\n\nContains an Action of type `assign_primary_ip`.\n"
+            "description": "Request succeeded."
           },
           "4xx": {
             "content": {
@@ -20643,7 +20643,7 @@
                 }
               }
             },
-            "description": "Response for changing a Primary IPs DNS pointer.\n\nContains an Action of type `change_dns_ptr`.\n"
+            "description": "Request succeeded."
           },
           "4xx": {
             "content": {
@@ -20752,7 +20752,7 @@
                 }
               }
             },
-            "description": "Response for changing a Primary IPs protection settings.\n\nContains an Action of type `change_protection`.\n"
+            "description": "Request succeeded."
           },
           "4xx": {
             "content": {
@@ -20855,7 +20855,7 @@
                 }
               }
             },
-            "description": "Response for unassigning a Primary IP.\n\nContains an Action of type `unassign_primary_ip`.\n"
+            "description": "Request succeeded."
           },
           "4xx": {
             "content": {
@@ -21008,7 +21008,7 @@
                 }
               }
             },
-            "description": "Response for listing Actions."
+            "description": "Request succeeded."
           },
           "4xx": {
             "content": {
@@ -21082,7 +21082,7 @@
                 }
               }
             },
-            "description": "Response for getting a single Action."
+            "description": "Request succeeded."
           },
           "4xx": {
             "content": {
@@ -21176,7 +21176,7 @@
                 }
               }
             },
-            "description": "The `server_types` key in the reply contains an array of Server type objects with this structure."
+            "description": "Request succeeded."
           },
           "4xx": {
             "content": {
@@ -21255,7 +21255,7 @@
                 }
               }
             },
-            "description": "The `server_type` key in the reply contains a Server type object with this structure."
+            "description": "Request succeeded."
           },
           "4xx": {
             "content": {
@@ -21410,7 +21410,7 @@
                 }
               }
             },
-            "description": "A paged array of servers.",
+            "description": "Request succeeded.",
             "headers": {
               "x-next": {
                 "description": "A link to the next page of responses.",
@@ -21708,7 +21708,7 @@
                 }
               }
             },
-            "description": "The `server` key in the reply contains a Server object with this structure."
+            "description": "Request succeeded."
           },
           "4xx": {
             "content": {
@@ -21787,7 +21787,7 @@
                 }
               }
             },
-            "description": "The `action` key in the reply contains an Action object with this structure."
+            "description": "Request succeeded."
           },
           "4xx": {
             "content": {
@@ -21859,7 +21859,7 @@
                 }
               }
             },
-            "description": "The `server` key in the reply contains a Server object with this structure."
+            "description": "Request succeeded."
           },
           "4xx": {
             "content": {
@@ -21941,7 +21941,7 @@
                 }
               }
             },
-            "description": "The `server` key in the reply contains the updated Server."
+            "description": "Request succeeded."
           },
           "4xx": {
             "content": {
@@ -22124,7 +22124,7 @@
                 }
               }
             },
-            "description": "The `actions` key contains a list of Actions."
+            "description": "Request succeeded."
           },
           "4xx": {
             "content": {
@@ -22219,7 +22219,7 @@
                 }
               }
             },
-            "description": "The `action` key in the reply has this structure."
+            "description": "Request succeeded."
           },
           "4xx": {
             "content": {
@@ -22311,7 +22311,7 @@
                 }
               }
             },
-            "description": "The `action` key in the reply contains an Action object with this structure."
+            "description": "Request succeeded."
           },
           "4xx": {
             "content": {
@@ -22420,7 +22420,7 @@
                 }
               }
             },
-            "description": "The `action` key in the reply contains an Action object with this structure."
+            "description": "Request succeeded."
           },
           "4xx": {
             "content": {
@@ -22533,7 +22533,7 @@
                 }
               }
             },
-            "description": "The `action` key in the reply contains an Action object with this structure."
+            "description": "Request succeeded."
           },
           "4xx": {
             "content": {
@@ -22646,7 +22646,7 @@
                 }
               }
             },
-            "description": "The `action` key in the reply contains an Action object with this structure."
+            "description": "Request succeeded."
           },
           "4xx": {
             "content": {
@@ -22756,7 +22756,7 @@
                 }
               }
             },
-            "description": "The `action` key in the reply contains an Action object with this structure."
+            "description": "Request succeeded."
           },
           "4xx": {
             "content": {
@@ -22865,7 +22865,7 @@
                 }
               }
             },
-            "description": "The `action` key in the reply contains an Action object with this structure."
+            "description": "Request succeeded."
           },
           "4xx": {
             "content": {
@@ -22974,7 +22974,7 @@
                 }
               }
             },
-            "description": "The `action` key in the reply contains an Action object with this structure."
+            "description": "Request succeeded."
           },
           "4xx": {
             "content": {
@@ -23110,7 +23110,7 @@
                 }
               }
             },
-            "description": "The `image` key in the reply contains an the created Image, which is an object with this structure.\n\nThe `action` key in the reply contains an Action object with this structure.\n"
+            "description": "Request succeeded."
           },
           "4xx": {
             "content": {
@@ -23223,7 +23223,7 @@
                 }
               }
             },
-            "description": "The `action` key in the reply contains an Action object with this structure."
+            "description": "Request succeeded."
           },
           "4xx": {
             "content": {
@@ -23322,7 +23322,7 @@
                 }
               }
             },
-            "description": "The `action` key in the reply contains an Action object with this structure."
+            "description": "Request succeeded."
           },
           "4xx": {
             "content": {
@@ -23421,7 +23421,7 @@
                 }
               }
             },
-            "description": "The `action` key in the reply contains an Action object with this structure."
+            "description": "Request succeeded."
           },
           "4xx": {
             "content": {
@@ -23520,7 +23520,7 @@
                 }
               }
             },
-            "description": "The `action` key in the reply contains an Action object with this structure."
+            "description": "Request succeeded."
           },
           "4xx": {
             "content": {
@@ -23619,7 +23619,7 @@
                 }
               }
             },
-            "description": "The `action` key in the reply contains an Action object with this structure."
+            "description": "Request succeeded."
           },
           "4xx": {
             "content": {
@@ -23729,7 +23729,7 @@
                 }
               }
             },
-            "description": "The `root_password` key in the reply contains the root password that can be used to access the booted rescue system.\n\nThe `action` key in the reply contains an Action object with this structure.\n"
+            "description": "Request succeeded."
           },
           "4xx": {
             "content": {
@@ -23828,7 +23828,7 @@
                 }
               }
             },
-            "description": "The `action` key in the reply contains an Action object with this structure."
+            "description": "Request succeeded."
           },
           "4xx": {
             "content": {
@@ -23927,7 +23927,7 @@
                 }
               }
             },
-            "description": "The `action` key in the reply contains an Action object with this structure."
+            "description": "Request succeeded."
           },
           "4xx": {
             "content": {
@@ -24026,7 +24026,7 @@
                 }
               }
             },
-            "description": "The `action` key in the reply contains an Action object with this structure."
+            "description": "Request succeeded."
           },
           "4xx": {
             "content": {
@@ -24137,7 +24137,7 @@
                 }
               }
             },
-            "description": "The `action` key in the reply contains an Action object with this structure."
+            "description": "Request succeeded."
           },
           "4xx": {
             "content": {
@@ -24236,7 +24236,7 @@
                 }
               }
             },
-            "description": "The `action` key in the reply contains an Action object with this structure."
+            "description": "Request succeeded."
           },
           "4xx": {
             "content": {
@@ -24337,7 +24337,7 @@
                 }
               }
             },
-            "description": "The `action` key in the reply contains an Action object with this structure."
+            "description": "Request succeeded."
           },
           "4xx": {
             "content": {
@@ -24436,7 +24436,7 @@
                 }
               }
             },
-            "description": "The `action` key in the reply contains an Action object with this structure."
+            "description": "Request succeeded."
           },
           "4xx": {
             "content": {
@@ -24536,7 +24536,7 @@
                 }
               }
             },
-            "description": "The `root_password` key in the reply contains the new root password that will be active if the Action succeeds.\n\nThe `action` key in the reply contains an Action object with this structure.\n"
+            "description": "Request succeeded."
           },
           "4xx": {
             "content": {
@@ -24635,7 +24635,7 @@
                 }
               }
             },
-            "description": "The `action` key in the reply contains an Action object with this structure."
+            "description": "Request succeeded."
           },
           "4xx": {
             "content": {
@@ -24758,7 +24758,7 @@
                 }
               }
             },
-            "description": "The `metrics` key in the reply contains a metrics object with this structure."
+            "description": "Request succeeded."
           },
           "4xx": {
             "content": {
@@ -24911,7 +24911,7 @@
                 }
               }
             },
-            "description": "The `actions` key contains a list of Actions."
+            "description": "Request succeeded."
           },
           "4xx": {
             "content": {
@@ -24985,7 +24985,7 @@
                 }
               }
             },
-            "description": "The `action` key in the reply has this structure."
+            "description": "Request succeeded."
           },
           "4xx": {
             "content": {
@@ -25117,7 +25117,7 @@
                 }
               }
             },
-            "description": "The `ssh_keys` key in the reply contains an array of SSH key objects with this structure."
+            "description": "Request succeeded."
           },
           "4xx": {
             "content": {
@@ -25184,7 +25184,7 @@
                 }
               }
             },
-            "description": "The `ssh_key` key in the reply contains the object that was just created."
+            "description": "Request succeeded."
           },
           "4xx": {
             "content": {
@@ -25256,7 +25256,7 @@
         ],
         "responses": {
           "204": {
-            "description": "SSH key deleted."
+            "description": "Request succeeded."
           },
           "4xx": {
             "content": {
@@ -25328,7 +25328,7 @@
                 }
               }
             },
-            "description": "The `ssh_key` key in the reply contains an SSH key object with this structure."
+            "description": "Request succeeded."
           },
           "4xx": {
             "content": {
@@ -25422,7 +25422,7 @@
                 }
               }
             },
-            "description": "The `ssh_key` key in the reply contains the modified SSH key object with the new description."
+            "description": "Request succeeded."
           },
           "4xx": {
             "content": {
@@ -25571,7 +25571,7 @@
                 }
               }
             },
-            "description": "The `volumes` key contains a list of volumes."
+            "description": "Request succeeded."
           },
           "4xx": {
             "content": {
@@ -25722,7 +25722,7 @@
                 }
               }
             },
-            "description": "The `volume` key contains the Volume that was just created.\n\nThe `action` key contains the Action tracking Volume creation.\n"
+            "description": "Request succeeded."
           },
           "4xx": {
             "content": {
@@ -25794,7 +25794,7 @@
         ],
         "responses": {
           "204": {
-            "description": "Volume deleted."
+            "description": "Request succeeded."
           },
           "4xx": {
             "content": {
@@ -25866,7 +25866,7 @@
                 }
               }
             },
-            "description": "The `volume` key contains the volume."
+            "description": "Request succeeded."
           },
           "4xx": {
             "content": {
@@ -25976,7 +25976,7 @@
                 }
               }
             },
-            "description": "The `volume` key contains the updated volume."
+            "description": "Request succeeded."
           },
           "4xx": {
             "content": {
@@ -26162,7 +26162,7 @@
                 }
               }
             },
-            "description": "The `actions` key contains a list of Actions."
+            "description": "Request succeeded."
           },
           "4xx": {
             "content": {
@@ -26257,7 +26257,7 @@
                 }
               }
             },
-            "description": "The `action` key contains the Volume Action."
+            "description": "Request succeeded."
           },
           "4xx": {
             "content": {
@@ -26353,7 +26353,7 @@
                 }
               }
             },
-            "description": "The `action` key contains the `attach_volume` Action."
+            "description": "Request succeeded."
           },
           "4xx": {
             "content": {
@@ -26466,7 +26466,7 @@
                 }
               }
             },
-            "description": "The `action` key contains the `change_protection` Action."
+            "description": "Request succeeded."
           },
           "4xx": {
             "content": {
@@ -26565,7 +26565,7 @@
                 }
               }
             },
-            "description": "The `action` key contains the `detach_volume` Action."
+            "description": "Request succeeded."
           },
           "4xx": {
             "content": {
@@ -26674,7 +26674,7 @@
                 }
               }
             },
-            "description": "The `action` key contains the `resize_volume` Action."
+            "description": "Request succeeded."
           },
           "4xx": {
             "content": {
@@ -26827,7 +26827,7 @@
                 }
               }
             },
-            "description": "The `actions` key contains a list of Actions."
+            "description": "Request succeeded."
           },
           "4xx": {
             "content": {
@@ -26901,7 +26901,7 @@
                 }
               }
             },
-            "description": "The `action` key in the reply has this structure."
+            "description": "Request succeeded."
           },
           "4xx": {
             "content": {
@@ -27211,7 +27211,7 @@
                 }
               }
             },
-            "description": "The `storage_box` key in the reply contains a Storage Box object with this structure."
+            "description": "Request succeeded."
           },
           "4xx": {
             "content": {
@@ -27360,7 +27360,7 @@
                 }
               }
             },
-            "description": "The `action` key in the reply contains an Action object with this structure."
+            "description": "Request succeeded."
           },
           "4xx": {
             "content": {
@@ -27513,7 +27513,7 @@
                 }
               }
             },
-            "description": "The `actions` key contains a list of Actions."
+            "description": "Request succeeded."
           },
           "4xx": {
             "content": {
@@ -27587,7 +27587,7 @@
                 }
               }
             },
-            "description": "The `action` key in the reply has this structure."
+            "description": "Request succeeded."
           },
           "4xx": {
             "content": {
@@ -27683,7 +27683,7 @@
                 }
               }
             },
-            "description": "The `action` key in the reply contains an Action object with this structure."
+            "description": "Request succeeded."
           },
           "4xx": {
             "content": {
@@ -27755,7 +27755,7 @@
                 }
               }
             },
-            "description": "The `storage_box` key in the reply contains a Storage Box object with this structure."
+            "description": "Request succeeded."
           },
           "4xx": {
             "content": {
@@ -27837,7 +27837,7 @@
                 }
               }
             },
-            "description": "The `storage_box` key in the reply contains the updated Storage Box object with this structure."
+            "description": "Request succeeded."
           },
           "4xx": {
             "content": {
@@ -27987,7 +27987,7 @@
                 }
               }
             },
-            "description": "The `actions` key contains a list of Actions."
+            "description": "Request succeeded."
           },
           "4xx": {
             "content": {
@@ -28081,7 +28081,7 @@
                 }
               }
             },
-            "description": "The `action` key in the reply contains an Action object with this structure."
+            "description": "Request succeeded."
           },
           "4xx": {
             "content": {
@@ -28195,7 +28195,7 @@
                 }
               }
             },
-            "description": "The `action` key in the reply contains an Action object with this structure."
+            "description": "Request succeeded."
           },
           "4xx": {
             "content": {
@@ -28299,7 +28299,7 @@
                 }
               }
             },
-            "description": "The `action` key in the reply contains an Action object with this structure."
+            "description": "Request succeeded."
           },
           "4xx": {
             "content": {
@@ -28413,7 +28413,7 @@
                 }
               }
             },
-            "description": "The `action` key in the reply contains an Action object with this structure."
+            "description": "Request succeeded."
           },
           "4xx": {
             "content": {
@@ -28527,7 +28527,7 @@
                 }
               }
             },
-            "description": "The `action` key in the reply contains an Action object with this structure."
+            "description": "Request succeeded."
           },
           "4xx": {
             "content": {
@@ -28645,7 +28645,7 @@
                 }
               }
             },
-            "description": "The `action` key in the reply contains an Action object with this structure."
+            "description": "Request succeeded."
           },
           "4xx": {
             "content": {
@@ -28759,7 +28759,7 @@
                 }
               }
             },
-            "description": "The `action` key in the reply contains an Action object with this structure."
+            "description": "Request succeeded."
           },
           "4xx": {
             "content": {
@@ -28851,7 +28851,7 @@
                 }
               }
             },
-            "description": "The `action` key in the reply has this structure."
+            "description": "Request succeeded."
           },
           "4xx": {
             "content": {
@@ -28935,7 +28935,7 @@
                 }
               }
             },
-            "description": "The `folders` key lists the directories the Storage Box contains at the specified path."
+            "description": "Request succeeded."
           },
           "4xx": {
             "content": {
@@ -29106,7 +29106,7 @@
                 }
               }
             },
-            "description": "The `snapshots` key contains a list of Snapshots."
+            "description": "Request succeeded."
           },
           "4xx": {
             "content": {
@@ -29221,7 +29221,7 @@
                 }
               }
             },
-            "description": "The `action` key in the reply contains an Action object with this structure."
+            "description": "Request succeeded."
           },
           "4xx": {
             "content": {
@@ -29342,7 +29342,7 @@
                 }
               }
             },
-            "description": "The `action` key in the reply contains an Action object with this structure."
+            "description": "Request succeeded."
           },
           "4xx": {
             "content": {
@@ -29427,7 +29427,7 @@
                 }
               }
             },
-            "description": "The `snapshot` key in the reply contains a Snapshot object with this structure."
+            "description": "Request succeeded."
           },
           "4xx": {
             "content": {
@@ -29522,7 +29522,7 @@
                 }
               }
             },
-            "description": "The `snapshot` key contains the updated Snapshot."
+            "description": "Request succeeded."
           },
           "4xx": {
             "content": {
@@ -29668,7 +29668,7 @@
                 }
               }
             },
-            "description": "The `subaccounts` key contains a list of Subaccounts."
+            "description": "Request succeeded."
           },
           "4xx": {
             "content": {
@@ -29783,7 +29783,7 @@
                 }
               }
             },
-            "description": "The `action` key in the reply contains an Action object with this structure."
+            "description": "Request succeeded."
           },
           "4xx": {
             "content": {
@@ -29904,7 +29904,7 @@
                 }
               }
             },
-            "description": "The `action` key in the reply contains an Action object with this structure."
+            "description": "Request succeeded."
           },
           "4xx": {
             "content": {
@@ -29989,7 +29989,7 @@
                 }
               }
             },
-            "description": "The `subaccount` key in the reply contains a Subaccount object with this structure."
+            "description": "Request succeeded."
           },
           "4xx": {
             "content": {
@@ -30084,7 +30084,7 @@
                 }
               }
             },
-            "description": "The `subaccount` key contains the updated Subaccount."
+            "description": "Request succeeded."
           },
           "4xx": {
             "content": {
@@ -30212,7 +30212,7 @@
                 }
               }
             },
-            "description": "The `action` key in the reply contains an Action object with this structure."
+            "description": "Request succeeded."
           },
           "4xx": {
             "content": {
@@ -30343,7 +30343,7 @@
                 }
               }
             },
-            "description": "The `action` key in the reply contains an Action object with this structure."
+            "description": "Request succeeded."
           },
           "4xx": {
             "content": {
@@ -30474,7 +30474,7 @@
                 }
               }
             },
-            "description": "The `action` key in the reply contains an Action object with this structure."
+            "description": "Request succeeded."
           },
           "4xx": {
             "content": {
