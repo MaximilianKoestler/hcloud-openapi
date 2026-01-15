@@ -344,6 +344,7 @@ async function validateOpenApiDocument(document: OpenApiDocumentFragment) {
     /Should define a .* for a valid string/,
     /"nullable" cannot be used without "type"/,
     /Array schemas should avoid having items of type array/,
+    /Property "\dxx" is not expected to be here./
   ];
 
   let warnings = Array.from(results.warnings).filter(
