@@ -170,6 +170,23 @@ function sortObjectRecursive(obj: OpenApiDocumentFragment) {
   return obj;
 }
 
+function sortRequiredLists(obj: OpenApiDocumentFragment) {
+  if (obj === null || obj === undefined) {
+    return obj;
+  }
+
+  if (typeof obj === "object") {
+    if ( obj.type === "object" && Array.isArray(obj.required)) {
+      obj.required.sort();
+    }
+
+    for (const key of Object.keys(obj)) {
+      obj[key] = sortRequiredLists(obj[key]);
+    }
+  }
+  return obj;
+}
+
 function isVerb(verb: string) {
   return [
     "delete",
@@ -474,6 +491,7 @@ async function main() {
     );
 
     document = sortObjectRecursive(document);
+    document = sortRequiredLists(document);
 
     document.paths = sortObjectWithList(document.paths, oldPaths);
     const newPaths = Object.keys(document.paths);

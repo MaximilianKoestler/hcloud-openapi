@@ -6,7 +6,7 @@
     },
     "description": "Copied from the official API documentation for the Public Hetzner Cloud.",
     "title": "Hetzner Cloud API",
-    "version": "d83a5f5"
+    "version": "b12c1e9-dirty"
   },
   "servers": [
     {
@@ -166,14 +166,14 @@
           }
         },
         "required": [
-          "id",
           "command",
-          "status",
-          "progress",
-          "started",
+          "error",
           "finished",
+          "id",
+          "progress",
           "resources",
-          "error"
+          "started",
+          "status"
         ],
         "title": "Action",
         "type": "object"
@@ -389,8 +389,8 @@
           }
         },
         "required": [
-          "assignee_type",
-          "assignee_id"
+          "assignee_id",
+          "assignee_type"
         ],
         "title": "PrimaryIPActionsAssignRequest",
         "type": "object"
@@ -678,15 +678,15 @@
           }
         },
         "required": [
-          "id",
-          "name",
-          "labels",
           "certificate",
           "created",
-          "not_valid_before",
-          "not_valid_after",
           "domain_names",
           "fingerprint",
+          "id",
+          "labels",
+          "name",
+          "not_valid_after",
+          "not_valid_before",
           "used_by"
         ],
         "title": "Certificate",
@@ -729,8 +729,8 @@
           }
         },
         "required": [
-          "network",
-          "alias_ips"
+          "alias_ips",
+          "network"
         ],
         "type": "object"
       },
@@ -941,8 +941,8 @@
           }
         },
         "required": [
-          "ip",
-          "dns_ptr"
+          "dns_ptr",
+          "ip"
         ],
         "title": "ChangeLoadbalancerDnsPtrRequest",
         "type": "object"
@@ -976,8 +976,8 @@
           }
         },
         "required": [
-          "ip",
-          "dns_ptr"
+          "dns_ptr",
+          "ip"
         ],
         "type": "object"
       },
@@ -1149,8 +1149,8 @@
           }
         },
         "required": [
-          "upgrade_disk",
-          "server_type"
+          "server_type",
+          "upgrade_disk"
         ],
         "type": "object"
       },
@@ -1630,8 +1630,8 @@
           }
         },
         "required": [
-          "name",
-          "load_balancer_type"
+          "load_balancer_type",
+          "name"
         ],
         "title": "CreateLoadBalancerRequest",
         "type": "object"
@@ -1647,8 +1647,8 @@
           }
         },
         "required": [
-          "load_balancer",
-          "action"
+          "action",
+          "load_balancer"
         ],
         "type": "object"
       },
@@ -1689,8 +1689,8 @@
           }
         },
         "required": [
-          "name",
-          "ip_range"
+          "ip_range",
+          "name"
         ],
         "title": "NetworkCreateRequest",
         "type": "object"
@@ -1786,12 +1786,12 @@
               }
             },
             "required": [
-              "id",
-              "name",
-              "labels",
-              "type",
               "created",
-              "servers"
+              "id",
+              "labels",
+              "name",
+              "servers",
+              "type"
             ],
             "title": "PlacementGroup",
             "type": "object"
@@ -1851,9 +1851,9 @@
           }
         },
         "required": [
+          "assignee_type",
           "name",
-          "type",
-          "assignee_type"
+          "type"
         ],
         "title": "PrimaryIPCreateRequest",
         "type": "object"
@@ -1945,20 +1945,20 @@
               }
             },
             "required": [
-              "id",
-              "name",
-              "labels",
-              "created",
-              "blocked",
-              "location",
-              "datacenter",
-              "ip",
-              "dns_ptr",
-              "protection",
-              "type",
-              "auto_delete",
+              "assignee_id",
               "assignee_type",
-              "assignee_id"
+              "auto_delete",
+              "blocked",
+              "created",
+              "datacenter",
+              "dns_ptr",
+              "id",
+              "ip",
+              "labels",
+              "location",
+              "name",
+              "protection",
+              "type"
             ],
             "title": "PrimaryIP",
             "type": "object"
@@ -1981,8 +1981,8 @@
           }
         },
         "required": [
-          "rrset",
-          "action"
+          "action",
+          "rrset"
         ],
         "type": "object"
       },
@@ -2123,9 +2123,9 @@
           }
         },
         "required": [
+          "image",
           "name",
-          "server_type",
-          "image"
+          "server_type"
         ],
         "title": "CreateServerRequest",
         "type": "object"
@@ -2153,10 +2153,10 @@
           }
         },
         "required": [
-          "server",
           "action",
           "next_actions",
-          "root_password"
+          "root_password",
+          "server"
         ],
         "title": "CreateServerResponse",
         "type": "object"
@@ -2208,8 +2208,8 @@
           }
         },
         "required": [
-          "snapshot",
-          "action"
+          "action",
+          "snapshot"
         ],
         "type": "object"
       },
@@ -2308,10 +2308,10 @@
           }
         },
         "required": [
-          "storage_box_type",
           "location",
           "name",
-          "password"
+          "password",
+          "storage_box_type"
         ],
         "type": "object"
       },
@@ -2326,8 +2326,8 @@
           }
         },
         "required": [
-          "storage_box",
-          "action"
+          "action",
+          "storage_box"
         ],
         "type": "object"
       },
@@ -2422,8 +2422,8 @@
           }
         },
         "required": [
-          "subaccount",
-          "action"
+          "action",
+          "subaccount"
         ],
         "type": "object"
       },
@@ -2465,8 +2465,8 @@
           }
         },
         "required": [
-          "size",
-          "name"
+          "name",
+          "size"
         ],
         "title": "CreateVolumeRequest",
         "type": "object"
@@ -2488,9 +2488,9 @@
           }
         },
         "required": [
-          "volume",
           "action",
-          "next_actions"
+          "next_actions",
+          "volume"
         ],
         "type": "object"
       },
@@ -2554,8 +2554,8 @@
           }
         },
         "required": [
-          "name",
-          "mode"
+          "mode",
+          "name"
         ],
         "type": "object"
       },
@@ -2570,8 +2570,8 @@
           }
         },
         "required": [
-          "zone",
-          "action"
+          "action",
+          "zone"
         ],
         "type": "object"
       },
@@ -2665,18 +2665,18 @@
               }
             },
             "required": [
-              "supported",
               "available",
-              "available_for_migration"
+              "available_for_migration",
+              "supported"
             ],
             "type": "object"
           }
         },
         "required": [
-          "id",
-          "name",
           "description",
+          "id",
           "location",
+          "name",
           "server_types"
         ],
         "type": "object"
@@ -2840,8 +2840,8 @@
           }
         },
         "required": [
-          "unavailable_after",
-          "announced"
+          "announced",
+          "unavailable_after"
         ],
         "title": "DeprecationInfo",
         "type": "object"
@@ -2996,8 +2996,8 @@
           }
         },
         "required": [
-          "ip",
-          "dns_ptr"
+          "dns_ptr",
+          "ip"
         ],
         "type": "object"
       },
@@ -3109,9 +3109,9 @@
           }
         },
         "required": [
+          "hour",
           "max_snapshots",
-          "minute",
-          "hour"
+          "minute"
         ],
         "type": "object"
       },
@@ -3287,11 +3287,11 @@
                 }
               },
               "required": [
-                "direction",
-                "protocol",
                 "destination_ips",
-                "source_ips",
-                "port"
+                "direction",
+                "port",
+                "protocol",
+                "source_ips"
               ],
               "title": "RuleResponse",
               "type": "object"
@@ -3300,11 +3300,11 @@
           }
         },
         "required": [
+          "applied_to",
+          "created",
           "id",
           "name",
-          "created",
-          "rules",
-          "applied_to"
+          "rules"
         ],
         "title": "FirewallResponse",
         "type": "object"
@@ -3442,18 +3442,18 @@
           }
         },
         "required": [
-          "id",
-          "name",
+          "blocked",
+          "created",
           "description",
-          "ip",
-          "type",
-          "server",
           "dns_ptr",
           "home_location",
-          "blocked",
-          "protection",
+          "id",
+          "ip",
           "labels",
-          "created"
+          "name",
+          "protection",
+          "server",
+          "type"
         ],
         "type": "object"
       },
@@ -3670,12 +3670,12 @@
               }
             },
             "required": [
-              "id",
-              "name",
-              "labels",
-              "type",
               "created",
-              "servers"
+              "id",
+              "labels",
+              "name",
+              "servers",
+              "type"
             ],
             "title": "PlacementGroup",
             "type": "object"
@@ -3771,20 +3771,20 @@
               }
             },
             "required": [
-              "id",
-              "name",
-              "labels",
-              "created",
-              "blocked",
-              "location",
-              "datacenter",
-              "ip",
-              "dns_ptr",
-              "protection",
-              "type",
-              "auto_delete",
+              "assignee_id",
               "assignee_type",
-              "assignee_id"
+              "auto_delete",
+              "blocked",
+              "created",
+              "datacenter",
+              "dns_ptr",
+              "id",
+              "ip",
+              "labels",
+              "location",
+              "name",
+              "protection",
+              "type"
             ],
             "title": "PrimaryIP",
             "type": "object"
@@ -4079,23 +4079,23 @@
           }
         },
         "required": [
-          "id",
-          "type",
-          "status",
-          "name",
-          "description",
-          "image_size",
-          "disk_size",
+          "architecture",
+          "bound_to",
           "created",
           "created_from",
-          "bound_to",
+          "deleted",
+          "deprecated",
+          "description",
+          "disk_size",
+          "id",
+          "image_size",
+          "labels",
+          "name",
           "os_flavor",
           "os_version",
           "protection",
-          "deprecated",
-          "deleted",
-          "labels",
-          "architecture"
+          "status",
+          "type"
         ],
         "type": "object"
       },
@@ -4162,9 +4162,9 @@
           }
         },
         "required": [
-          "ip",
           "blocked",
-          "dns_ptr"
+          "dns_ptr",
+          "ip"
         ],
         "type": "object"
       },
@@ -4198,9 +4198,9 @@
           }
         },
         "required": [
-          "ip",
           "blocked",
-          "dns_ptr"
+          "dns_ptr",
+          "ip"
         ],
         "type": "object"
       },
@@ -4254,12 +4254,12 @@
           }
         },
         "required": [
+          "architecture",
+          "deprecation",
+          "description",
           "id",
           "name",
-          "description",
-          "type",
-          "deprecation",
-          "architecture"
+          "type"
         ],
         "type": "object"
       },
@@ -4352,8 +4352,8 @@
         },
         "required": [
           "datacenters",
-          "recommendation",
-          "meta"
+          "meta",
+          "recommendation"
         ],
         "type": "object"
       },
@@ -4521,8 +4521,8 @@
           }
         },
         "required": [
-          "networks",
-          "meta"
+          "meta",
+          "networks"
         ],
         "type": "object"
       },
@@ -4577,12 +4577,12 @@
                 }
               },
               "required": [
-                "id",
-                "name",
-                "labels",
-                "type",
                 "created",
-                "servers"
+                "id",
+                "labels",
+                "name",
+                "servers",
+                "type"
               ],
               "title": "PlacementGroup",
               "type": "object"
@@ -4591,8 +4591,8 @@
           }
         },
         "required": [
-          "placement_groups",
-          "meta"
+          "meta",
+          "placement_groups"
         ],
         "title": "PlacementGroupsResponse",
         "type": "object"
@@ -4636,8 +4636,8 @@
                     }
                   },
                   "required": [
-                    "type",
-                    "prices"
+                    "prices",
+                    "type"
                   ],
                   "title": "ListPricesResponsePricingFloatingIps",
                   "type": "object"
@@ -4706,8 +4706,8 @@
                     }
                   },
                   "required": [
-                    "type",
-                    "prices"
+                    "prices",
+                    "type"
                   ],
                   "title": "ListPricesResponsePricingPrimaryIps",
                   "type": "object"
@@ -4784,15 +4784,15 @@
             },
             "required": [
               "currency",
-              "vat_rate",
-              "primary_ips",
+              "floating_ip",
               "floating_ips",
               "image",
-              "volume",
+              "load_balancer_types",
+              "primary_ips",
               "server_backup",
               "server_types",
-              "load_balancer_types",
-              "floating_ip"
+              "vat_rate",
+              "volume"
             ],
             "type": "object"
           }
@@ -4890,20 +4890,20 @@
                 }
               },
               "required": [
-                "id",
-                "name",
-                "labels",
-                "created",
-                "blocked",
-                "location",
-                "datacenter",
-                "ip",
-                "dns_ptr",
-                "protection",
-                "type",
-                "auto_delete",
+                "assignee_id",
                 "assignee_type",
-                "assignee_id"
+                "auto_delete",
+                "blocked",
+                "created",
+                "datacenter",
+                "dns_ptr",
+                "id",
+                "ip",
+                "labels",
+                "location",
+                "name",
+                "protection",
+                "type"
               ],
               "title": "PrimaryIP",
               "type": "object"
@@ -4912,8 +4912,8 @@
           }
         },
         "required": [
-          "primary_ips",
-          "meta"
+          "meta",
+          "primary_ips"
         ],
         "title": "PrimaryIPsResponse",
         "type": "object"
@@ -4932,8 +4932,8 @@
           }
         },
         "required": [
-          "rrsets",
-          "meta"
+          "meta",
+          "rrsets"
         ],
         "type": "object"
       },
@@ -4951,8 +4951,8 @@
           }
         },
         "required": [
-          "server_types",
-          "meta"
+          "meta",
+          "server_types"
         ],
         "type": "object"
       },
@@ -4970,8 +4970,8 @@
           }
         },
         "required": [
-          "servers",
-          "meta"
+          "meta",
+          "servers"
         ],
         "type": "object"
       },
@@ -5004,8 +5004,8 @@
           }
         },
         "required": [
-          "ssh_keys",
-          "meta"
+          "meta",
+          "ssh_keys"
         ],
         "type": "object"
       },
@@ -5023,8 +5023,8 @@
           }
         },
         "required": [
-          "storage_box_types",
-          "meta"
+          "meta",
+          "storage_box_types"
         ],
         "type": "object"
       },
@@ -5042,8 +5042,8 @@
           }
         },
         "required": [
-          "storage_boxes",
-          "meta"
+          "meta",
+          "storage_boxes"
         ],
         "type": "object"
       },
@@ -5076,8 +5076,8 @@
           }
         },
         "required": [
-          "volumes",
-          "meta"
+          "meta",
+          "volumes"
         ],
         "type": "object"
       },
@@ -5095,8 +5095,8 @@
           }
         },
         "required": [
-          "zones",
-          "meta"
+          "meta",
+          "zones"
         ],
         "type": "object"
       },
@@ -5179,21 +5179,21 @@
           }
         },
         "required": [
-          "id",
-          "name",
-          "public_net",
-          "private_net",
-          "location",
-          "load_balancer_type",
-          "protection",
-          "labels",
-          "created",
-          "services",
-          "targets",
           "algorithm",
-          "outgoing_traffic",
+          "created",
+          "id",
+          "included_traffic",
           "ingoing_traffic",
-          "included_traffic"
+          "labels",
+          "load_balancer_type",
+          "location",
+          "name",
+          "outgoing_traffic",
+          "private_net",
+          "protection",
+          "public_net",
+          "services",
+          "targets"
         ],
         "type": "object"
       },
@@ -5439,11 +5439,11 @@
               }
             },
             "required": [
-              "protocol",
-              "port",
               "interval",
-              "timeout",
-              "retries"
+              "port",
+              "protocol",
+              "retries",
+              "timeout"
             ],
             "title": "LoadBalancerServiceHealthCheck",
             "type": "object"
@@ -5473,11 +5473,11 @@
           }
         },
         "required": [
-          "protocol",
-          "listen_port",
           "destination_port",
-          "proxyprotocol",
-          "health_check"
+          "health_check",
+          "listen_port",
+          "protocol",
+          "proxyprotocol"
         ],
         "title": "LoadBalancerService",
         "type": "object"
@@ -5624,14 +5624,14 @@
           }
         },
         "required": [
-          "id",
-          "name",
+          "deprecated",
           "description",
+          "id",
+          "max_assigned_certificates",
           "max_connections",
           "max_services",
           "max_targets",
-          "max_assigned_certificates",
-          "deprecated",
+          "name",
           "prices"
         ],
         "type": "object"
@@ -5687,13 +5687,13 @@
           }
         },
         "required": [
-          "id",
-          "name",
-          "description",
-          "country",
           "city",
+          "country",
+          "description",
+          "id",
           "latitude",
           "longitude",
+          "name",
           "network_zone"
         ],
         "type": "object"
@@ -5777,8 +5777,8 @@
           }
         },
         "required": [
-          "start",
           "end",
+          "start",
           "step",
           "time_series"
         ],
@@ -5891,16 +5891,16 @@
           }
         },
         "required": [
+          "created",
+          "expose_routes_to_vswitch",
           "id",
-          "name",
           "ip_range",
-          "subnets",
+          "labels",
+          "name",
+          "protection",
           "routes",
           "servers",
-          "protection",
-          "labels",
-          "created",
-          "expose_routes_to_vswitch"
+          "subnets"
         ],
         "type": "object"
       },
@@ -5949,11 +5949,11 @@
           }
         },
         "required": [
+          "last_page",
+          "next_page",
           "page",
           "per_page",
           "previous_page",
-          "next_page",
-          "last_page",
           "total_entries"
         ],
         "type": "object"
@@ -6001,8 +6001,8 @@
           }
         },
         "required": [
-          "net",
-          "gross"
+          "gross",
+          "net"
         ],
         "type": "object"
       },
@@ -6030,10 +6030,10 @@
           }
         },
         "required": [
+          "included_traffic",
           "location",
           "price_hourly",
           "price_monthly",
-          "included_traffic",
           "price_per_tb_traffic"
         ],
         "type": "object"
@@ -6474,12 +6474,12 @@
               }
             },
             "required": [
-              "id",
-              "name",
-              "labels",
-              "type",
               "created",
-              "servers"
+              "id",
+              "labels",
+              "name",
+              "servers",
+              "type"
             ],
             "title": "PlacementGroup",
             "type": "object"
@@ -6596,20 +6596,20 @@
               }
             },
             "required": [
-              "id",
-              "name",
-              "labels",
-              "created",
-              "blocked",
-              "location",
-              "datacenter",
-              "ip",
-              "dns_ptr",
-              "protection",
-              "type",
-              "auto_delete",
+              "assignee_id",
               "assignee_type",
-              "assignee_id"
+              "auto_delete",
+              "blocked",
+              "created",
+              "datacenter",
+              "dns_ptr",
+              "id",
+              "ip",
+              "labels",
+              "location",
+              "name",
+              "protection",
+              "type"
             ],
             "title": "PrimaryIP",
             "type": "object"
@@ -6846,9 +6846,9 @@
           }
         },
         "required": [
-          "wss_url",
+          "action",
           "password",
-          "action"
+          "wss_url"
         ],
         "type": "object"
       },
@@ -7045,12 +7045,12 @@
         },
         "required": [
           "id",
-          "name",
-          "type",
-          "ttl",
           "labels",
+          "name",
           "protection",
           "records",
+          "ttl",
+          "type",
           "zone"
         ],
         "title": "RRSet",
@@ -7088,8 +7088,8 @@
         },
         "required": [
           "name",
-          "type",
-          "records"
+          "records",
+          "type"
         ],
         "type": "object"
       },
@@ -7131,8 +7131,8 @@
           }
         },
         "required": [
-          "value",
-          "comment"
+          "comment",
+          "value"
         ],
         "title": "Record",
         "type": "object"
@@ -7400,12 +7400,12 @@
               }
             },
             "required": [
-              "id",
-              "name",
-              "labels",
-              "type",
               "created",
-              "servers"
+              "id",
+              "labels",
+              "name",
+              "servers",
+              "type"
             ],
             "title": "PlacementGroupNullable",
             "type": "object"
@@ -7461,26 +7461,26 @@
           }
         },
         "required": [
-          "id",
-          "name",
-          "status",
-          "created",
-          "public_net",
-          "private_net",
-          "server_type",
-          "location",
-          "datacenter",
-          "image",
-          "iso",
-          "rescue_enabled",
-          "locked",
           "backup_window",
-          "outgoing_traffic",
-          "ingoing_traffic",
+          "created",
+          "datacenter",
+          "id",
+          "image",
           "included_traffic",
-          "protection",
+          "ingoing_traffic",
+          "iso",
           "labels",
-          "primary_disk_size"
+          "location",
+          "locked",
+          "name",
+          "outgoing_traffic",
+          "primary_disk_size",
+          "private_net",
+          "protection",
+          "public_net",
+          "rescue_enabled",
+          "server_type",
+          "status"
         ],
         "type": "object"
       },
@@ -7596,9 +7596,9 @@
           }
         },
         "required": [
+          "floating_ips",
           "ipv4",
-          "ipv6",
-          "floating_ips"
+          "ipv6"
         ],
         "type": "object"
       },
@@ -7693,18 +7693,18 @@
           }
         },
         "required": [
-          "id",
-          "name",
-          "description",
-          "cores",
-          "memory",
-          "disk",
-          "deprecated",
-          "prices",
-          "storage_type",
-          "cpu_type",
           "architecture",
-          "locations"
+          "cores",
+          "cpu_type",
+          "deprecated",
+          "description",
+          "disk",
+          "id",
+          "locations",
+          "memory",
+          "name",
+          "prices",
+          "storage_type"
         ],
         "type": "object"
       },
@@ -7734,9 +7734,9 @@
           }
         },
         "required": [
+          "deprecation",
           "id",
-          "name",
-          "deprecation"
+          "name"
         ],
         "type": "object"
       },
@@ -7864,13 +7864,13 @@
           }
         },
         "required": [
-          "id",
-          "name",
+          "created",
           "description",
-          "stats",
+          "id",
           "is_automatic",
           "labels",
-          "created",
+          "name",
+          "stats",
           "storage_box"
         ],
         "type": "object"
@@ -7918,11 +7918,11 @@
           }
         },
         "required": [
-          "max_snapshots",
-          "minute",
-          "hour",
+          "day_of_month",
           "day_of_week",
-          "day_of_month"
+          "hour",
+          "max_snapshots",
+          "minute"
         ],
         "type": "object"
       },
@@ -7995,12 +7995,12 @@
           }
         },
         "required": [
-          "id",
-          "name",
+          "created",
           "fingerprint",
-          "public_key",
+          "id",
           "labels",
-          "created"
+          "name",
+          "public_key"
         ],
         "type": "object"
       },
@@ -8079,20 +8079,20 @@
           }
         },
         "required": [
-          "id",
-          "status",
-          "name",
-          "username",
-          "storage_box_type",
-          "location",
           "access_settings",
-          "server",
-          "system",
-          "stats",
+          "created",
+          "id",
           "labels",
+          "location",
+          "name",
           "protection",
+          "server",
           "snapshot_plan",
-          "created"
+          "stats",
+          "status",
+          "storage_box_type",
+          "system",
+          "username"
         ],
         "type": "object"
       },
@@ -8238,15 +8238,15 @@
           }
         },
         "required": [
+          "automatic_snapshot_limit",
+          "deprecation",
+          "description",
           "id",
           "name",
-          "description",
-          "snapshot_limit",
-          "automatic_snapshot_limit",
-          "subaccounts_limit",
-          "size",
           "prices",
-          "deprecation"
+          "size",
+          "snapshot_limit",
+          "subaccounts_limit"
         ],
         "type": "object"
       },
@@ -8308,15 +8308,16 @@
           }
         },
         "required": [
-          "id",
-          "description",
-          "username",
-          "home_directory",
-          "server",
           "access_settings",
-          "labels",
           "created",
-          "storage_box"
+          "description",
+          "home_directory",
+          "id",
+          "labels",
+          "name",
+          "server",
+          "storage_box",
+          "username"
         ],
         "type": "object"
       },
@@ -8346,10 +8347,10 @@
         },
         "required": [
           "reachable_externally",
+          "readonly",
           "samba_enabled",
           "ssh_enabled",
-          "webdav_enabled",
-          "readonly"
+          "webdav_enabled"
         ],
         "type": "object"
       },
@@ -8383,8 +8384,8 @@
           }
         },
         "required": [
-          "type",
-          "network_zone"
+          "network_zone",
+          "type"
         ],
         "type": "object"
       },
@@ -8423,9 +8424,9 @@
           }
         },
         "required": [
-          "type",
+          "gateway",
           "network_zone",
-          "gateway"
+          "type"
         ],
         "type": "object"
       },
@@ -8720,17 +8721,17 @@
           }
         },
         "required": [
-          "id",
           "created",
-          "name",
-          "server",
-          "location",
-          "size",
-          "linux_device",
-          "protection",
+          "format",
+          "id",
           "labels",
-          "status",
-          "format"
+          "linux_device",
+          "location",
+          "name",
+          "protection",
+          "server",
+          "size",
+          "status"
         ],
         "type": "object"
       },
@@ -8872,17 +8873,17 @@
           }
         },
         "required": [
-          "id",
-          "name",
-          "labels",
-          "created",
-          "status",
-          "ttl",
-          "record_count",
-          "mode",
-          "protection",
           "authoritative_nameservers",
-          "registrar"
+          "created",
+          "id",
+          "labels",
+          "mode",
+          "name",
+          "protection",
+          "record_count",
+          "registrar",
+          "status",
+          "ttl"
         ],
         "title": "Zone",
         "type": "object"
