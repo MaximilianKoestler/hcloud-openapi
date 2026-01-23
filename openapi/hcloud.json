@@ -6,7 +6,7 @@
     },
     "description": "Copied from the official API documentation for the Public Hetzner Cloud.",
     "title": "Hetzner Cloud API",
-    "version": "b12c1e9-dirty"
+    "version": "582d345"
   },
   "servers": [
     {
@@ -6096,6 +6096,11 @@
           "image": {
             "description": "ID or name of Image to rebuilt from.",
             "example": "ubuntu-24.04",
+            "type": "string"
+          },
+          "user_data": {
+            "description": "Cloud-Init user data to use during Server rebuild. This field is limited to 32KiB. If not specified, the Server's previous user_data value will be re-used (if any was set).",
+            "example": "#cloud-config\nruncmd:\n- [touch, /root/cloud-init-worked]\n",
             "type": "string"
           }
         },
