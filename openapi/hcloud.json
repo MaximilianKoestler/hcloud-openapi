@@ -6,7 +6,7 @@
     },
     "description": "Copied from the official API documentation for the Public Hetzner Cloud.",
     "title": "Hetzner Cloud API",
-    "version": "582d345"
+    "version": "89d752f"
   },
   "servers": [
     {
@@ -766,6 +766,9 @@
           "home_directory": {
             "description": "Home directory of the Storage Box Subaccount.\n\nThe directory will be created if it doesn't exist yet.\n",
             "example": "my-backup/server01",
+            "maxLength": 999,
+            "minLength": 1,
+            "pattern": "^[a-zA-Z0-9 ./_-]+$",
             "type": "string"
           }
         },
@@ -2368,6 +2371,9 @@
           "home_directory": {
             "description": "Home directory of the Storage Box Subaccount.\n\nThe directory will be created if it doesn't exist yet.\n",
             "example": "my-backup/server01",
+            "maxLength": 999,
+            "minLength": 1,
+            "pattern": "^[a-zA-Z0-9 ./_-]+$",
             "type": "string"
           },
           "labels": {
@@ -8275,6 +8281,9 @@
           "home_directory": {
             "description": "Home directory of the Storage Box Subaccount.\n",
             "example": "my-backup/server01",
+            "maxLength": 999,
+            "minLength": 1,
+            "pattern": "^[a-zA-Z0-9 ./_-]+$",
             "type": "string"
           },
           "id": {
