@@ -6,7 +6,7 @@
     },
     "description": "Copied from the official API documentation for the Public Hetzner Cloud.",
     "title": "Hetzner Cloud API",
-    "version": "f88d734"
+    "version": "837171d"
   },
   "servers": [
     {
@@ -11969,7 +11969,7 @@
               "application/json": {
                 "example": {
                   "action": {
-                    "command": "create_floating_ip",
+                    "command": "assign_floating_ip",
                     "error": {
                       "code": "action_failed",
                       "message": "Action failed"
@@ -19939,7 +19939,7 @@
               "application/json": {
                 "example": {
                   "action": {
-                    "command": "create_primary_ip",
+                    "command": "assign_primary_ip",
                     "error": {
                       "code": "action_failed",
                       "message": "Action failed"
@@ -30788,51 +30788,55 @@
           "201": {
             "content": {
               "application/json": {
-                "example": {
-                  "action": {
-                    "command": "create_zone",
-                    "error": null,
-                    "finished": null,
-                    "id": 1,
-                    "progress": 50,
-                    "resources": [
-                      {
+                "examples": {
+                  "201": {
+                    "value": {
+                      "action": {
+                        "command": "create_zone",
+                        "error": null,
+                        "finished": null,
+                        "id": 1,
+                        "progress": 50,
+                        "resources": [
+                          {
+                            "id": 42,
+                            "type": "zone"
+                          }
+                        ],
+                        "started": "2016-01-30T23:50:00Z",
+                        "status": "running"
+                      },
+                      "zone": {
+                        "authoritative_nameservers": {
+                          "assigned": [
+                            "hydrogen.ns.hetzner.com.",
+                            "oxygen.ns.hetzner.com.",
+                            "helium.ns.hetzner.de."
+                          ],
+                          "delegated": [
+                            "hydrogen.ns.hetzner.com.",
+                            "oxygen.ns.hetzner.com.",
+                            "helium.ns.hetzner.de."
+                          ],
+                          "delegation_last_check": "2016-01-30T23:50:00Z",
+                          "delegation_status": "valid"
+                        },
+                        "created": "2016-01-30T23:50:00Z",
                         "id": 42,
-                        "type": "zone"
+                        "labels": {
+                          "key": "value"
+                        },
+                        "mode": "primary",
+                        "name": "example.com",
+                        "protection": {
+                          "delete": false
+                        },
+                        "record_count": 4,
+                        "registrar": "hetzner",
+                        "status": "ok",
+                        "ttl": 3600
                       }
-                    ],
-                    "started": "2016-01-30T23:50:00Z",
-                    "status": "running"
-                  },
-                  "zone": {
-                    "authoritative_nameservers": {
-                      "assigned": [
-                        "hydrogen.ns.hetzner.com.",
-                        "oxygen.ns.hetzner.com.",
-                        "helium.ns.hetzner.de."
-                      ],
-                      "delegated": [
-                        "hydrogen.ns.hetzner.com.",
-                        "oxygen.ns.hetzner.com.",
-                        "helium.ns.hetzner.de."
-                      ],
-                      "delegation_last_check": "2016-01-30T23:50:00Z",
-                      "delegation_status": "valid"
-                    },
-                    "created": "2016-01-30T23:50:00Z",
-                    "id": 42,
-                    "labels": {
-                      "key": "value"
-                    },
-                    "mode": "primary",
-                    "name": "example.com",
-                    "protection": {
-                      "delete": false
-                    },
-                    "record_count": 4,
-                    "registrar": "hetzner",
-                    "status": "ok",
-                    "ttl": 3600
+                    }
                   }
                 },
                 "schema": {
@@ -31163,21 +31167,25 @@
           "201": {
             "content": {
               "application/json": {
-                "example": {
-                  "action": {
-                    "command": "delete_zone",
-                    "error": null,
-                    "finished": null,
-                    "id": 1,
-                    "progress": 50,
-                    "resources": [
-                      {
-                        "id": 42,
-                        "type": "zone"
+                "examples": {
+                  "201": {
+                    "value": {
+                      "action": {
+                        "command": "delete_zone",
+                        "error": null,
+                        "finished": null,
+                        "id": 1,
+                        "progress": 50,
+                        "resources": [
+                          {
+                            "id": 42,
+                            "type": "zone"
+                          }
+                        ],
+                        "started": "2016-01-30T23:50:00Z",
+                        "status": "running"
                       }
-                    ],
-                    "started": "2016-01-30T23:50:00Z",
-                    "status": "running"
+                    }
                   }
                 },
                 "schema": {
@@ -31328,36 +31336,40 @@
           "200": {
             "content": {
               "application/json": {
-                "example": {
-                  "zone": {
-                    "authoritative_nameservers": {
-                      "assigned": [
-                        "hydrogen.ns.hetzner.com.",
-                        "oxygen.ns.hetzner.com.",
-                        "helium.ns.hetzner.de."
-                      ],
-                      "delegated": [
-                        "hydrogen.ns.hetzner.com.",
-                        "oxygen.ns.hetzner.com.",
-                        "helium.ns.hetzner.de."
-                      ],
-                      "delegation_last_check": "2016-01-30T23:50:00Z",
-                      "delegation_status": "valid"
-                    },
-                    "created": "2016-01-30T23:50:00Z",
-                    "id": 42,
-                    "labels": {
-                      "key": "value"
-                    },
-                    "mode": "primary",
-                    "name": "example.com",
-                    "protection": {
-                      "delete": false
-                    },
-                    "record_count": 4,
-                    "registrar": "hetzner",
-                    "status": "ok",
-                    "ttl": 3600
+                "examples": {
+                  "200": {
+                    "value": {
+                      "zone": {
+                        "authoritative_nameservers": {
+                          "assigned": [
+                            "hydrogen.ns.hetzner.com.",
+                            "oxygen.ns.hetzner.com.",
+                            "helium.ns.hetzner.de."
+                          ],
+                          "delegated": [
+                            "hydrogen.ns.hetzner.com.",
+                            "oxygen.ns.hetzner.com.",
+                            "helium.ns.hetzner.de."
+                          ],
+                          "delegation_last_check": "2016-01-30T23:50:00Z",
+                          "delegation_status": "valid"
+                        },
+                        "created": "2016-01-30T23:50:00Z",
+                        "id": 42,
+                        "labels": {
+                          "key": "value"
+                        },
+                        "mode": "primary",
+                        "name": "example.com",
+                        "protection": {
+                          "delete": false
+                        },
+                        "record_count": 4,
+                        "registrar": "hetzner",
+                        "status": "ok",
+                        "ttl": 3600
+                      }
+                    }
                   }
                 },
                 "schema": {
@@ -31576,21 +31588,25 @@
           "201": {
             "content": {
               "application/json": {
-                "example": {
-                  "action": {
-                    "command": "change_primary_nameservers",
-                    "error": null,
-                    "finished": null,
-                    "id": 1,
-                    "progress": 50,
-                    "resources": [
-                      {
-                        "id": 42,
-                        "type": "zone"
+                "examples": {
+                  "201": {
+                    "value": {
+                      "action": {
+                        "command": "change_primary_nameservers",
+                        "error": null,
+                        "finished": null,
+                        "id": 1,
+                        "progress": 50,
+                        "resources": [
+                          {
+                            "id": 42,
+                            "type": "zone"
+                          }
+                        ],
+                        "started": "2016-01-30T23:55:00Z",
+                        "status": "running"
                       }
-                    ],
-                    "started": "2016-01-30T23:55:00Z",
-                    "status": "running"
+                    }
                   }
                 },
                 "schema": {
@@ -31679,21 +31695,25 @@
           "201": {
             "content": {
               "application/json": {
-                "example": {
-                  "action": {
-                    "command": "change_protection",
-                    "error": null,
-                    "finished": null,
-                    "id": 1,
-                    "progress": 50,
-                    "resources": [
-                      {
-                        "id": 42,
-                        "type": "zone"
+                "examples": {
+                  "201": {
+                    "value": {
+                      "action": {
+                        "command": "change_protection",
+                        "error": null,
+                        "finished": null,
+                        "id": 1,
+                        "progress": 50,
+                        "resources": [
+                          {
+                            "id": 42,
+                            "type": "zone"
+                          }
+                        ],
+                        "started": "2016-01-30T23:55:00Z",
+                        "status": "running"
                       }
-                    ],
-                    "started": "2016-01-30T23:55:00Z",
-                    "status": "running"
+                    }
                   }
                 },
                 "schema": {
@@ -31782,21 +31802,25 @@
           "201": {
             "content": {
               "application/json": {
-                "example": {
-                  "action": {
-                    "command": "change_ttl",
-                    "error": null,
-                    "finished": null,
-                    "id": 1,
-                    "progress": 50,
-                    "resources": [
-                      {
+                "examples": {
+                  "201": {
+                    "value": {
+                      "action": {
+                        "command": "change_ttl",
+                        "error": null,
+                        "finished": null,
                         "id": 1,
-                        "type": "zone"
+                        "progress": 50,
+                        "resources": [
+                          {
+                            "id": 1,
+                            "type": "zone"
+                          }
+                        ],
+                        "started": "2016-01-30T23:55:00Z",
+                        "status": "running"
                       }
-                    ],
-                    "started": "2016-01-30T23:55:00Z",
-                    "status": "running"
+                    }
                   }
                 },
                 "schema": {
@@ -31885,21 +31909,25 @@
           "201": {
             "content": {
               "application/json": {
-                "example": {
-                  "action": {
-                    "command": "import_zonefile",
-                    "error": null,
-                    "finished": null,
-                    "id": 1,
-                    "progress": 50,
-                    "resources": [
-                      {
-                        "id": 42,
-                        "type": "zone"
+                "examples": {
+                  "201": {
+                    "value": {
+                      "action": {
+                        "command": "import_zonefile",
+                        "error": null,
+                        "finished": null,
+                        "id": 1,
+                        "progress": 50,
+                        "resources": [
+                          {
+                            "id": 42,
+                            "type": "zone"
+                          }
+                        ],
+                        "started": "2016-01-30T23:55:00Z",
+                        "status": "running"
                       }
-                    ],
-                    "started": "2016-01-30T23:55:00Z",
-                    "status": "running"
+                    }
                   }
                 },
                 "schema": {
@@ -31991,21 +32019,25 @@
           "200": {
             "content": {
               "application/json": {
-                "example": {
-                  "action": {
-                    "command": "import_zonefile",
-                    "error": null,
-                    "finished": null,
-                    "id": 1,
-                    "progress": 50,
-                    "resources": [
-                      {
-                        "id": 42,
-                        "type": "zone"
+                "examples": {
+                  "200": {
+                    "value": {
+                      "action": {
+                        "command": "import_zonefile",
+                        "error": null,
+                        "finished": null,
+                        "id": 1,
+                        "progress": 50,
+                        "resources": [
+                          {
+                            "id": 42,
+                            "type": "zone"
+                          }
+                        ],
+                        "started": "2016-01-30T23:55:00Z",
+                        "status": "running"
                       }
-                    ],
-                    "started": "2016-01-30T23:55:00Z",
-                    "status": "running"
+                    }
                   }
                 },
                 "schema": {
@@ -32243,40 +32275,44 @@
           "201": {
             "content": {
               "application/json": {
-                "example": {
-                  "action": {
-                    "command": "create_rrset",
-                    "error": null,
-                    "finished": null,
-                    "id": 1,
-                    "progress": 50,
-                    "resources": [
-                      {
-                        "id": 42,
-                        "type": "zone"
+                "examples": {
+                  "201": {
+                    "value": {
+                      "action": {
+                        "command": "create_rrset",
+                        "error": null,
+                        "finished": null,
+                        "id": 1,
+                        "progress": 50,
+                        "resources": [
+                          {
+                            "id": 42,
+                            "type": "zone"
+                          }
+                        ],
+                        "started": "2016-01-30T23:55:00Z",
+                        "status": "running"
+                      },
+                      "rrset": {
+                        "id": "www/A",
+                        "labels": {
+                          "key": "value"
+                        },
+                        "name": "www",
+                        "protection": {
+                          "change": false
+                        },
+                        "records": [
+                          {
+                            "comment": "My web server at Hetzner Cloud.",
+                            "value": "198.51.100.1"
+                          }
+                        ],
+                        "ttl": 3600,
+                        "type": "A",
+                        "zone": 42
                       }
-                    ],
-                    "started": "2016-01-30T23:55:00Z",
-                    "status": "running"
-                  },
-                  "rrset": {
-                    "id": "www/A",
-                    "labels": {
-                      "key": "value"
-                    },
-                    "name": "www",
-                    "protection": {
-                      "change": false
-                    },
-                    "records": [
-                      {
-                        "comment": "My web server at Hetzner Cloud.",
-                        "value": "198.51.100.1"
-                      }
-                    ],
-                    "ttl": 3600,
-                    "type": "A",
-                    "zone": 42
+                    }
                   }
                 },
                 "schema": {
@@ -32393,21 +32429,25 @@
           "201": {
             "content": {
               "application/json": {
-                "example": {
-                  "action": {
-                    "command": "delete_rrset",
-                    "error": null,
-                    "finished": null,
-                    "id": 1,
-                    "progress": 50,
-                    "resources": [
-                      {
-                        "id": 42,
-                        "type": "zone"
+                "examples": {
+                  "201": {
+                    "value": {
+                      "action": {
+                        "command": "delete_rrset",
+                        "error": null,
+                        "finished": null,
+                        "id": 1,
+                        "progress": 50,
+                        "resources": [
+                          {
+                            "id": 42,
+                            "type": "zone"
+                          }
+                        ],
+                        "started": "2016-01-30T23:55:00Z",
+                        "status": "running"
                       }
-                    ],
-                    "started": "2016-01-30T23:55:00Z",
-                    "status": "running"
+                    }
                   }
                 },
                 "schema": {
@@ -32634,27 +32674,31 @@
           "200": {
             "content": {
               "application/json": {
-                "example": {
-                  "rrset": {
-                    "id": "www/A",
-                    "labels": {
-                      "environment": "prod",
-                      "example.com/my": "label",
-                      "just-a-key": ""
-                    },
-                    "name": "www",
-                    "protection": {
-                      "change": false
-                    },
-                    "records": [
-                      {
-                        "comment": "My web server at Hetzner Cloud.",
-                        "value": "198.51.100.1"
+                "examples": {
+                  "200": {
+                    "value": {
+                      "rrset": {
+                        "id": "www/A",
+                        "labels": {
+                          "environment": "prod",
+                          "example.com/my": "label",
+                          "just-a-key": ""
+                        },
+                        "name": "www",
+                        "protection": {
+                          "change": false
+                        },
+                        "records": [
+                          {
+                            "comment": "My web server at Hetzner Cloud.",
+                            "value": "198.51.100.1"
+                          }
+                        ],
+                        "ttl": null,
+                        "type": "A",
+                        "zone": 42
                       }
-                    ],
-                    "ttl": null,
-                    "type": "A",
-                    "zone": 42
+                    }
                   }
                 },
                 "schema": {
@@ -32781,21 +32825,25 @@
           "201": {
             "content": {
               "application/json": {
-                "example": {
-                  "action": {
-                    "command": "add_rrset_records",
-                    "error": null,
-                    "finished": null,
-                    "id": 1,
-                    "progress": 50,
-                    "resources": [
-                      {
-                        "id": 42,
-                        "type": "zone"
+                "examples": {
+                  "201": {
+                    "value": {
+                      "action": {
+                        "command": "add_rrset_records",
+                        "error": null,
+                        "finished": null,
+                        "id": 1,
+                        "progress": 50,
+                        "resources": [
+                          {
+                            "id": 42,
+                            "type": "zone"
+                          }
+                        ],
+                        "started": "2016-01-30T23:55:00Z",
+                        "status": "running"
                       }
-                    ],
-                    "started": "2016-01-30T23:55:00Z",
-                    "status": "running"
+                    }
                   }
                 },
                 "schema": {
@@ -32922,21 +32970,25 @@
           "201": {
             "content": {
               "application/json": {
-                "example": {
-                  "action": {
-                    "command": "change_rrset_protection",
-                    "error": null,
-                    "finished": null,
-                    "id": 1,
-                    "progress": 50,
-                    "resources": [
-                      {
-                        "id": 42,
-                        "type": "zone"
+                "examples": {
+                  "201": {
+                    "value": {
+                      "action": {
+                        "command": "change_rrset_protection",
+                        "error": null,
+                        "finished": null,
+                        "id": 1,
+                        "progress": 50,
+                        "resources": [
+                          {
+                            "id": 42,
+                            "type": "zone"
+                          }
+                        ],
+                        "started": "2016-01-30T23:55:00Z",
+                        "status": "running"
                       }
-                    ],
-                    "started": "2016-01-30T23:55:00Z",
-                    "status": "running"
+                    }
                   }
                 },
                 "schema": {
@@ -33063,21 +33115,25 @@
           "201": {
             "content": {
               "application/json": {
-                "example": {
-                  "action": {
-                    "command": "change_rrset_ttl",
-                    "error": null,
-                    "finished": null,
-                    "id": 1,
-                    "progress": 50,
-                    "resources": [
-                      {
-                        "id": 42,
-                        "type": "zone"
+                "examples": {
+                  "201": {
+                    "value": {
+                      "action": {
+                        "command": "change_rrset_ttl",
+                        "error": null,
+                        "finished": null,
+                        "id": 1,
+                        "progress": 50,
+                        "resources": [
+                          {
+                            "id": 42,
+                            "type": "zone"
+                          }
+                        ],
+                        "started": "2016-01-30T23:55:00Z",
+                        "status": "running"
                       }
-                    ],
-                    "started": "2016-01-30T23:55:00Z",
-                    "status": "running"
+                    }
                   }
                 },
                 "schema": {
@@ -33204,21 +33260,25 @@
           "201": {
             "content": {
               "application/json": {
-                "example": {
-                  "action": {
-                    "command": "remove_rrset_records",
-                    "error": null,
-                    "finished": null,
-                    "id": 1,
-                    "progress": 50,
-                    "resources": [
-                      {
-                        "id": 42,
-                        "type": "zone"
+                "examples": {
+                  "201": {
+                    "value": {
+                      "action": {
+                        "command": "remove_rrset_records",
+                        "error": null,
+                        "finished": null,
+                        "id": 1,
+                        "progress": 50,
+                        "resources": [
+                          {
+                            "id": 42,
+                            "type": "zone"
+                          }
+                        ],
+                        "started": "2016-01-30T23:55:00Z",
+                        "status": "running"
                       }
-                    ],
-                    "started": "2016-01-30T23:55:00Z",
-                    "status": "running"
+                    }
                   }
                 },
                 "schema": {
@@ -33345,21 +33405,25 @@
           "201": {
             "content": {
               "application/json": {
-                "example": {
-                  "action": {
-                    "command": "set_rrset_records",
-                    "error": null,
-                    "finished": null,
-                    "id": 1,
-                    "progress": 50,
-                    "resources": [
-                      {
-                        "id": 42,
-                        "type": "zone"
+                "examples": {
+                  "201": {
+                    "value": {
+                      "action": {
+                        "command": "set_rrset_records",
+                        "error": null,
+                        "finished": null,
+                        "id": 1,
+                        "progress": 50,
+                        "resources": [
+                          {
+                            "id": 42,
+                            "type": "zone"
+                          }
+                        ],
+                        "started": "2016-01-30T23:55:00Z",
+                        "status": "running"
                       }
-                    ],
-                    "started": "2016-01-30T23:55:00Z",
-                    "status": "running"
+                    }
                   }
                 },
                 "schema": {
@@ -33486,21 +33550,25 @@
           "200": {
             "content": {
               "application/json": {
-                "example": {
-                  "action": {
-                    "command": "update_rrset_records",
-                    "error": null,
-                    "finished": null,
-                    "id": 1,
-                    "progress": 50,
-                    "resources": [
-                      {
-                        "id": 42,
-                        "type": "zone"
+                "examples": {
+                  "200": {
+                    "value": {
+                      "action": {
+                        "command": "update_rrset_records",
+                        "error": null,
+                        "finished": null,
+                        "id": 1,
+                        "progress": 50,
+                        "resources": [
+                          {
+                            "id": 42,
+                            "type": "zone"
+                          }
+                        ],
+                        "started": "2016-01-30T23:55:00Z",
+                        "status": "running"
                       }
-                    ],
-                    "started": "2016-01-30T23:55:00Z",
-                    "status": "running"
+                    }
                   }
                 },
                 "schema": {
