@@ -6,7 +6,7 @@
     },
     "description": "Copied from the official API documentation for the Public Hetzner Cloud.",
     "title": "Hetzner Cloud API",
-    "version": "837171d"
+    "version": "f8df2d4"
   },
   "servers": [
     {
@@ -12077,7 +12077,7 @@
     },
     "/floating_ips/{id}": {
       "delete": {
-        "description": "Deletes a Floating IP.\n\nIf the IP is assigned to a resource it will be unassigned.\n",
+        "description": "Deletes a Floating IP.\n\nIf assigned to a Server the Floating IP will be unassigned automatically until 1 May 2026. After this date, the Floating IP needs to be unassigned before it can be deleted.\n\n#### Operation specific errors\n\n| Status | Code | Description |\n| --- | --- | --- |\n| `422` | `must_be_unassigned` | Error when IP is still assigned to a Resource. This error will appear as of 1 May 2026. |\n",
         "operationId": "delete_floating_ip",
         "parameters": [
           {
@@ -20080,7 +20080,7 @@
     },
     "/primary_ips/{id}": {
       "delete": {
-        "description": "Deletes a Primary IP.\n\nIf assigned to a Server the Primary IP will be unassigned automatically. The Server must be powered off (status `off`) in order for this operation to succeed.\n",
+        "description": "Deletes a Primary IP.\n\nThe Server must be powered off (status `off`) in order for this operation to succeed.\nIf assigned to a Server the Primary IP will be unassigned automatically until 1 May 2026. After this date, the Primary IP needs to be unassigned before it can be deleted.\n\n#### Operation specific errors\n\n| Status | Code | Description |\n| --- | --- | --- |\n| `422` | `must_be_unassigned` | Error when IP is still assigned to a Resource. This error will appear as of 1 May 2026. |\n",
         "operationId": "delete_primary_ip",
         "parameters": [
           {
