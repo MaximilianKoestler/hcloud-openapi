@@ -6,7 +6,7 @@
     },
     "description": "Copied from the official API documentation for the Public Hetzner Cloud.",
     "title": "Hetzner Cloud API",
-    "version": "f8df2d4"
+    "version": "57e0833"
   },
   "servers": [
     {
@@ -20,7 +20,7 @@
   ],
   "tags": [
     {
-      "description": "Actions show the results and progress of asynchronous requests to the API.\n",
+      "description": "Actions represent asynchronous tasks within the API, targeting one or more resources.\n\nSee Actions for more details.\n",
       "name": "actions"
     },
     {
