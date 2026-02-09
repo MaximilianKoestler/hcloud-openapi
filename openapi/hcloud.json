@@ -6,7 +6,7 @@
     },
     "description": "Copied from the official API documentation for the Public Hetzner Cloud.",
     "title": "Hetzner Cloud API",
-    "version": "57e0833"
+    "version": "dded332"
   },
   "servers": [
     {
@@ -9128,7 +9128,7 @@
             "required": false,
             "schema": {
               "default": 1,
-              "example": 2,
+              "example": 1,
               "format": "int64",
               "type": "integer"
             }
@@ -9788,7 +9788,7 @@
             "required": false,
             "schema": {
               "default": 1,
-              "example": 2,
+              "example": 1,
               "format": "int64",
               "type": "integer"
             }
@@ -10150,7 +10150,7 @@
             "required": false,
             "schema": {
               "default": 1,
-              "example": 2,
+              "example": 1,
               "format": "int64",
               "type": "integer"
             }
@@ -10338,7 +10338,7 @@
             "required": false,
             "schema": {
               "default": 1,
-              "example": 2,
+              "example": 1,
               "format": "int64",
               "type": "integer"
             }
@@ -10548,7 +10548,7 @@
             "required": false,
             "schema": {
               "default": 1,
-              "example": 2,
+              "example": 1,
               "format": "int64",
               "type": "integer"
             }
@@ -11019,7 +11019,7 @@
             "required": false,
             "schema": {
               "default": 1,
-              "example": 2,
+              "example": 1,
               "format": "int64",
               "type": "integer"
             }
@@ -11680,7 +11680,7 @@
             "required": false,
             "schema": {
               "default": 1,
-              "example": 2,
+              "example": 1,
               "format": "int64",
               "type": "integer"
             }
@@ -11877,7 +11877,7 @@
             "required": false,
             "schema": {
               "default": 1,
-              "example": 2,
+              "example": 1,
               "format": "int64",
               "type": "integer"
             }
@@ -12407,7 +12407,7 @@
             "required": false,
             "schema": {
               "default": 1,
-              "example": 2,
+              "example": 1,
               "format": "int64",
               "type": "integer"
             }
@@ -13113,7 +13113,7 @@
             "required": false,
             "schema": {
               "default": 1,
-              "example": 2,
+              "example": 1,
               "format": "int64",
               "type": "integer"
             }
@@ -13388,7 +13388,7 @@
             "required": false,
             "schema": {
               "default": 1,
-              "example": 2,
+              "example": 1,
               "format": "int64",
               "type": "integer"
             }
@@ -13793,7 +13793,7 @@
             "required": false,
             "schema": {
               "default": 1,
-              "example": 2,
+              "example": 1,
               "format": "int64",
               "type": "integer"
             }
@@ -14165,7 +14165,7 @@
             "required": false,
             "schema": {
               "default": 1,
-              "example": 2,
+              "example": 1,
               "format": "int64",
               "type": "integer"
             }
@@ -14357,7 +14357,7 @@
             "required": false,
             "schema": {
               "default": 1,
-              "example": 2,
+              "example": 1,
               "format": "int64",
               "type": "integer"
             }
@@ -14535,7 +14535,7 @@
             "required": false,
             "schema": {
               "default": 1,
-              "example": 2,
+              "example": 1,
               "format": "int64",
               "type": "integer"
             }
@@ -14745,7 +14745,7 @@
             "required": false,
             "schema": {
               "default": 1,
-              "example": 2,
+              "example": 1,
               "format": "int64",
               "type": "integer"
             }
@@ -15482,7 +15482,7 @@
             "required": false,
             "schema": {
               "default": 1,
-              "example": 2,
+              "example": 1,
               "format": "int64",
               "type": "integer"
             }
@@ -17279,7 +17279,7 @@
             "required": false,
             "schema": {
               "default": 1,
-              "example": 2,
+              "example": 1,
               "format": "int64",
               "type": "integer"
             }
@@ -17467,7 +17467,7 @@
             "required": false,
             "schema": {
               "default": 1,
-              "example": 2,
+              "example": 1,
               "format": "int64",
               "type": "integer"
             }
@@ -17677,7 +17677,7 @@
             "required": false,
             "schema": {
               "default": 1,
-              "example": 2,
+              "example": 1,
               "format": "int64",
               "type": "integer"
             }
@@ -18155,7 +18155,7 @@
             "required": false,
             "schema": {
               "default": 1,
-              "example": 2,
+              "example": 1,
               "format": "int64",
               "type": "integer"
             }
@@ -19072,7 +19072,7 @@
             "required": false,
             "schema": {
               "default": 1,
-              "example": 2,
+              "example": 1,
               "format": "int64",
               "type": "integer"
             }
@@ -19289,7 +19289,7 @@
             "required": false,
             "schema": {
               "default": 1,
-              "example": 2,
+              "example": 1,
               "format": "int64",
               "type": "integer"
             }
@@ -19827,7 +19827,7 @@
             "required": false,
             "schema": {
               "default": 1,
-              "example": 2,
+              "example": 1,
               "format": "int64",
               "type": "integer"
             }
@@ -20376,7 +20376,7 @@
             "required": false,
             "schema": {
               "default": 1,
-              "example": 2,
+              "example": 1,
               "format": "int64",
               "type": "integer"
             }
@@ -21022,7 +21022,7 @@
             "required": false,
             "schema": {
               "default": 1,
-              "example": 2,
+              "example": 1,
               "format": "int64",
               "type": "integer"
             }
@@ -21190,7 +21190,7 @@
             "required": false,
             "schema": {
               "default": 1,
-              "example": 2,
+              "example": 1,
               "format": "int64",
               "type": "integer"
             }
@@ -21424,7 +21424,7 @@
             "required": false,
             "schema": {
               "default": 1,
-              "example": 2,
+              "example": 1,
               "format": "int64",
               "type": "integer"
             }
@@ -22106,7 +22106,7 @@
             "required": false,
             "schema": {
               "default": 1,
-              "example": 2,
+              "example": 1,
               "format": "int64",
               "type": "integer"
             }
@@ -24925,7 +24925,7 @@
             "required": false,
             "schema": {
               "default": 1,
-              "example": 2,
+              "example": 1,
               "format": "int64",
               "type": "integer"
             }
@@ -25131,7 +25131,7 @@
             "required": false,
             "schema": {
               "default": 1,
-              "example": 2,
+              "example": 1,
               "format": "int64",
               "type": "integer"
             }
@@ -25585,7 +25585,7 @@
             "required": false,
             "schema": {
               "default": 1,
-              "example": 2,
+              "example": 1,
               "format": "int64",
               "type": "integer"
             }
@@ -26140,7 +26140,7 @@
             "required": false,
             "schema": {
               "default": 1,
-              "example": 2,
+              "example": 1,
               "format": "int64",
               "type": "integer"
             }
@@ -26841,7 +26841,7 @@
             "required": false,
             "schema": {
               "default": 1,
-              "example": 2,
+              "example": 1,
               "format": "int64",
               "type": "integer"
             }
@@ -27009,7 +27009,7 @@
             "required": false,
             "schema": {
               "default": 1,
-              "example": 2,
+              "example": 1,
               "format": "int64",
               "type": "integer"
             }
@@ -27225,7 +27225,7 @@
             "required": false,
             "schema": {
               "default": 1,
-              "example": 2,
+              "example": 1,
               "format": "int64",
               "type": "integer"
             }
@@ -27527,7 +27527,7 @@
             "required": false,
             "schema": {
               "default": 1,
-              "example": 2,
+              "example": 1,
               "format": "int64",
               "type": "integer"
             }
@@ -28001,7 +28001,7 @@
             "required": false,
             "schema": {
               "default": 1,
-              "example": 2,
+              "example": 1,
               "format": "int64",
               "type": "integer"
             }
@@ -30644,7 +30644,7 @@
             "required": false,
             "schema": {
               "default": 1,
-              "example": 2,
+              "example": 1,
               "format": "int64",
               "type": "integer"
             }
@@ -31000,7 +31000,7 @@
             "required": false,
             "schema": {
               "default": 1,
-              "example": 2,
+              "example": 1,
               "format": "int64",
               "type": "integer"
             }
@@ -31497,7 +31497,7 @@
             "required": false,
             "schema": {
               "default": 1,
-              "example": 2,
+              "example": 1,
               "format": "int64",
               "type": "integer"
             }
@@ -32174,7 +32174,7 @@
             "required": false,
             "schema": {
               "default": 1,
-              "example": 2,
+              "example": 1,
               "format": "int64",
               "type": "integer"
             }
