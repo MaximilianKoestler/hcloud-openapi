@@ -381,13 +381,13 @@
   {
     "path": ["components", "schemas", "load_balancer_add_target", "properties"],
     "set": {
-      "server": { "$ref": "#/components/schemas/resource_id" }
+      "server": { "$ref": "#/components/schemas/resource_id_positive" }
     }
   },
   {
     "path": ["components", "schemas", "remove_target_request", "properties"],
     "set": {
-      "server": { "$ref": "#/components/schemas/resource_id" }
+      "server": { "$ref": "#/components/schemas/resource_id_positive" }
     }
   },
 
