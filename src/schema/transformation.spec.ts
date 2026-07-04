@@ -151,4 +151,143 @@ describe("deduplicateSchemas", () => {
     expect(result.length).toBe(1);
     expect(result[0].name).toBe("MyCustomComponent");
   });
+
+  it("should process arrays with and without items", () => {
+    const schemas: any = {
+      Root1: { type: "array", items: { type: "object", properties: { shared: { type: "string" } } } },
+      Root2: { type: "array", items: { type: "object", properties: { shared: { type: "string" } } } },
+      Root3: { type: "array" },
+      Root4: { type: "array" },
+    };
+
+    deduplicateSchemas(schemas, undefined);
+
+    // The items should be extracted as a common component if complex enough, or just processed.
+    expect(schemas.Root1.items).toBeDefined();
+    expect(schemas.Root2.items).toBeDefined();
+  });
+
+  it("should process empty objects without properties", () => {
+    const schemas: any = {
+      Root1: { type: "object" },
+      Root2: { type: "object" },
+    };
+    
+    deduplicateSchemas(schemas, undefined);
+    
+    expect(schemas.Root1.type).toBe("object");
+  });
+
+  it("should handle externalized properties like nullable and deprecated", () => {
+    const schemas: any = {
+      Root1: {
+        type: "object",
+        properties: {
+          shared_sub_object: {
+            type: "object",
+            nullable: true,
+            description: "Original description",
+            properties: { prop: { type: "string" }, prop2: { type: "integer" } },
+          },
+        },
+      },
+      Root2: {
+        type: "object",
+        properties: {
+          shared_sub_object: {
+            type: "object",
+            deprecated: true,
+            properties: { prop: { type: "string" }, prop2: { type: "integer" } },
+          },
+        },
+      },
+    };
+
+    deduplicateSchemas(schemas, undefined);
+
+    const componentName = "shared_sub_object";
+    expect(schemas[componentName]).toBeDefined();
+
+    // Verify externalized properties are retained as allOf references
+    expect(schemas.Root1.properties.shared_sub_object.allOf).toBeDefined();
+    expect(schemas.Root1.properties.shared_sub_object.nullable).toBe(true);
+    expect(schemas.Root1.properties.shared_sub_object.description).toBe("Original description");
+
+    expect(schemas.Root2.properties.shared_sub_object.allOf).toBeDefined();
+    expect(schemas.Root2.properties.shared_sub_object.deprecated).toBe(true);
+  });
+
+  it("should handle name collisions during component extraction", () => {
+    const schemas: any = {
+      shared_sub_object: { type: "string" }, // Existing schema with this name
+      Root1: {
+        type: "object",
+        properties: {
+          shared_sub_object: {
+            type: "object",
+            properties: { a: { type: "integer" }, b: { type: "integer" } },
+          },
+        },
+      },
+      Root2: {
+        type: "object",
+        properties: {
+          shared_sub_object: {
+            type: "object",
+            properties: { a: { type: "integer" }, b: { type: "integer" } },
+          },
+        },
+      },
+    };
+
+    deduplicateSchemas(schemas, undefined);
+
+    // Should create shared_sub_object_1 due to collision
+    expect(schemas.shared_sub_object_1).toBeDefined();
+    expect(schemas.shared_sub_object_1.properties.a.type).toBe("integer");
+    expect(schemas.Root1.properties.shared_sub_object.$ref).toBe("#/components/schemas/shared_sub_object_1");
+  });
+
+  it("should merge descriptions correctly", () => {
+    const schemas: any = {
+      Root1: {
+        type: "object",
+        properties: {
+          shared: {
+            type: "object",
+            description: "Desc A",
+            properties: { a: { type: "integer" }, b: { type: "integer" } },
+          },
+        },
+      },
+      Root2: {
+        type: "object",
+        properties: {
+          shared: {
+            type: "object",
+            description: "Desc B",
+            properties: { a: { type: "integer" }, b: { type: "integer" } },
+          },
+        },
+      },
+      Root3: {
+        type: "object",
+        properties: {
+          shared: {
+            type: "object",
+            description: "Desc A", // duplicate desc, shouldn't append again
+            properties: { a: { type: "integer" }, b: { type: "integer" } },
+          },
+        },
+      },
+    };
+
+    deduplicateSchemas(schemas, undefined);
+
+    // Descriptions should be joined by " | "
+    expect(schemas.shared).toBeDefined();
+    expect(schemas.shared.description).toContain("Desc A");
+    expect(schemas.shared.description).toContain("Desc B");
+    expect(schemas.shared.description).toBe("Desc A | Desc B");
+  });
 });

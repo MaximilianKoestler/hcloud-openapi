@@ -27,7 +27,9 @@ export function walkSchema(
     if (transformations.beforeItems !== undefined) {
       transformations.beforeItems();
     }
-    walkSchema(part.items, transformations);
+    if (part.items !== undefined) {
+      walkSchema(part.items, transformations);
+    }
     if (transformations.afterItems !== undefined) {
       transformations.afterItems();
     }
