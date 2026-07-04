@@ -7776,7 +7776,7 @@
             "type": "integer"
           },
           "locations": {
-            "description": "Supported Location and per Location details for the Server Type.\n\nA Server Type is:\n - only supported in the Location that are listed.\n - deprecated in the Location when the `deprecation` property is set.\n - unavailable in the Location when the `deprecation.unavailable_after` date is in the past.\n",
+            "description": "Supported Location and per Location details for the Server Type.\n\nA Server Type is:\n - only supported in the Location that are listed.\n - deprecated in the Location when the `deprecation` property is set.\n - permanently unavailable in the Location when the `deprecation.unavailable_after` date is in the past.\n - temporarily unavailable in the Location when the `deprecation.available` is false.\n",
             "items": {
               "$ref": "#/components/schemas/server_type_location"
             },
