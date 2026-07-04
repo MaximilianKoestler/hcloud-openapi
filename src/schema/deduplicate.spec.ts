@@ -323,4 +323,88 @@ describe("deduplicateSchemas", () => {
     // This will crash if newPartStack gets out of sync
     expect(() => deduplicateSchemas(schemas, undefined)).not.toThrow();
   });
+
+  it("should fail when deduplicating an object with discriminator and oneOf/allOf", () => {
+    const zonePayload = {
+      "discriminator": {
+        "mapping": {
+          "primary": "#/components/schemas/ZonePrimary",
+          "secondary": "#/components/schemas/ZoneSecondary"
+        },
+        "propertyName": "mode"
+      },
+      "oneOf": [
+        {
+          "allOf": [
+            {
+              "properties": {
+                "authoritative_nameservers": {
+                  "properties": {
+                    "assigned": {
+                      "items": { "type": "string" },
+                      "type": "array"
+                    }
+                  },
+                  "type": "object"
+                }
+              },
+              "type": "object"
+            },
+            {
+              "properties": {
+                "mode": { "type": "string" }
+              },
+              "type": "object"
+            }
+          ]
+        },
+        {
+          "allOf": [
+            {
+              "properties": {
+                "authoritative_nameservers": {
+                  "properties": {
+                    "assigned": {
+                      "items": { "type": "string" },
+                      "type": "array"
+                    }
+                  },
+                  "type": "object"
+                }
+              },
+              "type": "object"
+            },
+            {
+              "properties": {
+                "mode": { "type": "string" }
+              },
+              "type": "object"
+            }
+          ]
+        }
+      ],
+      "title": "Zone"
+    };
+
+    const schemas: any = {
+      Root1: {
+        type: "object",
+        properties: {
+          zone: JSON.parse(JSON.stringify(zonePayload)),
+        },
+      },
+      Root2: {
+        type: "object",
+        properties: {
+          zone: JSON.parse(JSON.stringify(zonePayload)),
+        },
+      },
+    };
+
+    deduplicateSchemas(schemas, undefined);
+
+    // We expect the 'zone' property to be extracted and replaced with a $ref
+    // since walkSchema now correctly traverses oneOf/allOf and calculates complexity.
+    expect(schemas.Root1.properties.zone["$ref"]).toBeDefined();
+  });
 });

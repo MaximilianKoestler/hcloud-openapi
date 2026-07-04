@@ -134,6 +134,12 @@ function mergeSchemaComponents(
       afterItems: () => {
         newPartStack.pop();
       },
+      beforeComposite: (compositeType, index) => {
+        newPartStack.push(newSchemaPart()[compositeType][index]);
+      },
+      afterComposite: () => {
+        newPartStack.pop();
+      },
     });
   }
 }
@@ -142,62 +148,42 @@ function calculateHashes(schemas: OpenApiDocumentFragment) {
   Object.keys(schemas).forEach((id) => {
     walkSchema(schemas[id], {
       afterChildren: (part) => {
-        if (part.type == "array") {
-          if (part.items !== undefined) {
-            const { description, example, items, ...hashableParts } = part;
-            hashableParts.items = items["x-hash"];
-            part["x-hash"] = objectHash(hashableParts);
-            part["x-complexity"] = items["x-complexity"] + 1;
+        let complexity = 1;
+        const hashableParts = { ...part };
 
-            removeExternalizedBoolProperties(hashableParts);
-            part["x-hash-no-props"] = objectHash(hashableParts);
-          } else {
-            console.warn(`Found array without "items"`);
-            const { description, example, ...hashableParts } = part;
-            part["x-hash"] = objectHash(hashableParts);
-            part["x-complexity"] = 1;
-
-            removeExternalizedBoolProperties(hashableParts);
-            part["x-hash-no-props"] = objectHash(hashableParts);
-          }
-        } else if (part.type == "object") {
-          if (part.properties !== undefined) {
-            const {
-              description,
-              example,
-              properties,
-              title,
-              ...hashableParts
-            } = part;
-            hashableParts.properties = {};
-            Object.keys(properties).forEach((property) => {
-              hashableParts.properties[property] =
-                properties[property]["x-hash"];
-            });
-            part["x-hash"] = objectHash(hashableParts);
-            part["x-complexity"] = Object.values(properties).reduce(
-              (value: number, element: any) => value + element["x-complexity"],
-              1,
-            );
-
-            removeExternalizedBoolProperties(hashableParts);
-            part["x-hash-no-props"] = objectHash(hashableParts);
-          } else {
-            const { description, example, ...hashableParts } = part;
-            part["x-hash"] = objectHash(hashableParts);
-            part["x-complexity"] = 1;
-
-            removeExternalizedBoolProperties(hashableParts);
-            part["x-hash-no-props"] = objectHash(hashableParts);
-          }
-        } else {
-          const { description, example, ...hashableParts } = part;
-          part["x-hash"] = objectHash(hashableParts);
-          part["x-complexity"] = 1;
-
-          removeExternalizedBoolProperties(hashableParts);
-          part["x-hash-no-props"] = objectHash(hashableParts);
+        if ("items" in hashableParts && hashableParts.items !== undefined) {
+          hashableParts.items = part.items["x-hash"];
+          complexity += part.items["x-complexity"];
+        } else if (part.type === "array") {
+          console.warn(`Found array without "items"`);
         }
+
+        if ("properties" in hashableParts && hashableParts.properties !== undefined) {
+          hashableParts.properties = {};
+          Object.keys(part.properties).forEach((property) => {
+            hashableParts.properties[property] = part.properties[property]["x-hash"];
+            complexity += part.properties[property]["x-complexity"];
+          });
+        }
+
+        ["oneOf", "anyOf", "allOf"].forEach((compositeType) => {
+          if (compositeType in hashableParts && Array.isArray(hashableParts[compositeType])) {
+            hashableParts[compositeType] = [];
+            part[compositeType].forEach((subPart: any) => {
+              hashableParts[compositeType].push(subPart["x-hash"]);
+              complexity += subPart["x-complexity"];
+            });
+          }
+        });
+
+        // Remove properties that don't affect structural identity
+        const { description, example, title, ...coreHashableParts } = hashableParts;
+        
+        part["x-hash"] = objectHash(coreHashableParts);
+        part["x-complexity"] = complexity;
+
+        removeExternalizedBoolProperties(coreHashableParts);
+        part["x-hash-no-props"] = objectHash(coreHashableParts);
 
         if (!("x-hash" in part)) {
           throw Error("Could not insert x-hash into part!");
@@ -218,7 +204,8 @@ function collectObjectInfos(schemas: OpenApiDocumentFragment): {
     const location: string[] = [id];
     walkSchema(schemas[id], {
       afterChildren: (part) => {
-        if (part.type == "object" || part.type == "string") {
+        const isObjectLike = part.type === "object" || part.type === "string" || "properties" in part || "oneOf" in part || "allOf" in part || "anyOf" in part;
+        if (isObjectLike) {
           const hash = part["x-hash-no-props"];
           if (!(hash in objectInfos)) {
             objectInfos[hash] = {
@@ -232,10 +219,18 @@ function collectObjectInfos(schemas: OpenApiDocumentFragment): {
           }
           objectInfos[hash].count += 1;
           objectInfos[hash].complexity = part["x-complexity"];
-          objectInfos[hash].directChildren =
-            part.properties !== undefined
-              ? Object.keys(part.properties).length
-              : 0;
+          
+          let childrenCount = 0;
+          if (part.properties !== undefined) {
+            childrenCount += Object.keys(part.properties).length;
+          }
+          ["oneOf", "anyOf", "allOf"].forEach(c => {
+            if (c in part && Array.isArray(part[c])) {
+              childrenCount += part[c].length;
+            }
+          });
+          objectInfos[hash].directChildren = childrenCount;
+          
           objectInfos[hash].locations.push([...location]);
         }
       },
@@ -245,6 +240,12 @@ function collectObjectInfos(schemas: OpenApiDocumentFragment): {
       afterProperty: () => {
         location.pop();
       },
+      beforeComposite: (compositeType, index) => {
+        location.push(`${compositeType}[${index}]`);
+      },
+      afterComposite: () => {
+        location.pop();
+      }
     });
   });
   return objectInfos;

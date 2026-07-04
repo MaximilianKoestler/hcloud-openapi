@@ -2572,468 +2572,7 @@
             "$ref": "#/components/schemas/action"
           },
           "zone": {
-            "discriminator": {
-              "mapping": {
-                "primary": "#/components/schemas/ZonePrimary",
-                "secondary": "#/components/schemas/ZoneSecondary"
-              },
-              "propertyName": "mode"
-            },
-            "oneOf": [
-              {
-                "allOf": [
-                  {
-                    "properties": {
-                      "authoritative_nameservers": {
-                        "properties": {
-                          "assigned": {
-                            "description": "Authoritative Hetzner nameservers assigned to this Zone.\n",
-                            "example": [
-                              "hydrogen.ns.hetzner.com.",
-                              "oxygen.ns.hetzner.com.",
-                              "helium.ns.hetzner.de."
-                            ],
-                            "items": {
-                              "type": "string"
-                            },
-                            "type": "array"
-                          },
-                          "delegated": {
-                            "description": "Authoritative nameservers currently delegated to by the parent DNS zone.\n\nIf these don't match the assigned authoritative nameservers, the DNS zone is currently not being served by Hetzner.\n",
-                            "example": [
-                              "hydrogen.ns.hetzner.com.",
-                              "oxygen.ns.hetzner.com.",
-                              "helium.ns.hetzner.de."
-                            ],
-                            "items": {
-                              "type": "string"
-                            },
-                            "type": "array"
-                          },
-                          "delegation_last_check": {
-                            "description": "Point in time (in [RFC3339](https://datatracker.ietf.org/doc/html/rfc3339#section-5.6) format) when the DNS zone delegation was last checked.\n",
-                            "example": "2016-01-30T23:55:00Z",
-                            "format": "date-time",
-                            "nullable": true,
-                            "type": "string"
-                          },
-                          "delegation_status": {
-                            "description": "Status of the delegation.\n",
-                            "enum": [
-                              "valid",
-                              "partially-valid",
-                              "invalid",
-                              "lame",
-                              "unregistered",
-                              "unknown"
-                            ],
-                            "type": "string",
-                            "x-enumDescriptions": {
-                              "invalid": "Parent zone does not delegate to the assigned nameservers.",
-                              "lame": "Parent zone delegates to nameservers that don't know the zone.",
-                              "partially-valid": "Parent zone delegates to additional Hetzner nameservers not assigned to this zone.",
-                              "unknown": "Not yet known.",
-                              "unregistered": "Domain is not registered.",
-                              "valid": "Parent zone correctly delegates to assigned nameservers."
-                            }
-                          }
-                        },
-                        "required": [
-                          "assigned",
-                          "delegated",
-                          "delegation_last_check"
-                        ],
-                        "type": "object"
-                      },
-                      "created": {
-                        "description": "Point in time when the Resource was created (in [RFC3339](https://datatracker.ietf.org/doc/html/rfc3339#section-5.6) format).",
-                        "example": "2016-01-30T23:55:00Z",
-                        "format": "date-time",
-                        "type": "string"
-                      },
-                      "id": {
-                        "description": "ID of the Zone.",
-                        "example": 42,
-                        "format": "int64",
-                        "maximum": 9007199254740991,
-                        "type": "integer"
-                      },
-                      "labels": {
-                        "additionalProperties": {
-                          "type": "string"
-                        },
-                        "description": "User-defined labels (`key/value` pairs) for the Resource.\nFor more information, see \"Labels\".\n",
-                        "example": {
-                          "environment": "prod",
-                          "example.com/my": "label",
-                          "just-a-key": ""
-                        },
-                        "type": "object"
-                      },
-                      "name": {
-                        "description": "Name of the Zone.\n\nAll names with [well-known public suffixes](https://publicsuffix.org/) (e.g. `.de`,\n`.com`, `.co.uk`) are supported. Subdomains are not supported.\n\nThe name must be in lower case and must not end with a dot.\n[Internationalized domain\nnames](https://en.wikipedia.org/wiki/Internationalized_domain_name) must be\ntranscribed to [Punycode](https://wikipedia.org/wiki/Punycode) representation with\nACE prefix, e.g. `xn--mnchen-3ya.de` (`münchen.de`).\n",
-                        "example": "example.com",
-                        "maxLength": 255,
-                        "type": "string"
-                      },
-                      "primary_nameservers": {
-                        "description": "Primary nameservers of the Zone.\n\nOnly set if Zone is in secondary mode, otherwise empty.\n",
-                        "example": [
-                          {
-                            "address": "198.51.100.1",
-                            "port": 53
-                          },
-                          {
-                            "address": "203.0.113.1",
-                            "port": 53
-                          }
-                        ],
-                        "items": {
-                          "description": "Primary nameserver that returns Zones via `AXFR`.\n\nMust allow queries from and may send `NOTIFY` queries to [Hetzner's secondary\nnameservers](https://docs.hetzner.com/dns-console/dns/general/authoritative-name-servers#secondary-dns-servers-old-name-servers-for-robot-customers).\n",
-                          "properties": {
-                            "address": {
-                              "description": "Public IPv4 or IPv6 address of the primary nameserver.",
-                              "example": "198.51.100.1",
-                              "type": "string"
-                            },
-                            "port": {
-                              "default": 53,
-                              "description": "Port of the primary nameserver.",
-                              "example": 5353,
-                              "type": "integer"
-                            },
-                            "tsig_algorithm": {
-                              "description": "[Transaction signature (TSIG)](https://en.wikipedia.org/wiki/TSIG) algorithm\nused to generate the TSIG key.\n",
-                              "enum": [
-                                "hmac-md5",
-                                "hmac-sha1",
-                                "hmac-sha256"
-                              ],
-                              "type": "string"
-                            },
-                            "tsig_key": {
-                              "description": "[Transaction signature (TSIG)](https://en.wikipedia.org/wiki/TSIG) key to use\nfor the zone transfer. Must be base64 encoded.\n",
-                              "type": "string"
-                            }
-                          },
-                          "required": [
-                            "address"
-                          ],
-                          "type": "object"
-                        },
-                        "type": "array"
-                      },
-                      "protection": {
-                        "description": "Protection configuration for the Resource.",
-                        "properties": {
-                          "delete": {
-                            "description": "Prevent the Resource from being deleted.",
-                            "example": false,
-                            "type": "boolean"
-                          }
-                        },
-                        "required": [
-                          "delete"
-                        ],
-                        "type": "object"
-                      },
-                      "record_count": {
-                        "description": "Number of resource records (RR) within the Zone.",
-                        "type": "integer"
-                      },
-                      "registrar": {
-                        "description": "Registrar of the domain.",
-                        "enum": [
-                          "hetzner",
-                          "other",
-                          "unknown"
-                        ],
-                        "type": "string"
-                      },
-                      "status": {
-                        "description": "Status of the Zone.\n",
-                        "enum": [
-                          "ok",
-                          "updating",
-                          "error"
-                        ],
-                        "type": "string",
-                        "x-enumDescriptions": {
-                          "error": "The Zone could not be published to the authoritative nameservers.",
-                          "ok": "The Zone is pushed to the authoritative nameservers.",
-                          "updating": "The Zone is currently being published to the authoritative nameservers."
-                        }
-                      },
-                      "ttl": {
-                        "default": 3600,
-                        "description": "Default Time To Live (TTL) of the Zone.\n\nMust be in between 60s and 2147483647s.\n\nThis TTL is used for RRSets that do not explicitly define a TTL.\n",
-                        "example": 10800,
-                        "maximum": 2147483647,
-                        "minimum": 60,
-                        "type": "integer"
-                      }
-                    },
-                    "required": [
-                      "authoritative_nameservers",
-                      "created",
-                      "id",
-                      "labels",
-                      "name",
-                      "protection",
-                      "record_count",
-                      "registrar",
-                      "status",
-                      "ttl"
-                    ],
-                    "type": "object"
-                  },
-                  {
-                    "properties": {
-                      "mode": {
-                        "description": "Mode of the Zone.\n\nFor more information, see Zone Modes.\n",
-                        "enum": [
-                          "primary"
-                        ],
-                        "example": "primary",
-                        "type": "string"
-                      }
-                    },
-                    "required": [
-                      "mode"
-                    ],
-                    "type": "object"
-                  }
-                ],
-                "title": "Primary Zone"
-              },
-              {
-                "allOf": [
-                  {
-                    "properties": {
-                      "authoritative_nameservers": {
-                        "properties": {
-                          "assigned": {
-                            "description": "Authoritative Hetzner nameservers assigned to this Zone.\n",
-                            "example": [
-                              "hydrogen.ns.hetzner.com.",
-                              "oxygen.ns.hetzner.com.",
-                              "helium.ns.hetzner.de."
-                            ],
-                            "items": {
-                              "type": "string"
-                            },
-                            "type": "array"
-                          },
-                          "delegated": {
-                            "description": "Authoritative nameservers currently delegated to by the parent DNS zone.\n\nIf these don't match the assigned authoritative nameservers, the DNS zone is currently not being served by Hetzner.\n",
-                            "example": [
-                              "hydrogen.ns.hetzner.com.",
-                              "oxygen.ns.hetzner.com.",
-                              "helium.ns.hetzner.de."
-                            ],
-                            "items": {
-                              "type": "string"
-                            },
-                            "type": "array"
-                          },
-                          "delegation_last_check": {
-                            "description": "Point in time (in [RFC3339](https://datatracker.ietf.org/doc/html/rfc3339#section-5.6) format) when the DNS zone delegation was last checked.\n",
-                            "example": "2016-01-30T23:55:00Z",
-                            "format": "date-time",
-                            "nullable": true,
-                            "type": "string"
-                          },
-                          "delegation_status": {
-                            "description": "Status of the delegation.\n",
-                            "enum": [
-                              "valid",
-                              "partially-valid",
-                              "invalid",
-                              "lame",
-                              "unregistered",
-                              "unknown"
-                            ],
-                            "type": "string",
-                            "x-enumDescriptions": {
-                              "invalid": "Parent zone does not delegate to the assigned nameservers.",
-                              "lame": "Parent zone delegates to nameservers that don't know the zone.",
-                              "partially-valid": "Parent zone delegates to additional Hetzner nameservers not assigned to this zone.",
-                              "unknown": "Not yet known.",
-                              "unregistered": "Domain is not registered.",
-                              "valid": "Parent zone correctly delegates to assigned nameservers."
-                            }
-                          }
-                        },
-                        "required": [
-                          "assigned",
-                          "delegated",
-                          "delegation_last_check"
-                        ],
-                        "type": "object"
-                      },
-                      "created": {
-                        "description": "Point in time when the Resource was created (in [RFC3339](https://datatracker.ietf.org/doc/html/rfc3339#section-5.6) format).",
-                        "example": "2016-01-30T23:55:00Z",
-                        "format": "date-time",
-                        "type": "string"
-                      },
-                      "id": {
-                        "description": "ID of the Zone.",
-                        "example": 42,
-                        "format": "int64",
-                        "maximum": 9007199254740991,
-                        "type": "integer"
-                      },
-                      "labels": {
-                        "additionalProperties": {
-                          "type": "string"
-                        },
-                        "description": "User-defined labels (`key/value` pairs) for the Resource.\nFor more information, see \"Labels\".\n",
-                        "example": {
-                          "environment": "prod",
-                          "example.com/my": "label",
-                          "just-a-key": ""
-                        },
-                        "type": "object"
-                      },
-                      "name": {
-                        "description": "Name of the Zone.\n\nAll names with [well-known public suffixes](https://publicsuffix.org/) (e.g. `.de`,\n`.com`, `.co.uk`) are supported. Subdomains are not supported.\n\nThe name must be in lower case and must not end with a dot.\n[Internationalized domain\nnames](https://en.wikipedia.org/wiki/Internationalized_domain_name) must be\ntranscribed to [Punycode](https://wikipedia.org/wiki/Punycode) representation with\nACE prefix, e.g. `xn--mnchen-3ya.de` (`münchen.de`).\n",
-                        "example": "example.com",
-                        "maxLength": 255,
-                        "type": "string"
-                      },
-                      "primary_nameservers": {
-                        "description": "Primary nameservers of the Zone.\n\nOnly set if Zone is in secondary mode, otherwise empty.\n",
-                        "example": [
-                          {
-                            "address": "198.51.100.1",
-                            "port": 53
-                          },
-                          {
-                            "address": "203.0.113.1",
-                            "port": 53
-                          }
-                        ],
-                        "items": {
-                          "description": "Primary nameserver that returns Zones via `AXFR`.\n\nMust allow queries from and may send `NOTIFY` queries to [Hetzner's secondary\nnameservers](https://docs.hetzner.com/dns-console/dns/general/authoritative-name-servers#secondary-dns-servers-old-name-servers-for-robot-customers).\n",
-                          "properties": {
-                            "address": {
-                              "description": "Public IPv4 or IPv6 address of the primary nameserver.",
-                              "example": "198.51.100.1",
-                              "type": "string"
-                            },
-                            "port": {
-                              "default": 53,
-                              "description": "Port of the primary nameserver.",
-                              "example": 5353,
-                              "type": "integer"
-                            },
-                            "tsig_algorithm": {
-                              "description": "[Transaction signature (TSIG)](https://en.wikipedia.org/wiki/TSIG) algorithm\nused to generate the TSIG key.\n",
-                              "enum": [
-                                "hmac-md5",
-                                "hmac-sha1",
-                                "hmac-sha256"
-                              ],
-                              "type": "string"
-                            },
-                            "tsig_key": {
-                              "description": "[Transaction signature (TSIG)](https://en.wikipedia.org/wiki/TSIG) key to use\nfor the zone transfer. Must be base64 encoded.\n",
-                              "type": "string"
-                            }
-                          },
-                          "required": [
-                            "address"
-                          ],
-                          "type": "object"
-                        },
-                        "type": "array"
-                      },
-                      "protection": {
-                        "description": "Protection configuration for the Resource.",
-                        "properties": {
-                          "delete": {
-                            "description": "Prevent the Resource from being deleted.",
-                            "example": false,
-                            "type": "boolean"
-                          }
-                        },
-                        "required": [
-                          "delete"
-                        ],
-                        "type": "object"
-                      },
-                      "record_count": {
-                        "description": "Number of resource records (RR) within the Zone.",
-                        "type": "integer"
-                      },
-                      "registrar": {
-                        "description": "Registrar of the domain.",
-                        "enum": [
-                          "hetzner",
-                          "other",
-                          "unknown"
-                        ],
-                        "type": "string"
-                      },
-                      "status": {
-                        "description": "Status of the Zone.\n",
-                        "enum": [
-                          "ok",
-                          "updating",
-                          "error"
-                        ],
-                        "type": "string",
-                        "x-enumDescriptions": {
-                          "error": "The Zone could not be published to the authoritative nameservers.",
-                          "ok": "The Zone is pushed to the authoritative nameservers.",
-                          "updating": "The Zone is currently being published to the authoritative nameservers."
-                        }
-                      },
-                      "ttl": {
-                        "default": 3600,
-                        "description": "Default Time To Live (TTL) of the Zone.\n\nMust be in between 60s and 2147483647s.\n\nThis TTL is used for RRSets that do not explicitly define a TTL.\n",
-                        "example": 10800,
-                        "maximum": 2147483647,
-                        "minimum": 60,
-                        "type": "integer"
-                      }
-                    },
-                    "required": [
-                      "authoritative_nameservers",
-                      "created",
-                      "id",
-                      "labels",
-                      "name",
-                      "protection",
-                      "record_count",
-                      "registrar",
-                      "status",
-                      "ttl"
-                    ],
-                    "type": "object"
-                  },
-                  {
-                    "properties": {
-                      "mode": {
-                        "description": "Mode of the Zone.\n\nFor more information, see Zone Modes.\n",
-                        "enum": [
-                          "secondary"
-                        ],
-                        "example": "secondary",
-                        "type": "string"
-                      }
-                    },
-                    "required": [
-                      "mode"
-                    ],
-                    "type": "object"
-                  }
-                ],
-                "title": "Secondary Zone"
-              }
-            ],
-            "title": "Zone"
+            "$ref": "#/components/schemas/zone"
           }
         },
         "required": [
@@ -4372,468 +3911,7 @@
         "description": "Response to GET https://api.hetzner.cloud/v1/zones/{id_or_name}",
         "properties": {
           "zone": {
-            "discriminator": {
-              "mapping": {
-                "primary": "#/components/schemas/ZonePrimary",
-                "secondary": "#/components/schemas/ZoneSecondary"
-              },
-              "propertyName": "mode"
-            },
-            "oneOf": [
-              {
-                "allOf": [
-                  {
-                    "properties": {
-                      "authoritative_nameservers": {
-                        "properties": {
-                          "assigned": {
-                            "description": "Authoritative Hetzner nameservers assigned to this Zone.\n",
-                            "example": [
-                              "hydrogen.ns.hetzner.com.",
-                              "oxygen.ns.hetzner.com.",
-                              "helium.ns.hetzner.de."
-                            ],
-                            "items": {
-                              "type": "string"
-                            },
-                            "type": "array"
-                          },
-                          "delegated": {
-                            "description": "Authoritative nameservers currently delegated to by the parent DNS zone.\n\nIf these don't match the assigned authoritative nameservers, the DNS zone is currently not being served by Hetzner.\n",
-                            "example": [
-                              "hydrogen.ns.hetzner.com.",
-                              "oxygen.ns.hetzner.com.",
-                              "helium.ns.hetzner.de."
-                            ],
-                            "items": {
-                              "type": "string"
-                            },
-                            "type": "array"
-                          },
-                          "delegation_last_check": {
-                            "description": "Point in time (in [RFC3339](https://datatracker.ietf.org/doc/html/rfc3339#section-5.6) format) when the DNS zone delegation was last checked.\n",
-                            "example": "2016-01-30T23:55:00Z",
-                            "format": "date-time",
-                            "nullable": true,
-                            "type": "string"
-                          },
-                          "delegation_status": {
-                            "description": "Status of the delegation.\n",
-                            "enum": [
-                              "valid",
-                              "partially-valid",
-                              "invalid",
-                              "lame",
-                              "unregistered",
-                              "unknown"
-                            ],
-                            "type": "string",
-                            "x-enumDescriptions": {
-                              "invalid": "Parent zone does not delegate to the assigned nameservers.",
-                              "lame": "Parent zone delegates to nameservers that don't know the zone.",
-                              "partially-valid": "Parent zone delegates to additional Hetzner nameservers not assigned to this zone.",
-                              "unknown": "Not yet known.",
-                              "unregistered": "Domain is not registered.",
-                              "valid": "Parent zone correctly delegates to assigned nameservers."
-                            }
-                          }
-                        },
-                        "required": [
-                          "assigned",
-                          "delegated",
-                          "delegation_last_check"
-                        ],
-                        "type": "object"
-                      },
-                      "created": {
-                        "description": "Point in time when the Resource was created (in [RFC3339](https://datatracker.ietf.org/doc/html/rfc3339#section-5.6) format).",
-                        "example": "2016-01-30T23:55:00Z",
-                        "format": "date-time",
-                        "type": "string"
-                      },
-                      "id": {
-                        "description": "ID of the Zone.",
-                        "example": 42,
-                        "format": "int64",
-                        "maximum": 9007199254740991,
-                        "type": "integer"
-                      },
-                      "labels": {
-                        "additionalProperties": {
-                          "type": "string"
-                        },
-                        "description": "User-defined labels (`key/value` pairs) for the Resource.\nFor more information, see \"Labels\".\n",
-                        "example": {
-                          "environment": "prod",
-                          "example.com/my": "label",
-                          "just-a-key": ""
-                        },
-                        "type": "object"
-                      },
-                      "name": {
-                        "description": "Name of the Zone.\n\nAll names with [well-known public suffixes](https://publicsuffix.org/) (e.g. `.de`,\n`.com`, `.co.uk`) are supported. Subdomains are not supported.\n\nThe name must be in lower case and must not end with a dot.\n[Internationalized domain\nnames](https://en.wikipedia.org/wiki/Internationalized_domain_name) must be\ntranscribed to [Punycode](https://wikipedia.org/wiki/Punycode) representation with\nACE prefix, e.g. `xn--mnchen-3ya.de` (`münchen.de`).\n",
-                        "example": "example.com",
-                        "maxLength": 255,
-                        "type": "string"
-                      },
-                      "primary_nameservers": {
-                        "description": "Primary nameservers of the Zone.\n\nOnly set if Zone is in secondary mode, otherwise empty.\n",
-                        "example": [
-                          {
-                            "address": "198.51.100.1",
-                            "port": 53
-                          },
-                          {
-                            "address": "203.0.113.1",
-                            "port": 53
-                          }
-                        ],
-                        "items": {
-                          "description": "Primary nameserver that returns Zones via `AXFR`.\n\nMust allow queries from and may send `NOTIFY` queries to [Hetzner's secondary\nnameservers](https://docs.hetzner.com/dns-console/dns/general/authoritative-name-servers#secondary-dns-servers-old-name-servers-for-robot-customers).\n",
-                          "properties": {
-                            "address": {
-                              "description": "Public IPv4 or IPv6 address of the primary nameserver.",
-                              "example": "198.51.100.1",
-                              "type": "string"
-                            },
-                            "port": {
-                              "default": 53,
-                              "description": "Port of the primary nameserver.",
-                              "example": 5353,
-                              "type": "integer"
-                            },
-                            "tsig_algorithm": {
-                              "description": "[Transaction signature (TSIG)](https://en.wikipedia.org/wiki/TSIG) algorithm\nused to generate the TSIG key.\n",
-                              "enum": [
-                                "hmac-md5",
-                                "hmac-sha1",
-                                "hmac-sha256"
-                              ],
-                              "type": "string"
-                            },
-                            "tsig_key": {
-                              "description": "[Transaction signature (TSIG)](https://en.wikipedia.org/wiki/TSIG) key to use\nfor the zone transfer. Must be base64 encoded.\n",
-                              "type": "string"
-                            }
-                          },
-                          "required": [
-                            "address"
-                          ],
-                          "type": "object"
-                        },
-                        "type": "array"
-                      },
-                      "protection": {
-                        "description": "Protection configuration for the Resource.",
-                        "properties": {
-                          "delete": {
-                            "description": "Prevent the Resource from being deleted.",
-                            "example": false,
-                            "type": "boolean"
-                          }
-                        },
-                        "required": [
-                          "delete"
-                        ],
-                        "type": "object"
-                      },
-                      "record_count": {
-                        "description": "Number of resource records (RR) within the Zone.",
-                        "type": "integer"
-                      },
-                      "registrar": {
-                        "description": "Registrar of the domain.",
-                        "enum": [
-                          "hetzner",
-                          "other",
-                          "unknown"
-                        ],
-                        "type": "string"
-                      },
-                      "status": {
-                        "description": "Status of the Zone.\n",
-                        "enum": [
-                          "ok",
-                          "updating",
-                          "error"
-                        ],
-                        "type": "string",
-                        "x-enumDescriptions": {
-                          "error": "The Zone could not be published to the authoritative nameservers.",
-                          "ok": "The Zone is pushed to the authoritative nameservers.",
-                          "updating": "The Zone is currently being published to the authoritative nameservers."
-                        }
-                      },
-                      "ttl": {
-                        "default": 3600,
-                        "description": "Default Time To Live (TTL) of the Zone.\n\nMust be in between 60s and 2147483647s.\n\nThis TTL is used for RRSets that do not explicitly define a TTL.\n",
-                        "example": 10800,
-                        "maximum": 2147483647,
-                        "minimum": 60,
-                        "type": "integer"
-                      }
-                    },
-                    "required": [
-                      "authoritative_nameservers",
-                      "created",
-                      "id",
-                      "labels",
-                      "name",
-                      "protection",
-                      "record_count",
-                      "registrar",
-                      "status",
-                      "ttl"
-                    ],
-                    "type": "object"
-                  },
-                  {
-                    "properties": {
-                      "mode": {
-                        "description": "Mode of the Zone.\n\nFor more information, see Zone Modes.\n",
-                        "enum": [
-                          "primary"
-                        ],
-                        "example": "primary",
-                        "type": "string"
-                      }
-                    },
-                    "required": [
-                      "mode"
-                    ],
-                    "type": "object"
-                  }
-                ],
-                "title": "Primary Zone"
-              },
-              {
-                "allOf": [
-                  {
-                    "properties": {
-                      "authoritative_nameservers": {
-                        "properties": {
-                          "assigned": {
-                            "description": "Authoritative Hetzner nameservers assigned to this Zone.\n",
-                            "example": [
-                              "hydrogen.ns.hetzner.com.",
-                              "oxygen.ns.hetzner.com.",
-                              "helium.ns.hetzner.de."
-                            ],
-                            "items": {
-                              "type": "string"
-                            },
-                            "type": "array"
-                          },
-                          "delegated": {
-                            "description": "Authoritative nameservers currently delegated to by the parent DNS zone.\n\nIf these don't match the assigned authoritative nameservers, the DNS zone is currently not being served by Hetzner.\n",
-                            "example": [
-                              "hydrogen.ns.hetzner.com.",
-                              "oxygen.ns.hetzner.com.",
-                              "helium.ns.hetzner.de."
-                            ],
-                            "items": {
-                              "type": "string"
-                            },
-                            "type": "array"
-                          },
-                          "delegation_last_check": {
-                            "description": "Point in time (in [RFC3339](https://datatracker.ietf.org/doc/html/rfc3339#section-5.6) format) when the DNS zone delegation was last checked.\n",
-                            "example": "2016-01-30T23:55:00Z",
-                            "format": "date-time",
-                            "nullable": true,
-                            "type": "string"
-                          },
-                          "delegation_status": {
-                            "description": "Status of the delegation.\n",
-                            "enum": [
-                              "valid",
-                              "partially-valid",
-                              "invalid",
-                              "lame",
-                              "unregistered",
-                              "unknown"
-                            ],
-                            "type": "string",
-                            "x-enumDescriptions": {
-                              "invalid": "Parent zone does not delegate to the assigned nameservers.",
-                              "lame": "Parent zone delegates to nameservers that don't know the zone.",
-                              "partially-valid": "Parent zone delegates to additional Hetzner nameservers not assigned to this zone.",
-                              "unknown": "Not yet known.",
-                              "unregistered": "Domain is not registered.",
-                              "valid": "Parent zone correctly delegates to assigned nameservers."
-                            }
-                          }
-                        },
-                        "required": [
-                          "assigned",
-                          "delegated",
-                          "delegation_last_check"
-                        ],
-                        "type": "object"
-                      },
-                      "created": {
-                        "description": "Point in time when the Resource was created (in [RFC3339](https://datatracker.ietf.org/doc/html/rfc3339#section-5.6) format).",
-                        "example": "2016-01-30T23:55:00Z",
-                        "format": "date-time",
-                        "type": "string"
-                      },
-                      "id": {
-                        "description": "ID of the Zone.",
-                        "example": 42,
-                        "format": "int64",
-                        "maximum": 9007199254740991,
-                        "type": "integer"
-                      },
-                      "labels": {
-                        "additionalProperties": {
-                          "type": "string"
-                        },
-                        "description": "User-defined labels (`key/value` pairs) for the Resource.\nFor more information, see \"Labels\".\n",
-                        "example": {
-                          "environment": "prod",
-                          "example.com/my": "label",
-                          "just-a-key": ""
-                        },
-                        "type": "object"
-                      },
-                      "name": {
-                        "description": "Name of the Zone.\n\nAll names with [well-known public suffixes](https://publicsuffix.org/) (e.g. `.de`,\n`.com`, `.co.uk`) are supported. Subdomains are not supported.\n\nThe name must be in lower case and must not end with a dot.\n[Internationalized domain\nnames](https://en.wikipedia.org/wiki/Internationalized_domain_name) must be\ntranscribed to [Punycode](https://wikipedia.org/wiki/Punycode) representation with\nACE prefix, e.g. `xn--mnchen-3ya.de` (`münchen.de`).\n",
-                        "example": "example.com",
-                        "maxLength": 255,
-                        "type": "string"
-                      },
-                      "primary_nameservers": {
-                        "description": "Primary nameservers of the Zone.\n\nOnly set if Zone is in secondary mode, otherwise empty.\n",
-                        "example": [
-                          {
-                            "address": "198.51.100.1",
-                            "port": 53
-                          },
-                          {
-                            "address": "203.0.113.1",
-                            "port": 53
-                          }
-                        ],
-                        "items": {
-                          "description": "Primary nameserver that returns Zones via `AXFR`.\n\nMust allow queries from and may send `NOTIFY` queries to [Hetzner's secondary\nnameservers](https://docs.hetzner.com/dns-console/dns/general/authoritative-name-servers#secondary-dns-servers-old-name-servers-for-robot-customers).\n",
-                          "properties": {
-                            "address": {
-                              "description": "Public IPv4 or IPv6 address of the primary nameserver.",
-                              "example": "198.51.100.1",
-                              "type": "string"
-                            },
-                            "port": {
-                              "default": 53,
-                              "description": "Port of the primary nameserver.",
-                              "example": 5353,
-                              "type": "integer"
-                            },
-                            "tsig_algorithm": {
-                              "description": "[Transaction signature (TSIG)](https://en.wikipedia.org/wiki/TSIG) algorithm\nused to generate the TSIG key.\n",
-                              "enum": [
-                                "hmac-md5",
-                                "hmac-sha1",
-                                "hmac-sha256"
-                              ],
-                              "type": "string"
-                            },
-                            "tsig_key": {
-                              "description": "[Transaction signature (TSIG)](https://en.wikipedia.org/wiki/TSIG) key to use\nfor the zone transfer. Must be base64 encoded.\n",
-                              "type": "string"
-                            }
-                          },
-                          "required": [
-                            "address"
-                          ],
-                          "type": "object"
-                        },
-                        "type": "array"
-                      },
-                      "protection": {
-                        "description": "Protection configuration for the Resource.",
-                        "properties": {
-                          "delete": {
-                            "description": "Prevent the Resource from being deleted.",
-                            "example": false,
-                            "type": "boolean"
-                          }
-                        },
-                        "required": [
-                          "delete"
-                        ],
-                        "type": "object"
-                      },
-                      "record_count": {
-                        "description": "Number of resource records (RR) within the Zone.",
-                        "type": "integer"
-                      },
-                      "registrar": {
-                        "description": "Registrar of the domain.",
-                        "enum": [
-                          "hetzner",
-                          "other",
-                          "unknown"
-                        ],
-                        "type": "string"
-                      },
-                      "status": {
-                        "description": "Status of the Zone.\n",
-                        "enum": [
-                          "ok",
-                          "updating",
-                          "error"
-                        ],
-                        "type": "string",
-                        "x-enumDescriptions": {
-                          "error": "The Zone could not be published to the authoritative nameservers.",
-                          "ok": "The Zone is pushed to the authoritative nameservers.",
-                          "updating": "The Zone is currently being published to the authoritative nameservers."
-                        }
-                      },
-                      "ttl": {
-                        "default": 3600,
-                        "description": "Default Time To Live (TTL) of the Zone.\n\nMust be in between 60s and 2147483647s.\n\nThis TTL is used for RRSets that do not explicitly define a TTL.\n",
-                        "example": 10800,
-                        "maximum": 2147483647,
-                        "minimum": 60,
-                        "type": "integer"
-                      }
-                    },
-                    "required": [
-                      "authoritative_nameservers",
-                      "created",
-                      "id",
-                      "labels",
-                      "name",
-                      "protection",
-                      "record_count",
-                      "registrar",
-                      "status",
-                      "ttl"
-                    ],
-                    "type": "object"
-                  },
-                  {
-                    "properties": {
-                      "mode": {
-                        "description": "Mode of the Zone.\n\nFor more information, see Zone Modes.\n",
-                        "enum": [
-                          "secondary"
-                        ],
-                        "example": "secondary",
-                        "type": "string"
-                      }
-                    },
-                    "required": [
-                      "mode"
-                    ],
-                    "type": "object"
-                  }
-                ],
-                "title": "Secondary Zone"
-              }
-            ],
-            "title": "Zone"
+            "$ref": "#/components/schemas/zone"
           }
         },
         "required": [
@@ -6018,468 +5096,7 @@
           },
           "zones": {
             "items": {
-              "discriminator": {
-                "mapping": {
-                  "primary": "#/components/schemas/ZonePrimary",
-                  "secondary": "#/components/schemas/ZoneSecondary"
-                },
-                "propertyName": "mode"
-              },
-              "oneOf": [
-                {
-                  "allOf": [
-                    {
-                      "properties": {
-                        "authoritative_nameservers": {
-                          "properties": {
-                            "assigned": {
-                              "description": "Authoritative Hetzner nameservers assigned to this Zone.\n",
-                              "example": [
-                                "hydrogen.ns.hetzner.com.",
-                                "oxygen.ns.hetzner.com.",
-                                "helium.ns.hetzner.de."
-                              ],
-                              "items": {
-                                "type": "string"
-                              },
-                              "type": "array"
-                            },
-                            "delegated": {
-                              "description": "Authoritative nameservers currently delegated to by the parent DNS zone.\n\nIf these don't match the assigned authoritative nameservers, the DNS zone is currently not being served by Hetzner.\n",
-                              "example": [
-                                "hydrogen.ns.hetzner.com.",
-                                "oxygen.ns.hetzner.com.",
-                                "helium.ns.hetzner.de."
-                              ],
-                              "items": {
-                                "type": "string"
-                              },
-                              "type": "array"
-                            },
-                            "delegation_last_check": {
-                              "description": "Point in time (in [RFC3339](https://datatracker.ietf.org/doc/html/rfc3339#section-5.6) format) when the DNS zone delegation was last checked.\n",
-                              "example": "2016-01-30T23:55:00Z",
-                              "format": "date-time",
-                              "nullable": true,
-                              "type": "string"
-                            },
-                            "delegation_status": {
-                              "description": "Status of the delegation.\n",
-                              "enum": [
-                                "valid",
-                                "partially-valid",
-                                "invalid",
-                                "lame",
-                                "unregistered",
-                                "unknown"
-                              ],
-                              "type": "string",
-                              "x-enumDescriptions": {
-                                "invalid": "Parent zone does not delegate to the assigned nameservers.",
-                                "lame": "Parent zone delegates to nameservers that don't know the zone.",
-                                "partially-valid": "Parent zone delegates to additional Hetzner nameservers not assigned to this zone.",
-                                "unknown": "Not yet known.",
-                                "unregistered": "Domain is not registered.",
-                                "valid": "Parent zone correctly delegates to assigned nameservers."
-                              }
-                            }
-                          },
-                          "required": [
-                            "assigned",
-                            "delegated",
-                            "delegation_last_check"
-                          ],
-                          "type": "object"
-                        },
-                        "created": {
-                          "description": "Point in time when the Resource was created (in [RFC3339](https://datatracker.ietf.org/doc/html/rfc3339#section-5.6) format).",
-                          "example": "2016-01-30T23:55:00Z",
-                          "format": "date-time",
-                          "type": "string"
-                        },
-                        "id": {
-                          "description": "ID of the Zone.",
-                          "example": 42,
-                          "format": "int64",
-                          "maximum": 9007199254740991,
-                          "type": "integer"
-                        },
-                        "labels": {
-                          "additionalProperties": {
-                            "type": "string"
-                          },
-                          "description": "User-defined labels (`key/value` pairs) for the Resource.\nFor more information, see \"Labels\".\n",
-                          "example": {
-                            "environment": "prod",
-                            "example.com/my": "label",
-                            "just-a-key": ""
-                          },
-                          "type": "object"
-                        },
-                        "name": {
-                          "description": "Name of the Zone.\n\nAll names with [well-known public suffixes](https://publicsuffix.org/) (e.g. `.de`,\n`.com`, `.co.uk`) are supported. Subdomains are not supported.\n\nThe name must be in lower case and must not end with a dot.\n[Internationalized domain\nnames](https://en.wikipedia.org/wiki/Internationalized_domain_name) must be\ntranscribed to [Punycode](https://wikipedia.org/wiki/Punycode) representation with\nACE prefix, e.g. `xn--mnchen-3ya.de` (`münchen.de`).\n",
-                          "example": "example.com",
-                          "maxLength": 255,
-                          "type": "string"
-                        },
-                        "primary_nameservers": {
-                          "description": "Primary nameservers of the Zone.\n\nOnly set if Zone is in secondary mode, otherwise empty.\n",
-                          "example": [
-                            {
-                              "address": "198.51.100.1",
-                              "port": 53
-                            },
-                            {
-                              "address": "203.0.113.1",
-                              "port": 53
-                            }
-                          ],
-                          "items": {
-                            "description": "Primary nameserver that returns Zones via `AXFR`.\n\nMust allow queries from and may send `NOTIFY` queries to [Hetzner's secondary\nnameservers](https://docs.hetzner.com/dns-console/dns/general/authoritative-name-servers#secondary-dns-servers-old-name-servers-for-robot-customers).\n",
-                            "properties": {
-                              "address": {
-                                "description": "Public IPv4 or IPv6 address of the primary nameserver.",
-                                "example": "198.51.100.1",
-                                "type": "string"
-                              },
-                              "port": {
-                                "default": 53,
-                                "description": "Port of the primary nameserver.",
-                                "example": 5353,
-                                "type": "integer"
-                              },
-                              "tsig_algorithm": {
-                                "description": "[Transaction signature (TSIG)](https://en.wikipedia.org/wiki/TSIG) algorithm\nused to generate the TSIG key.\n",
-                                "enum": [
-                                  "hmac-md5",
-                                  "hmac-sha1",
-                                  "hmac-sha256"
-                                ],
-                                "type": "string"
-                              },
-                              "tsig_key": {
-                                "description": "[Transaction signature (TSIG)](https://en.wikipedia.org/wiki/TSIG) key to use\nfor the zone transfer. Must be base64 encoded.\n",
-                                "type": "string"
-                              }
-                            },
-                            "required": [
-                              "address"
-                            ],
-                            "type": "object"
-                          },
-                          "type": "array"
-                        },
-                        "protection": {
-                          "description": "Protection configuration for the Resource.",
-                          "properties": {
-                            "delete": {
-                              "description": "Prevent the Resource from being deleted.",
-                              "example": false,
-                              "type": "boolean"
-                            }
-                          },
-                          "required": [
-                            "delete"
-                          ],
-                          "type": "object"
-                        },
-                        "record_count": {
-                          "description": "Number of resource records (RR) within the Zone.",
-                          "type": "integer"
-                        },
-                        "registrar": {
-                          "description": "Registrar of the domain.",
-                          "enum": [
-                            "hetzner",
-                            "other",
-                            "unknown"
-                          ],
-                          "type": "string"
-                        },
-                        "status": {
-                          "description": "Status of the Zone.\n",
-                          "enum": [
-                            "ok",
-                            "updating",
-                            "error"
-                          ],
-                          "type": "string",
-                          "x-enumDescriptions": {
-                            "error": "The Zone could not be published to the authoritative nameservers.",
-                            "ok": "The Zone is pushed to the authoritative nameservers.",
-                            "updating": "The Zone is currently being published to the authoritative nameservers."
-                          }
-                        },
-                        "ttl": {
-                          "default": 3600,
-                          "description": "Default Time To Live (TTL) of the Zone.\n\nMust be in between 60s and 2147483647s.\n\nThis TTL is used for RRSets that do not explicitly define a TTL.\n",
-                          "example": 10800,
-                          "maximum": 2147483647,
-                          "minimum": 60,
-                          "type": "integer"
-                        }
-                      },
-                      "required": [
-                        "authoritative_nameservers",
-                        "created",
-                        "id",
-                        "labels",
-                        "name",
-                        "protection",
-                        "record_count",
-                        "registrar",
-                        "status",
-                        "ttl"
-                      ],
-                      "type": "object"
-                    },
-                    {
-                      "properties": {
-                        "mode": {
-                          "description": "Mode of the Zone.\n\nFor more information, see Zone Modes.\n",
-                          "enum": [
-                            "primary"
-                          ],
-                          "example": "primary",
-                          "type": "string"
-                        }
-                      },
-                      "required": [
-                        "mode"
-                      ],
-                      "type": "object"
-                    }
-                  ],
-                  "title": "Primary Zone"
-                },
-                {
-                  "allOf": [
-                    {
-                      "properties": {
-                        "authoritative_nameservers": {
-                          "properties": {
-                            "assigned": {
-                              "description": "Authoritative Hetzner nameservers assigned to this Zone.\n",
-                              "example": [
-                                "hydrogen.ns.hetzner.com.",
-                                "oxygen.ns.hetzner.com.",
-                                "helium.ns.hetzner.de."
-                              ],
-                              "items": {
-                                "type": "string"
-                              },
-                              "type": "array"
-                            },
-                            "delegated": {
-                              "description": "Authoritative nameservers currently delegated to by the parent DNS zone.\n\nIf these don't match the assigned authoritative nameservers, the DNS zone is currently not being served by Hetzner.\n",
-                              "example": [
-                                "hydrogen.ns.hetzner.com.",
-                                "oxygen.ns.hetzner.com.",
-                                "helium.ns.hetzner.de."
-                              ],
-                              "items": {
-                                "type": "string"
-                              },
-                              "type": "array"
-                            },
-                            "delegation_last_check": {
-                              "description": "Point in time (in [RFC3339](https://datatracker.ietf.org/doc/html/rfc3339#section-5.6) format) when the DNS zone delegation was last checked.\n",
-                              "example": "2016-01-30T23:55:00Z",
-                              "format": "date-time",
-                              "nullable": true,
-                              "type": "string"
-                            },
-                            "delegation_status": {
-                              "description": "Status of the delegation.\n",
-                              "enum": [
-                                "valid",
-                                "partially-valid",
-                                "invalid",
-                                "lame",
-                                "unregistered",
-                                "unknown"
-                              ],
-                              "type": "string",
-                              "x-enumDescriptions": {
-                                "invalid": "Parent zone does not delegate to the assigned nameservers.",
-                                "lame": "Parent zone delegates to nameservers that don't know the zone.",
-                                "partially-valid": "Parent zone delegates to additional Hetzner nameservers not assigned to this zone.",
-                                "unknown": "Not yet known.",
-                                "unregistered": "Domain is not registered.",
-                                "valid": "Parent zone correctly delegates to assigned nameservers."
-                              }
-                            }
-                          },
-                          "required": [
-                            "assigned",
-                            "delegated",
-                            "delegation_last_check"
-                          ],
-                          "type": "object"
-                        },
-                        "created": {
-                          "description": "Point in time when the Resource was created (in [RFC3339](https://datatracker.ietf.org/doc/html/rfc3339#section-5.6) format).",
-                          "example": "2016-01-30T23:55:00Z",
-                          "format": "date-time",
-                          "type": "string"
-                        },
-                        "id": {
-                          "description": "ID of the Zone.",
-                          "example": 42,
-                          "format": "int64",
-                          "maximum": 9007199254740991,
-                          "type": "integer"
-                        },
-                        "labels": {
-                          "additionalProperties": {
-                            "type": "string"
-                          },
-                          "description": "User-defined labels (`key/value` pairs) for the Resource.\nFor more information, see \"Labels\".\n",
-                          "example": {
-                            "environment": "prod",
-                            "example.com/my": "label",
-                            "just-a-key": ""
-                          },
-                          "type": "object"
-                        },
-                        "name": {
-                          "description": "Name of the Zone.\n\nAll names with [well-known public suffixes](https://publicsuffix.org/) (e.g. `.de`,\n`.com`, `.co.uk`) are supported. Subdomains are not supported.\n\nThe name must be in lower case and must not end with a dot.\n[Internationalized domain\nnames](https://en.wikipedia.org/wiki/Internationalized_domain_name) must be\ntranscribed to [Punycode](https://wikipedia.org/wiki/Punycode) representation with\nACE prefix, e.g. `xn--mnchen-3ya.de` (`münchen.de`).\n",
-                          "example": "example.com",
-                          "maxLength": 255,
-                          "type": "string"
-                        },
-                        "primary_nameservers": {
-                          "description": "Primary nameservers of the Zone.\n\nOnly set if Zone is in secondary mode, otherwise empty.\n",
-                          "example": [
-                            {
-                              "address": "198.51.100.1",
-                              "port": 53
-                            },
-                            {
-                              "address": "203.0.113.1",
-                              "port": 53
-                            }
-                          ],
-                          "items": {
-                            "description": "Primary nameserver that returns Zones via `AXFR`.\n\nMust allow queries from and may send `NOTIFY` queries to [Hetzner's secondary\nnameservers](https://docs.hetzner.com/dns-console/dns/general/authoritative-name-servers#secondary-dns-servers-old-name-servers-for-robot-customers).\n",
-                            "properties": {
-                              "address": {
-                                "description": "Public IPv4 or IPv6 address of the primary nameserver.",
-                                "example": "198.51.100.1",
-                                "type": "string"
-                              },
-                              "port": {
-                                "default": 53,
-                                "description": "Port of the primary nameserver.",
-                                "example": 5353,
-                                "type": "integer"
-                              },
-                              "tsig_algorithm": {
-                                "description": "[Transaction signature (TSIG)](https://en.wikipedia.org/wiki/TSIG) algorithm\nused to generate the TSIG key.\n",
-                                "enum": [
-                                  "hmac-md5",
-                                  "hmac-sha1",
-                                  "hmac-sha256"
-                                ],
-                                "type": "string"
-                              },
-                              "tsig_key": {
-                                "description": "[Transaction signature (TSIG)](https://en.wikipedia.org/wiki/TSIG) key to use\nfor the zone transfer. Must be base64 encoded.\n",
-                                "type": "string"
-                              }
-                            },
-                            "required": [
-                              "address"
-                            ],
-                            "type": "object"
-                          },
-                          "type": "array"
-                        },
-                        "protection": {
-                          "description": "Protection configuration for the Resource.",
-                          "properties": {
-                            "delete": {
-                              "description": "Prevent the Resource from being deleted.",
-                              "example": false,
-                              "type": "boolean"
-                            }
-                          },
-                          "required": [
-                            "delete"
-                          ],
-                          "type": "object"
-                        },
-                        "record_count": {
-                          "description": "Number of resource records (RR) within the Zone.",
-                          "type": "integer"
-                        },
-                        "registrar": {
-                          "description": "Registrar of the domain.",
-                          "enum": [
-                            "hetzner",
-                            "other",
-                            "unknown"
-                          ],
-                          "type": "string"
-                        },
-                        "status": {
-                          "description": "Status of the Zone.\n",
-                          "enum": [
-                            "ok",
-                            "updating",
-                            "error"
-                          ],
-                          "type": "string",
-                          "x-enumDescriptions": {
-                            "error": "The Zone could not be published to the authoritative nameservers.",
-                            "ok": "The Zone is pushed to the authoritative nameservers.",
-                            "updating": "The Zone is currently being published to the authoritative nameservers."
-                          }
-                        },
-                        "ttl": {
-                          "default": 3600,
-                          "description": "Default Time To Live (TTL) of the Zone.\n\nMust be in between 60s and 2147483647s.\n\nThis TTL is used for RRSets that do not explicitly define a TTL.\n",
-                          "example": 10800,
-                          "maximum": 2147483647,
-                          "minimum": 60,
-                          "type": "integer"
-                        }
-                      },
-                      "required": [
-                        "authoritative_nameservers",
-                        "created",
-                        "id",
-                        "labels",
-                        "name",
-                        "protection",
-                        "record_count",
-                        "registrar",
-                        "status",
-                        "ttl"
-                      ],
-                      "type": "object"
-                    },
-                    {
-                      "properties": {
-                        "mode": {
-                          "description": "Mode of the Zone.\n\nFor more information, see Zone Modes.\n",
-                          "enum": [
-                            "secondary"
-                          ],
-                          "example": "secondary",
-                          "type": "string"
-                        }
-                      },
-                      "required": [
-                        "mode"
-                      ],
-                      "type": "object"
-                    }
-                  ],
-                  "title": "Secondary Zone"
-                }
-              ],
-              "title": "Zone"
+              "$ref": "#/components/schemas/zone"
             },
             "type": "array"
           }
@@ -8215,468 +6832,7 @@
         "description": "Response to PUT https://api.hetzner.cloud/v1/zones/{id_or_name}",
         "properties": {
           "zone": {
-            "discriminator": {
-              "mapping": {
-                "primary": "#/components/schemas/ZonePrimary",
-                "secondary": "#/components/schemas/ZoneSecondary"
-              },
-              "propertyName": "mode"
-            },
-            "oneOf": [
-              {
-                "allOf": [
-                  {
-                    "properties": {
-                      "authoritative_nameservers": {
-                        "properties": {
-                          "assigned": {
-                            "description": "Authoritative Hetzner nameservers assigned to this Zone.\n",
-                            "example": [
-                              "hydrogen.ns.hetzner.com.",
-                              "oxygen.ns.hetzner.com.",
-                              "helium.ns.hetzner.de."
-                            ],
-                            "items": {
-                              "type": "string"
-                            },
-                            "type": "array"
-                          },
-                          "delegated": {
-                            "description": "Authoritative nameservers currently delegated to by the parent DNS zone.\n\nIf these don't match the assigned authoritative nameservers, the DNS zone is currently not being served by Hetzner.\n",
-                            "example": [
-                              "hydrogen.ns.hetzner.com.",
-                              "oxygen.ns.hetzner.com.",
-                              "helium.ns.hetzner.de."
-                            ],
-                            "items": {
-                              "type": "string"
-                            },
-                            "type": "array"
-                          },
-                          "delegation_last_check": {
-                            "description": "Point in time (in [RFC3339](https://datatracker.ietf.org/doc/html/rfc3339#section-5.6) format) when the DNS zone delegation was last checked.\n",
-                            "example": "2016-01-30T23:55:00Z",
-                            "format": "date-time",
-                            "nullable": true,
-                            "type": "string"
-                          },
-                          "delegation_status": {
-                            "description": "Status of the delegation.\n",
-                            "enum": [
-                              "valid",
-                              "partially-valid",
-                              "invalid",
-                              "lame",
-                              "unregistered",
-                              "unknown"
-                            ],
-                            "type": "string",
-                            "x-enumDescriptions": {
-                              "invalid": "Parent zone does not delegate to the assigned nameservers.",
-                              "lame": "Parent zone delegates to nameservers that don't know the zone.",
-                              "partially-valid": "Parent zone delegates to additional Hetzner nameservers not assigned to this zone.",
-                              "unknown": "Not yet known.",
-                              "unregistered": "Domain is not registered.",
-                              "valid": "Parent zone correctly delegates to assigned nameservers."
-                            }
-                          }
-                        },
-                        "required": [
-                          "assigned",
-                          "delegated",
-                          "delegation_last_check"
-                        ],
-                        "type": "object"
-                      },
-                      "created": {
-                        "description": "Point in time when the Resource was created (in [RFC3339](https://datatracker.ietf.org/doc/html/rfc3339#section-5.6) format).",
-                        "example": "2016-01-30T23:55:00Z",
-                        "format": "date-time",
-                        "type": "string"
-                      },
-                      "id": {
-                        "description": "ID of the Zone.",
-                        "example": 42,
-                        "format": "int64",
-                        "maximum": 9007199254740991,
-                        "type": "integer"
-                      },
-                      "labels": {
-                        "additionalProperties": {
-                          "type": "string"
-                        },
-                        "description": "User-defined labels (`key/value` pairs) for the Resource.\nFor more information, see \"Labels\".\n",
-                        "example": {
-                          "environment": "prod",
-                          "example.com/my": "label",
-                          "just-a-key": ""
-                        },
-                        "type": "object"
-                      },
-                      "name": {
-                        "description": "Name of the Zone.\n\nAll names with [well-known public suffixes](https://publicsuffix.org/) (e.g. `.de`,\n`.com`, `.co.uk`) are supported. Subdomains are not supported.\n\nThe name must be in lower case and must not end with a dot.\n[Internationalized domain\nnames](https://en.wikipedia.org/wiki/Internationalized_domain_name) must be\ntranscribed to [Punycode](https://wikipedia.org/wiki/Punycode) representation with\nACE prefix, e.g. `xn--mnchen-3ya.de` (`münchen.de`).\n",
-                        "example": "example.com",
-                        "maxLength": 255,
-                        "type": "string"
-                      },
-                      "primary_nameservers": {
-                        "description": "Primary nameservers of the Zone.\n\nOnly set if Zone is in secondary mode, otherwise empty.\n",
-                        "example": [
-                          {
-                            "address": "198.51.100.1",
-                            "port": 53
-                          },
-                          {
-                            "address": "203.0.113.1",
-                            "port": 53
-                          }
-                        ],
-                        "items": {
-                          "description": "Primary nameserver that returns Zones via `AXFR`.\n\nMust allow queries from and may send `NOTIFY` queries to [Hetzner's secondary\nnameservers](https://docs.hetzner.com/dns-console/dns/general/authoritative-name-servers#secondary-dns-servers-old-name-servers-for-robot-customers).\n",
-                          "properties": {
-                            "address": {
-                              "description": "Public IPv4 or IPv6 address of the primary nameserver.",
-                              "example": "198.51.100.1",
-                              "type": "string"
-                            },
-                            "port": {
-                              "default": 53,
-                              "description": "Port of the primary nameserver.",
-                              "example": 5353,
-                              "type": "integer"
-                            },
-                            "tsig_algorithm": {
-                              "description": "[Transaction signature (TSIG)](https://en.wikipedia.org/wiki/TSIG) algorithm\nused to generate the TSIG key.\n",
-                              "enum": [
-                                "hmac-md5",
-                                "hmac-sha1",
-                                "hmac-sha256"
-                              ],
-                              "type": "string"
-                            },
-                            "tsig_key": {
-                              "description": "[Transaction signature (TSIG)](https://en.wikipedia.org/wiki/TSIG) key to use\nfor the zone transfer. Must be base64 encoded.\n",
-                              "type": "string"
-                            }
-                          },
-                          "required": [
-                            "address"
-                          ],
-                          "type": "object"
-                        },
-                        "type": "array"
-                      },
-                      "protection": {
-                        "description": "Protection configuration for the Resource.",
-                        "properties": {
-                          "delete": {
-                            "description": "Prevent the Resource from being deleted.",
-                            "example": false,
-                            "type": "boolean"
-                          }
-                        },
-                        "required": [
-                          "delete"
-                        ],
-                        "type": "object"
-                      },
-                      "record_count": {
-                        "description": "Number of resource records (RR) within the Zone.",
-                        "type": "integer"
-                      },
-                      "registrar": {
-                        "description": "Registrar of the domain.",
-                        "enum": [
-                          "hetzner",
-                          "other",
-                          "unknown"
-                        ],
-                        "type": "string"
-                      },
-                      "status": {
-                        "description": "Status of the Zone.\n",
-                        "enum": [
-                          "ok",
-                          "updating",
-                          "error"
-                        ],
-                        "type": "string",
-                        "x-enumDescriptions": {
-                          "error": "The Zone could not be published to the authoritative nameservers.",
-                          "ok": "The Zone is pushed to the authoritative nameservers.",
-                          "updating": "The Zone is currently being published to the authoritative nameservers."
-                        }
-                      },
-                      "ttl": {
-                        "default": 3600,
-                        "description": "Default Time To Live (TTL) of the Zone.\n\nMust be in between 60s and 2147483647s.\n\nThis TTL is used for RRSets that do not explicitly define a TTL.\n",
-                        "example": 10800,
-                        "maximum": 2147483647,
-                        "minimum": 60,
-                        "type": "integer"
-                      }
-                    },
-                    "required": [
-                      "authoritative_nameservers",
-                      "created",
-                      "id",
-                      "labels",
-                      "name",
-                      "protection",
-                      "record_count",
-                      "registrar",
-                      "status",
-                      "ttl"
-                    ],
-                    "type": "object"
-                  },
-                  {
-                    "properties": {
-                      "mode": {
-                        "description": "Mode of the Zone.\n\nFor more information, see Zone Modes.\n",
-                        "enum": [
-                          "primary"
-                        ],
-                        "example": "primary",
-                        "type": "string"
-                      }
-                    },
-                    "required": [
-                      "mode"
-                    ],
-                    "type": "object"
-                  }
-                ],
-                "title": "Primary Zone"
-              },
-              {
-                "allOf": [
-                  {
-                    "properties": {
-                      "authoritative_nameservers": {
-                        "properties": {
-                          "assigned": {
-                            "description": "Authoritative Hetzner nameservers assigned to this Zone.\n",
-                            "example": [
-                              "hydrogen.ns.hetzner.com.",
-                              "oxygen.ns.hetzner.com.",
-                              "helium.ns.hetzner.de."
-                            ],
-                            "items": {
-                              "type": "string"
-                            },
-                            "type": "array"
-                          },
-                          "delegated": {
-                            "description": "Authoritative nameservers currently delegated to by the parent DNS zone.\n\nIf these don't match the assigned authoritative nameservers, the DNS zone is currently not being served by Hetzner.\n",
-                            "example": [
-                              "hydrogen.ns.hetzner.com.",
-                              "oxygen.ns.hetzner.com.",
-                              "helium.ns.hetzner.de."
-                            ],
-                            "items": {
-                              "type": "string"
-                            },
-                            "type": "array"
-                          },
-                          "delegation_last_check": {
-                            "description": "Point in time (in [RFC3339](https://datatracker.ietf.org/doc/html/rfc3339#section-5.6) format) when the DNS zone delegation was last checked.\n",
-                            "example": "2016-01-30T23:55:00Z",
-                            "format": "date-time",
-                            "nullable": true,
-                            "type": "string"
-                          },
-                          "delegation_status": {
-                            "description": "Status of the delegation.\n",
-                            "enum": [
-                              "valid",
-                              "partially-valid",
-                              "invalid",
-                              "lame",
-                              "unregistered",
-                              "unknown"
-                            ],
-                            "type": "string",
-                            "x-enumDescriptions": {
-                              "invalid": "Parent zone does not delegate to the assigned nameservers.",
-                              "lame": "Parent zone delegates to nameservers that don't know the zone.",
-                              "partially-valid": "Parent zone delegates to additional Hetzner nameservers not assigned to this zone.",
-                              "unknown": "Not yet known.",
-                              "unregistered": "Domain is not registered.",
-                              "valid": "Parent zone correctly delegates to assigned nameservers."
-                            }
-                          }
-                        },
-                        "required": [
-                          "assigned",
-                          "delegated",
-                          "delegation_last_check"
-                        ],
-                        "type": "object"
-                      },
-                      "created": {
-                        "description": "Point in time when the Resource was created (in [RFC3339](https://datatracker.ietf.org/doc/html/rfc3339#section-5.6) format).",
-                        "example": "2016-01-30T23:55:00Z",
-                        "format": "date-time",
-                        "type": "string"
-                      },
-                      "id": {
-                        "description": "ID of the Zone.",
-                        "example": 42,
-                        "format": "int64",
-                        "maximum": 9007199254740991,
-                        "type": "integer"
-                      },
-                      "labels": {
-                        "additionalProperties": {
-                          "type": "string"
-                        },
-                        "description": "User-defined labels (`key/value` pairs) for the Resource.\nFor more information, see \"Labels\".\n",
-                        "example": {
-                          "environment": "prod",
-                          "example.com/my": "label",
-                          "just-a-key": ""
-                        },
-                        "type": "object"
-                      },
-                      "name": {
-                        "description": "Name of the Zone.\n\nAll names with [well-known public suffixes](https://publicsuffix.org/) (e.g. `.de`,\n`.com`, `.co.uk`) are supported. Subdomains are not supported.\n\nThe name must be in lower case and must not end with a dot.\n[Internationalized domain\nnames](https://en.wikipedia.org/wiki/Internationalized_domain_name) must be\ntranscribed to [Punycode](https://wikipedia.org/wiki/Punycode) representation with\nACE prefix, e.g. `xn--mnchen-3ya.de` (`münchen.de`).\n",
-                        "example": "example.com",
-                        "maxLength": 255,
-                        "type": "string"
-                      },
-                      "primary_nameservers": {
-                        "description": "Primary nameservers of the Zone.\n\nOnly set if Zone is in secondary mode, otherwise empty.\n",
-                        "example": [
-                          {
-                            "address": "198.51.100.1",
-                            "port": 53
-                          },
-                          {
-                            "address": "203.0.113.1",
-                            "port": 53
-                          }
-                        ],
-                        "items": {
-                          "description": "Primary nameserver that returns Zones via `AXFR`.\n\nMust allow queries from and may send `NOTIFY` queries to [Hetzner's secondary\nnameservers](https://docs.hetzner.com/dns-console/dns/general/authoritative-name-servers#secondary-dns-servers-old-name-servers-for-robot-customers).\n",
-                          "properties": {
-                            "address": {
-                              "description": "Public IPv4 or IPv6 address of the primary nameserver.",
-                              "example": "198.51.100.1",
-                              "type": "string"
-                            },
-                            "port": {
-                              "default": 53,
-                              "description": "Port of the primary nameserver.",
-                              "example": 5353,
-                              "type": "integer"
-                            },
-                            "tsig_algorithm": {
-                              "description": "[Transaction signature (TSIG)](https://en.wikipedia.org/wiki/TSIG) algorithm\nused to generate the TSIG key.\n",
-                              "enum": [
-                                "hmac-md5",
-                                "hmac-sha1",
-                                "hmac-sha256"
-                              ],
-                              "type": "string"
-                            },
-                            "tsig_key": {
-                              "description": "[Transaction signature (TSIG)](https://en.wikipedia.org/wiki/TSIG) key to use\nfor the zone transfer. Must be base64 encoded.\n",
-                              "type": "string"
-                            }
-                          },
-                          "required": [
-                            "address"
-                          ],
-                          "type": "object"
-                        },
-                        "type": "array"
-                      },
-                      "protection": {
-                        "description": "Protection configuration for the Resource.",
-                        "properties": {
-                          "delete": {
-                            "description": "Prevent the Resource from being deleted.",
-                            "example": false,
-                            "type": "boolean"
-                          }
-                        },
-                        "required": [
-                          "delete"
-                        ],
-                        "type": "object"
-                      },
-                      "record_count": {
-                        "description": "Number of resource records (RR) within the Zone.",
-                        "type": "integer"
-                      },
-                      "registrar": {
-                        "description": "Registrar of the domain.",
-                        "enum": [
-                          "hetzner",
-                          "other",
-                          "unknown"
-                        ],
-                        "type": "string"
-                      },
-                      "status": {
-                        "description": "Status of the Zone.\n",
-                        "enum": [
-                          "ok",
-                          "updating",
-                          "error"
-                        ],
-                        "type": "string",
-                        "x-enumDescriptions": {
-                          "error": "The Zone could not be published to the authoritative nameservers.",
-                          "ok": "The Zone is pushed to the authoritative nameservers.",
-                          "updating": "The Zone is currently being published to the authoritative nameservers."
-                        }
-                      },
-                      "ttl": {
-                        "default": 3600,
-                        "description": "Default Time To Live (TTL) of the Zone.\n\nMust be in between 60s and 2147483647s.\n\nThis TTL is used for RRSets that do not explicitly define a TTL.\n",
-                        "example": 10800,
-                        "maximum": 2147483647,
-                        "minimum": 60,
-                        "type": "integer"
-                      }
-                    },
-                    "required": [
-                      "authoritative_nameservers",
-                      "created",
-                      "id",
-                      "labels",
-                      "name",
-                      "protection",
-                      "record_count",
-                      "registrar",
-                      "status",
-                      "ttl"
-                    ],
-                    "type": "object"
-                  },
-                  {
-                    "properties": {
-                      "mode": {
-                        "description": "Mode of the Zone.\n\nFor more information, see Zone Modes.\n",
-                        "enum": [
-                          "secondary"
-                        ],
-                        "example": "secondary",
-                        "type": "string"
-                      }
-                    },
-                    "required": [
-                      "mode"
-                    ],
-                    "type": "object"
-                  }
-                ],
-                "title": "Secondary Zone"
-              }
-            ],
-            "title": "Zone"
+            "$ref": "#/components/schemas/zone"
           }
         },
         "required": [
@@ -10603,6 +8759,370 @@
           "status"
         ],
         "type": "object"
+      },
+      "zone": {
+        "discriminator": {
+          "mapping": {
+            "primary": "#/components/schemas/ZonePrimary",
+            "secondary": "#/components/schemas/ZoneSecondary"
+          },
+          "propertyName": "mode"
+        },
+        "oneOf": [
+          {
+            "allOf": [
+              {
+                "properties": {
+                  "authoritative_nameservers": {
+                    "properties": {
+                      "assigned": {
+                        "description": "Authoritative Hetzner nameservers assigned to this Zone.\n",
+                        "example": [
+                          "hydrogen.ns.hetzner.com.",
+                          "oxygen.ns.hetzner.com.",
+                          "helium.ns.hetzner.de."
+                        ],
+                        "items": {
+                          "type": "string"
+                        },
+                        "type": "array"
+                      },
+                      "delegated": {
+                        "description": "Authoritative nameservers currently delegated to by the parent DNS zone.\n\nIf these don't match the assigned authoritative nameservers, the DNS zone is currently not being served by Hetzner.\n",
+                        "example": [
+                          "hydrogen.ns.hetzner.com.",
+                          "oxygen.ns.hetzner.com.",
+                          "helium.ns.hetzner.de."
+                        ],
+                        "items": {
+                          "type": "string"
+                        },
+                        "type": "array"
+                      },
+                      "delegation_last_check": {
+                        "description": "Point in time (in [RFC3339](https://datatracker.ietf.org/doc/html/rfc3339#section-5.6) format) when the DNS zone delegation was last checked.\n",
+                        "example": "2016-01-30T23:55:00Z",
+                        "format": "date-time",
+                        "nullable": true,
+                        "type": "string"
+                      },
+                      "delegation_status": {
+                        "description": "Status of the delegation.\n",
+                        "enum": [
+                          "invalid",
+                          "lame",
+                          "partially-valid",
+                          "unknown",
+                          "unregistered",
+                          "valid"
+                        ],
+                        "type": "string",
+                        "x-enumDescriptions": {
+                          "invalid": "Parent zone does not delegate to the assigned nameservers.",
+                          "lame": "Parent zone delegates to nameservers that don't know the zone.",
+                          "partially-valid": "Parent zone delegates to additional Hetzner nameservers not assigned to this zone.",
+                          "unknown": "Not yet known.",
+                          "unregistered": "Domain is not registered.",
+                          "valid": "Parent zone correctly delegates to assigned nameservers."
+                        }
+                      }
+                    },
+                    "required": [
+                      "assigned",
+                      "delegated",
+                      "delegation_last_check"
+                    ],
+                    "type": "object"
+                  },
+                  "created": {
+                    "description": "Point in time when the Resource was created (in [RFC3339](https://datatracker.ietf.org/doc/html/rfc3339#section-5.6) format).",
+                    "example": "2016-01-30T23:55:00Z",
+                    "format": "date-time",
+                    "type": "string"
+                  },
+                  "id": {
+                    "description": "ID of the Zone.",
+                    "example": 42,
+                    "format": "int64",
+                    "maximum": 9007199254740991,
+                    "type": "integer"
+                  },
+                  "labels": {
+                    "$ref": "#/components/schemas/labels"
+                  },
+                  "name": {
+                    "description": "Name of the Zone.\n\nAll names with [well-known public suffixes](https://publicsuffix.org/) (e.g. `.de`,\n`.com`, `.co.uk`) are supported. Subdomains are not supported.\n\nThe name must be in lower case and must not end with a dot.\n[Internationalized domain\nnames](https://en.wikipedia.org/wiki/Internationalized_domain_name) must be\ntranscribed to [Punycode](https://wikipedia.org/wiki/Punycode) representation with\nACE prefix, e.g. `xn--mnchen-3ya.de` (`münchen.de`).\n",
+                    "example": "example.com",
+                    "maxLength": 255,
+                    "type": "string"
+                  },
+                  "primary_nameservers": {
+                    "description": "Primary nameservers of the Zone.\n\nOnly set if Zone is in secondary mode, otherwise empty.\n",
+                    "example": [
+                      {
+                        "address": "198.51.100.1",
+                        "port": 53
+                      },
+                      {
+                        "address": "203.0.113.1",
+                        "port": 53
+                      }
+                    ],
+                    "items": {
+                      "$ref": "#/components/schemas/nameserver"
+                    },
+                    "type": "array"
+                  },
+                  "protection": {
+                    "$ref": "#/components/schemas/protection"
+                  },
+                  "record_count": {
+                    "description": "Number of resource records (RR) within the Zone.",
+                    "type": "integer"
+                  },
+                  "registrar": {
+                    "description": "Registrar of the domain.",
+                    "enum": [
+                      "hetzner",
+                      "other",
+                      "unknown"
+                    ],
+                    "type": "string"
+                  },
+                  "status": {
+                    "description": "Status of the Zone.\n",
+                    "enum": [
+                      "error",
+                      "ok",
+                      "updating"
+                    ],
+                    "type": "string",
+                    "x-enumDescriptions": {
+                      "error": "The Zone could not be published to the authoritative nameservers.",
+                      "ok": "The Zone is pushed to the authoritative nameservers.",
+                      "updating": "The Zone is currently being published to the authoritative nameservers."
+                    }
+                  },
+                  "ttl": {
+                    "default": 3600,
+                    "description": "Default Time To Live (TTL) of the Zone.\n\nMust be in between 60s and 2147483647s.\n\nThis TTL is used for RRSets that do not explicitly define a TTL.\n",
+                    "example": 10800,
+                    "maximum": 2147483647,
+                    "minimum": 60,
+                    "type": "integer"
+                  }
+                },
+                "required": [
+                  "authoritative_nameservers",
+                  "created",
+                  "id",
+                  "labels",
+                  "name",
+                  "protection",
+                  "record_count",
+                  "registrar",
+                  "status",
+                  "ttl"
+                ],
+                "type": "object"
+              },
+              {
+                "properties": {
+                  "mode": {
+                    "description": "Mode of the Zone.\n\nFor more information, see Zone Modes.\n",
+                    "enum": [
+                      "primary"
+                    ],
+                    "example": "primary",
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "mode"
+                ],
+                "type": "object"
+              }
+            ],
+            "title": "Primary Zone"
+          },
+          {
+            "allOf": [
+              {
+                "properties": {
+                  "authoritative_nameservers": {
+                    "properties": {
+                      "assigned": {
+                        "description": "Authoritative Hetzner nameservers assigned to this Zone.\n",
+                        "example": [
+                          "hydrogen.ns.hetzner.com.",
+                          "oxygen.ns.hetzner.com.",
+                          "helium.ns.hetzner.de."
+                        ],
+                        "items": {
+                          "type": "string"
+                        },
+                        "type": "array"
+                      },
+                      "delegated": {
+                        "description": "Authoritative nameservers currently delegated to by the parent DNS zone.\n\nIf these don't match the assigned authoritative nameservers, the DNS zone is currently not being served by Hetzner.\n",
+                        "example": [
+                          "hydrogen.ns.hetzner.com.",
+                          "oxygen.ns.hetzner.com.",
+                          "helium.ns.hetzner.de."
+                        ],
+                        "items": {
+                          "type": "string"
+                        },
+                        "type": "array"
+                      },
+                      "delegation_last_check": {
+                        "description": "Point in time (in [RFC3339](https://datatracker.ietf.org/doc/html/rfc3339#section-5.6) format) when the DNS zone delegation was last checked.\n",
+                        "example": "2016-01-30T23:55:00Z",
+                        "format": "date-time",
+                        "nullable": true,
+                        "type": "string"
+                      },
+                      "delegation_status": {
+                        "description": "Status of the delegation.\n",
+                        "enum": [
+                          "invalid",
+                          "lame",
+                          "partially-valid",
+                          "unknown",
+                          "unregistered",
+                          "valid"
+                        ],
+                        "type": "string",
+                        "x-enumDescriptions": {
+                          "invalid": "Parent zone does not delegate to the assigned nameservers.",
+                          "lame": "Parent zone delegates to nameservers that don't know the zone.",
+                          "partially-valid": "Parent zone delegates to additional Hetzner nameservers not assigned to this zone.",
+                          "unknown": "Not yet known.",
+                          "unregistered": "Domain is not registered.",
+                          "valid": "Parent zone correctly delegates to assigned nameservers."
+                        }
+                      }
+                    },
+                    "required": [
+                      "assigned",
+                      "delegated",
+                      "delegation_last_check"
+                    ],
+                    "type": "object"
+                  },
+                  "created": {
+                    "description": "Point in time when the Resource was created (in [RFC3339](https://datatracker.ietf.org/doc/html/rfc3339#section-5.6) format).",
+                    "example": "2016-01-30T23:55:00Z",
+                    "format": "date-time",
+                    "type": "string"
+                  },
+                  "id": {
+                    "description": "ID of the Zone.",
+                    "example": 42,
+                    "format": "int64",
+                    "maximum": 9007199254740991,
+                    "type": "integer"
+                  },
+                  "labels": {
+                    "$ref": "#/components/schemas/labels"
+                  },
+                  "name": {
+                    "description": "Name of the Zone.\n\nAll names with [well-known public suffixes](https://publicsuffix.org/) (e.g. `.de`,\n`.com`, `.co.uk`) are supported. Subdomains are not supported.\n\nThe name must be in lower case and must not end with a dot.\n[Internationalized domain\nnames](https://en.wikipedia.org/wiki/Internationalized_domain_name) must be\ntranscribed to [Punycode](https://wikipedia.org/wiki/Punycode) representation with\nACE prefix, e.g. `xn--mnchen-3ya.de` (`münchen.de`).\n",
+                    "example": "example.com",
+                    "maxLength": 255,
+                    "type": "string"
+                  },
+                  "primary_nameservers": {
+                    "description": "Primary nameservers of the Zone.\n\nOnly set if Zone is in secondary mode, otherwise empty.\n",
+                    "example": [
+                      {
+                        "address": "198.51.100.1",
+                        "port": 53
+                      },
+                      {
+                        "address": "203.0.113.1",
+                        "port": 53
+                      }
+                    ],
+                    "items": {
+                      "$ref": "#/components/schemas/nameserver"
+                    },
+                    "type": "array"
+                  },
+                  "protection": {
+                    "$ref": "#/components/schemas/protection"
+                  },
+                  "record_count": {
+                    "description": "Number of resource records (RR) within the Zone.",
+                    "type": "integer"
+                  },
+                  "registrar": {
+                    "description": "Registrar of the domain.",
+                    "enum": [
+                      "hetzner",
+                      "other",
+                      "unknown"
+                    ],
+                    "type": "string"
+                  },
+                  "status": {
+                    "description": "Status of the Zone.\n",
+                    "enum": [
+                      "error",
+                      "ok",
+                      "updating"
+                    ],
+                    "type": "string",
+                    "x-enumDescriptions": {
+                      "error": "The Zone could not be published to the authoritative nameservers.",
+                      "ok": "The Zone is pushed to the authoritative nameservers.",
+                      "updating": "The Zone is currently being published to the authoritative nameservers."
+                    }
+                  },
+                  "ttl": {
+                    "default": 3600,
+                    "description": "Default Time To Live (TTL) of the Zone.\n\nMust be in between 60s and 2147483647s.\n\nThis TTL is used for RRSets that do not explicitly define a TTL.\n",
+                    "example": 10800,
+                    "maximum": 2147483647,
+                    "minimum": 60,
+                    "type": "integer"
+                  }
+                },
+                "required": [
+                  "authoritative_nameservers",
+                  "created",
+                  "id",
+                  "labels",
+                  "name",
+                  "protection",
+                  "record_count",
+                  "registrar",
+                  "status",
+                  "ttl"
+                ],
+                "type": "object"
+              },
+              {
+                "properties": {
+                  "mode": {
+                    "description": "Mode of the Zone.\n\nFor more information, see Zone Modes.\n",
+                    "enum": [
+                      "secondary"
+                    ],
+                    "example": "secondary",
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "mode"
+                ],
+                "type": "object"
+              }
+            ],
+            "title": "Secondary Zone"
+          }
+        ],
+        "title": "Zone"
       }
     },
     "securitySchemes": {
