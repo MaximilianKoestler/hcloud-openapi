@@ -11,11 +11,11 @@ import {
   preTransformDocument,
 } from "./document/transformation";
 import {
-  deduplicateSchemas,
   inlineComponents,
   fixSchema,
   fixDocument,
 } from "./schema/transformation";
+import { deduplicateSchemas } from "./schema/deduplicate";
 import { OpenApiDocumentFragment } from "./types";
 
 interface Arguments {

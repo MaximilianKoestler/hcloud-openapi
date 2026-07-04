@@ -1,4 +1,5 @@
-import { deduplicateSchemas, CommonComponent } from "./transformation";
+import { deduplicateSchemas } from "./deduplicate";
+import { CommonComponent } from "./deduplicate";
 
 describe("deduplicateSchemas", () => {
   it("should process a simple schema without errors without commonComponents", () => {
@@ -289,5 +290,37 @@ describe("deduplicateSchemas", () => {
     expect(schemas.shared.description).toContain("Desc A");
     expect(schemas.shared.description).toContain("Desc B");
     expect(schemas.shared.description).toBe("Desc A | Desc B");
+  });
+
+  it("should not crash when component contains an array without items", () => {
+    const schemas: any = {
+      Root1: {
+        type: "object",
+        properties: {
+          shared: {
+            type: "object",
+            properties: {
+              my_array: { type: "array", items: { type: "string" } },
+              error: { type: "string" },
+            },
+          },
+        },
+      },
+      Root2: {
+        type: "object",
+        properties: {
+          shared: {
+            type: "object",
+            properties: {
+              my_array: { type: "array", items: { type: "string" } },
+              error: { type: "string" },
+            },
+          },
+        },
+      },
+    };
+
+    // This will crash if newPartStack gets out of sync
+    expect(() => deduplicateSchemas(schemas, undefined)).not.toThrow();
   });
 });

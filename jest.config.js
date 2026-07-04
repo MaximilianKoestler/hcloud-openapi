@@ -3,5 +3,5 @@ module.exports = {
   testEnvironment: 'node',
   collectCoverage: true,
   coverageDirectory: 'coverage',
-  collectCoverageFrom: ['src/schema/transformation.ts'],
+  collectCoverageFrom: ['src/schema/deduplicate.ts'],
 };

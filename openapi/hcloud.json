@@ -6,7 +6,7 @@
     },
     "description": "Copied from the official API documentation for the Public Hetzner Cloud.",
     "title": "Hetzner Cloud API",
-    "version": "main"
+    "version": "feat/refactor-and-test"
   },
   "servers": [
     {
