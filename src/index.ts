@@ -331,9 +331,8 @@ async function transformPaths(document: OpenApiDocumentFragment) {
 function getVersion(): string {
   try {
     const proc = require("child_process");
-    const hash = proc.execSync("git rev-parse --short HEAD").toString().trim();
-    const dirty = proc.execSync("git status --short").toString().trim() !== "";
-    return hash + (dirty ? "-dirty" : "");
+    const branch_name = proc.execSync("git rev-parse --abbrev-ref HEAD").toString().trim();
+    return branch_name
   } catch {
     return "unknown";
   }
