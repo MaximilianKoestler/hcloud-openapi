@@ -1,19 +1,7 @@
-import { deduplicateSchemas } from "./transformation";
-import * as fs from "fs";
-
-jest.mock("fs", () => ({
-  promises: {
-    readFile: jest.fn(),
-    writeFile: jest.fn(),
-  },
-}));
+import { deduplicateSchemas, CommonComponent } from "./transformation";
 
 describe("deduplicateSchemas", () => {
-  afterEach(() => {
-    jest.clearAllMocks();
-  });
-
-  it("should process a simple schema without errors when fromFile is false", async () => {
+  it("should process a simple schema without errors without commonComponents", () => {
     // schemas must be an object representing an OpenApiDocumentFragment
     const schemas: any = {
       TestSchema1: {
@@ -32,12 +20,14 @@ describe("deduplicateSchemas", () => {
       },
     };
 
-    await deduplicateSchemas(schemas, false);
+    const result = deduplicateSchemas(schemas, undefined);
 
-    expect(fs.promises.writeFile).toHaveBeenCalled();
+    // It should return the components that were extracted (which are TestSchema components)
+    expect(result).toBeDefined();
+    expect(result.length).toBe(0);
   });
 
-  it("should process a schema using fromFile true", async () => {
+  it("should process a schema using provided commonComponents", () => {
     const schemas: any = {
       TestSchema: {
         type: "object",
@@ -47,7 +37,7 @@ describe("deduplicateSchemas", () => {
       },
     };
 
-    const mockCommonComponents = [
+    const mockCommonComponents: CommonComponent[] = [
       {
         name: "TestComponent",
         path: ["TestSchema", "properties", "id"],
@@ -55,19 +45,11 @@ describe("deduplicateSchemas", () => {
       },
     ];
 
-    (fs.promises.readFile as jest.Mock).mockResolvedValue(
-      JSON.stringify(mockCommonComponents)
-    );
-    (fs.promises.writeFile as jest.Mock).mockResolvedValue(undefined);
-
-    await deduplicateSchemas(schemas, true);
-
-    expect(fs.promises.readFile).toHaveBeenCalledWith(
-      "resources/schema_types.json",
-      "utf-8"
-    );
+    const result = deduplicateSchemas(schemas, mockCommonComponents);
+    expect(result).toBeDefined();
   });
-  it("should extract a complex shared sub-object as a component when fromFile is false", async () => {
+
+  it("should extract a complex shared sub-object as a component without commonComponents", () => {
     const schemas: any = {
       Root1: {
         type: "object",
@@ -95,7 +77,7 @@ describe("deduplicateSchemas", () => {
       },
     };
 
-    await deduplicateSchemas(schemas, false);
+    const result = deduplicateSchemas(schemas, undefined);
 
     // After deduplication, the schema should contain the extracted component.
     const componentName = "shared_sub_object";
@@ -111,11 +93,11 @@ describe("deduplicateSchemas", () => {
       `#/components/schemas/${componentName}`
     );
 
-    // Verify it was written to file
-    expect(fs.promises.writeFile).toHaveBeenCalled();
+    // Verify the result array has the extracted component
+    expect(result.some((c) => c.name === componentName)).toBe(true);
   });
 
-  it("should apply an extracted component using fromFile true", async () => {
+  it("should apply an extracted component using provided commonComponents", () => {
     const schemas: any = {
       Root1: {
         type: "object",
@@ -143,7 +125,7 @@ describe("deduplicateSchemas", () => {
       },
     };
 
-    const mockCommonComponents = [
+    const mockCommonComponents: CommonComponent[] = [
       {
         name: "MyCustomComponent",
         path: ["Root1", "shared_sub_object"],
@@ -151,19 +133,9 @@ describe("deduplicateSchemas", () => {
       },
     ];
 
-    (fs.promises.readFile as jest.Mock).mockResolvedValue(
-      JSON.stringify(mockCommonComponents)
-    );
-    (fs.promises.writeFile as jest.Mock).mockResolvedValue(undefined);
+    const result = deduplicateSchemas(schemas, mockCommonComponents);
 
-    await deduplicateSchemas(schemas, true);
-
-    expect(fs.promises.readFile).toHaveBeenCalledWith(
-      "resources/schema_types.json",
-      "utf-8"
-    );
-
-    // Check that it used the customized name from the file
+    // Check that it used the customized name from the input array
     expect(schemas.MyCustomComponent).toBeDefined();
     expect(schemas.MyCustomComponent.description).toBe(
       "A customized component description"
@@ -174,5 +146,9 @@ describe("deduplicateSchemas", () => {
     expect(schemas.Root2.properties.shared_sub_object.$ref).toBe(
       "#/components/schemas/MyCustomComponent"
     );
+    
+    // Check that it returns the same component definitions
+    expect(result.length).toBe(1);
+    expect(result[0].name).toBe("MyCustomComponent");
   });
 });

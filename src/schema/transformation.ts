@@ -1,4 +1,3 @@
-const fs = require("fs").promises;
 
 import objectHash = require("object-hash");
 import pluralize = require("pluralize");
@@ -8,7 +7,7 @@ import { OpenApiDocumentFragment } from "../types";
 import { walkSchema } from "./actions";
 import { assert } from "console";
 
-interface CommonComponent {
+export interface CommonComponent {
   description?: string;
   name: string;
   path: string[];
@@ -201,7 +200,7 @@ function filterObject(
   return result;
 }
 
-async function storeCommonComponents(commonComponents: CommonComponent[]) {
+function formatCommonComponents(commonComponents: CommonComponent[]): CommonComponent[] {
   const sortedEntries = commonComponents.map((component: any) =>
     Object.keys(component)
       .sort()
@@ -211,15 +210,7 @@ async function storeCommonComponents(commonComponents: CommonComponent[]) {
       }, {})
   );
 
-  await fs.writeFile(
-    "resources/schema_types.json",
-    JSON.stringify(
-      sortedEntries.sort((a, b) => a.name?.localeCompare(b.name)),
-      null,
-      2
-    ),
-    "utf-8"
-  );
+  return sortedEntries.sort((a, b) => a.name?.localeCompare(b.name)) as CommonComponent[];
 }
 
 let externalizedBoolProperties = new Set<string>(["nullable", "deprecated"]);
@@ -283,10 +274,10 @@ function mergeSchemaComponents(
   }
 }
 
-export async function deduplicateSchemas(
+export function deduplicateSchemas(
   schemas: OpenApiDocumentFragment,
-  fromFile: boolean
-) {
+  commonComponents?: CommonComponent[]
+): CommonComponent[] {
   // calculate hashes and complexity scores over all possibly shared schema items
   // do not consider descriptions for the hashes
   Object.keys(schemas).forEach((id) => {
@@ -407,9 +398,7 @@ export async function deduplicateSchemas(
 
   // paths in schema_types.json are always considered "interesting"
   let paths_to_definitely_extract: string[] = [];
-  if (fromFile) {
-    const json = await fs.readFile("resources/schema_types.json", "utf-8");
-    let commonComponents: CommonComponent[] = JSON.parse(json);
+  if (commonComponents !== undefined) {
     commonComponents.forEach((component) => {
       paths_to_definitely_extract.push(component.path.join("/"));
     });
@@ -430,11 +419,10 @@ export async function deduplicateSchemas(
       )
   );
 
-  if (fromFile) {
-    // load component names from file
-    const json = await fs.readFile("resources/schema_types.json", "utf-8");
-    let commonComponents: CommonComponent[] = JSON.parse(json);
-    storeCommonComponents(commonComponents);
+  let finalComponents: CommonComponent[] = [];
+
+  if (commonComponents !== undefined) {
+    finalComponents = formatCommonComponents(commonComponents);
 
     commonComponents.forEach((component) => {
       Object.keys(objectInfos).forEach((hash) => {
@@ -467,7 +455,7 @@ export async function deduplicateSchemas(
       objectInfos[hash].name = name;
     });
 
-    const commonComponents: CommonComponent[] = Object.keys(objectInfos).map(
+    const computedComponents: CommonComponent[] = Object.keys(objectInfos).map(
       (hash) => {
         const info = objectInfos[hash];
         const path = info.locations
@@ -480,9 +468,9 @@ export async function deduplicateSchemas(
         };
       }
     );
-    storeCommonComponents(commonComponents);
+    finalComponents = formatCommonComponents(computedComponents);
     console.log(
-      `Extracted ${commonComponents.length} shared objects from the schemas.`
+      `Extracted ${computedComponents.length} shared objects from the schemas.`
     );
   }
 
@@ -584,6 +572,8 @@ export async function deduplicateSchemas(
       },
     });
   });
+  
+  return finalComponents;
 }
 
 export async function inlineComponents(document: OpenApiDocumentFragment) {
