@@ -11,11 +11,11 @@ import {
   preTransformDocument,
 } from "./document/transformation";
 import {
-  deduplicateSchemas,
   inlineComponents,
   fixSchema,
   fixDocument,
 } from "./schema/transformation";
+import { deduplicateSchemas } from "./schema/deduplicate";
 import { OpenApiDocumentFragment } from "./types";
 
 interface Arguments {
@@ -247,7 +247,16 @@ async function createComponents(document: OpenApiDocumentFragment) {
     }
   }
 
-  await deduplicateSchemas(schemas, true);
+  const json = await fs.readFile("resources/schema_types.json", "utf-8");
+  const commonComponents = JSON.parse(json);
+
+  const finalComponents = deduplicateSchemas(schemas, commonComponents);
+
+  await fs.writeFile(
+    "resources/schema_types.json",
+    JSON.stringify(finalComponents, null, 2),
+    "utf-8"
+  );
 
   document.components = {
     ...document.components,
