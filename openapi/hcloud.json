@@ -4064,12 +4064,13 @@
             "type": "boolean"
           },
           "status": {
-            "description": "Whether the Image can be used or if it's still being created or unavailable.",
+            "description": "Status of the Image.",
             "enum": [
               "available",
               "creating",
               "unavailable"
             ],
+            "example": "available",
             "type": "string"
           },
           "type": {
@@ -8382,13 +8383,18 @@
             "type": "string"
           },
           "type": {
-            "description": "Type of subnet.\n\n- `cloud` - Used to connect cloud Servers and Load Balancers.\n- `server` - Same as the `cloud` type. **Deprecated**, use the `cloud` type instead.\n- `vswitch` - Used to [connect cloud Servers and Load Balancers with dedicated Servers](https://docs.hetzner.com/cloud/networks/connect-dedi-vswitch).\n",
+            "description": "Type of subnet.\n",
             "enum": [
               "cloud",
               "server",
               "vswitch"
             ],
-            "type": "string"
+            "type": "string",
+            "x-enumDescriptions": {
+              "cloud": "Used to connect cloud [Servers](#tag/servers) and [Load Balancers](#tag/load-balancers).",
+              "server": "Same as the `cloud` type. **Deprecated**, use the `cloud` type instead.",
+              "vswitch": "Used to [connect cloud Servers and Load Balancers with dedicated Servers](https://docs.hetzner.com/cloud/networks/connect-dedi-vswitch)."
+            }
           },
           "vswitch_id": {
             "description": "ID of the robot vSwitch.\n\nMust only be supplied for subnets of type `vswitch`.\n | ID of the robot vSwitch.\n\nMust be supplied if the subnet is of type `vswitch`.\n",
@@ -8421,13 +8427,18 @@
             "type": "string"
           },
           "type": {
-            "description": "Type of subnet.\n\n- `cloud` - Used to connect cloud Servers and Load Balancers.\n- `server` - Same as the `cloud` type. **Deprecated**, use the `cloud` type instead.\n- `vswitch` - Used to [connect cloud Servers and Load Balancers with dedicated Servers](https://docs.hetzner.com/cloud/networks/connect-dedi-vswitch).\n",
+            "description": "Type of subnet.\n",
             "enum": [
               "cloud",
               "server",
               "vswitch"
             ],
-            "type": "string"
+            "type": "string",
+            "x-enumDescriptions": {
+              "cloud": "Used to connect cloud [Servers](#tag/servers) and [Load Balancers](#tag/load-balancers).",
+              "server": "Same as the `cloud` type. **Deprecated**, use the `cloud` type instead.",
+              "vswitch": "Used to [connect cloud Servers and Load Balancers with dedicated Servers](https://docs.hetzner.com/cloud/networks/connect-dedi-vswitch)."
+            }
           },
           "vswitch_id": {
             "description": "ID of the robot vSwitch if the subnet is of type `vswitch`.",
@@ -14926,7 +14937,7 @@
         ]
       },
       "post": {
-        "description": "Creates a Load Balancer.\n\n#### Operation specific errors\n\n| Status | Code | Description |\n| --- | --- | --- |\n|  | `cloud_resource_ip_not_allowed` | The IP you are trying to add as a target belongs to a Hetzner Cloud resource |\n|  | `ip_not_owned` | The IP is not owned by the owner of the project of the Load Balancer |\n|  | `load_balancer_not_attached_to_network` | The Load Balancer is not attached to a network |\n|  | `robot_unavailable` | Robot was not available. The caller may retry the operation after a short delay. |\n|  | `server_not_attached_to_network` | The server you are trying to add as a target is not attached to the same network as the Load Balancer |\n|  | `source_port_already_used` | The source port you are trying to add is already in use |\n|  | `missing_ipv4` | The server that you are trying to add as a public target does not have a public IPv4 address |\n|  | `target_already_defined` | The Load Balancer target you are trying to define is already defined |\n",
+        "description": "Creates a Load Balancer.\n\n#### Operation specific errors\n\n| Status | Code | Description |\n| --- | --- | --- |\n| `412` | `source_port_already_used` | The source port you are trying to add is already in use |\n| `422` | `ip_not_owned` | The IP is not owned by the owner of the project of the Load Balancer |\n| `422` | `load_balancer_not_attached_to_network` | The Load Balancer is not attached to a network |\n| `422` | `resolve_cloud_private_targets_error` | The server you are trying to add as a target is not attached to the same network as the Load Balancer |\n| `422` | `resolve_cloud_public_targets_error` | The server that you are trying to add as a public target does not have a public IPv4 address |\n| `422` | `target_already_defined` | The Load Balancer target you are trying to define is already defined |\n",
         "operationId": "create_load_balancer",
         "requestBody": {
           "content": {
@@ -15796,7 +15807,7 @@
     },
     "/load_balancers/{id}/actions/add_service": {
       "post": {
-        "description": "Adds a service to a Load Balancer.\n\n#### Operation specific errors\n\n| Status | Code | Description |\n| --- | --- | --- |\n|  | `source_port_already_used` | The source port you are trying to add is already in use |\n",
+        "description": "Adds a service to a Load Balancer.\n\n#### Operation specific errors\n\n| Status | Code | Description |\n| --- | --- | --- |\n| `412` | `source_port_already_used` | The source port you are trying to add is already in use |\n",
         "operationId": "add_service",
         "parameters": [
           {
@@ -15909,7 +15920,7 @@
     },
     "/load_balancers/{id}/actions/add_target": {
       "post": {
-        "description": "Adds a target to a Load Balancer.\n\n#### Operation specific errors\n\n| Status | Code | Description |\n| --- | --- | --- |\n|  | `cloud_resource_ip_not_allowed` | The IP you are trying to add as a target belongs to a Hetzner Cloud resource |\n|  | `ip_not_owned` | The IP you are trying to add as a target is not owned by the Project owner |\n|  | `load_balancer_public_interface_disabled` | The Load Balancer's public network interface is disabled |\n|  | `load_balancer_not_attached_to_network` | The Load Balancer is not attached to a network |\n|  | `robot_unavailable` | Robot was not available. The caller may retry the operation after a short delay. |\n|  | `server_not_attached_to_network` | The server you are trying to add as a target is not attached to the same network as the Load Balancer |\n|  | `missing_ipv4` | The server that you are trying to add as a public target does not have a public IPv4 address |\n|  | `target_already_defined` | The Load Balancer target you are trying to define is already defined |\n",
+        "description": "Adds a target to a Load Balancer.\n\n#### Operation specific errors\n\n| Status | Code | Description |\n| --- | --- | --- |\n| `422` | `ip_not_in_vswitch_subnet` | The IP you are trying to add does not belong to the vswitch subnet of the attached network |\n| `422` | `ip_not_owned` | The IP you are trying to add as a target is not owned by the Project owner |\n| `422` | `load_balancer_public_interface_disabled` | The Load Balancer's public network interface is disabled |\n| `422` | `load_balancer_not_attached_to_network` | The Load Balancer is not attached to a network |\n| `422` | `network_has_no_vswitch_subnet` | The given IP is private but attached network does not have a vswitch subnet |\n| `422` | `resolve_cloud_private_targets_error` | The server you are trying to add as a target is not attached to the same network as the Load Balancer |\n| `422` | `resolve_cloud_public_targets_error` | The server that you are trying to add as a public target does not have a public IPv4 address |\n| `422` | `target_already_defined` | The Load Balancer target you are trying to define is already defined |\n",
         "operationId": "add_target",
         "parameters": [
           {
@@ -16022,7 +16033,7 @@
     },
     "/load_balancers/{id}/actions/attach_to_network": {
       "post": {
-        "description": "Attach a Load Balancer to a Network.\n\n#### Operation specific errors\n\n| Status | Code | Description |\n| --- | --- | --- |\n|  | `load_balancer_already_attached` | The Load Balancer is already attached to a network |\n|  | `ip_not_available` | The provided Network IP is not available |\n|  | `no_subnet_available` | No Subnet or IP is available for the Load Balancer within the network |\n",
+        "description": "Attach a Load Balancer to a Network.\n\n#### Operation specific errors\n\n| Status | Code | Description |\n| --- | --- | --- |\n| `422` | `load_balancer_already_attached` | The Load Balancer is already attached to a network |\n| `422` | `ip_not_available` | The provided Network IP is not available |\n| `422` | `no_subnet_available` | No Subnet or IP is available for the Load Balancer within the network |\n",
         "operationId": "attach_load_balancer_to_network",
         "parameters": [
           {
@@ -16475,7 +16486,7 @@
     },
     "/load_balancers/{id}/actions/change_type": {
       "post": {
-        "description": "Changes the type (Max Services, Max Targets and Max Connections) of a Load Balancer.\n\n#### Operation specific errors\n\n| Status | Code | Description |\n| --- | --- | --- |\n|  | `invalid_load_balancer_type` | The Load Balancer type does not fit for the given Load Balancer |\n",
+        "description": "Changes the type (Max Services, Max Targets and Max Connections) of a Load Balancer.\n\n#### Operation specific errors\n\n| Status | Code | Description |\n| --- | --- | --- |\n| `422` | `invalid_load_balancer_type` | The Load Balancer type does not fit for the given Load Balancer |\n",
         "operationId": "change_type_of_load_balancer",
         "parameters": [
           {
@@ -16818,7 +16829,7 @@
     },
     "/load_balancers/{id}/actions/disable_public_interface": {
       "post": {
-        "description": "Disable the public interface of a Load Balancer. The Load Balancer will be not accessible from the internet via its public IPs.\n\n#### Operation specific errors\n\n| Status | Code | Description |\n| --- | --- | --- |\n|  | `load_balancer_not_attached_to_network` | The Load Balancer is not attached to a network |\n|  | `targets_without_use_private_ip` | The Load Balancer has targets that use the public IP instead of the private IP |\n",
+        "description": "Disable the public interface of a Load Balancer. The Load Balancer will be not accessible from the internet via its public IPs.\n\n#### Operation specific errors\n\n| Status | Code | Description |\n| --- | --- | --- |\n| `422` | `load_balancer_not_attached_to_network` | The Load Balancer is not attached to a network |\n| `422` | `targets_without_use_private_ip` | The Load Balancer has targets that use the public IP instead of the private IP |\n",
         "operationId": "disable_public_interface_of_load_balancer",
         "parameters": [
           {
@@ -17145,7 +17156,7 @@
     },
     "/load_balancers/{id}/actions/update_service": {
       "post": {
-        "description": "Updates a Load Balancer Service.\n\n#### Operation specific errors\n\n| Status | Code | Description |\n| --- | --- | --- |\n|  | `source_port_already_used` | The source port you are trying to add is already in use |\n",
+        "description": "Updates a Load Balancer Service.\n\n#### Operation specific errors\n\n| Status | Code | Description |\n| --- | --- | --- |\n| `422` | `source_port_already_used` | The source port you are trying to add is already in use |\n",
         "operationId": "update_service",
         "parameters": [
           {
@@ -21757,7 +21768,7 @@
         ]
       },
       "post": {
-        "description": "Creates a new Server. Returns preliminary information about the Server as well as an Action that covers progress of creation.\n\n#### Operation specific errors\n\n| Status | Code | Description |\n| --- | --- | --- |\n|  | `placement_error` | An error during the placement occurred |\n|  | `primary_ip_assigned` | The specified Primary IP is already assigned to a server |\n|  | `primary_ip_datacenter_mismatch` | he specified Primary IP is in a different datacenter |\n|  | `primary_ip_version_mismatch` | The specified Primary IP has the wrong IP Version |\n",
+        "description": "Creates a new Server. Returns preliminary information about the Server as well as an Action that covers progress of creation.\n\n#### Operation specific errors\n\n| Status | Code | Description |\n| --- | --- | --- |\n| `412` | `primary_ip_version_mismatch` | The specified Primary IP has the wrong IP Version |\n| `422` | `placement_error` | An error during the placement occurred |\n| `422` | `primary_ip_assigned` | The specified Primary IP is already assigned to a server |\n| `422` | `primary_ip_datacenter_mismatch` | he specified Primary IP is in a different datacenter |\n",
         "operationId": "create_server",
         "requestBody": {
           "content": {
@@ -22560,7 +22571,7 @@
     },
     "/servers/{id}/actions/add_to_placement_group": {
       "post": {
-        "description": "Adds a Server to a Placement Group.\n\nServer must be powered off for this command to succeed.\n\n#### Operation specific errors\n\n| Status | Code | Description |\n| --- | --- | --- |\n|  | `server_not_stopped` | The action requires a stopped server |\n",
+        "description": "Adds a Server to a Placement Group.\n\nServer must be powered off for this command to succeed.\n\n#### Operation specific errors\n\n| Status | Code | Description |\n| --- | --- | --- |\n| `422` | `server_not_stopped` | The action requires a stopped server |\n| `422` | `already_in_placement_group` | The server is already part of a placement group |\n",
         "operationId": "add_server_to_placement_group",
         "parameters": [
           {
@@ -23247,7 +23258,7 @@
     },
     "/servers/{id}/actions/change_type": {
       "post": {
-        "description": "Changes the type (Cores, RAM and disk sizes) of a Server.\n\nServer must be powered off for this command to succeed.\n\nThis copies the content of its disk, and starts it again.\n\nYou can only migrate to Server types with the same `storage_type` and equal or bigger disks. Shrinking disks is not possible as it might destroy data.\n\nIf the disk gets upgraded, the Server type can not be downgraded any more. If you plan to downgrade the Server type, set `upgrade_disk` to `false`.\n\n#### Operation specific errors\n\n| Status | Code | Description |\n| --- | --- | --- |\n|  | `invalid_server_type` | The server type does not fit for the given server or is deprecated |\n|  | `server_not_stopped` | The action requires a stopped server |\n",
+        "description": "Changes the type (Cores, RAM and disk sizes) of a Server.\n\nServer must be powered off for this command to succeed.\n\nThis copies the content of its disk, and starts it again.\n\nYou can only migrate to Server types with the same `storage_type` and equal or bigger disks. Shrinking disks is not possible as it might destroy data.\n\nIf the disk gets upgraded, the Server type can not be downgraded any more. If you plan to downgrade the Server type, set `upgrade_disk` to `false`.\n\n#### Operation specific errors\n\n| Status | Code | Description |\n| --- | --- | --- |\n| `422` | `invalid_server_type` | The server type does not fit for the given server or is deprecated |\n| `422` | `server_not_stopped` | The action requires a stopped server |\n",
         "operationId": "change_type_of_server",
         "parameters": [
           {
@@ -26018,7 +26029,7 @@
         ]
       },
       "post": {
-        "description": "Creates a new Volume attached to a Server. If you want to create a Volume that is not attached to a Server, you need to provide the `location` key instead of `server`. This can be either the ID or the name of the Location this Volume will be created in. Note that a Volume can be attached to a Server only in the same Location as the Volume itself.\n\nSpecifying the Server during Volume creation will automatically attach the Volume to that Server after it has been initialized. In that case, the `next_actions` key in the response is an array which contains a single `attach_volume` action.\n\nThe minimum Volume size is 10GB and the maximum size is 10TB (10240GB).\n\nA volume’s name can consist of alphanumeric characters, dashes, underscores, and dots, but has to start and end with an alphanumeric character. The total length is limited to 64 characters. Volume names must be unique per Project.\n\n#### Operation specific errors\n\n| Status | Code | Description |\n| --- | --- | --- |\n|  | `no_space_left_in_location` | There is no volume space left in the given location |\n",
+        "description": "Creates a new Volume attached to a Server. If you want to create a Volume that is not attached to a Server, you need to provide the `location` key instead of `server`. This can be either the ID or the name of the Location this Volume will be created in. Note that a Volume can be attached to a Server only in the same Location as the Volume itself.\n\nSpecifying the Server during Volume creation will automatically attach the Volume to that Server after it has been initialized. In that case, the `next_actions` key in the response is an array which contains a single `attach_volume` action.\n\nThe minimum Volume size is 10GB and the maximum size is 10TB (10240GB).\n\nA volume’s name can consist of alphanumeric characters, dashes, underscores, and dots, but has to start and end with an alphanumeric character. The total length is limited to 64 characters. Volume names must be unique per Project.\n\n#### Operation specific errors\n\n| Status | Code | Description |\n| --- | --- | --- |\n| `422` | `no_space_left_in_location` | There is no volume space left in the given location |\n",
         "operationId": "create_volume",
         "requestBody": {
           "content": {
@@ -27716,6 +27727,7 @@
                     "value": {
                       "action": {
                         "command": "create",
+                        "error": null,
                         "finished": null,
                         "id": 13,
                         "progress": 0,
@@ -27759,10 +27771,15 @@
                         },
                         "server": null,
                         "snapshot_plan": null,
-                        "stats": null,
+                        "stats": {
+                          "size": 0,
+                          "size_data": 0,
+                          "size_snapshots": 0
+                        },
                         "status": "initializing",
                         "storage_box_type": {
                           "automatic_snapshot_limit": 10,
+                          "deprecation": null,
                           "description": "BX20",
                           "id": 1,
                           "name": "bx20",
@@ -27787,7 +27804,8 @@
                           "snapshot_limit": 10,
                           "subaccounts_limit": 100
                         },
-                        "system": null
+                        "system": null,
+                        "username": "u45321"
                       }
                     }
                   }
@@ -29508,7 +29526,7 @@
                           "labels": {
                             "environment": "prod",
                             "example.com/my": "label",
-                            "just-a-key": null
+                            "just-a-key": ""
                           },
                           "name": "2025-02-12T11-35-19",
                           "stats": {
@@ -29518,14 +29536,14 @@
                           "storage_box": 42
                         },
                         {
-                          "created": "2025-02-22:00:02.000Z",
+                          "created": "2025-02-22T01:00:30Z",
                           "description": "",
                           "id": 2,
                           "is_automatic": true,
                           "labels": {
                             "environment": "prod",
                             "example.com/my": "label",
-                            "just-a-key": null
+                            "just-a-key": ""
                           },
                           "name": "snapshot-daily--2025-02-12T22-00-02",
                           "stats": {
@@ -30092,14 +30110,14 @@
                             "ssh_enabled": true,
                             "webdav_enabled": false
                           },
-                          "created": "2025-02-22:00:02.000Z",
+                          "created": "2025-02-22T00:02:00Z",
                           "description": "host01 backup",
                           "home_directory": "my_backups/host01.my.company",
                           "id": 42,
                           "labels": {
                             "environment": "prod",
                             "example.com/my": "label",
-                            "just-a-key": null
+                            "just-a-key": ""
                           },
                           "name": "my-name",
                           "server": "u1337-sub1.your-storagebox.de",
