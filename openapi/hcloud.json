@@ -28,7 +28,7 @@
       "name": "certificates"
     },
     {
-      "description": "Each Datacenter represents a _virtual_ Datacenter which is made up of possible many physical Datacenters where Servers are hosted.\n\nSee the [Hetzner Locations Docs](https://docs.hetzner.com/cloud/general/locations/#what-datacenters-are-there) for more details about Datacenters.\n",
+      "description": "Each Datacenter represents a _virtual_ Datacenter which may consist of possibly many physical Datacenters. A physical Datacenter is where Servers are hosted.\n\nSee the [Hetzner Locations Docs](https://docs.hetzner.com/cloud/general/locations/#what-datacenters-are-there) for more details about Datacenters.\n",
       "name": "datacenters"
     },
     {
@@ -71,7 +71,7 @@
       "name": "pricing"
     },
     {
-      "description": "Primary IPs help you to create more flexible networking setups. You can assign at most one Primary IP of type `ipv4` and one of type `ipv6` per Server. This Server then uses these IPs.\n\nYou can only unassign a Primary IP from a Server when it's powered off. This Primary IP can then be assigned to a different powered off Server, or you can keep it around for later use.\n\nPrimary IPs are bound to a specific Datacenter. You can not assign a Primary IP from one Datacenter to a Server in a different Datacenter. If you need this capability use Floating IPs instead.\n\nIf your Server's operating system supports cloud-init there is no further configuration needed to make Primary IPs work.\n\nPrimary IPs of type `ipv4` use a single IPv4 address as their `ip` property. Primary IPs of type `ipv6` use a /64 network such as `fc00::/64` as their `ip` property. Any IP address within that network can be used on your host.\n\nPrimary IPs are billed on an hourly basis.\n",
+      "description": "Primary IPs help you to create more flexible networking setups. You can assign at most one Primary IP of type `ipv4` and one of type `ipv6` per Server. This Server then uses these IPs.\n\nYou can only unassign a Primary IP from a Server when it's powered off. This Primary IP can then be assigned to a different powered off Server, or you can keep it around for later use.\n\nPrimary IPs are bound to a specific Location. You can not assign a Primary IP from one Location to a Server in a different Location. If you need this capability use Floating IPs instead.\n\nIf your Server's operating system supports cloud-init there is no further configuration needed to make Primary IPs work.\n\nPrimary IPs of type `ipv4` use a single IPv4 address as their `ip` property. Primary IPs of type `ipv6` use a /64 network such as `fc00::/64` as their `ip` property. Any IP address within that network can be used on your host.\n\nPrimary IPs are billed on an hourly basis.\n",
       "name": "primary_ips"
     },
     {
@@ -2618,7 +2618,7 @@
         "description": "**Deprecated**: This property is deprecated and will be removed after the 1 July 2026.\nUse the `location` property instead.\n\nData Center of the Primary IP.\n | **Deprecated**: This property is deprecated and will be removed after the 1 July 2026.\nUse the `location` property instead.\n\nData Center this Resource is located at.\n",
         "properties": {
           "description": {
-            "description": "Descriptive name for the Data Center.\n\nDesired to be easy to understand for humans. Might be changed for cosmetic reasons. Do not use this as an identifier.\n",
+            "description": "Descriptive name for the Data Center.\n\nDesired to be easy to understand for humans. May change for cosmetic reasons. Must not be used as an identifier.\n",
             "example": "Falkenstein DC Park 8",
             "type": "string"
           },
@@ -2634,7 +2634,7 @@
             "$ref": "#/components/schemas/location"
           },
           "name": {
-            "description": "Unique name for the Data Center.\n\nCan be used as a more descriptive identifier.\n",
+            "description": "Unique name for the Data Center.\n\nMay be used as a more descriptive identifier.\n",
             "example": "fsn1-dc8",
             "pattern": "^[a-z0-9]+(-?[a-z0-9]*)*$",
             "type": "string"
@@ -2669,7 +2669,7 @@
                 "type": "array"
               },
               "supported": {
-                "description": "List of Server Types supported in this Data Center.\n\nThese Server Types are generally available in this Data Center, but might be\ntemporarily out of stock.\n",
+                "description": "List of Server Types supported in this Data Center.\n\nThese Server Types are generally available in this Data Center, but may be\ntemporarily out of stock.\n",
                 "example": [
                   1,
                   2,
@@ -6973,7 +6973,7 @@
       "resource": {
         "properties": {
           "id": {
-            "description": "ID of the Resource. | ID of resource referenced.",
+            "description": "ID of the Resource.",
             "example": 42,
             "format": "int64",
             "maximum": 9007199254740991,
@@ -6981,7 +6981,7 @@
             "type": "integer"
           },
           "type": {
-            "description": "Type of the Resource. | Type of resource referenced.",
+            "description": "Type of the Resource.",
             "example": "server",
             "type": "string"
           }
@@ -6996,7 +6996,7 @@
         "description": "ID of the Resource",
         "properties": {
           "id": {
-            "description": "ID of the Server. | ID of the Server.",
+            "description": "ID of the Server.",
             "example": 42,
             "format": "int64",
             "maximum": 9007199254740991,
@@ -9182,7 +9182,7 @@
         "operationId": "get_multiple_actions",
         "parameters": [
           {
-            "description": "Filter the actions by ID. Can be used multiple times. The response will only contain\nactions matching the specified IDs.\n",
+            "description": "Filter the actions by ID. May be used multiple times.\n\nThe response will only contain actions matching the specified IDs.\n",
             "in": "query",
             "name": "id",
             "required": true,
@@ -9330,7 +9330,7 @@
         "operationId": "list_certificates",
         "parameters": [
           {
-            "description": "Sort resources by field and direction. Can be used multiple times. For more\ninformation, see \"Sorting\".\n",
+            "description": "Sort resources by field and direction. May be used multiple times.\n\nFor more information, see \"Sorting\".\n",
             "in": "query",
             "name": "sort",
             "required": false,
@@ -9353,7 +9353,7 @@
             }
           },
           {
-            "description": "Filter resources by their name. The response will only contain the resources\nmatching exactly the specified name.\n",
+            "description": "Filter resources by their name.\n\nThe response will only contain the resources\nmatching exactly the specified name.\n",
             "in": "query",
             "name": "name",
             "required": false,
@@ -9362,7 +9362,7 @@
             }
           },
           {
-            "description": "Filter resources by labels. The response will only contain resources matching the\nlabel selector. For more information, see \"Label Selector\".\n",
+            "description": "Filter resources by labels.\n\nThe response will only contain resources matching the label selector.\nFor more information, see \"Label Selector\".\n",
             "in": "query",
             "name": "label_selector",
             "required": false,
@@ -9371,7 +9371,7 @@
             }
           },
           {
-            "description": "Filter resources by type. Can be used multiple times. The response will only\ncontain the resources with the specified type.\n",
+            "description": "Filter resources by type. May be used multiple times.\n\nThe response will only contain the resources with the specified type.\n",
             "in": "query",
             "name": "type",
             "required": false,
@@ -10018,7 +10018,7 @@
             }
           },
           {
-            "description": "Sort actions by field and direction. Can be used multiple times. For more\ninformation, see \"Sorting\".\n",
+            "description": "Sort actions by field and direction. May be used multiple times.\n\nFor more information, see \"Sorting\".\n",
             "in": "query",
             "name": "sort",
             "required": false,
@@ -10047,7 +10047,7 @@
             }
           },
           {
-            "description": "Filter the actions by status. Can be used multiple times. The response will only\ncontain actions matching the specified statuses.\n",
+            "description": "Filter the actions by status. May be used multiple times.\n\nThe response will only contain actions matching the specified statuses.\n",
             "in": "query",
             "name": "status",
             "required": false,
@@ -10379,7 +10379,7 @@
         "operationId": "list_certificate_actions",
         "parameters": [
           {
-            "description": "Filter the actions by ID. Can be used multiple times. The response will only contain\nactions matching the specified IDs.\n",
+            "description": "Filter the actions by ID. May be used multiple times.\n\nThe response will only contain actions matching the specified IDs.\n",
             "in": "query",
             "name": "id",
             "required": false,
@@ -10396,7 +10396,7 @@
             }
           },
           {
-            "description": "Sort actions by field and direction. Can be used multiple times. For more\ninformation, see \"Sorting\".\n",
+            "description": "Sort actions by field and direction. May be used multiple times.\n\nFor more information, see \"Sorting\".\n",
             "in": "query",
             "name": "sort",
             "required": false,
@@ -10425,7 +10425,7 @@
             }
           },
           {
-            "description": "Filter the actions by status. Can be used multiple times. The response will only\ncontain actions matching the specified statuses.\n",
+            "description": "Filter the actions by status. May be used multiple times.\n\nThe response will only contain actions matching the specified statuses.\n",
             "in": "query",
             "name": "status",
             "required": false,
@@ -10603,7 +10603,7 @@
         "operationId": "list_data_centers",
         "parameters": [
           {
-            "description": "Filter resources by their name. The response will only contain the resources\nmatching exactly the specified name.\n",
+            "description": "Filter resources by their name.\n\nThe response will only contain the resources\nmatching exactly the specified name.\n",
             "in": "query",
             "name": "name",
             "required": false,
@@ -10612,7 +10612,7 @@
             }
           },
           {
-            "description": "Sort resources by field and direction. Can be used multiple times. For more\ninformation, see \"Sorting\".\n",
+            "description": "Sort resources by field and direction. May be used multiple times.\n\nFor more information, see \"Sorting\".\n",
             "in": "query",
             "name": "sort",
             "required": false,
@@ -10802,7 +10802,7 @@
         "operationId": "list_firewalls",
         "parameters": [
           {
-            "description": "Sort resources by field and direction. Can be used multiple times. For more\ninformation, see \"Sorting\".\n",
+            "description": "Sort resources by field and direction. May be used multiple times.\n\nFor more information, see \"Sorting\".\n",
             "in": "query",
             "name": "sort",
             "required": false,
@@ -10825,7 +10825,7 @@
             }
           },
           {
-            "description": "Filter resources by their name. The response will only contain the resources\nmatching exactly the specified name.\n",
+            "description": "Filter resources by their name.\n\nThe response will only contain the resources\nmatching exactly the specified name.\n",
             "in": "query",
             "name": "name",
             "required": false,
@@ -10834,7 +10834,7 @@
             }
           },
           {
-            "description": "Filter resources by labels. The response will only contain resources matching the\nlabel selector. For more information, see \"Label Selector\".\n",
+            "description": "Filter resources by labels.\n\nThe response will only contain resources matching the label selector.\nFor more information, see \"Label Selector\".\n",
             "in": "query",
             "name": "label_selector",
             "required": false,
@@ -11275,7 +11275,7 @@
             }
           },
           {
-            "description": "Sort actions by field and direction. Can be used multiple times. For more\ninformation, see \"Sorting\".\n",
+            "description": "Sort actions by field and direction. May be used multiple times.\n\nFor more information, see \"Sorting\".\n",
             "in": "query",
             "name": "sort",
             "required": false,
@@ -11304,7 +11304,7 @@
             }
           },
           {
-            "description": "Filter the actions by status. Can be used multiple times. The response will only\ncontain actions matching the specified statuses.\n",
+            "description": "Filter the actions by status. May be used multiple times.\n\nThe response will only contain actions matching the specified statuses.\n",
             "in": "query",
             "name": "status",
             "required": false,
@@ -11957,7 +11957,7 @@
         "operationId": "list_firewall_actions",
         "parameters": [
           {
-            "description": "Filter the actions by ID. Can be used multiple times. The response will only contain\nactions matching the specified IDs.\n",
+            "description": "Filter the actions by ID. May be used multiple times.\n\nThe response will only contain actions matching the specified IDs.\n",
             "in": "query",
             "name": "id",
             "required": false,
@@ -11974,7 +11974,7 @@
             }
           },
           {
-            "description": "Sort actions by field and direction. Can be used multiple times. For more\ninformation, see \"Sorting\".\n",
+            "description": "Sort actions by field and direction. May be used multiple times.\n\nFor more information, see \"Sorting\".\n",
             "in": "query",
             "name": "sort",
             "required": false,
@@ -12003,7 +12003,7 @@
             }
           },
           {
-            "description": "Filter the actions by status. Can be used multiple times. The response will only\ncontain actions matching the specified statuses.\n",
+            "description": "Filter the actions by status. May be used multiple times.\n\nThe response will only contain actions matching the specified statuses.\n",
             "in": "query",
             "name": "status",
             "required": false,
@@ -12181,7 +12181,7 @@
         "operationId": "list_floating_ips",
         "parameters": [
           {
-            "description": "Filter resources by their name. The response will only contain the resources\nmatching exactly the specified name.\n",
+            "description": "Filter resources by their name.\n\nThe response will only contain the resources\nmatching exactly the specified name.\n",
             "in": "query",
             "name": "name",
             "required": false,
@@ -12190,7 +12190,7 @@
             }
           },
           {
-            "description": "Filter resources by labels. The response will only contain resources matching the\nlabel selector. For more information, see \"Label Selector\".\n",
+            "description": "Filter resources by labels.\n\nThe response will only contain resources matching the label selector.\nFor more information, see \"Label Selector\".\n",
             "in": "query",
             "name": "label_selector",
             "required": false,
@@ -12199,7 +12199,7 @@
             }
           },
           {
-            "description": "Sort resources by field and direction. Can be used multiple times. For more\ninformation, see \"Sorting\".\n",
+            "description": "Sort resources by field and direction. May be used multiple times.\n\nFor more information, see \"Sorting\".\n",
             "in": "query",
             "name": "sort",
             "required": false,
@@ -12714,7 +12714,7 @@
             }
           },
           {
-            "description": "Sort actions by field and direction. Can be used multiple times. For more\ninformation, see \"Sorting\".\n",
+            "description": "Sort actions by field and direction. May be used multiple times.\n\nFor more information, see \"Sorting\".\n",
             "in": "query",
             "name": "sort",
             "required": false,
@@ -12743,7 +12743,7 @@
             }
           },
           {
-            "description": "Filter the actions by status. Can be used multiple times. The response will only\ncontain actions matching the specified statuses.\n",
+            "description": "Filter the actions by status. May be used multiple times.\n\nThe response will only contain actions matching the specified statuses.\n",
             "in": "query",
             "name": "status",
             "required": false,
@@ -13434,7 +13434,7 @@
         "operationId": "list_floating_ip_actions",
         "parameters": [
           {
-            "description": "Filter the actions by ID. Can be used multiple times. The response will only contain\nactions matching the specified IDs.\n",
+            "description": "Filter the actions by ID. May be used multiple times.\n\nThe response will only contain actions matching the specified IDs.\n",
             "in": "query",
             "name": "id",
             "required": false,
@@ -13451,7 +13451,7 @@
             }
           },
           {
-            "description": "Sort actions by field and direction. Can be used multiple times. For more\ninformation, see \"Sorting\".\n",
+            "description": "Sort actions by field and direction. May be used multiple times.\n\nFor more information, see \"Sorting\".\n",
             "in": "query",
             "name": "sort",
             "required": false,
@@ -13480,7 +13480,7 @@
             }
           },
           {
-            "description": "Filter the actions by status. Can be used multiple times. The response will only\ncontain actions matching the specified statuses.\n",
+            "description": "Filter the actions by status. May be used multiple times.\n\nThe response will only contain actions matching the specified statuses.\n",
             "in": "query",
             "name": "status",
             "required": false,
@@ -13658,7 +13658,7 @@
         "operationId": "list_images",
         "parameters": [
           {
-            "description": "Sort resources by field and direction. Can be used multiple times. For more\ninformation, see \"Sorting\".\n",
+            "description": "Sort resources by field and direction. May be used multiple times.\n\nFor more information, see \"Sorting\".\n",
             "in": "query",
             "name": "sort",
             "required": false,
@@ -13681,7 +13681,7 @@
             }
           },
           {
-            "description": "Filter resources by type. Can be used multiple times. The response will only\ncontain the resources with the specified type.\n",
+            "description": "Filter resources by type. May be used multiple times.\n\nThe response will only contain the resources with the specified type.\n",
             "in": "query",
             "name": "type",
             "required": false,
@@ -13701,7 +13701,7 @@
             }
           },
           {
-            "description": "Filter resources by status. Can be used multiple times. The response will only\ncontain the resources with the specified status.\n",
+            "description": "Filter resources by status. May be used multiple times.\n\nThe response will only contain the resources with the specified status.\n",
             "in": "query",
             "name": "status",
             "required": false,
@@ -13720,7 +13720,7 @@
             }
           },
           {
-            "description": "Can be used multiple times. Server ID linked to the Image. Only available for Images of type `backup`.",
+            "description": "Filter Images by their linked Server ID. May be used multiple times.\n\nOnly available for Images of type `backup`.\n",
             "in": "query",
             "name": "bound_to",
             "required": false,
@@ -13732,7 +13732,7 @@
             }
           },
           {
-            "description": "Can be used multiple times.",
+            "description": "Include deprecated Images.",
             "in": "query",
             "name": "include_deprecated",
             "required": false,
@@ -13741,7 +13741,7 @@
             }
           },
           {
-            "description": "Filter resources by their name. The response will only contain the resources\nmatching exactly the specified name.\n",
+            "description": "Filter resources by their name.\n\nThe response will only contain the resources\nmatching exactly the specified name.\n",
             "in": "query",
             "name": "name",
             "required": false,
@@ -13750,7 +13750,7 @@
             }
           },
           {
-            "description": "Filter resources by labels. The response will only contain resources matching the\nlabel selector. For more information, see \"Label Selector\".\n",
+            "description": "Filter resources by labels.\n\nThe response will only contain resources matching the label selector.\nFor more information, see \"Label Selector\".\n",
             "in": "query",
             "name": "label_selector",
             "required": false,
@@ -13759,7 +13759,7 @@
             }
           },
           {
-            "description": "Filter resources by cpu architecture. The response will only contain the resources\nwith the specified cpu architecture.\n",
+            "description": "Filter resources by cpu architecture.\n\nThe response will only contain the resources with the specified cpu architecture.\n",
             "in": "query",
             "name": "architecture",
             "required": false,
@@ -14140,7 +14140,7 @@
             }
           },
           {
-            "description": "Sort actions by field and direction. Can be used multiple times. For more\ninformation, see \"Sorting\".\n",
+            "description": "Sort actions by field and direction. May be used multiple times.\n\nFor more information, see \"Sorting\".\n",
             "in": "query",
             "name": "sort",
             "required": false,
@@ -14169,7 +14169,7 @@
             }
           },
           {
-            "description": "Filter the actions by status. Can be used multiple times. The response will only\ncontain actions matching the specified statuses.\n",
+            "description": "Filter the actions by status. May be used multiple times.\n\nThe response will only contain actions matching the specified statuses.\n",
             "in": "query",
             "name": "status",
             "required": false,
@@ -14511,7 +14511,7 @@
         "operationId": "list_image_actions",
         "parameters": [
           {
-            "description": "Filter the actions by ID. Can be used multiple times. The response will only contain\nactions matching the specified IDs.\n",
+            "description": "Filter the actions by ID. May be used multiple times.\n\nThe response will only contain actions matching the specified IDs.\n",
             "in": "query",
             "name": "id",
             "required": false,
@@ -14528,7 +14528,7 @@
             }
           },
           {
-            "description": "Sort actions by field and direction. Can be used multiple times. For more\ninformation, see \"Sorting\".\n",
+            "description": "Sort actions by field and direction. May be used multiple times.\n\nFor more information, see \"Sorting\".\n",
             "in": "query",
             "name": "sort",
             "required": false,
@@ -14557,7 +14557,7 @@
             }
           },
           {
-            "description": "Filter the actions by status. Can be used multiple times. The response will only\ncontain actions matching the specified statuses.\n",
+            "description": "Filter the actions by status. May be used multiple times.\n\nThe response will only contain actions matching the specified statuses.\n",
             "in": "query",
             "name": "status",
             "required": false,
@@ -14735,7 +14735,7 @@
         "operationId": "list_isos",
         "parameters": [
           {
-            "description": "Filter resources by their name. The response will only contain the resources\nmatching exactly the specified name.\n",
+            "description": "Filter resources by their name.\n\nThe response will only contain the resources\nmatching exactly the specified name.\n",
             "in": "query",
             "name": "name",
             "required": false,
@@ -14744,7 +14744,7 @@
             }
           },
           {
-            "description": "Filter resources by cpu architecture. The response will only contain the resources\nwith the specified cpu architecture.\n",
+            "description": "Filter resources by cpu architecture.\n\nThe response will only contain the resources with the specified cpu architecture.\n",
             "in": "query",
             "name": "architecture",
             "required": false,
@@ -14759,7 +14759,7 @@
             }
           },
           {
-            "description": "Include Images with wildcard architecture (architecture is null). Works only if architecture filter is specified.",
+            "description": "Include Images with wildcard architecture (architecture is null). Architecture filter must be specified.",
             "in": "query",
             "name": "include_architecture_wildcard",
             "required": false,
@@ -14938,7 +14938,7 @@
         "operationId": "list_load_balancer_types",
         "parameters": [
           {
-            "description": "Filter resources by their name. The response will only contain the resources\nmatching exactly the specified name.\n",
+            "description": "Filter resources by their name.\n\nThe response will only contain the resources\nmatching exactly the specified name.\n",
             "in": "query",
             "name": "name",
             "required": false,
@@ -15117,7 +15117,7 @@
         "operationId": "list_load_balancers",
         "parameters": [
           {
-            "description": "Sort resources by field and direction. Can be used multiple times. For more\ninformation, see \"Sorting\".\n",
+            "description": "Sort resources by field and direction. May be used multiple times.\n\nFor more information, see \"Sorting\".\n",
             "in": "query",
             "name": "sort",
             "required": false,
@@ -15140,7 +15140,7 @@
             }
           },
           {
-            "description": "Filter resources by their name. The response will only contain the resources\nmatching exactly the specified name.\n",
+            "description": "Filter resources by their name.\n\nThe response will only contain the resources\nmatching exactly the specified name.\n",
             "in": "query",
             "name": "name",
             "required": false,
@@ -15149,7 +15149,7 @@
             }
           },
           {
-            "description": "Filter resources by labels. The response will only contain resources matching the\nlabel selector. For more information, see \"Label Selector\".\n",
+            "description": "Filter resources by labels.\n\nThe response will only contain resources matching the label selector.\nFor more information, see \"Label Selector\".\n",
             "in": "query",
             "name": "label_selector",
             "required": false,
@@ -15860,7 +15860,7 @@
             }
           },
           {
-            "description": "Sort actions by field and direction. Can be used multiple times. For more\ninformation, see \"Sorting\".\n",
+            "description": "Sort actions by field and direction. May be used multiple times.\n\nFor more information, see \"Sorting\".\n",
             "in": "query",
             "name": "sort",
             "required": false,
@@ -15889,7 +15889,7 @@
             }
           },
           {
-            "description": "Filter the actions by status. Can be used multiple times. The response will only\ncontain actions matching the specified statuses.\n",
+            "description": "Filter the actions by status. May be used multiple times.\n\nThe response will only contain actions matching the specified statuses.\n",
             "in": "query",
             "name": "status",
             "required": false,
@@ -17624,7 +17624,7 @@
             }
           },
           {
-            "description": "Start of period to get Metrics for (in [RFC3339](https://datatracker.ietf.org/doc/html/rfc3339#section-5.6) format).",
+            "description": "Start of period to get Metrics for (must be in [RFC3339](https://datatracker.ietf.org/doc/html/rfc3339#section-5.6) format).",
             "in": "query",
             "name": "start",
             "required": true,
@@ -17633,7 +17633,7 @@
             }
           },
           {
-            "description": "End of period to get Metrics for (in [RFC3339](https://datatracker.ietf.org/doc/html/rfc3339#section-5.6) format).",
+            "description": "End of period to get Metrics for (must be in [RFC3339](https://datatracker.ietf.org/doc/html/rfc3339#section-5.6) format).",
             "in": "query",
             "name": "end",
             "required": true,
@@ -17717,7 +17717,7 @@
         "operationId": "list_load_balancer_actions",
         "parameters": [
           {
-            "description": "Filter the actions by ID. Can be used multiple times. The response will only contain\nactions matching the specified IDs.\n",
+            "description": "Filter the actions by ID. May be used multiple times.\n\nThe response will only contain actions matching the specified IDs.\n",
             "in": "query",
             "name": "id",
             "required": false,
@@ -17734,7 +17734,7 @@
             }
           },
           {
-            "description": "Sort actions by field and direction. Can be used multiple times. For more\ninformation, see \"Sorting\".\n",
+            "description": "Sort actions by field and direction. May be used multiple times.\n\nFor more information, see \"Sorting\".\n",
             "in": "query",
             "name": "sort",
             "required": false,
@@ -17763,7 +17763,7 @@
             }
           },
           {
-            "description": "Filter the actions by status. Can be used multiple times. The response will only\ncontain actions matching the specified statuses.\n",
+            "description": "Filter the actions by status. May be used multiple times.\n\nThe response will only contain actions matching the specified statuses.\n",
             "in": "query",
             "name": "status",
             "required": false,
@@ -17937,11 +17937,11 @@
     },
     "/locations": {
       "get": {
-        "description": "Returns all Locations.\n\nUse the provided URI parameters to modify the result.\n",
+        "description": "Returns all Locations.\n",
         "operationId": "list_locations",
         "parameters": [
           {
-            "description": "Filter resources by their name. The response will only contain the resources\nmatching exactly the specified name.\n",
+            "description": "Filter resources by their name.\n\nThe response will only contain the resources\nmatching exactly the specified name.\n",
             "in": "query",
             "name": "name",
             "required": false,
@@ -17950,7 +17950,7 @@
             }
           },
           {
-            "description": "Sort resources by field and direction. Can be used multiple times. For more\ninformation, see \"Sorting\".\n",
+            "description": "Sort resources by field and direction. May be used multiple times.\n\nFor more information, see \"Sorting\".\n",
             "in": "query",
             "name": "sort",
             "required": false,
@@ -18140,7 +18140,7 @@
         "operationId": "list_networks",
         "parameters": [
           {
-            "description": "Sort resources by field and direction. Can be used multiple times. For more\ninformation, see \"Sorting\".\n",
+            "description": "Sort resources by field and direction. May be used multiple times.\n\nFor more information, see \"Sorting\".\n",
             "in": "query",
             "name": "sort",
             "required": false,
@@ -18163,7 +18163,7 @@
             }
           },
           {
-            "description": "Filter resources by their name. The response will only contain the resources\nmatching exactly the specified name.\n",
+            "description": "Filter resources by their name.\n\nThe response will only contain the resources\nmatching exactly the specified name.\n",
             "in": "query",
             "name": "name",
             "required": false,
@@ -18172,7 +18172,7 @@
             }
           },
           {
-            "description": "Filter resources by labels. The response will only contain resources matching the\nlabel selector. For more information, see \"Label Selector\".\n",
+            "description": "Filter resources by labels.\n\nThe response will only contain resources matching the label selector.\nFor more information, see \"Label Selector\".\n",
             "in": "query",
             "name": "label_selector",
             "required": false,
@@ -18620,7 +18620,7 @@
             }
           },
           {
-            "description": "Sort actions by field and direction. Can be used multiple times. For more\ninformation, see \"Sorting\".\n",
+            "description": "Sort actions by field and direction. May be used multiple times.\n\nFor more information, see \"Sorting\".\n",
             "in": "query",
             "name": "sort",
             "required": false,
@@ -18649,7 +18649,7 @@
             }
           },
           {
-            "description": "Filter the actions by status. Can be used multiple times. The response will only\ncontain actions matching the specified statuses.\n",
+            "description": "Filter the actions by status. May be used multiple times.\n\nThe response will only contain actions matching the specified statuses.\n",
             "in": "query",
             "name": "status",
             "required": false,
@@ -19561,7 +19561,7 @@
         "operationId": "list_network_actions",
         "parameters": [
           {
-            "description": "Filter the actions by ID. Can be used multiple times. The response will only contain\nactions matching the specified IDs.\n",
+            "description": "Filter the actions by ID. May be used multiple times.\n\nThe response will only contain actions matching the specified IDs.\n",
             "in": "query",
             "name": "id",
             "required": false,
@@ -19578,7 +19578,7 @@
             }
           },
           {
-            "description": "Sort actions by field and direction. Can be used multiple times. For more\ninformation, see \"Sorting\".\n",
+            "description": "Sort actions by field and direction. May be used multiple times.\n\nFor more information, see \"Sorting\".\n",
             "in": "query",
             "name": "sort",
             "required": false,
@@ -19607,7 +19607,7 @@
             }
           },
           {
-            "description": "Filter the actions by status. Can be used multiple times. The response will only\ncontain actions matching the specified statuses.\n",
+            "description": "Filter the actions by status. May be used multiple times.\n\nThe response will only contain actions matching the specified statuses.\n",
             "in": "query",
             "name": "status",
             "required": false,
@@ -19785,7 +19785,7 @@
         "operationId": "list_placement_groups",
         "parameters": [
           {
-            "description": "Sort resources by field and direction. Can be used multiple times. For more\ninformation, see \"Sorting\".\n",
+            "description": "Sort resources by field and direction. May be used multiple times.\n\nFor more information, see \"Sorting\".\n",
             "in": "query",
             "name": "sort",
             "required": false,
@@ -19808,7 +19808,7 @@
             }
           },
           {
-            "description": "Filter resources by their name. The response will only contain the resources\nmatching exactly the specified name.\n",
+            "description": "Filter resources by their name.\n\nThe response will only contain the resources\nmatching exactly the specified name.\n",
             "in": "query",
             "name": "name",
             "required": false,
@@ -19817,7 +19817,7 @@
             }
           },
           {
-            "description": "Filter resources by labels. The response will only contain resources matching the\nlabel selector. For more information, see \"Label Selector\".\n",
+            "description": "Filter resources by labels.\n\nThe response will only contain resources matching the label selector.\nFor more information, see \"Label Selector\".\n",
             "in": "query",
             "name": "label_selector",
             "required": false,
@@ -19826,7 +19826,7 @@
             }
           },
           {
-            "description": "Filter resources by type. Can be used multiple times. The response will only\ncontain the resources with the specified type.\n",
+            "description": "Filter resources by type. May be used multiple times.\n\nThe response will only contain the resources with the specified type.\n",
             "in": "query",
             "name": "type",
             "required": false,
@@ -20376,7 +20376,7 @@
         "operationId": "list_primary_ips",
         "parameters": [
           {
-            "description": "Filter resources by their name. The response will only contain the resources\nmatching exactly the specified name.\n",
+            "description": "Filter resources by their name.\n\nThe response will only contain the resources\nmatching exactly the specified name.\n",
             "in": "query",
             "name": "name",
             "required": false,
@@ -20385,7 +20385,7 @@
             }
           },
           {
-            "description": "Filter resources by labels. The response will only contain resources matching the\nlabel selector. For more information, see \"Label Selector\".\n",
+            "description": "Filter resources by labels.\n\nThe response will only contain resources matching the label selector.\nFor more information, see \"Label Selector\".\n",
             "in": "query",
             "name": "label_selector",
             "required": false,
@@ -20428,7 +20428,7 @@
             }
           },
           {
-            "description": "Sort resources by field and direction. Can be used multiple times. For more\ninformation, see \"Sorting\".\n",
+            "description": "Sort resources by field and direction. May be used multiple times.\n\nFor more information, see \"Sorting\".\n",
             "in": "query",
             "name": "sort",
             "required": false,
@@ -20914,7 +20914,7 @@
             }
           },
           {
-            "description": "Sort actions by field and direction. Can be used multiple times. For more\ninformation, see \"Sorting\".\n",
+            "description": "Sort actions by field and direction. May be used multiple times.\n\nFor more information, see \"Sorting\".\n",
             "in": "query",
             "name": "sort",
             "required": false,
@@ -20943,7 +20943,7 @@
             }
           },
           {
-            "description": "Filter the actions by status. Can be used multiple times. The response will only\ncontain actions matching the specified statuses.\n",
+            "description": "Filter the actions by status. May be used multiple times.\n\nThe response will only contain actions matching the specified statuses.\n",
             "in": "query",
             "name": "status",
             "required": false,
@@ -21566,7 +21566,7 @@
         "operationId": "list_primary_ip_actions",
         "parameters": [
           {
-            "description": "Filter the actions by ID. Can be used multiple times. The response will only contain\nactions matching the specified IDs.\n",
+            "description": "Filter the actions by ID. May be used multiple times.\n\nThe response will only contain actions matching the specified IDs.\n",
             "in": "query",
             "name": "id",
             "required": false,
@@ -21583,7 +21583,7 @@
             }
           },
           {
-            "description": "Sort actions by field and direction. Can be used multiple times. For more\ninformation, see \"Sorting\".\n",
+            "description": "Sort actions by field and direction. May be used multiple times.\n\nFor more information, see \"Sorting\".\n",
             "in": "query",
             "name": "sort",
             "required": false,
@@ -21612,7 +21612,7 @@
             }
           },
           {
-            "description": "Filter the actions by status. Can be used multiple times. The response will only\ncontain actions matching the specified statuses.\n",
+            "description": "Filter the actions by status. May be used multiple times.\n\nThe response will only contain actions matching the specified statuses.\n",
             "in": "query",
             "name": "status",
             "required": false,
@@ -21790,7 +21790,7 @@
         "operationId": "list_server_types",
         "parameters": [
           {
-            "description": "Filter resources by their name. The response will only contain the resources\nmatching exactly the specified name.\n",
+            "description": "Filter resources by their name.\n\nThe response will only contain the resources\nmatching exactly the specified name.\n",
             "in": "query",
             "name": "name",
             "required": false,
@@ -21969,7 +21969,7 @@
         "operationId": "list_servers",
         "parameters": [
           {
-            "description": "Filter resources by their name. The response will only contain the resources\nmatching exactly the specified name.\n",
+            "description": "Filter resources by their name.\n\nThe response will only contain the resources\nmatching exactly the specified name.\n",
             "in": "query",
             "name": "name",
             "required": false,
@@ -21978,7 +21978,7 @@
             }
           },
           {
-            "description": "Filter resources by labels. The response will only contain resources matching the\nlabel selector. For more information, see \"Label Selector\".\n",
+            "description": "Filter resources by labels.\n\nThe response will only contain resources matching the label selector.\nFor more information, see \"Label Selector\".\n",
             "in": "query",
             "name": "label_selector",
             "required": false,
@@ -21987,7 +21987,7 @@
             }
           },
           {
-            "description": "Sort resources by field and direction. Can be used multiple times. For more\ninformation, see \"Sorting\".\n",
+            "description": "Sort resources by field and direction. May be used multiple times.\n\nFor more information, see \"Sorting\".\n",
             "in": "query",
             "name": "sort",
             "required": false,
@@ -22010,7 +22010,7 @@
             }
           },
           {
-            "description": "Filter resources by status. Can be used multiple times. The response will only\ncontain the resources with the specified status.\n",
+            "description": "Filter resources by status. May be used multiple times.\n\nThe response will only contain the resources with the specified status.\n",
             "in": "query",
             "name": "status",
             "required": false,
@@ -22677,7 +22677,7 @@
             }
           },
           {
-            "description": "Sort actions by field and direction. Can be used multiple times. For more\ninformation, see \"Sorting\".\n",
+            "description": "Sort actions by field and direction. May be used multiple times.\n\nFor more information, see \"Sorting\".\n",
             "in": "query",
             "name": "sort",
             "required": false,
@@ -22706,7 +22706,7 @@
             }
           },
           {
-            "description": "Filter the actions by status. Can be used multiple times. The response will only\ncontain actions matching the specified statuses.\n",
+            "description": "Filter the actions by status. May be used multiple times.\n\nThe response will only contain actions matching the specified statuses.\n",
             "in": "query",
             "name": "status",
             "required": false,
@@ -25513,7 +25513,7 @@
             }
           },
           {
-            "description": "Start of period to get Metrics for (in [RFC3339](https://datatracker.ietf.org/doc/html/rfc3339#section-5.6) format).",
+            "description": "Start of period to get Metrics for (must be in [RFC3339](https://datatracker.ietf.org/doc/html/rfc3339#section-5.6) format).",
             "in": "query",
             "name": "start",
             "required": true,
@@ -25522,7 +25522,7 @@
             }
           },
           {
-            "description": "End of period to get Metrics for (in [RFC3339](https://datatracker.ietf.org/doc/html/rfc3339#section-5.6) format).",
+            "description": "End of period to get Metrics for (must be in [RFC3339](https://datatracker.ietf.org/doc/html/rfc3339#section-5.6) format).",
             "in": "query",
             "name": "end",
             "required": true,
@@ -25606,7 +25606,7 @@
         "operationId": "list_server_actions",
         "parameters": [
           {
-            "description": "Filter the actions by ID. Can be used multiple times. The response will only contain\nactions matching the specified IDs.\n",
+            "description": "Filter the actions by ID. May be used multiple times.\n\nThe response will only contain actions matching the specified IDs.\n",
             "in": "query",
             "name": "id",
             "required": false,
@@ -25623,7 +25623,7 @@
             }
           },
           {
-            "description": "Sort actions by field and direction. Can be used multiple times. For more\ninformation, see \"Sorting\".\n",
+            "description": "Sort actions by field and direction. May be used multiple times.\n\nFor more information, see \"Sorting\".\n",
             "in": "query",
             "name": "sort",
             "required": false,
@@ -25652,7 +25652,7 @@
             }
           },
           {
-            "description": "Filter the actions by status. Can be used multiple times. The response will only\ncontain actions matching the specified statuses.\n",
+            "description": "Filter the actions by status. May be used multiple times.\n\nThe response will only contain actions matching the specified statuses.\n",
             "in": "query",
             "name": "status",
             "required": false,
@@ -25830,7 +25830,7 @@
         "operationId": "list_ssh_keys",
         "parameters": [
           {
-            "description": "Sort resources by field and direction. Can be used multiple times. For more\ninformation, see \"Sorting\".\n",
+            "description": "Sort resources by field and direction. May be used multiple times.\n\nFor more information, see \"Sorting\".\n",
             "in": "query",
             "name": "sort",
             "required": false,
@@ -25850,7 +25850,7 @@
             }
           },
           {
-            "description": "Filter resources by their name. The response will only contain the resources\nmatching exactly the specified name.\n",
+            "description": "Filter resources by their name.\n\nThe response will only contain the resources\nmatching exactly the specified name.\n",
             "in": "query",
             "name": "name",
             "required": false,
@@ -25859,7 +25859,7 @@
             }
           },
           {
-            "description": "Can be used to filter SSH keys by their fingerprint. The response will only contain the SSH key matching the specified fingerprint.",
+            "description": "May be used to filter SSH keys by their fingerprint. The response will only contain the SSH key matching the specified fingerprint.",
             "in": "query",
             "name": "fingerprint",
             "required": false,
@@ -25868,7 +25868,7 @@
             }
           },
           {
-            "description": "Filter resources by labels. The response will only contain resources matching the\nlabel selector. For more information, see \"Label Selector\".\n",
+            "description": "Filter resources by labels.\n\nThe response will only contain resources matching the label selector.\nFor more information, see \"Label Selector\".\n",
             "in": "query",
             "name": "label_selector",
             "required": false,
@@ -26279,7 +26279,7 @@
         "operationId": "list_volumes",
         "parameters": [
           {
-            "description": "Filter resources by status. Can be used multiple times. The response will only\ncontain the resources with the specified status.\n",
+            "description": "Filter resources by status. May be used multiple times.\n\nThe response will only contain the resources with the specified status.\n",
             "in": "query",
             "name": "status",
             "required": false,
@@ -26297,7 +26297,7 @@
             }
           },
           {
-            "description": "Sort resources by field and direction. Can be used multiple times. For more\ninformation, see \"Sorting\".\n",
+            "description": "Sort resources by field and direction. May be used multiple times.\n\nFor more information, see \"Sorting\".\n",
             "in": "query",
             "name": "sort",
             "required": false,
@@ -26320,7 +26320,7 @@
             }
           },
           {
-            "description": "Filter resources by their name. The response will only contain the resources\nmatching exactly the specified name.\n",
+            "description": "Filter resources by their name.\n\nThe response will only contain the resources\nmatching exactly the specified name.\n",
             "in": "query",
             "name": "name",
             "required": false,
@@ -26329,7 +26329,7 @@
             }
           },
           {
-            "description": "Filter resources by labels. The response will only contain resources matching the\nlabel selector. For more information, see \"Label Selector\".\n",
+            "description": "Filter resources by labels.\n\nThe response will only contain resources matching the label selector.\nFor more information, see \"Label Selector\".\n",
             "in": "query",
             "name": "label_selector",
             "required": false,
@@ -26862,7 +26862,7 @@
             }
           },
           {
-            "description": "Sort actions by field and direction. Can be used multiple times. For more\ninformation, see \"Sorting\".\n",
+            "description": "Sort actions by field and direction. May be used multiple times.\n\nFor more information, see \"Sorting\".\n",
             "in": "query",
             "name": "sort",
             "required": false,
@@ -26891,7 +26891,7 @@
             }
           },
           {
-            "description": "Filter the actions by status. Can be used multiple times. The response will only\ncontain actions matching the specified statuses.\n",
+            "description": "Filter the actions by status. May be used multiple times.\n\nThe response will only contain actions matching the specified statuses.\n",
             "in": "query",
             "name": "status",
             "required": false,
@@ -27577,7 +27577,7 @@
         "operationId": "list_volume_actions",
         "parameters": [
           {
-            "description": "Filter the actions by ID. Can be used multiple times. The response will only contain\nactions matching the specified IDs.\n",
+            "description": "Filter the actions by ID. May be used multiple times.\n\nThe response will only contain actions matching the specified IDs.\n",
             "in": "query",
             "name": "id",
             "required": false,
@@ -27594,7 +27594,7 @@
             }
           },
           {
-            "description": "Sort actions by field and direction. Can be used multiple times. For more\ninformation, see \"Sorting\".\n",
+            "description": "Sort actions by field and direction. May be used multiple times.\n\nFor more information, see \"Sorting\".\n",
             "in": "query",
             "name": "sort",
             "required": false,
@@ -27623,7 +27623,7 @@
             }
           },
           {
-            "description": "Filter the actions by status. Can be used multiple times. The response will only\ncontain actions matching the specified statuses.\n",
+            "description": "Filter the actions by status. May be used multiple times.\n\nThe response will only contain actions matching the specified statuses.\n",
             "in": "query",
             "name": "status",
             "required": false,
@@ -27801,7 +27801,7 @@
         "operationId": "list_storage_box_types",
         "parameters": [
           {
-            "description": "Filter resources by their name. The response will only contain the resources\nmatching exactly the specified name.\n",
+            "description": "Filter resources by their name.\n\nThe response will only contain the resources\nmatching exactly the specified name.\n",
             "in": "query",
             "name": "name",
             "required": false,
@@ -27980,7 +27980,7 @@
         "operationId": "list_storage_boxes",
         "parameters": [
           {
-            "description": "Filter resources by their name. The response will only contain the resources\nmatching exactly the specified name.\n",
+            "description": "Filter resources by their name.\n\nThe response will only contain the resources\nmatching exactly the specified name.\n",
             "in": "query",
             "name": "name",
             "required": false,
@@ -27989,7 +27989,7 @@
             }
           },
           {
-            "description": "Filter resources by labels. The response will only contain resources matching the\nlabel selector. For more information, see \"Label Selector\".\n",
+            "description": "Filter resources by labels.\n\nThe response will only contain resources matching the label selector.\nFor more information, see \"Label Selector\".\n",
             "in": "query",
             "name": "label_selector",
             "required": false,
@@ -27998,7 +27998,7 @@
             }
           },
           {
-            "description": "Sort resources by field and direction. Can be used multiple times. For more\ninformation, see \"Sorting\".\n",
+            "description": "Sort resources by field and direction. May be used multiple times.\n\nFor more information, see \"Sorting\".\n",
             "in": "query",
             "name": "sort",
             "required": false,
@@ -28273,7 +28273,7 @@
         "operationId": "list_storage_box_actions",
         "parameters": [
           {
-            "description": "Filter the actions by ID. Can be used multiple times. The response will only contain\nactions matching the specified IDs.\n",
+            "description": "Filter the actions by ID. May be used multiple times.\n\nThe response will only contain actions matching the specified IDs.\n",
             "in": "query",
             "name": "id",
             "required": false,
@@ -28290,7 +28290,7 @@
             }
           },
           {
-            "description": "Sort actions by field and direction. Can be used multiple times. For more\ninformation, see \"Sorting\".\n",
+            "description": "Sort actions by field and direction. May be used multiple times.\n\nFor more information, see \"Sorting\".\n",
             "in": "query",
             "name": "sort",
             "required": false,
@@ -28319,7 +28319,7 @@
             }
           },
           {
-            "description": "Filter the actions by status. Can be used multiple times. The response will only\ncontain actions matching the specified statuses.\n",
+            "description": "Filter the actions by status. May be used multiple times.\n\nThe response will only contain actions matching the specified statuses.\n",
             "in": "query",
             "name": "status",
             "required": false,
@@ -28755,7 +28755,7 @@
         "operationId": "list_actions_for_storage_box",
         "parameters": [
           {
-            "description": "Sort actions by field and direction. Can be used multiple times. For more\ninformation, see \"Sorting\".\n",
+            "description": "Sort actions by field and direction. May be used multiple times.\n\nFor more information, see \"Sorting\".\n",
             "in": "query",
             "name": "sort",
             "required": false,
@@ -28784,7 +28784,7 @@
             }
           },
           {
-            "description": "Filter the actions by status. Can be used multiple times. The response will only\ncontain actions matching the specified statuses.\n",
+            "description": "Filter the actions by status. May be used multiple times.\n\nThe response will only contain actions matching the specified statuses.\n",
             "in": "query",
             "name": "status",
             "required": false,
@@ -29878,7 +29878,7 @@
             }
           },
           {
-            "description": "Filter resources by their name. The response will only contain the resources\nmatching exactly the specified name.\n",
+            "description": "Filter resources by their name.\n\nThe response will only contain the resources\nmatching exactly the specified name.\n",
             "in": "query",
             "name": "name",
             "required": false,
@@ -29887,7 +29887,7 @@
             }
           },
           {
-            "description": "Filter resources by labels. The response will only contain resources matching the\nlabel selector. For more information, see \"Label Selector\".\n",
+            "description": "Filter resources by labels.\n\nThe response will only contain resources matching the label selector.\nFor more information, see \"Label Selector\".\n",
             "in": "query",
             "name": "label_selector",
             "required": false,
@@ -29896,7 +29896,7 @@
             }
           },
           {
-            "description": "Sort resources by field and direction. Can be used multiple times. For more\ninformation, see \"Sorting\".\n",
+            "description": "Sort resources by field and direction. May be used multiple times.\n\nFor more information, see \"Sorting\".\n",
             "in": "query",
             "name": "sort",
             "required": false,
@@ -30473,7 +30473,7 @@
             }
           },
           {
-            "description": "Filter resources by their name. The response will only contain the resources\nmatching exactly the specified name.\n",
+            "description": "Filter resources by their name.\n\nThe response will only contain the resources\nmatching exactly the specified name.\n",
             "in": "query",
             "name": "name",
             "required": false,
@@ -30482,7 +30482,7 @@
             }
           },
           {
-            "description": "Filter resources by labels. The response will only contain resources matching the\nlabel selector. For more information, see \"Label Selector\".\n",
+            "description": "Filter resources by labels.\n\nThe response will only contain resources matching the label selector.\nFor more information, see \"Label Selector\".\n",
             "in": "query",
             "name": "label_selector",
             "required": false,
@@ -30491,7 +30491,7 @@
             }
           },
           {
-            "description": "Sort resources by field and direction. Can be used multiple times. For more\ninformation, see \"Sorting\".\n",
+            "description": "Sort resources by field and direction. May be used multiple times.\n\nFor more information, see \"Sorting\".\n",
             "in": "query",
             "name": "sort",
             "required": false,
@@ -30511,7 +30511,7 @@
             }
           },
           {
-            "description": "Filter Storage Box Subaccounts by username. The response will only contain the resources\nmatching exactly the specified username.\n",
+            "description": "Filter Storage Box Subaccounts by username.\n\nThe response will only contain the resources matching exactly the specified username.\n",
             "in": "query",
             "name": "username",
             "required": false,
@@ -31435,7 +31435,7 @@
         "operationId": "list_zones",
         "parameters": [
           {
-            "description": "Filter resources by their name. The response will only contain the resources\nmatching exactly the specified name.\n",
+            "description": "Filter resources by their name.\n\nThe response will only contain the resources\nmatching exactly the specified name.\n",
             "in": "query",
             "name": "name",
             "required": false,
@@ -31444,7 +31444,7 @@
             }
           },
           {
-            "description": "Filter resources by their mode. The response will only contain the resources\nmatching exactly the specified mode.\n",
+            "description": "Filter resources by their mode.\n\nThe response will only contain the resources matching exactly the specified mode.\n",
             "in": "query",
             "name": "mode",
             "required": false,
@@ -31459,7 +31459,7 @@
             }
           },
           {
-            "description": "Filter resources by labels. The response will only contain resources matching the\nlabel selector. For more information, see \"Label Selector\".\n",
+            "description": "Filter resources by labels.\n\nThe response will only contain resources matching the label selector.\nFor more information, see \"Label Selector\".\n",
             "in": "query",
             "name": "label_selector",
             "required": false,
@@ -31468,7 +31468,7 @@
             }
           },
           {
-            "description": "Sort resources by field and direction. Can be used multiple times. For more\ninformation, see \"Sorting\".\n",
+            "description": "Sort resources by field and direction. May be used multiple times.\n\nFor more information, see \"Sorting\".\n",
             "in": "query",
             "name": "sort",
             "required": false,
@@ -31784,7 +31784,7 @@
         "operationId": "list_zone_actions",
         "parameters": [
           {
-            "description": "Filter the actions by ID. Can be used multiple times. The response will only contain\nactions matching the specified IDs.\n",
+            "description": "Filter the actions by ID. May be used multiple times.\n\nThe response will only contain actions matching the specified IDs.\n",
             "in": "query",
             "name": "id",
             "required": false,
@@ -31801,7 +31801,7 @@
             }
           },
           {
-            "description": "Sort actions by field and direction. Can be used multiple times. For more\ninformation, see \"Sorting\".\n",
+            "description": "Sort actions by field and direction. May be used multiple times.\n\nFor more information, see \"Sorting\".\n",
             "in": "query",
             "name": "sort",
             "required": false,
@@ -31830,7 +31830,7 @@
             }
           },
           {
-            "description": "Filter the actions by status. Can be used multiple times. The response will only\ncontain actions matching the specified statuses.\n",
+            "description": "Filter the actions by status. May be used multiple times.\n\nThe response will only contain actions matching the specified statuses.\n",
             "in": "query",
             "name": "status",
             "required": false,
@@ -32299,7 +32299,7 @@
             }
           },
           {
-            "description": "Sort actions by field and direction. Can be used multiple times. For more\ninformation, see \"Sorting\".\n",
+            "description": "Sort actions by field and direction. May be used multiple times.\n\nFor more information, see \"Sorting\".\n",
             "in": "query",
             "name": "sort",
             "required": false,
@@ -32328,7 +32328,7 @@
             }
           },
           {
-            "description": "Filter the actions by status. Can be used multiple times. The response will only\ncontain actions matching the specified statuses.\n",
+            "description": "Filter the actions by status. May be used multiple times.\n\nThe response will only contain actions matching the specified statuses.\n",
             "in": "query",
             "name": "status",
             "required": false,
@@ -32951,7 +32951,7 @@
             }
           },
           {
-            "description": "Filter resources by their name. The response will only contain the resources\nmatching exactly the specified name.\n",
+            "description": "Filter resources by their name.\n\nThe response will only contain the resources\nmatching exactly the specified name.\n",
             "in": "query",
             "name": "name",
             "required": false,
@@ -32960,7 +32960,7 @@
             }
           },
           {
-            "description": "Filter resources by their type. Can be used multiple times. The response will only\ncontain resources matching the specified types.\n",
+            "description": "Filter resources by their type. May be used multiple times.\n\nThe response will only contain resources matching the specified types.\n",
             "in": "query",
             "name": "type",
             "required": false,
@@ -32992,7 +32992,7 @@
             }
           },
           {
-            "description": "Filter resources by labels. The response will only contain resources matching the\nlabel selector. For more information, see \"Label Selector\".\n",
+            "description": "Filter resources by labels.\n\nThe response will only contain resources matching the label selector.\nFor more information, see \"Label Selector\".\n",
             "in": "query",
             "name": "label_selector",
             "required": false,
@@ -33001,7 +33001,7 @@
             }
           },
           {
-            "description": "Sort resources by field and direction. Can be used multiple times. For more\ninformation, see \"Sorting\".\n",
+            "description": "Sort resources by field and direction. May be used multiple times.\n\nFor more information, see \"Sorting\".\n",
             "in": "query",
             "name": "sort",
             "required": false,
