@@ -1637,7 +1637,13 @@
         "description": "Response to POST https://api.hetzner.cloud/v1/floating_ips",
         "properties": {
           "action": {
-            "$ref": "#/components/schemas/action"
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/action"
+              }
+            ],
+            "description": "Action will only be returned if the Floating IP is getting assigned.\n",
+            "nullable": true
           },
           "floating_ip": {
             "$ref": "#/components/schemas/floating_ip"
@@ -2005,7 +2011,13 @@
         "description": "Response to POST https://api.hetzner.cloud/v1/primary_ips",
         "properties": {
           "action": {
-            "$ref": "#/components/schemas/action"
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/action"
+              }
+            ],
+            "description": "Action will only be returned if the Primary IP is getting assigned.\n",
+            "nullable": true
           },
           "primary_ip": {
             "properties": {
@@ -6686,7 +6698,7 @@
         "description": "Primary nameserver that returns Zones via `AXFR`.\n\nMust allow queries from and may send `NOTIFY` queries to [Hetzner's secondary\nnameservers](https://docs.hetzner.com/dns-console/dns/general/authoritative-name-servers#secondary-dns-servers-old-name-servers-for-robot-customers).\n",
         "properties": {
           "address": {
-            "description": "Public IPv4 or IPv6 address of the primary nameserver.",
+            "description": "Public IPv4 or IPv6 address of the primary nameserver.\n\nMust be unique across all primary nameservers of this zone.\n",
             "example": "198.51.100.1",
             "type": "string"
           },
