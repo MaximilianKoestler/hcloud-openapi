@@ -1322,6 +1322,7 @@
         "type": "object"
       },
       "change_zones_default_ttl_request": {
+        "additionalProperties": false,
         "description": "Request for POST https://api.hetzner.cloud/v1/zones/{id_or_name}/actions/change_ttl",
         "properties": {
           "ttl": {
@@ -1352,6 +1353,7 @@
         "type": "object"
       },
       "change_zones_primary_nameservers_request": {
+        "additionalProperties": false,
         "description": "Request for POST https://api.hetzner.cloud/v1/zones/{id_or_name}/actions/change_primary_nameservers",
         "properties": {
           "primary_nameservers": {
@@ -1391,6 +1393,7 @@
         "type": "object"
       },
       "change_zones_protection_request": {
+        "additionalProperties": false,
         "description": "Request for POST https://api.hetzner.cloud/v1/zones/{id_or_name}/actions/change_protection",
         "properties": {
           "delete": {
@@ -2636,6 +2639,7 @@
         "type": "object"
       },
       "create_zone_request": {
+        "additionalProperties": false,
         "description": "Request for POST https://api.hetzner.cloud/v1/zones",
         "properties": {
           "labels": {
@@ -2701,6 +2705,7 @@
         "type": "object"
       },
       "create_zone_response": {
+        "additionalProperties": false,
         "description": "Response to POST https://api.hetzner.cloud/v1/zones",
         "properties": {
           "action": {
@@ -3334,6 +3339,7 @@
         "type": "object"
       },
       "export_zone_file_response": {
+        "additionalProperties": false,
         "description": "Response to GET https://api.hetzner.cloud/v1/zones/{id_or_name}/zonefile",
         "properties": {
           "zonefile": {
@@ -4060,6 +4066,7 @@
         "type": "object"
       },
       "get_zone_response": {
+        "additionalProperties": false,
         "description": "Response to GET https://api.hetzner.cloud/v1/zones/{id_or_name}",
         "properties": {
           "zone": {
@@ -4374,6 +4381,7 @@
         "type": "object"
       },
       "import_zone_file_request": {
+        "additionalProperties": false,
         "description": "Request for POST https://api.hetzner.cloud/v1/zones/{id_or_name}/actions/import_zonefile",
         "properties": {
           "zonefile": {
@@ -5361,6 +5369,7 @@
         "type": "object"
       },
       "list_zones_response": {
+        "additionalProperties": false,
         "description": "Response to GET https://api.hetzner.cloud/v1/zones",
         "properties": {
           "meta": {
@@ -6747,6 +6756,7 @@
         "type": "object"
       },
       "nameserver": {
+        "additionalProperties": false,
         "description": "Primary nameserver that returns Zones via `AXFR`.\n\nMust allow queries from and may send `NOTIFY` queries to [Hetzner's secondary\nnameservers](https://docs.hetzner.com/dns-console/dns/general/authoritative-name-servers#secondary-dns-servers-old-name-servers-for-robot-customers).\n",
         "properties": {
           "address": {
@@ -7782,6 +7792,7 @@
         "type": "object"
       },
       "replace_zone_request": {
+        "additionalProperties": false,
         "description": "Request for PUT https://api.hetzner.cloud/v1/zones/{id_or_name}",
         "properties": {
           "labels": {
@@ -7792,6 +7803,7 @@
         "type": "object"
       },
       "replace_zone_response": {
+        "additionalProperties": false,
         "description": "Response to PUT https://api.hetzner.cloud/v1/zones/{id_or_name}",
         "properties": {
           "zone": {
@@ -9869,6 +9881,7 @@
               {
                 "properties": {
                   "authoritative_nameservers": {
+                    "additionalProperties": false,
                     "properties": {
                       "assigned": {
                         "description": "Authoritative Hetzner nameservers assigned to this Zone.\n",
@@ -10046,6 +10059,7 @@
               {
                 "properties": {
                   "authoritative_nameservers": {
+                    "additionalProperties": false,
                     "properties": {
                       "assigned": {
                         "description": "Authoritative Hetzner nameservers assigned to this Zone.\n",
