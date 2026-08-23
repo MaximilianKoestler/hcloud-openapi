@@ -9,23 +9,6 @@
     "path": [
       "components",
       "schemas",
-      "metrics",
-      "properties",
-      "time_series",
-      "additionalProperties",
-      "properties",
-      "values",
-      "items",
-      "items"
-    ],
-    "set": {
-      "title": "MetricsTimeSeriesValue"
-    }
-  },
-  {
-    "path": [
-      "components",
-      "schemas",
       "create_server_request",
       "properties",
       "firewalls",

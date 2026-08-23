@@ -99,7 +99,7 @@
       "name": "volumes"
     },
     {
-      "description": "A Zone represents a [Domain Name System (DNS) zone](https://wikipedia.org/wiki/DNS_zone) managed by Hetzner authoritative nameservers.\nPlease see [Hetzner Docs](https://docs.hetzner.com/dns-console/dns/general/dns-overview#the-difference-between-domain-and-zone) for the difference between zones and domains.\n\nThis API supports all zone names with [well-known public suffixes](https://publicsuffix.org/) (e.g. `.de`, `.com`, `.co.uk`).\nSubdomains are not supported.\n\n<h3 id=\"tag/zones/zone-modes\">Zone Modes</h3>\n\nThis API supports two types of zone modes.\n\n- In _primary_ mode, resource record sets (RRSets) and resource records (RRs) are managed via the Cloud API or Hetzner Console.\n- In _secondary_ mode, Hetzner's nameservers query RRSets and RRs from given primary nameservers via [AXFR](https://en.wikipedia.org/wiki/DNS_zone_transfer).\n\nThe zone mode cannot be changed, the zone must be deleted and re-created with a new mode.\n\n### SOA Serial\n\nFor zones in primary mode, Hetzner automatically increases the `SOA` record serial number.\nAs convention, a `YYYYMMDDnn` format with incrementing `nn` is used.\n\n<h3 id=\"tag/zones/zone-file-import\">Zone file import</h3>\n\nThis API supports importing a zone file in BIND (RFC [1034](https://datatracker.ietf.org/doc/html/rfc1034)/[1035](https://datatracker.ietf.org/doc/html/rfc1035)) format.\n\nImporting a zone file is only applicable for Zones in primary mode.\n\nDuring an import:\n\n- An `$ORIGIN` directive may be present, it must match the Zone's name with an ending dot\n- A `$TTL` directive may be present, it is used as new default Zone Time To Live (TTL)\n- Only `IN` (internet) class records are allowed\n- The assigned authoritative Hetzner nameservers must be present as `NS` records\n- A `SOA` record must be present\n- Comments for individual records are imported, comments on their own lines are discarded\n\nZone file example:\n\n```dns\n$ORIGIN\texample.com.\n$TTL\t3600\n\n@\tIN\tSOA\thydrogen.ns.hetzner.com. dns.hetzner.com. 2024010100 86400 10800 3600000 3600\n\n@\tIN\t10800\tNS\thydrogen.ns.hetzner.com. ; Some comment.\n@\tIN\t10800\tNS\toxygen.ns.hetzner.com.\n@\tIN\t10800\tNS\thelium.ns.hetzner.de.\n```\n",
+      "description": "A Zone represents a [Domain Name System (DNS) zone](https://wikipedia.org/wiki/DNS_zone) managed by Hetzner authoritative nameservers.\nPlease see [Hetzner Docs](https://docs.hetzner.com/dns-console/dns/general/dns-overview#the-difference-between-domain-and-zone) for the difference between zones and domains.\n\nThis API supports all zone names with [well-known public suffixes](https://publicsuffix.org/) (e.g. `.de`, `.com`, `.co.uk`).\nSubdomains are not supported.\n\n<h3 id=\"tag/zones/zone-modes\">Zone Modes</h3>\n\nThis API supports two types of zone modes.\n\n- In _primary_ mode, resource record sets (RRSets) and resource records (RRs) are managed via the Cloud API or Hetzner Console.\n- In _secondary_ mode, Hetzner's nameservers query RRSets and RRs from given primary nameservers via [AXFR](https://en.wikipedia.org/wiki/DNS_zone_transfer).\n\nThe zone mode cannot be changed, the zone must be deleted and re-created with a new mode.\n\n### SOA Serial\n\nFor zones in primary mode, Hetzner automatically increases the `SOA` record serial number.\nAs convention, a `YYYYMMDDnn` format with incrementing `nn` is used.\n\n<h3 id=\"tag/zones/zone-file-import\">Zone file import</h3>\n\nThis API supports importing a zone file in BIND (RFC [1034](https://datatracker.ietf.org/doc/html/rfc1034)/[1035](https://datatracker.ietf.org/doc/html/rfc1035)) format.\n\nImporting a zone file is only applicable for Zones in primary mode.\n\nDuring an import:\n\n- An `$ORIGIN` directive may be present, it must match the Zone's name with an ending dot\n- A `$TTL` directive may be present, it is used as new default Zone Time To Live (TTL)\n- Only `IN` (internet) class records are allowed\n- The assigned authoritative Hetzner nameservers must be present as `NS` records\n- A `SOA` record must be present\n- Comments are discarded\n\nZone file example:\n\n```dns\n$ORIGIN\texample.com.\n$TTL\t3600\n\n@\tIN\tSOA\thydrogen.ns.hetzner.com. dns.hetzner.com. 2024010100 86400 10800 3600000 3600\n\n@\tIN\t10800\tNS\thydrogen.ns.hetzner.com. ; Some comment.\n@\tIN\t10800\tNS\toxygen.ns.hetzner.com.\n@\tIN\t10800\tNS\thelium.ns.hetzner.de.\n```\n",
       "name": "zones"
     }
   ],
@@ -180,6 +180,7 @@
         "type": "object"
       },
       "add_records_to_rrset_request": {
+        "additionalProperties": false,
         "description": "Request for POST https://api.hetzner.cloud/v1/zones/{id_or_name}/rrsets/{rr_name}/{rr_type}/actions/add_records",
         "properties": {
           "records": {
@@ -354,6 +355,7 @@
         "type": "object"
       },
       "apply_to_resources_request": {
+        "additionalProperties": false,
         "description": "Request for POST https://api.hetzner.cloud/v1/firewalls/{id}/actions/apply_to_resources",
         "properties": {
           "apply_to": {
@@ -387,7 +389,7 @@
         "type": "object"
       },
       "architecture": {
-        "description": "CPU architecture compatible with the Image.\n | CPU architecture compatible with the ISO.\n\nNull indicates no restriction on the architecture (wildcard).\n | CPU architecture of the Server Type.\n",
+        "description": "CPU architecture compatible with the Image.\n | CPU architecture of the Server Type.\n",
         "enum": [
           "arm",
           "x86"
@@ -396,13 +398,13 @@
         "type": "string"
       },
       "assign_floating_ip_to_server_request": {
+        "additionalProperties": false,
         "description": "Request for POST https://api.hetzner.cloud/v1/floating_ips/{id}/actions/assign",
         "properties": {
           "server": {
             "description": "Server the Floating IP is assigned to.\n\n`null` if not assigned.\n",
             "example": 42,
             "format": "int64",
-            "nullable": true,
             "type": "integer"
           }
         },
@@ -426,6 +428,7 @@
         "type": "object"
       },
       "assign_primary_ip_to_resource_request": {
+        "additionalProperties": false,
         "description": "Request for POST https://api.hetzner.cloud/v1/primary_ips/{id}/actions/assign",
         "properties": {
           "assignee_id": {
@@ -871,6 +874,7 @@
         "type": "object"
       },
       "change_ip_range_of_network_request": {
+        "additionalProperties": false,
         "description": "Request for POST https://api.hetzner.cloud/v1/networks/{id}/actions/change_ip_range",
         "properties": {
           "ip_range": {
@@ -923,6 +927,7 @@
         "type": "object"
       },
       "change_network_protection_request": {
+        "additionalProperties": false,
         "description": "Request for POST https://api.hetzner.cloud/v1/networks/{id}/actions/change_protection",
         "properties": {
           "delete": {
@@ -1117,6 +1122,7 @@
         "type": "object"
       },
       "change_rrsets_protection_request": {
+        "additionalProperties": false,
         "description": "Request for POST https://api.hetzner.cloud/v1/zones/{id_or_name}/rrsets/{rr_name}/{rr_type}/actions/change_protection",
         "properties": {
           "change": {
@@ -1144,6 +1150,7 @@
         "type": "object"
       },
       "change_rrsets_ttl_request": {
+        "additionalProperties": false,
         "description": "Request for POST https://api.hetzner.cloud/v1/zones/{id_or_name}/rrsets/{rr_name}/{rr_type}/actions/change_ttl",
         "properties": {
           "ttl": {
@@ -1478,6 +1485,7 @@
         "type": "object"
       },
       "create_firewall_request": {
+        "additionalProperties": false,
         "description": "Request for POST https://api.hetzner.cloud/v1/firewalls",
         "properties": {
           "apply_to": {
@@ -1524,6 +1532,7 @@
         "type": "object"
       },
       "create_firewall_response": {
+        "additionalProperties": false,
         "description": "Response to POST https://api.hetzner.cloud/v1/firewalls",
         "properties": {
           "actions": {
@@ -1582,6 +1591,7 @@
         "type": "object"
       },
       "create_floating_ip_request": {
+        "additionalProperties": false,
         "description": "Request for POST https://api.hetzner.cloud/v1/floating_ips",
         "properties": {
           "description": {
@@ -1620,7 +1630,6 @@
             "description": "Server the Floating IP is assigned to.\n\n`null` if not assigned.\n",
             "example": 42,
             "format": "int64",
-            "nullable": true,
             "type": "integer"
           },
           "type": {
@@ -1634,6 +1643,7 @@
         "type": "object"
       },
       "create_floating_ip_response": {
+        "additionalProperties": false,
         "description": "Response to POST https://api.hetzner.cloud/v1/floating_ips",
         "properties": {
           "action": {
@@ -1773,6 +1783,7 @@
         "type": "object"
       },
       "create_network_request": {
+        "additionalProperties": false,
         "description": "Request for POST https://api.hetzner.cloud/v1/networks",
         "properties": {
           "expose_routes_to_vswitch": {
@@ -1818,6 +1829,7 @@
         "type": "object"
       },
       "create_network_response": {
+        "additionalProperties": false,
         "description": "Response to POST https://api.hetzner.cloud/v1/networks",
         "properties": {
           "network": {
@@ -1927,17 +1939,17 @@
         "type": "object"
       },
       "create_primary_ip_request": {
+        "additionalProperties": false,
         "description": "Request for POST https://api.hetzner.cloud/v1/primary_ips",
         "properties": {
           "assignee_id": {
             "description": "ID of resource to assign the Primary IP to.\n\nOmitted if the Primary IP should not get assigned.\n",
             "example": 17,
             "format": "int64",
-            "nullable": true,
             "type": "integer"
           },
           "assignee_type": {
-            "description": "Type of resource the Primary IP can get assigned to.\n\nCurrently Primary IPs can only be assigned to Servers,\ntherefore this field must be set to `server`.\n",
+            "description": "Type of resource to assign the Primary IP to.\n\nOmitted if the Primary IP should not get assigned.\n",
             "enum": [
               "server"
             ],
@@ -2000,7 +2012,6 @@
           }
         },
         "required": [
-          "assignee_type",
           "name",
           "type"
         ],
@@ -2008,6 +2019,7 @@
         "type": "object"
       },
       "create_primary_ip_response": {
+        "additionalProperties": false,
         "description": "Response to POST https://api.hetzner.cloud/v1/primary_ips",
         "properties": {
           "action": {
@@ -2020,16 +2032,16 @@
             "nullable": true
           },
           "primary_ip": {
+            "additionalProperties": false,
             "properties": {
               "assignee_id": {
                 "description": "ID of resource the Primary IP is assigned to.\n\n`null` if the Primary IP is not assigned.\n",
                 "example": 17,
                 "format": "int64",
-                "nullable": true,
                 "type": "integer"
               },
               "assignee_type": {
-                "description": "Type of resource the Primary IP can get assigned to.\n",
+                "description": "Type of resource the Primary IP is assigned to.\n\nAs of 01 August 2026 `unassigned` will be returned if the Primary IP is not assigned.\n",
                 "enum": [
                   "server"
                 ],
@@ -2127,6 +2139,7 @@
         "type": "object"
       },
       "create_rrset_response": {
+        "additionalProperties": false,
         "description": "Response to POST https://api.hetzner.cloud/v1/zones/{id_or_name}/rrsets",
         "properties": {
           "action": {
@@ -2761,6 +2774,7 @@
         "type": "object"
       },
       "data_center": {
+        "additionalProperties": false,
         "description": "**Deprecated**: This property is deprecated and will be removed after the 1 July 2026.\nUse the `location` property instead.\n\nData Center of the Primary IP.\n | **Deprecated**: This property is deprecated and will be removed after the 1 July 2026.\nUse the `location` property instead.\n\nData Center this Resource is located at.\n",
         "properties": {
           "description": {
@@ -2786,6 +2800,7 @@
             "type": "string"
           },
           "server_types": {
+            "additionalProperties": false,
             "deprecated": true,
             "description": "This field is deprecated, as all of it's properties are deprecated.\n\nServer Types supported and available in this Data Center.\n",
             "properties": {
@@ -2951,6 +2966,7 @@
         "type": "object"
       },
       "delete_subnet_from_network_request": {
+        "additionalProperties": false,
         "description": "Request for POST https://api.hetzner.cloud/v1/networks/{id}/actions/delete_subnet",
         "properties": {
           "ip_range": {
@@ -3368,6 +3384,7 @@
         "type": "object"
       },
       "firewall": {
+        "additionalProperties": false,
         "description": "Firewalls can limit the network access to or from your resources.",
         "properties": {
           "applied_to": {
@@ -3402,6 +3419,7 @@
           },
           "rules": {
             "items": {
+              "additionalProperties": false,
               "properties": {
                 "description": {
                   "description": "Description of the rule.",
@@ -3480,6 +3498,7 @@
         "type": "object"
       },
       "firewall_resource": {
+        "additionalProperties": false,
         "description": "Resource a Firewall should be applied to.",
         "properties": {
           "label_selector": {
@@ -3504,11 +3523,13 @@
         "type": "object"
       },
       "firewall_resource_id": {
+        "additionalProperties": false,
         "description": "Resource a Firewall should be applied to.",
         "properties": {
           "applied_to_resources": {
             "description": "Resources applied to via this Label Selector.\n",
             "items": {
+              "additionalProperties": false,
               "properties": {
                 "server": {
                   "$ref": "#/components/schemas/resource_id_positive"
@@ -3549,6 +3570,7 @@
         "type": "object"
       },
       "floating_ip": {
+        "additionalProperties": false,
         "properties": {
           "blocked": {
             "description": "Indicates whether the Floating IP is blocked.",
@@ -3605,7 +3627,6 @@
             "description": "Server the Floating IP is assigned to.\n\n`null` if not assigned.\n",
             "example": 42,
             "format": "int64",
-            "nullable": true,
             "type": "integer"
           },
           "type": {
@@ -3655,6 +3676,7 @@
         "type": "object"
       },
       "get_data_center_response": {
+        "additionalProperties": false,
         "description": "Response to GET https://api.hetzner.cloud/v1/datacenters/{id}",
         "properties": {
           "datacenter": {
@@ -3667,6 +3689,7 @@
         "type": "object"
       },
       "get_firewall_response": {
+        "additionalProperties": false,
         "description": "Response to GET https://api.hetzner.cloud/v1/firewalls/{id}",
         "properties": {
           "firewall": {
@@ -3680,6 +3703,7 @@
         "type": "object"
       },
       "get_floating_ip_response": {
+        "additionalProperties": false,
         "description": "Response to GET https://api.hetzner.cloud/v1/floating_ips/{id}",
         "properties": {
           "floating_ip": {
@@ -3737,6 +3761,7 @@
         "type": "object"
       },
       "get_location_response": {
+        "additionalProperties": false,
         "description": "Response to GET https://api.hetzner.cloud/v1/locations/{id}",
         "properties": {
           "location": {
@@ -3789,6 +3814,7 @@
         "type": "object"
       },
       "get_network_response": {
+        "additionalProperties": false,
         "description": "Response to GET https://api.hetzner.cloud/v1/networks/{id}",
         "properties": {
           "network": {
@@ -3863,19 +3889,20 @@
         "type": "object"
       },
       "get_primary_ip_response": {
+        "additionalProperties": false,
         "description": "Response to GET https://api.hetzner.cloud/v1/primary_ips/{id}",
         "properties": {
           "primary_ip": {
+            "additionalProperties": false,
             "properties": {
               "assignee_id": {
                 "description": "ID of resource the Primary IP is assigned to.\n\n`null` if the Primary IP is not assigned.\n",
                 "example": 17,
                 "format": "int64",
-                "nullable": true,
                 "type": "integer"
               },
               "assignee_type": {
-                "description": "Type of resource the Primary IP can get assigned to.\n",
+                "description": "Type of resource the Primary IP is assigned to.\n\nAs of 01 August 2026 `unassigned` will be returned if the Primary IP is not assigned.\n",
                 "enum": [
                   "server"
                 ],
@@ -3973,6 +4000,7 @@
         "type": "object"
       },
       "get_rrset_response": {
+        "additionalProperties": false,
         "description": "Response to GET https://api.hetzner.cloud/v1/zones/{id_or_name}/rrsets/{rr_name}/{rr_type}",
         "properties": {
           "rrset": {
@@ -4256,7 +4284,6 @@
             "description": "ID of Server the Image is bound to. Only set for Images of type `backup`.",
             "example": null,
             "format": "int64",
-            "nullable": true,
             "type": "integer"
           },
           "created": {
@@ -4503,13 +4530,14 @@
         "description": "ISO Image that is attached to this Server. Null if no ISO is attached.",
         "properties": {
           "architecture": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/architecture"
-              }
-            ],
             "description": "CPU architecture compatible with the ISO.\n\nNull indicates no restriction on the architecture (wildcard).\n",
-            "nullable": true
+            "enum": [
+              "x86",
+              "arm"
+            ],
+            "example": "x86",
+            "nullable": true,
+            "type": "string"
           },
           "deprecation": {
             "allOf": [
@@ -4542,8 +4570,8 @@
           "type": {
             "description": "Type of the ISO.",
             "enum": [
-              "private",
-              "public"
+              "public",
+              "private"
             ],
             "nullable": true,
             "type": "string"
@@ -4560,6 +4588,7 @@
         "type": "object"
       },
       "label_selector": {
+        "additionalProperties": false,
         "description": "Configuration for type LabelSelector, required if type is `label_selector`",
         "properties": {
           "selector": {
@@ -4627,6 +4656,7 @@
         "type": "object"
       },
       "list_data_centers_response": {
+        "additionalProperties": false,
         "description": "Response to GET https://api.hetzner.cloud/v1/datacenters",
         "properties": {
           "datacenters": {
@@ -4655,6 +4685,7 @@
         "type": "object"
       },
       "list_firewalls_response": {
+        "additionalProperties": false,
         "description": "Response to GET https://api.hetzner.cloud/v1/firewalls",
         "properties": {
           "firewalls": {
@@ -4675,6 +4706,7 @@
         "type": "object"
       },
       "list_floating_ips_response": {
+        "additionalProperties": false,
         "description": "Response to GET https://api.hetzner.cloud/v1/floating_ips",
         "properties": {
           "floating_ips": {
@@ -4785,6 +4817,7 @@
         "type": "object"
       },
       "list_locations_response": {
+        "additionalProperties": false,
         "description": "Response to GET https://api.hetzner.cloud/v1/locations",
         "properties": {
           "locations": {
@@ -4805,6 +4838,7 @@
         "type": "object"
       },
       "list_networks_response": {
+        "additionalProperties": false,
         "description": "Response to GET https://api.hetzner.cloud/v1/networks",
         "properties": {
           "meta": {
@@ -5101,6 +5135,7 @@
         "type": "object"
       },
       "list_primary_ips_response": {
+        "additionalProperties": false,
         "description": "Response to GET https://api.hetzner.cloud/v1/primary_ips",
         "properties": {
           "meta": {
@@ -5108,16 +5143,16 @@
           },
           "primary_ips": {
             "items": {
+              "additionalProperties": false,
               "properties": {
                 "assignee_id": {
                   "description": "ID of resource the Primary IP is assigned to.\n\n`null` if the Primary IP is not assigned.\n",
                   "example": 17,
                   "format": "int64",
-                  "nullable": true,
                   "type": "integer"
                 },
                 "assignee_type": {
-                  "description": "Type of resource the Primary IP can get assigned to.\n",
+                  "description": "Type of resource the Primary IP is assigned to.\n\nAs of 01 August 2026 `unassigned` will be returned if the Primary IP is not assigned.\n",
                   "enum": [
                     "server"
                   ],
@@ -5218,6 +5253,7 @@
         "type": "object"
       },
       "list_rrsets_response": {
+        "additionalProperties": false,
         "description": "Response to GET https://api.hetzner.cloud/v1/zones/{id_or_name}/rrsets",
         "properties": {
           "meta": {
@@ -5427,7 +5463,6 @@
           "ingoing_traffic": {
             "description": "Inbound Traffic for the current billing period in bytes.",
             "format": "int64",
-            "nullable": true,
             "type": "integer"
           },
           "labels": {
@@ -5447,7 +5482,6 @@
           "outgoing_traffic": {
             "description": "Outbound Traffic for the current billing period in bytes.",
             "format": "int64",
-            "nullable": true,
             "type": "integer"
           },
           "private_net": {
@@ -5509,7 +5543,27 @@
                 "$ref": "#/components/schemas/label_selector"
               },
               "server": {
-                "$ref": "#/components/schemas/resource_id_non_negative"
+                "additionalProperties": false,
+                "description": "Configuration for type Server, only valid and required if type is `server`.",
+                "properties": {
+                  "id": {
+                    "description": "ID of the Server.",
+                    "example": 80,
+                    "format": "int64",
+                    "maximum": 9007199254740991,
+                    "type": "integer"
+                  },
+                  "ip": {
+                    "description": "Optional public IP of the Server to use as target.\nMust be the Primary IPv4 of the Server, or an IPv6 host address within IPv6 /64 subnet of the Server. If omitted, the Primary IPv4 of the Server is used. Must not be a private IP and is only valid for public targets.",
+                    "example": "2001:db8::1",
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "id"
+                ],
+                "title": "LoadBalancerTargetServer",
+                "type": "object"
               },
               "type": {
                 "description": "Type of the resource.",
@@ -6272,7 +6326,27 @@
                     "type": "array"
                   },
                   "server": {
-                    "$ref": "#/components/schemas/resource_id_non_negative"
+                    "description": "Server where the traffic should be routed to. Only present for target type \"server\".",
+                    "properties": {
+                      "id": {
+                        "description": "ID of the Server.",
+                        "example": 80,
+                        "format": "int64",
+                        "maximum": 9007199254740991,
+                        "type": "integer"
+                      },
+                      "ip": {
+                        "description": "IP of the Server that the traffic is routed to. Either the Server's primary IPv4 or, if an IPv6 was specified when adding the target, an IPv6 within the Server's /64 subnet.",
+                        "example": "2001:db8::1",
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "id",
+                      "ip"
+                    ],
+                    "title": "LoadBalancerTargetServer",
+                    "type": "object"
                   },
                   "type": {
                     "enum": [
@@ -6335,7 +6409,27 @@
                           "type": "array"
                         },
                         "server": {
-                          "$ref": "#/components/schemas/resource_id_non_negative"
+                          "description": "Server where the traffic should be routed to. Only present for target type \"server\".",
+                          "properties": {
+                            "id": {
+                              "description": "ID of the Server.",
+                              "example": 80,
+                              "format": "int64",
+                              "maximum": 9007199254740991,
+                              "type": "integer"
+                            },
+                            "ip": {
+                              "description": "IP of the Server that the traffic is routed to. Either the Server's primary IPv4 or, if an IPv6 was specified when adding the target, an IPv6 within the Server's /64 subnet.",
+                              "example": "2001:db8::1",
+                              "type": "string"
+                            }
+                          },
+                          "required": [
+                            "id",
+                            "ip"
+                          ],
+                          "title": "LoadBalancerTargetServer",
+                          "type": "object"
                         },
                         "type": {
                           "description": "Type of the resource. Here always \"server\".",
@@ -6655,19 +6749,22 @@
             "additionalProperties": {
               "properties": {
                 "values": {
-                  "description": "Metrics Timestamps with values.",
+                  "description": "Metrics timestamps with values.",
                   "items": {
                     "items": {
                       "oneOf": [
                         {
+                          "description": "Timestamp.",
                           "type": "number"
                         },
                         {
+                          "description": "Value.",
                           "type": "string"
                         }
-                      ],
-                      "title": "MetricsTimeSeriesValue"
+                      ]
                     },
+                    "maxItems": 2,
+                    "minItems": 2,
                     "type": "array"
                   },
                   "type": "array"
@@ -6739,6 +6836,7 @@
         "type": "object"
       },
       "network": {
+        "additionalProperties": false,
         "properties": {
           "created": {
             "description": "Point in time when the Resource was created (in [RFC3339](https://datatracker.ietf.org/doc/html/rfc3339#section-5.6) format).",
@@ -6834,14 +6932,12 @@
             "description": "Page number of the last page available. Can be null if the current page is the last one.",
             "example": 4,
             "format": "int64",
-            "nullable": true,
             "type": "integer"
           },
           "next_page": {
             "description": "Page number of the next page. Can be null if the current page is the last one.",
             "example": 4,
             "format": "int64",
-            "nullable": true,
             "type": "integer"
           },
           "page": {
@@ -6860,14 +6956,12 @@
             "description": "Page number of the previous page. Can be null if the current page is the first one.",
             "example": 2,
             "format": "int64",
-            "nullable": true,
             "type": "integer"
           },
           "total_entries": {
             "description": "Total number of entries that exist for this query. Can be null if unknown.",
             "example": 100,
             "format": "int64",
-            "nullable": true,
             "type": "integer"
           }
         },
@@ -7061,6 +7155,7 @@
         "type": "object"
       },
       "remove_from_resources_request": {
+        "additionalProperties": false,
         "description": "Request for POST https://api.hetzner.cloud/v1/firewalls/{id}/actions/remove_from_resources",
         "properties": {
           "remove_from": {
@@ -7094,6 +7189,7 @@
         "type": "object"
       },
       "remove_records_from_rrset_request": {
+        "additionalProperties": false,
         "description": "Request for POST https://api.hetzner.cloud/v1/zones/{id_or_name}/rrsets/{rr_name}/{rr_type}/actions/remove_records",
         "properties": {
           "records": {
@@ -7194,6 +7290,7 @@
         "type": "object"
       },
       "replace_firewall_request": {
+        "additionalProperties": false,
         "description": "Request for PUT https://api.hetzner.cloud/v1/firewalls/{id}",
         "properties": {
           "labels": {
@@ -7211,6 +7308,7 @@
         "type": "object"
       },
       "replace_firewall_response": {
+        "additionalProperties": false,
         "description": "Response to PUT https://api.hetzner.cloud/v1/firewalls/{id}",
         "properties": {
           "firewall": {
@@ -7224,6 +7322,7 @@
         "type": "object"
       },
       "replace_floating_ip_request": {
+        "additionalProperties": false,
         "description": "Request for PUT https://api.hetzner.cloud/v1/floating_ips/{id}",
         "properties": {
           "description": {
@@ -7245,6 +7344,7 @@
         "type": "object"
       },
       "replace_floating_ip_response": {
+        "additionalProperties": false,
         "description": "Response to PUT https://api.hetzner.cloud/v1/floating_ips/{id}",
         "properties": {
           "floating_ip": {
@@ -7317,6 +7417,7 @@
         "type": "object"
       },
       "replace_network_request": {
+        "additionalProperties": false,
         "description": "Request for PUT https://api.hetzner.cloud/v1/networks/{id}",
         "properties": {
           "expose_routes_to_vswitch": {
@@ -7337,6 +7438,7 @@
         "type": "object"
       },
       "replace_network_response": {
+        "additionalProperties": false,
         "description": "Response to PUT https://api.hetzner.cloud/v1/networks/{id}",
         "properties": {
           "network": {
@@ -7426,6 +7528,7 @@
         "type": "object"
       },
       "replace_primary_ip_request": {
+        "additionalProperties": false,
         "description": "Request for PUT https://api.hetzner.cloud/v1/primary_ips/{id}",
         "properties": {
           "auto_delete": {
@@ -7447,19 +7550,20 @@
         "type": "object"
       },
       "replace_primary_ip_response": {
+        "additionalProperties": false,
         "description": "Response to PUT https://api.hetzner.cloud/v1/primary_ips/{id}",
         "properties": {
           "primary_ip": {
+            "additionalProperties": false,
             "properties": {
               "assignee_id": {
                 "description": "ID of resource the Primary IP is assigned to.\n\n`null` if the Primary IP is not assigned.\n",
                 "example": 17,
                 "format": "int64",
-                "nullable": true,
                 "type": "integer"
               },
               "assignee_type": {
-                "description": "Type of resource the Primary IP can get assigned to.\n",
+                "description": "Type of resource the Primary IP is assigned to.\n\nAs of 01 August 2026 `unassigned` will be returned if the Primary IP is not assigned.\n",
                 "enum": [
                   "server"
                 ],
@@ -7557,6 +7661,7 @@
         "type": "object"
       },
       "replace_rrset_request": {
+        "additionalProperties": false,
         "description": "Request for PUT https://api.hetzner.cloud/v1/zones/{id_or_name}/rrsets/{rr_name}/{rr_type}",
         "properties": {
           "labels": {
@@ -7566,6 +7671,7 @@
         "type": "object"
       },
       "replace_rrset_response": {
+        "additionalProperties": false,
         "description": "Response to PUT https://api.hetzner.cloud/v1/zones/{id_or_name}/rrsets/{rr_name}/{rr_type}",
         "properties": {
           "rrset": {
@@ -7868,10 +7974,11 @@
         "type": "object"
       },
       "resource_id_non_negative": {
+        "additionalProperties": false,
         "description": "ID of the Resource",
         "properties": {
           "id": {
-            "description": "ID of the Server. | ID of the Server.",
+            "description": "ID of the Server.",
             "format": "int64",
             "maximum": 9007199254740991,
             "type": "integer"
@@ -7883,6 +7990,7 @@
         "type": "object"
       },
       "resource_id_positive": {
+        "additionalProperties": false,
         "description": "ID of the Resource",
         "properties": {
           "id": {
@@ -7900,6 +8008,7 @@
         "type": "object"
       },
       "resource_record": {
+        "additionalProperties": false,
         "description": "Record of a RRSet.\n\nThe `value` is used to identify the record in an RRSet.\n",
         "properties": {
           "comment": {
@@ -7920,6 +8029,7 @@
         "type": "object"
       },
       "resource_record_set": {
+        "additionalProperties": false,
         "properties": {
           "id": {
             "description": "ID of the RRSet.\n\nThe ID is composed of the name and type, joined with a slash (e.g. `www/AAAA`).\n",
@@ -7934,6 +8044,7 @@
             "type": "string"
           },
           "protection": {
+            "additionalProperties": false,
             "description": "Protection of the RRSet.\n",
             "properties": {
               "change": {
@@ -7988,6 +8099,7 @@
         "type": "object"
       },
       "resource_record_set_to_create": {
+        "additionalProperties": false,
         "description": "Request for POST https://api.hetzner.cloud/v1/zones/{id_or_name}/rrsets",
         "properties": {
           "labels": {
@@ -8048,6 +8160,7 @@
         "type": "string"
       },
       "resource_record_with_comment": {
+        "additionalProperties": false,
         "description": "Record of a RRSet.\n\nThe `value` is used to identify the record in an RRSet.\n",
         "properties": {
           "comment": {
@@ -8152,6 +8265,7 @@
         "type": "object"
       },
       "route": {
+        "additionalProperties": false,
         "description": "Request for POST https://api.hetzner.cloud/v1/networks/{id}/actions/add_route | Request for POST https://api.hetzner.cloud/v1/networks/{id}/actions/delete_route",
         "properties": {
           "destination": {
@@ -8172,6 +8286,7 @@
         "type": "object"
       },
       "rule": {
+        "additionalProperties": false,
         "description": "Rule of a firewall.",
         "properties": {
           "description": {
@@ -8279,14 +8394,12 @@
             "description": "Free Traffic for the current billing period in bytes.",
             "example": 654321,
             "format": "int64",
-            "nullable": true,
             "type": "integer"
           },
           "ingoing_traffic": {
             "description": "Inbound Traffic for the current billing period in bytes.",
             "example": 123456,
             "format": "int64",
-            "nullable": true,
             "type": "integer"
           },
           "iso": {
@@ -8326,7 +8439,6 @@
             "description": "Outbound Traffic for the current billing period in bytes.",
             "example": 123456,
             "format": "int64",
-            "nullable": true,
             "type": "integer"
           },
           "placement_group": {
@@ -8731,6 +8843,7 @@
         "type": "object"
       },
       "set_records_of_rrset_request": {
+        "additionalProperties": false,
         "description": "Request for POST https://api.hetzner.cloud/v1/zones/{id_or_name}/rrsets/{rr_name}/{rr_type}/actions/set_records",
         "properties": {
           "records": {
@@ -8762,6 +8875,7 @@
         "type": "object"
       },
       "set_rules_request": {
+        "additionalProperties": false,
         "description": "Request for POST https://api.hetzner.cloud/v1/firewalls/{id}/actions/set_rules",
         "properties": {
           "rules": {
@@ -9355,6 +9469,7 @@
         "type": "object"
       },
       "subnet": {
+        "additionalProperties": false,
         "description": "Subnets divide the ip_range from the parent Network object into multiple Subnetworks that you can use for different specific purposes.",
         "properties": {
           "ip_range": {
@@ -9395,6 +9510,7 @@
         "type": "object"
       },
       "subnet_with_gateway": {
+        "additionalProperties": false,
         "properties": {
           "gateway": {
             "description": "Gateway for Servers attached to this subnet.\n\nFor subnets of type `server` this is always the first IP of the subnets IP range.\n",
@@ -9429,7 +9545,6 @@
             "description": "ID of the robot vSwitch if the subnet is of type `vswitch`.",
             "example": 1000,
             "format": "int64",
-            "nullable": true,
             "type": "integer"
           }
         },
@@ -9694,6 +9809,7 @@
         "title": "UpdateLoadBalancerService"
       },
       "update_records_of_rrset_request": {
+        "additionalProperties": false,
         "description": "Request for POST https://api.hetzner.cloud/v1/zones/{id_or_name}/rrsets/{rr_name}/{rr_type}/actions/update_records",
         "properties": {
           "records": {
@@ -9783,7 +9899,6 @@
             "description": "ID of the Server the Volume is attached to, null if it is not attached at all.",
             "example": 12,
             "format": "int64",
-            "nullable": true,
             "type": "integer"
           },
           "size": {
@@ -16410,7 +16525,8 @@
                               }
                             ],
                             "server": {
-                              "id": 80
+                              "id": 80,
+                              "ip": "2001:db8::1"
                             },
                             "targets": [
                               {
@@ -16421,7 +16537,8 @@
                                   }
                                 ],
                                 "server": {
-                                  "id": 80
+                                  "id": 80,
+                                  "ip": "2001:db8::1"
                                 },
                                 "type": "server",
                                 "use_private_ip": true
@@ -16788,7 +16905,8 @@
                               "selector": "env=prod"
                             },
                             "server": {
-                              "id": 80
+                              "id": 80,
+                              "ip": "2001:db8::1"
                             },
                             "targets": [
                               {
@@ -16799,7 +16917,8 @@
                                   }
                                 ],
                                 "server": {
-                                  "id": 80
+                                  "id": 80,
+                                  "ip": "2001:db8::1"
                                 },
                                 "type": "server",
                                 "use_private_ip": true
@@ -17257,7 +17376,7 @@
     },
     "/load_balancers/{id}/actions/add_target": {
       "post": {
-        "description": "Adds a target to a Load Balancer.\n\n#### Operation specific errors\n\n| Status | Code | Description |\n| --- | --- | --- |\n| `422` | `ip_not_in_vswitch_subnet` | The IP you are trying to add does not belong to the vswitch subnet of the attached network |\n| `422` | `ip_not_owned` | The IP you are trying to add as a target is not owned by the Project owner |\n| `422` | `load_balancer_public_interface_disabled` | The Load Balancer's public network interface is disabled |\n| `422` | `load_balancer_not_attached_to_network` | The Load Balancer is not attached to a network |\n| `422` | `network_has_no_vswitch_subnet` | The given IP is private but attached network does not have a vswitch subnet |\n| `422` | `resolve_cloud_private_targets_error` | The server you are trying to add as a target is not attached to the same network as the Load Balancer |\n| `422` | `resolve_cloud_public_targets_error` | The server that you are trying to add as a public target does not have a public IPv4 address |\n| `422` | `target_already_defined` | The Load Balancer target you are trying to define is already defined |\n",
+        "description": "Adds a target to a Load Balancer.\n\n#### Operation specific errors\n\n| Status | Code | Description |\n| --- | --- | --- |\n| `422` | `ip_not_in_vswitch_subnet` | The IP you are trying to add does not belong to the vswitch subnet of the attached network |\n| `422` | `ip_not_owned` | The IP you are trying to add as a target is not owned by the Project owner |\n| `422` | `ip_not_assigned_to_server` | The specified IP is neither the Primary IPv4 address nor in the IPv6 subnet of the given Server |\n| `422` | `load_balancer_public_interface_disabled` | The Load Balancer's public network interface is disabled |\n| `422` | `load_balancer_not_attached_to_network` | The Load Balancer is not attached to a network |\n| `422` | `network_has_no_vswitch_subnet` | The given IP is private but attached network does not have a vswitch subnet |\n| `422` | `resolve_cloud_private_targets_error` | The server you are trying to add as a target is not attached to the same network as the Load Balancer |\n| `422` | `resolve_cloud_public_targets_error` | The server that you are trying to add as a public target does not have a public IPv4 address |\n| `422` | `target_already_defined` | The Load Balancer target you are trying to define is already defined |\n",
         "operationId": "add_target",
         "parameters": [
           {

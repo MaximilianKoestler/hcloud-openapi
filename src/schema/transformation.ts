@@ -106,6 +106,18 @@ function fixItem(part: OpenApiDocumentFragment, location: string[]) {
       delete second.required
     }
   }
+
+  // BACKWARDS COMPATIBILITY HACKS
+  // "type": ["X", "null"] -> "type": ["X"], nullable: true
+  if (Array.isArray(part.type) && part.type.length === 2 && part.type[1] === "null") {
+    part.type = part.type[0];
+    part.nullable = true;
+  }
+  if (part.additionalProperties?.properties?.values?.items?.prefixItems !== undefined) {
+    let items = part.additionalProperties.properties.values.items;
+    items.items = {oneOf: items.prefixItems};
+    delete items.prefixItems;
+  }
 }
 
 export function fixDocument(obj: OpenApiDocumentFragment) {
