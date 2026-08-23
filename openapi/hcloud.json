@@ -11578,7 +11578,8 @@
     },
     "/datacenters": {
       "get": {
-        "description": "Returns all Data Centers.\n",
+        "deprecated": true,
+        "description": "**Deprecated:** This endpoint is deprecated as of 01 June 2026 and will be removed after 01 October 2026.\n\nReturns all Data Centers.\n",
         "operationId": "list_data_centers",
         "parameters": [
           {
@@ -11697,7 +11698,8 @@
     },
     "/datacenters/{id}": {
       "get": {
-        "description": "Returns a single Data Center.\n",
+        "deprecated": true,
+        "description": "**Deprecated:** This endpoint is deprecated as of 01 June 2026 and will be removed after 01 October 2026.\n\nReturns a single Data Center.\n",
         "operationId": "get_data_center",
         "parameters": [
           {
