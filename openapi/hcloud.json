@@ -1962,25 +1962,6 @@
             "example": false,
             "type": "boolean"
           },
-          "datacenter": {
-            "deprecated": true,
-            "description": "**Deprecated**: This property is deprecated and will be removed after 1 July 2026.\nUse the `location` key instead.\n\nData Center ID or name.\n\nThe Primary IP will be bound to this Data Center.\nOmit if `assignee_id`/`assignee_type` or `location` are provided.\n",
-            "oneOf": [
-              {
-                "description": "**Deprecated**: This property is deprecated and will be removed after 1 July 2026.\nUse the `location` key instead.\n\nData Center ID or name.\n\nThe Primary IP will be bound to this Data Center.\nOmit if `assignee_id`/`assignee_type` or `location` are provided.\n",
-                "example": "fsn1-dc8",
-                "type": "string"
-              },
-              {
-                "description": "**Deprecated**: This property is deprecated and will be removed after 1 July 2026.\nUse the `location` key instead.\n\nData Center ID or name.\n\nThe Primary IP will be bound to this Data Center.\nOmit if `assignee_id`/`assignee_type` or `location` are provided.\n",
-                "example": 42,
-                "format": "int64",
-                "maximum": 9007199254740991,
-                "minimum": 1,
-                "type": "integer"
-              }
-            ]
-          },
           "labels": {
             "$ref": "#/components/schemas/labels"
           },
@@ -2065,15 +2046,6 @@
                 "format": "date-time",
                 "type": "string"
               },
-              "datacenter": {
-                "allOf": [
-                  {
-                    "$ref": "#/components/schemas/data_center"
-                  }
-                ],
-                "deprecated": true,
-                "description": "**Deprecated**: This property is deprecated and will be removed after the 1 July 2026.\nUse the `location` property instead.\n\nData Center of the Primary IP.\n"
-              },
               "dns_ptr": {
                 "description": "List of reverse DNS records.",
                 "items": {
@@ -2118,7 +2090,6 @@
               "auto_delete",
               "blocked",
               "created",
-              "datacenter",
               "dns_ptr",
               "id",
               "ip",
@@ -2163,12 +2134,6 @@
             "example": false,
             "type": "boolean"
           },
-          "datacenter": {
-            "deprecated": true,
-            "description": "**Deprecated**: This property is deprecated and will be removed after the 1 July 2026.\nUse the `location` property instead.\n\nID or name of the Data Center to create Server in (must not be used together with `location`).\n",
-            "example": "nbg1-dc3",
-            "type": "string"
-          },
           "firewalls": {
             "description": "Firewalls which should be applied on the Server's public network interface at creation time.",
             "example": [
@@ -2201,7 +2166,7 @@
             "$ref": "#/components/schemas/labels"
           },
           "location": {
-            "description": "ID or name of the Location to create the Server in (must not be used together with `datacenter`).",
+            "description": "ID or name of the Location to create the Server in.",
             "example": "nbg1",
             "type": "string"
           },
@@ -2775,7 +2740,6 @@
       },
       "data_center": {
         "additionalProperties": false,
-        "description": "**Deprecated**: This property is deprecated and will be removed after the 1 July 2026.\nUse the `location` property instead.\n\nData Center of the Primary IP.\n | **Deprecated**: This property is deprecated and will be removed after the 1 July 2026.\nUse the `location` property instead.\n\nData Center this Resource is located at.\n",
         "properties": {
           "description": {
             "description": "Descriptive name for the Data Center.\n\nDesired to be easy to understand for humans. May change for cosmetic reasons. Must not be used as an identifier.\n",
@@ -3926,15 +3890,6 @@
                 "format": "date-time",
                 "type": "string"
               },
-              "datacenter": {
-                "allOf": [
-                  {
-                    "$ref": "#/components/schemas/data_center"
-                  }
-                ],
-                "deprecated": true,
-                "description": "**Deprecated**: This property is deprecated and will be removed after the 1 July 2026.\nUse the `location` property instead.\n\nData Center of the Primary IP.\n"
-              },
               "dns_ptr": {
                 "description": "List of reverse DNS records.",
                 "items": {
@@ -3979,7 +3934,6 @@
               "auto_delete",
               "blocked",
               "created",
-              "datacenter",
               "dns_ptr",
               "id",
               "ip",
@@ -5176,15 +5130,6 @@
                   "format": "date-time",
                   "type": "string"
                 },
-                "datacenter": {
-                  "allOf": [
-                    {
-                      "$ref": "#/components/schemas/data_center"
-                    }
-                  ],
-                  "deprecated": true,
-                  "description": "**Deprecated**: This property is deprecated and will be removed after the 1 July 2026.\nUse the `location` property instead.\n\nData Center of the Primary IP.\n"
-                },
                 "dns_ptr": {
                   "description": "List of reverse DNS records.",
                   "items": {
@@ -5229,7 +5174,6 @@
                 "auto_delete",
                 "blocked",
                 "created",
-                "datacenter",
                 "dns_ptr",
                 "id",
                 "ip",
@@ -7587,15 +7531,6 @@
                 "format": "date-time",
                 "type": "string"
               },
-              "datacenter": {
-                "allOf": [
-                  {
-                    "$ref": "#/components/schemas/data_center"
-                  }
-                ],
-                "deprecated": true,
-                "description": "**Deprecated**: This property is deprecated and will be removed after the 1 July 2026.\nUse the `location` property instead.\n\nData Center of the Primary IP.\n"
-              },
               "dns_ptr": {
                 "description": "List of reverse DNS records.",
                 "items": {
@@ -7640,7 +7575,6 @@
               "auto_delete",
               "blocked",
               "created",
-              "datacenter",
               "dns_ptr",
               "id",
               "ip",
@@ -8364,15 +8298,6 @@
             "format": "date-time",
             "type": "string"
           },
-          "datacenter": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/data_center"
-              }
-            ],
-            "deprecated": true,
-            "description": "**Deprecated**: This property is deprecated and will be removed after the 1 July 2026.\nUse the `location` property instead.\n\nData Center this Resource is located at.\n"
-          },
           "id": {
             "description": "ID of the Server.",
             "example": 42,
@@ -8551,7 +8476,6 @@
         "required": [
           "backup_window",
           "created",
-          "datacenter",
           "id",
           "image",
           "included_traffic",
@@ -21653,7 +21577,7 @@
         ]
       },
       "post": {
-        "description": "Create a new Primary IP.\n\nCan optionally be assigned to a resource by providing an `assignee_id` and `assignee_type`.\n\nIf not assigned to a resource the `location` key needs to be provided. This can be either the ID or the name of the Location this Primary IP shall be created in.\n\nA Primary IP can only be assigned to resource in the same Location later on.\n\nThe `datacenter` key is deprecated in favor of `location` and will be removed after 01 July 2026.\n\n#### Operation specific errors\n\n| Status | Code | Description |\n| --- | --- | --- |\n| `422` | `server_not_stopped` | The specified Server is running, but needs to be powered off |\n| `422` | `server_has_ipv4` | The Server already has an ipv4 address |\n| `422` | `server_has_ipv6` | The Server already has an ipv6 address |\n",
+        "description": "Create a new Primary IP.\n\nCan optionally be assigned to a resource by providing an `assignee_id` and `assignee_type`.\n\nIf not assigned to a resource the `location` key needs to be provided. This can be either the ID or the name of the Location this Primary IP shall be created in.\n\nA Primary IP can only be assigned to resource in the same Location later on.\n\n#### Operation specific errors\n\n| Status | Code | Description |\n| --- | --- | --- |\n| `422` | `server_not_stopped` | The specified Server is running, but needs to be powered off |\n| `422` | `server_has_ipv4` | The Server already has an ipv4 address |\n| `422` | `server_has_ipv6` | The Server already has an ipv6 address |\n",
         "operationId": "create_primary_ip",
         "requestBody": {
           "content": {
@@ -21663,7 +21587,7 @@
               }
             }
           },
-          "description": "Request Body for creating a new Primary IP.\n\nThe `location`, `datacenter` and `assignee_id`/`assignee_type` attributes are mutually exclusive.\n",
+          "description": "Request Body for creating a new Primary IP.\n\nThe `location` and `assignee_id`/`assignee_type` attributes are mutually exclusive.\n",
           "required": true
         },
         "responses": {
@@ -21697,38 +21621,6 @@
                         "auto_delete": true,
                         "blocked": false,
                         "created": "2016-01-30T23:50:00Z",
-                        "datacenter": {
-                          "description": "Falkenstein DC Park 8",
-                          "id": 42,
-                          "location": {
-                            "city": "Falkenstein",
-                            "country": "DE",
-                            "description": "Falkenstein DC Park 1",
-                            "id": 1,
-                            "latitude": 50.47612,
-                            "longitude": 12.370071,
-                            "name": "fsn1",
-                            "network_zone": "eu-central"
-                          },
-                          "name": "fsn1-dc8",
-                          "server_types": {
-                            "available": [
-                              1,
-                              2,
-                              3
-                            ],
-                            "available_for_migration": [
-                              1,
-                              2,
-                              3
-                            ],
-                            "supported": [
-                              1,
-                              2,
-                              3
-                            ]
-                          }
-                        },
                         "dns_ptr": [
                           {
                             "dns_ptr": "server.example.com",
@@ -23272,7 +23164,7 @@
         ]
       },
       "post": {
-        "description": "Creates a new Server. Returns preliminary information about the Server as well as an Action that covers progress of creation.\n\n#### Operation specific errors\n\n| Status | Code | Description |\n| --- | --- | --- |\n| `412` | `primary_ip_version_mismatch` | The specified Primary IP has the wrong IP Version |\n| `422` | `placement_error` | An error during the placement occurred |\n| `422` | `primary_ip_assigned` | The specified Primary IP is already assigned to a server |\n| `422` | `primary_ip_datacenter_mismatch` | he specified Primary IP is in a different datacenter |\n",
+        "description": "Creates a new Server. Returns preliminary information about the Server as well as an Action that covers progress of creation.\n\n#### Operation specific errors\n\n| Status | Code | Description |\n| --- | --- | --- |\n| `412` | `primary_ip_version_mismatch` | The specified Primary IP has the wrong IP Version |\n| `422` | `placement_error` | An error during the placement occurred |\n| `422` | `primary_ip_assigned` | The specified Primary IP is already assigned to a server |\n| `422` | `primary_ip_datacenter_mismatch` | The specified Primary IP is in a different location |\n",
         "operationId": "create_server",
         "requestBody": {
           "content": {
@@ -23334,38 +23226,6 @@
                       "server": {
                         "backup_window": "22-02",
                         "created": "2016-01-30T23:50:00Z",
-                        "datacenter": {
-                          "description": "Falkenstein 1 DC 8",
-                          "id": 1,
-                          "location": {
-                            "city": "Falkenstein",
-                            "country": "DE",
-                            "description": "Falkenstein DC Park 1",
-                            "id": 1,
-                            "latitude": 50.47612,
-                            "longitude": 12.370071,
-                            "name": "fsn1",
-                            "network_zone": "eu-central"
-                          },
-                          "name": "fsn1-dc8",
-                          "server_types": {
-                            "available": [
-                              1,
-                              2,
-                              3
-                            ],
-                            "available_for_migration": [
-                              1,
-                              2,
-                              3
-                            ],
-                            "supported": [
-                              1,
-                              2,
-                              3
-                            ]
-                          }
-                        },
                         "id": 42,
                         "image": {
                           "architecture": "x86",
@@ -30656,7 +30516,7 @@
                           },
                           {
                             "id": 42,
-                            "type": "snapshot"
+                            "type": "storage_box_snapshot"
                           }
                         ],
                         "started": "2016-01-30T23:50:00Z",
