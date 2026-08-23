@@ -1491,8 +1491,10 @@
             "$ref": "#/components/schemas/labels"
           },
           "name": {
-            "description": "Name of the Firewall.\n\nLimited to a maximum of 128 characters.\n\nMust be unique per Project.\n",
+            "description": "Name of the Firewall.\n\nMust be unique per Project.\n",
             "example": "new-name",
+            "maxLength": 128,
+            "minLength": 1,
             "type": "string"
           },
           "rules": {
@@ -1783,6 +1785,8 @@
           "name": {
             "description": "Name of the Network.",
             "example": "mynet",
+            "maxLength": 128,
+            "minLength": 1,
             "type": "string"
           },
           "routes": {
@@ -3378,8 +3382,10 @@
             "$ref": "#/components/schemas/labels"
           },
           "name": {
-            "description": "Name of the Firewall.\n\nLimited to a maximum of 128 characters.\n\nMust be unique per Project.\n",
+            "description": "Name of the Firewall.\n\nMust be unique per Project.\n",
             "example": "new-name",
+            "maxLength": 128,
+            "minLength": 1,
             "type": "string"
           },
           "rules": {
@@ -6747,6 +6753,8 @@
           "name": {
             "description": "Name of the Network.",
             "example": "mynet",
+            "maxLength": 128,
+            "minLength": 1,
             "type": "string"
           },
           "protection": {
@@ -7165,8 +7173,10 @@
             "$ref": "#/components/schemas/labels"
           },
           "name": {
-            "description": "Name of the Firewall.\n\nLimited to a maximum of 128 characters.\n\nMust be unique per Project.\n",
+            "description": "Name of the Firewall.\n\nMust be unique per Project.\n",
             "example": "new-name",
+            "maxLength": 128,
+            "minLength": 1,
             "type": "string"
           }
         },
