@@ -324,7 +324,7 @@ describe("deduplicateSchemas", () => {
     expect(() => deduplicateSchemas(schemas, undefined)).not.toThrow();
   });
 
-  it("should fail when deduplicating an object with discriminator and oneOf/allOf", () => {
+  it("should deduplicate an object with discriminator and oneOf/allOf", () => {
     const zonePayload = {
       "discriminator": {
         "mapping": {
@@ -406,5 +406,196 @@ describe("deduplicateSchemas", () => {
     // We expect the 'zone' property to be extracted and replaced with a $ref
     // since walkSchema now correctly traverses oneOf/allOf and calculates complexity.
     expect(schemas.Root1.properties.zone["$ref"]).toBeDefined();
+    expect(schemas.Root1.properties.zone["$ref"]).toEqual("#/components/schemas/zone");
+  });
+
+  it("should extract an object with discriminator and oneOf/allOf when explicitly specified in commonComponents", () => {
+    const zonePayload = {
+      "discriminator": {
+        "mapping": {
+          "primary": "#/components/schemas/ZonePrimary",
+          "secondary": "#/components/schemas/ZoneSecondary"
+        },
+        "propertyName": "mode"
+      },
+      "oneOf": [
+        {
+          "allOf": [
+            {
+              "properties": {
+                "authoritative_nameservers": {
+                  "properties": {
+                    "assigned": {
+                      "items": { "type": "string" },
+                      "type": "array"
+                    }
+                  },
+                  "type": "object"
+                }
+              },
+              "type": "object"
+            },
+            {
+              "properties": {
+                "mode": { "type": "string" }
+              },
+              "type": "object"
+            }
+          ]
+        },
+        {
+          "allOf": [
+            {
+              "properties": {
+                "authoritative_nameservers": {
+                  "properties": {
+                    "assigned": {
+                      "items": { "type": "string" },
+                      "type": "array"
+                    }
+                  },
+                  "type": "object"
+                }
+              },
+              "type": "object"
+            },
+            {
+              "properties": {
+                "mode": { "type": "string" }
+              },
+              "type": "object"
+            }
+          ]
+        }
+      ],
+      "title": "Zone"
+    };
+
+    const schemas: any = {
+      Root1: {
+        type: "object",
+        properties: {
+          zone: JSON.parse(JSON.stringify(zonePayload)),
+        },
+      },
+      Root2: {
+        type: "object",
+        properties: {
+          zone: JSON.parse(JSON.stringify(zonePayload)),
+        },
+      },
+    };
+
+    const commonComponents = [
+      {
+        path: ["Root1", "zone"],
+        name: "ExplicitZone",
+        description: "Zone explicitly extracted"
+      }
+    ];
+
+    deduplicateSchemas(schemas, commonComponents);
+
+    expect(schemas.Root1.properties.zone["$ref"]).toBeDefined();
+    expect(schemas.Root1.properties.zone["$ref"]).toEqual("#/components/schemas/ExplicitZone");
+  });
+
+  it("should extract a nested object from within a discriminator/oneOf/allOf construct", () => {
+    const zonePayload = {
+      "discriminator": {
+        "mapping": {
+          "primary": "#/components/schemas/ZonePrimary",
+          "secondary": "#/components/schemas/ZoneSecondary"
+        },
+        "propertyName": "mode"
+      },
+      "oneOf": [
+        {
+          "allOf": [
+            {
+              "properties": {
+                "authoritative_nameservers": {
+                  "properties": {
+                    "assigned": {
+                      "items": { "type": "string" },
+                      "type": "array"
+                    },
+                    "status": {
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                }
+              },
+              "type": "object"
+            },
+            {
+              "properties": {
+                "mode": { "type": "string" }
+              },
+              "type": "object"
+            }
+          ]
+        },
+        {
+          "allOf": [
+            {
+              "properties": {
+                "authoritative_nameservers": {
+                  "properties": {
+                    "assigned": {
+                      "items": { "type": "string" },
+                      "type": "array"
+                    },
+                    "status": {
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                }
+              },
+              "type": "object"
+            },
+            {
+              "properties": {
+                "mode_alt": { "type": "string" }
+              },
+              "type": "object"
+            }
+          ]
+        }
+      ],
+      "title": "Zone"
+    };
+
+    const schemas: any = {
+      Root1: {
+        type: "object",
+        properties: {
+          zone: JSON.parse(JSON.stringify(zonePayload)),
+        },
+      }
+    };
+
+    const commonComponents = [
+      {
+        path: ["Root1", "zone", "oneOf[0]", "allOf[0]", "authoritative_nameservers"],
+        name: "ExplicitAuthoritativeNameserver",
+        description: "Explicitly extracted nameserver"
+      }
+    ];
+
+    deduplicateSchemas(schemas, commonComponents);
+
+    // Root zone is NOT extracted because it only appears once
+    expect(schemas.Root1.properties.zone["$ref"]).toBeUndefined();
+
+    // The nested authoritative_nameservers should be extracted and referenced within the original 'zone'
+    const ref0 = schemas.Root1.properties.zone.oneOf[0].allOf[0].properties.authoritative_nameservers["$ref"];
+    const ref1 = schemas.Root1.properties.zone.oneOf[1].allOf[0].properties.authoritative_nameservers["$ref"];
+
+    expect(ref0).toBeDefined();
+    expect(ref0).toEqual(ref1);
+    expect(ref0).toEqual("#/components/schemas/ExplicitAuthoritativeNameserver");
   });
 });

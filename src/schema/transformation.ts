@@ -75,6 +75,37 @@ function fixItem(part: OpenApiDocumentFragment, location: string[]) {
   ) {
     part.nullable = true;
   }
+
+  // required properties in the wrong "allOf"-arm
+  if (
+    part.allOf !== undefined &&
+    part.allOf.length == 2 &&
+    part.allOf[0].type === "object" &&
+    part.allOf[1].type === "object" &&
+    part.allOf[1].required !== undefined
+  ){
+
+    const first = part.allOf[0];
+    const second = part.allOf[1];
+    let toMove = [];
+    for (const r of second.required) {
+      if (second.properties === undefined || !(r in second.properties)) {
+        console.warn(`Found allOf sibling object with non existent required property at ${location}: ${r}`);
+        toMove.push(r);
+      }
+    }
+    for (const r of toMove) {
+      second.required = second.required.filter((e: string) => e !== r)
+      if (first.required === undefined) {
+        first.required = [];
+      }
+      first.required.push(r);
+    }
+
+    if (second.required.length === 0) {
+      delete second.required
+    }
+  }
 }
 
 export function fixDocument(obj: OpenApiDocumentFragment) {

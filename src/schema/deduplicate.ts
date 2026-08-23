@@ -177,8 +177,11 @@ function calculateHashes(schemas: OpenApiDocumentFragment) {
         });
 
         // Remove properties that don't affect structural identity
-        const { description, example, title, ...coreHashableParts } = hashableParts;
-        
+        const { description, example, title, minLength, maxLength, ...coreHashableParts } = hashableParts;
+        if ("additionalProperties" in coreHashableParts && (coreHashableParts.additionalProperties === true || coreHashableParts.additionalProperties === false)) {
+          delete coreHashableParts["additionalProperties"];
+        }
+
         part["x-hash"] = objectHash(coreHashableParts);
         part["x-complexity"] = complexity;
 

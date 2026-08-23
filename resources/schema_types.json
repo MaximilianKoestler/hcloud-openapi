@@ -101,9 +101,19 @@
     ]
   },
   {
+    "description": "A Service health check.",
+    "name": "health_check",
+    "path": [
+      "add_service_request",
+      "allOf[0]",
+      "health_check"
+    ]
+  },
+  {
     "name": "http",
     "path": [
       "add_service_request",
+      "allOf[1]",
       "http"
     ]
   },
@@ -235,6 +245,8 @@
       "list_load_balancers_response",
       "load_balancers",
       "targets",
+      "oneOf[0]",
+      "allOf[1]",
       "health_status"
     ]
   },
@@ -244,6 +256,8 @@
       "list_load_balancers_response",
       "load_balancers",
       "targets",
+      "oneOf[2]",
+      "allOf[1]",
       "ip"
     ]
   },
@@ -346,10 +360,8 @@
     "description": "ID of the Resource",
     "name": "resource_id_non_negative",
     "path": [
-      "list_load_balancers_response",
-      "load_balancers",
-      "targets",
-      "targets",
+      "remove_from_resources_request",
+      "remove_from",
       "server"
     ]
   },

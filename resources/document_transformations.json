@@ -368,23 +368,6 @@
     }
   },
   {
-    "path": [
-      "components",
-      "schemas",
-      "update_load_balancer_service",
-      "properties"
-    ],
-    "set": {
-      "http": { "$ref": "#/components/schemas/http" }
-    }
-  },
-  {
-    "path": ["components", "schemas", "load_balancer_add_target", "properties"],
-    "set": {
-      "server": { "$ref": "#/components/schemas/resource_id_positive" }
-    }
-  },
-  {
     "path": ["components", "schemas", "remove_target_request", "properties"],
     "set": {
       "server": { "$ref": "#/components/schemas/resource_id_positive" }
