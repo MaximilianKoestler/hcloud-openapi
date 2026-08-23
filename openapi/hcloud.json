@@ -451,7 +451,7 @@
           },
           "network": {
             "description": "ID of an existing network to attach the Load Balancer to.",
-            "example": 4711,
+            "example": 123,
             "format": "int64",
             "type": "integer"
           }
@@ -934,14 +934,14 @@
         "description": "Request for POST https://api.hetzner.cloud/v1/load_balancers/{id}/actions/change_dns_ptr",
         "properties": {
           "dns_ptr": {
-            "description": "Hostname to set as a reverse DNS PTR entry.",
-            "example": "lb1.example.com",
+            "description": "Domain Name to point to.\n\nPTR record content used for reverse DNS. Set to null to reset (IPv4) to the default value or remove (IPv6) the record.\n",
+            "example": "server.example.com",
             "nullable": true,
             "type": "string"
           },
           "ip": {
-            "description": "Public IP address for which the reverse DNS entry should be set.",
-            "example": "1.2.3.4",
+            "description": "Single IPv4 or IPv6 address to create pointer for.\n",
+            "example": "2001:db8::1",
             "type": "string"
           }
         },
@@ -969,14 +969,14 @@
         "description": "Request for POST https://api.hetzner.cloud/v1/servers/{id}/actions/change_dns_ptr",
         "properties": {
           "dns_ptr": {
-            "description": "Hostname to set as a reverse DNS PTR entry, reset to original value if `null`.",
-            "example": "server01.example.com",
+            "description": "Domain Name to point to.\n\nPTR record content used for reverse DNS. Set to null to reset (IPv4) to the default value or remove (IPv6) the record.\n",
+            "example": "server.example.com",
             "nullable": true,
             "type": "string"
           },
           "ip": {
-            "description": "Primary IP address for which the reverse DNS entry should be set.",
-            "example": "1.2.3.4",
+            "description": "Single IPv4 or IPv6 address to create pointer for.\n",
+            "example": "2001:db8::1",
             "type": "string"
           }
         },
@@ -1116,7 +1116,7 @@
         "properties": {
           "load_balancer_type": {
             "description": "ID or name of Load Balancer type the Load Balancer should migrate to.",
-            "example": "lb21",
+            "example": "lb11",
             "type": "string"
           }
         },
@@ -3048,7 +3048,7 @@
             "type": "string"
           },
           "ip": {
-            "description": "Single IPv4 or IPv6 address to create pointer for.\n | Single IPv6 address of this Server for which the reverse DNS entry has been set up.",
+            "description": "Single IPv4 or IPv6 address of the record.\n | Single IPv6 address of this Server for which the reverse DNS entry has been set up.",
             "example": "2001:db8::1",
             "type": "string"
           }
@@ -5306,7 +5306,7 @@
         "default": {
           "type": "round_robin"
         },
-        "description": "Algorithm of the Load Balancer.",
+        "description": "Algorithm of the Load Balancer. | Request for POST https://api.hetzner.cloud/v1/load_balancers/{id}/actions/change_algorithm",
         "properties": {
           "type": {
             "default": "round_robin",
@@ -5534,7 +5534,6 @@
               "https",
               "tcp"
             ],
-            "example": "https",
             "type": "string"
           },
           "proxyprotocol": {
@@ -5550,7 +5549,6 @@
           "protocol",
           "proxyprotocol"
         ],
-        "title": "LoadBalancerService",
         "type": "object"
       },
       "load_balancer_target": {
@@ -5587,6 +5585,7 @@
               "label_selector",
               "server"
             ],
+                    "example": "label_selector",
             "type": "string"
           },
           "use_private_ip": {
@@ -7833,6 +7832,7 @@
         "description": "A Location (containing only id and name) and Server Type specific metadata.\n",
         "properties": {
           "available": {
+            "description": "Whether the Server Type is temporarily unavailable in this Location.\n",
             "example": true,
             "type": "boolean"
           },
@@ -7859,6 +7859,7 @@
             "type": "string"
           },
           "recommended": {
+            "description": "Whether the Server Type is recommended in this Location.\n",
             "example": false,
             "type": "boolean"
           }
@@ -15422,9 +15423,11 @@
                         "public_net": {
                           "enabled": false,
                           "ipv4": {
+                            "dns_ptr": "lb1.example.com",
                             "ip": "1.2.3.4"
                           },
                           "ipv6": {
+                            "dns_ptr": "lb1.example.com",
                             "ip": "2001:db8::1"
                           }
                         },
@@ -15454,10 +15457,11 @@
                               "cookie_lifetime": 300,
                               "cookie_name": "HCLBSTICKY",
                               "redirect_http": true,
-                              "sticky_sessions": true
+                              "sticky_sessions": true,
+                              "timeout_idle": 50
                             },
                             "listen_port": 443,
-                            "protocol": "http",
+                            "protocol": "https",
                             "proxyprotocol": false
                           }
                         ],
@@ -15790,9 +15794,11 @@
                         "public_net": {
                           "enabled": false,
                           "ipv4": {
+                            "dns_ptr": "lb1.example.com",
                             "ip": "1.2.3.4"
                           },
                           "ipv6": {
+                            "dns_ptr": "lb1.example.com",
                             "ip": "2001:db8::1"
                           }
                         },
@@ -15822,10 +15828,11 @@
                               "cookie_lifetime": 300,
                               "cookie_name": "HCLBSTICKY",
                               "redirect_http": true,
-                              "sticky_sessions": true
+                              "sticky_sessions": true,
+                              "timeout_idle": 50
                             },
                             "listen_port": 443,
-                            "protocol": "http",
+                            "protocol": "https",
                             "proxyprotocol": false
                           }
                         ],
