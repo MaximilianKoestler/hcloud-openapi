@@ -11148,7 +11148,8 @@
     },
     "/certificates/{id}/actions/{action_id}": {
       "get": {
-        "description": "Returns a specific Action for a Certificate. Only type `managed` Certificates have Actions.\n",
+        "deprecated": true,
+        "description": "**Deprecated**: This operation is deprecated, see our [changelog](https://docs.hetzner.cloud/changelog#2026-04-30-deprecate-get-resource-action-endpoints) for more details.\n\nReturns a specific Action for a Certificate. Only type `managed` Certificates have Actions.\n",
         "operationId": "get_action_for_certificate",
         "parameters": [
           {
@@ -12405,7 +12406,8 @@
     },
     "/firewalls/{id}/actions/{action_id}": {
       "get": {
-        "description": "Returns a specific Action for a Firewall.\n",
+        "deprecated": true,
+        "description": "**Deprecated**: This operation is deprecated, see our [changelog](https://docs.hetzner.cloud/changelog#2026-04-30-deprecate-get-resource-action-endpoints) for more details.\n\nReturns a specific Action for a Firewall.\n",
         "operationId": "get_action_for_firewall",
         "parameters": [
           {
@@ -13848,7 +13850,8 @@
     },
     "/floating_ips/{id}/actions/{action_id}": {
       "get": {
-        "description": "Returns a specific Action for a Floating IP.\n",
+        "deprecated": true,
+        "description": "**Deprecated**: This operation is deprecated, see our [changelog](https://docs.hetzner.cloud/changelog#2026-04-30-deprecate-get-resource-action-endpoints) for more details.\n\nReturns a specific Action for a Floating IP.\n",
         "operationId": "get_action_for_floating_ip",
         "parameters": [
           {
@@ -15270,7 +15273,8 @@
     },
     "/images/{id}/actions/{action_id}": {
       "get": {
-        "description": "Returns a specific Action for an Image.\n",
+        "deprecated": true,
+        "description": "**Deprecated**: This operation is deprecated, see our [changelog](https://docs.hetzner.cloud/changelog#2026-04-30-deprecate-get-resource-action-endpoints) for more details.\n\nReturns a specific Action for an Image.\n",
         "operationId": "get_action_for_image",
         "parameters": [
           {
@@ -16996,7 +17000,8 @@
     },
     "/load_balancers/{id}/actions/{action_id}": {
       "get": {
-        "description": "Returns a specific Action for a Load Balancer.\n",
+        "deprecated": true,
+        "description": "**Deprecated**: This operation is deprecated, see our [changelog](https://docs.hetzner.cloud/changelog#2026-04-30-deprecate-get-resource-action-endpoints) for more details.\n\nReturns a specific Action for a Load Balancer.\n",
         "operationId": "get_action_for_load_balancer",
         "parameters": [
           {
@@ -19756,7 +19761,8 @@
     },
     "/networks/{id}/actions/{action_id}": {
       "get": {
-        "description": "Returns a specific Action for a Network.\n",
+        "deprecated": true,
+        "description": "**Deprecated**: This operation is deprecated, see our [changelog](https://docs.hetzner.cloud/changelog#2026-04-30-deprecate-get-resource-action-endpoints) for more details.\n\nReturns a specific Action for a Network.\n",
         "operationId": "get_action_for_network",
         "parameters": [
           {
@@ -22014,7 +22020,8 @@
     },
     "/primary_ips/{id}/actions/{action_id}": {
       "get": {
-        "description": "Returns a specific Action for a Primary IP.\n",
+        "deprecated": true,
+        "description": "**Deprecated**: This operation is deprecated, see our [changelog](https://docs.hetzner.cloud/changelog#2026-04-30-deprecate-get-resource-action-endpoints) for more details.\n\nReturns a specific Action for a Primary IP.\n",
         "operationId": "get_action_for_primary_ip",
         "parameters": [
           {
@@ -23817,7 +23824,8 @@
     },
     "/servers/{id}/actions/{action_id}": {
       "get": {
-        "description": "Returns a specific Action object for a Server.\n",
+        "deprecated": true,
+        "description": "**Deprecated**: This operation is deprecated, see our [changelog](https://docs.hetzner.cloud/changelog#2026-04-30-deprecate-get-resource-action-endpoints) for more details.\n\nReturns a specific Action object for a Server.\n",
         "operationId": "get_action_for_server",
         "parameters": [
           {
@@ -28006,7 +28014,8 @@
     },
     "/volumes/{id}/actions/{action_id}": {
       "get": {
-        "description": "Returns a specific Action for a Volume.\n",
+        "deprecated": true,
+        "description": "**Deprecated**: This operation is deprecated, see our [changelog](https://docs.hetzner.cloud/changelog#2026-04-30-deprecate-get-resource-action-endpoints) for more details.\n\nReturns a specific Action for a Volume.\n",
         "operationId": "get_action_for_volume",
         "parameters": [
           {
@@ -30669,7 +30678,8 @@
     },
     "/storage_boxes/{id}/actions/{action_id}": {
       "get": {
-        "description": "Returns a specific Action object for a Storage Box.\n",
+        "deprecated": true,
+        "description": "**Deprecated**: This operation is deprecated, see our [changelog](https://docs.hetzner.cloud/changelog#2026-04-30-deprecate-get-resource-action-endpoints) for more details.\n\nReturns a specific Action object for a Storage Box.\n",
         "operationId": "get_action_for_storage_box",
         "parameters": [
           {
@@ -33831,7 +33841,8 @@
     },
     "/zones/{id_or_name}/actions/{action_id}": {
       "get": {
-        "description": "Returns a specific Action for a Zone.\n",
+        "deprecated": true,
+        "description": "**Deprecated**: This operation is deprecated, see our [changelog](https://docs.hetzner.cloud/changelog#2026-04-30-deprecate-get-resource-action-endpoints) for more details.\n\nReturns a specific Action for a Zone.\n",
         "operationId": "get_action_for_zone",
         "parameters": [
           {
