@@ -6477,11 +6477,21 @@
       "load_balancer_type": {
         "properties": {
           "deprecated": {
-            "description": "Point in time when the Load Balancer type is deprecated (in [RFC3339](https://datatracker.ietf.org/doc/html/rfc3339#section-5.6) format).",
+            "deprecated": true,
+            "description": "**Deprecated:** This field is deprecated. Use the `deprecation` object instead.\n\nPoint in time when the Load Balancer type is deprecated (in [RFC3339](https://datatracker.ietf.org/doc/html/rfc3339#section-5.6) format).\n",
             "example": "2016-01-30T23:50:00Z",
             "format": "date-time",
             "nullable": true,
             "type": "string"
+          },
+          "deprecation": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/deprecation_info"
+              }
+            ],
+            "description": "Describes if, when and how the resource is deprecated. If this field is\nset to `null` the resource is not deprecated. If a value is set, it is\nconsidered deprecated.\n",
+            "nullable": true
           },
           "description": {
             "description": "Description of the Load Balancer type.",
@@ -6534,6 +6544,7 @@
         },
         "required": [
           "deprecated",
+          "deprecation",
           "description",
           "id",
           "max_assigned_certificates",
@@ -16297,6 +16308,7 @@
                         },
                         "load_balancer_type": {
                           "deprecated": "2016-01-30T23:50:00Z",
+                          "deprecation": null,
                           "description": "LB11",
                           "id": 1,
                           "max_assigned_certificates": 10,
@@ -16668,6 +16680,7 @@
                         },
                         "load_balancer_type": {
                           "deprecated": "2016-01-30T23:50:00Z",
+                          "deprecation": null,
                           "description": "LB11",
                           "id": 1,
                           "max_assigned_certificates": 10,
