@@ -5966,6 +5966,8 @@
                         "default": 50,
                         "description": "Idle timeout in seconds for the client and server side.",
                         "example": 50,
+                        "maximum": 300,
+                        "minimum": 30,
                         "type": "integer"
                       }
                     },
@@ -6182,6 +6184,8 @@
                         "default": 50,
                         "description": "Idle timeout in seconds for the client and server side.",
                         "example": 50,
+                        "maximum": 300,
+                        "minimum": 30,
                         "type": "integer"
                       }
                     },
