@@ -4001,52 +4001,7 @@
             "description": "Service health check.",
             "properties": {
               "http": {
-                "additionalProperties": false,
-                "description": "Additional configuration for protocol http.",
-                "properties": {
-                  "domain": {
-                    "description": "Host header to send in the HTTP request. May not contain spaces, percent or backslash symbols. Can be null, in that case no host header is sent.",
-                    "example": "example.com",
-                    "maxLength": 128,
-                    "nullable": true,
-                    "type": "string"
-                  },
-                  "path": {
-                    "description": "HTTP path to use for health checks. May not contain literal spaces, use percent-encoding instead.",
-                    "example": "/",
-                    "maxLength": 256,
-                    "minLength": 1,
-                    "type": "string"
-                  },
-                  "response": {
-                    "description": "String that must be contained in HTTP response in order to pass the health check.",
-                    "example": "{\"status\": \"ok\"}",
-                    "maxLength": 256,
-                    "type": "string"
-                  },
-                  "status_codes": {
-                    "default": [
-                      "2??",
-                      "3??"
-                    ],
-                    "description": "List of returned HTTP status codes in order to pass the health check. Supports the wildcards `?` for exactly one character and `*` for multiple ones.",
-                    "example": [
-                      "2??",
-                      "3??"
-                    ],
-                    "items": {
-                      "type": "string"
-                    },
-                    "maxItems": 20,
-                    "type": "array"
-                  },
-                  "tls": {
-                    "description": "Use HTTPS for health check.",
-                    "example": false,
-                    "type": "boolean"
-                  }
-                },
-                "type": "object"
+                "$ref": "#/components/schemas/health_check_http"
               },
               "interval": {
                 "description": "Time interval in seconds health checks are performed.",
@@ -4099,6 +4054,58 @@
           }
         ],
         "description": "A Service health check."
+      },
+      "health_check_http": {
+        "additionalProperties": false,
+        "description": "Additional configuration for protocol http.",
+        "properties": {
+          "domain": {
+            "description": "Host header to send in the HTTP request. May not contain spaces, percent or backslash symbols. Can be null, in that case no host header is sent.",
+            "example": "example.com",
+            "maxLength": 128,
+            "nullable": true,
+            "type": "string"
+          },
+          "path": {
+            "description": "HTTP path to use for health checks. May not contain literal spaces, use percent-encoding instead.",
+            "example": "/",
+            "maxLength": 256,
+            "minLength": 1,
+            "type": "string"
+          },
+          "response": {
+            "description": "String that must be contained in HTTP response in order to pass the health check.",
+            "example": "{\"status\": \"ok\"}",
+            "maxLength": 256,
+            "type": "string"
+          },
+          "status_codes": {
+            "default": [
+              "2??",
+              "3??"
+            ],
+            "description": "List of returned HTTP status codes in order to pass the health check. Supports the wildcards `?` for exactly one character and `*` for multiple ones.",
+            "example": [
+              "2??",
+              "3??"
+            ],
+            "items": {
+              "type": "string"
+            },
+            "maxItems": 20,
+            "type": "array"
+          },
+          "tls": {
+            "description": "Use HTTPS for health check.",
+            "example": false,
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "domain",
+          "path"
+        ],
+        "type": "object"
       },
       "http": {
         "description": "Configuration option for protocols http and https.",
@@ -5593,56 +5600,7 @@
                     "description": "Service health check.",
                     "properties": {
                       "http": {
-                        "additionalProperties": false,
-                        "description": "Additional configuration for protocol http.",
-                        "properties": {
-                          "domain": {
-                            "description": "Host header to send in the HTTP request. May not contain spaces, percent or backslash symbols. Can be null, in that case no host header is sent.",
-                            "example": "example.com",
-                            "maxLength": 128,
-                            "nullable": true,
-                            "type": "string"
-                          },
-                          "path": {
-                            "description": "HTTP path to use for health checks. May not contain literal spaces, use percent-encoding instead.",
-                            "example": "/",
-                            "maxLength": 256,
-                            "minLength": 1,
-                            "type": "string"
-                          },
-                          "response": {
-                            "description": "String that must be contained in HTTP response in order to pass the health check.",
-                            "example": "{\"status\": \"ok\"}",
-                            "maxLength": 256,
-                            "type": "string"
-                          },
-                          "status_codes": {
-                            "default": [
-                              "2??",
-                              "3??"
-                            ],
-                            "description": "List of returned HTTP status codes in order to pass the health check. Supports the wildcards `?` for exactly one character and `*` for multiple ones.",
-                            "example": [
-                              "2??",
-                              "3??"
-                            ],
-                            "items": {
-                              "type": "string"
-                            },
-                            "maxItems": 20,
-                            "type": "array"
-                          },
-                          "tls": {
-                            "description": "Use HTTPS for health check.",
-                            "example": false,
-                            "type": "boolean"
-                          }
-                        },
-                        "required": [
-                          "domain",
-                          "path"
-                        ],
-                        "type": "object"
+                        "$ref": "#/components/schemas/health_check_http"
                       },
                       "interval": {
                         "description": "Time interval in seconds health checks are performed.",
@@ -5748,56 +5706,7 @@
                     "description": "Service health check.",
                     "properties": {
                       "http": {
-                        "additionalProperties": false,
-                        "description": "Additional configuration for protocol http.",
-                        "properties": {
-                          "domain": {
-                            "description": "Host header to send in the HTTP request. May not contain spaces, percent or backslash symbols. Can be null, in that case no host header is sent.",
-                            "example": "example.com",
-                            "maxLength": 128,
-                            "nullable": true,
-                            "type": "string"
-                          },
-                          "path": {
-                            "description": "HTTP path to use for health checks. May not contain literal spaces, use percent-encoding instead.",
-                            "example": "/",
-                            "maxLength": 256,
-                            "minLength": 1,
-                            "type": "string"
-                          },
-                          "response": {
-                            "description": "String that must be contained in HTTP response in order to pass the health check.",
-                            "example": "{\"status\": \"ok\"}",
-                            "maxLength": 256,
-                            "type": "string"
-                          },
-                          "status_codes": {
-                            "default": [
-                              "2??",
-                              "3??"
-                            ],
-                            "description": "List of returned HTTP status codes in order to pass the health check. Supports the wildcards `?` for exactly one character and `*` for multiple ones.",
-                            "example": [
-                              "2??",
-                              "3??"
-                            ],
-                            "items": {
-                              "type": "string"
-                            },
-                            "maxItems": 20,
-                            "type": "array"
-                          },
-                          "tls": {
-                            "description": "Use HTTPS for health check.",
-                            "example": false,
-                            "type": "boolean"
-                          }
-                        },
-                        "required": [
-                          "domain",
-                          "path"
-                        ],
-                        "type": "object"
+                        "$ref": "#/components/schemas/health_check_http"
                       },
                       "interval": {
                         "description": "Time interval in seconds health checks are performed.",
@@ -5949,56 +5858,7 @@
                     "description": "Service health check.",
                     "properties": {
                       "http": {
-                        "additionalProperties": false,
-                        "description": "Additional configuration for protocol http.",
-                        "properties": {
-                          "domain": {
-                            "description": "Host header to send in the HTTP request. May not contain spaces, percent or backslash symbols. Can be null, in that case no host header is sent.",
-                            "example": "example.com",
-                            "maxLength": 128,
-                            "nullable": true,
-                            "type": "string"
-                          },
-                          "path": {
-                            "description": "HTTP path to use for health checks. May not contain literal spaces, use percent-encoding instead.",
-                            "example": "/",
-                            "maxLength": 256,
-                            "minLength": 1,
-                            "type": "string"
-                          },
-                          "response": {
-                            "description": "String that must be contained in HTTP response in order to pass the health check.",
-                            "example": "{\"status\": \"ok\"}",
-                            "maxLength": 256,
-                            "type": "string"
-                          },
-                          "status_codes": {
-                            "default": [
-                              "2??",
-                              "3??"
-                            ],
-                            "description": "List of returned HTTP status codes in order to pass the health check. Supports the wildcards `?` for exactly one character and `*` for multiple ones.",
-                            "example": [
-                              "2??",
-                              "3??"
-                            ],
-                            "items": {
-                              "type": "string"
-                            },
-                            "maxItems": 20,
-                            "type": "array"
-                          },
-                          "tls": {
-                            "description": "Use HTTPS for health check.",
-                            "example": false,
-                            "type": "boolean"
-                          }
-                        },
-                        "required": [
-                          "domain",
-                          "path"
-                        ],
-                        "type": "object"
+                        "$ref": "#/components/schemas/health_check_http"
                       },
                       "interval": {
                         "description": "Time interval in seconds health checks are performed.",
@@ -9549,52 +9409,7 @@
                 "description": "Service health check.",
                 "properties": {
                   "http": {
-                    "additionalProperties": false,
-                    "description": "Additional configuration for protocol http.",
-                    "properties": {
-                      "domain": {
-                        "description": "Host header to send in the HTTP request. May not contain spaces, percent or backslash symbols. Can be null, in that case no host header is sent.",
-                        "example": "example.com",
-                        "maxLength": 128,
-                        "nullable": true,
-                        "type": "string"
-                      },
-                      "path": {
-                        "description": "HTTP path to use for health checks. May not contain literal spaces, use percent-encoding instead.",
-                        "example": "/",
-                        "maxLength": 256,
-                        "minLength": 1,
-                        "type": "string"
-                      },
-                      "response": {
-                        "description": "String that must be contained in HTTP response in order to pass the health check.",
-                        "example": "{\"status\": \"ok\"}",
-                        "maxLength": 256,
-                        "type": "string"
-                      },
-                      "status_codes": {
-                        "default": [
-                          "2??",
-                          "3??"
-                        ],
-                        "description": "List of returned HTTP status codes in order to pass the health check. Supports the wildcards `?` for exactly one character and `*` for multiple ones.",
-                        "example": [
-                          "2??",
-                          "3??"
-                        ],
-                        "items": {
-                          "type": "string"
-                        },
-                        "maxItems": 20,
-                        "type": "array"
-                      },
-                      "tls": {
-                        "description": "Use HTTPS for health check.",
-                        "example": false,
-                        "type": "boolean"
-                      }
-                    },
-                    "type": "object"
+                    "$ref": "#/components/schemas/health_check_http"
                   },
                   "interval": {
                     "description": "Time interval in seconds health checks are performed.",

@@ -116,6 +116,16 @@
     ]
   },
   {
+    "name": "health_check_http",
+    "path": [
+      "add_service_request",
+      "allOf[0]",
+      "health_check",
+      "allOf[0]",
+      "http"
+    ]
+  },
+  {
     "name": "http",
     "path": [
       "add_service_request",

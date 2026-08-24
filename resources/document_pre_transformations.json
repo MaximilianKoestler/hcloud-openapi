@@ -1,1 +1,75 @@
-[]
+[
+    {
+        "path": [
+            "paths",
+            "/load_balancers/{id}/actions/add_service",
+            "post",
+            "requestBody",
+            "content",
+            "application/json",
+            "schema",
+            "allOf",
+            0,
+            "properties",
+            "health_check",
+            "allOf",
+            0,
+            "properties",
+            "http"
+        ],
+        "set": {
+            "required": [
+                "domain",
+                "path"
+            ]
+        }
+    },
+    {
+        "path": [
+            "paths",
+            "/load_balancers/{id}/actions/update_service",
+            "post",
+            "requestBody",
+            "content",
+            "application/json",
+            "schema",
+            "allOf",
+            0,
+            "properties",
+            "health_check",
+            "allOf",
+            0,
+            "properties",
+            "http"
+        ],
+        "set": {
+            "required": [
+                "domain",
+                "path"
+            ]
+        }
+    },
+    {
+        "path": [
+            "paths",
+            "/load_balancers/{id}/actions/update_service",
+            "post",
+            "requestBody",
+            "content",
+            "application/json",
+            "schema",
+            "allOf",
+            1,
+            "properties",
+            "health_check",
+            "properties",
+            "http"
+        ],
+        "set": {
+            "required": [
+                "domain",
+                "path"
+            ]
+        }
+    }
+]
