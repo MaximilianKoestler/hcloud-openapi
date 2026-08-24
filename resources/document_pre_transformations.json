@@ -71,5 +71,29 @@
                 "path"
             ]
         }
+    },
+    {
+        "path": [
+            "paths",
+            "/load_balancers/{id}/actions/update_service",
+            "post",
+            "requestBody",
+            "content",
+            "application/json",
+            "schema",
+            "allOf",
+            1,
+            "properties",
+            "health_check"
+        ],
+        "set": {
+            "required": [
+                "protocol",
+                "port",
+                "interval",
+                "timeout",
+                "retries"
+            ]
+        }
     }
 ]
