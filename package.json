@@ -43,5 +43,8 @@
   },
   "resolutions": {
     "dot-prop": ">=5.1.1"
+  },
+  "overrides": {
+    "@types/babel__traverse": "7.0.15"
   }
 }
