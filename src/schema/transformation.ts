@@ -41,11 +41,17 @@ function fixItem(part: OpenApiDocumentFragment, location: string[]) {
   ];
 
   if (
-    (part.type == "number" &&
+    (part.type === "number" &&
       !allowedFloats.includes(location[location.length - 1])) ||
     (part.format !== undefined && part.format.startsWith("int"))
   ) {
-    part.type = "integer";
+    if (Array.isArray(part.type)) {
+      if (part.type.length == 2 && part.type[1] === "null") {
+        part.type[0] = "integer";
+      }
+    } else {
+      part.type = "integer";
+    }
   }
 
   // add additionalProperties to mark labels as key/value pairs
@@ -83,7 +89,7 @@ function fixItem(part: OpenApiDocumentFragment, location: string[]) {
     part.allOf[0].type === "object" &&
     part.allOf[1].type === "object" &&
     part.allOf[1].required !== undefined
-  ){
+  ) {
 
     const first = part.allOf[0];
     const second = part.allOf[1];
@@ -115,7 +121,7 @@ function fixItem(part: OpenApiDocumentFragment, location: string[]) {
   }
   if (part.additionalProperties?.properties?.values?.items?.prefixItems !== undefined) {
     let items = part.additionalProperties.properties.values.items;
-    items.items = {oneOf: items.prefixItems};
+    items.items = { oneOf: items.prefixItems };
     delete items.prefixItems;
   }
 }

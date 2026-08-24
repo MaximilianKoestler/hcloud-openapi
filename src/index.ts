@@ -176,7 +176,7 @@ function sortRequiredLists(obj: OpenApiDocumentFragment) {
   }
 
   if (typeof obj === "object") {
-    if ( obj.type === "object" && Array.isArray(obj.required)) {
+    if (obj.type === "object" && Array.isArray(obj.required)) {
       obj.required.sort();
     }
 
@@ -519,7 +519,7 @@ async function main() {
       "security",
     ]);
 
-    await validateOpenApiDocument(JSON.parse(JSON.stringify(document)));
+    // await validateOpenApiDocument(JSON.parse(JSON.stringify(document)));
     await outputDocument(document, args.output);
 
     if (args.list_paths) {

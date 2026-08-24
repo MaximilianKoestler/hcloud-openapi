@@ -405,6 +405,7 @@
             "description": "Server the Floating IP is assigned to.\n\n`null` if not assigned.\n",
             "example": 42,
             "format": "int64",
+            "nullable": true,
             "type": "integer"
           }
         },
@@ -1553,6 +1554,7 @@
             "description": "Server the Floating IP is assigned to.\n\n`null` if not assigned.\n",
             "example": 42,
             "format": "int64",
+            "nullable": true,
             "type": "integer"
           },
           "type": {
@@ -1869,6 +1871,7 @@
             "description": "ID of resource to assign the Primary IP to.\n\nOmitted if the Primary IP should not get assigned.\n",
             "example": 17,
             "format": "int64",
+            "nullable": true,
             "type": "integer"
           },
           "assignee_type": {
@@ -1942,6 +1945,7 @@
                 "description": "ID of resource the Primary IP is assigned to.\n\n`null` if the Primary IP is not assigned.\n",
                 "example": 17,
                 "format": "int64",
+                "nullable": true,
                 "type": "integer"
               },
               "assignee_type": {
@@ -3537,6 +3541,7 @@
             "description": "Server the Floating IP is assigned to.\n\n`null` if not assigned.\n",
             "example": 42,
             "format": "int64",
+            "nullable": true,
             "type": "integer"
           },
           "type": {
@@ -3809,6 +3814,7 @@
                 "description": "ID of resource the Primary IP is assigned to.\n\n`null` if the Primary IP is not assigned.\n",
                 "example": 17,
                 "format": "int64",
+                "nullable": true,
                 "type": "integer"
               },
               "assignee_type": {
@@ -4185,6 +4191,7 @@
             "description": "ID of Server the Image is bound to. Only set for Images of type `backup`.",
             "example": null,
             "format": "int64",
+            "nullable": true,
             "type": "integer"
           },
           "created": {
@@ -5051,6 +5058,7 @@
                   "description": "ID of resource the Primary IP is assigned to.\n\n`null` if the Primary IP is not assigned.\n",
                   "example": 17,
                   "format": "int64",
+                  "nullable": true,
                   "type": "integer"
                 },
                 "assignee_type": {
@@ -5356,6 +5364,7 @@
           "ingoing_traffic": {
             "description": "Inbound Traffic for the current billing period in bytes.",
             "format": "int64",
+            "nullable": true,
             "type": "integer"
           },
           "labels": {
@@ -5375,6 +5384,7 @@
           "outgoing_traffic": {
             "description": "Outbound Traffic for the current billing period in bytes.",
             "format": "int64",
+            "nullable": true,
             "type": "integer"
           },
           "private_net": {
@@ -6826,12 +6836,14 @@
             "description": "Page number of the last page available. Can be null if the current page is the last one.",
             "example": 4,
             "format": "int64",
+            "nullable": true,
             "type": "integer"
           },
           "next_page": {
             "description": "Page number of the next page. Can be null if the current page is the last one.",
             "example": 4,
             "format": "int64",
+            "nullable": true,
             "type": "integer"
           },
           "page": {
@@ -6850,12 +6862,14 @@
             "description": "Page number of the previous page. Can be null if the current page is the first one.",
             "example": 2,
             "format": "int64",
+            "nullable": true,
             "type": "integer"
           },
           "total_entries": {
             "description": "Total number of entries that exist for this query. Can be null if unknown.",
             "example": 100,
             "format": "int64",
+            "nullable": true,
             "type": "integer"
           }
         },
@@ -7454,6 +7468,7 @@
                 "description": "ID of resource the Primary IP is assigned to.\n\n`null` if the Primary IP is not assigned.\n",
                 "example": 17,
                 "format": "int64",
+                "nullable": true,
                 "type": "integer"
               },
               "assignee_type": {
@@ -8271,12 +8286,14 @@
             "description": "Free Traffic for the current billing period in bytes.",
             "example": 654321,
             "format": "int64",
+            "nullable": true,
             "type": "integer"
           },
           "ingoing_traffic": {
             "description": "Inbound Traffic for the current billing period in bytes.",
             "example": 123456,
             "format": "int64",
+            "nullable": true,
             "type": "integer"
           },
           "iso": {
@@ -8316,6 +8333,7 @@
             "description": "Outbound Traffic for the current billing period in bytes.",
             "example": 123456,
             "format": "int64",
+            "nullable": true,
             "type": "integer"
           },
           "placement_group": {
@@ -9421,6 +9439,7 @@
             "description": "ID of the robot vSwitch if the subnet is of type `vswitch`.",
             "example": 1000,
             "format": "int64",
+            "nullable": true,
             "type": "integer"
           }
         },
@@ -9775,6 +9794,7 @@
             "description": "ID of the Server the Volume is attached to, null if it is not attached at all.",
             "example": 12,
             "format": "int64",
+            "nullable": true,
             "type": "integer"
           },
           "size": {
