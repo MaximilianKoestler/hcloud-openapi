@@ -111,6 +111,13 @@ function fixItem(part: OpenApiDocumentFragment, location: string[]) {
     if (second.required.length === 0) {
       delete second.required
     }
+
+    if (Object.entries(second).length == 1 && second.type === "object") {
+      for (const [k, v] of Object.entries(first)) {
+        part[k] = v
+      }
+      delete part.allOf
+    }
   }
 
   // BACKWARDS COMPATIBILITY HACKS

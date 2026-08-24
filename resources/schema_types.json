@@ -121,7 +121,6 @@
       "add_service_request",
       "allOf[0]",
       "health_check",
-      "allOf[0]",
       "http"
     ]
   },
