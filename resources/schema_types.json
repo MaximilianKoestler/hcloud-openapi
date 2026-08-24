@@ -282,6 +282,13 @@
     ]
   },
   {
+    "name": "location_name_or_id",
+    "path": [
+      "create_primary_ip_request",
+      "location"
+    ]
+  },
+  {
     "name": "meta",
     "path": [
       "list_actions_response",

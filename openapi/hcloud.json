@@ -1525,22 +1525,7 @@
             "type": "string"
           },
           "home_location": {
-            "description": "Home Location for the Floating IP.\n\nEither the ID or the name of the Location.\n\nOnly optional if no Server is provided. Routing is optimized for this Locations.\n",
-            "oneOf": [
-              {
-                "description": "Home Location for the Floating IP.\n\nEither the ID or the name of the Location.\n\nOnly optional if no Server is provided. Routing is optimized for this Locations.\n",
-                "example": "fsn1",
-                "type": "string"
-              },
-              {
-                "description": "Home Location for the Floating IP.\n\nEither the ID or the name of the Location.\n\nOnly optional if no Server is provided. Routing is optimized for this Locations.\n",
-                "example": 42,
-                "format": "int64",
-                "maximum": 9007199254740991,
-                "minimum": 1,
-                "type": "integer"
-              }
-            ]
+            "$ref": "#/components/schemas/location_name_or_id"
           },
           "labels": {
             "$ref": "#/components/schemas/labels"
@@ -1892,22 +1877,7 @@
             "$ref": "#/components/schemas/labels"
           },
           "location": {
-            "description": "Location ID or name the Primary IP will be bound to.\n\nOmit if `assignee_id`/`assignee_type` or `datacenter` are provided.\n",
-            "oneOf": [
-              {
-                "description": "Location ID or name the Primary IP will be bound to.\n\nOmit if `assignee_id`/`assignee_type` or `datacenter` are provided.\n",
-                "example": "fsn1",
-                "type": "string"
-              },
-              {
-                "description": "Location ID or name the Primary IP will be bound to.\n\nOmit if `assignee_id`/`assignee_type` or `datacenter` are provided.\n",
-                "example": 42,
-                "format": "int64",
-                "maximum": 9007199254740991,
-                "minimum": 1,
-                "type": "integer"
-              }
-            ]
+            "$ref": "#/components/schemas/location_name_or_id"
           },
           "name": {
             "description": "Name of the Resource. Must be unique per Project.",
@@ -6615,6 +6585,24 @@
           "network_zone"
         ],
         "type": "object"
+      },
+      "location_name_or_id": {
+        "description": "Home Location for the Floating IP.\n\nEither the ID or the name of the Location.\n\nOnly optional if no Server is provided. Routing is optimized for this Locations.\n | Location ID or name the Primary IP will be bound to.\n\nOmit if `assignee_id`/`assignee_type` or `datacenter` are provided.\n",
+        "oneOf": [
+          {
+            "description": "Home Location for the Floating IP.\n\nEither the ID or the name of the Location.\n\nOnly optional if no Server is provided. Routing is optimized for this Locations.\n | Location ID or name the Primary IP will be bound to.\n\nOmit if `assignee_id`/`assignee_type` or `datacenter` are provided.\n",
+            "example": "fsn1",
+            "type": "string"
+          },
+          {
+            "description": "Home Location for the Floating IP.\n\nEither the ID or the name of the Location.\n\nOnly optional if no Server is provided. Routing is optimized for this Locations.\n | Location ID or name the Primary IP will be bound to.\n\nOmit if `assignee_id`/`assignee_type` or `datacenter` are provided.\n",
+            "example": 42,
+            "format": "int64",
+            "maximum": 9007199254740991,
+            "minimum": 1,
+            "type": "integer"
+          }
+        ]
       },
       "meta": {
         "properties": {
