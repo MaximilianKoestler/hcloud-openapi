@@ -55,6 +55,12 @@
     ]
   },
   {
+    "name": "dns_ptr_change",
+    "path": [
+      "change_reverse_dns_entry_for_this_load_balancer_request"
+    ]
+  },
+  {
     "name": "error",
     "path": [
       "list_actions_response",

@@ -16,7 +16,7 @@ describe("deduplicateSchemas", () => {
         type: "object",
         properties: {
           id: { type: "integer" },
-          name: { type: "string" },
+          description: { type: "string" },
         },
       },
     };
@@ -597,5 +597,55 @@ describe("deduplicateSchemas", () => {
     expect(ref0).toBeDefined();
     expect(ref0).toEqual(ref1);
     expect(ref0).toEqual("#/components/schemas/ExplicitAuthoritativeNameserver");
+  });
+
+  it("should deduplicate top-level schemas that share the same structure", () => {
+    const dnsPtrIpRequest = {
+      type: "object",
+      properties: {
+        dns_ptr: {
+          description: "Domain Name to point to.",
+          example: "server.example.com",
+          nullable: true,
+          type: "string",
+        },
+        ip: {
+          description: "Single IPv4 or IPv6 address to create pointer for.",
+          example: "2001:db8::1",
+          type: "string",
+        },
+      },
+      required: ["ip"],
+    };
+
+    const schemas: any = {
+      change_reverse_dns_records_for_primary_ip_request: JSON.parse(
+        JSON.stringify(dnsPtrIpRequest),
+      ),
+      change_reverse_dns_entry_for_this_load_balancer_request: JSON.parse(
+        JSON.stringify(dnsPtrIpRequest),
+      ),
+    };
+
+    const result = deduplicateSchemas(schemas, undefined);
+
+    // Both top-level schemas should now be $ref references to the same shared component
+    expect(
+      schemas.change_reverse_dns_records_for_primary_ip_request.$ref,
+    ).toBeDefined();
+    expect(
+      schemas.change_reverse_dns_entry_for_this_load_balancer_request.$ref,
+    ).toBeDefined();
+    expect(schemas.change_reverse_dns_records_for_primary_ip_request.$ref).toBe(
+      schemas.change_reverse_dns_entry_for_this_load_balancer_request.$ref,
+    );
+
+    // A new shared component should have been registered with a top-level path
+    const extracted = result.find((c) => c.path.length === 1);
+    expect(extracted).toBeDefined();
+    expect(schemas[extracted!.name]).toBeDefined();
+    expect(schemas[extracted!.name].type).toBe("object");
+    expect(schemas[extracted!.name].properties.dns_ptr).toBeDefined();
+    expect(schemas[extracted!.name].properties.ip).toBeDefined();
   });
 });

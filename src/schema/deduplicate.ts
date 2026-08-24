@@ -47,7 +47,7 @@ function reverseString(value: string): string {
 
 function extractComponentName(locations: string[][]): string {
   const deepestLocations = locations
-    .filter((location) => location && location.length > 1)
+    .filter((location) => location && location.length >= 1)
     .map((location) => location[location.length - 1])
     .map(pluralize.singular);
 
@@ -275,10 +275,6 @@ function filterAndNameComponents(
     objectInfos,
     (_key, value) =>
       (value.count > 1 &&
-        Math.max.apply(
-          null,
-          value.locations.map((location: any) => location.length),
-        ) > 1 &&
         ((value.complexity > 1 && value.directChildren > 1) || value.enum)) ||
       value.locations.some((location: any) =>
         paths_to_definitely_extract.includes(location.join("/")),
@@ -328,7 +324,7 @@ function filterAndNameComponents(
     ).map((hash) => {
       const info = filteredObjectInfos[hash];
       const path = info.locations
-        .filter((location: string[]) => location.length > 1)
+        .filter((location: string[]) => location.length >= 1)
         .sort((a: string[], b: string[]) => a.length - b.length)[0];
       return {
         description: "TODO",
