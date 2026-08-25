@@ -5309,27 +5309,7 @@
                 "$ref": "#/components/schemas/label_selector"
               },
               "server": {
-                "additionalProperties": false,
-                "description": "Configuration for type Server, only valid and required if type is `server`.",
-                "properties": {
-                  "id": {
-                    "description": "ID of the Server.",
-                    "example": 80,
-                    "format": "int64",
-                    "maximum": 9007199254740991,
-                    "type": "integer"
-                  },
-                  "ip": {
-                    "description": "Optional public IP of the Server to use as target.\nMust be the Primary IPv4 of the Server, or an IPv6 host address within IPv6 /64 subnet of the Server. If omitted, the Primary IPv4 of the Server is used. Must not be a private IP and is only valid for public targets.",
-                    "example": "2001:db8::1",
-                    "type": "string"
-                  }
-                },
-                "required": [
-                  "id"
-                ],
-                "title": "LoadBalancerTargetServer",
-                "type": "object"
+                "$ref": "#/components/schemas/load_balancer_add_target_server"
               },
               "type": {
                 "description": "Type of the resource.",
@@ -5360,6 +5340,29 @@
           }
         ],
         "description": "A target to be added to a load balancer."
+      },
+      "load_balancer_add_target_server": {
+        "additionalProperties": false,
+        "description": "The server of a target to be added to a load balancer.",
+        "properties": {
+          "id": {
+            "description": "ID of the Server.",
+            "example": 80,
+            "format": "int64",
+            "maximum": 9007199254740991,
+            "type": "integer"
+          },
+          "ip": {
+            "description": "Optional public IP of the Server to use as target.\nMust be the Primary IPv4 of the Server, or an IPv6 host address within IPv6 /64 subnet of the Server. If omitted, the Primary IPv4 of the Server is used. Must not be a private IP and is only valid for public targets.",
+            "example": "2001:db8::1",
+            "type": "string"
+          }
+        },
+        "required": [
+          "id"
+        ],
+        "title": "LoadBalancerTargetServer",
+        "type": "object"
       },
       "load_balancer_algorithm": {
         "default": {
@@ -5900,27 +5903,7 @@
                     "type": "array"
                   },
                   "server": {
-                    "description": "Server where the traffic should be routed to. Only present for target type \"server\".",
-                    "properties": {
-                      "id": {
-                        "description": "ID of the Server.",
-                        "example": 80,
-                        "format": "int64",
-                        "maximum": 9007199254740991,
-                        "type": "integer"
-                      },
-                      "ip": {
-                        "description": "IP of the Server that the traffic is routed to. Either the Server's primary IPv4 or, if an IPv6 was specified when adding the target, an IPv6 within the Server's /64 subnet.",
-                        "example": "2001:db8::1",
-                        "type": "string"
-                      }
-                    },
-                    "required": [
-                      "id",
-                      "ip"
-                    ],
-                    "title": "LoadBalancerTargetServer",
-                    "type": "object"
+                    "$ref": "#/components/schemas/load_balancer_target_server"
                   },
                   "type": {
                     "enum": [
@@ -5983,27 +5966,7 @@
                           "type": "array"
                         },
                         "server": {
-                          "description": "Server where the traffic should be routed to. Only present for target type \"server\".",
-                          "properties": {
-                            "id": {
-                              "description": "ID of the Server.",
-                              "example": 80,
-                              "format": "int64",
-                              "maximum": 9007199254740991,
-                              "type": "integer"
-                            },
-                            "ip": {
-                              "description": "IP of the Server that the traffic is routed to. Either the Server's primary IPv4 or, if an IPv6 was specified when adding the target, an IPv6 within the Server's /64 subnet.",
-                              "example": "2001:db8::1",
-                              "type": "string"
-                            }
-                          },
-                          "required": [
-                            "id",
-                            "ip"
-                          ],
-                          "title": "LoadBalancerTargetServer",
-                          "type": "object"
+                          "$ref": "#/components/schemas/load_balancer_target_server"
                         },
                         "type": {
                           "description": "Type of the resource. Here always \"server\".",
@@ -6140,6 +6103,29 @@
           "ip"
         ],
         "title": "LoadBalancerTargetIP",
+        "type": "object"
+      },
+      "load_balancer_target_server": {
+        "description": "A target of a Load Balancer.",
+        "properties": {
+          "id": {
+            "description": "ID of the Server.",
+            "example": 80,
+            "format": "int64",
+            "maximum": 9007199254740991,
+            "type": "integer"
+          },
+          "ip": {
+            "description": "IP of the Server that the traffic is routed to. Either the Server's primary IPv4 or, if an IPv6 was specified when adding the target, an IPv6 within the Server's /64 subnet.",
+            "example": "2001:db8::1",
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "ip"
+        ],
+        "title": "LoadBalancerTargetServer",
         "type": "object"
       },
       "load_balancer_type": {

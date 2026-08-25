@@ -186,6 +186,16 @@
     ]
   },
   {
+    "description": "The server of a target to be added to a load balancer.",
+    "name": "load_balancer_add_target_server",
+    "path": [
+      "create_load_balancer_request",
+      "targets",
+      "allOf[0]",
+      "server"
+    ]
+  },
+  {
     "name": "load_balancer_algorithm",
     "path": [
       "create_load_balancer_request",
@@ -274,6 +284,18 @@
       "oneOf[2]",
       "allOf[1]",
       "ip"
+    ]
+  },
+  {
+    "description": "A target of a Load Balancer.",
+    "name": "load_balancer_target_server",
+    "path": [
+      "list_load_balancers_response",
+      "load_balancers",
+      "targets",
+      "oneOf[0]",
+      "allOf[1]",
+      "server"
     ]
   },
   {
