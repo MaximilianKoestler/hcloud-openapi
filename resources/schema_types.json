@@ -107,24 +107,6 @@
     ]
   },
   {
-    "description": "A Service health check.",
-    "name": "health_check",
-    "path": [
-      "add_service_request",
-      "allOf[0]",
-      "health_check"
-    ]
-  },
-  {
-    "name": "health_check_http",
-    "path": [
-      "add_service_request",
-      "allOf[0]",
-      "health_check",
-      "http"
-    ]
-  },
-  {
     "name": "http",
     "path": [
       "add_service_request",
@@ -242,6 +224,24 @@
     "path": [
       "create_load_balancer_request",
       "services"
+    ]
+  },
+  {
+    "description": "A Service health check.",
+    "name": "load_balancer_service_health_check",
+    "path": [
+      "add_service_request",
+      "allOf[0]",
+      "health_check"
+    ]
+  },
+  {
+    "name": "load_balancer_service_health_check_http",
+    "path": [
+      "add_service_request",
+      "allOf[0]",
+      "health_check",
+      "http"
     ]
   },
   {
