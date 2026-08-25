@@ -410,21 +410,19 @@
     ]
   },
   {
-    "description": "ID of the Resource",
-    "name": "resource_id_non_negative",
+    "name": "resource",
     "path": [
-      "remove_from_resources_request",
-      "remove_from",
-      "server"
+      "list_certificates_response",
+      "certificates",
+      "used_by"
     ]
   },
   {
     "description": "ID of the Resource",
-    "name": "resource_id_positive",
+    "name": "resource_id",
     "path": [
-      "get_firewall_response",
-      "firewall",
-      "applied_to",
+      "remove_from_resources_request",
+      "remove_from",
       "server"
     ]
   },
@@ -461,22 +459,6 @@
     "path": [
       "update_records_of_rrset_request",
       "records"
-    ]
-  },
-  {
-    "name": "resource_with_non_negative_id",
-    "path": [
-      "list_certificates_response",
-      "certificates",
-      "used_by"
-    ]
-  },
-  {
-    "name": "resource_with_positive_id",
-    "path": [
-      "list_actions_response",
-      "actions",
-      "resources"
     ]
   },
   {

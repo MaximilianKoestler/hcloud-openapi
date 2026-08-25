@@ -146,7 +146,7 @@
           "resources": {
             "description": "Resources the Action relates to.",
             "items": {
-              "$ref": "#/components/schemas/resource_with_positive_id"
+              "$ref": "#/components/schemas/resource"
             },
             "type": "array"
           },
@@ -732,7 +732,7 @@
           "used_by": {
             "description": "Resources currently using the Certificate.",
             "items": {
-              "$ref": "#/components/schemas/resource_with_non_negative_id"
+              "$ref": "#/components/schemas/resource"
             },
             "type": "array"
           }
@@ -3389,7 +3389,7 @@
             "$ref": "#/components/schemas/label_selector"
           },
           "server": {
-            "$ref": "#/components/schemas/resource_id_non_negative"
+            "$ref": "#/components/schemas/resource_id"
           },
           "type": {
             "description": "Type of the resource.",
@@ -3416,7 +3416,7 @@
               "additionalProperties": false,
               "properties": {
                 "server": {
-                  "$ref": "#/components/schemas/resource_id_positive"
+                  "$ref": "#/components/schemas/resource_id"
                 },
                 "type": {
                   "description": "Type of resource.",
@@ -3436,7 +3436,7 @@
             "$ref": "#/components/schemas/label_selector"
           },
           "server": {
-            "$ref": "#/components/schemas/resource_id_positive"
+            "$ref": "#/components/schemas/resource_id"
           },
           "type": {
             "description": "The type of resource to apply.",
@@ -7550,23 +7550,29 @@
         "title": "ActionResponse",
         "type": "object"
       },
-      "resource_id_non_negative": {
-        "additionalProperties": false,
-        "description": "ID of the Resource",
+      "resource": {
         "properties": {
           "id": {
-            "description": "ID of the Server.",
+            "description": "ID of the Resource. | ID of resource referenced.",
+            "example": 42,
             "format": "int64",
             "maximum": 9007199254740991,
+            "minimum": 1,
             "type": "integer"
+          },
+          "type": {
+            "description": "Type of the Resource. | Type of resource referenced.",
+            "example": "server",
+            "type": "string"
           }
         },
         "required": [
-          "id"
+          "id",
+          "type"
         ],
         "type": "object"
       },
-      "resource_id_positive": {
+      "resource_id": {
         "additionalProperties": false,
         "description": "ID of the Resource",
         "properties": {
@@ -7756,49 +7762,6 @@
           "value"
         ],
         "title": "Record",
-        "type": "object"
-      },
-      "resource_with_non_negative_id": {
-        "properties": {
-          "id": {
-            "description": "ID of resource referenced.",
-            "example": 4711,
-            "format": "int64",
-            "maximum": 9007199254740991,
-            "type": "integer"
-          },
-          "type": {
-            "description": "Type of resource referenced.",
-            "example": "load_balancer",
-            "type": "string"
-          }
-        },
-        "required": [
-          "id",
-          "type"
-        ],
-        "type": "object"
-      },
-      "resource_with_positive_id": {
-        "properties": {
-          "id": {
-            "description": "ID of the Resource.",
-            "example": 42,
-            "format": "int64",
-            "maximum": 9007199254740991,
-            "minimum": 1,
-            "type": "integer"
-          },
-          "type": {
-            "description": "Type of the Resource.",
-            "example": "server",
-            "type": "string"
-          }
-        },
-        "required": [
-          "id",
-          "type"
-        ],
         "type": "object"
       },
       "retry_issuance_or_renewal_response": {

@@ -177,7 +177,7 @@ function calculateHashes(schemas: OpenApiDocumentFragment) {
         });
 
         // Remove properties that don't affect structural identity
-        const { description, example, title, minLength, maxLength, ...coreHashableParts } = hashableParts;
+        const { description, example, title, minLength, maxLength, minimum, ...coreHashableParts } = hashableParts;
         if ("additionalProperties" in coreHashableParts && (coreHashableParts.additionalProperties === true || coreHashableParts.additionalProperties === false)) {
           delete coreHashableParts["additionalProperties"];
         }
@@ -222,7 +222,7 @@ function collectObjectInfos(schemas: OpenApiDocumentFragment): {
           }
           objectInfos[hash].count += 1;
           objectInfos[hash].complexity = part["x-complexity"];
-          
+
           let childrenCount = 0;
           if (part.properties !== undefined) {
             childrenCount += Object.keys(part.properties).length;
@@ -233,7 +233,7 @@ function collectObjectInfos(schemas: OpenApiDocumentFragment): {
             }
           });
           objectInfos[hash].directChildren = childrenCount;
-          
+
           objectInfos[hash].locations.push([...location]);
         }
       },
@@ -405,8 +405,7 @@ function applyOverridesAndCleanUp(
     if (info.name !== undefined && info.description !== undefined) {
       if (schemas[info.name].description !== undefined) {
         console.warn(
-          `Overwriting existing schema description ${info.name} ("${
-            schemas[info.name].description
+          `Overwriting existing schema description ${info.name} ("${schemas[info.name].description
           }" -> "${info.description})"`,
         );
       }
