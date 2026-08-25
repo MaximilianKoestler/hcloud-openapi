@@ -335,6 +335,15 @@
     ]
   },
   {
+    "name": "metrics_time_series_value",
+    "path": [
+      "get_metrics_for_loadbalancer_response",
+      "metrics",
+      "time_series",
+      "values"
+    ]
+  },
+  {
     "name": "nameserver",
     "path": [
       "change_zones_primary_nameservers_request",

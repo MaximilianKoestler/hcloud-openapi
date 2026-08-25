@@ -6339,7 +6339,8 @@
                           "description": "Value.",
                           "type": "string"
                         }
-                      ]
+                      ],
+                      "title": "MetricsTimeSeriesValue"
                     },
                     "maxItems": 2,
                     "minItems": 2,
