@@ -9429,66 +9429,7 @@
               {
                 "properties": {
                   "authoritative_nameservers": {
-                    "additionalProperties": false,
-                    "properties": {
-                      "assigned": {
-                        "description": "Authoritative Hetzner nameservers assigned to this Zone.\n",
-                        "example": [
-                          "hydrogen.ns.hetzner.com.",
-                          "oxygen.ns.hetzner.com.",
-                          "helium.ns.hetzner.de."
-                        ],
-                        "items": {
-                          "type": "string"
-                        },
-                        "type": "array"
-                      },
-                      "delegated": {
-                        "description": "Authoritative nameservers currently delegated to by the parent DNS zone.\n\nIf these don't match the assigned authoritative nameservers, the DNS zone is currently not being served by Hetzner.\n",
-                        "example": [
-                          "hydrogen.ns.hetzner.com.",
-                          "oxygen.ns.hetzner.com.",
-                          "helium.ns.hetzner.de."
-                        ],
-                        "items": {
-                          "type": "string"
-                        },
-                        "type": "array"
-                      },
-                      "delegation_last_check": {
-                        "description": "Point in time (in [RFC3339](https://datatracker.ietf.org/doc/html/rfc3339#section-5.6) format) when the DNS zone delegation was last checked.\n",
-                        "example": "2016-01-30T23:55:00Z",
-                        "format": "date-time",
-                        "nullable": true,
-                        "type": "string"
-                      },
-                      "delegation_status": {
-                        "description": "Status of the delegation.\n",
-                        "enum": [
-                          "invalid",
-                          "lame",
-                          "partially-valid",
-                          "unknown",
-                          "unregistered",
-                          "valid"
-                        ],
-                        "type": "string",
-                        "x-enumDescriptions": {
-                          "invalid": "Parent zone does not delegate to the assigned nameservers.",
-                          "lame": "Parent zone delegates to nameservers that don't know the zone.",
-                          "partially-valid": "Parent zone delegates to additional Hetzner nameservers not assigned to this zone.",
-                          "unknown": "Not yet known.",
-                          "unregistered": "Domain is not registered.",
-                          "valid": "Parent zone correctly delegates to assigned nameservers."
-                        }
-                      }
-                    },
-                    "required": [
-                      "assigned",
-                      "delegated",
-                      "delegation_last_check"
-                    ],
-                    "type": "object"
+                    "$ref": "#/components/schemas/zone_authoritative_nameservers"
                   },
                   "created": {
                     "description": "Point in time when the Resource was created (in [RFC3339](https://datatracker.ietf.org/doc/html/rfc3339#section-5.6) format).",
@@ -9607,66 +9548,7 @@
               {
                 "properties": {
                   "authoritative_nameservers": {
-                    "additionalProperties": false,
-                    "properties": {
-                      "assigned": {
-                        "description": "Authoritative Hetzner nameservers assigned to this Zone.\n",
-                        "example": [
-                          "hydrogen.ns.hetzner.com.",
-                          "oxygen.ns.hetzner.com.",
-                          "helium.ns.hetzner.de."
-                        ],
-                        "items": {
-                          "type": "string"
-                        },
-                        "type": "array"
-                      },
-                      "delegated": {
-                        "description": "Authoritative nameservers currently delegated to by the parent DNS zone.\n\nIf these don't match the assigned authoritative nameservers, the DNS zone is currently not being served by Hetzner.\n",
-                        "example": [
-                          "hydrogen.ns.hetzner.com.",
-                          "oxygen.ns.hetzner.com.",
-                          "helium.ns.hetzner.de."
-                        ],
-                        "items": {
-                          "type": "string"
-                        },
-                        "type": "array"
-                      },
-                      "delegation_last_check": {
-                        "description": "Point in time (in [RFC3339](https://datatracker.ietf.org/doc/html/rfc3339#section-5.6) format) when the DNS zone delegation was last checked.\n",
-                        "example": "2016-01-30T23:55:00Z",
-                        "format": "date-time",
-                        "nullable": true,
-                        "type": "string"
-                      },
-                      "delegation_status": {
-                        "description": "Status of the delegation.\n",
-                        "enum": [
-                          "invalid",
-                          "lame",
-                          "partially-valid",
-                          "unknown",
-                          "unregistered",
-                          "valid"
-                        ],
-                        "type": "string",
-                        "x-enumDescriptions": {
-                          "invalid": "Parent zone does not delegate to the assigned nameservers.",
-                          "lame": "Parent zone delegates to nameservers that don't know the zone.",
-                          "partially-valid": "Parent zone delegates to additional Hetzner nameservers not assigned to this zone.",
-                          "unknown": "Not yet known.",
-                          "unregistered": "Domain is not registered.",
-                          "valid": "Parent zone correctly delegates to assigned nameservers."
-                        }
-                      }
-                    },
-                    "required": [
-                      "assigned",
-                      "delegated",
-                      "delegation_last_check"
-                    ],
-                    "type": "object"
+                    "$ref": "#/components/schemas/zone_authoritative_nameservers"
                   },
                   "created": {
                     "description": "Point in time when the Resource was created (in [RFC3339](https://datatracker.ietf.org/doc/html/rfc3339#section-5.6) format).",
@@ -9782,6 +9664,68 @@
           }
         ],
         "title": "Zone"
+      },
+      "zone_authoritative_nameservers": {
+        "additionalProperties": false,
+        "properties": {
+          "assigned": {
+            "description": "Authoritative Hetzner nameservers assigned to this Zone.\n",
+            "example": [
+              "hydrogen.ns.hetzner.com.",
+              "oxygen.ns.hetzner.com.",
+              "helium.ns.hetzner.de."
+            ],
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "delegated": {
+            "description": "Authoritative nameservers currently delegated to by the parent DNS zone.\n\nIf these don't match the assigned authoritative nameservers, the DNS zone is currently not being served by Hetzner.\n",
+            "example": [
+              "hydrogen.ns.hetzner.com.",
+              "oxygen.ns.hetzner.com.",
+              "helium.ns.hetzner.de."
+            ],
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "delegation_last_check": {
+            "description": "Point in time (in [RFC3339](https://datatracker.ietf.org/doc/html/rfc3339#section-5.6) format) when the DNS zone delegation was last checked.\n",
+            "example": "2016-01-30T23:55:00Z",
+            "format": "date-time",
+            "nullable": true,
+            "type": "string"
+          },
+          "delegation_status": {
+            "description": "Status of the delegation.\n",
+            "enum": [
+              "invalid",
+              "lame",
+              "partially-valid",
+              "unknown",
+              "unregistered",
+              "valid"
+            ],
+            "type": "string",
+            "x-enumDescriptions": {
+              "invalid": "Parent zone does not delegate to the assigned nameservers.",
+              "lame": "Parent zone delegates to nameservers that don't know the zone.",
+              "partially-valid": "Parent zone delegates to additional Hetzner nameservers not assigned to this zone.",
+              "unknown": "Not yet known.",
+              "unregistered": "Domain is not registered.",
+              "valid": "Parent zone correctly delegates to assigned nameservers."
+            }
+          }
+        },
+        "required": [
+          "assigned",
+          "delegated",
+          "delegation_last_check"
+        ],
+        "type": "object"
       }
     },
     "securitySchemes": {

@@ -653,5 +653,15 @@
       "create_zone_response",
       "zone"
     ]
+  },
+  {
+    "name": "zone_authoritative_nameservers",
+    "path": [
+      "create_zone_response",
+      "zone",
+      "oneOf[0]",
+      "allOf[0]",
+      "authoritative_nameservers"
+    ]
   }
 ]
