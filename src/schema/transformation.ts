@@ -82,6 +82,11 @@ function fixItem(part: OpenApiDocumentFragment, location: string[]) {
     part.nullable = true;
   }
 
+  // enums must be sorted
+  if (part.enum !== undefined) {
+    part.enum = (part.enum as string[]).sort();
+  }
+
   // required properties in the wrong "allOf"-arm
   if (
     part.allOf !== undefined &&

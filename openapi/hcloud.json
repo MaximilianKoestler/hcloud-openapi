@@ -389,7 +389,7 @@
         "type": "object"
       },
       "architecture": {
-        "description": "CPU architecture compatible with the Image.\n | CPU architecture of the Server Type.\n",
+        "description": "CPU architecture compatible with the Image.\n | CPU architecture compatible with the ISO.\n\nNull indicates no restriction on the architecture (wildcard).\n | CPU architecture of the Server Type.\n",
         "enum": [
           "arm",
           "x86"
@@ -4303,14 +4303,13 @@
         "description": "ISO Image that is attached to this Server. Null if no ISO is attached.",
         "properties": {
           "architecture": {
-            "description": "CPU architecture compatible with the ISO.\n\nNull indicates no restriction on the architecture (wildcard).\n",
-            "enum": [
-              "x86",
-              "arm"
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/architecture"
+              }
             ],
-            "example": "x86",
-            "nullable": true,
-            "type": "string"
+            "description": "CPU architecture compatible with the ISO.\n\nNull indicates no restriction on the architecture (wildcard).\n",
+            "nullable": true
           },
           "deprecation": {
             "allOf": [
@@ -4343,8 +4342,8 @@
           "type": {
             "description": "Type of the ISO.",
             "enum": [
-              "public",
-              "private"
+              "private",
+              "public"
             ],
             "nullable": true,
             "type": "string"
