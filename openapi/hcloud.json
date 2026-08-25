@@ -6814,7 +6814,7 @@
             "$ref": "#/components/schemas/label_selector"
           },
           "server": {
-            "$ref": "#/components/schemas/resource_id_positive"
+            "$ref": "#/components/schemas/resource_id"
           },
           "type": {
             "description": "Type of the resource.",

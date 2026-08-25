@@ -360,7 +360,7 @@
   {
     "path": ["components", "schemas", "remove_target_request", "properties"],
     "set": {
-      "server": { "$ref": "#/components/schemas/resource_id_positive" }
+      "server": { "$ref": "#/components/schemas/resource_id" }
     }
   },
 
