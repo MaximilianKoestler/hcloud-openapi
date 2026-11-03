@@ -28,7 +28,7 @@
       "name": "certificates"
     },
     {
-      "description": "Each Datacenter represents a _virtual_ Datacenter which may consist of possibly many physical Datacenters. A physical Datacenter is where Servers are hosted.\n\nSee the [Hetzner Locations Docs](https://docs.hetzner.com/cloud/general/locations/#what-datacenters-are-there) for more details about Datacenters.\n",
+      "description": "Each Datacenter represents a _virtual_ Datacenter which may consist of possibly many physical Datacenters. A physical Datacenter is where Servers are hosted.\n\nSee the [Hetzner Locations Docs](https://docs.hetzner.com/cloud/general/locations/#what-datacenters-are-there) for more details about Datacenters.\n\n**Note**: This functionality and endpoints were deprecated in June 2026 and removed on 01 October 2026.\n\n- Announcement: https://docs.hetzner.cloud/changelog#2026-06-02-datacenters-deprecated\n- Removal: https://docs.hetzner.cloud/changelog#2026-10-01-datacenters-removed\n",
       "name": "datacenters"
     },
     {
@@ -55,7 +55,7 @@
       "name": "load_balancers"
     },
     {
-      "description": "Datacenters are organized by Locations. Datacenters in the same Location are connected with very low latency links.\n",
+      "description": "Locations are geographic sites where resources are hosted at. A Location belongs to a Network Zone.\n",
       "name": "locations"
     },
     {
@@ -581,28 +581,32 @@
         "title": "ActionResponse",
         "type": "object"
       },
-      "attach_volume_to_server_request": {
+      "attach_volume_to_resource_request": {
         "description": "Request for POST https://api.hetzner.cloud/v1/volumes/{id}/actions/attach",
         "properties": {
+          "assignee": {
+            "$ref": "#/components/schemas/resource"
+          },
           "automount": {
             "description": "Auto-mount the Volume after attaching it.",
             "example": false,
             "type": "boolean"
           },
           "server": {
-            "description": "ID of the Server the Volume will be attached to.",
+            "deprecated": true,
+            "description": "This field is deprecated, use the `assignee` field with `server` as the `type` instead.\n\nID of the Server the Volume will be attached to.\n",
             "example": 43,
             "format": "int64",
             "type": "integer"
           }
         },
         "required": [
-          "server"
+          "assignee"
         ],
         "title": "AttachVolumeRequest",
         "type": "object"
       },
-      "attach_volume_to_server_response": {
+      "attach_volume_to_resource_response": {
         "description": "Response to POST https://api.hetzner.cloud/v1/volumes/{id}/actions/attach",
         "properties": {
           "action": {
@@ -1531,8 +1535,10 @@
             "$ref": "#/components/schemas/labels"
           },
           "name": {
-            "description": "Name of the Resource. Must be unique per Project.",
+            "description": "Name of the Resource. Must be unique per Project.\n\nA name will be generated if none is given.\n",
             "example": "my-resource",
+            "maxLength": 255,
+            "minLength": 1,
             "type": "string"
           },
           "server": {
@@ -1653,6 +1659,31 @@
             "description": "Enable or disable the public interface of the Load Balancer.",
             "example": true,
             "type": "boolean"
+          },
+          "public_net": {
+            "description": "Public network options of the Load Balancer.\n\nOnly allowed if the public interface is enabled.\n",
+            "properties": {
+              "ipv4": {
+                "description": "ID of an existing Primary IP of type `ipv4` to assign to the Load Balancer.\n\nThe Primary IP must be unassigned, must not be blocked and must be bound to the\nsame Location as the Load Balancer.\n\nOmit or set to `null` to get a system managed IP address instead. System managed IP addresses are\nnot Primary IPs and are created and deleted together with the Load Balancer.\n",
+                "example": 42,
+                "format": "int64",
+                "maximum": 9007199254740991,
+                "minimum": 1,
+                "nullable": true,
+                "type": "integer"
+              },
+              "ipv6": {
+                "description": "ID of an existing Primary IP of type `ipv6` to assign to the Load Balancer.\n\nThe Primary IP must be unassigned, must not be blocked and must be bound to the\nsame Location as the Load Balancer.\n\nOmit or set to `null` to get a system managed IP address instead. System managed IP addresses are\nnot Primary IPs and are created and deleted together with the Load Balancer.\n",
+                "example": 42,
+                "format": "int64",
+                "maximum": 9007199254740991,
+                "minimum": 1,
+                "nullable": true,
+                "type": "integer"
+              }
+            },
+            "title": "LoadBalancerCreatePublicNet",
+            "type": "object"
           },
           "services": {
             "description": "Array of services.",
@@ -1862,7 +1893,8 @@
           "assignee_type": {
             "description": "Type of resource to assign the Primary IP to.\n\nOmitted if the Primary IP should not get assigned.\n",
             "enum": [
-              "server"
+              "server",
+              "unassigned"
             ],
             "example": "server",
             "type": "string"
@@ -1882,6 +1914,8 @@
           "name": {
             "description": "Name of the Resource. Must be unique per Project.",
             "example": "my-resource",
+            "maxLength": 255,
+            "minLength": 1,
             "type": "string"
           },
           "type": {
@@ -1919,9 +1953,10 @@
                 "type": "integer"
               },
               "assignee_type": {
-                "description": "Type of resource the Primary IP is assigned to.\n\nAs of 01 August 2026 `unassigned` will be returned if the Primary IP is not assigned.\n",
+                "description": "Type of resource the Primary IP is assigned to.\n\nAs of 23 September 2026 `unassigned` is returned if the Primary IP is not assigned.\n",
                 "enum": [
-                  "server"
+                  "server",
+                  "unassigned"
                 ],
                 "example": "server",
                 "type": "string"
@@ -1972,6 +2007,8 @@
               "name": {
                 "description": "Name of the Resource. Must be unique per Project.",
                 "example": "my-resource",
+                "maxLength": 255,
+                "minLength": 1,
                 "type": "string"
               },
               "protection": {
@@ -2468,6 +2505,9 @@
       "create_volume_request": {
         "description": "Request for POST https://api.hetzner.cloud/v1/volumes",
         "properties": {
+          "assignee": {
+            "$ref": "#/components/schemas/resource"
+          },
           "automount": {
             "description": "Auto-mount Volume after attach. `server` must be provided.",
             "example": false,
@@ -2492,7 +2532,8 @@
             "type": "string"
           },
           "server": {
-            "description": "Server to which to attach the Volume once it's created (Volume will be created in the same Location as the server).",
+            "deprecated": true,
+            "description": "This field is deprecated, use the `assignee` field with `server` as the `type` instead.\n\nServer to which to attach the Volume once it's created (Volume will be created in the same Location as the server).\n",
             "format": "int64",
             "type": "integer"
           },
@@ -2724,6 +2765,18 @@
           "location",
           "name",
           "server_types"
+        ],
+        "type": "object"
+      },
+      "delete_load_balancer_response": {
+        "description": "Response to DELETE https://api.hetzner.cloud/v1/load_balancers/{id}",
+        "properties": {
+          "action": {
+            "$ref": "#/components/schemas/action"
+          }
+        },
+        "required": [
+          "action"
         ],
         "type": "object"
       },
@@ -3063,8 +3116,10 @@
           }
         },
         "required": [
+          "dns_ptr",
           "ip"
         ],
+        "title": "FloatingIPActionsChangeDNSPtrRequest",
         "type": "object"
       },
       "enable_and_configure_backups_for_server_response": {
@@ -3215,7 +3270,7 @@
         "type": "object"
       },
       "error_response": {
-        "description": "Response to GET https://api.hetzner.cloud/v1/actions | Response to GET https://api.hetzner.com/v1/storage_boxes/{id}/actions/{action_id} | Response to GET https://api.hetzner.cloud/v1/certificates | Response to POST https://api.hetzner.cloud/v1/certificates | Response to GET https://api.hetzner.com/v1/storage_boxes/{id}/actions | Response to GET https://api.hetzner.cloud/v1/certificates/{id} | Response to PUT https://api.hetzner.cloud/v1/certificates/{id} | Response to DELETE https://api.hetzner.cloud/v1/certificates/{id} | Response to POST https://api.hetzner.cloud/v1/certificates/{id}/actions/retry | Response to GET https://api.hetzner.cloud/v1/datacenters | Response to GET https://api.hetzner.cloud/v1/datacenters/{id} | Response to GET https://api.hetzner.cloud/v1/firewalls | Response to POST https://api.hetzner.cloud/v1/firewalls | Response to GET https://api.hetzner.cloud/v1/firewalls/{id} | Response to PUT https://api.hetzner.cloud/v1/firewalls/{id} | Response to DELETE https://api.hetzner.cloud/v1/firewalls/{id} | Response to POST https://api.hetzner.cloud/v1/firewalls/{id}/actions/apply_to_resources | Response to POST https://api.hetzner.cloud/v1/firewalls/{id}/actions/remove_from_resources | Response to POST https://api.hetzner.cloud/v1/firewalls/{id}/actions/set_rules | Response to GET https://api.hetzner.cloud/v1/floating_ips | Response to POST https://api.hetzner.cloud/v1/floating_ips | Response to GET https://api.hetzner.cloud/v1/floating_ips/{id} | Response to PUT https://api.hetzner.cloud/v1/floating_ips/{id} | Response to DELETE https://api.hetzner.cloud/v1/floating_ips/{id} | Response to POST https://api.hetzner.cloud/v1/floating_ips/{id}/actions/assign | Response to POST https://api.hetzner.cloud/v1/floating_ips/{id}/actions/change_dns_ptr | Response to POST https://api.hetzner.cloud/v1/floating_ips/{id}/actions/change_protection | Response to POST https://api.hetzner.cloud/v1/floating_ips/{id}/actions/unassign | Response to GET https://api.hetzner.cloud/v1/images | Response to GET https://api.hetzner.cloud/v1/images/{id} | Response to PUT https://api.hetzner.cloud/v1/images/{id} | Response to DELETE https://api.hetzner.cloud/v1/images/{id} | Response to POST https://api.hetzner.cloud/v1/images/{id}/actions/change_protection | Response to GET https://api.hetzner.cloud/v1/isos | Response to GET https://api.hetzner.cloud/v1/isos/{id} | Response to GET https://api.hetzner.cloud/v1/load_balancer_types | Response to GET https://api.hetzner.cloud/v1/load_balancer_types/{id} | Response to GET https://api.hetzner.cloud/v1/load_balancers | Response to POST https://api.hetzner.cloud/v1/load_balancers | Response to GET https://api.hetzner.cloud/v1/load_balancers/{id} | Response to PUT https://api.hetzner.cloud/v1/load_balancers/{id} | Response to DELETE https://api.hetzner.cloud/v1/load_balancers/{id} | Response to POST https://api.hetzner.cloud/v1/load_balancers/{id}/actions/add_service | Response to POST https://api.hetzner.cloud/v1/load_balancers/{id}/actions/add_target | Response to POST https://api.hetzner.cloud/v1/load_balancers/{id}/actions/attach_to_network | Response to POST https://api.hetzner.cloud/v1/load_balancers/{id}/actions/change_algorithm | Response to POST https://api.hetzner.cloud/v1/load_balancers/{id}/actions/change_dns_ptr | Response to POST https://api.hetzner.cloud/v1/load_balancers/{id}/actions/change_protection | Response to POST https://api.hetzner.cloud/v1/load_balancers/{id}/actions/change_type | Response to POST https://api.hetzner.cloud/v1/load_balancers/{id}/actions/delete_service | Response to POST https://api.hetzner.cloud/v1/load_balancers/{id}/actions/detach_from_network | Response to POST https://api.hetzner.cloud/v1/load_balancers/{id}/actions/disable_public_interface | Response to POST https://api.hetzner.cloud/v1/load_balancers/{id}/actions/enable_public_interface | Response to POST https://api.hetzner.cloud/v1/load_balancers/{id}/actions/remove_target | Response to POST https://api.hetzner.cloud/v1/load_balancers/{id}/actions/update_service | Response to GET https://api.hetzner.cloud/v1/load_balancers/{id}/metrics | Response to GET https://api.hetzner.cloud/v1/locations | Response to GET https://api.hetzner.cloud/v1/locations/{id} | Response to GET https://api.hetzner.cloud/v1/networks | Response to POST https://api.hetzner.cloud/v1/networks | Response to GET https://api.hetzner.cloud/v1/networks/{id} | Response to PUT https://api.hetzner.cloud/v1/networks/{id} | Response to DELETE https://api.hetzner.cloud/v1/networks/{id} | Response to POST https://api.hetzner.cloud/v1/networks/{id}/actions/add_route | Response to POST https://api.hetzner.cloud/v1/networks/{id}/actions/add_subnet | Response to POST https://api.hetzner.cloud/v1/networks/{id}/actions/change_ip_range | Response to POST https://api.hetzner.cloud/v1/networks/{id}/actions/change_protection | Response to POST https://api.hetzner.cloud/v1/networks/{id}/actions/delete_route | Response to POST https://api.hetzner.cloud/v1/networks/{id}/actions/delete_subnet | Response to GET https://api.hetzner.cloud/v1/placement_groups | Response to POST https://api.hetzner.cloud/v1/placement_groups | Response to GET https://api.hetzner.cloud/v1/placement_groups/{id} | Response to PUT https://api.hetzner.cloud/v1/placement_groups/{id} | Response to DELETE https://api.hetzner.cloud/v1/placement_groups/{id} | Response to GET https://api.hetzner.cloud/v1/pricing | Response to GET https://api.hetzner.cloud/v1/primary_ips | Response to POST https://api.hetzner.cloud/v1/primary_ips | Response to GET https://api.hetzner.cloud/v1/primary_ips/{id} | Response to PUT https://api.hetzner.cloud/v1/primary_ips/{id} | Response to DELETE https://api.hetzner.cloud/v1/primary_ips/{id} | Response to POST https://api.hetzner.cloud/v1/primary_ips/{id}/actions/assign | Response to POST https://api.hetzner.cloud/v1/primary_ips/{id}/actions/change_dns_ptr | Response to POST https://api.hetzner.cloud/v1/primary_ips/{id}/actions/change_protection | Response to POST https://api.hetzner.cloud/v1/primary_ips/{id}/actions/unassign | Response to GET https://api.hetzner.cloud/v1/server_types | Response to GET https://api.hetzner.cloud/v1/server_types/{id} | Response to GET https://api.hetzner.cloud/v1/servers | Response to POST https://api.hetzner.cloud/v1/servers | Response to GET https://api.hetzner.cloud/v1/servers/{id} | Response to PUT https://api.hetzner.cloud/v1/servers/{id} | Response to DELETE https://api.hetzner.cloud/v1/servers/{id} | Response to POST https://api.hetzner.cloud/v1/servers/{id}/actions/add_to_placement_group | Response to POST https://api.hetzner.cloud/v1/servers/{id}/actions/attach_iso | Response to POST https://api.hetzner.cloud/v1/servers/{id}/actions/attach_to_network | Response to POST https://api.hetzner.cloud/v1/servers/{id}/actions/change_alias_ips | Response to POST https://api.hetzner.cloud/v1/servers/{id}/actions/change_dns_ptr | Response to POST https://api.hetzner.cloud/v1/servers/{id}/actions/change_protection | Response to POST https://api.hetzner.cloud/v1/servers/{id}/actions/change_type | Response to POST https://api.hetzner.cloud/v1/servers/{id}/actions/create_image | Response to POST https://api.hetzner.cloud/v1/servers/{id}/actions/detach_from_network | Response to POST https://api.hetzner.cloud/v1/servers/{id}/actions/detach_iso | Response to POST https://api.hetzner.cloud/v1/servers/{id}/actions/disable_backup | Response to POST https://api.hetzner.cloud/v1/servers/{id}/actions/disable_rescue | Response to POST https://api.hetzner.cloud/v1/servers/{id}/actions/enable_backup | Response to POST https://api.hetzner.cloud/v1/servers/{id}/actions/enable_rescue | Response to POST https://api.hetzner.cloud/v1/servers/{id}/actions/poweroff | Response to POST https://api.hetzner.cloud/v1/servers/{id}/actions/poweron | Response to POST https://api.hetzner.cloud/v1/servers/{id}/actions/reboot | Response to POST https://api.hetzner.cloud/v1/servers/{id}/actions/rebuild | Response to POST https://api.hetzner.cloud/v1/servers/{id}/actions/remove_from_placement_group | Response to POST https://api.hetzner.cloud/v1/servers/{id}/actions/request_console | Response to POST https://api.hetzner.cloud/v1/servers/{id}/actions/reset | Response to POST https://api.hetzner.cloud/v1/servers/{id}/actions/reset_password | Response to POST https://api.hetzner.cloud/v1/servers/{id}/actions/shutdown | Response to GET https://api.hetzner.cloud/v1/servers/{id}/metrics | Response to GET https://api.hetzner.cloud/v1/ssh_keys | Response to POST https://api.hetzner.cloud/v1/ssh_keys | Response to GET https://api.hetzner.cloud/v1/ssh_keys/{id} | Response to PUT https://api.hetzner.cloud/v1/ssh_keys/{id} | Response to DELETE https://api.hetzner.cloud/v1/ssh_keys/{id} | Response to GET https://api.hetzner.cloud/v1/volumes | Response to POST https://api.hetzner.cloud/v1/volumes | Response to GET https://api.hetzner.cloud/v1/volumes/{id} | Response to PUT https://api.hetzner.cloud/v1/volumes/{id} | Response to DELETE https://api.hetzner.cloud/v1/volumes/{id} | Response to POST https://api.hetzner.cloud/v1/volumes/{id}/actions/attach | Response to POST https://api.hetzner.cloud/v1/volumes/{id}/actions/change_protection | Response to POST https://api.hetzner.cloud/v1/volumes/{id}/actions/detach | Response to POST https://api.hetzner.cloud/v1/volumes/{id}/actions/resize | Response to GET https://api.hetzner.cloud/v1/zones | Response to POST https://api.hetzner.cloud/v1/zones | Response to GET https://api.hetzner.cloud/v1/zones/{id_or_name} | Response to PUT https://api.hetzner.cloud/v1/zones/{id_or_name} | Response to DELETE https://api.hetzner.cloud/v1/zones/{id_or_name} | Response to GET https://api.hetzner.cloud/v1/zones/{id_or_name}/zonefile | Response to POST https://api.hetzner.cloud/v1/zones/{id_or_name}/actions/change_primary_nameservers | Response to POST https://api.hetzner.cloud/v1/zones/{id_or_name}/actions/change_protection | Response to POST https://api.hetzner.cloud/v1/zones/{id_or_name}/actions/change_ttl | Response to POST https://api.hetzner.cloud/v1/zones/{id_or_name}/actions/import_zonefile | Response to GET https://api.hetzner.cloud/v1/zones/{id_or_name}/rrsets | Response to POST https://api.hetzner.cloud/v1/zones/{id_or_name}/rrsets | Response to GET https://api.hetzner.cloud/v1/zones/{id_or_name}/rrsets/{rr_name}/{rr_type} | Response to PUT https://api.hetzner.cloud/v1/zones/{id_or_name}/rrsets/{rr_name}/{rr_type} | Response to DELETE https://api.hetzner.cloud/v1/zones/{id_or_name}/rrsets/{rr_name}/{rr_type} | Response to POST https://api.hetzner.cloud/v1/zones/{id_or_name}/rrsets/{rr_name}/{rr_type}/actions/change_protection | Response to POST https://api.hetzner.cloud/v1/zones/{id_or_name}/rrsets/{rr_name}/{rr_type}/actions/change_ttl | Response to POST https://api.hetzner.cloud/v1/zones/{id_or_name}/rrsets/{rr_name}/{rr_type}/actions/set_records | Response to POST https://api.hetzner.cloud/v1/zones/{id_or_name}/rrsets/{rr_name}/{rr_type}/actions/add_records | Response to POST https://api.hetzner.cloud/v1/zones/{id_or_name}/rrsets/{rr_name}/{rr_type}/actions/remove_records | Response to POST https://api.hetzner.cloud/v1/zones/{id_or_name}/rrsets/{rr_name}/{rr_type}/actions/update_records | Response to GET https://api.hetzner.com/v1/storage_boxes | Response to POST https://api.hetzner.com/v1/storage_boxes | Response to GET https://api.hetzner.com/v1/storage_boxes/{id} | Response to PUT https://api.hetzner.com/v1/storage_boxes/{id} | Response to DELETE https://api.hetzner.com/v1/storage_boxes/{id} | Response to GET https://api.hetzner.com/v1/storage_boxes/{id}/folders | Response to POST https://api.hetzner.com/v1/storage_boxes/{id}/actions/change_protection | Response to POST https://api.hetzner.com/v1/storage_boxes/{id}/actions/change_type | Response to POST https://api.hetzner.com/v1/storage_boxes/{id}/subaccounts/{subaccount_id}/actions/reset_subaccount_password | Response to POST https://api.hetzner.com/v1/storage_boxes/{id}/subaccounts/{subaccount_id}/actions/update_access_settings | Response to POST https://api.hetzner.com/v1/storage_boxes/{id}/actions/rollback_snapshot | Response to POST https://api.hetzner.com/v1/storage_boxes/{id}/actions/disable_snapshot_plan | Response to POST https://api.hetzner.com/v1/storage_boxes/{id}/actions/enable_snapshot_plan | Response to GET https://api.hetzner.com/v1/storage_boxes/{id}/subaccounts | Response to POST https://api.hetzner.com/v1/storage_boxes/{id}/subaccounts | Response to GET https://api.hetzner.com/v1/storage_boxes/{id}/subaccounts/{subaccount_id} | Response to PUT https://api.hetzner.com/v1/storage_boxes/{id}/subaccounts/{subaccount_id} | Response to DELETE https://api.hetzner.com/v1/storage_boxes/{id}/subaccounts/{subaccount_id} | Response to POST https://api.hetzner.com/v1/storage_boxes/{id}/subaccounts/{subaccount_id}/actions/change_home_directory | Response to GET https://api.hetzner.com/v1/storage_boxes/{id}/snapshots | Response to POST https://api.hetzner.com/v1/storage_boxes/{id}/snapshots | Response to GET https://api.hetzner.com/v1/storage_boxes/{id}/snapshots/{snapshot_id} | Response to PUT https://api.hetzner.com/v1/storage_boxes/{id}/snapshots/{snapshot_id} | Response to DELETE https://api.hetzner.com/v1/storage_boxes/{id}/snapshots/{snapshot_id} | Response to GET https://api.hetzner.com/v1/storage_box_types | Response to GET https://api.hetzner.com/v1/storage_box_types/{id}",
+        "description": "Response to GET https://api.hetzner.cloud/v1/actions | Response to GET https://api.hetzner.com/v1/storage_boxes/{id}/actions/{action_id} | Response to GET https://api.hetzner.cloud/v1/certificates | Response to POST https://api.hetzner.cloud/v1/certificates | Response to GET https://api.hetzner.com/v1/storage_boxes/{id}/actions | Response to GET https://api.hetzner.cloud/v1/certificates/{id} | Response to PUT https://api.hetzner.cloud/v1/certificates/{id} | Response to DELETE https://api.hetzner.cloud/v1/certificates/{id} | Response to POST https://api.hetzner.cloud/v1/certificates/{id}/actions/retry | Response to GET https://api.hetzner.cloud/v1/datacenters | Response to GET https://api.hetzner.cloud/v1/datacenters/{id} | Response to GET https://api.hetzner.cloud/v1/firewalls | Response to POST https://api.hetzner.cloud/v1/firewalls | Response to GET https://api.hetzner.cloud/v1/firewalls/{id} | Response to PUT https://api.hetzner.cloud/v1/firewalls/{id} | Response to DELETE https://api.hetzner.cloud/v1/firewalls/{id} | Response to POST https://api.hetzner.cloud/v1/firewalls/{id}/actions/apply_to_resources | Response to POST https://api.hetzner.cloud/v1/firewalls/{id}/actions/remove_from_resources | Response to POST https://api.hetzner.cloud/v1/firewalls/{id}/actions/set_rules | Response to GET https://api.hetzner.cloud/v1/floating_ips | Response to POST https://api.hetzner.cloud/v1/floating_ips | Response to GET https://api.hetzner.cloud/v1/floating_ips/{id} | Response to PUT https://api.hetzner.cloud/v1/floating_ips/{id} | Response to DELETE https://api.hetzner.cloud/v1/floating_ips/{id} | Response to POST https://api.hetzner.cloud/v1/floating_ips/{id}/actions/assign | Response to POST https://api.hetzner.cloud/v1/floating_ips/{id}/actions/change_dns_ptr | Response to POST https://api.hetzner.cloud/v1/floating_ips/{id}/actions/change_protection | Response to POST https://api.hetzner.cloud/v1/floating_ips/{id}/actions/unassign | Response to GET https://api.hetzner.cloud/v1/images | Response to GET https://api.hetzner.cloud/v1/images/{id} | Response to PUT https://api.hetzner.cloud/v1/images/{id} | Response to DELETE https://api.hetzner.cloud/v1/images/{id} | Response to POST https://api.hetzner.cloud/v1/images/{id}/actions/change_protection | Response to GET https://api.hetzner.cloud/v1/isos | Response to GET https://api.hetzner.cloud/v1/isos/{id} | Response to GET https://api.hetzner.cloud/v1/load_balancer_types | Response to GET https://api.hetzner.cloud/v1/load_balancer_types/{id} | Response to GET https://api.hetzner.cloud/v1/load_balancers | Response to POST https://api.hetzner.cloud/v1/load_balancers | Response to GET https://api.hetzner.cloud/v1/load_balancers/{id} | Response to PUT https://api.hetzner.cloud/v1/load_balancers/{id} | Response to DELETE https://api.hetzner.cloud/v1/load_balancers/{id} | Response to POST https://api.hetzner.cloud/v1/load_balancers/{id}/actions/add_service | Response to POST https://api.hetzner.cloud/v1/load_balancers/{id}/actions/add_target | Response to POST https://api.hetzner.cloud/v1/load_balancers/{id}/actions/attach_to_network | Response to POST https://api.hetzner.cloud/v1/load_balancers/{id}/actions/change_algorithm | Response to POST https://api.hetzner.cloud/v1/load_balancers/{id}/actions/change_dns_ptr | Response to POST https://api.hetzner.cloud/v1/load_balancers/{id}/actions/change_protection | Response to POST https://api.hetzner.cloud/v1/load_balancers/{id}/actions/change_type | Response to POST https://api.hetzner.cloud/v1/load_balancers/{id}/actions/delete_service | Response to POST https://api.hetzner.cloud/v1/load_balancers/{id}/actions/detach_from_network | Response to POST https://api.hetzner.cloud/v1/load_balancers/{id}/actions/disable_public_interface | Response to POST https://api.hetzner.cloud/v1/load_balancers/{id}/actions/enable_public_interface | Response to POST https://api.hetzner.cloud/v1/load_balancers/{id}/actions/remove_target | Response to POST https://api.hetzner.cloud/v1/load_balancers/{id}/actions/update_service | Response to GET https://api.hetzner.cloud/v1/load_balancers/{id}/metrics | Response to GET https://api.hetzner.cloud/v1/locations | Response to GET https://api.hetzner.cloud/v1/locations/{id} | Response to GET https://api.hetzner.cloud/v1/networks | Response to POST https://api.hetzner.cloud/v1/networks | Response to GET https://api.hetzner.cloud/v1/networks/{id} | Response to PUT https://api.hetzner.cloud/v1/networks/{id} | Response to DELETE https://api.hetzner.cloud/v1/networks/{id} | Response to POST https://api.hetzner.cloud/v1/networks/{id}/actions/add_route | Response to POST https://api.hetzner.cloud/v1/networks/{id}/actions/add_subnet | Response to POST https://api.hetzner.cloud/v1/networks/{id}/actions/change_ip_range | Response to POST https://api.hetzner.cloud/v1/networks/{id}/actions/change_protection | Response to POST https://api.hetzner.cloud/v1/networks/{id}/actions/delete_route | Response to POST https://api.hetzner.cloud/v1/networks/{id}/actions/delete_subnet | Response to GET https://api.hetzner.cloud/v1/networks/{id}/members | Response to GET https://api.hetzner.cloud/v1/placement_groups | Response to POST https://api.hetzner.cloud/v1/placement_groups | Response to GET https://api.hetzner.cloud/v1/placement_groups/{id} | Response to PUT https://api.hetzner.cloud/v1/placement_groups/{id} | Response to DELETE https://api.hetzner.cloud/v1/placement_groups/{id} | Response to GET https://api.hetzner.cloud/v1/pricing | Response to GET https://api.hetzner.cloud/v1/primary_ips | Response to POST https://api.hetzner.cloud/v1/primary_ips | Response to GET https://api.hetzner.cloud/v1/primary_ips/{id} | Response to PUT https://api.hetzner.cloud/v1/primary_ips/{id} | Response to DELETE https://api.hetzner.cloud/v1/primary_ips/{id} | Response to POST https://api.hetzner.cloud/v1/primary_ips/{id}/actions/assign | Response to POST https://api.hetzner.cloud/v1/primary_ips/{id}/actions/change_dns_ptr | Response to POST https://api.hetzner.cloud/v1/primary_ips/{id}/actions/change_protection | Response to POST https://api.hetzner.cloud/v1/primary_ips/{id}/actions/unassign | Response to GET https://api.hetzner.cloud/v1/server_types | Response to GET https://api.hetzner.cloud/v1/server_types/{id} | Response to GET https://api.hetzner.cloud/v1/servers | Response to POST https://api.hetzner.cloud/v1/servers | Response to GET https://api.hetzner.cloud/v1/servers/{id} | Response to PUT https://api.hetzner.cloud/v1/servers/{id} | Response to DELETE https://api.hetzner.cloud/v1/servers/{id} | Response to POST https://api.hetzner.cloud/v1/servers/{id}/actions/add_to_placement_group | Response to POST https://api.hetzner.cloud/v1/servers/{id}/actions/attach_iso | Response to POST https://api.hetzner.cloud/v1/servers/{id}/actions/attach_to_network | Response to POST https://api.hetzner.cloud/v1/servers/{id}/actions/change_alias_ips | Response to POST https://api.hetzner.cloud/v1/servers/{id}/actions/change_dns_ptr | Response to POST https://api.hetzner.cloud/v1/servers/{id}/actions/change_protection | Response to POST https://api.hetzner.cloud/v1/servers/{id}/actions/change_type | Response to POST https://api.hetzner.cloud/v1/servers/{id}/actions/create_image | Response to POST https://api.hetzner.cloud/v1/servers/{id}/actions/detach_from_network | Response to POST https://api.hetzner.cloud/v1/servers/{id}/actions/detach_iso | Response to POST https://api.hetzner.cloud/v1/servers/{id}/actions/disable_backup | Response to POST https://api.hetzner.cloud/v1/servers/{id}/actions/disable_rescue | Response to POST https://api.hetzner.cloud/v1/servers/{id}/actions/enable_backup | Response to POST https://api.hetzner.cloud/v1/servers/{id}/actions/enable_rescue | Response to POST https://api.hetzner.cloud/v1/servers/{id}/actions/poweroff | Response to POST https://api.hetzner.cloud/v1/servers/{id}/actions/poweron | Response to POST https://api.hetzner.cloud/v1/servers/{id}/actions/reboot | Response to POST https://api.hetzner.cloud/v1/servers/{id}/actions/rebuild | Response to POST https://api.hetzner.cloud/v1/servers/{id}/actions/remove_from_placement_group | Response to POST https://api.hetzner.cloud/v1/servers/{id}/actions/request_console | Response to POST https://api.hetzner.cloud/v1/servers/{id}/actions/reset | Response to POST https://api.hetzner.cloud/v1/servers/{id}/actions/reset_password | Response to POST https://api.hetzner.cloud/v1/servers/{id}/actions/shutdown | Response to GET https://api.hetzner.cloud/v1/servers/{id}/metrics | Response to GET https://api.hetzner.cloud/v1/ssh_keys | Response to POST https://api.hetzner.cloud/v1/ssh_keys | Response to GET https://api.hetzner.cloud/v1/ssh_keys/{id} | Response to PUT https://api.hetzner.cloud/v1/ssh_keys/{id} | Response to DELETE https://api.hetzner.cloud/v1/ssh_keys/{id} | Response to GET https://api.hetzner.cloud/v1/volumes | Response to POST https://api.hetzner.cloud/v1/volumes | Response to GET https://api.hetzner.cloud/v1/volumes/{id} | Response to PUT https://api.hetzner.cloud/v1/volumes/{id} | Response to DELETE https://api.hetzner.cloud/v1/volumes/{id} | Response to POST https://api.hetzner.cloud/v1/volumes/{id}/actions/attach | Response to POST https://api.hetzner.cloud/v1/volumes/{id}/actions/change_protection | Response to POST https://api.hetzner.cloud/v1/volumes/{id}/actions/detach | Response to POST https://api.hetzner.cloud/v1/volumes/{id}/actions/resize | Response to GET https://api.hetzner.cloud/v1/zones | Response to POST https://api.hetzner.cloud/v1/zones | Response to GET https://api.hetzner.cloud/v1/zones/{id_or_name} | Response to PUT https://api.hetzner.cloud/v1/zones/{id_or_name} | Response to DELETE https://api.hetzner.cloud/v1/zones/{id_or_name} | Response to GET https://api.hetzner.cloud/v1/zones/{id_or_name}/zonefile | Response to POST https://api.hetzner.cloud/v1/zones/{id_or_name}/actions/change_primary_nameservers | Response to POST https://api.hetzner.cloud/v1/zones/{id_or_name}/actions/change_protection | Response to POST https://api.hetzner.cloud/v1/zones/{id_or_name}/actions/change_ttl | Response to POST https://api.hetzner.cloud/v1/zones/{id_or_name}/actions/import_zonefile | Response to GET https://api.hetzner.cloud/v1/zones/{id_or_name}/rrsets | Response to POST https://api.hetzner.cloud/v1/zones/{id_or_name}/rrsets | Response to GET https://api.hetzner.cloud/v1/zones/{id_or_name}/rrsets/{rr_name}/{rr_type} | Response to PUT https://api.hetzner.cloud/v1/zones/{id_or_name}/rrsets/{rr_name}/{rr_type} | Response to DELETE https://api.hetzner.cloud/v1/zones/{id_or_name}/rrsets/{rr_name}/{rr_type} | Response to POST https://api.hetzner.cloud/v1/zones/{id_or_name}/rrsets/{rr_name}/{rr_type}/actions/change_protection | Response to POST https://api.hetzner.cloud/v1/zones/{id_or_name}/rrsets/{rr_name}/{rr_type}/actions/change_ttl | Response to POST https://api.hetzner.cloud/v1/zones/{id_or_name}/rrsets/{rr_name}/{rr_type}/actions/set_records | Response to POST https://api.hetzner.cloud/v1/zones/{id_or_name}/rrsets/{rr_name}/{rr_type}/actions/add_records | Response to POST https://api.hetzner.cloud/v1/zones/{id_or_name}/rrsets/{rr_name}/{rr_type}/actions/remove_records | Response to POST https://api.hetzner.cloud/v1/zones/{id_or_name}/rrsets/{rr_name}/{rr_type}/actions/update_records | Response to GET https://api.hetzner.com/v1/storage_boxes | Response to POST https://api.hetzner.com/v1/storage_boxes | Response to GET https://api.hetzner.com/v1/storage_boxes/{id} | Response to PUT https://api.hetzner.com/v1/storage_boxes/{id} | Response to DELETE https://api.hetzner.com/v1/storage_boxes/{id} | Response to GET https://api.hetzner.com/v1/storage_boxes/{id}/folders | Response to POST https://api.hetzner.com/v1/storage_boxes/{id}/actions/change_protection | Response to POST https://api.hetzner.com/v1/storage_boxes/{id}/actions/change_type | Response to POST https://api.hetzner.com/v1/storage_boxes/{id}/subaccounts/{subaccount_id}/actions/reset_subaccount_password | Response to POST https://api.hetzner.com/v1/storage_boxes/{id}/subaccounts/{subaccount_id}/actions/update_access_settings | Response to POST https://api.hetzner.com/v1/storage_boxes/{id}/actions/rollback_snapshot | Response to POST https://api.hetzner.com/v1/storage_boxes/{id}/actions/disable_snapshot_plan | Response to POST https://api.hetzner.com/v1/storage_boxes/{id}/actions/enable_snapshot_plan | Response to GET https://api.hetzner.com/v1/storage_boxes/{id}/subaccounts | Response to POST https://api.hetzner.com/v1/storage_boxes/{id}/subaccounts | Response to GET https://api.hetzner.com/v1/storage_boxes/{id}/subaccounts/{subaccount_id} | Response to PUT https://api.hetzner.com/v1/storage_boxes/{id}/subaccounts/{subaccount_id} | Response to DELETE https://api.hetzner.com/v1/storage_boxes/{id}/subaccounts/{subaccount_id} | Response to POST https://api.hetzner.com/v1/storage_boxes/{id}/subaccounts/{subaccount_id}/actions/change_home_directory | Response to GET https://api.hetzner.com/v1/storage_boxes/{id}/snapshots | Response to POST https://api.hetzner.com/v1/storage_boxes/{id}/snapshots | Response to GET https://api.hetzner.com/v1/storage_boxes/{id}/snapshots/{snapshot_id} | Response to PUT https://api.hetzner.com/v1/storage_boxes/{id}/snapshots/{snapshot_id} | Response to DELETE https://api.hetzner.com/v1/storage_boxes/{id}/snapshots/{snapshot_id} | Response to GET https://api.hetzner.com/v1/storage_box_types | Response to GET https://api.hetzner.com/v1/storage_box_types/{id}",
         "example": {
           "error": {
             "code": "unauthorized",
@@ -3502,6 +3557,8 @@
           "name": {
             "description": "Name of the Resource. Must be unique per Project.",
             "example": "my-resource",
+            "maxLength": 255,
+            "minLength": 1,
             "type": "string"
           },
           "protection": {
@@ -3788,9 +3845,10 @@
                 "type": "integer"
               },
               "assignee_type": {
-                "description": "Type of resource the Primary IP is assigned to.\n\nAs of 01 August 2026 `unassigned` will be returned if the Primary IP is not assigned.\n",
+                "description": "Type of resource the Primary IP is assigned to.\n\nAs of 23 September 2026 `unassigned` is returned if the Primary IP is not assigned.\n",
                 "enum": [
-                  "server"
+                  "server",
+                  "unassigned"
                 ],
                 "example": "server",
                 "type": "string"
@@ -3841,6 +3899,8 @@
               "name": {
                 "description": "Name of the Resource. Must be unique per Project.",
                 "example": "my-resource",
+                "maxLength": 255,
+                "minLength": 1,
                 "type": "string"
               },
               "protection": {
@@ -4079,12 +4139,14 @@
             "nullable": true,
             "type": "string"
           },
-          "deprecated": {
-            "description": "Point in time when the Image is considered to be deprecated (in [RFC3339](https://datatracker.ietf.org/doc/html/rfc3339#section-5.6) format).",
-            "example": "2018-02-28T00:00:00Z",
-            "format": "date-time",
-            "nullable": true,
-            "type": "string"
+          "deprecation": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/deprecation_info"
+              }
+            ],
+            "description": "Describes if, when and how the resource is deprecated. If this field is\nset to `null` the resource is not deprecated. If a value is set, it is\nconsidered deprecated.\n",
+            "nullable": true
           },
           "description": {
             "description": "Description of the Image.",
@@ -4176,7 +4238,7 @@
           "created",
           "created_from",
           "deleted",
-          "deprecated",
+          "deprecation",
           "description",
           "disk_size",
           "id",
@@ -4232,7 +4294,7 @@
         "description": "IP address (v4) and its reverse DNS entry of this Server.",
         "properties": {
           "blocked": {
-            "description": "If the IP is blocked by our anti abuse dept.",
+            "description": "Whether the IP is blocked by our abuse department.",
             "example": false,
             "type": "boolean"
           },
@@ -4266,7 +4328,7 @@
         "description": "IPv6 network assigned to this Server and its reverse DNS entry.",
         "properties": {
           "blocked": {
-            "description": "If the IP is blocked by our anti abuse dept.",
+            "description": "Whether the IP is blocked by our abuse department.",
             "example": false,
             "type": "boolean"
           },
@@ -4609,6 +4671,97 @@
         ],
         "type": "object"
       },
+      "list_members_of_network_response": {
+        "additionalProperties": false,
+        "description": "Response to GET https://api.hetzner.cloud/v1/networks/{id}/members",
+        "properties": {
+          "members": {
+            "items": {
+              "additionalProperties": false,
+              "properties": {
+                "alias_ips": {
+                  "description": "Additional IP addresses of the resource within the Network.",
+                  "example": [
+                    "10.0.1.20"
+                  ],
+                  "items": {
+                    "format": "ipv4",
+                    "type": "string"
+                  },
+                  "type": "array"
+                },
+                "id": {
+                  "description": "ID of the attached resource.",
+                  "example": 42,
+                  "format": "int64",
+                  "maximum": 9007199254740991,
+                  "minimum": 1,
+                  "type": "integer"
+                },
+                "ip": {
+                  "description": "IP address of the resource within the Network.",
+                  "example": "10.0.1.2",
+                  "format": "ipv4",
+                  "type": "string"
+                },
+                "status": {
+                  "description": "Status of the resource within the Network.\n",
+                  "enum": [
+                    "attaching",
+                    "detaching",
+                    "error",
+                    "ok",
+                    "updating"
+                  ],
+                  "type": "string",
+                  "x-enumDescriptions": {
+                    "attaching": "The resource is being attached to the [Network](#tag/networks).",
+                    "detaching": "The resource is being detached from the [Network](#tag/networks).",
+                    "error": "The last operation on this member failed. Its network configuration might be out of date, and the resource might not be reachable within the [Network](#tag/networks) as expected.",
+                    "ok": "The resource is attached and its network configuration is up to date.",
+                    "updating": "The resource network configuration is being updated."
+                  }
+                },
+                "subnet": {
+                  "description": "IP range of the subnet the resource is attached to.\n\nUses CIDR notation.\n",
+                  "example": "10.0.1.0/24",
+                  "type": "string"
+                },
+                "type": {
+                  "description": "Type of the resource attached to the Network.\n",
+                  "enum": [
+                    "load_balancer",
+                    "server"
+                  ],
+                  "type": "string",
+                  "x-enumDescriptions": {
+                    "load_balancer": "The member is a [Load Balancer](#tag/load-balancers).",
+                    "server": "The member is a [Server](#tag/servers)."
+                  }
+                }
+              },
+              "required": [
+                "alias_ips",
+                "id",
+                "ip",
+                "status",
+                "subnet",
+                "type"
+              ],
+              "type": "object"
+            },
+            "type": "array"
+          },
+          "meta": {
+            "$ref": "#/components/schemas/meta"
+          }
+        },
+        "required": [
+          "members",
+          "meta"
+        ],
+        "type": "object"
+      },
       "list_networks_response": {
         "additionalProperties": false,
         "description": "Response to GET https://api.hetzner.cloud/v1/networks",
@@ -4925,9 +5078,10 @@
                   "type": "integer"
                 },
                 "assignee_type": {
-                  "description": "Type of resource the Primary IP is assigned to.\n\nAs of 01 August 2026 `unassigned` will be returned if the Primary IP is not assigned.\n",
+                  "description": "Type of resource the Primary IP is assigned to.\n\nAs of 23 September 2026 `unassigned` is returned if the Primary IP is not assigned.\n",
                   "enum": [
-                    "server"
+                    "server",
+                    "unassigned"
                   ],
                   "example": "server",
                   "type": "string"
@@ -4978,6 +5132,8 @@
                 "name": {
                   "description": "Name of the Resource. Must be unique per Project.",
                   "example": "my-resource",
+                  "maxLength": 255,
+                  "minLength": 1,
                   "type": "string"
                 },
                 "protection": {
@@ -5020,7 +5176,72 @@
         "description": "Response to GET https://api.hetzner.cloud/v1/zones/{id_or_name}/rrsets",
         "properties": {
           "meta": {
-            "$ref": "#/components/schemas/meta"
+            "properties": {
+              "pagination": {
+                "description": "See \"Pagination\" for more information.",
+                "properties": {
+                  "last_page": {
+                    "description": "Page number of the last page available. Can be null if the current page is the last one.",
+                    "example": 4,
+                    "format": "int64",
+                    "nullable": true,
+                    "type": "integer"
+                  },
+                  "next_page": {
+                    "description": "Page number of the next page. Can be null if the current page is the last one.",
+                    "example": 4,
+                    "format": "int64",
+                    "nullable": true,
+                    "type": "integer"
+                  },
+                  "page": {
+                    "default": 1,
+                    "description": "Current page number.",
+                    "example": 3,
+                    "format": "int64",
+                    "minimum": 1,
+                    "type": "integer"
+                  },
+                  "per_page": {
+                    "default": 25,
+                    "description": "Maximum number of entries returned per page.",
+                    "example": 25,
+                    "format": "int64",
+                    "maximum": 100,
+                    "minimum": 1,
+                    "type": "integer"
+                  },
+                  "previous_page": {
+                    "description": "Page number of the previous page. Can be null if the current page is the first one.",
+                    "example": 2,
+                    "format": "int64",
+                    "nullable": true,
+                    "type": "integer"
+                  },
+                  "total_entries": {
+                    "description": "Total number of entries that exist for this query. Can be null if unknown.",
+                    "example": 100,
+                    "format": "int64",
+                    "nullable": true,
+                    "type": "integer"
+                  }
+                },
+                "required": [
+                  "last_page",
+                  "next_page",
+                  "page",
+                  "per_page",
+                  "previous_page",
+                  "total_entries"
+                ],
+                "type": "object"
+              }
+            },
+            "required": [
+              "pagination"
+            ],
+            "title": "ListMeta100",
+            "type": "object"
           },
           "rrsets": {
             "items": {
@@ -5415,11 +5636,25 @@
           "ipv4": {
             "description": "IP address (v4).",
             "properties": {
+              "blocked": {
+                "description": "Whether the IP is blocked by our abuse department.",
+                "example": false,
+                "type": "boolean"
+              },
               "dns_ptr": {
                 "description": "Reverse DNS PTR entry for the IPv4 address of this Load Balancer.",
                 "example": "lb1.example.com",
                 "nullable": true,
                 "type": "string"
+              },
+              "id": {
+                "description": "ID of the Primary IP assigned to this Load Balancer.\n\n`null` if the IP address is still managed by the system and is not a Primary IP yet.\n",
+                "example": 42,
+                "format": "int64",
+                "maximum": 9007199254740991,
+                "minimum": 1,
+                "nullable": true,
+                "type": "integer"
               },
               "ip": {
                 "description": "IP address (v4) of this Load Balancer.",
@@ -5429,7 +5664,9 @@
               }
             },
             "required": [
+              "blocked",
               "dns_ptr",
+              "id",
               "ip"
             ],
             "type": "object"
@@ -5437,11 +5674,25 @@
           "ipv6": {
             "description": "IP address (v6).",
             "properties": {
+              "blocked": {
+                "description": "Whether the IP is blocked by our abuse department.",
+                "example": false,
+                "type": "boolean"
+              },
               "dns_ptr": {
                 "description": "Reverse DNS PTR entry for the IPv6 address of this Load Balancer.",
                 "example": "lb1.example.com",
                 "nullable": true,
                 "type": "string"
+              },
+              "id": {
+                "description": "ID of the Primary IP assigned to this Load Balancer.\n\n`null` if the IP address is still managed by the system and is not a Primary IP yet.\n",
+                "example": 42,
+                "format": "int64",
+                "maximum": 9007199254740991,
+                "minimum": 1,
+                "nullable": true,
+                "type": "integer"
               },
               "ip": {
                 "description": "IP address (v6) of this Load Balancer.",
@@ -5451,7 +5702,9 @@
               }
             },
             "required": [
+              "blocked",
               "dns_ptr",
+              "id",
               "ip"
             ],
             "type": "object"
@@ -6070,6 +6323,24 @@
       "load_balancer_target_health_status": {
         "description": "Health status of the services on this target. Only present for target types \"server\" and \"ip\".",
         "properties": {
+          "detail": {
+            "description": "Additional details about why the health check failed. Only present when `status` is `unhealthy`.",
+            "enum": [
+              "layer4_no_connection",
+              "layer4_timeout",
+              "layer7_timeout",
+              "unexpected_http_content",
+              "unexpected_http_status",
+              "unspecified"
+            ],
+            "example": "unexpected_http_status",
+            "type": "string"
+          },
+          "http_status_code": {
+            "description": "HTTP status code returned by the target during the last health check. Only present when `status` is `unhealthy` and `detail` is `unexpected_http_status`.",
+            "example": 503,
+            "type": "integer"
+          },
           "listen_port": {
             "example": 443,
             "type": "integer"
@@ -6130,14 +6401,6 @@
       },
       "load_balancer_type": {
         "properties": {
-          "deprecated": {
-            "deprecated": true,
-            "description": "**Deprecated:** This field is deprecated. Use the `deprecation` object instead.\n\nPoint in time when the Load Balancer type is deprecated (in [RFC3339](https://datatracker.ietf.org/doc/html/rfc3339#section-5.6) format).\n",
-            "example": "2016-01-30T23:50:00Z",
-            "format": "date-time",
-            "nullable": true,
-            "type": "string"
-          },
           "deprecation": {
             "allOf": [
               {
@@ -6197,7 +6460,6 @@
           }
         },
         "required": [
-          "deprecated",
           "deprecation",
           "description",
           "id",
@@ -6211,7 +6473,7 @@
         "type": "object"
       },
       "location": {
-        "description": "Location the Data Center is located at.\n | Location of the Primary IP.\n | Location this Resource is located at.\n | Location of the Volume. Volume can only be attached to Servers in the same Location. | Location of the Storage Box.",
+        "description": "Location the Data Center is located at.\n | Location the for the Floating IP is located at.\n\nRouting is optimized for this Location.\n | Location of the Primary IP.\n | Location this Resource is located at.\n | Location of the Volume. Volume can only be attached to Servers in the same Location. | Location of the Storage Box.",
         "properties": {
           "city": {
             "description": "Name of the closest city to the Location.\n\nCity name or city name and state in short form. E.g. `Falkenstein` or `Ashburn, VA`.\n",
@@ -6523,15 +6785,20 @@
             "type": "integer"
           },
           "page": {
+            "default": 1,
             "description": "Current page number.",
             "example": 3,
             "format": "int64",
+            "minimum": 1,
             "type": "integer"
           },
           "per_page": {
+            "default": 25,
             "description": "Maximum number of entries returned per page.",
             "example": 25,
             "format": "int64",
+            "maximum": 50,
+            "minimum": 1,
             "type": "integer"
           },
           "previous_page": {
@@ -6829,7 +7096,7 @@
         "required": [
           "type"
         ],
-        "title": "LoadBalancerTarget",
+        "title": "RemoveTargetRequest",
         "type": "object"
       },
       "remove_target_response": {
@@ -6921,6 +7188,8 @@
           "name": {
             "description": "Name of the Resource. Must be unique per Project.",
             "example": "my-resource",
+            "maxLength": 255,
+            "minLength": 1,
             "type": "string"
           }
         },
@@ -7127,6 +7396,8 @@
           "name": {
             "description": "Name of the Resource. Must be unique per Project.",
             "example": "my-resource",
+            "maxLength": 255,
+            "minLength": 1,
             "type": "string"
           }
         },
@@ -7148,9 +7419,10 @@
                 "type": "integer"
               },
               "assignee_type": {
-                "description": "Type of resource the Primary IP is assigned to.\n\nAs of 01 August 2026 `unassigned` will be returned if the Primary IP is not assigned.\n",
+                "description": "Type of resource the Primary IP is assigned to.\n\nAs of 23 September 2026 `unassigned` is returned if the Primary IP is not assigned.\n",
                 "enum": [
-                  "server"
+                  "server",
+                  "unassigned"
                 ],
                 "example": "server",
                 "type": "string"
@@ -7201,6 +7473,8 @@
               "name": {
                 "description": "Name of the Resource. Must be unique per Project.",
                 "example": "my-resource",
+                "maxLength": 255,
+                "minLength": 1,
                 "type": "string"
               },
               "protection": {
@@ -7551,6 +7825,7 @@
         "type": "object"
       },
       "resource": {
+        "description": "Resource the Volume is attached to, null if it is not attached at all. | Resource to which to attach the Volume once it's created (Volume will be created in the same Location as the resource). | Resource the Volume will be attached to.",
         "properties": {
           "id": {
             "description": "ID of the Resource. | ID of resource referenced.",
@@ -8248,12 +8523,6 @@
             "example": "shared",
             "type": "string"
           },
-          "deprecated": {
-            "description": "This field is deprecated. Use the deprecation object instead.",
-            "example": false,
-            "nullable": true,
-            "type": "boolean"
-          },
           "deprecation": {
             "allOf": [
               {
@@ -8318,7 +8587,6 @@
           "architecture",
           "cores",
           "cpu_type",
-          "deprecated",
           "description",
           "disk",
           "id",
@@ -9302,6 +9570,15 @@
       "volume": {
         "description": "A Volume is a highly-available, scalable, and SSD-based block storage for Servers. Pricing for Volumes depends on the Volume size and Location, not the actual used storage. Please see [Hetzner Wiki](https://wiki.hetzner.de/index.php/CloudServer/en#Volumes) for more details about Volumes.",
         "properties": {
+          "assignee": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/resource"
+              }
+            ],
+            "description": "Resource the Volume is attached to, null if it is not attached at all.",
+            "nullable": true
+          },
           "created": {
             "description": "Point in time when the Resource was created (in [RFC3339](https://datatracker.ietf.org/doc/html/rfc3339#section-5.6) format).",
             "example": "2016-01-30T23:55:00Z",
@@ -9342,7 +9619,8 @@
             "$ref": "#/components/schemas/protection"
           },
           "server": {
-            "description": "ID of the Server the Volume is attached to, null if it is not attached at all.",
+            "deprecated": true,
+            "description": "This field is deprecated, use the `assignee` field instead.\n\nID of the Server the Volume is attached to, null if it is not attached at all.\n",
             "example": 12,
             "format": "int64",
             "nullable": true,
@@ -9364,6 +9642,7 @@
           }
         },
         "required": [
+          "assignee",
           "created",
           "format",
           "id",
@@ -9920,6 +10199,7 @@
               "default": 1,
               "example": 1,
               "format": "int64",
+              "minimum": 1,
               "type": "integer"
             }
           },
@@ -9932,6 +10212,8 @@
               "default": 25,
               "example": 25,
               "format": "int64",
+              "maximum": 50,
+              "minimum": 1,
               "type": "integer"
             }
           }
@@ -10596,6 +10878,7 @@
               "default": 1,
               "example": 1,
               "format": "int64",
+              "minimum": 1,
               "type": "integer"
             }
           },
@@ -10608,6 +10891,8 @@
               "default": 25,
               "example": 25,
               "format": "int64",
+              "maximum": 50,
+              "minimum": 1,
               "type": "integer"
             }
           }
@@ -10975,6 +11260,7 @@
               "default": 1,
               "example": 1,
               "format": "int64",
+              "minimum": 1,
               "type": "integer"
             }
           },
@@ -10987,6 +11273,8 @@
               "default": 25,
               "example": 25,
               "format": "int64",
+              "maximum": 50,
+              "minimum": 1,
               "type": "integer"
             }
           }
@@ -11165,6 +11453,7 @@
               "default": 1,
               "example": 1,
               "format": "int64",
+              "minimum": 1,
               "type": "integer"
             }
           },
@@ -11177,6 +11466,8 @@
               "default": 25,
               "example": 25,
               "format": "int64",
+              "maximum": 50,
+              "minimum": 1,
               "type": "integer"
             }
           }
@@ -11377,6 +11668,7 @@
               "default": 1,
               "example": 1,
               "format": "int64",
+              "minimum": 1,
               "type": "integer"
             }
           },
@@ -11389,6 +11681,8 @@
               "default": 25,
               "example": 25,
               "format": "int64",
+              "maximum": 50,
+              "minimum": 1,
               "type": "integer"
             }
           }
@@ -11856,6 +12150,7 @@
               "default": 1,
               "example": 1,
               "format": "int64",
+              "minimum": 1,
               "type": "integer"
             }
           },
@@ -11868,6 +12163,8 @@
               "default": 25,
               "example": 25,
               "format": "int64",
+              "maximum": 50,
+              "minimum": 1,
               "type": "integer"
             }
           }
@@ -12556,6 +12853,7 @@
               "default": 1,
               "example": 1,
               "format": "int64",
+              "minimum": 1,
               "type": "integer"
             }
           },
@@ -12568,6 +12866,8 @@
               "default": 25,
               "example": 25,
               "format": "int64",
+              "maximum": 50,
+              "minimum": 1,
               "type": "integer"
             }
           }
@@ -12754,6 +13054,7 @@
               "default": 1,
               "example": 1,
               "format": "int64",
+              "minimum": 1,
               "type": "integer"
             }
           },
@@ -12766,6 +13067,8 @@
               "default": 25,
               "example": 25,
               "format": "int64",
+              "maximum": 50,
+              "minimum": 1,
               "type": "integer"
             }
           }
@@ -13296,6 +13599,7 @@
               "default": 1,
               "example": 1,
               "format": "int64",
+              "minimum": 1,
               "type": "integer"
             }
           },
@@ -13308,6 +13612,8 @@
               "default": 25,
               "example": 25,
               "format": "int64",
+              "maximum": 50,
+              "minimum": 1,
               "type": "integer"
             }
           }
@@ -14034,6 +14340,7 @@
               "default": 1,
               "example": 1,
               "format": "int64",
+              "minimum": 1,
               "type": "integer"
             }
           },
@@ -14046,6 +14353,8 @@
               "default": 25,
               "example": 25,
               "format": "int64",
+              "maximum": 50,
+              "minimum": 1,
               "type": "integer"
             }
           }
@@ -14310,6 +14619,7 @@
               "default": 1,
               "example": 1,
               "format": "int64",
+              "minimum": 1,
               "type": "integer"
             }
           },
@@ -14322,6 +14632,8 @@
               "default": 25,
               "example": 25,
               "format": "int64",
+              "maximum": 50,
+              "minimum": 1,
               "type": "integer"
             }
           }
@@ -14571,7 +14883,7 @@
                           "name": "Server"
                         },
                         "deleted": null,
-                        "deprecated": "2018-02-28T00:00:00Z",
+                        "deprecation": null,
                         "description": "My new Image description",
                         "disk_size": 10,
                         "id": 4711,
@@ -14723,6 +15035,7 @@
               "default": 1,
               "example": 1,
               "format": "int64",
+              "minimum": 1,
               "type": "integer"
             }
           },
@@ -14735,6 +15048,8 @@
               "default": 25,
               "example": 25,
               "format": "int64",
+              "maximum": 50,
+              "minimum": 1,
               "type": "integer"
             }
           }
@@ -15112,6 +15427,7 @@
               "default": 1,
               "example": 1,
               "format": "int64",
+              "minimum": 1,
               "type": "integer"
             }
           },
@@ -15124,6 +15440,8 @@
               "default": 25,
               "example": 25,
               "format": "int64",
+              "maximum": 50,
+              "minimum": 1,
               "type": "integer"
             }
           }
@@ -15305,6 +15623,7 @@
               "default": 1,
               "example": 1,
               "format": "int64",
+              "minimum": 1,
               "type": "integer"
             }
           },
@@ -15317,6 +15636,8 @@
               "default": 25,
               "example": 25,
               "format": "int64",
+              "maximum": 50,
+              "minimum": 1,
               "type": "integer"
             }
           }
@@ -15484,6 +15805,7 @@
               "default": 1,
               "example": 1,
               "format": "int64",
+              "minimum": 1,
               "type": "integer"
             }
           },
@@ -15496,6 +15818,8 @@
               "default": 25,
               "example": 25,
               "format": "int64",
+              "maximum": 50,
+              "minimum": 1,
               "type": "integer"
             }
           }
@@ -15695,6 +16019,7 @@
               "default": 1,
               "example": 1,
               "format": "int64",
+              "minimum": 1,
               "type": "integer"
             }
           },
@@ -15707,6 +16032,8 @@
               "default": 25,
               "example": 25,
               "format": "int64",
+              "maximum": 50,
+              "minimum": 1,
               "type": "integer"
             }
           }
@@ -15766,7 +16093,7 @@
         ]
       },
       "post": {
-        "description": "Creates a Load Balancer.\n\n#### Operation specific errors\n\n| Status | Code | Description |\n| --- | --- | --- |\n| `412` | `source_port_already_used` | The source port you are trying to add is already in use |\n| `422` | `ip_not_owned` | The IP is not owned by the owner of the project of the Load Balancer |\n| `422` | `load_balancer_not_attached_to_network` | The Load Balancer is not attached to a network |\n| `422` | `resolve_cloud_private_targets_error` | The server you are trying to add as a target is not attached to the same network as the Load Balancer |\n| `422` | `resolve_cloud_public_targets_error` | The server that you are trying to add as a public target does not have a public IPv4 address |\n| `422` | `target_already_defined` | The Load Balancer target you are trying to define is already defined |\n",
+        "description": "Creates a Load Balancer.\n\n#### Operation specific errors\n\n| Status | Code | Description |\n| --- | --- | --- |\n| `412` | `source_port_already_used` | The source port you are trying to add is already in use |\n| `412` | `primary_ip_version_mismatch` | The specified Primary IP has the wrong IP version |\n| `422` | `ip_not_owned` | The IP is not owned by the owner of the project of the Load Balancer |\n| `422` | `load_balancer_not_attached_to_network` | The Load Balancer is not attached to a network |\n| `422` | `resolve_cloud_private_targets_error` | The server you are trying to add as a target is not attached to the same network as the Load Balancer |\n| `422` | `resolve_cloud_public_targets_error` | The server that you are trying to add as a public target does not have a public IPv4 address |\n| `422` | `target_already_defined` | The Load Balancer target you are trying to define is already defined |\n| `422` | `primary_ip_assigned` | The specified Primary IP is already assigned to a resource |\n| `422` | `primary_ip_blocked` | The specified Primary IP is blocked |\n| `422` | `primary_ip_location_mismatch` | The specified Primary IP is bound to a different Location than the Load Balancer |\n",
         "operationId": "create_load_balancer",
         "requestBody": {
           "content": {
@@ -15815,7 +16142,6 @@
                           "key": "value"
                         },
                         "load_balancer_type": {
-                          "deprecated": "2016-01-30T23:50:00Z",
                           "deprecation": null,
                           "description": "LB11",
                           "id": 1,
@@ -15867,11 +16193,15 @@
                         "public_net": {
                           "enabled": false,
                           "ipv4": {
+                            "blocked": false,
                             "dns_ptr": "lb1.example.com",
+                            "id": 42,
                             "ip": "1.2.3.4"
                           },
                           "ipv6": {
+                            "blocked": false,
                             "dns_ptr": "lb1.example.com",
+                            "id": 43,
                             "ip": "2001:db8::1"
                           }
                         },
@@ -16022,7 +16352,14 @@
           }
         ],
         "responses": {
-          "204": {
+          "201": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/delete_load_balancer_response"
+                }
+              }
+            },
             "description": "Request succeeded."
           },
           "4xx": {
@@ -16189,7 +16526,6 @@
                           "key": "value"
                         },
                         "load_balancer_type": {
-                          "deprecated": "2016-01-30T23:50:00Z",
                           "deprecation": null,
                           "description": "LB11",
                           "id": 1,
@@ -16241,11 +16577,15 @@
                         "public_net": {
                           "enabled": false,
                           "ipv4": {
+                            "blocked": false,
                             "dns_ptr": "lb1.example.com",
+                            "id": 42,
                             "ip": "1.2.3.4"
                           },
                           "ipv6": {
+                            "blocked": false,
                             "dns_ptr": "lb1.example.com",
+                            "id": 43,
                             "ip": "2001:db8::1"
                           }
                         },
@@ -16456,6 +16796,7 @@
               "default": 1,
               "example": 1,
               "format": "int64",
+              "minimum": 1,
               "type": "integer"
             }
           },
@@ -16468,6 +16809,8 @@
               "default": 25,
               "example": 25,
               "format": "int64",
+              "maximum": 50,
+              "minimum": 1,
               "type": "integer"
             }
           }
@@ -18331,6 +18674,7 @@
               "default": 1,
               "example": 1,
               "format": "int64",
+              "minimum": 1,
               "type": "integer"
             }
           },
@@ -18343,6 +18687,8 @@
               "default": 25,
               "example": 25,
               "format": "int64",
+              "maximum": 50,
+              "minimum": 1,
               "type": "integer"
             }
           }
@@ -18520,6 +18866,7 @@
               "default": 1,
               "example": 1,
               "format": "int64",
+              "minimum": 1,
               "type": "integer"
             }
           },
@@ -18532,6 +18879,8 @@
               "default": 25,
               "example": 25,
               "format": "int64",
+              "maximum": 50,
+              "minimum": 1,
               "type": "integer"
             }
           }
@@ -18731,6 +19080,7 @@
               "default": 1,
               "example": 1,
               "format": "int64",
+              "minimum": 1,
               "type": "integer"
             }
           },
@@ -18743,6 +19093,8 @@
               "default": 25,
               "example": 25,
               "format": "int64",
+              "maximum": 50,
+              "minimum": 1,
               "type": "integer"
             }
           }
@@ -19217,6 +19569,7 @@
               "default": 1,
               "example": 1,
               "format": "int64",
+              "minimum": 1,
               "type": "integer"
             }
           },
@@ -19229,6 +19582,8 @@
               "default": 25,
               "example": 25,
               "format": "int64",
+              "maximum": 50,
+              "minimum": 1,
               "type": "integer"
             }
           }
@@ -19644,7 +19999,7 @@
     },
     "/networks/{id}/actions/change_ip_range": {
       "post": {
-        "description": "Changes the IP range of a Network.\n\nThe following restrictions apply to changing the IP range:\n- IP ranges can only be extended and never shrunk.\n- IPs can only be added to the end of the existing range, therefore only the netmask is allowed to be changed.\n\nTo update the routes on the connected Servers, they need to be rebooted or the routes to be updated manually.\n\nFor example if the Network has a range of `10.0.0.0/16` to extend it the new range has to start with the IP `10.0.0.0` as well. The netmask `/16` can be changed to a smaller one then `16` therefore increasing the IP range. A valid entry would be `10.0.0.0/15`, `10.0.0.0/14` or `10.0.0.0/13` and so on.\n\nIf a change is currently being performed on this Network, a error response with code `conflict` will be returned.\n",
+        "description": "Changes the IP range of a Network.\n\nThe following restrictions apply to changing the IP range:\n- IP ranges can only be extended and never shrunk.\n- IPs can only be added to the end of the existing range, therefore only the netmask is allowed to be changed.\n- The Network must not have any attached members.\n\nTo update the routes on the connected Servers, they need to be rebooted or the routes to be updated manually.\n\nFor example if the Network has a range of `10.0.0.0/16` to extend it the new range has to start with the IP `10.0.0.0` as well. The netmask `/16` can be changed to a smaller one then `16` therefore increasing the IP range. A valid entry would be `10.0.0.0/15`, `10.0.0.0/14` or `10.0.0.0/13` and so on.\n\nIf a change is currently being performed on this Network, an error response with code `conflict` will be returned. If the Network has any attached members, an error response with code `service_error` will be returned.\n",
         "operationId": "change_ip_range_of_network",
         "parameters": [
           {
@@ -20176,6 +20531,7 @@
               "default": 1,
               "example": 1,
               "format": "int64",
+              "minimum": 1,
               "type": "integer"
             }
           },
@@ -20188,6 +20544,8 @@
               "default": 25,
               "example": 25,
               "format": "int64",
+              "maximum": 50,
+              "minimum": 1,
               "type": "integer"
             }
           }
@@ -20394,6 +20752,7 @@
               "default": 1,
               "example": 1,
               "format": "int64",
+              "minimum": 1,
               "type": "integer"
             }
           },
@@ -20406,6 +20765,8 @@
               "default": 25,
               "example": 25,
               "format": "int64",
+              "maximum": 50,
+              "minimum": 1,
               "type": "integer"
             }
           }
@@ -20955,6 +21316,7 @@
               "default": 1,
               "example": 1,
               "format": "int64",
+              "minimum": 1,
               "type": "integer"
             }
           },
@@ -20967,6 +21329,8 @@
               "default": 25,
               "example": 25,
               "format": "int64",
+              "maximum": 50,
+              "minimum": 1,
               "type": "integer"
             }
           },
@@ -21480,6 +21844,7 @@
               "default": 1,
               "example": 1,
               "format": "int64",
+              "minimum": 1,
               "type": "integer"
             }
           },
@@ -21492,6 +21857,8 @@
               "default": 25,
               "example": 25,
               "format": "int64",
+              "maximum": 50,
+              "minimum": 1,
               "type": "integer"
             }
           }
@@ -22150,6 +22517,7 @@
               "default": 1,
               "example": 1,
               "format": "int64",
+              "minimum": 1,
               "type": "integer"
             }
           },
@@ -22162,6 +22530,8 @@
               "default": 25,
               "example": 25,
               "format": "int64",
+              "maximum": 50,
+              "minimum": 1,
               "type": "integer"
             }
           }
@@ -22319,6 +22689,7 @@
               "default": 1,
               "example": 1,
               "format": "int64",
+              "minimum": 1,
               "type": "integer"
             }
           },
@@ -22331,6 +22702,8 @@
               "default": 25,
               "example": 25,
               "format": "int64",
+              "maximum": 50,
+              "minimum": 1,
               "type": "integer"
             }
           }
@@ -22554,6 +22927,7 @@
               "default": 1,
               "example": 1,
               "format": "int64",
+              "minimum": 1,
               "type": "integer"
             }
           },
@@ -22566,6 +22940,8 @@
               "default": 25,
               "example": 25,
               "format": "int64",
+              "maximum": 50,
+              "minimum": 1,
               "type": "integer"
             }
           }
@@ -22705,7 +23081,7 @@
                             "name": "Server"
                           },
                           "deleted": null,
-                          "deprecated": "2018-02-28T00:00:00Z",
+                          "deprecation": null,
                           "description": "Ubuntu 24.04 Standard 64 bit",
                           "disk_size": 10,
                           "id": 4711,
@@ -22797,7 +23173,6 @@
                           "architecture": "x86",
                           "cores": 2,
                           "cpu_type": "shared",
-                          "deprecated": true,
                           "description": "CPX22",
                           "disk": 80,
                           "id": 1,
@@ -23216,6 +23591,7 @@
               "default": 1,
               "example": 1,
               "format": "int64",
+              "minimum": 1,
               "type": "integer"
             }
           },
@@ -23228,6 +23604,8 @@
               "default": 25,
               "example": 25,
               "format": "int64",
+              "maximum": 50,
+              "minimum": 1,
               "type": "integer"
             }
           }
@@ -24284,7 +24662,7 @@
                           "name": "Server"
                         },
                         "deleted": null,
-                        "deprecated": "2018-02-28T00:00:00Z",
+                        "deprecation": null,
                         "description": "my image",
                         "disk_size": 10,
                         "id": 4711,
@@ -25963,7 +26341,7 @@
     },
     "/servers/{id}/metrics": {
       "get": {
-        "description": "Get Metrics for specified Server.\n\nYou must specify the type of metric to get: cpu, disk or network. You can also specify more than one type by comma separation, e.g. cpu,disk.\n\nDepending on the type you will get different time series data\n\n| Type    | Timeseries              | Unit      | Description                                          |\n|---------|-------------------------|-----------|------------------------------------------------------|\n| cpu     | cpu                     | percent   | Percent CPU usage                                    |\n| disk    | disk.0.iops.read        | iop/s     | Number of read IO operations per second              |\n|         | disk.0.iops.write       | iop/s     | Number of write IO operations per second             |\n|         | disk.0.bandwidth.read   | bytes/s   | Bytes read per second                                |\n|         | disk.0.bandwidth.write  | bytes/s   | Bytes written per second                             |\n| network | network.0.pps.in        | packets/s | Public Network interface packets per second received |\n|         | network.0.pps.out       | packets/s | Public Network interface packets per second sent     |\n|         | network.0.bandwidth.in  | bytes/s   | Public Network interface bytes/s received            |\n|         | network.0.bandwidth.out | bytes/s   | Public Network interface bytes/s sent                |\n\nMetrics are available for the last 30 days only.\n\nIf you do not provide the step argument we will automatically adjust it so that a maximum of 200 samples are returned.\n\nWe limit the number of samples returned to a maximum of 500 and will adjust the step parameter accordingly.\n",
+        "description": "Get Metrics for specified Server.\n\nYou must specify the type of metric to get: cpu, disk or network. You can also specify more than one type by comma separation, e.g. cpu,disk.\n\nDepending on the type you will get different time series data\n\n| Type    | Timeseries              | Unit      | Description                                          |\n|---------|-------------------------|-----------|------------------------------------------------------|\n| cpu     | cpu                     | percent   | Percent CPU usage                                    |\n| disk    | disk.0.iops.read        | iop/s     | Number of read IO operations per second              |\n|         | disk.0.iops.write       | iop/s     | Number of write IO operations per second             |\n|         | disk.0.bandwidth.read   | bytes/s   | Bytes read per second                                |\n|         | disk.0.bandwidth.write  | bytes/s   | Bytes written per second                             |\n| network | network.0.pps.in        | packets/s | Public Network interface packets per second received |\n|         | network.0.pps.out       | packets/s | Public Network interface packets per second sent     |\n|         | network.0.bandwidth.in  | bytes/s   | Public Network interface bytes/s received            |\n|         | network.0.bandwidth.out | bytes/s   | Public Network interface bytes/s sent                |\n\nNote that the CPU value is not normalized to a fixed 0–100% scale. It is calculated per vCPU: a value of 100 represents full utilization on a 1-vCPU server, and 25% utilization on a 4-vCPU server. To calculate the overall CPU usage, divide the metric value by the number of vCPUs.\n\nMetrics are available for the last 30 days only.\n\nIf you do not provide the step argument we will automatically adjust it so that a maximum of 200 samples are returned.\n\nWe limit the number of samples returned to a maximum of 500 and will adjust the step parameter accordingly.\n",
         "operationId": "get_metrics_for_server",
         "parameters": [
           {
@@ -26163,6 +26541,7 @@
               "default": 1,
               "example": 1,
               "format": "int64",
+              "minimum": 1,
               "type": "integer"
             }
           },
@@ -26175,6 +26554,8 @@
               "default": 25,
               "example": 25,
               "format": "int64",
+              "maximum": 50,
+              "minimum": 1,
               "type": "integer"
             }
           }
@@ -26370,6 +26751,7 @@
               "default": 1,
               "example": 1,
               "format": "int64",
+              "minimum": 1,
               "type": "integer"
             }
           },
@@ -26382,6 +26764,8 @@
               "default": 25,
               "example": 25,
               "format": "int64",
+              "maximum": 50,
+              "minimum": 1,
               "type": "integer"
             }
           }
@@ -26831,6 +27215,7 @@
               "default": 1,
               "example": 1,
               "format": "int64",
+              "minimum": 1,
               "type": "integer"
             }
           },
@@ -26843,6 +27228,8 @@
               "default": 25,
               "example": 25,
               "format": "int64",
+              "maximum": 50,
+              "minimum": 1,
               "type": "integer"
             }
           }
@@ -26982,6 +27369,10 @@
                         }
                       ],
                       "volume": {
+                        "assignee": {
+                          "id": 12,
+                          "type": "server"
+                        },
                         "created": "2016-01-30T23:50:11Z",
                         "format": "xfs",
                         "id": 4711,
@@ -27243,6 +27634,10 @@
                   "default": {
                     "value": {
                       "volume": {
+                        "assignee": {
+                          "id": 12,
+                          "type": "server"
+                        },
                         "created": "2016-01-30T23:50:11Z",
                         "format": "xfs",
                         "id": 4711,
@@ -27402,6 +27797,7 @@
               "default": 1,
               "example": 1,
               "format": "int64",
+              "minimum": 1,
               "type": "integer"
             }
           },
@@ -27414,6 +27810,8 @@
               "default": 25,
               "example": 25,
               "format": "int64",
+              "maximum": 50,
+              "minimum": 1,
               "type": "integer"
             }
           }
@@ -27605,8 +28003,8 @@
     },
     "/volumes/{id}/actions/attach": {
       "post": {
-        "description": "Attaches a Volume to a Server. Works only if the Server is in the same Location as the Volume.\n",
-        "operationId": "attach_volume_to_server",
+        "description": "Attaches a Volume to a Resource. Works only if the Resource is in the same Location as the Volume.\n",
+        "operationId": "attach_volume_to_resource",
         "parameters": [
           {
             "description": "ID of the Volume.",
@@ -27627,7 +28025,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/attach_volume_to_server_request"
+                "$ref": "#/components/schemas/attach_volume_to_resource_request"
               }
             }
           },
@@ -27666,7 +28064,7 @@
                   }
                 },
                 "schema": {
-                  "$ref": "#/components/schemas/attach_volume_to_server_response"
+                  "$ref": "#/components/schemas/attach_volume_to_resource_response"
                 }
               }
             },
@@ -27693,7 +28091,7 @@
             "description": "Request failed with a server error."
           }
         },
-        "summary": "Attach Volume to a Server",
+        "summary": "Attach Volume to a Resource",
         "tags": [
           "volumes"
         ],
@@ -27841,7 +28239,7 @@
     },
     "/volumes/{id}/actions/detach": {
       "post": {
-        "description": "Detaches a Volume from the Server it’s attached to. You may attach it to a Server again at a later time.\n",
+        "description": "Detaches a Volume from the Resource it’s attached to. You may attach it to a Resource again at a later time.\n",
         "operationId": "detach_volume",
         "parameters": [
           {
@@ -28135,6 +28533,7 @@
               "default": 1,
               "example": 1,
               "format": "int64",
+              "minimum": 1,
               "type": "integer"
             }
           },
@@ -28147,6 +28546,8 @@
               "default": 25,
               "example": 25,
               "format": "int64",
+              "maximum": 50,
+              "minimum": 1,
               "type": "integer"
             }
           }
@@ -28304,6 +28705,7 @@
               "default": 1,
               "example": 1,
               "format": "int64",
+              "minimum": 1,
               "type": "integer"
             }
           },
@@ -28316,6 +28718,8 @@
               "default": 25,
               "example": 25,
               "format": "int64",
+              "maximum": 50,
+              "minimum": 1,
               "type": "integer"
             }
           }
@@ -28521,6 +28925,7 @@
               "default": 1,
               "example": 1,
               "format": "int64",
+              "minimum": 1,
               "type": "integer"
             }
           },
@@ -28533,6 +28938,8 @@
               "default": 25,
               "example": 25,
               "format": "int64",
+              "maximum": 50,
+              "minimum": 1,
               "type": "integer"
             }
           }
@@ -28831,6 +29238,7 @@
               "default": 1,
               "example": 1,
               "format": "int64",
+              "minimum": 1,
               "type": "integer"
             }
           },
@@ -28843,6 +29251,8 @@
               "default": 25,
               "example": 25,
               "format": "int64",
+              "maximum": 50,
+              "minimum": 1,
               "type": "integer"
             }
           }
@@ -29310,6 +29720,7 @@
               "default": 1,
               "example": 1,
               "format": "int64",
+              "minimum": 1,
               "type": "integer"
             }
           },
@@ -29322,6 +29733,8 @@
               "default": 25,
               "example": 25,
               "format": "int64",
+              "maximum": 50,
+              "minimum": 1,
               "type": "integer"
             }
           }
@@ -31986,6 +32399,7 @@
               "default": 1,
               "example": 1,
               "format": "int64",
+              "minimum": 1,
               "type": "integer"
             }
           },
@@ -31998,6 +32412,8 @@
               "default": 25,
               "example": 25,
               "format": "int64",
+              "maximum": 50,
+              "minimum": 1,
               "type": "integer"
             }
           }
@@ -32343,6 +32759,7 @@
               "default": 1,
               "example": 1,
               "format": "int64",
+              "minimum": 1,
               "type": "integer"
             }
           },
@@ -32355,6 +32772,8 @@
               "default": 25,
               "example": 25,
               "format": "int64",
+              "maximum": 50,
+              "minimum": 1,
               "type": "integer"
             }
           }
@@ -32841,6 +33260,7 @@
               "default": 1,
               "example": 1,
               "format": "int64",
+              "minimum": 1,
               "type": "integer"
             }
           },
@@ -32853,6 +33273,8 @@
               "default": 25,
               "example": 25,
               "format": "int64",
+              "maximum": 50,
+              "minimum": 1,
               "type": "integer"
             }
           }
@@ -33425,7 +33847,7 @@
     },
     "/zones/{id_or_name}/rrsets": {
       "get": {
-        "description": "Returns all RRSets in the Zone.\n\nUse the provided URI parameters to modify the result.\n\nThe maximum value for `per_page` on this endpoint is `100` instead of `50`.\n\nOnly applicable for Zones in primary mode.\n\n#### Operation specific errors\n\n| Status | Code | Description |\n| --- | --- | --- |\n| `422` | `incorrect_zone_mode` | This operation is not supported for this Zone's `mode`. |\n",
+        "description": "Returns all RRSets in the Zone.\n\nUse the provided URI parameters to modify the result.\n\nOnly applicable for Zones in primary mode.\n\n#### Operation specific errors\n\n| Status | Code | Description |\n| --- | --- | --- |\n| `422` | `incorrect_zone_mode` | This operation is not supported for this Zone's `mode`. |\n",
         "operationId": "list_rrsets",
         "parameters": [
           {
@@ -33520,6 +33942,7 @@
               "default": 1,
               "example": 1,
               "format": "int64",
+              "minimum": 1,
               "type": "integer"
             }
           },
@@ -33532,6 +33955,8 @@
               "default": 25,
               "example": 25,
               "format": "int64",
+              "maximum": 50,
+              "minimum": 1,
               "type": "integer"
             }
           }
@@ -35022,6 +35447,219 @@
             "lang": "Shell",
             "source": "hcloud zone export-zonefile $ZONE"
           }
+        ]
+      },
+      "servers": [
+        {
+          "url": "https://api.hetzner.cloud/v1"
+        }
+      ]
+    },
+    "/networks/{id}/members": {
+      "get": {
+        "description": "List the resources attached to a specific Network.\n\nUse the provided URI parameters to modify the result.\n",
+        "operationId": "list_members_of_network",
+        "parameters": [
+          {
+            "description": "ID of the Network.",
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "description": "ID of the Network.",
+              "example": 42,
+              "format": "int64",
+              "maximum": 9007199254740991,
+              "minimum": 1,
+              "type": "integer"
+            }
+          },
+          {
+            "description": "Filter members by type. May be used multiple times.\n\nThe response will only contain members matching the specified types.\n",
+            "in": "query",
+            "name": "type",
+            "required": false,
+            "schema": {
+              "items": {
+                "description": "Type of the resource attached to the Network.\n",
+                "enum": [
+                  "server",
+                  "load_balancer"
+                ],
+                "type": "string",
+                "x-enumDescriptions": {
+                  "load_balancer": "The member is a [Load Balancer](#tag/load-balancers).",
+                  "server": "The member is a [Server](#tag/servers)."
+                }
+              },
+              "type": "array"
+            }
+          },
+          {
+            "description": "Filter members by the subnet they are attached to. May be used multiple times.\n\nThe response will only contain members attached to the subnets with the\nspecified IP ranges. Uses CIDR notation.\n",
+            "in": "query",
+            "name": "subnet",
+            "required": false,
+            "schema": {
+              "items": {
+                "example": "10.0.1.0/24",
+                "type": "string"
+              },
+              "type": "array"
+            }
+          },
+          {
+            "description": "Filter members by status. May be used multiple times.\n\nThe response will only contain members matching the specified statuses.\n",
+            "in": "query",
+            "name": "status",
+            "required": false,
+            "schema": {
+              "items": {
+                "description": "Status of the resource within the Network.\n",
+                "enum": [
+                  "ok",
+                  "attaching",
+                  "detaching",
+                  "updating",
+                  "error"
+                ],
+                "type": "string",
+                "x-enumDescriptions": {
+                  "attaching": "The resource is being attached to the [Network](#tag/networks).",
+                  "detaching": "The resource is being detached from the [Network](#tag/networks).",
+                  "error": "The last operation on this member failed. Its network configuration might be out of date, and the resource might not be reachable within the [Network](#tag/networks) as expected.",
+                  "ok": "The resource is attached and its network configuration is up to date.",
+                  "updating": "The resource network configuration is being updated."
+                }
+              },
+              "type": "array"
+            }
+          },
+          {
+            "description": "Sort resources by field and direction. May be used multiple times.\n\nFor more information, see \"Sorting\".\n",
+            "in": "query",
+            "name": "sort",
+            "required": false,
+            "schema": {
+              "items": {
+                "enum": [
+                  "id",
+                  "id:asc",
+                  "id:desc",
+                  "type",
+                  "type:asc",
+                  "type:desc",
+                  "status",
+                  "status:asc",
+                  "status:desc",
+                  "ip",
+                  "ip:asc",
+                  "ip:desc"
+                ],
+                "type": "string"
+              },
+              "type": "array"
+            }
+          },
+          {
+            "description": "Page number to return. For more information, see \"Pagination\".",
+            "in": "query",
+            "name": "page",
+            "required": false,
+            "schema": {
+              "default": 1,
+              "example": 1,
+              "format": "int64",
+              "minimum": 1,
+              "type": "integer"
+            }
+          },
+          {
+            "description": "Maximum number of entries returned per page. For more information, see \"Pagination\".",
+            "in": "query",
+            "name": "per_page",
+            "required": false,
+            "schema": {
+              "default": 25,
+              "example": 25,
+              "format": "int64",
+              "maximum": 50,
+              "minimum": 1,
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "examples": {
+                  "default": {
+                    "value": {
+                      "members": [
+                        {
+                          "alias_ips": [
+                            "10.0.1.20"
+                          ],
+                          "id": 123,
+                          "ip": "10.0.1.2",
+                          "status": "attaching",
+                          "subnet": "10.0.1.0/24",
+                          "type": "server"
+                        },
+                        {
+                          "alias_ips": [],
+                          "id": 43,
+                          "ip": "10.0.1.3",
+                          "status": "updating",
+                          "subnet": "10.0.1.0/24",
+                          "type": "load_balancer"
+                        }
+                      ],
+                      "meta": {
+                        "pagination": {
+                          "last_page": 4,
+                          "next_page": 2,
+                          "page": 1,
+                          "per_page": 25,
+                          "previous_page": null,
+                          "total_entries": 100
+                        }
+                      }
+                    }
+                  }
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/list_members_of_network_response"
+                }
+              }
+            },
+            "description": "Request succeeded."
+          },
+          "4xx": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error_response"
+                }
+              }
+            },
+            "description": "Request failed with a user error."
+          },
+          "5xx": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error_response"
+                }
+              }
+            },
+            "description": "Request failed with a server error."
+          }
+        },
+        "summary": "List Members of a Network",
+        "tags": [
+          "networks"
         ]
       },
       "servers": [
