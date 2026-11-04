@@ -133,6 +133,7 @@ This API description is currently being used by the following projects:
 /networks/{id}/actions/change_protection (POST)
 /networks/{id}/actions/delete_route (POST)
 /networks/{id}/actions/delete_subnet (POST)
+/networks/{id}/members (GET)
 /networks/actions (GET)
 /networks/actions/{id} (GET)
 /placement_groups (GET, POST)
