@@ -3071,6 +3071,7 @@
           }
         },
         "required": [
+          "dns_ptr",
           "ip"
         ],
         "title": "FloatingIPActionsChangeDNSPtrRequest",
