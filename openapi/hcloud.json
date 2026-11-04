@@ -1656,6 +1656,31 @@
             "example": true,
             "type": "boolean"
           },
+          "public_net": {
+            "description": "Public network options of the Load Balancer.\n\nOnly allowed if the public interface is enabled.\n",
+            "properties": {
+              "ipv4": {
+                "description": "ID of an existing Primary IP of type `ipv4` to assign to the Load Balancer.\n\nThe Primary IP must be unassigned, must not be blocked and must be bound to the\nsame Location as the Load Balancer.\n\nOmit or set to `null` to get a system managed IP address instead. System managed IP addresses are\nnot Primary IPs and are created and deleted together with the Load Balancer.\n",
+                "example": 42,
+                "format": "int64",
+                "maximum": 9007199254740991,
+                "minimum": 1,
+                "nullable": true,
+                "type": "integer"
+              },
+              "ipv6": {
+                "description": "ID of an existing Primary IP of type `ipv6` to assign to the Load Balancer.\n\nThe Primary IP must be unassigned, must not be blocked and must be bound to the\nsame Location as the Load Balancer.\n\nOmit or set to `null` to get a system managed IP address instead. System managed IP addresses are\nnot Primary IPs and are created and deleted together with the Load Balancer.\n",
+                "example": 42,
+                "format": "int64",
+                "maximum": 9007199254740991,
+                "minimum": 1,
+                "nullable": true,
+                "type": "integer"
+              }
+            },
+            "title": "LoadBalancerCreatePublicNet",
+            "type": "object"
+          },
           "services": {
             "description": "Array of services.",
             "items": {
