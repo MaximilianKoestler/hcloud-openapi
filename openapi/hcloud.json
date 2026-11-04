@@ -1531,7 +1531,7 @@
             "$ref": "#/components/schemas/labels"
           },
           "name": {
-            "description": "Name of the Resource. Must be unique per Project.",
+            "description": "Name of the Resource. Must be unique per Project.\n\nA name will be generated if none is given.\n",
             "example": "my-resource",
             "maxLength": 255,
             "minLength": 1,
@@ -3071,6 +3071,7 @@
         "required": [
           "ip"
         ],
+        "title": "FloatingIPActionsChangeDNSPtrRequest",
         "type": "object"
       },
       "enable_and_configure_backups_for_server_response": {
@@ -6252,7 +6253,7 @@
         "type": "object"
       },
       "location": {
-        "description": "Location the Data Center is located at.\n | Location of the Primary IP.\n | Location this Resource is located at.\n | Location of the Volume. Volume can only be attached to Servers in the same Location. | Location of the Storage Box.",
+        "description": "Location the Data Center is located at.\n | Location the for the Floating IP is located at.\n\nRouting is optimized for this Location.\n | Location of the Primary IP.\n | Location this Resource is located at.\n | Location of the Volume. Volume can only be attached to Servers in the same Location. | Location of the Storage Box.",
         "properties": {
           "city": {
             "description": "Name of the closest city to the Location.\n\nCity name or city name and state in short form. E.g. `Falkenstein` or `Ashburn, VA`.\n",
@@ -6870,7 +6871,7 @@
         "required": [
           "type"
         ],
-        "title": "LoadBalancerTarget",
+        "title": "RemoveTargetRequest",
         "type": "object"
       },
       "remove_target_response": {
