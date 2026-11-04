@@ -4090,11 +4090,21 @@
             "type": "string"
           },
           "deprecated": {
-            "description": "Point in time when the Image is considered to be deprecated (in [RFC3339](https://datatracker.ietf.org/doc/html/rfc3339#section-5.6) format).",
+            "deprecated": true,
+            "description": "**Deprecated:** This field is deprecated, use the deprecation object instead.\n\nPoint in time when the Image is considered to be deprecated (in [RFC3339](https://datatracker.ietf.org/doc/html/rfc3339#section-5.6) format).\n",
             "example": "2018-02-28T00:00:00Z",
             "format": "date-time",
             "nullable": true,
             "type": "string"
+          },
+          "deprecation": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/deprecation_info"
+              }
+            ],
+            "description": "Describes if, when and how the resource is deprecated. If this field is\nset to `null` the resource is not deprecated. If a value is set, it is\nconsidered deprecated.\n",
+            "nullable": true
           },
           "description": {
             "description": "Description of the Image.",
@@ -4187,6 +4197,7 @@
           "created_from",
           "deleted",
           "deprecated",
+          "deprecation",
           "description",
           "disk_size",
           "id",
@@ -14589,7 +14600,8 @@
                           "name": "Server"
                         },
                         "deleted": null,
-                        "deprecated": "2018-02-28T00:00:00Z",
+                        "deprecated": null,
+                        "deprecation": null,
                         "description": "My new Image description",
                         "disk_size": 10,
                         "id": 4711,
@@ -22723,7 +22735,8 @@
                             "name": "Server"
                           },
                           "deleted": null,
-                          "deprecated": "2018-02-28T00:00:00Z",
+                          "deprecated": null,
+                          "deprecation": null,
                           "description": "Ubuntu 24.04 Standard 64 bit",
                           "disk_size": 10,
                           "id": 4711,
@@ -24302,7 +24315,8 @@
                           "name": "Server"
                         },
                         "deleted": null,
-                        "deprecated": "2018-02-28T00:00:00Z",
+                        "deprecated": null,
+                        "deprecation": null,
                         "description": "my image",
                         "disk_size": 10,
                         "id": 4711,
