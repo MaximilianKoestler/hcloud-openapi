@@ -2735,6 +2735,18 @@
         ],
         "type": "object"
       },
+      "delete_load_balancer_response": {
+        "description": "Response to DELETE https://api.hetzner.cloud/v1/load_balancers/{id}",
+        "properties": {
+          "action": {
+            "$ref": "#/components/schemas/action"
+          }
+        },
+        "required": [
+          "action"
+        ],
+        "type": "object"
+      },
       "delete_route_from_network_response": {
         "description": "Response to POST https://api.hetzner.cloud/v1/networks/{id}/actions/delete_route",
         "properties": {
@@ -16168,7 +16180,14 @@
           }
         ],
         "responses": {
-          "204": {
+          "201": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/delete_load_balancer_response"
+                }
+              }
+            },
             "description": "Request succeeded."
           },
           "4xx": {
