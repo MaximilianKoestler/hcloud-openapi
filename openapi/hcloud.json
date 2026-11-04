@@ -6093,6 +6093,24 @@
       "load_balancer_target_health_status": {
         "description": "Health status of the services on this target. Only present for target types \"server\" and \"ip\".",
         "properties": {
+          "detail": {
+            "description": "Additional details about why the health check failed. Only present when `status` is `unhealthy`.",
+            "enum": [
+              "layer4_no_connection",
+              "layer4_timeout",
+              "layer7_timeout",
+              "unexpected_http_content",
+              "unexpected_http_status",
+              "unspecified"
+            ],
+            "example": "unexpected_http_status",
+            "type": "string"
+          },
+          "http_status_code": {
+            "description": "HTTP status code returned by the target during the last health check. Only present when `status` is `unhealthy` and `detail` is `unexpected_http_status`.",
+            "example": 503,
+            "type": "integer"
+          },
           "listen_port": {
             "example": 443,
             "type": "integer"
