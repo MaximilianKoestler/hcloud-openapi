@@ -6,7 +6,7 @@
     },
     "description": "Copied from the official API documentation for the Public Hetzner Cloud.",
     "title": "Hetzner Cloud API",
-    "version": "main"
+    "version": "feature/spec-update"
   },
   "servers": [
     {
@@ -1533,6 +1533,8 @@
           "name": {
             "description": "Name of the Resource. Must be unique per Project.",
             "example": "my-resource",
+            "maxLength": 255,
+            "minLength": 1,
             "type": "string"
           },
           "server": {
@@ -1882,6 +1884,8 @@
           "name": {
             "description": "Name of the Resource. Must be unique per Project.",
             "example": "my-resource",
+            "maxLength": 255,
+            "minLength": 1,
             "type": "string"
           },
           "type": {
@@ -1972,6 +1976,8 @@
               "name": {
                 "description": "Name of the Resource. Must be unique per Project.",
                 "example": "my-resource",
+                "maxLength": 255,
+                "minLength": 1,
                 "type": "string"
               },
               "protection": {
@@ -3502,6 +3508,8 @@
           "name": {
             "description": "Name of the Resource. Must be unique per Project.",
             "example": "my-resource",
+            "maxLength": 255,
+            "minLength": 1,
             "type": "string"
           },
           "protection": {
@@ -3841,6 +3849,8 @@
               "name": {
                 "description": "Name of the Resource. Must be unique per Project.",
                 "example": "my-resource",
+                "maxLength": 255,
+                "minLength": 1,
                 "type": "string"
               },
               "protection": {
@@ -4978,6 +4988,8 @@
                 "name": {
                   "description": "Name of the Resource. Must be unique per Project.",
                   "example": "my-resource",
+                  "maxLength": 255,
+                  "minLength": 1,
                   "type": "string"
                 },
                 "protection": {
@@ -6921,6 +6933,8 @@
           "name": {
             "description": "Name of the Resource. Must be unique per Project.",
             "example": "my-resource",
+            "maxLength": 255,
+            "minLength": 1,
             "type": "string"
           }
         },
@@ -7127,6 +7141,8 @@
           "name": {
             "description": "Name of the Resource. Must be unique per Project.",
             "example": "my-resource",
+            "maxLength": 255,
+            "minLength": 1,
             "type": "string"
           }
         },
@@ -7201,6 +7217,8 @@
               "name": {
                 "description": "Name of the Resource. Must be unique per Project.",
                 "example": "my-resource",
+                "maxLength": 255,
+                "minLength": 1,
                 "type": "string"
               },
               "protection": {
