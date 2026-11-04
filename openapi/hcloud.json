@@ -5547,11 +5547,25 @@
           "ipv4": {
             "description": "IP address (v4).",
             "properties": {
+              "blocked": {
+                "description": "Whether the IP is blocked by our abuse department.",
+                "example": false,
+                "type": "boolean"
+              },
               "dns_ptr": {
                 "description": "Reverse DNS PTR entry for the IPv4 address of this Load Balancer.",
                 "example": "lb1.example.com",
                 "nullable": true,
                 "type": "string"
+              },
+              "id": {
+                "description": "ID of the Primary IP assigned to this Load Balancer.\n\n`null` if the IP address is still managed by the system and is not a Primary IP yet.\n",
+                "example": 42,
+                "format": "int64",
+                "maximum": 9007199254740991,
+                "minimum": 1,
+                "nullable": true,
+                "type": "integer"
               },
               "ip": {
                 "description": "IP address (v4) of this Load Balancer.",
@@ -5561,7 +5575,9 @@
               }
             },
             "required": [
+              "blocked",
               "dns_ptr",
+              "id",
               "ip"
             ],
             "type": "object"
@@ -5569,11 +5585,25 @@
           "ipv6": {
             "description": "IP address (v6).",
             "properties": {
+              "blocked": {
+                "description": "Whether the IP is blocked by our abuse department.",
+                "example": false,
+                "type": "boolean"
+              },
               "dns_ptr": {
                 "description": "Reverse DNS PTR entry for the IPv6 address of this Load Balancer.",
                 "example": "lb1.example.com",
                 "nullable": true,
                 "type": "string"
+              },
+              "id": {
+                "description": "ID of the Primary IP assigned to this Load Balancer.\n\n`null` if the IP address is still managed by the system and is not a Primary IP yet.\n",
+                "example": 42,
+                "format": "int64",
+                "maximum": 9007199254740991,
+                "minimum": 1,
+                "nullable": true,
+                "type": "integer"
               },
               "ip": {
                 "description": "IP address (v6) of this Load Balancer.",
@@ -5583,7 +5613,9 @@
               }
             },
             "required": [
+              "blocked",
               "dns_ptr",
+              "id",
               "ip"
             ],
             "type": "object"
@@ -16025,11 +16057,15 @@
                         "public_net": {
                           "enabled": false,
                           "ipv4": {
+                            "blocked": false,
                             "dns_ptr": "lb1.example.com",
+                            "id": 42,
                             "ip": "1.2.3.4"
                           },
                           "ipv6": {
+                            "blocked": false,
                             "dns_ptr": "lb1.example.com",
+                            "id": 43,
                             "ip": "2001:db8::1"
                           }
                         },
@@ -16406,11 +16442,15 @@
                         "public_net": {
                           "enabled": false,
                           "ipv4": {
+                            "blocked": false,
                             "dns_ptr": "lb1.example.com",
+                            "id": 42,
                             "ip": "1.2.3.4"
                           },
                           "ipv6": {
+                            "blocked": false,
                             "dns_ptr": "lb1.example.com",
+                            "id": 43,
                             "ip": "2001:db8::1"
                           }
                         },
