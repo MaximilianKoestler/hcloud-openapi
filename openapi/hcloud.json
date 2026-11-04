@@ -3222,7 +3222,7 @@
         "type": "object"
       },
       "error_response": {
-        "description": "Response to GET https://api.hetzner.cloud/v1/actions | Response to GET https://api.hetzner.com/v1/storage_boxes/{id}/actions/{action_id} | Response to GET https://api.hetzner.cloud/v1/certificates | Response to POST https://api.hetzner.cloud/v1/certificates | Response to GET https://api.hetzner.com/v1/storage_boxes/{id}/actions | Response to GET https://api.hetzner.cloud/v1/certificates/{id} | Response to PUT https://api.hetzner.cloud/v1/certificates/{id} | Response to DELETE https://api.hetzner.cloud/v1/certificates/{id} | Response to POST https://api.hetzner.cloud/v1/certificates/{id}/actions/retry | Response to GET https://api.hetzner.cloud/v1/datacenters | Response to GET https://api.hetzner.cloud/v1/datacenters/{id} | Response to GET https://api.hetzner.cloud/v1/firewalls | Response to POST https://api.hetzner.cloud/v1/firewalls | Response to GET https://api.hetzner.cloud/v1/firewalls/{id} | Response to PUT https://api.hetzner.cloud/v1/firewalls/{id} | Response to DELETE https://api.hetzner.cloud/v1/firewalls/{id} | Response to POST https://api.hetzner.cloud/v1/firewalls/{id}/actions/apply_to_resources | Response to POST https://api.hetzner.cloud/v1/firewalls/{id}/actions/remove_from_resources | Response to POST https://api.hetzner.cloud/v1/firewalls/{id}/actions/set_rules | Response to GET https://api.hetzner.cloud/v1/floating_ips | Response to POST https://api.hetzner.cloud/v1/floating_ips | Response to GET https://api.hetzner.cloud/v1/floating_ips/{id} | Response to PUT https://api.hetzner.cloud/v1/floating_ips/{id} | Response to DELETE https://api.hetzner.cloud/v1/floating_ips/{id} | Response to POST https://api.hetzner.cloud/v1/floating_ips/{id}/actions/assign | Response to POST https://api.hetzner.cloud/v1/floating_ips/{id}/actions/change_dns_ptr | Response to POST https://api.hetzner.cloud/v1/floating_ips/{id}/actions/change_protection | Response to POST https://api.hetzner.cloud/v1/floating_ips/{id}/actions/unassign | Response to GET https://api.hetzner.cloud/v1/images | Response to GET https://api.hetzner.cloud/v1/images/{id} | Response to PUT https://api.hetzner.cloud/v1/images/{id} | Response to DELETE https://api.hetzner.cloud/v1/images/{id} | Response to POST https://api.hetzner.cloud/v1/images/{id}/actions/change_protection | Response to GET https://api.hetzner.cloud/v1/isos | Response to GET https://api.hetzner.cloud/v1/isos/{id} | Response to GET https://api.hetzner.cloud/v1/load_balancer_types | Response to GET https://api.hetzner.cloud/v1/load_balancer_types/{id} | Response to GET https://api.hetzner.cloud/v1/load_balancers | Response to POST https://api.hetzner.cloud/v1/load_balancers | Response to GET https://api.hetzner.cloud/v1/load_balancers/{id} | Response to PUT https://api.hetzner.cloud/v1/load_balancers/{id} | Response to DELETE https://api.hetzner.cloud/v1/load_balancers/{id} | Response to POST https://api.hetzner.cloud/v1/load_balancers/{id}/actions/add_service | Response to POST https://api.hetzner.cloud/v1/load_balancers/{id}/actions/add_target | Response to POST https://api.hetzner.cloud/v1/load_balancers/{id}/actions/attach_to_network | Response to POST https://api.hetzner.cloud/v1/load_balancers/{id}/actions/change_algorithm | Response to POST https://api.hetzner.cloud/v1/load_balancers/{id}/actions/change_dns_ptr | Response to POST https://api.hetzner.cloud/v1/load_balancers/{id}/actions/change_protection | Response to POST https://api.hetzner.cloud/v1/load_balancers/{id}/actions/change_type | Response to POST https://api.hetzner.cloud/v1/load_balancers/{id}/actions/delete_service | Response to POST https://api.hetzner.cloud/v1/load_balancers/{id}/actions/detach_from_network | Response to POST https://api.hetzner.cloud/v1/load_balancers/{id}/actions/disable_public_interface | Response to POST https://api.hetzner.cloud/v1/load_balancers/{id}/actions/enable_public_interface | Response to POST https://api.hetzner.cloud/v1/load_balancers/{id}/actions/remove_target | Response to POST https://api.hetzner.cloud/v1/load_balancers/{id}/actions/update_service | Response to GET https://api.hetzner.cloud/v1/load_balancers/{id}/metrics | Response to GET https://api.hetzner.cloud/v1/locations | Response to GET https://api.hetzner.cloud/v1/locations/{id} | Response to GET https://api.hetzner.cloud/v1/networks | Response to POST https://api.hetzner.cloud/v1/networks | Response to GET https://api.hetzner.cloud/v1/networks/{id} | Response to PUT https://api.hetzner.cloud/v1/networks/{id} | Response to DELETE https://api.hetzner.cloud/v1/networks/{id} | Response to POST https://api.hetzner.cloud/v1/networks/{id}/actions/add_route | Response to POST https://api.hetzner.cloud/v1/networks/{id}/actions/add_subnet | Response to POST https://api.hetzner.cloud/v1/networks/{id}/actions/change_ip_range | Response to POST https://api.hetzner.cloud/v1/networks/{id}/actions/change_protection | Response to POST https://api.hetzner.cloud/v1/networks/{id}/actions/delete_route | Response to POST https://api.hetzner.cloud/v1/networks/{id}/actions/delete_subnet | Response to GET https://api.hetzner.cloud/v1/placement_groups | Response to POST https://api.hetzner.cloud/v1/placement_groups | Response to GET https://api.hetzner.cloud/v1/placement_groups/{id} | Response to PUT https://api.hetzner.cloud/v1/placement_groups/{id} | Response to DELETE https://api.hetzner.cloud/v1/placement_groups/{id} | Response to GET https://api.hetzner.cloud/v1/pricing | Response to GET https://api.hetzner.cloud/v1/primary_ips | Response to POST https://api.hetzner.cloud/v1/primary_ips | Response to GET https://api.hetzner.cloud/v1/primary_ips/{id} | Response to PUT https://api.hetzner.cloud/v1/primary_ips/{id} | Response to DELETE https://api.hetzner.cloud/v1/primary_ips/{id} | Response to POST https://api.hetzner.cloud/v1/primary_ips/{id}/actions/assign | Response to POST https://api.hetzner.cloud/v1/primary_ips/{id}/actions/change_dns_ptr | Response to POST https://api.hetzner.cloud/v1/primary_ips/{id}/actions/change_protection | Response to POST https://api.hetzner.cloud/v1/primary_ips/{id}/actions/unassign | Response to GET https://api.hetzner.cloud/v1/server_types | Response to GET https://api.hetzner.cloud/v1/server_types/{id} | Response to GET https://api.hetzner.cloud/v1/servers | Response to POST https://api.hetzner.cloud/v1/servers | Response to GET https://api.hetzner.cloud/v1/servers/{id} | Response to PUT https://api.hetzner.cloud/v1/servers/{id} | Response to DELETE https://api.hetzner.cloud/v1/servers/{id} | Response to POST https://api.hetzner.cloud/v1/servers/{id}/actions/add_to_placement_group | Response to POST https://api.hetzner.cloud/v1/servers/{id}/actions/attach_iso | Response to POST https://api.hetzner.cloud/v1/servers/{id}/actions/attach_to_network | Response to POST https://api.hetzner.cloud/v1/servers/{id}/actions/change_alias_ips | Response to POST https://api.hetzner.cloud/v1/servers/{id}/actions/change_dns_ptr | Response to POST https://api.hetzner.cloud/v1/servers/{id}/actions/change_protection | Response to POST https://api.hetzner.cloud/v1/servers/{id}/actions/change_type | Response to POST https://api.hetzner.cloud/v1/servers/{id}/actions/create_image | Response to POST https://api.hetzner.cloud/v1/servers/{id}/actions/detach_from_network | Response to POST https://api.hetzner.cloud/v1/servers/{id}/actions/detach_iso | Response to POST https://api.hetzner.cloud/v1/servers/{id}/actions/disable_backup | Response to POST https://api.hetzner.cloud/v1/servers/{id}/actions/disable_rescue | Response to POST https://api.hetzner.cloud/v1/servers/{id}/actions/enable_backup | Response to POST https://api.hetzner.cloud/v1/servers/{id}/actions/enable_rescue | Response to POST https://api.hetzner.cloud/v1/servers/{id}/actions/poweroff | Response to POST https://api.hetzner.cloud/v1/servers/{id}/actions/poweron | Response to POST https://api.hetzner.cloud/v1/servers/{id}/actions/reboot | Response to POST https://api.hetzner.cloud/v1/servers/{id}/actions/rebuild | Response to POST https://api.hetzner.cloud/v1/servers/{id}/actions/remove_from_placement_group | Response to POST https://api.hetzner.cloud/v1/servers/{id}/actions/request_console | Response to POST https://api.hetzner.cloud/v1/servers/{id}/actions/reset | Response to POST https://api.hetzner.cloud/v1/servers/{id}/actions/reset_password | Response to POST https://api.hetzner.cloud/v1/servers/{id}/actions/shutdown | Response to GET https://api.hetzner.cloud/v1/servers/{id}/metrics | Response to GET https://api.hetzner.cloud/v1/ssh_keys | Response to POST https://api.hetzner.cloud/v1/ssh_keys | Response to GET https://api.hetzner.cloud/v1/ssh_keys/{id} | Response to PUT https://api.hetzner.cloud/v1/ssh_keys/{id} | Response to DELETE https://api.hetzner.cloud/v1/ssh_keys/{id} | Response to GET https://api.hetzner.cloud/v1/volumes | Response to POST https://api.hetzner.cloud/v1/volumes | Response to GET https://api.hetzner.cloud/v1/volumes/{id} | Response to PUT https://api.hetzner.cloud/v1/volumes/{id} | Response to DELETE https://api.hetzner.cloud/v1/volumes/{id} | Response to POST https://api.hetzner.cloud/v1/volumes/{id}/actions/attach | Response to POST https://api.hetzner.cloud/v1/volumes/{id}/actions/change_protection | Response to POST https://api.hetzner.cloud/v1/volumes/{id}/actions/detach | Response to POST https://api.hetzner.cloud/v1/volumes/{id}/actions/resize | Response to GET https://api.hetzner.cloud/v1/zones | Response to POST https://api.hetzner.cloud/v1/zones | Response to GET https://api.hetzner.cloud/v1/zones/{id_or_name} | Response to PUT https://api.hetzner.cloud/v1/zones/{id_or_name} | Response to DELETE https://api.hetzner.cloud/v1/zones/{id_or_name} | Response to GET https://api.hetzner.cloud/v1/zones/{id_or_name}/zonefile | Response to POST https://api.hetzner.cloud/v1/zones/{id_or_name}/actions/change_primary_nameservers | Response to POST https://api.hetzner.cloud/v1/zones/{id_or_name}/actions/change_protection | Response to POST https://api.hetzner.cloud/v1/zones/{id_or_name}/actions/change_ttl | Response to POST https://api.hetzner.cloud/v1/zones/{id_or_name}/actions/import_zonefile | Response to GET https://api.hetzner.cloud/v1/zones/{id_or_name}/rrsets | Response to POST https://api.hetzner.cloud/v1/zones/{id_or_name}/rrsets | Response to GET https://api.hetzner.cloud/v1/zones/{id_or_name}/rrsets/{rr_name}/{rr_type} | Response to PUT https://api.hetzner.cloud/v1/zones/{id_or_name}/rrsets/{rr_name}/{rr_type} | Response to DELETE https://api.hetzner.cloud/v1/zones/{id_or_name}/rrsets/{rr_name}/{rr_type} | Response to POST https://api.hetzner.cloud/v1/zones/{id_or_name}/rrsets/{rr_name}/{rr_type}/actions/change_protection | Response to POST https://api.hetzner.cloud/v1/zones/{id_or_name}/rrsets/{rr_name}/{rr_type}/actions/change_ttl | Response to POST https://api.hetzner.cloud/v1/zones/{id_or_name}/rrsets/{rr_name}/{rr_type}/actions/set_records | Response to POST https://api.hetzner.cloud/v1/zones/{id_or_name}/rrsets/{rr_name}/{rr_type}/actions/add_records | Response to POST https://api.hetzner.cloud/v1/zones/{id_or_name}/rrsets/{rr_name}/{rr_type}/actions/remove_records | Response to POST https://api.hetzner.cloud/v1/zones/{id_or_name}/rrsets/{rr_name}/{rr_type}/actions/update_records | Response to GET https://api.hetzner.com/v1/storage_boxes | Response to POST https://api.hetzner.com/v1/storage_boxes | Response to GET https://api.hetzner.com/v1/storage_boxes/{id} | Response to PUT https://api.hetzner.com/v1/storage_boxes/{id} | Response to DELETE https://api.hetzner.com/v1/storage_boxes/{id} | Response to GET https://api.hetzner.com/v1/storage_boxes/{id}/folders | Response to POST https://api.hetzner.com/v1/storage_boxes/{id}/actions/change_protection | Response to POST https://api.hetzner.com/v1/storage_boxes/{id}/actions/change_type | Response to POST https://api.hetzner.com/v1/storage_boxes/{id}/subaccounts/{subaccount_id}/actions/reset_subaccount_password | Response to POST https://api.hetzner.com/v1/storage_boxes/{id}/subaccounts/{subaccount_id}/actions/update_access_settings | Response to POST https://api.hetzner.com/v1/storage_boxes/{id}/actions/rollback_snapshot | Response to POST https://api.hetzner.com/v1/storage_boxes/{id}/actions/disable_snapshot_plan | Response to POST https://api.hetzner.com/v1/storage_boxes/{id}/actions/enable_snapshot_plan | Response to GET https://api.hetzner.com/v1/storage_boxes/{id}/subaccounts | Response to POST https://api.hetzner.com/v1/storage_boxes/{id}/subaccounts | Response to GET https://api.hetzner.com/v1/storage_boxes/{id}/subaccounts/{subaccount_id} | Response to PUT https://api.hetzner.com/v1/storage_boxes/{id}/subaccounts/{subaccount_id} | Response to DELETE https://api.hetzner.com/v1/storage_boxes/{id}/subaccounts/{subaccount_id} | Response to POST https://api.hetzner.com/v1/storage_boxes/{id}/subaccounts/{subaccount_id}/actions/change_home_directory | Response to GET https://api.hetzner.com/v1/storage_boxes/{id}/snapshots | Response to POST https://api.hetzner.com/v1/storage_boxes/{id}/snapshots | Response to GET https://api.hetzner.com/v1/storage_boxes/{id}/snapshots/{snapshot_id} | Response to PUT https://api.hetzner.com/v1/storage_boxes/{id}/snapshots/{snapshot_id} | Response to DELETE https://api.hetzner.com/v1/storage_boxes/{id}/snapshots/{snapshot_id} | Response to GET https://api.hetzner.com/v1/storage_box_types | Response to GET https://api.hetzner.com/v1/storage_box_types/{id}",
+        "description": "Response to GET https://api.hetzner.cloud/v1/actions | Response to GET https://api.hetzner.com/v1/storage_boxes/{id}/actions/{action_id} | Response to GET https://api.hetzner.cloud/v1/certificates | Response to POST https://api.hetzner.cloud/v1/certificates | Response to GET https://api.hetzner.com/v1/storage_boxes/{id}/actions | Response to GET https://api.hetzner.cloud/v1/certificates/{id} | Response to PUT https://api.hetzner.cloud/v1/certificates/{id} | Response to DELETE https://api.hetzner.cloud/v1/certificates/{id} | Response to POST https://api.hetzner.cloud/v1/certificates/{id}/actions/retry | Response to GET https://api.hetzner.cloud/v1/datacenters | Response to GET https://api.hetzner.cloud/v1/datacenters/{id} | Response to GET https://api.hetzner.cloud/v1/firewalls | Response to POST https://api.hetzner.cloud/v1/firewalls | Response to GET https://api.hetzner.cloud/v1/firewalls/{id} | Response to PUT https://api.hetzner.cloud/v1/firewalls/{id} | Response to DELETE https://api.hetzner.cloud/v1/firewalls/{id} | Response to POST https://api.hetzner.cloud/v1/firewalls/{id}/actions/apply_to_resources | Response to POST https://api.hetzner.cloud/v1/firewalls/{id}/actions/remove_from_resources | Response to POST https://api.hetzner.cloud/v1/firewalls/{id}/actions/set_rules | Response to GET https://api.hetzner.cloud/v1/floating_ips | Response to POST https://api.hetzner.cloud/v1/floating_ips | Response to GET https://api.hetzner.cloud/v1/floating_ips/{id} | Response to PUT https://api.hetzner.cloud/v1/floating_ips/{id} | Response to DELETE https://api.hetzner.cloud/v1/floating_ips/{id} | Response to POST https://api.hetzner.cloud/v1/floating_ips/{id}/actions/assign | Response to POST https://api.hetzner.cloud/v1/floating_ips/{id}/actions/change_dns_ptr | Response to POST https://api.hetzner.cloud/v1/floating_ips/{id}/actions/change_protection | Response to POST https://api.hetzner.cloud/v1/floating_ips/{id}/actions/unassign | Response to GET https://api.hetzner.cloud/v1/images | Response to GET https://api.hetzner.cloud/v1/images/{id} | Response to PUT https://api.hetzner.cloud/v1/images/{id} | Response to DELETE https://api.hetzner.cloud/v1/images/{id} | Response to POST https://api.hetzner.cloud/v1/images/{id}/actions/change_protection | Response to GET https://api.hetzner.cloud/v1/isos | Response to GET https://api.hetzner.cloud/v1/isos/{id} | Response to GET https://api.hetzner.cloud/v1/load_balancer_types | Response to GET https://api.hetzner.cloud/v1/load_balancer_types/{id} | Response to GET https://api.hetzner.cloud/v1/load_balancers | Response to POST https://api.hetzner.cloud/v1/load_balancers | Response to GET https://api.hetzner.cloud/v1/load_balancers/{id} | Response to PUT https://api.hetzner.cloud/v1/load_balancers/{id} | Response to DELETE https://api.hetzner.cloud/v1/load_balancers/{id} | Response to POST https://api.hetzner.cloud/v1/load_balancers/{id}/actions/add_service | Response to POST https://api.hetzner.cloud/v1/load_balancers/{id}/actions/add_target | Response to POST https://api.hetzner.cloud/v1/load_balancers/{id}/actions/attach_to_network | Response to POST https://api.hetzner.cloud/v1/load_balancers/{id}/actions/change_algorithm | Response to POST https://api.hetzner.cloud/v1/load_balancers/{id}/actions/change_dns_ptr | Response to POST https://api.hetzner.cloud/v1/load_balancers/{id}/actions/change_protection | Response to POST https://api.hetzner.cloud/v1/load_balancers/{id}/actions/change_type | Response to POST https://api.hetzner.cloud/v1/load_balancers/{id}/actions/delete_service | Response to POST https://api.hetzner.cloud/v1/load_balancers/{id}/actions/detach_from_network | Response to POST https://api.hetzner.cloud/v1/load_balancers/{id}/actions/disable_public_interface | Response to POST https://api.hetzner.cloud/v1/load_balancers/{id}/actions/enable_public_interface | Response to POST https://api.hetzner.cloud/v1/load_balancers/{id}/actions/remove_target | Response to POST https://api.hetzner.cloud/v1/load_balancers/{id}/actions/update_service | Response to GET https://api.hetzner.cloud/v1/load_balancers/{id}/metrics | Response to GET https://api.hetzner.cloud/v1/locations | Response to GET https://api.hetzner.cloud/v1/locations/{id} | Response to GET https://api.hetzner.cloud/v1/networks | Response to POST https://api.hetzner.cloud/v1/networks | Response to GET https://api.hetzner.cloud/v1/networks/{id} | Response to PUT https://api.hetzner.cloud/v1/networks/{id} | Response to DELETE https://api.hetzner.cloud/v1/networks/{id} | Response to POST https://api.hetzner.cloud/v1/networks/{id}/actions/add_route | Response to POST https://api.hetzner.cloud/v1/networks/{id}/actions/add_subnet | Response to POST https://api.hetzner.cloud/v1/networks/{id}/actions/change_ip_range | Response to POST https://api.hetzner.cloud/v1/networks/{id}/actions/change_protection | Response to POST https://api.hetzner.cloud/v1/networks/{id}/actions/delete_route | Response to POST https://api.hetzner.cloud/v1/networks/{id}/actions/delete_subnet | Response to GET https://api.hetzner.cloud/v1/networks/{id}/members | Response to GET https://api.hetzner.cloud/v1/placement_groups | Response to POST https://api.hetzner.cloud/v1/placement_groups | Response to GET https://api.hetzner.cloud/v1/placement_groups/{id} | Response to PUT https://api.hetzner.cloud/v1/placement_groups/{id} | Response to DELETE https://api.hetzner.cloud/v1/placement_groups/{id} | Response to GET https://api.hetzner.cloud/v1/pricing | Response to GET https://api.hetzner.cloud/v1/primary_ips | Response to POST https://api.hetzner.cloud/v1/primary_ips | Response to GET https://api.hetzner.cloud/v1/primary_ips/{id} | Response to PUT https://api.hetzner.cloud/v1/primary_ips/{id} | Response to DELETE https://api.hetzner.cloud/v1/primary_ips/{id} | Response to POST https://api.hetzner.cloud/v1/primary_ips/{id}/actions/assign | Response to POST https://api.hetzner.cloud/v1/primary_ips/{id}/actions/change_dns_ptr | Response to POST https://api.hetzner.cloud/v1/primary_ips/{id}/actions/change_protection | Response to POST https://api.hetzner.cloud/v1/primary_ips/{id}/actions/unassign | Response to GET https://api.hetzner.cloud/v1/server_types | Response to GET https://api.hetzner.cloud/v1/server_types/{id} | Response to GET https://api.hetzner.cloud/v1/servers | Response to POST https://api.hetzner.cloud/v1/servers | Response to GET https://api.hetzner.cloud/v1/servers/{id} | Response to PUT https://api.hetzner.cloud/v1/servers/{id} | Response to DELETE https://api.hetzner.cloud/v1/servers/{id} | Response to POST https://api.hetzner.cloud/v1/servers/{id}/actions/add_to_placement_group | Response to POST https://api.hetzner.cloud/v1/servers/{id}/actions/attach_iso | Response to POST https://api.hetzner.cloud/v1/servers/{id}/actions/attach_to_network | Response to POST https://api.hetzner.cloud/v1/servers/{id}/actions/change_alias_ips | Response to POST https://api.hetzner.cloud/v1/servers/{id}/actions/change_dns_ptr | Response to POST https://api.hetzner.cloud/v1/servers/{id}/actions/change_protection | Response to POST https://api.hetzner.cloud/v1/servers/{id}/actions/change_type | Response to POST https://api.hetzner.cloud/v1/servers/{id}/actions/create_image | Response to POST https://api.hetzner.cloud/v1/servers/{id}/actions/detach_from_network | Response to POST https://api.hetzner.cloud/v1/servers/{id}/actions/detach_iso | Response to POST https://api.hetzner.cloud/v1/servers/{id}/actions/disable_backup | Response to POST https://api.hetzner.cloud/v1/servers/{id}/actions/disable_rescue | Response to POST https://api.hetzner.cloud/v1/servers/{id}/actions/enable_backup | Response to POST https://api.hetzner.cloud/v1/servers/{id}/actions/enable_rescue | Response to POST https://api.hetzner.cloud/v1/servers/{id}/actions/poweroff | Response to POST https://api.hetzner.cloud/v1/servers/{id}/actions/poweron | Response to POST https://api.hetzner.cloud/v1/servers/{id}/actions/reboot | Response to POST https://api.hetzner.cloud/v1/servers/{id}/actions/rebuild | Response to POST https://api.hetzner.cloud/v1/servers/{id}/actions/remove_from_placement_group | Response to POST https://api.hetzner.cloud/v1/servers/{id}/actions/request_console | Response to POST https://api.hetzner.cloud/v1/servers/{id}/actions/reset | Response to POST https://api.hetzner.cloud/v1/servers/{id}/actions/reset_password | Response to POST https://api.hetzner.cloud/v1/servers/{id}/actions/shutdown | Response to GET https://api.hetzner.cloud/v1/servers/{id}/metrics | Response to GET https://api.hetzner.cloud/v1/ssh_keys | Response to POST https://api.hetzner.cloud/v1/ssh_keys | Response to GET https://api.hetzner.cloud/v1/ssh_keys/{id} | Response to PUT https://api.hetzner.cloud/v1/ssh_keys/{id} | Response to DELETE https://api.hetzner.cloud/v1/ssh_keys/{id} | Response to GET https://api.hetzner.cloud/v1/volumes | Response to POST https://api.hetzner.cloud/v1/volumes | Response to GET https://api.hetzner.cloud/v1/volumes/{id} | Response to PUT https://api.hetzner.cloud/v1/volumes/{id} | Response to DELETE https://api.hetzner.cloud/v1/volumes/{id} | Response to POST https://api.hetzner.cloud/v1/volumes/{id}/actions/attach | Response to POST https://api.hetzner.cloud/v1/volumes/{id}/actions/change_protection | Response to POST https://api.hetzner.cloud/v1/volumes/{id}/actions/detach | Response to POST https://api.hetzner.cloud/v1/volumes/{id}/actions/resize | Response to GET https://api.hetzner.cloud/v1/zones | Response to POST https://api.hetzner.cloud/v1/zones | Response to GET https://api.hetzner.cloud/v1/zones/{id_or_name} | Response to PUT https://api.hetzner.cloud/v1/zones/{id_or_name} | Response to DELETE https://api.hetzner.cloud/v1/zones/{id_or_name} | Response to GET https://api.hetzner.cloud/v1/zones/{id_or_name}/zonefile | Response to POST https://api.hetzner.cloud/v1/zones/{id_or_name}/actions/change_primary_nameservers | Response to POST https://api.hetzner.cloud/v1/zones/{id_or_name}/actions/change_protection | Response to POST https://api.hetzner.cloud/v1/zones/{id_or_name}/actions/change_ttl | Response to POST https://api.hetzner.cloud/v1/zones/{id_or_name}/actions/import_zonefile | Response to GET https://api.hetzner.cloud/v1/zones/{id_or_name}/rrsets | Response to POST https://api.hetzner.cloud/v1/zones/{id_or_name}/rrsets | Response to GET https://api.hetzner.cloud/v1/zones/{id_or_name}/rrsets/{rr_name}/{rr_type} | Response to PUT https://api.hetzner.cloud/v1/zones/{id_or_name}/rrsets/{rr_name}/{rr_type} | Response to DELETE https://api.hetzner.cloud/v1/zones/{id_or_name}/rrsets/{rr_name}/{rr_type} | Response to POST https://api.hetzner.cloud/v1/zones/{id_or_name}/rrsets/{rr_name}/{rr_type}/actions/change_protection | Response to POST https://api.hetzner.cloud/v1/zones/{id_or_name}/rrsets/{rr_name}/{rr_type}/actions/change_ttl | Response to POST https://api.hetzner.cloud/v1/zones/{id_or_name}/rrsets/{rr_name}/{rr_type}/actions/set_records | Response to POST https://api.hetzner.cloud/v1/zones/{id_or_name}/rrsets/{rr_name}/{rr_type}/actions/add_records | Response to POST https://api.hetzner.cloud/v1/zones/{id_or_name}/rrsets/{rr_name}/{rr_type}/actions/remove_records | Response to POST https://api.hetzner.cloud/v1/zones/{id_or_name}/rrsets/{rr_name}/{rr_type}/actions/update_records | Response to GET https://api.hetzner.com/v1/storage_boxes | Response to POST https://api.hetzner.com/v1/storage_boxes | Response to GET https://api.hetzner.com/v1/storage_boxes/{id} | Response to PUT https://api.hetzner.com/v1/storage_boxes/{id} | Response to DELETE https://api.hetzner.com/v1/storage_boxes/{id} | Response to GET https://api.hetzner.com/v1/storage_boxes/{id}/folders | Response to POST https://api.hetzner.com/v1/storage_boxes/{id}/actions/change_protection | Response to POST https://api.hetzner.com/v1/storage_boxes/{id}/actions/change_type | Response to POST https://api.hetzner.com/v1/storage_boxes/{id}/subaccounts/{subaccount_id}/actions/reset_subaccount_password | Response to POST https://api.hetzner.com/v1/storage_boxes/{id}/subaccounts/{subaccount_id}/actions/update_access_settings | Response to POST https://api.hetzner.com/v1/storage_boxes/{id}/actions/rollback_snapshot | Response to POST https://api.hetzner.com/v1/storage_boxes/{id}/actions/disable_snapshot_plan | Response to POST https://api.hetzner.com/v1/storage_boxes/{id}/actions/enable_snapshot_plan | Response to GET https://api.hetzner.com/v1/storage_boxes/{id}/subaccounts | Response to POST https://api.hetzner.com/v1/storage_boxes/{id}/subaccounts | Response to GET https://api.hetzner.com/v1/storage_boxes/{id}/subaccounts/{subaccount_id} | Response to PUT https://api.hetzner.com/v1/storage_boxes/{id}/subaccounts/{subaccount_id} | Response to DELETE https://api.hetzner.com/v1/storage_boxes/{id}/subaccounts/{subaccount_id} | Response to POST https://api.hetzner.com/v1/storage_boxes/{id}/subaccounts/{subaccount_id}/actions/change_home_directory | Response to GET https://api.hetzner.com/v1/storage_boxes/{id}/snapshots | Response to POST https://api.hetzner.com/v1/storage_boxes/{id}/snapshots | Response to GET https://api.hetzner.com/v1/storage_boxes/{id}/snapshots/{snapshot_id} | Response to PUT https://api.hetzner.com/v1/storage_boxes/{id}/snapshots/{snapshot_id} | Response to DELETE https://api.hetzner.com/v1/storage_boxes/{id}/snapshots/{snapshot_id} | Response to GET https://api.hetzner.com/v1/storage_box_types | Response to GET https://api.hetzner.com/v1/storage_box_types/{id}",
         "example": {
           "error": {
             "code": "unauthorized",
@@ -4627,6 +4627,97 @@
         },
         "required": [
           "locations",
+          "meta"
+        ],
+        "type": "object"
+      },
+      "list_members_of_network_response": {
+        "additionalProperties": false,
+        "description": "Response to GET https://api.hetzner.cloud/v1/networks/{id}/members",
+        "properties": {
+          "members": {
+            "items": {
+              "additionalProperties": false,
+              "properties": {
+                "alias_ips": {
+                  "description": "Additional IP addresses of the resource within the Network.",
+                  "example": [
+                    "10.0.1.20"
+                  ],
+                  "items": {
+                    "format": "ipv4",
+                    "type": "string"
+                  },
+                  "type": "array"
+                },
+                "id": {
+                  "description": "ID of the attached resource.",
+                  "example": 42,
+                  "format": "int64",
+                  "maximum": 9007199254740991,
+                  "minimum": 1,
+                  "type": "integer"
+                },
+                "ip": {
+                  "description": "IP address of the resource within the Network.",
+                  "example": "10.0.1.2",
+                  "format": "ipv4",
+                  "type": "string"
+                },
+                "status": {
+                  "description": "Status of the resource within the Network.\n",
+                  "enum": [
+                    "attaching",
+                    "detaching",
+                    "error",
+                    "ok",
+                    "updating"
+                  ],
+                  "type": "string",
+                  "x-enumDescriptions": {
+                    "attaching": "The resource is being attached to the [Network](#tag/networks).",
+                    "detaching": "The resource is being detached from the [Network](#tag/networks).",
+                    "error": "The last operation on this member failed. Its network configuration might be out of date, and the resource might not be reachable within the [Network](#tag/networks) as expected.",
+                    "ok": "The resource is attached and its network configuration is up to date.",
+                    "updating": "The resource network configuration is being updated."
+                  }
+                },
+                "subnet": {
+                  "description": "IP range of the subnet the resource is attached to.\n\nUses CIDR notation.\n",
+                  "example": "10.0.1.0/24",
+                  "type": "string"
+                },
+                "type": {
+                  "description": "Type of the resource attached to the Network.\n",
+                  "enum": [
+                    "load_balancer",
+                    "server"
+                  ],
+                  "type": "string",
+                  "x-enumDescriptions": {
+                    "load_balancer": "The member is a [Load Balancer](#tag/load-balancers).",
+                    "server": "The member is a [Server](#tag/servers)."
+                  }
+                }
+              },
+              "required": [
+                "alias_ips",
+                "id",
+                "ip",
+                "status",
+                "subnet",
+                "type"
+              ],
+              "type": "object"
+            },
+            "type": "array"
+          },
+          "meta": {
+            "$ref": "#/components/schemas/meta"
+          }
+        },
+        "required": [
+          "members",
           "meta"
         ],
         "type": "object"
@@ -35073,6 +35164,216 @@
             "lang": "Shell",
             "source": "hcloud zone export-zonefile $ZONE"
           }
+        ]
+      },
+      "servers": [
+        {
+          "url": "https://api.hetzner.cloud/v1"
+        }
+      ]
+    },
+    "/networks/{id}/members": {
+      "get": {
+        "description": "List the resources attached to a specific Network.\n\nUse the provided URI parameters to modify the result.\n",
+        "operationId": "list_members_of_network",
+        "parameters": [
+          {
+            "description": "ID of the Network.",
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "description": "ID of the Network.",
+              "example": 42,
+              "format": "int64",
+              "maximum": 9007199254740991,
+              "minimum": 1,
+              "type": "integer"
+            }
+          },
+          {
+            "description": "Filter members by type. May be used multiple times.\n\nThe response will only contain members matching the specified types.\n",
+            "in": "query",
+            "name": "type",
+            "required": false,
+            "schema": {
+              "items": {
+                "description": "Type of the resource attached to the Network.\n",
+                "enum": [
+                  "server",
+                  "load_balancer"
+                ],
+                "type": "string",
+                "x-enumDescriptions": {
+                  "load_balancer": "The member is a [Load Balancer](#tag/load-balancers).",
+                  "server": "The member is a [Server](#tag/servers)."
+                }
+              },
+              "type": "array"
+            }
+          },
+          {
+            "description": "Filter members by the subnet they are attached to. May be used multiple times.\n\nThe response will only contain members attached to the subnets with the\nspecified IP ranges. Uses CIDR notation.\n",
+            "in": "query",
+            "name": "subnet",
+            "required": false,
+            "schema": {
+              "items": {
+                "example": "10.0.1.0/24",
+                "type": "string"
+              },
+              "type": "array"
+            }
+          },
+          {
+            "description": "Filter members by status. May be used multiple times.\n\nThe response will only contain members matching the specified statuses.\n",
+            "in": "query",
+            "name": "status",
+            "required": false,
+            "schema": {
+              "items": {
+                "description": "Status of the resource within the Network.\n",
+                "enum": [
+                  "ok",
+                  "attaching",
+                  "detaching",
+                  "updating",
+                  "error"
+                ],
+                "type": "string",
+                "x-enumDescriptions": {
+                  "attaching": "The resource is being attached to the [Network](#tag/networks).",
+                  "detaching": "The resource is being detached from the [Network](#tag/networks).",
+                  "error": "The last operation on this member failed. Its network configuration might be out of date, and the resource might not be reachable within the [Network](#tag/networks) as expected.",
+                  "ok": "The resource is attached and its network configuration is up to date.",
+                  "updating": "The resource network configuration is being updated."
+                }
+              },
+              "type": "array"
+            }
+          },
+          {
+            "description": "Sort resources by field and direction. May be used multiple times.\n\nFor more information, see \"Sorting\".\n",
+            "in": "query",
+            "name": "sort",
+            "required": false,
+            "schema": {
+              "items": {
+                "enum": [
+                  "id",
+                  "id:asc",
+                  "id:desc",
+                  "type",
+                  "type:asc",
+                  "type:desc",
+                  "status",
+                  "status:asc",
+                  "status:desc",
+                  "ip",
+                  "ip:asc",
+                  "ip:desc"
+                ],
+                "type": "string"
+              },
+              "type": "array"
+            }
+          },
+          {
+            "description": "Page number to return. For more information, see \"Pagination\".",
+            "in": "query",
+            "name": "page",
+            "required": false,
+            "schema": {
+              "default": 1,
+              "example": 1,
+              "format": "int64",
+              "type": "integer"
+            }
+          },
+          {
+            "description": "Maximum number of entries returned per page. For more information, see \"Pagination\".",
+            "in": "query",
+            "name": "per_page",
+            "required": false,
+            "schema": {
+              "default": 25,
+              "example": 25,
+              "format": "int64",
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "examples": {
+                  "default": {
+                    "value": {
+                      "members": [
+                        {
+                          "alias_ips": [
+                            "10.0.1.20"
+                          ],
+                          "id": 123,
+                          "ip": "10.0.1.2",
+                          "status": "attaching",
+                          "subnet": "10.0.1.0/24",
+                          "type": "server"
+                        },
+                        {
+                          "alias_ips": [],
+                          "id": 43,
+                          "ip": "10.0.1.3",
+                          "status": "updating",
+                          "subnet": "10.0.1.0/24",
+                          "type": "load_balancer"
+                        }
+                      ],
+                      "meta": {
+                        "pagination": {
+                          "last_page": 4,
+                          "next_page": 2,
+                          "page": 1,
+                          "per_page": 25,
+                          "previous_page": null,
+                          "total_entries": 100
+                        }
+                      }
+                    }
+                  }
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/list_members_of_network_response"
+                }
+              }
+            },
+            "description": "Request succeeded."
+          },
+          "4xx": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error_response"
+                }
+              }
+            },
+            "description": "Request failed with a user error."
+          },
+          "5xx": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error_response"
+                }
+              }
+            },
+            "description": "Request failed with a server error."
+          }
+        },
+        "summary": "List Members of a Network",
+        "tags": [
+          "networks"
         ]
       },
       "servers": [
