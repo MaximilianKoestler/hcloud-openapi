@@ -5177,7 +5177,7 @@
         "description": "Response to GET https://api.hetzner.cloud/v1/zones/{id_or_name}/rrsets",
         "properties": {
           "meta": {
-            "$ref": "#/components/schemas/meta"
+            "$ref": "#/components/schemas/meta100"
           },
           "rrsets": {
             "items": {
@@ -6510,6 +6510,74 @@
         "title": "ListMeta",
         "type": "object"
       },
+      "meta100": {
+        "properties": {
+          "pagination": {
+            "description": "See \"Pagination\" for more information.",
+            "properties": {
+              "last_page": {
+                "description": "Page number of the last page available. Can be null if the current page is the last one.",
+                "example": 4,
+                "format": "int64",
+                "nullable": true,
+                "type": "integer"
+              },
+              "next_page": {
+                "description": "Page number of the next page. Can be null if the current page is the last one.",
+                "example": 4,
+                "format": "int64",
+                "nullable": true,
+                "type": "integer"
+              },
+              "page": {
+                "default": 1,
+                "description": "Current page number.",
+                "example": 3,
+                "format": "int64",
+                "minimum": 1,
+                "type": "integer"
+              },
+              "per_page": {
+                "default": 25,
+                "description": "Maximum number of entries returned per page.",
+                "example": 25,
+                "format": "int64",
+                "maximum": 100,
+                "minimum": 1,
+                "type": "integer"
+              },
+              "previous_page": {
+                "description": "Page number of the previous page. Can be null if the current page is the first one.",
+                "example": 2,
+                "format": "int64",
+                "nullable": true,
+                "type": "integer"
+              },
+              "total_entries": {
+                "description": "Total number of entries that exist for this query. Can be null if unknown.",
+                "example": 100,
+                "format": "int64",
+                "nullable": true,
+                "type": "integer"
+              }
+            },
+            "required": [
+              "last_page",
+              "next_page",
+              "page",
+              "per_page",
+              "previous_page",
+              "total_entries"
+            ],
+            "type": "object"
+          }
+        },
+        "required": [
+          "pagination"
+        ],
+        "title": "ListMeta100",
+        "type": "object"
+      },
       "metrics": {
         "description": "You must specify the type of metric to get: open_connections, requests_per_second or bandwidth. You can also specify more than one type by comma separation, e.g. requests_per_second,bandwidth. Depending on the type you will get different time series data.",
         "properties": {
@@ -6730,15 +6798,20 @@
             "type": "integer"
           },
           "page": {
+            "default": 1,
             "description": "Current page number.",
             "example": 3,
             "format": "int64",
+            "minimum": 1,
             "type": "integer"
           },
           "per_page": {
+            "default": 25,
             "description": "Maximum number of entries returned per page.",
             "example": 25,
             "format": "int64",
+            "maximum": 50,
+            "minimum": 1,
             "type": "integer"
           },
           "previous_page": {
@@ -10134,6 +10207,7 @@
               "default": 1,
               "example": 1,
               "format": "int64",
+              "minimum": 1,
               "type": "integer"
             }
           },
@@ -10146,6 +10220,8 @@
               "default": 25,
               "example": 25,
               "format": "int64",
+              "maximum": 50,
+              "minimum": 1,
               "type": "integer"
             }
           }
@@ -10810,6 +10886,7 @@
               "default": 1,
               "example": 1,
               "format": "int64",
+              "minimum": 1,
               "type": "integer"
             }
           },
@@ -10822,6 +10899,8 @@
               "default": 25,
               "example": 25,
               "format": "int64",
+              "maximum": 50,
+              "minimum": 1,
               "type": "integer"
             }
           }
@@ -11189,6 +11268,7 @@
               "default": 1,
               "example": 1,
               "format": "int64",
+              "minimum": 1,
               "type": "integer"
             }
           },
@@ -11201,6 +11281,8 @@
               "default": 25,
               "example": 25,
               "format": "int64",
+              "maximum": 50,
+              "minimum": 1,
               "type": "integer"
             }
           }
@@ -11379,6 +11461,7 @@
               "default": 1,
               "example": 1,
               "format": "int64",
+              "minimum": 1,
               "type": "integer"
             }
           },
@@ -11391,6 +11474,8 @@
               "default": 25,
               "example": 25,
               "format": "int64",
+              "maximum": 50,
+              "minimum": 1,
               "type": "integer"
             }
           }
@@ -11591,6 +11676,7 @@
               "default": 1,
               "example": 1,
               "format": "int64",
+              "minimum": 1,
               "type": "integer"
             }
           },
@@ -11603,6 +11689,8 @@
               "default": 25,
               "example": 25,
               "format": "int64",
+              "maximum": 50,
+              "minimum": 1,
               "type": "integer"
             }
           }
@@ -12070,6 +12158,7 @@
               "default": 1,
               "example": 1,
               "format": "int64",
+              "minimum": 1,
               "type": "integer"
             }
           },
@@ -12082,6 +12171,8 @@
               "default": 25,
               "example": 25,
               "format": "int64",
+              "maximum": 50,
+              "minimum": 1,
               "type": "integer"
             }
           }
@@ -12770,6 +12861,7 @@
               "default": 1,
               "example": 1,
               "format": "int64",
+              "minimum": 1,
               "type": "integer"
             }
           },
@@ -12782,6 +12874,8 @@
               "default": 25,
               "example": 25,
               "format": "int64",
+              "maximum": 50,
+              "minimum": 1,
               "type": "integer"
             }
           }
@@ -12968,6 +13062,7 @@
               "default": 1,
               "example": 1,
               "format": "int64",
+              "minimum": 1,
               "type": "integer"
             }
           },
@@ -12980,6 +13075,8 @@
               "default": 25,
               "example": 25,
               "format": "int64",
+              "maximum": 50,
+              "minimum": 1,
               "type": "integer"
             }
           }
@@ -13510,6 +13607,7 @@
               "default": 1,
               "example": 1,
               "format": "int64",
+              "minimum": 1,
               "type": "integer"
             }
           },
@@ -13522,6 +13620,8 @@
               "default": 25,
               "example": 25,
               "format": "int64",
+              "maximum": 50,
+              "minimum": 1,
               "type": "integer"
             }
           }
@@ -14248,6 +14348,7 @@
               "default": 1,
               "example": 1,
               "format": "int64",
+              "minimum": 1,
               "type": "integer"
             }
           },
@@ -14260,6 +14361,8 @@
               "default": 25,
               "example": 25,
               "format": "int64",
+              "maximum": 50,
+              "minimum": 1,
               "type": "integer"
             }
           }
@@ -14524,6 +14627,7 @@
               "default": 1,
               "example": 1,
               "format": "int64",
+              "minimum": 1,
               "type": "integer"
             }
           },
@@ -14536,6 +14640,8 @@
               "default": 25,
               "example": 25,
               "format": "int64",
+              "maximum": 50,
+              "minimum": 1,
               "type": "integer"
             }
           }
@@ -14938,6 +15044,7 @@
               "default": 1,
               "example": 1,
               "format": "int64",
+              "minimum": 1,
               "type": "integer"
             }
           },
@@ -14950,6 +15057,8 @@
               "default": 25,
               "example": 25,
               "format": "int64",
+              "maximum": 50,
+              "minimum": 1,
               "type": "integer"
             }
           }
@@ -15327,6 +15436,7 @@
               "default": 1,
               "example": 1,
               "format": "int64",
+              "minimum": 1,
               "type": "integer"
             }
           },
@@ -15339,6 +15449,8 @@
               "default": 25,
               "example": 25,
               "format": "int64",
+              "maximum": 50,
+              "minimum": 1,
               "type": "integer"
             }
           }
@@ -15520,6 +15632,7 @@
               "default": 1,
               "example": 1,
               "format": "int64",
+              "minimum": 1,
               "type": "integer"
             }
           },
@@ -15532,6 +15645,8 @@
               "default": 25,
               "example": 25,
               "format": "int64",
+              "maximum": 50,
+              "minimum": 1,
               "type": "integer"
             }
           }
@@ -15699,6 +15814,7 @@
               "default": 1,
               "example": 1,
               "format": "int64",
+              "minimum": 1,
               "type": "integer"
             }
           },
@@ -15711,6 +15827,8 @@
               "default": 25,
               "example": 25,
               "format": "int64",
+              "maximum": 50,
+              "minimum": 1,
               "type": "integer"
             }
           }
@@ -15910,6 +16028,7 @@
               "default": 1,
               "example": 1,
               "format": "int64",
+              "minimum": 1,
               "type": "integer"
             }
           },
@@ -15922,6 +16041,8 @@
               "default": 25,
               "example": 25,
               "format": "int64",
+              "maximum": 50,
+              "minimum": 1,
               "type": "integer"
             }
           }
@@ -16686,6 +16807,7 @@
               "default": 1,
               "example": 1,
               "format": "int64",
+              "minimum": 1,
               "type": "integer"
             }
           },
@@ -16698,6 +16820,8 @@
               "default": 25,
               "example": 25,
               "format": "int64",
+              "maximum": 50,
+              "minimum": 1,
               "type": "integer"
             }
           }
@@ -18561,6 +18685,7 @@
               "default": 1,
               "example": 1,
               "format": "int64",
+              "minimum": 1,
               "type": "integer"
             }
           },
@@ -18573,6 +18698,8 @@
               "default": 25,
               "example": 25,
               "format": "int64",
+              "maximum": 50,
+              "minimum": 1,
               "type": "integer"
             }
           }
@@ -18750,6 +18877,7 @@
               "default": 1,
               "example": 1,
               "format": "int64",
+              "minimum": 1,
               "type": "integer"
             }
           },
@@ -18762,6 +18890,8 @@
               "default": 25,
               "example": 25,
               "format": "int64",
+              "maximum": 50,
+              "minimum": 1,
               "type": "integer"
             }
           }
@@ -18961,6 +19091,7 @@
               "default": 1,
               "example": 1,
               "format": "int64",
+              "minimum": 1,
               "type": "integer"
             }
           },
@@ -18973,6 +19104,8 @@
               "default": 25,
               "example": 25,
               "format": "int64",
+              "maximum": 50,
+              "minimum": 1,
               "type": "integer"
             }
           }
@@ -19447,6 +19580,7 @@
               "default": 1,
               "example": 1,
               "format": "int64",
+              "minimum": 1,
               "type": "integer"
             }
           },
@@ -19459,6 +19593,8 @@
               "default": 25,
               "example": 25,
               "format": "int64",
+              "maximum": 50,
+              "minimum": 1,
               "type": "integer"
             }
           }
@@ -20406,6 +20542,7 @@
               "default": 1,
               "example": 1,
               "format": "int64",
+              "minimum": 1,
               "type": "integer"
             }
           },
@@ -20418,6 +20555,8 @@
               "default": 25,
               "example": 25,
               "format": "int64",
+              "maximum": 50,
+              "minimum": 1,
               "type": "integer"
             }
           }
@@ -20624,6 +20763,7 @@
               "default": 1,
               "example": 1,
               "format": "int64",
+              "minimum": 1,
               "type": "integer"
             }
           },
@@ -20636,6 +20776,8 @@
               "default": 25,
               "example": 25,
               "format": "int64",
+              "maximum": 50,
+              "minimum": 1,
               "type": "integer"
             }
           }
@@ -21185,6 +21327,7 @@
               "default": 1,
               "example": 1,
               "format": "int64",
+              "minimum": 1,
               "type": "integer"
             }
           },
@@ -21197,6 +21340,8 @@
               "default": 25,
               "example": 25,
               "format": "int64",
+              "maximum": 50,
+              "minimum": 1,
               "type": "integer"
             }
           },
@@ -21710,6 +21855,7 @@
               "default": 1,
               "example": 1,
               "format": "int64",
+              "minimum": 1,
               "type": "integer"
             }
           },
@@ -21722,6 +21868,8 @@
               "default": 25,
               "example": 25,
               "format": "int64",
+              "maximum": 50,
+              "minimum": 1,
               "type": "integer"
             }
           }
@@ -22380,6 +22528,7 @@
               "default": 1,
               "example": 1,
               "format": "int64",
+              "minimum": 1,
               "type": "integer"
             }
           },
@@ -22392,6 +22541,8 @@
               "default": 25,
               "example": 25,
               "format": "int64",
+              "maximum": 50,
+              "minimum": 1,
               "type": "integer"
             }
           }
@@ -22549,6 +22700,7 @@
               "default": 1,
               "example": 1,
               "format": "int64",
+              "minimum": 1,
               "type": "integer"
             }
           },
@@ -22561,6 +22713,8 @@
               "default": 25,
               "example": 25,
               "format": "int64",
+              "maximum": 50,
+              "minimum": 1,
               "type": "integer"
             }
           }
@@ -22784,6 +22938,7 @@
               "default": 1,
               "example": 1,
               "format": "int64",
+              "minimum": 1,
               "type": "integer"
             }
           },
@@ -22796,6 +22951,8 @@
               "default": 25,
               "example": 25,
               "format": "int64",
+              "maximum": 50,
+              "minimum": 1,
               "type": "integer"
             }
           }
@@ -23447,6 +23604,7 @@
               "default": 1,
               "example": 1,
               "format": "int64",
+              "minimum": 1,
               "type": "integer"
             }
           },
@@ -23459,6 +23617,8 @@
               "default": 25,
               "example": 25,
               "format": "int64",
+              "maximum": 50,
+              "minimum": 1,
               "type": "integer"
             }
           }
@@ -26395,6 +26555,7 @@
               "default": 1,
               "example": 1,
               "format": "int64",
+              "minimum": 1,
               "type": "integer"
             }
           },
@@ -26407,6 +26568,8 @@
               "default": 25,
               "example": 25,
               "format": "int64",
+              "maximum": 50,
+              "minimum": 1,
               "type": "integer"
             }
           }
@@ -26602,6 +26765,7 @@
               "default": 1,
               "example": 1,
               "format": "int64",
+              "minimum": 1,
               "type": "integer"
             }
           },
@@ -26614,6 +26778,8 @@
               "default": 25,
               "example": 25,
               "format": "int64",
+              "maximum": 50,
+              "minimum": 1,
               "type": "integer"
             }
           }
@@ -27063,6 +27229,7 @@
               "default": 1,
               "example": 1,
               "format": "int64",
+              "minimum": 1,
               "type": "integer"
             }
           },
@@ -27075,6 +27242,8 @@
               "default": 25,
               "example": 25,
               "format": "int64",
+              "maximum": 50,
+              "minimum": 1,
               "type": "integer"
             }
           }
@@ -27634,6 +27803,7 @@
               "default": 1,
               "example": 1,
               "format": "int64",
+              "minimum": 1,
               "type": "integer"
             }
           },
@@ -27646,6 +27816,8 @@
               "default": 25,
               "example": 25,
               "format": "int64",
+              "maximum": 50,
+              "minimum": 1,
               "type": "integer"
             }
           }
@@ -28367,6 +28539,7 @@
               "default": 1,
               "example": 1,
               "format": "int64",
+              "minimum": 1,
               "type": "integer"
             }
           },
@@ -28379,6 +28552,8 @@
               "default": 25,
               "example": 25,
               "format": "int64",
+              "maximum": 50,
+              "minimum": 1,
               "type": "integer"
             }
           }
@@ -28536,6 +28711,7 @@
               "default": 1,
               "example": 1,
               "format": "int64",
+              "minimum": 1,
               "type": "integer"
             }
           },
@@ -28548,6 +28724,8 @@
               "default": 25,
               "example": 25,
               "format": "int64",
+              "maximum": 50,
+              "minimum": 1,
               "type": "integer"
             }
           }
@@ -28753,6 +28931,7 @@
               "default": 1,
               "example": 1,
               "format": "int64",
+              "minimum": 1,
               "type": "integer"
             }
           },
@@ -28765,6 +28944,8 @@
               "default": 25,
               "example": 25,
               "format": "int64",
+              "maximum": 50,
+              "minimum": 1,
               "type": "integer"
             }
           }
@@ -29063,6 +29244,7 @@
               "default": 1,
               "example": 1,
               "format": "int64",
+              "minimum": 1,
               "type": "integer"
             }
           },
@@ -29075,6 +29257,8 @@
               "default": 25,
               "example": 25,
               "format": "int64",
+              "maximum": 50,
+              "minimum": 1,
               "type": "integer"
             }
           }
@@ -29542,6 +29726,7 @@
               "default": 1,
               "example": 1,
               "format": "int64",
+              "minimum": 1,
               "type": "integer"
             }
           },
@@ -29554,6 +29739,8 @@
               "default": 25,
               "example": 25,
               "format": "int64",
+              "maximum": 50,
+              "minimum": 1,
               "type": "integer"
             }
           }
@@ -32218,6 +32405,7 @@
               "default": 1,
               "example": 1,
               "format": "int64",
+              "minimum": 1,
               "type": "integer"
             }
           },
@@ -32230,6 +32418,8 @@
               "default": 25,
               "example": 25,
               "format": "int64",
+              "maximum": 50,
+              "minimum": 1,
               "type": "integer"
             }
           }
@@ -32575,6 +32765,7 @@
               "default": 1,
               "example": 1,
               "format": "int64",
+              "minimum": 1,
               "type": "integer"
             }
           },
@@ -32587,6 +32778,8 @@
               "default": 25,
               "example": 25,
               "format": "int64",
+              "maximum": 50,
+              "minimum": 1,
               "type": "integer"
             }
           }
@@ -33073,6 +33266,7 @@
               "default": 1,
               "example": 1,
               "format": "int64",
+              "minimum": 1,
               "type": "integer"
             }
           },
@@ -33085,6 +33279,8 @@
               "default": 25,
               "example": 25,
               "format": "int64",
+              "maximum": 50,
+              "minimum": 1,
               "type": "integer"
             }
           }
@@ -33657,7 +33853,7 @@
     },
     "/zones/{id_or_name}/rrsets": {
       "get": {
-        "description": "Returns all RRSets in the Zone.\n\nUse the provided URI parameters to modify the result.\n\nThe maximum value for `per_page` on this endpoint is `100` instead of `50`.\n\nOnly applicable for Zones in primary mode.\n\n#### Operation specific errors\n\n| Status | Code | Description |\n| --- | --- | --- |\n| `422` | `incorrect_zone_mode` | This operation is not supported for this Zone's `mode`. |\n",
+        "description": "Returns all RRSets in the Zone.\n\nUse the provided URI parameters to modify the result.\n\nOnly applicable for Zones in primary mode.\n\n#### Operation specific errors\n\n| Status | Code | Description |\n| --- | --- | --- |\n| `422` | `incorrect_zone_mode` | This operation is not supported for this Zone's `mode`. |\n",
         "operationId": "list_rrsets",
         "parameters": [
           {
@@ -33752,6 +33948,7 @@
               "default": 1,
               "example": 1,
               "format": "int64",
+              "minimum": 1,
               "type": "integer"
             }
           },
@@ -33764,6 +33961,8 @@
               "default": 25,
               "example": 25,
               "format": "int64",
+              "maximum": 50,
+              "minimum": 1,
               "type": "integer"
             }
           }
@@ -35377,6 +35576,7 @@
               "default": 1,
               "example": 1,
               "format": "int64",
+              "minimum": 1,
               "type": "integer"
             }
           },
@@ -35389,6 +35589,8 @@
               "default": 25,
               "example": 25,
               "format": "int64",
+              "maximum": 50,
+              "minimum": 1,
               "type": "integer"
             }
           }
