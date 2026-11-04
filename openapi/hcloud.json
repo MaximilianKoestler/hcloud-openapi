@@ -1864,7 +1864,8 @@
           "assignee_type": {
             "description": "Type of resource to assign the Primary IP to.\n\nOmitted if the Primary IP should not get assigned.\n",
             "enum": [
-              "server"
+              "server",
+              "unassigned"
             ],
             "example": "server",
             "type": "string"
@@ -1923,9 +1924,10 @@
                 "type": "integer"
               },
               "assignee_type": {
-                "description": "Type of resource the Primary IP is assigned to.\n\nAs of 01 August 2026 `unassigned` will be returned if the Primary IP is not assigned.\n",
+                "description": "Type of resource the Primary IP is assigned to.\n\nAs of 23 September 2026 `unassigned` is returned if the Primary IP is not assigned.\n",
                 "enum": [
-                  "server"
+                  "server",
+                  "unassigned"
                 ],
                 "example": "server",
                 "type": "string"
@@ -3797,9 +3799,10 @@
                 "type": "integer"
               },
               "assignee_type": {
-                "description": "Type of resource the Primary IP is assigned to.\n\nAs of 01 August 2026 `unassigned` will be returned if the Primary IP is not assigned.\n",
+                "description": "Type of resource the Primary IP is assigned to.\n\nAs of 23 September 2026 `unassigned` is returned if the Primary IP is not assigned.\n",
                 "enum": [
-                  "server"
+                  "server",
+                  "unassigned"
                 ],
                 "example": "server",
                 "type": "string"
@@ -5038,9 +5041,10 @@
                   "type": "integer"
                 },
                 "assignee_type": {
-                  "description": "Type of resource the Primary IP is assigned to.\n\nAs of 01 August 2026 `unassigned` will be returned if the Primary IP is not assigned.\n",
+                  "description": "Type of resource the Primary IP is assigned to.\n\nAs of 23 September 2026 `unassigned` is returned if the Primary IP is not assigned.\n",
                   "enum": [
-                    "server"
+                    "server",
+                    "unassigned"
                   ],
                   "example": "server",
                   "type": "string"
@@ -7285,9 +7289,10 @@
                 "type": "integer"
               },
               "assignee_type": {
-                "description": "Type of resource the Primary IP is assigned to.\n\nAs of 01 August 2026 `unassigned` will be returned if the Primary IP is not assigned.\n",
+                "description": "Type of resource the Primary IP is assigned to.\n\nAs of 23 September 2026 `unassigned` is returned if the Primary IP is not assigned.\n",
                 "enum": [
-                  "server"
+                  "server",
+                  "unassigned"
                 ],
                 "example": "server",
                 "type": "string"
