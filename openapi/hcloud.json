@@ -4254,7 +4254,7 @@
         "description": "IP address (v4) and its reverse DNS entry of this Server.",
         "properties": {
           "blocked": {
-            "description": "If the IP is blocked by our anti abuse dept.",
+            "description": "Whether the IP is blocked by our abuse department.",
             "example": false,
             "type": "boolean"
           },
@@ -4288,7 +4288,7 @@
         "description": "IPv6 network assigned to this Server and its reverse DNS entry.",
         "properties": {
           "blocked": {
-            "description": "If the IP is blocked by our anti abuse dept.",
+            "description": "Whether the IP is blocked by our abuse department.",
             "example": false,
             "type": "boolean"
           },
