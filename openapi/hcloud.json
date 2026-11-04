@@ -581,28 +581,32 @@
         "title": "ActionResponse",
         "type": "object"
       },
-      "attach_volume_to_server_request": {
+      "attach_volume_to_resource_request": {
         "description": "Request for POST https://api.hetzner.cloud/v1/volumes/{id}/actions/attach",
         "properties": {
+          "assignee": {
+            "$ref": "#/components/schemas/resource"
+          },
           "automount": {
             "description": "Auto-mount the Volume after attaching it.",
             "example": false,
             "type": "boolean"
           },
           "server": {
-            "description": "ID of the Server the Volume will be attached to.",
+            "deprecated": true,
+            "description": "This field is deprecated, use the `assignee` field with `server` as the `type` instead.\n\nID of the Server the Volume will be attached to.\n",
             "example": 43,
             "format": "int64",
             "type": "integer"
           }
         },
         "required": [
-          "server"
+          "assignee"
         ],
         "title": "AttachVolumeRequest",
         "type": "object"
       },
-      "attach_volume_to_server_response": {
+      "attach_volume_to_resource_response": {
         "description": "Response to POST https://api.hetzner.cloud/v1/volumes/{id}/actions/attach",
         "properties": {
           "action": {
@@ -2501,6 +2505,9 @@
       "create_volume_request": {
         "description": "Request for POST https://api.hetzner.cloud/v1/volumes",
         "properties": {
+          "assignee": {
+            "$ref": "#/components/schemas/resource"
+          },
           "automount": {
             "description": "Auto-mount Volume after attach. `server` must be provided.",
             "example": false,
@@ -2525,7 +2532,8 @@
             "type": "string"
           },
           "server": {
-            "description": "Server to which to attach the Volume once it's created (Volume will be created in the same Location as the server).",
+            "deprecated": true,
+            "description": "This field is deprecated, use the `assignee` field with `server` as the `type` instead.\n\nServer to which to attach the Volume once it's created (Volume will be created in the same Location as the server).\n",
             "format": "int64",
             "type": "integer"
           },
@@ -7838,6 +7846,7 @@
         "type": "object"
       },
       "resource": {
+        "description": "Resource the Volume is attached to, null if it is not attached at all. | Resource to which to attach the Volume once it's created (Volume will be created in the same Location as the resource). | Resource the Volume will be attached to.",
         "properties": {
           "id": {
             "description": "ID of the Resource. | ID of resource referenced.",
@@ -9589,6 +9598,15 @@
       "volume": {
         "description": "A Volume is a highly-available, scalable, and SSD-based block storage for Servers. Pricing for Volumes depends on the Volume size and Location, not the actual used storage. Please see [Hetzner Wiki](https://wiki.hetzner.de/index.php/CloudServer/en#Volumes) for more details about Volumes.",
         "properties": {
+          "assignee": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/resource"
+              }
+            ],
+            "description": "Resource the Volume is attached to, null if it is not attached at all.",
+            "nullable": true
+          },
           "created": {
             "description": "Point in time when the Resource was created (in [RFC3339](https://datatracker.ietf.org/doc/html/rfc3339#section-5.6) format).",
             "example": "2016-01-30T23:55:00Z",
@@ -9629,7 +9647,8 @@
             "$ref": "#/components/schemas/protection"
           },
           "server": {
-            "description": "ID of the Server the Volume is attached to, null if it is not attached at all.",
+            "deprecated": true,
+            "description": "This field is deprecated, use the `assignee` field instead.\n\nID of the Server the Volume is attached to, null if it is not attached at all.\n",
             "example": 12,
             "format": "int64",
             "nullable": true,
@@ -9651,6 +9670,7 @@
           }
         },
         "required": [
+          "assignee",
           "created",
           "format",
           "id",
@@ -27383,6 +27403,10 @@
                         }
                       ],
                       "volume": {
+                        "assignee": {
+                          "id": 12,
+                          "type": "server"
+                        },
                         "created": "2016-01-30T23:50:11Z",
                         "format": "xfs",
                         "id": 4711,
@@ -27644,6 +27668,10 @@
                   "default": {
                     "value": {
                       "volume": {
+                        "assignee": {
+                          "id": 12,
+                          "type": "server"
+                        },
                         "created": "2016-01-30T23:50:11Z",
                         "format": "xfs",
                         "id": 4711,
@@ -28009,8 +28037,8 @@
     },
     "/volumes/{id}/actions/attach": {
       "post": {
-        "description": "Attaches a Volume to a Server. Works only if the Server is in the same Location as the Volume.\n",
-        "operationId": "attach_volume_to_server",
+        "description": "Attaches a Volume to a Resource. Works only if the Resource is in the same Location as the Volume.\n",
+        "operationId": "attach_volume_to_resource",
         "parameters": [
           {
             "description": "ID of the Volume.",
@@ -28031,7 +28059,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/attach_volume_to_server_request"
+                "$ref": "#/components/schemas/attach_volume_to_resource_request"
               }
             }
           },
@@ -28070,7 +28098,7 @@
                   }
                 },
                 "schema": {
-                  "$ref": "#/components/schemas/attach_volume_to_server_response"
+                  "$ref": "#/components/schemas/attach_volume_to_resource_response"
                 }
               }
             },
@@ -28097,7 +28125,7 @@
             "description": "Request failed with a server error."
           }
         },
-        "summary": "Attach Volume to a Server",
+        "summary": "Attach Volume to a Resource",
         "tags": [
           "volumes"
         ],
@@ -28245,7 +28273,7 @@
     },
     "/volumes/{id}/actions/detach": {
       "post": {
-        "description": "Detaches a Volume from the Server it’s attached to. You may attach it to a Server again at a later time.\n",
+        "description": "Detaches a Volume from the Resource it’s attached to. You may attach it to a Resource again at a later time.\n",
         "operationId": "detach_volume",
         "parameters": [
           {
