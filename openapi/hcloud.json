@@ -55,7 +55,7 @@
       "name": "load_balancers"
     },
     {
-      "description": "Datacenters are organized by Locations. Datacenters in the same Location are connected with very low latency links.\n",
+      "description": "Locations are geographic sites where resources are hosted at. A Location belongs to a Network Zone.\n",
       "name": "locations"
     },
     {
@@ -4139,14 +4139,6 @@
             "nullable": true,
             "type": "string"
           },
-          "deprecated": {
-            "deprecated": true,
-            "description": "**Deprecated:** This field is deprecated, use the deprecation object instead.\n\nPoint in time when the Image is considered to be deprecated (in [RFC3339](https://datatracker.ietf.org/doc/html/rfc3339#section-5.6) format).\n",
-            "example": "2018-02-28T00:00:00Z",
-            "format": "date-time",
-            "nullable": true,
-            "type": "string"
-          },
           "deprecation": {
             "allOf": [
               {
@@ -4246,7 +4238,6 @@
           "created",
           "created_from",
           "deleted",
-          "deprecated",
           "deprecation",
           "description",
           "disk_size",
@@ -6345,14 +6336,6 @@
       },
       "load_balancer_type": {
         "properties": {
-          "deprecated": {
-            "deprecated": true,
-            "description": "**Deprecated:** This field is deprecated. Use the `deprecation` object instead.\n\nPoint in time when the Load Balancer type is deprecated (in [RFC3339](https://datatracker.ietf.org/doc/html/rfc3339#section-5.6) format).\n",
-            "example": "2016-01-30T23:50:00Z",
-            "format": "date-time",
-            "nullable": true,
-            "type": "string"
-          },
           "deprecation": {
             "allOf": [
               {
@@ -6412,7 +6395,6 @@
           }
         },
         "required": [
-          "deprecated",
           "deprecation",
           "description",
           "id",
@@ -8544,12 +8526,6 @@
             "example": "shared",
             "type": "string"
           },
-          "deprecated": {
-            "description": "This field is deprecated. Use the deprecation object instead.",
-            "example": false,
-            "nullable": true,
-            "type": "boolean"
-          },
           "deprecation": {
             "allOf": [
               {
@@ -8614,7 +8590,6 @@
           "architecture",
           "cores",
           "cpu_type",
-          "deprecated",
           "description",
           "disk",
           "id",
@@ -14911,7 +14886,6 @@
                           "name": "Server"
                         },
                         "deleted": null,
-                        "deprecated": null,
                         "deprecation": null,
                         "description": "My new Image description",
                         "disk_size": 10,
@@ -16171,7 +16145,6 @@
                           "key": "value"
                         },
                         "load_balancer_type": {
-                          "deprecated": "2016-01-30T23:50:00Z",
                           "deprecation": null,
                           "description": "LB11",
                           "id": 1,
@@ -16556,7 +16529,6 @@
                           "key": "value"
                         },
                         "load_balancer_type": {
-                          "deprecated": "2016-01-30T23:50:00Z",
                           "deprecation": null,
                           "description": "LB11",
                           "id": 1,
@@ -20030,7 +20002,7 @@
     },
     "/networks/{id}/actions/change_ip_range": {
       "post": {
-        "description": "Changes the IP range of a Network.\n\nThe following restrictions apply to changing the IP range:\n- IP ranges can only be extended and never shrunk.\n- IPs can only be added to the end of the existing range, therefore only the netmask is allowed to be changed.\n\nTo update the routes on the connected Servers, they need to be rebooted or the routes to be updated manually.\n\nFor example if the Network has a range of `10.0.0.0/16` to extend it the new range has to start with the IP `10.0.0.0` as well. The netmask `/16` can be changed to a smaller one then `16` therefore increasing the IP range. A valid entry would be `10.0.0.0/15`, `10.0.0.0/14` or `10.0.0.0/13` and so on.\n\nIf a change is currently being performed on this Network, a error response with code `conflict` will be returned.\n",
+        "description": "Changes the IP range of a Network.\n\nThe following restrictions apply to changing the IP range:\n- IP ranges can only be extended and never shrunk.\n- IPs can only be added to the end of the existing range, therefore only the netmask is allowed to be changed.\n- The Network must not have any attached members.\n\nTo update the routes on the connected Servers, they need to be rebooted or the routes to be updated manually.\n\nFor example if the Network has a range of `10.0.0.0/16` to extend it the new range has to start with the IP `10.0.0.0` as well. The netmask `/16` can be changed to a smaller one then `16` therefore increasing the IP range. A valid entry would be `10.0.0.0/15`, `10.0.0.0/14` or `10.0.0.0/13` and so on.\n\nIf a change is currently being performed on this Network, an error response with code `conflict` will be returned. If the Network has any attached members, an error response with code `service_error` will be returned.\n",
         "operationId": "change_ip_range_of_network",
         "parameters": [
           {
@@ -23112,7 +23084,6 @@
                             "name": "Server"
                           },
                           "deleted": null,
-                          "deprecated": null,
                           "deprecation": null,
                           "description": "Ubuntu 24.04 Standard 64 bit",
                           "disk_size": 10,
@@ -23205,7 +23176,6 @@
                           "architecture": "x86",
                           "cores": 2,
                           "cpu_type": "shared",
-                          "deprecated": true,
                           "description": "CPX22",
                           "disk": 80,
                           "id": 1,
@@ -24695,7 +24665,6 @@
                           "name": "Server"
                         },
                         "deleted": null,
-                        "deprecated": null,
                         "deprecation": null,
                         "description": "my image",
                         "disk_size": 10,
